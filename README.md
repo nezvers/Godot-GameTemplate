@@ -16,5 +16,7 @@ Template has main scene that's managing:
 ## Options menu
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/Options.png?raw=true)
 
-## Controls menu
-It's on to-do list to make re-binding buttons, but for now it's displaying list of actions and buttons binded to them.  
+## To-Do
+* Button re-binding instead of action/ button list
+* Configuration Save/Load
+* Probably something more
