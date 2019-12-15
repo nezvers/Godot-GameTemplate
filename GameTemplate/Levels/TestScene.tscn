@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+Next_Scene = "res://GUI/Main_Menu.tscn"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.662745, 1, 0.537255, 1 )
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -95.2949
+margin_top = -48.678
+margin_right = 80.7051
+margin_bottom = 8.32202
+custom_fonts/font = ExtResource( 2 )
+text = "GO BACK"
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
