@@ -23,7 +23,7 @@ func on_ChangeScene(scene):
 	#print("on_ChangeScene: ", scene)
 	SceneLoader.load_scene(scene, {scene="Level"})
 	FadeState = FADEOUT
-	$FadeTween.interpolate_property($Fade_layer, "percent", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
+	$FadeTween.interpolate_property($FadeLayer, "percent", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
 	$FadeTween.start()
 
 func on_New_game()->void:	#Handle first level logic
@@ -32,7 +32,7 @@ func on_New_game()->void:	#Handle first level logic
 func on_Options()->void:
 	if FadeState != IDLE:
 		return
-	$Pause_layer/Main_Options.show = true
+	$PauseLayer/MainOptions.show = true
 	#get_tree().paused = true
 
 func on_Exit()->void:
@@ -64,7 +64,7 @@ func _on_FadeTween_tween_completed(object, key)->void:
 				yield(self, "SceneIsLoaded")
 			change_scene()
 			FadeState = FADEIN
-			$FadeTween.interpolate_property($Fade_layer, "percent", 1.0, 0.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
+			$FadeTween.interpolate_property($FadeLayer, "percent", 1.0, 0.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
 			$FadeTween.start()
 		FADEIN:
 			FadeState = IDLE
