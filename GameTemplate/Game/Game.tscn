@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Game/Game.gd" type="Script" id=1]
+[ext_resource path="res://GUI/Main_Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUI/Pause_layer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/Main_options.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GUI/Fade_layer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://GUI/HTMLfocus.tscn" type="PackedScene" id=7]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 1 )
+First_Level = "res://Levels/TestScene.tscn"
+
+[node name="Levels" type="Node2D" parent="."]
+
+[node name="MainMenu" parent="Levels" instance=ExtResource( 2 )]
+
+[node name="HUD_layer" parent="." instance=ExtResource( 3 )]
+layer = 5
+
+[node name="Pause_layer" parent="." instance=ExtResource( 4 )]
+pause_mode = 2
+
+[node name="Main_Options" parent="Pause_layer" instance=ExtResource( 5 )]
+layer = 2
+
+[node name="FadeTween" type="Tween" parent="."]
+
+[node name="Fade_layer" parent="." instance=ExtResource( 6 )]
+layer = 128
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="HTMLfocus" parent="." instance=ExtResource( 7 )]
+layer = 128
+[connection signal="tween_completed" from="FadeTween" to="." method="_on_FadeTween_tween_completed"]
