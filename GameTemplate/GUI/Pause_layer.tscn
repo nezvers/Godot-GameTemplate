@@ -1,4 +1,0 @@
-[gd_scene format=2]
-
-[node name="Pause_layer" type="CanvasLayer"]
-layer = 11

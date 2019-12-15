@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
-
-[node name="Button" type="Button"]
-margin_right = 63.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
-text = "New Game"
