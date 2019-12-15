@@ -19,10 +19,10 @@ First_Level = "res://Levels/TestScene.tscn"
 [node name="HUD_layer" parent="." instance=ExtResource( 3 )]
 layer = 5
 
-[node name="PauseLlayer" parent="." instance=ExtResource( 4 )]
+[node name="PauseLayer" parent="." instance=ExtResource( 4 )]
 pause_mode = 2
 
-[node name="MainOptions" parent="PauseLlayer" instance=ExtResource( 5 )]
+[node name="MainOptions" parent="PauseLayer" instance=ExtResource( 5 )]
 layer = 2
 
 [node name="FadeTween" type="Tween" parent="."]
