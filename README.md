@@ -19,4 +19,5 @@ Template has main scene that's managing:
 ## To-Do
 * Button re-binding instead of action/ button list
 * Configuration Save/Load
+* Pause menu
 * Probably something more
