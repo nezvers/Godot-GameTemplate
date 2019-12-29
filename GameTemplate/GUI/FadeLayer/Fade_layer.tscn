@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://GUI/Fade_layer.gd" type="Script" id=1]
+[ext_resource path="res://GUI/FadeLayer/Fade_layer.gd" type="Script" id=1]
+
 
 [node name="Fade_layer" type="CanvasLayer"]
 script = ExtResource( 1 )

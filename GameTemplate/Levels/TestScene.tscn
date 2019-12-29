@@ -5,7 +5,7 @@
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-Next_Scene = "res://GUI/Main_Menu.tscn"
+Next_Scene = "res://TitleScreen/Main_Menu.tscn"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

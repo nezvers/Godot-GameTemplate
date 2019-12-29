@@ -10,4 +10,5 @@ margin_bottom = 24.0
 custom_icons/off = ExtResource( 1 )
 custom_icons/on = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
+custom_constants/hseparation = 0
 text = "Fullscreen  "

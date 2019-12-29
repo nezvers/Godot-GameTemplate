@@ -1,16 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://GUI/Main_Menu.gd" type="Script" id=1]
+[ext_resource path="res://TitleScreen/Main_Menu.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://GUI/MainMenuButtons.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUI/Buttons/MainMenuButtons.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
+First_Level = "res://Levels/TestScene.tscn"
 
 [node name="BG" type="Panel" parent="."]
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="BG"]
 anchor_right = 1.0
@@ -46,25 +51,26 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ButtonContainer" type="VBoxContainer" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
-margin_right = 63.0
+margin_right = 65.0
 margin_bottom = 80.0
 size_flags_vertical = 3
-custom_constants/separation = 5
+custom_constants/separation = 1
 
 [node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource( 3 )]
+margin_bottom = 15.0
 
 [node name="Options" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource( 3 )]
-margin_top = 24.0
-margin_bottom = 43.0
+margin_top = 16.0
+margin_bottom = 31.0
 text = "Options"
 
 [node name="Exit" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource( 3 )]
-margin_top = 48.0
-margin_bottom = 67.0
+margin_top = 32.0
+margin_bottom = 47.0
 text = "Exit"
 
 [node name="RightMargin" type="Control" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
-margin_left = 67.0
+margin_left = 69.0
 margin_right = 288.0
 margin_bottom = 80.0
 size_flags_horizontal = 3

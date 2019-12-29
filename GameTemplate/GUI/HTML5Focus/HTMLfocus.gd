@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 func _ready()->void:
-	if OS.get_name() != "HTML5":
+	if !Settings.HTML5:
 		queue_free()
 		return
 	$Panel.show()

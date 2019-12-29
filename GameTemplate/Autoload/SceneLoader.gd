@@ -11,6 +11,8 @@ var exit_thread = false
 var props = {} #Extra info passed along loading request
 
 func _ready()->void:
+	if Settings.HTML5: #Doesn't work on HTML5
+		return
 	file = File.new()
 	thread = Thread.new()
 	mutex = Mutex.new()
@@ -55,9 +57,10 @@ func thread_func(o=null)->void:
 		mutex.unlock()
 
 func _exit_tree()->void: #even autoloaded script needs to do this or bricks on quiting
-	mutex.lock()
-	exit_thread = true #this is checked in thread
-	mutex.unlock()
-
-	semaphore.post()	#give last resume to the function to see it neads to break
-	thread.wait_to_finish()	#sync the threads
+	if !Settings.HTML5:
+		mutex.lock()
+		exit_thread = true #this is checked in thread
+		mutex.unlock()
+	
+		semaphore.post()	#give last resume to the function to see it neads to break
+		thread.wait_to_finish()	#sync the threads

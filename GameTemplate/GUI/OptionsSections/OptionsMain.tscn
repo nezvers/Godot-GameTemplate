@@ -1,0 +1,235 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://GUI/OptionsSections/OptionsMain.gd" type="Script" id=1]
+[ext_resource path="res://GUI/OptionsSections/DarkerPanel.tres" type="StyleBox" id=2]
+[ext_resource path="res://Assets/Fonts/m5x7_32.tres" type="DynamicFont" id=3]
+[ext_resource path="res://GUI/Buttons/OptionsToggle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/Buttons/OptionsButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=6]
+[ext_resource path="res://GUI/Buttons/OptionsSlider.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GUI/Buttons/ButtonStyle_Hover.tres" type="StyleBox" id=8]
+[ext_resource path="res://GUI/Buttons/ButtonStyle_Pressed.tres" type="StyleBox" id=9]
+[ext_resource path="res://GUI/Buttons/ButtonStyle_Focussed.tres" type="StyleBox" id=10]
+[ext_resource path="res://GUI/Buttons/ButtonStyle_Normal.tres" type="StyleBox" id=11]
+
+[node name="Main" type="VBoxContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 312.0
+margin_bottom = 172.0
+custom_constants/separation = 1
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 304.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 106 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+editor/display_folded = true
+margin_right = 150.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SectionTitle" type="Label" parent="HBoxContainer/Panel/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 26.0
+size_flags_horizontal = 5
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 3 )
+text = "Resolution"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Panel/VBoxContainer"]
+margin_left = 28.0
+margin_top = 30.0
+margin_right = 122.0
+margin_bottom = 102.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+margin_right = 90.0
+margin_bottom = 72.0
+size_flags_vertical = 3
+
+[node name="Fullscreen" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 4 )]
+margin_right = 90.0
+
+[node name="Borderless" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 28.0
+margin_right = 90.0
+margin_bottom = 52.0
+text = "Borderless"
+
+[node name="Scale" type="HBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 90.0
+margin_bottom = 72.0
+size_flags_vertical = 3
+
+[node name="ScaleDown" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale" instance=ExtResource( 5 )]
+margin_right = 16.0
+margin_bottom = 16.0
+
+[node name="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale/ScaleDown" index="0"]
+text = "-"
+
+[node name="ScaleName" type="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale"]
+margin_left = 20.0
+margin_top = 1.0
+margin_right = 68.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 48, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Scale"
+align = 1
+
+[node name="ScaleUp" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale" instance=ExtResource( 5 )]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 16.0
+
+[node name="Margin" type="Control" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+margin_left = 94.0
+margin_right = 94.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel2" type="Panel" parent="HBoxContainer"]
+editor/display_folded = true
+margin_left = 154.0
+margin_right = 304.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SectionTitle" type="Label" parent="HBoxContainer/Panel2/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 26.0
+size_flags_horizontal = 5
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 3 )
+text = "Volume"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/VBoxContainer"]
+margin_top = 30.0
+margin_right = 150.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 4
+custom_constants/margin_left = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer"]
+margin_left = 5.0
+margin_right = 146.0
+margin_bottom = 102.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 141.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+
+[node name="Master" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 7 )]
+margin_right = 141.0
+size_flags_horizontal = 3
+
+[node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master" index="1"]
+margin_right = 141.0
+
+[node name="Music" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 7 )]
+margin_top = 17.0
+margin_right = 141.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="0"]
+text = "Music"
+
+[node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="1"]
+margin_right = 141.0
+
+[node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="2"]
+bus = "Music"
+
+[node name="SFX" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 7 )]
+margin_top = 34.0
+margin_right = 141.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+
+[node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="0"]
+text = "SFX"
+
+[node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="1"]
+margin_right = 141.0
+
+[node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="2"]
+bus = "SFX"
+
+[node name="Controls" type="Button" parent="."]
+margin_left = 129.0
+margin_top = 133.0
+margin_right = 174.0
+margin_bottom = 148.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 10 )
+custom_styles/disabled = ExtResource( 11 )
+custom_styles/normal = ExtResource( 11 )
+custom_fonts/font = ExtResource( 6 )
+text = "Controls"
+
+[node name="Back" type="Button" parent="."]
+margin_left = 139.0
+margin_top = 149.0
+margin_right = 165.0
+margin_bottom = 164.0
+size_flags_horizontal = 4
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 10 )
+custom_styles/disabled = ExtResource( 11 )
+custom_styles/normal = ExtResource( 11 )
+custom_fonts/font = ExtResource( 6 )
+text = "BACK"
+[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Fullscreen" to="." method="_on_Fullscreen_pressed"]
+[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Borderless" to="." method="_on_Borderless_pressed"]
+[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale/ScaleDown" to="." method="_on_ScaleDown_pressed"]
+[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale/ScaleUp" to="." method="_on_ScaleUp_pressed"]
+[connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master/HSlider" to="." method="_on_Master_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music/HSlider" to="." method="_on_Music_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX/HSlider" to="." method="_on_SFX_value_changed"]
+[connection signal="pressed" from="Controls" to="." method="_on_Controls_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
+
+[editable path="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Scale/ScaleDown"]
+
+[editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master"]
+
+[editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music"]
+
+[editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX"]

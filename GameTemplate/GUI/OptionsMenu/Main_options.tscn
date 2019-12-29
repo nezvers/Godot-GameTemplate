@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://GUI/OptionsMenu/Main_options.gd" type="Script" id=1]
+[ext_resource path="res://GUI/OptionsSections/OptionsMain.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/OptionsSections/OptionsControls.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
+corner_detail = 1
+
+[node name="MainOptions" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Main_Options" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BG" type="Panel" parent="Main_Options"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Margin" type="MarginContainer" parent="Main_Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="Main" parent="Main_Options/Margin" instance=ExtResource( 2 )]
+
+[node name="HBoxContainer" parent="Main_Options/Margin/Main" index="0"]
+editor/display_folded = true
+
+[node name="OptionsControls" parent="Main_Options/Margin" instance=ExtResource( 3 )]
+editor/display_folded = true
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 312.0
+margin_bottom = 172.0
+
+[editable path="Main_Options/Margin/Main"]

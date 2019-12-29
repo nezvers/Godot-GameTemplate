@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GUI/ReBindSection/ControlNameStyle.tres" type="StyleBox" id=1]
+[ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://GUI/ReBindSection/RemoveActionStyle_Hover.tres" type="StyleBox" id=3]
+[ext_resource path="res://GUI/ReBindSection/RemoveActionStyle_Pressed.tres" type="StyleBox" id=4]
+[ext_resource path="res://GUI/ReBindSection/RemoveActionStyle_Normal.tres" type="StyleBox" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 3.0
+bg_color = Color( 0.227451, 0.266667, 0.4, 1 )
+draw_center = false
+corner_detail = 1
+anti_aliasing = false
+
+[node name="Control" type="HBoxContainer"]
+margin_top = 13.0
+margin_right = 310.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="Name" type="Button" parent="."]
+margin_right = 297.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+text = "Control"
+clip_text = true
+align = 0
+
+[node name="RemoveAction" type="Button" parent="."]
+margin_left = 297.0
+margin_right = 310.0
+margin_bottom = 14.0
+hint_tooltip = "Remove control bind"
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.752941, 0.752941, 0.752941, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+text = "-"
