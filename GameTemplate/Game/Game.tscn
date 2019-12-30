@@ -19,7 +19,6 @@ script = ExtResource( 1 )
 layer = 99
 
 [node name="PauseLayer" parent="." instance=ExtResource( 4 )]
-pause_mode = 2
 layer = 100
 
 [node name="MainOptions" parent="." instance=ExtResource( 5 )]

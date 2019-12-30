@@ -28,7 +28,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="HBoxContainer"]
-editor/display_folded = true
 margin_right = 150.0
 margin_bottom = 132.0
 size_flags_horizontal = 3

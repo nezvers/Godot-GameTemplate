@@ -75,4 +75,5 @@ func _on_Controls_pressed():
 	get_node("../OptionsControls").visible = true
 
 func _on_Back_pressed():
+	Settings.save_settings()
 	owner.set_show(false)
