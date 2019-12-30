@@ -17,7 +17,5 @@ Template has main scene that's managing:
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/Options.png?raw=true)
 
 ## To-Do
-* Button re-binding instead of action/ button list
 * Configuration Save/Load
-* Pause menu
 * Probably something more
