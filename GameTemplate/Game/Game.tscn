@@ -15,7 +15,7 @@ script = ExtResource( 1 )
 
 [node name="MainMenu" parent="Levels" instance=ExtResource( 2 )]
 
-[node name="HUD_layer" parent="." instance=ExtResource( 3 )]
+[node name="HUDLayer" parent="." instance=ExtResource( 3 )]
 layer = 99
 
 [node name="PauseLayer" parent="." instance=ExtResource( 4 )]
@@ -24,10 +24,10 @@ layer = 100
 [node name="MainOptions" parent="." instance=ExtResource( 5 )]
 layer = 101
 
-[node name="FadeTween" type="Tween" parent="."]
-
 [node name="FadeLayer" parent="." instance=ExtResource( 6 )]
 layer = 128
+
+[node name="FadeTween" type="Tween" parent="FadeLayer"]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
@@ -39,4 +39,4 @@ bus = "SFX"
 
 [node name="HTMLfocus" parent="." instance=ExtResource( 7 )]
 layer = 128
-[connection signal="tween_completed" from="FadeTween" to="." method="_on_FadeTween_tween_completed"]
+[connection signal="tween_completed" from="FadeLayer/FadeTween" to="." method="_on_FadeTween_tween_completed"]

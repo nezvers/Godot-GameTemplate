@@ -27,8 +27,8 @@ func on_ChangeScene(scene):
 	else:
 		SceneLoader.load_scene(scene, {scene="Level"})
 	FadeState = FADEOUT
-	$FadeTween.interpolate_property($FadeLayer, "percent", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
-	$FadeTween.start()
+	$FadeLayer/FadeTween.interpolate_property($FadeLayer, "percent", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
+	$FadeLayer/FadeTween.start()
 
 func on_Options()->void:
 	if FadeState != IDLE:
@@ -74,8 +74,8 @@ func _on_FadeTween_tween_completed(object, key)->void:
 				yield(self, "SceneIsLoaded")
 			change_scene()
 			FadeState = FADEIN
-			$FadeTween.interpolate_property($FadeLayer, "percent", 1.0, 0.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
-			$FadeTween.start()
+			$FadeLayer/FadeTween.interpolate_property($FadeLayer, "percent", 1.0, 0.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
+			$FadeLayer/FadeTween.start()
 		FADEIN:
 			FadeState = IDLE
 	

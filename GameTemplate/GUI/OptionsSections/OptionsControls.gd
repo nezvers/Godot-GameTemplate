@@ -63,11 +63,7 @@ func get_InputEvent_name(event:InputEvent)->String:
 			text+= str(Input.get_joy_axis_string(event.axis)) + " "
 		else:
 			text += "Axis: " + str(event.axis) + " "
-		if round(event.axis_value) < 0:
-			text += "up"
-		elif round(event.axis_value) > 0:
-			text += "down"
-		#text += str(round(event.axis_value))
+		text += str(round(event.axis_value))
 	return text
 
 func add_control(Name)->void:

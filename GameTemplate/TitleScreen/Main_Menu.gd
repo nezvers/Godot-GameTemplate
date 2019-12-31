@@ -6,6 +6,7 @@ func _ready()->void:
 	if Settings.HTML5:
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
 
+
 func _on_NewGame_pressed()->void:
 	Event.emit_signal("NewGame")
 	Event.emit_signal("ChangeScene", First_Level)

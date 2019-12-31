@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Levels/playere.gd" type="Script" id=4]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,4 +27,10 @@ margin_right = 80.7051
 margin_bottom = 8.32202
 custom_fonts/font = ExtResource( 2 )
 text = "GO BACK"
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 156.129, 131.574 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]

@@ -36,6 +36,29 @@ func _ready()->void:
 	get_controls()
 	#save_settings()
 
+#Call this method to trigger Settings saving
+func save_settings()->void:
+	var SaveSettings:File = File.new()
+	SaveSettings.open(CONFIG_FILE, File.WRITE)
+	var save_data:Dictionary = get_save_data()
+	SaveSettings.store_line(to_json(save_data))
+	SaveSettings.close()
+
+func load_settings()->void:
+	if Settings.HTML5: #need to confirm but for now don't use for HTML5
+		return
+	#Json to Dictionary
+	var SaveSettings:File = File.new()
+	if !SaveSettings.file_exists(CONFIG_FILE):
+		return  #We don't have a save to load
+	Settings_loaded = true
+	SaveSettings.open(CONFIG_FILE, File.READ)
+	var save_data
+	save_data = parse_json(SaveSettings.get_line())
+	SaveSettings.close()
+	#Dictionary to Settings
+	set_save_data(save_data)
+
 #RESOLUTION
 func set_fullscreen(value:bool)->void:
 	Fullscreen = value
@@ -114,12 +137,6 @@ func print_events_list(ActionList:Array)->void:
 	for event in ActionList:
 		print(event.as_text())
 
-func save_settings()->void:
-	var SaveSettings:File = File.new()
-	SaveSettings.open(CONFIG_FILE, File.WRITE)
-	var save_data:Dictionary = get_save_data()
-	SaveSettings.store_line(to_json(save_data))
-	SaveSettings.close()
 
 func get_save_data()->Dictionary:
 	var savedata: = {
@@ -156,21 +173,6 @@ func get_button_data(event)->Dictionary:
 		button_data["axis"] = event.axis
 		button_data["axis_value"] = event.axis_value
 	return button_data
-
-func load_settings()->void:
-	if Settings.HTML5: #need to confirm but for now don't use for HTML5
-		return
-	#Json to Dictionary
-	var SaveSettings:File = File.new()
-	if !SaveSettings.file_exists(CONFIG_FILE):
-		return  #We don't have a save to load
-	Settings_loaded = true
-	SaveSettings.open(CONFIG_FILE, File.READ)
-	var save_data
-	save_data = parse_json(SaveSettings.get_line())
-	SaveSettings.close()
-	#Dictionary to Settings
-	set_save_data(save_data)
 
 func set_save_data(save_data:Dictionary)->void:
 	if save_data.has("inputs"):
@@ -241,8 +243,4 @@ func set_audio_data(audio:Dictionary)->void:
 	set_volume_master(audio.Master)
 	set_volume_music(audio.Music)
 	set_volume_sfx(audio.SFX)
-
-
-
-
 
