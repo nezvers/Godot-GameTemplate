@@ -29,3 +29,4 @@ Buttons gets saved uppon exiting Options menu.
 * Add pixel-art compliant slider in Action rebinding list
 * GUI focusing using Keyboard and Gamepad
 * Localization
+* Use themes instead of CustomStyle (maybe)
