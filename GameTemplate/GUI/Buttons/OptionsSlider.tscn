@@ -56,7 +56,9 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 1 )
 text = "Master"
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="HSlider" type="HSlider" parent="." groups=[
+"FocusGroup",
+]]
 margin_left = 40.0
 margin_top = 3.0
 margin_right = 47.0

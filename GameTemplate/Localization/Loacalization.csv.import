@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://Localization/Loacalization.en.translation", "res://Localization/Loacalization.de.translation", "res://Localization/Loacalization.lv.translation", "res://Localization/Loacalization.es.translation", "res://Localization/Loacalization.ru.translation", "res://Localization/Loacalization.fr.translation" ]
+
+source_file="res://Localization/Loacalization.csv"
+dest_files=[ "res://Localization/Loacalization.en.translation", "res://Localization/Loacalization.de.translation", "res://Localization/Loacalization.lv.translation", "res://Localization/Loacalization.es.translation", "res://Localization/Loacalization.ru.translation", "res://Localization/Loacalization.fr.translation" ]
+
+[params]
+
+compress=true
+delimiter=0

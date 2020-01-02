@@ -1,6 +1,7 @@
 extends Node
 
 signal Resized
+signal ReTranslate
 
 #OS
 var HTML5:bool = false
@@ -23,7 +24,10 @@ var VolumeRange:float = 24 + 80
 #CONTROLS
 var Actions:Array = ["Right", "Left", "Up", "Down", "Jump"]
 var ActionControls:Dictionary = {}
-#var Cfg:Config
+#Localization
+onready var Language:String = TranslationServer.get_locale() setget set_language
+var Language_list:PoolStringArray = ["en", "de", "es", "fr", "lv"] #Font doesn't have Cyrillic letters for russian
+#var Save / Load
 var CONFIG_FILE:String = "user://settings.save"
 var Settings_loaded:bool = false
 
@@ -34,30 +38,8 @@ func _ready()->void:
 	load_settings()
 	get_volumes()
 	get_controls()
-	#save_settings()
+	#save_settings() #Call this method to trigger Settings saving
 
-#Call this method to trigger Settings saving
-func save_settings()->void:
-	var SaveSettings:File = File.new()
-	SaveSettings.open(CONFIG_FILE, File.WRITE)
-	var save_data:Dictionary = get_save_data()
-	SaveSettings.store_line(to_json(save_data))
-	SaveSettings.close()
-
-func load_settings()->void:
-	if Settings.HTML5: #need to confirm but for now don't use for HTML5
-		return
-	#Json to Dictionary
-	var SaveSettings:File = File.new()
-	if !SaveSettings.file_exists(CONFIG_FILE):
-		return  #We don't have a save to load
-	Settings_loaded = true
-	SaveSettings.open(CONFIG_FILE, File.READ)
-	var save_data
-	save_data = parse_json(SaveSettings.get_line())
-	SaveSettings.close()
-	#Dictionary to Settings
-	set_save_data(save_data)
 
 #RESOLUTION
 func set_fullscreen(value:bool)->void:
@@ -137,12 +119,41 @@ func print_events_list(ActionList:Array)->void:
 	for event in ActionList:
 		print(event.as_text())
 
+func set_language(value:String)->void:
+	Language = value
+	TranslationServer.set_locale(value)
+	emit_signal("ReTranslate")
+
+#Save/ Load
+#Call this method to trigger Settings saving
+func save_settings()->void:
+	var SaveSettings:File = File.new()
+	SaveSettings.open(CONFIG_FILE, File.WRITE)
+	var save_data:Dictionary = get_save_data()
+	SaveSettings.store_line(to_json(save_data))
+	SaveSettings.close()
+
+func load_settings()->void:
+	if Settings.HTML5: #need to confirm but for now don't use for HTML5
+		return
+	#Json to Dictionary
+	var SaveSettings:File = File.new()
+	if !SaveSettings.file_exists(CONFIG_FILE):
+		return  #We don't have a save to load
+	Settings_loaded = true
+	SaveSettings.open(CONFIG_FILE, File.READ)
+	var save_data
+	save_data = parse_json(SaveSettings.get_line())
+	SaveSettings.close()
+	#Dictionary to Settings
+	set_save_data(save_data)
 
 func get_save_data()->Dictionary:
 	var savedata: = {
 		inputs = get_input_data(),
 		resolution = get_resolution_data(),
-		audio = get_audio_data()
+		audio = get_audio_data(),
+		language = {locale = TranslationServer.get_locale()}
 		}
 	return savedata
 
@@ -182,6 +193,8 @@ func set_save_data(save_data:Dictionary)->void:
 		set_resolution_data(save_data.resolution)
 	if save_data.has("audio"):
 		set_audio_data(save_data.audio)
+	if save_data.has("language"):
+		set_language(save_data.language.locale)
 
 func set_ActionControlls_default()->void:
 	for action_name in Actions:

@@ -13,7 +13,6 @@ pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="Main_Options" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -32,6 +31,7 @@ custom_constants/margin_left = 8
 custom_constants/margin_bottom = 8
 
 [node name="Main" parent="Main_Options/Margin" instance=ExtResource( 2 )]
+editor/display_folded = true
 
 [node name="HBoxContainer" parent="Main_Options/Margin/Main" index="0"]
 editor/display_folded = true

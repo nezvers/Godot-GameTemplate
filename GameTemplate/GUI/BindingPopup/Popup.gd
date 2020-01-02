@@ -8,6 +8,9 @@ func _ready()->void:
 	popup_exclusive = true
 	set_process_input(false)
 	connect("about_to_show", self, "receive_input")
+	#Localization
+	Settings.connect("ReTranslate", self, "retranslate")
+	retranslate()
 
 func receive_input()->void:
 	set_process_input(true)
@@ -28,3 +31,9 @@ func _on_Button_pressed():
 	emit_signal("NewControl")
 	set_process_input(false)
 	visible = false
+
+#Localization
+func retranslate()->void:
+	find_node("Cancel").text = tr("CANCEL")
+	find_node("Message").text = tr("USE_NEW_CONTROLS")
+	
