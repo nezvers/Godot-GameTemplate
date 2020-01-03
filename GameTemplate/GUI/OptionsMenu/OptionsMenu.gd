@@ -10,7 +10,7 @@ func _ready()->void:
 
 func set_show(value:bool)->void:
 	show=value
-	$Main_Options.visible = value
+	$Control.visible = value
 	Event.Options = value
 
 

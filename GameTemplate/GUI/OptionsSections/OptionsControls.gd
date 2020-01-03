@@ -96,6 +96,7 @@ func _on_Default_pressed():
 
 func _on_Back_pressed():
 	get_node("../Main").visible = true
+	Event.Controls = false
 	visible = false
 
 #Localization

@@ -17,6 +17,7 @@ func _ready()->void:
 	#Background loader
 	SceneLoader.connect("scene_loaded", self, "on_scene_loaded")
 	#SceneLoader.load_scene("res://Levels/TestScene.tscn", {instructions="for what reason it got loaded"})
+	GUI_Brain.gui_collect_focusgroup()
 
 func on_ChangeScene(scene):
 	if FadeState != IDLE:
@@ -33,7 +34,7 @@ func on_ChangeScene(scene):
 func on_Options()->void:
 	if FadeState != IDLE:
 		return
-	$MainOptions.show = true
+	$OptionsMenu.show = true
 	#get_tree().paused = true
 
 func on_Exit()->void:

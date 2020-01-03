@@ -24,6 +24,7 @@ script = ExtResource( 1 )
 Main_Menu = "res://TitleScreen/Main_Menu.tscn"
 
 [node name="Control" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -59,6 +60,7 @@ size_flags_vertical = 4
 custom_constants/separation = 1
 
 [node name="Resume" parent="Control/MarginContainer/Panel/MarginContainer/VBoxContainer" groups=[
+"Pause",
 "FocusGroup",
 ] instance=ExtResource( 2 )]
 margin_right = 168.0

@@ -82,6 +82,7 @@ func _on_Resized()->void:
 
 func _on_Controls_pressed():
 	visible = false
+	Event.Controls = true
 	get_node("../OptionsControls").visible = true
 
 func _on_Back_pressed():

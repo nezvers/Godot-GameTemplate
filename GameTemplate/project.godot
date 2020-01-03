@@ -25,6 +25,7 @@ Event="*res://Autoload/Event.gd"
 SceneLoader="*res://Autoload/SceneLoader.gd"
 pre_load="*res://Autoload/pre_load.gd"
 Settings="*res://Autoload/Settings.gd"
+GUI_Brain="*res://Autoload/GUI_Brain.gd"
 
 [display]
 

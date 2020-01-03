@@ -26,7 +26,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="HBoxContainer"]
-editor/display_folded = true
 margin_right = 150.0
 margin_bottom = 119.0
 size_flags_horizontal = 3
@@ -34,7 +33,6 @@ size_flags_vertical = 3
 custom_styles/panel = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -62,15 +60,11 @@ margin_right = 88.0
 margin_bottom = 56.0
 size_flags_vertical = 3
 
-[node name="Fullscreen" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" groups=[
-"FocusGroup",
-] instance=ExtResource( 4 )]
+[node name="Fullscreen" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 4 )]
 margin_right = 88.0
 margin_bottom = 16.0
 
-[node name="Borderless" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" groups=[
-"FocusGroup",
-] instance=ExtResource( 4 )]
+[node name="Borderless" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 20.0
 margin_right = 88.0
 margin_bottom = 36.0
@@ -80,11 +74,10 @@ text = "Borderless"
 margin_top = 40.0
 margin_right = 88.0
 margin_bottom = 56.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ScaleDown" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" groups=[
-"FocusGroup",
-] instance=ExtResource( 5 )]
+[node name="ScaleDown" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_right = 16.0
 margin_bottom = 16.0
 
@@ -97,14 +90,12 @@ margin_top = 1.0
 margin_right = 68.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 48, 0 )
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 6 )
 text = "Scale"
 align = 1
 
-[node name="ScaleUp" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" groups=[
-"FocusGroup",
-] instance=ExtResource( 5 )]
+[node name="ScaleUp" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_left = 72.0
 margin_right = 88.0
 margin_bottom = 16.0
@@ -141,7 +132,6 @@ text = "Volume"
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/VBoxContainer"]
-editor/display_folded = true
 margin_top = 30.0
 margin_right = 150.0
 margin_bottom = 119.0
@@ -267,6 +257,7 @@ text = "Controls"
 
 [node name="Back" parent="MarginContainer/VBoxContainer" groups=[
 "FocusGroup",
+"OptionsMain",
 ] instance=ExtResource( 9 )]
 margin_top = 30.0
 margin_right = 58.0
