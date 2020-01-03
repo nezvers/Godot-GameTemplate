@@ -20,7 +20,7 @@ Template has main scene that's managing:
 Every option get saved uppon exiting Options menu.  
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/Options.png?raw=true)
 
-##Languages menu  
+## Languages menu  
 At the moment simplified interaction. Need someone help with French, Spanish localization (at the moment it's just Google translated).
 Russian is excluded because font doesn't support Cyrillic letters.
 
