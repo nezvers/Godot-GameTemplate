@@ -20,6 +20,10 @@ Template has main scene that's managing:
 Every option get saved uppon exiting Options menu.  
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/Options.png?raw=true)
 
+##Languages menu
+At the moment simplified interaction. Need someone help with French, Spanish localization (at the moment it's just Google translated).
+Russian is excluded because font doesn't support Cyrillic letters.
+
 ## Key action binding menu
 Godot editor InputMap influenced rebinding, but with auto-detect function.  
 Buttons gets saved uppon exiting Options menu.  
@@ -27,6 +31,6 @@ Buttons gets saved uppon exiting Options menu.
 
 ## To-Do
 * Add pixel-art compliant slider in Action rebinding list
-* GUI focusing using Keyboard and Gamepad
-* Localization
+* Action list browsing using ui_directions (ruler doesn't respond)
 * Use themes instead of CustomStyle (maybe)
+* Maybe some documentation
