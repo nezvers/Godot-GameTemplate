@@ -11,6 +11,9 @@ func _ready()->void:
 	Settings.connect("ReTranslate", self, "retranslate")
 	retranslate()
 
+func _process(delta):
+	$BG.visible = !Event.Options
+
 func _exit_tree()->void:
 	Event.MainMenu = false
 	GUI_Brain.gui_collect_focusgroup()
@@ -20,7 +23,7 @@ func _on_NewGame_pressed()->void:
 	Event.emit_signal("ChangeScene", First_Level)
 
 func _on_Options_pressed()->void:
-	Event.emit_signal("Options")
+	Event.Options = true
 
 func _on_Exit_pressed()->void:
 	Event.emit_signal("Exit")

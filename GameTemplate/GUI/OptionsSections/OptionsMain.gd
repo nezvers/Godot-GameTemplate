@@ -6,7 +6,7 @@ onready var SFX:HSlider = find_node("SFX").get_node("HSlider")
 onready var Resolution_panel:Panel = find_node("Panel")
 onready var Volume_panel:Panel = find_node("Panel2")
 onready var Language_panel:Panel = find_node("Panel3")
-var SetUp:bool = true
+var SetUp:bool = true #need to disable playing sound on initiating faders
 
 func _ready()->void:
 	#Set up toggles and sliders
@@ -15,12 +15,11 @@ func _ready()->void:
 		find_node("Scale").visible = false
 	set_resolution()
 	set_volume_sliders()
-	#set_button_list()
-	Language_panel.visible = false
-	Resolution_panel.visible = true
-	Volume_panel.visible = true
+	Event.Languages = false #just in case project saved with visible Languages
 	
-	SetUp = false
+	SetUp = false #Finished fader setup
+	Event.connect("Controls", self, "on_show_controls")
+	Event.connect("Languages", self, "on_show_languages")
 	Settings.connect("Resized", self, "_on_Resized")
 	#Localization
 	Settings.connect("ReTranslate", self, "retranslate")
@@ -31,12 +30,12 @@ func set_resolution()->void:
 	find_node("Borderless").pressed = Settings.Borderless
 	#Your logic for scaling
 
-func set_volume_sliders()->void:
+func set_volume_sliders()->void: #Initialize volume sliders
 	Master.value = Settings.VolumeMaster * 100
 	Music.value = Settings.VolumeMusic * 100
 	SFX.value = Settings.VolumeSFX * 100
 
-#### SIGNALS ####
+#### BUTTON SIGNALS ####
 func _on_Master_value_changed(value):
 	if SetUp:
 		return
@@ -81,24 +80,27 @@ func _on_Resized()->void:
 	set_resolution()
 
 func _on_Controls_pressed():
-	visible = false
 	Event.Controls = true
-	get_node("../OptionsControls").visible = true
 
 func _on_Back_pressed():
 	Settings.save_settings()
-	owner.set_show(false)
+	Event.Options = false
 
 func _on_Languages_pressed():
-	Language_panel.visible = true
-	Resolution_panel.visible = false
-	Volume_panel.visible = false
+	Event.Languages = !Event.Languages
+	if !Event.Languages:
+		return
 	yield(Settings, "ReTranslate") #After choosing language it will trigger ReTranslate
 	print("Language_choosen")
-	Language_panel.visible = false
-	Resolution_panel.visible = true
-	Volume_panel.visible = true
-	print(Language_panel.get_focus_owner())
+	Event.Languages = !Event.Languages
+
+#EVENT SIGNALS
+func on_show_controls(value:bool)->void:
+	visible = !value 	#because showing controls
+
+func on_show_languages(value:bool)->void:
+	Resolution_panel.visible = !value
+	Volume_panel.visible = !value
 
 #Localization
 func retranslate()->void:

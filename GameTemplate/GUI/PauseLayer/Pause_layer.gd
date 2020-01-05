@@ -5,34 +5,61 @@ export (String, FILE, "*.tscn") var Main_Menu: String
 var show:bool = false setget set_show
 
 func _ready()->void:
-	set_show(false)
+	Event.connect("Paused", self, "on_show_paused")
+	Event.connect("Options", self, "on_show_options")
+	Event.Paused = false
+	#Localization
+	Settings.connect("ReTranslate", self, "retranslate")
+
+func on_show_paused(value:bool)->void:
+	#Signals allow each module have it's own response logic
+	set_show(value) #
+
+func on_show_options(value:bool)->void:
+	if !Event.MainMenu:
+		$Control.visible = !value
 
 func set_show(value:bool)->void:
 	show=value
 	$Control.visible = value
 	get_tree().paused = value
-	Event.Paused = value
 
-func _input(event)->void:
+func _input(event)->void: #FIX - I'd like to remove input monitoring so only GUI_brain monitors
 	if event.is_action_pressed("ui_cancel"):
 		var MainMenu = get_node("../Levels/MainMenu")
-		if MainMenu == null:
+		if !Event.MainMenu:
 			if !Event.Paused:
-				set_show(true)
-			else:
-				if !Event.Options:
-					set_show(false)
+				Event.Paused = true
 
 func _on_Resume_pressed():
-	set_show(false)
+	Event.Paused = false #setget triggers signal and responding to it hide GUI
+
+func _on_Restart_pressed():
+	Event.emit_signal("Restart")
+	Event.Paused = false #setget triggers signal and responding to it hide GUI
 
 func _on_Options_pressed():
-	Event.emit_signal("Options")
+	Event.Options = true
 
 func _on_MainMenu_pressed():
 	Event.emit_signal("ChangeScene", Main_Menu)
-	set_show(false)
+	Event.Paused = false
 
 func _on_Exit_pressed():
 	Event.emit_signal("Exit")
+
+func retranslate()->void:
+	find_node("Resume").text = tr("RESUME")
+	find_node("Restart").text = tr("RESTART")
+	find_node("Options").text = tr("OPTIONS")
+	find_node("MainMenu").text = tr("MAIN_MENU")
+	find_node("Exit").text = tr("EXIT")
+
+
+
+
+
+
+
+
 

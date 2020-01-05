@@ -1,18 +1,12 @@
 extends CanvasLayer
 
-var show:bool = false setget set_show
-
 func _ready()->void:
-	set_show(false)
 	#show main section and hide controls
-	find_node("Main").visible = true
-	find_node("OptionsControls").visible = false
+	Event.connect("Options", self, "on_show_options")
+	Event.Controls = false
 
-func set_show(value:bool)->void:
-	show=value
+func on_show_options(value:bool)->void:
 	$Control.visible = value
-	Event.Options = value
-
-
+	Event.Controls = false
 
 

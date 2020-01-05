@@ -12,9 +12,13 @@ var ActionNodes:Dictionary = {} #To know which node to add ControlBinds
 
 func _ready()->void:
 	set_action_list()
+	Event.connect("Controls", self, "show_controls")
 	#Localization
 	Settings.connect("ReTranslate", self, "retranslate")
 	retranslate()
+
+func show_controls(value:bool)->void:
+	visible = value
 
 func set_action_list()->void:
 	ActionNodes.clear() #Just in case resetting everything
@@ -95,9 +99,7 @@ func _on_Default_pressed():
 	set_action_list()
 
 func _on_Back_pressed():
-	get_node("../Main").visible = true
 	Event.Controls = false
-	visible = false
 
 #Localization
 func retranslate()->void:
