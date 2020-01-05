@@ -2,8 +2,6 @@ extends CanvasLayer
 
 export (String, FILE, "*.tscn") var Main_Menu: String
 
-var show:bool = false setget set_show
-
 func _ready()->void:
 	Event.connect("Paused", self, "on_show_paused")
 	Event.connect("Options", self, "on_show_options")
@@ -13,16 +11,12 @@ func _ready()->void:
 
 func on_show_paused(value:bool)->void:
 	#Signals allow each module have it's own response logic
-	set_show(value) #
+	$Control.visible = value
+	get_tree().paused = value
 
 func on_show_options(value:bool)->void:
 	if !Event.MainMenu:
 		$Control.visible = !value
-
-func set_show(value:bool)->void:
-	show=value
-	$Control.visible = value
-	get_tree().paused = value
 
 func _input(event)->void: #FIX - I'd like to remove input monitoring so only GUI_brain monitors
 	if event.is_action_pressed("ui_cancel"):
@@ -30,6 +24,8 @@ func _input(event)->void: #FIX - I'd like to remove input monitoring so only GUI
 		if !Event.MainMenu:
 			if !Event.Paused:
 				Event.Paused = true
+			elif !Event.Options:
+				Event.Paused = false
 
 func _on_Resume_pressed():
 	Event.Paused = false #setget triggers signal and responding to it hide GUI

@@ -13,7 +13,7 @@ func _ready()->void:
 	set_process_unhandled_key_input(true)
 	Event.connect("Refocus", self, "force_focus")
 
-func gui_collect_focusgroup()->void:
+func gui_collect_focusgroup()->void:	#Workaround to get initial focus
 	FocusGroup.clear()
 	FocusGroup = get_tree().get_nodes_in_group("FocusGroup")
 	for btn in FocusGroup: #Save references to call main buttons in sections
@@ -29,7 +29,6 @@ func gui_collect_focusgroup()->void:
 
 func _unhandled_input(event)->void: #For some reasons works great for starting focus
 	if FocusDetect.get_focus_owner() != null:	#There's already button in focus
-		print(FocusDetect.get_focus_owner())
 		return
 	if event.is_action_pressed("ui_right"):
 		Event.emit_signal("Refocus")

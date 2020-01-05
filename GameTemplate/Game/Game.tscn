@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game/Game.gd" type="Script" id=1]
-[ext_resource path="res://TitleScreen/Main_Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TitleScreen/MainMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GUI/HUD/HUD.tscn" type="PackedScene" id=3]
-[ext_resource path="res://GUI/PauseLayer/Pause_layer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/PauseLayer/PauseLayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GUI/OptionsMenu/OptionsMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://GUI/FadeLayer/Fade_layer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://GUI/HTML5Focus/HTMLfocus.tscn" type="PackedScene" id=7]

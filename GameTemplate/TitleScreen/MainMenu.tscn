@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://TitleScreen/Main_Menu.gd" type="Script" id=1]
+[ext_resource path="res://TitleScreen/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
