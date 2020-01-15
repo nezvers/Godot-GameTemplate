@@ -23,9 +23,9 @@ config/icon="res://icon.png"
 
 Event="*res://Autoload/Event.gd"
 SceneLoader="*res://Autoload/SceneLoader.gd"
-pre_load="*res://Autoload/pre_load.gd"
+preLoad="*res://Autoload/preLoad.gd"
 Settings="*res://Autoload/Settings.gd"
-GUI_Brain="*res://Autoload/GUI_Brain.gd"
+guiBrain="*res://Autoload/guiBrain.gd"
 
 [display]
 

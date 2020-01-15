@@ -17,7 +17,7 @@ func _ready()->void:
 	#Background loader
 	SceneLoader.connect("scene_loaded", self, "on_scene_loaded")
 	#SceneLoader.load_scene("res://Levels/TestScene.tscn", {instructions="for what reason it got loaded"})
-	GUI_Brain.gui_collect_focusgroup()
+	guiBrain.gui_collect_focusgroup()
 
 func on_ChangeScene(scene):
 	if FadeState != IDLE:

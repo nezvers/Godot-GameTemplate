@@ -5,7 +5,7 @@
 [ext_resource path="res://GUI/ReBindSection/RemoveActionStyle_Pressed.tres" type="StyleBox" id=3]
 [ext_resource path="res://GUI/ReBindSection/RemoveActionStyle_Normal.tres" type="StyleBox" id=4]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 16.0
 content_margin_top = 0.0
 content_margin_bottom = 2.0
@@ -32,7 +32,7 @@ custom_constants/separation = 0
 margin_right = 297.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="Name" type="Label" parent="PanelContainer"]
 margin_left = 16.0
@@ -43,7 +43,9 @@ size_flags_vertical = 0
 custom_fonts/font = ExtResource( 1 )
 text = "Button"
 
-[node name="RemoveAction" type="Button" parent="."]
+[node name="RemoveAction" type="Button" parent="." groups=[
+"ContainerFocus",
+]]
 margin_left = 297.0
 margin_right = 310.0
 margin_bottom = 15.0

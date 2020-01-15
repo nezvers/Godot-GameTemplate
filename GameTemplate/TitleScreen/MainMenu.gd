@@ -4,7 +4,7 @@ export (String, FILE, "*.tscn") var First_Level: String
 
 func _ready()->void:
 	Event.MainMenu = true
-	GUI_Brain.gui_collect_focusgroup()
+	guiBrain.gui_collect_focusgroup()
 	if Settings.HTML5:
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
 	#Localization
@@ -16,7 +16,7 @@ func _process(delta):
 
 func _exit_tree()->void:
 	Event.MainMenu = false
-	GUI_Brain.gui_collect_focusgroup()
+	guiBrain.gui_collect_focusgroup()
 
 func _on_NewGame_pressed()->void:
 	Event.emit_signal("NewGame")

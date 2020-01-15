@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://GUI/OptionsSections/OptionsControls.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
-[ext_resource path="res://GUI/BindingPopup/Popup.tscn" type="PackedScene" id=3]
-[ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/ReBindSection/RebindScrollContainer.gd" type="Script" id=3]
+[ext_resource path="res://GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0235294, 0.0196078, 0.0352941, 1 )
@@ -61,6 +62,8 @@ margin_right = 310.0
 margin_bottom = 142.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+scroll_horizontal_enabled = false
+script = ExtResource( 3 )
 
 [node name="ActionList" type="VBoxContainer" parent="Section/MarginContainer/ScrollContainer/ActionsSection/ScrollContainer"]
 margin_right = 310.0
@@ -69,7 +72,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="Popup" parent="Section" instance=ExtResource( 3 )]
+[node name="Popup" parent="Section" instance=ExtResource( 4 )]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_top = 151.0
@@ -83,7 +86,7 @@ margin_bottom = 29.0
 size_flags_horizontal = 4
 custom_constants/separation = 1
 
-[node name="Default" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
+[node name="Default" parent="MarginContainer/VBoxContainer" instance=ExtResource( 5 )]
 margin_right = 41.0
 margin_bottom = 14.0
 text = "Default"
@@ -91,7 +94,7 @@ text = "Default"
 [node name="Back" parent="MarginContainer/VBoxContainer" groups=[
 "FocusGroup",
 "OptionsControls",
-] instance=ExtResource( 4 )]
+] instance=ExtResource( 5 )]
 margin_top = 15.0
 margin_right = 41.0
 margin_bottom = 29.0
