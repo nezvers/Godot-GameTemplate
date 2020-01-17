@@ -1,5 +1,5 @@
 id,en,de,lv,es,ru,fr,pt_BR
-Right,Right,Richtig,Pa Labi,Derecho,Направо,À droite,Direita
+Right,Right,Richtig,Pa Labi,Derecha,Направо,À droite,Direita
 Left,Left,Links,Pa kreisi,Izquierda,Слева,À gauche,Esquerda
 Up,Up,Oben,Uz augšu,Arriba,Вверх,An haut,Acima
 Down,Down,Nieder,Uz leju,Abajo,Вниз,Vers le bas,Abaixo
@@ -7,27 +7,27 @@ Jump,Jump,Springen,Lekt,Saltar,Прыгать,Sauter,Saltar
 Shoot,Shoot,Schießen,Šaut,Disparar,Cтрелять,Tirer,Atirar
 NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo
 CONTINUE,Continue,Fortsetzen,Turpināt spēli,Seguir,Продолжить,Continuer,Continuar
-RESUME,Resume,Fortsetzen,Atsākt,Currículum,Продолжить,Reprendre,Resumir
+RESUME,Resume,Fortsetzen,Atsākt,Reanudar,Продолжить,Reprendre,Resumir
 RESTART,Restart,Neustart,Restartēt,Reiniciar,Начать сначала,Redémarrer,Reiniciar
 OPTIONS,Options,Optionen,Iespējas,Opciones,Опции,Options,Opções
 MAIN_MENU,Main Menu,Hauptmenü,Galvenā izvēlne,Menú principal,Главное меню,Menu principal,Menu principal
 BACK,Back,Zurück,Atpakaļ,Atrás,Назад,Retour,Voltar
-EXIT,Exit,Ausgang,Iziet no spēles,Salida,Выход,Sortie,Sair
+EXIT,Exit,Ausgang,Iziet no spēles,Salir,Выход,Sortie,Sair
 PAUSE,Pause,Pause,Pauze,Pausa,Пауза,Pause,Pausa
 LOADING,Loading,Wird geladen,Lādējās,Cargando,Загрузка,Chargement,Carregando
 RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение,Résolution,Resolução
 FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранное окно,Plein écran,Tela cheia
 BORDERLESS,Borderless window,Randlos Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безграничный окно,Sans bordure,Sem bordas
-SCALE,Scale,Rahmen,Palielinājums,Ampliación,Увеличение,Échelle,Escala
+SCALE,Scale,Rahmen,Palielinājums,Escala,Увеличение,Échelle,Escala
 VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume
-MASTER,Master,Meister,Galvenais,Maestro,Мастер,Maître,Principal
+MASTER,Master,Meister,Galvenais,General,Мастер,Maître,Principal
 MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música
-SFX,Sounds,Geräusche,Skaņu efekti,Suena,Звуки,Des sons,Efeitos
-CONTROLS,Controls,Steuerung,Kontroles,Control S,Управления,Controles,
-ACTIONS,Actions,Aktionen,Darbība,Comportamiento,Действия,Actes,Ações
+SFX,Sounds,Geräusche,Skaņu efekti,Efectos,Звуки,Des sons,Efeitos
+CONTROLS,Controls,Steuerung,Kontroles,Controles,Управления,Controles,
+ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actes,Ações
 KEYBOARD,Keyboard,Tastatur,Klaviatūra,Teclado,Клавиатура,Clavier,Teclado
 GAMEPAD,Gamepad,Gamepad,Spēļu pūlts,Gamepad,Геймпад,Gamepad,Controle
 DEFAULT,Default,Standard,Noklusējums,Defecto,По умолчанию,Défaut,Padrão
-USE_NEW_CONTROLS,Use new control!,Verwenden Sie neue Kontrolle!,Izmantojiet jauno kontroli!,Use nuevo control!,Используйте новый элемент управления!,Utilisez un nouveau contrôle!,Use novo controle!
+USE_NEW_CONTROLS,Use new control!,Verwenden Sie neue Kontrolle!,Izmantojiet jauno kontroli!,Usar nuevos controles!,Используйте новый элемент управления!,Utilisez un nouveau contrôle!,Use novo controle!
 CANCEL,Cancel,Stornieren,Atcelt,Cancelar,Отмена,Annuler,Cancelar
 LANGUAGES,Languages,Sprachen,Valodas,Idiomas,Языки,Langues,Idiomas
