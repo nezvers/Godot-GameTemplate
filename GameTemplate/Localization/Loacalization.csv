@@ -1,6 +1,6 @@
 id,en,de,lv,es,ru,fr,pt_BR
 Right,Right,Richtig,Pa Labi,Derecha,Направо,À droite,Direita
-Left,Left,Links,Pa kreisi,Izquierda,Слева,À gauche,Esquerda
+Left,Left,Links,Pa kreisi,Izquierda,Влево,À gauche,Esquerda
 Up,Up,Oben,Uz augšu,Arriba,Вверх,An haut,Acima
 Down,Down,Nieder,Uz leju,Abajo,Вниз,Vers le bas,Abaixo
 Jump,Jump,Springen,Lekt,Saltar,Прыгать,Sauter,Saltar
@@ -8,7 +8,7 @@ Shoot,Shoot,Schießen,Šaut,Disparar,Cтрелять,Tirer,Atirar
 NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo
 CONTINUE,Continue,Fortsetzen,Turpināt spēli,Seguir,Продолжить,Continuer,Continuar
 RESUME,Resume,Fortsetzen,Atsākt,Reanudar,Продолжить,Reprendre,Resumir
-RESTART,Restart,Neustart,Restartēt,Reiniciar,Начать сначала,Redémarrer,Reiniciar
+RESTART,Restart,Neustart,Restartēt,Reiniciar,Заново,Redémarrer,Reiniciar
 OPTIONS,Options,Optionen,Iespējas,Opciones,Опции,Options,Opções
 MAIN_MENU,Main Menu,Hauptmenü,Galvenā izvēlne,Menú principal,Главное меню,Menu principal,Menu principal
 BACK,Back,Zurück,Atpakaļ,Atrás,Назад,Retour,Voltar
@@ -18,7 +18,7 @@ LOADING,Loading,Wird geladen,Lādējās,Cargando,Загрузка,Chargement,Car
 RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение,Résolution,Resolução
 FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранное окно,Plein écran,Tela cheia
 BORDERLESS,Borderless window,Randlos Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безграничный окно,Sans bordure,Sem bordas
-SCALE,Scale,Rahmen,Palielinājums,Escala,Увеличение,Échelle,Escala
+SCALE,Scale,Rahmen,Palielinājums,Escala,Маштабирование,Échelle,Escala
 VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume
 MASTER,Master,Meister,Galvenais,General,Мастер,Maître,Principal
 MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música
