@@ -34,7 +34,6 @@ custom_constants/margin_bottom = 8
 [node name="Main" parent="Control/Margin" instance=ExtResource( 2 )]
 
 [node name="OptionsControls" parent="Control/Margin" instance=ExtResource( 3 )]
-editor/display_folded = true
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0

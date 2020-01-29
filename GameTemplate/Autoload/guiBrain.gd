@@ -29,10 +29,16 @@ func gui_collect_focusgroup()->void:	#Workaround to get initial focus
 		if groups.has("OptionsControls"):
 			ButtonsSections["OptionsControls"] = btn
 
-func _unhandled_input(event)->void: #For some reasons works great for starting focus
-	if FocusDetect.get_focus_owner() != null:	#There's already button in focus
+func _unhandled_input(event)->void:
+	if event.is_action_pressed("ui_cancel"):
+		if !Event.MainMenu:			#not in main menu
+			if !Event.Paused:
+				Event.Paused = true
+			elif !Event.Options:
+				Event.Paused = false
+	elif FocusDetect.get_focus_owner() != null:	#There's already button in focus
 		return
-	if event.is_action_pressed("ui_right"):
+	elif event.is_action_pressed("ui_right"):
 		Event.emit_signal("Refocus")
 	elif event.is_action_pressed("ui_left"):
 		Event.emit_signal("Refocus")

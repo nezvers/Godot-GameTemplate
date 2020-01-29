@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://GUI/OptionsSections/OptionsControls.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
-[ext_resource path="res://GUI/ReBindSection/RebindScrollContainer.gd" type="Script" id=3]
 [ext_resource path="res://GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
 
@@ -15,6 +14,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 1
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Section" type="Control" parent="."]
 margin_right = 320.0
@@ -62,8 +64,8 @@ margin_right = 310.0
 margin_bottom = 142.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+follow_focus = true
 scroll_horizontal_enabled = false
-script = ExtResource( 3 )
 
 [node name="ActionList" type="VBoxContainer" parent="Section/MarginContainer/ScrollContainer/ActionsSection/ScrollContainer"]
 margin_right = 310.0

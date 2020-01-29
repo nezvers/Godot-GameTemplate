@@ -47,7 +47,7 @@ func new_bind(Action, event)->void: #Adding bound InputEvent in the list
 	var Parent:VBoxContainer = ActionNodes[Action] #Action represented parent node
 	Parent.add_child(eventNode)
 	
-	var BindName:Button = eventNode.find_node("Name")
+	var BindName:Label = eventNode.find_node("Name")
 	var Remove:Button = eventNode.find_node("RemoveAction")
 	
 	BindName.text = get_InputEvent_name(event)

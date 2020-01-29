@@ -18,15 +18,6 @@ func on_show_options(value:bool)->void:
 	if !Event.MainMenu:
 		$Control.visible = !value
 
-func _input(event)->void: #FIX - I'd like to remove input monitoring so only GUI_brain monitors
-	if event.is_action_pressed("ui_cancel"):
-		var MainMenu = get_node("../Levels/MainMenu")
-		if !Event.MainMenu:
-			if !Event.Paused:
-				Event.Paused = true
-			elif !Event.Options:
-				Event.Paused = false
-
 func _on_Resume_pressed():
 	Event.Paused = false #setget triggers signal and responding to it hide GUI
 

@@ -15,8 +15,8 @@ func _process(delta):
 	$BG.visible = !Event.Options
 
 func _exit_tree()->void:
-	Event.MainMenu = false
-	guiBrain.gui_collect_focusgroup()
+	Event.MainMenu = false				#switch bool for easier pause menu detection and more
+	guiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main meno wont be there
 
 func _on_NewGame_pressed()->void:
 	Event.emit_signal("NewGame")

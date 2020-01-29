@@ -3,7 +3,6 @@
 [ext_resource path="res://GUI/PauseLayer/PauseLayer.gd" type="Script" id=1]
 [ext_resource path="res://GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=2]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.247059, 0.156863, 0.196078, 1 )
 border_width_left = 1
@@ -22,7 +21,7 @@ anti_aliasing = false
 pause_mode = 2
 layer = 11
 script = ExtResource( 1 )
-Main_Menu = "res://TitleScreen/Main_Menu.tscn"
+Main_Menu = "res://TitleScreen/MainMenu.tscn"
 
 [node name="Control" type="Control" parent="."]
 visible = false
@@ -61,8 +60,8 @@ size_flags_vertical = 4
 custom_constants/separation = 1
 
 [node name="Resume" parent="Control/MarginContainer/Panel/MarginContainer/VBoxContainer" groups=[
-"Pause",
 "FocusGroup",
+"Pause",
 ] instance=ExtResource( 2 )]
 margin_right = 168.0
 margin_bottom = 14.0
