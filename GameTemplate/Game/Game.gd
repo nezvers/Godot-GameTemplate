@@ -31,12 +31,6 @@ func on_ChangeScene(scene):
 	$FadeLayer/FadeTween.interpolate_property($FadeLayer, "percent", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
 	$FadeLayer/FadeTween.start()
 
-func on_Options()->void:
-	if FadeState != IDLE:
-		return
-	$OptionsMenu.show = true
-	#get_tree().paused = true
-
 func on_Exit()->void:
 	if FadeState != IDLE:
 		return
@@ -79,4 +73,4 @@ func _on_FadeTween_tween_completed(object, key)->void:
 			$FadeLayer/FadeTween.start()
 		FADEIN:
 			FadeState = IDLE
-	
+
