@@ -26,7 +26,7 @@ var Actions:Array = ["Right", "Left", "Up", "Down", "Jump"]
 var ActionControls:Dictionary = {}
 #Localization
 onready var Language:String = TranslationServer.get_locale() setget set_language
-var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", BR = "pt_BR", LV = "lv"} #Font doesn't have Cyrillic letters for russian
+var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", BR = "pt_BR", LV = "lv", IT = "it"} #Font doesn't have Cyrillic letters for russian
 var Language_list:Array = Language_dictionary.keys()
 #var Save / Load
 var CONFIG_FILE:String = "user://settings.save"

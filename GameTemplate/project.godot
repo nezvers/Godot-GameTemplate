@@ -140,7 +140,7 @@ Jump={
 [locale]
 
 test="en"
-translations=PoolStringArray( "res://Localization/Loacalization.en.translation", "res://Localization/Loacalization.de.translation", "res://Localization/Loacalization.es.translation", "res://Localization/Loacalization.fr.translation", "res://Localization/Loacalization.ru.translation", "res://Localization/Loacalization.lv.translation", "res://Localization/Loacalization.pt_BR.translation" )
+translations=PoolStringArray( "res://Localization/Localization.de.translation", "res://Localization/Localization.en.translation", "res://Localization/Localization.es.translation", "res://Localization/Localization.fr.translation", "res://Localization/Localization.it.translation", "res://Localization/Localization.lv.translation", "res://Localization/Localization.pt_BR.translation", "res://Localization/Localization.ru.translation" )
 
 [rendering]
 
