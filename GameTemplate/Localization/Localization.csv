@@ -6,7 +6,7 @@ Down,Down,Nieder,Uz leju,Abajo,Вниз,Vers le bas,Abaixo,Giù
 Jump,Jump,Springen,Lekt,Saltar,Прыжок,Sauter,Saltar,Saltare
 Shoot,Shoot,Schießen,Šaut,Disparar,Огонь,Tirer,Atirar,Sparare
 NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo,Nuova partita
-CONTINUE,Continue,Fortsetzen,Turpināt spēli,Seguir,Продолжить,Continuer,Continuar,Continua
+CONTINUE,Continue,Fortsetzen,Turpināt spēli,Continuar,Продолжить,Continuer,Continuar,Continua
 RESUME,Resume,Fortsetzen,Atsākt,Reanudar,Продолжить,Reprendre,Resumir,Riprendi
 RESTART,Restart,Neustart,Restartēt,Reiniciar,Заново,Redémarrer,Reiniciar,Ricomincia
 OPTIONS,Options,Optionen,Iespējas,Opciones,Опции,Options,Opções,Opzioni
@@ -18,11 +18,11 @@ LOADING,Loading,Wird geladen,Lādējās,Cargando,Загрузка,Chargement,Car
 RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение,Résolution,Resolução,Risoluzione
 FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранный,Plein écran,Tela cheia,Schermo interno
 BORDERLESS,Borderless window,Randlos Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безрамочный,Sans bordure,Sem bordas,Senza bordi
-SCALE,Scale,Rahmen,Palielinājums,Escala,Маштабирование,Échelle,Escala,Scala
+SCALE,Scale,Rahmen,Palielinājums,Escalado,Маштабирование,Échelle,Escala,Scala
 VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume,Volume
 MASTER,Master,Meister,Galvenais,General,Мастер,Maître,Principal,Principale
 MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música,Musica
-SFX,Sounds,Geräusche,Skaņu efekti,Efectos,Звуки,Des sons,Efeitos,Suoni
+SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Des sons,Efeitos,Suoni
 CONTROLS,Controls,Steuerung,Kontroles,Controles,Управления,Controles,Controles,Controlli
 ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actes,Ações,Azioni
 KEYBOARD,Keyboard,Tastatur,Klaviatūra,Teclado,Клавиатура,Clavier,Teclado,Tastiera
