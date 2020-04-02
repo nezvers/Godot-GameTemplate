@@ -6,6 +6,8 @@ I'd be happy for any contribution to make this template as good as it can be and
 
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/MainSceneTree.PNG?raw=true)
 
+*Read this in other languages: [Español](README_es.md)
+
 Template has main scene that's managing:  
 &nbsp;&nbsp;&nbsp;&nbsp;Scene transitioning - during that background loading is taking care of the next scene loading for smooth experience.  
 &nbsp;&nbsp;&nbsp;&nbsp;HUDLayer - reserved for game specific overlay (HP, Points, etc.)  
