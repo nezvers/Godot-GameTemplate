@@ -66,11 +66,28 @@ func get_InputEvent_name(event:InputEvent)->String:
 			text += "Btn. " + str(event.button_index)
 	elif event is InputEventJoypadMotion:
 		text = "Gamepad: "
+		var stick: = ''
 		if Input.is_joy_known(event.device):
-			text+= str(Input.get_joy_axis_string(event.axis)) + " "
+			stick = str(Input.get_joy_axis_string(event.axis))
+			text+= stick + " "
 		else:
 			text += "Axis: " + str(event.axis) + " "
-		text += str(round(event.axis_value))
+		
+		if !stick.empty():	#known
+			var value:int = round(event.axis_value)
+			if stick.ends_with('X'):
+				if value > 0:
+					text += 'Rigt'
+				else:
+					text += 'Left'
+			else:
+				if value > 0:
+					text += 'Down'
+				else:
+					text += 'Up'
+		else:
+			text += str(round(event.axis_value))
+	
 	return text
 
 func add_control(Name)->void:
