@@ -6,7 +6,7 @@ onready var button:PackedScene = preload("res://GUI/Buttons/DefaultButton.tscn")
 onready var button_parent:HBoxContainer = $"VBoxContainer/MarginContainer/HBoxContainer"
 
 func _ready()->void:
-	Event.connect("Languages", self, "on_show_languages")
+	MenuEvent.connect("Languages", self, "on_show_languages")
 	for language in Settings.Language_list:
 		var newButton:Button = button.instance()
 		button_parent.add_child(newButton)

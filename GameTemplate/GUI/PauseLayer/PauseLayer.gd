@@ -3,9 +3,9 @@ extends CanvasLayer
 export (String, FILE, "*.tscn") var Main_Menu: String
 
 func _ready()->void:
-	Event.connect("Paused", self, "on_show_paused")
-	Event.connect("Options", self, "on_show_options")
-	Event.Paused = false
+	MenuEvent.connect("Paused", self, "on_show_paused")
+	MenuEvent.connect("Options", self, "on_show_options")
+	MenuEvent.Paused = false
 	#Localization
 	Settings.connect("ReTranslate", self, "retranslate")
 
@@ -15,22 +15,22 @@ func on_show_paused(value:bool)->void:
 	get_tree().paused = value
 
 func on_show_options(value:bool)->void:
-	if !Event.MainMenu:
+	if !MenuEvent.MainMenu:
 		$Control.visible = !value
 
 func _on_Resume_pressed():
-	Event.Paused = false #setget triggers signal and responding to it hide GUI
+	MenuEvent.Paused = false #setget triggers signal and responding to it hide GUI
 
 func _on_Restart_pressed():
 	Event.emit_signal("Restart")
-	Event.Paused = false #setget triggers signal and responding to it hide GUI
+	MenuEvent.Paused = false #setget triggers signal and responding to it hide GUI
 
 func _on_Options_pressed():
-	Event.Options = true
+	MenuEvent.Options = true
 
 func _on_MainMenu_pressed():
 	Event.emit_signal("ChangeScene", Main_Menu)
-	Event.Paused = false
+	MenuEvent.Paused = false
 
 func _on_Exit_pressed():
 	Event.emit_signal("Exit")

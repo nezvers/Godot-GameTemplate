@@ -3,7 +3,7 @@ extends CanvasLayer
 export (String, FILE, "*.tscn") var First_Level: String
 
 func _ready()->void:
-	Event.MainMenu = true
+	MenuEvent.MainMenu = true
 	guiBrain.gui_collect_focusgroup()
 	if Settings.HTML5:
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
@@ -12,10 +12,10 @@ func _ready()->void:
 	retranslate()
 
 func _process(delta):
-	$BG.visible = !Event.Options
+	$BG.visible = !MenuEvent.Options
 
 func _exit_tree()->void:
-	Event.MainMenu = false				#switch bool for easier pause menu detection and more
+	MenuEvent.MainMenu = false				#switch bool for easier pause menu detection and more
 	guiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main meno wont be there
 
 func _on_NewGame_pressed()->void:
@@ -23,7 +23,7 @@ func _on_NewGame_pressed()->void:
 	Event.emit_signal("ChangeScene", First_Level)
 
 func _on_Options_pressed()->void:
-	Event.Options = true
+	MenuEvent.Options = true
 
 func _on_Exit_pressed()->void:
 	Event.emit_signal("Exit")

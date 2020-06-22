@@ -13,7 +13,7 @@ func _ready()->void:
 	
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	set_process_unhandled_key_input(true)
-	Event.connect("Refocus", self, "force_focus")
+	MenuEvent.connect("Refocus", self, "force_focus")
 
 func gui_collect_focusgroup()->void:	#Workaround to get initial focus
 	FocusGroup.clear()
@@ -31,40 +31,40 @@ func gui_collect_focusgroup()->void:	#Workaround to get initial focus
 
 func _unhandled_input(event)->void:
 	if event.is_action_pressed("ui_cancel"):
-		if !Event.MainMenu:			#not in main menu
-			if !Event.Paused:
-				Event.Paused = true
-			elif !Event.Options:
-				Event.Paused = false
+		if !MenuEvent.MainMenu:			#not in main menu
+			if !MenuEvent.Paused:
+				MenuEvent.Paused = true
+			elif !MenuEvent.Options:
+				MenuEvent.Paused = false
 	elif FocusDetect.get_focus_owner() != null:	#There's already button in focus
 		return
 	elif event.is_action_pressed("ui_right"):
-		Event.emit_signal("Refocus")
+		MenuEvent.emit_signal("Refocus")
 	elif event.is_action_pressed("ui_left"):
-		Event.emit_signal("Refocus")
+		MenuEvent.emit_signal("Refocus")
 	elif event.is_action_pressed("ui_up"):
-		Event.emit_signal("Refocus")
+		MenuEvent.emit_signal("Refocus")
 	elif event.is_action_pressed("ui_down"):
-		Event.emit_signal("Refocus")
+		MenuEvent.emit_signal("Refocus")
 
 func force_focus():
 	var btn:Button
-	if Event.MainMenu:
-		if Event.Options:
-			if Event.Controls:
+	if MenuEvent.MainMenu:
+		if MenuEvent.Options:
+			if MenuEvent.Controls:
 				btn = ButtonsSections.OptionsControls
 			else:
 				btn = ButtonsSections.OptionsMain
 		else:
 			btn = ButtonsSections.MainMenu
 	else:
-		if Event.Options:
-			if Event.Controls:
+		if MenuEvent.Options:
+			if MenuEvent.Controls:
 				btn = ButtonsSections.OptionsControls
 			else:
 				btn = ButtonsSections.OptionsMain
 		else:
-			if Event.Paused:
+			if MenuEvent.Paused:
 				btn = ButtonsSections.Pause
 	if btn != null:
 		btn.grab_focus()

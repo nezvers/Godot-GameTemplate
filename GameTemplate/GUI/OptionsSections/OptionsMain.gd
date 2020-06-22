@@ -15,11 +15,11 @@ func _ready()->void:
 		find_node("Scale").visible = false
 	set_resolution()
 	set_volume_sliders()
-	Event.Languages = false #just in case project saved with visible Languages
+	MenuEvent.Languages = false #just in case project saved with visible Languages
 	
 	SetUp = false #Finished fader setup
-	Event.connect("Controls", self, "on_show_controls")
-	Event.connect("Languages", self, "on_show_languages")
+	MenuEvent.connect("Controls", self, "on_show_controls")
+	MenuEvent.connect("Languages", self, "on_show_languages")
 	Settings.connect("Resized", self, "_on_Resized")
 	#Localization
 	Settings.connect("ReTranslate", self, "retranslate")
@@ -80,19 +80,19 @@ func _on_Resized()->void:
 	set_resolution()
 
 func _on_Controls_pressed():
-	Event.Controls = true
+	MenuEvent.Controls = true
 
 func _on_Back_pressed():
 	Settings.save_settings()
-	Event.Options = false
+	MenuEvent.Options = false
 
 func _on_Languages_pressed():
-	Event.Languages = !Event.Languages
-	if !Event.Languages:
+	MenuEvent.Languages = !MenuEvent.Languages
+	if !MenuEvent.Languages:
 		return
 	yield(Settings, "ReTranslate") #After choosing language it will trigger ReTranslate
 	print("Language_choosen")
-	Event.Languages = !Event.Languages
+	MenuEvent.Languages = !MenuEvent.Languages
 
 #EVENT SIGNALS
 func on_show_controls(value:bool)->void:

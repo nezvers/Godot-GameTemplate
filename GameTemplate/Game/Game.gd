@@ -10,7 +10,7 @@ var NextScene
 var FadeState:int = IDLE
 
 func _ready()->void:
-	Event.connect("Options",	self, "on_Options")
+	MenuEvent.connect("Options",	self, "on_Options")
 	Event.connect("Exit",		self, "on_Exit")
 	Event.connect("ChangeScene",self, "on_ChangeScene")
 	Event.connect("Restart", 	self, "restart_scene")

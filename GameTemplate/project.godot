@@ -21,11 +21,12 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Event="*res://Autoload/Event.gd"
+MenuEvent="*res://Autoload/MenuEvent.gd"
 SceneLoader="*res://Autoload/SceneLoader.gd"
 preLoad="*res://Autoload/preLoad.gd"
 Settings="*res://Autoload/Settings.gd"
 guiBrain="*res://Autoload/guiBrain.gd"
+Event="*res://Autoload/Event.gd"
 
 [display]
 

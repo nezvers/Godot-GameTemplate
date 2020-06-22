@@ -12,7 +12,7 @@ var ActionNodes:Dictionary = {} #To know which node to add ControlBinds
 
 func _ready()->void:
 	set_action_list()
-	Event.connect("Controls", self, "show_controls")
+	MenuEvent.connect("Controls", self, "show_controls")
 	#Localization
 	Settings.connect("ReTranslate", self, "retranslate")
 	retranslate()
@@ -100,7 +100,7 @@ func _on_Default_pressed():
 	set_action_list()
 
 func _on_Back_pressed():
-	Event.Controls = false
+	MenuEvent.Controls = false
 
 #Localization
 func retranslate()->void:
