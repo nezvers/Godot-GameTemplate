@@ -1,33 +1,33 @@
-id,en,de,lv,es,ru,fr,pt_BR,it
-Right,Right,Richtig,Pa Labi,Derecha,Вправо,À droite,Direita,Destra
-Left,Left,Links,Pa kreisi,Izquierda,Влево,À gauche,Esquerda,Sinistra
-Up,Up,Oben,Uz augšu,Arriba,Вверх,An haut,Acima,Su
-Down,Down,Nieder,Uz leju,Abajo,Вниз,Vers le bas,Abaixo,Giù
-Jump,Jump,Springen,Lekt,Saltar,Прыжок,Sauter,Saltar,Saltare
-Shoot,Shoot,Schießen,Šaut,Disparar,Огонь,Tirer,Atirar,Sparare
-NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo,Nuova partita
-CONTINUE,Continue,Fortsetzen,Turpināt spēli,Continuar,Продолжить,Continuer,Continuar,Continua
-RESUME,Resume,Fortsetzen,Atsākt,Reanudar,Продолжить,Reprendre,Resumir,Riprendi
-RESTART,Restart,Neustart,Restartēt,Reiniciar,Заново,Redémarrer,Reiniciar,Ricomincia
-OPTIONS,Options,Optionen,Iespējas,Opciones,Опции,Options,Opções,Opzioni
-MAIN_MENU,Main Menu,Hauptmenü,Galvenā izvēlne,Menú principal,Главное меню,Menu principal,Menu principal,Menu principale
-BACK,Back,Zurück,Atpakaļ,Atrás,Назад,Retour,Voltar,Indietro
-EXIT,Exit,Ausgang,Iziet no spēles,Salir,Выход,Sortie,Sair,Esci
-PAUSE,Pause,Pause,Pauze,Pausa,Пауза,Pause,Pausa,Pausa
-LOADING,Loading,Wird geladen,Lādējās,Cargando,Загрузка,Chargement,Carregando,Caricamento
-RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение,Résolution,Resolução,Risoluzione
-FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранный,Plein écran,Tela cheia,Schermo interno
-BORDERLESS,Borderless window,Randlos Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безрамочный,Sans bordure,Sem bordas,Senza bordi
-SCALE,Scale,Rahmen,Palielinājums,Escalado,Маштабирование,Échelle,Escala,Scala
-VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume,Volume
-MASTER,Master,Meister,Galvenais,General,Мастер,Maître,Principal,Principale
-MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música,Musica
-SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Des sons,Efeitos,Suoni
-CONTROLS,Controls,Steuerung,Kontroles,Controles,Управления,Controles,Controles,Controlli
-ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actes,Ações,Azioni
-KEYBOARD,Keyboard,Tastatur,Klaviatūra,Teclado,Клавиатура,Clavier,Teclado,Tastiera
-GAMEPAD,Gamepad,Gamepad,Spēļu pūlts,Gamepad,Геймпад,Gamepad,Controle,Gamepad
-DEFAULT,Default,Standard,Noklusējums,Defecto,По умолчанию,Défaut,Padrão,Predefinito
-USE_NEW_CONTROLS,Use new control!,Verwenden Sie neue Kontrolle!,Izmantojiet jauno kontroli!,Usar nuevos controles!,Используйте новый элемент управления!,Utilisez un nouveau contrôle!,Use novo controle!,Usa nuovi controlli!
-CANCEL,Cancel,Stornieren,Atcelt,Cancelar,Отмена,Annuler,Cancelar,Annulla
-LANGUAGES,Languages,Sprachen,Valodas,Idiomas,Языки,Langues,Idiomas,Lingue
+id,en,de,lv,es,ru,fr,pt_BR,it,sv_SE
+Right,Right,Richtig,Pa Labi,Derecha,Вправо,À droite,Direita,Destra,Höger
+Left,Left,Links,Pa kreisi,Izquierda,Влево,À gauche,Esquerda,Sinistra,Vänster
+Up,Up,Oben,Uz augšu,Arriba,Вверх,An haut,Acima,Su,Upp
+Down,Down,Nieder,Uz leju,Abajo,Вниз,Vers le bas,Abaixo,Giù,Ner
+Jump,Jump,Springen,Lekt,Saltar,Прыжок,Sauter,Saltar,Saltare,Hoppa
+Shoot,Shoot,Schießen,Šaut,Disparar,Огонь,Tirer,Atirar,Sparare,Skjut
+NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo,Nuova partita,Nytt spel
+CONTINUE,Continue,Fortsetzen,Turpināt spēli,Continuar,Продолжить,Continuer,Continuar,Continua,Återuppta
+RESUME,Resume,Fortsetzen,Atsākt,Reanudar,Продолжить,Reprendre,Resumir,Riprendi,Fortsätt
+RESTART,Restart,Neustart,Restartēt,Reiniciar,Заново,Redémarrer,Reiniciar,Ricomincia,Starta om
+OPTIONS,Options,Optionen,Iespējas,Opciones,Опции,Options,Opções,Opzioni,Inställningar
+MAIN_MENU,Main Menu,Hauptmenü,Galvenā izvēlne,Menú principal,Главное меню,Menu principal,Menu principal,Menu principale,Huvudmeny
+BACK,Back,Zurück,Atpakaļ,Atrás,Назад,Retour,Voltar,Indietro,Bakåt
+EXIT,Exit,Ausgang,Iziet no spēles,Salir,Выход,Sortie,Sair,Esci,Avsluta
+PAUSE,Pause,Pause,Pauze,Pausa,Пауза,Pause,Pausa,Pausa,Pausa
+LOADING,Loading,Wird geladen,Lādējās,Cargando,Загрузка,Chargement,Carregando,Caricamento,Laddar
+RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение,Résolution,Resolução,Risoluzione,Upplösning
+FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранный,Plein écran,Tela cheia,Schermo interno,Helskärm
+BORDERLESS,Borderless window,Randlos Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безрамочный,Sans bordure,Sem bordas,Senza bordi,Ramlöst fönster
+SCALE,Scale,Rahmen,Palielinājums,Escalado,Маштабирование,Échelle,Escala,Scala,Skala
+VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume,Volume,Volym
+MASTER,Master,Meister,Galvenais,General,Мастер,Maître,Principal,Principale,Alla
+MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música,Musica,Musik
+SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Des sons,Efeitos,Suoni,Effekter
+CONTROLS,Controls,Steuerung,Kontroles,Controles,Управления,Controles,Controles,Controlli,Kontroller
+ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actes,Ações,Azioni,
+KEYBOARD,Keyboard,Tastatur,Klaviatūra,Teclado,Клавиатура,Clavier,Teclado,Tastiera,Tangentbord
+GAMEPAD,Gamepad,Gamepad,Spēļu pūlts,Gamepad,Геймпад,Gamepad,Controle,Gamepad,Gamepad
+DEFAULT,Default,Standard,Noklusējums,Defecto,По умолчанию,Défaut,Padrão,Predefinito,Standard
+USE_NEW_CONTROLS,Use new control!,Verwenden Sie neue Kontrolle!,Izmantojiet jauno kontroli!,Usar nuevos controles!,Используйте новый элемент управления!,Utilisez un nouveau contrôle!,Use novo controle!,Usa nuovi controlli!,Använd nya kontroller
+CANCEL,Cancel,Stornieren,Atcelt,Cancelar,Отмена,Annuler,Cancelar,Annulla,Avbryt
+LANGUAGES,Languages,Sprachen,Valodas,Idiomas,Языки,Langues,Idiomas,Lingue,Språk
