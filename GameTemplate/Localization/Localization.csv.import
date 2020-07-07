@@ -5,10 +5,10 @@ type="Translation"
 
 [deps]
 
-files=[ "res://Localization/Localization.en.translation", "res://Localization/Localization.de.translation", "res://Localization/Localization.lv.translation", "res://Localization/Localization.es.translation", "res://Localization/Localization.ru.translation", "res://Localization/Localization.fr.translation", "res://Localization/Localization.pt_BR.translation", "res://Localization/Localization.it.translation" ]
+files=[ "res://Localization/Localization.en.translation", "res://Localization/Localization.de.translation", "res://Localization/Localization.lv.translation", "res://Localization/Localization.es.translation", "res://Localization/Localization.ru.translation", "res://Localization/Localization.fr.translation", "res://Localization/Localization.pt_BR.translation", "res://Localization/Localization.it.translation", "res://Localization/Localization.sv_SE.translation" ]
 
 source_file="res://Localization/Localization.csv"
-dest_files=[ "res://Localization/Localization.en.translation", "res://Localization/Localization.de.translation", "res://Localization/Localization.lv.translation", "res://Localization/Localization.es.translation", "res://Localization/Localization.ru.translation", "res://Localization/Localization.fr.translation", "res://Localization/Localization.pt_BR.translation", "res://Localization/Localization.it.translation" ]
+dest_files=[ "res://Localization/Localization.en.translation", "res://Localization/Localization.de.translation", "res://Localization/Localization.lv.translation", "res://Localization/Localization.es.translation", "res://Localization/Localization.ru.translation", "res://Localization/Localization.fr.translation", "res://Localization/Localization.pt_BR.translation", "res://Localization/Localization.it.translation", "res://Localization/Localization.sv_SE.translation" ]
 
 [params]
 

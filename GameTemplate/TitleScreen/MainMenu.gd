@@ -4,7 +4,7 @@ export (String, FILE, "*.tscn") var First_Level: String
 
 func _ready()->void:
 	MenuEvent.MainMenu = true
-	guiBrain.gui_collect_focusgroup()
+	GuiBrain.gui_collect_focusgroup()
 	if Settings.HTML5:
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
 	#Localization
@@ -16,7 +16,7 @@ func _process(delta):
 
 func _exit_tree()->void:
 	MenuEvent.MainMenu = false				#switch bool for easier pause menu detection and more
-	guiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main meno wont be there
+	GuiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main meno wont be there
 
 func _on_NewGame_pressed()->void:
 	Event.emit_signal("NewGame")
