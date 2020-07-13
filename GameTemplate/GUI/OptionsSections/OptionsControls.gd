@@ -110,13 +110,13 @@ func remove_control(Bind:Array)->void:
 	InputMap.action_erase_event(Name, event)
 	node.queue_free()
 
-func _on_Default_pressed():
+func _on_Default_pressed()->void:
 	Settings.default_controls()
 	for Action in ActionNodes:
 		ActionNodes[Action].queue_free()
 	set_action_list()
 
-func _on_Back_pressed():
+func _on_Back_pressed()->void:
 	MenuEvent.Controls = false
 
 #Localization

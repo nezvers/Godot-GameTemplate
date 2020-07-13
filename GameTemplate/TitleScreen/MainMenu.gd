@@ -4,6 +4,7 @@ export (String, FILE, "*.tscn") var First_Level: String
 
 func _ready()->void:
 	MenuEvent.MainMenu = true
+	Hud.visible = false
 	GuiBrain.gui_collect_focusgroup()
 	if Settings.HTML5:
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false

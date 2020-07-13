@@ -18,21 +18,21 @@ func on_show_options(value:bool)->void:
 	if !MenuEvent.MainMenu:
 		$Control.visible = !value
 
-func _on_Resume_pressed():
+func _on_Resume_pressed()->void:
 	MenuEvent.Paused = false #setget triggers signal and responding to it hide GUI
 
-func _on_Restart_pressed():
+func _on_Restart_pressed()->void:
 	Event.emit_signal("Restart")
 	MenuEvent.Paused = false #setget triggers signal and responding to it hide GUI
 
-func _on_Options_pressed():
+func _on_Options_pressed()->void:
 	MenuEvent.Options = true
 
-func _on_MainMenu_pressed():
+func _on_MainMenu_pressed()->void:
 	Event.emit_signal("ChangeScene", Main_Menu)
 	MenuEvent.Paused = false
 
-func _on_Exit_pressed():
+func _on_Exit_pressed()->void:
 	Event.emit_signal("Exit")
 
 func retranslate()->void:

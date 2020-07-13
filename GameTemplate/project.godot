@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GameTemplate"
-run/main_scene="res://Game/Game.tscn"
+run/main_scene="res://TitleScreen/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -27,6 +27,8 @@ Settings="*res://Autoload/Settings.gd"
 Event="*res://Autoload/Event.gd"
 PreLoad="*res://Autoload/PreLoad.gd"
 GuiBrain="*res://Autoload/GuiBrain.gd"
+Game="*res://Autoload/Game/Game.tscn"
+Hud="*res://Autoload/Game/HUD.tscn"
 
 [display]
 

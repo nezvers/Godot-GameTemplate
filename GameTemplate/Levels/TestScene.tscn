@@ -3,7 +3,8 @@
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
-[ext_resource path="res://Levels/playere.gd" type="Script" id=4]
+[ext_resource path="res://Levels/player.gd" type="Script" id=4]
+
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )

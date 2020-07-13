@@ -47,7 +47,7 @@ func _unhandled_input(event)->void:
 	elif event.is_action_pressed("ui_down"):
 		MenuEvent.emit_signal("Refocus")
 
-func force_focus():
+func force_focus()->void:
 	var btn:Button
 	if MenuEvent.MainMenu:
 		if MenuEvent.Options:

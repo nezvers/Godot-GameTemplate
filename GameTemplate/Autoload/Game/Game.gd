@@ -5,7 +5,7 @@ signal SceneIsLoaded
 enum {IDLE, FADEOUT, FADEIN}
 
 onready var CurrentScene = null
-onready var CurrentSceneInstance = $Levels.get_child($Levels.get_child_count() - 1)
+onready var CurrentSceneInstance = get_tree().current_scene
 var NextScene
 var FadeState:int = IDLE
 
@@ -14,15 +14,13 @@ func _ready()->void:
 	Event.connect("Exit",		self, "on_Exit")
 	Event.connect("ChangeScene",self, "on_ChangeScene")
 	Event.connect("Restart", 	self, "restart_scene")
-	#Background loader
+	#Background async loader
 	SceneLoader.connect("scene_loaded", self, "on_scene_loaded")
-	#SceneLoader.load_scene("res://Levels/TestScene.tscn", {instructions="for what reason it got loaded"})
 	GuiBrain.gui_collect_focusgroup()
 
-func on_ChangeScene(scene):
+func on_ChangeScene(scene)->void:
 	if FadeState != IDLE:
 		return
-	#print("on_ChangeScene: ", scene)
 	if Settings.HTML5:
 		NextScene = load(scene)
 	else:
@@ -44,20 +42,14 @@ func change_scene()->void: #handle actual scene change
 	if NextScene == null:
 		return
 	print("change_scene: ", NextScene) #ERROR InputMouseButton something
-	yield(get_tree(), "idle_frame") #continue on idle frame
-	CurrentSceneInstance.free()
 	CurrentScene = NextScene
 	NextScene = null
-	CurrentSceneInstance = CurrentScene.instance()
-	$Levels.add_child(CurrentSceneInstance)
+	get_tree().change_scene_to(CurrentScene)
 
-func restart_scene():
+func restart_scene()->void:
 	if FadeState != IDLE:
 		return
-	yield(get_tree(), "idle_frame")
-	CurrentSceneInstance.free()
-	CurrentSceneInstance = CurrentScene.instance()
-	$Levels.add_child(CurrentSceneInstance)
+	get_tree().reload_current_scene()
 
 func _on_FadeTween_tween_completed(object, key)->void:
 	match FadeState:
