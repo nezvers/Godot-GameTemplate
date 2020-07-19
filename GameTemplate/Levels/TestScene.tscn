@@ -1,14 +1,13 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Levels/player.gd" type="Script" id=4]
 
-
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-Next_Scene = "res://TitleScreen/MainMenu.tscn"
+Next_Scene = "res://MainMenu/MainMenu.tscn"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -28,6 +27,9 @@ margin_right = 80.7051
 margin_bottom = 8.32202
 custom_fonts/font = ExtResource( 2 )
 text = "GO BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 156.129, 131.574 )

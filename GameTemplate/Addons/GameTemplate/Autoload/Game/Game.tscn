@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Addons/GameTemplate/Autoload/Game/Game.gd" type="Script" id=1]
+[ext_resource path="res://Addons/GameTemplate/GUI/FadeLayer/Fade_layer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Addons/GameTemplate/GUI/PauseLayer/PauseLayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Addons/GameTemplate/GUI/OptionsMenu/OptionsMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Addons/GameTemplate/GUI/HTML5Focus/HTMLfocus.tscn" type="PackedScene" id=5]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 1 )
+main_menu = "res://MainMenu/MainMenu.tscn"
+
+[node name="PauseLayer" parent="." instance=ExtResource( 3 )]
+layer = 100
+
+[node name="OptionsMenu" parent="." instance=ExtResource( 4 )]
+layer = 101
+
+[node name="FadeLayer" parent="." instance=ExtResource( 2 )]
+layer = 128
+
+[node name="FadeTween" type="Tween" parent="FadeLayer"]
+
+[node name="HTMLfocus" parent="." instance=ExtResource( 5 )]
+layer = 128
+[connection signal="tween_completed" from="FadeLayer/FadeTween" to="." method="_on_FadeTween_tween_completed"]

@@ -6,4 +6,4 @@ func _ready()->void:
 	Hud.visible = true
 
 func _on_Button_pressed()->void:
-	Event.emit_signal("ChangeScene", Next_Scene)
+	Game.emit_signal("ChangeScene", Next_Scene)
