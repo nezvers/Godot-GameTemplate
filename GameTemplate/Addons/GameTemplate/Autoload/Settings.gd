@@ -5,26 +5,42 @@ signal ReTranslate
 
 #OS
 var HTML5:bool = false
+
 #SCREEN
+var ProjectResolution: = Vector2(ProjectSettings.get_setting('display/window/size/width'), ProjectSettings.get_setting('display/window/size/height'))
 var Fullscreen = OS.window_fullscreen setget set_fullscreen
 var Borderless = OS.window_borderless setget set_borderless
 var View:Viewport
 var ViewRect2:Rect2
-var GameResolution:Vector2
 var WindowResolution:Vector2
 var ScreenResolution:Vector2
 var ScreenAspectRatio:float
-var Scale:int = 3 setget set_scale
+var Scale:int = 3 setget set_scale				#Default scale multiple
 var MaxScale:int
+
 #AUDIO
 var VolumeMaster:float = 0.0 setget set_volume_master
 var VolumeMusic:float = 0.0 setget set_volume_music
 var VolumeSFX:float = 0.0 setget set_volume_sfx
 var VolumeRange:float = 24 + 80
+
 #CONTROLS
 var Actions:Array = ["Right", "Left", "Up", "Down", "Jump"]
 var ActionControls:Dictionary = {}
+
 #Localization
+var translations: = [
+	preload("res://Addons/GameTemplate/Localization/Localization.en.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.de.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.es.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.fr.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.it.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.lv.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.pt_BR.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.ru.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.sv_SE.translation"),
+	preload("res://Addons/GameTemplate/Localization/Localization.tr.translation")
+]
 onready var Language:String = TranslationServer.get_locale() setget set_language
 var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", SE = "sv_SE", BR = "pt_BR", LV = "lv", IT = "it", TR = "tr"} #Font doesn't have Cyrillic letters for russian
 var Language_list:Array = Language_dictionary.keys()
@@ -36,6 +52,7 @@ func _ready()->void:
 	if OS.get_name() == "HTML5":
 		HTML5 = true
 	get_resolution()
+	add_translations()											#TO-DO need a way to add translations to project through the plugin
 	load_settings()
 	get_volumes()
 	get_controls()
@@ -121,6 +138,11 @@ func print_events_list(ActionList:Array)->void:
 	for event in ActionList:
 		print(event.as_text())
 
+#Localization
+func add_translations()->void:						#TO-DO need a way to add translations to project through the plugin
+	for tran in translations:
+		TranslationServer.add_translation(tran)
+
 func set_language(value:String)->void:
 	Language = value
 	TranslationServer.set_locale(value)
@@ -136,7 +158,7 @@ func save_settings()->void:
 	SaveSettings.close()
 
 func load_settings()->void:
-	if Settings.HTML5: #need to confirm but for now don't use for HTML5
+	if HTML5: 										#need to confirm but for now means that HTML5 won't use the method
 		return
 	#Json to Dictionary
 	var SaveSettings:File = File.new()

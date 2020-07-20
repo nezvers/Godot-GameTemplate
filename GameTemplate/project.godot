@@ -146,7 +146,7 @@ Jump={
 [locale]
 
 test="en"
-translations=PoolStringArray( "res://Addons/GameTemplate/Localization/Localization.de.translation", "res://Addons/GameTemplate/Localization/Localization.en.translation", "res://Addons/GameTemplate/Localization/Localization.es.translation", "res://Addons/GameTemplate/Localization/Localization.fr.translation", "res://Addons/GameTemplate/Localization/Localization.it.translation", "res://Addons/GameTemplate/Localization/Localization.lv.translation", "res://Addons/GameTemplate/Localization/Localization.pt_BR.translation", "res://Addons/GameTemplate/Localization/Localization.ru.translation", "res://Addons/GameTemplate/Localization/Localization.sv_SE.translation", "res://Addons/GameTemplate/Localization/Localization.tr.translation" )
+translations=PoolStringArray(  )
 
 [rendering]
 
