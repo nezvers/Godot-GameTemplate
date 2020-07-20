@@ -129,7 +129,6 @@ func default_controls()->void:	#Reset to project settings controls
 
 func set_actions_info()->void:
 	ActionControls.clear()
-	print('set actions info: 115')
 	for Action in Actions:
 		var ActionList:Array = InputMap.get_action_list(Action) #associated controlls to the action
 		ActionControls[Action] = ActionList
