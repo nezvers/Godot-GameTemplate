@@ -12,6 +12,7 @@ var Fullscreen = OS.window_fullscreen setget set_fullscreen
 var Borderless = OS.window_borderless setget set_borderless
 var View:Viewport
 var ViewRect2:Rect2
+var GameResolution:Vector2
 var WindowResolution:Vector2
 var ScreenResolution:Vector2
 var ScreenAspectRatio:float
