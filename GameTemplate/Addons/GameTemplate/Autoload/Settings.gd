@@ -93,15 +93,16 @@ func set_scale(value:int)->void:
 		OS.center_window()
 	get_resolution()
 	emit_signal("Resized")
+
 #AUDIO
 func get_volumes()->void:
-	var Master:float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
+	var Master:float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))	
 	var Music:float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))
 	var SFX:float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX"))
 	
-	VolumeMaster = ((Master +80))/ VolumeRange
-	VolumeMusic = ((Music +80))/ VolumeRange
-	VolumeSFX = ((SFX +80))/ VolumeRange
+	VolumeMaster = range_lerp(Master, -80.0, 24.0, 0.0, 1.0)
+	VolumeMusic = range_lerp(Music, -80.0, 24.0, 0.0, 1.0)
+	VolumeMusic = range_lerp(SFX, -80.0, 24.0, 0.0, 1.0)
 
 func set_volume_master(volume:float)->void:
 	VolumeMaster = clamp(volume, 0.0, 1.0)
