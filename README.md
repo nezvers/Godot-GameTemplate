@@ -11,6 +11,7 @@ With time it has become to be just drop in the project and should work with quic
 * Drop GameTemplate in Addons folder in your projects Addons folder;
 * Enable GameTemplate plugin in Project Settings. It will set up all necessary autoloads automatically;
 * Add your main menu scene to Addons/GameTemplate/Autoloads/Game/Game.tscn exported variable. It is used by PauseLayer to trigger right scene to switch;
+* Edit Settings.gd (inside Autoload directory) Actions array of input map names.
 * To change scenes trigger signal:
 ```
 Game.emit_signal('change_scene', scene_file_location_string)
