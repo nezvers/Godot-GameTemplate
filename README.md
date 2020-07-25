@@ -20,13 +20,13 @@ Game.emit_signal('change_scene', scene_file_location_string)
 
 
 Template has Autoload scripts and scenes that's managing:  
-&nbsp;&nbsp;&nbsp;&nbsp;Scene transitioning - during that background loading is taking care of the next scene loading for smooth experience.  
-&nbsp;&nbsp;&nbsp;&nbsp;Hud - reserved for game specific overlay (HP, Points, etc.)  
-&nbsp;&nbsp;&nbsp;&nbsp;PauseLayer - Is a menu that appears while in game and pauses the game, allowing to (Resume, Options, Main Menu, Exit).  
-&nbsp;&nbsp;&nbsp;&nbsp;MainOptions - GUI for changing resolution (Fullscreen, Borderless, scaling), Audio faders (Master, Music, SFX) and Controls section for Action bindings.    
-&nbsp;&nbsp;&nbsp;&nbsp;FadeLayer - As a template it's just Fade-to-Black ColorRect but it's easy to add fading shader to it.  
-&nbsp;&nbsp;&nbsp;&nbsp;Music - Persistent AudioStreamPlayer for music
-&nbsp;&nbsp;&nbsp;&nbsp;HTMLfocus - if game is HTML5 it will overlay a button on screen, requesting player to click on it and allowing the game to become in focus.  
+* Scene transitioning - during that background loading is taking care of the next scene loading for smooth experience.  
+* Hud - reserved for game specific overlay (HP, Points, etc.)  
+* PauseLayer - Is a menu that appears while in game and pauses the game, allowing to (Resume, Options, Main Menu, Exit).  
+* MainOptions - GUI for changing resolution (Fullscreen, Borderless, scaling), Audio faders (Master, Music, SFX) and Controls section for Action bindings.    
+* FadeLayer - As a template it's just Fade-to-Black ColorRect but it's easy to add fading shader to it.  
+* Music - Persistent AudioStreamPlayer for music
+* HTMLfocus - if game is HTML5 it will overlay a button on screen, requesting player to click on it and allowing the game to become in focus.  
 
 ## Options menu  
 Every settings option gets saved uppon exiting Options menu.  
