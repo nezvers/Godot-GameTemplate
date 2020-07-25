@@ -19,7 +19,7 @@ Game.emit_signal('change_scene', scene_file_location_string)
 * Check other signals in Game singleton
 
 
-Template has Autoload scripts and scenes that's managing:  
+### Template has Autoload scripts and scenes that's managing:  
 * Scene transitioning - during that background loading is taking care of the next scene loading for smooth experience.  
 * Hud - reserved for game specific overlay (HP, Points, etc.)  
 * PauseLayer - Is a menu that appears while in game and pauses the game, allowing to (Resume, Options, Main Menu, Exit).  
