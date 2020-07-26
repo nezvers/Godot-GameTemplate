@@ -21,6 +21,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
+SettingsAudio="*res://Addons/GameTemplate/Autoload/SettingsAudio.gd"
+SettingsControls="*res://Addons/GameTemplate/Autoload/SettingsControls.gd"
+SettingsLanguage="*res://Addons/GameTemplate/Autoload/SettingsLanguage.gd"
+SettingsResolution="*res://Addons/GameTemplate/Autoload/SettingsResolution.gd"
+SettingsSaveLoad="*res://Addons/GameTemplate/Autoload/SettingsSaveLoad.gd"
 Settings="*res://Addons/GameTemplate/Autoload/Settings.gd"
 Game="*res://Addons/GameTemplate/Autoload/Game/Game.tscn"
 Hud="*res://Addons/GameTemplate/Autoload/Game/HUD.tscn"
@@ -28,6 +33,14 @@ GuiBrain="*res://Addons/GameTemplate/Autoload/GuiBrain.gd"
 MenuEvent="*res://Addons/GameTemplate/Autoload/MenuEvent.gd"
 SceneLoader="*res://Addons/GameTemplate/Autoload/SceneLoader.gd"
 Music="*res://Addons/GameTemplate/Autoload/Game/Music.tscn"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/narrowing_conversion=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

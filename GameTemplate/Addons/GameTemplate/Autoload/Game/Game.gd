@@ -62,7 +62,7 @@ func restart_scene()->void:
 		return
 	get_tree().reload_current_scene()
 
-func _on_FadeTween_tween_completed(object, key)->void:
+func _on_FadeTween_tween_completed(_object, _key)->void:
 	match FadeState:
 		IDLE:
 			pass

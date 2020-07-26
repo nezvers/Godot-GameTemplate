@@ -5,7 +5,7 @@ func _ready()->void:
 	MenuEvent.connect("Options", self, "on_show_options")
 	MenuEvent.Paused = false
 	#Localization
-	Settings.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 
 func on_show_paused(value:bool)->void:
 	#Signals allow each module have it's own response logic

@@ -7,7 +7,7 @@ onready var button_parent:HBoxContainer = $"VBoxContainer/MarginContainer/HBoxCo
 
 func _ready()->void:
 	MenuEvent.connect("Languages", self, "on_show_languages")
-	for language in Settings.Language_list:
+	for language in SettingsLanguage.Language_list:
 		var newButton:Button = button.instance()
 		button_parent.add_child(newButton)
 		newButton.text = "\"" + language + "\""
@@ -17,4 +17,4 @@ func on_show_languages(value:bool)->void:
 	visible = value
 
 func _on_button_pressed(value:String)->void:
-	Settings.Language = Settings.Language_dictionary[value] #Settings will emit ReTranslate
+	SettingsLanguage.Language = SettingsLanguage.Language_dictionary[value] #Settings will emit ReTranslate

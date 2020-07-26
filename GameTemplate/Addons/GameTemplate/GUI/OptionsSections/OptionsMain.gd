@@ -20,58 +20,58 @@ func _ready()->void:
 	SetUp = false #Finished fader setup
 	MenuEvent.connect("Controls", self, "on_show_controls")
 	MenuEvent.connect("Languages", self, "on_show_languages")
-	Settings.connect("Resized", self, "_on_Resized")
+	SettingsResolution.connect("Resized", self, "_on_Resized")
 	#Localization
-	Settings.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 	retranslate()
 
 func set_resolution()->void:
-	find_node("Fullscreen").pressed = Settings.Fullscreen
-	find_node("Borderless").pressed = Settings.Borderless
+	find_node("Fullscreen").pressed = SettingsResolution.Fullscreen
+	find_node("Borderless").pressed = SettingsResolution.Borderless
 	#Your logic for scaling
 
 func set_volume_sliders()->void: #Initialize volume sliders
-	Master.value = Settings.VolumeMaster * 100
-	Music.value = Settings.VolumeMusic * 100
-	SFX.value = Settings.VolumeSFX * 100
+	Master.value = SettingsAudio.VolumeMaster * 100
+	Music.value = SettingsAudio.VolumeMusic * 100
+	SFX.value = SettingsAudio.VolumeSFX * 100
 
 #### BUTTON SIGNALS ####
 func _on_Master_value_changed(value)->void:
 	if SetUp:
 		return
-	Settings.VolumeMaster = value/100
+	SettingsAudio.VolumeMaster = value/100
 	var player:AudioStreamPlayer = find_node("Master").get_node("AudioStreamPlayer")
 	player.play()
 
 func _on_Music_value_changed(value)->void:
 	if SetUp:
 		return
-	Settings.VolumeMusic = value/100
+	SettingsAudio.VolumeMusic = value/100
 	var player:AudioStreamPlayer = find_node("Music").get_node("AudioStreamPlayer")
 	player.play()
 
 func _on_SFX_value_changed(value)->void:
 	if SetUp:
 		return
-	Settings.VolumeSFX = value/100
+	SettingsAudio.VolumeSFX = value/100
 	var player:AudioStreamPlayer = find_node("SFX").get_node("AudioStreamPlayer")
 	player.play()
 
 func _on_Fullscreen_pressed()->void:
 	if SetUp:
 		return
-	Settings.Fullscreen = find_node("Fullscreen").pressed
+	SettingsResolution.Fullscreen = find_node("Fullscreen").pressed
 
 func _on_Borderless_pressed()->void:
 	if SetUp:
 		return
-	Settings.Borderless = find_node("Borderless").pressed
+	SettingsResolution.Borderless = find_node("Borderless").pressed
 
 func _on_ScaleUp_pressed()->void:
-	Settings.Scale += 1
+	SettingsResolution.Scale += 1
 
 func _on_ScaleDown_pressed()->void:
-	Settings.Scale -= 1
+	SettingsResolution.Scale -= 1
 
 func _on_Resized()->void:
 	set_resolution()
@@ -80,14 +80,14 @@ func _on_Controls_pressed()->void:
 	MenuEvent.Controls = true
 
 func _on_Back_pressed()->void:
-	Settings.save_settings()
+	SettingsSaveLoad.save_settings()
 	MenuEvent.Options = false
 
 func _on_Languages_pressed()->void:
 	MenuEvent.Languages = !MenuEvent.Languages
 	if !MenuEvent.Languages:
 		return
-	yield(Settings, "ReTranslate") #After choosing language it will trigger ReTranslate
+	yield(SettingsLanguage, "ReTranslate") #After choosing language it will trigger ReTranslate
 	print("Language_choosen")
 	MenuEvent.Languages = !MenuEvent.Languages
 

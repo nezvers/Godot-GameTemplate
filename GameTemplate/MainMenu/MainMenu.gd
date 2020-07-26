@@ -9,15 +9,12 @@ func _ready()->void:
 	if Settings.HTML5:
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
 	#Localization
-	Settings.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 	retranslate()
-
-func _process(delta):						#TO-DO -> make it event controlled
-	$BG.visible = !MenuEvent.Options
 
 func _exit_tree()->void:
 	MenuEvent.MainMenu = false				#switch bool for easier pause menu detection and more
-	GuiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main meno wont be there
+	GuiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main menu wont be there
 
 func _on_NewGame_pressed()->void:
 	Game.emit_signal("NewGame")
