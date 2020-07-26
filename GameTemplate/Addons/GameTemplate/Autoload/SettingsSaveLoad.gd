@@ -7,7 +7,7 @@ var Settings_loaded:bool = false
 
 
 #Save/ Load
-#Call this method to trigger Settings saving
+#Call this method to trigger Settings saving - by default triggered on closing options menu
 func save_settings()->void:
 	var SettingsSaver:File = File.new()
 	SettingsSaver.open(CONFIG_FILE, File.WRITE)
