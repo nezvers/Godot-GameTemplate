@@ -4,8 +4,8 @@ signal Resized
 
 #SCREEN
 #var ProjectResolution: = Vector2(ProjectSettings.get_setting('display/window/size/width'), ProjectSettings.get_setting('display/window/size/height'))
-var Fullscreen = OS.window_fullscreen setget set_fullscreen
-var Borderless = OS.window_borderless setget set_borderless
+var Fullscreen = false setget set_fullscreen
+var Borderless = false setget set_borderless
 var View:Viewport
 var ViewRect2:Rect2
 var GameResolution:Vector2
@@ -19,9 +19,11 @@ var MaxScale:int
 func set_fullscreen(value:bool)->void:
 	Fullscreen = value
 	OS.window_fullscreen = value
-	WindowResolution = OS.window_size
 	if value:
-		Scale = MaxScale
+		set_scale(MaxScale)
+	else:
+		OS.center_window()
+		set_scale(OS.window_size.x/GameResolution.x)
 
 func set_borderless(value:bool)->void:
 	Borderless = value
@@ -31,6 +33,7 @@ func get_resolution()->void:
 	View = get_viewport()
 	ViewRect2 = View.get_visible_rect()
 	GameResolution = ViewRect2.size
+	
 	WindowResolution = OS.window_size
 	ScreenResolution = OS.get_screen_size(OS.current_screen)
 	ScreenAspectRatio = ScreenResolution.x/ScreenResolution.y

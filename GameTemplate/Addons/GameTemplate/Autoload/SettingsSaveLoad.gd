@@ -116,13 +116,13 @@ func set_InputMap()->void:
 
 func get_resolution_data()->Dictionary:
 	var resolution_data:Dictionary = {}
-	resolution_data["Fullscreen"] = SettingsResolution.Fullscreen
+	#resolution_data["Fullscreen"] = SettingsResolution.Fullscreen
 	resolution_data["Borderless"] = SettingsResolution.Borderless
 	resolution_data["Scale"] = SettingsResolution.Scale
 	return resolution_data
 
 func set_resolution_data(resolution:Dictionary)->void:
-	SettingsResolution.set_fullscreen(resolution.Fullscreen)
+	#SettingsResolution.set_fullscreen(resolution.Fullscreen)
 	SettingsResolution.set_borderless(resolution.Borderless)
 	SettingsResolution.set_scale(resolution.Scale)
 
