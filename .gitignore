@@ -1,0 +1,10 @@
+
+# Godot-specific ignores
+GameTemplate/.import/
+GameTemplate/export.cfg
+GameTemplate/export_presets.cfg
+GameTemplate/debug.log
+
+# Mono-specific ignores
+.mono/
+data_*/
