@@ -12,7 +12,7 @@ With time it has become to be just drop in the project and should work with quic
 * Enable GameTemplate plugin in Project Settings. It will set up all necessary autoloads automatically;
 * Add your main menu scene to Addons/GameTemplate/Autoloads/Game/Game.tscn exported variable. It is used by PauseLayer to trigger right scene to switch;
 * Set audio bus layer - res://Addons/GameTemplate/Assets/Audio_bus_layout.tres
-* Edit Settings.gd (inside Autoload directory) Actions array of input map names. They are the ones included in button remapping.
+* Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones included in button remapping.
 * To change scenes trigger signal:
 ```
 Game.emit_signal('change_scene', scene_file_location_string)
