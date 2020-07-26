@@ -40,7 +40,7 @@ func file_check(path)->bool:
 	mutex.unlock()
 	return result
 
-func thread_func(o=null)->void:
+func thread_func(_o=null)->void:
 	while true: #Trap the function
 		semaphore.wait()	#start the work when semaphote.post()
 

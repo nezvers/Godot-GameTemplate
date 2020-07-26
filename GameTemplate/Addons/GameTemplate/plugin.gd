@@ -2,6 +2,11 @@ tool
 extends EditorPlugin
 
 const autoload_order: = [
+	'SettingsAudio',
+	'SettingsControls',
+	'SettingsLanguage',
+	'SettingsResolution',
+	'SettingsSaveLoad',
 	'Settings',
 	'Game',
 	'Hud',
@@ -11,18 +16,24 @@ const autoload_order: = [
 	'Music'
 ]
 const autoload_list: = {
-	'Game'			: 'res://Addons/GameTemplate/Autoload/Game/Game.tscn',
-	'Hud'			: 'res://Addons/GameTemplate/Autoload/Game/HUD.tscn',
-	'GuiBrain'		: 'res://Addons/GameTemplate/Autoload/GuiBrain.gd',
-	'MenuEvent'		: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',
-	'SceneLoader'	: 'res://Addons/GameTemplate/Autoload/SceneLoader.gd',
-	'Settings'		: 'res://Addons/GameTemplate/Autoload/Settings.gd',
-	'Music'			: 'res://Addons/GameTemplate/Autoload/Game/Music.tscn'}
+	'Game'					: 'res://Addons/GameTemplate/Autoload/Game/Game.tscn',
+	'Hud'					: 'res://Addons/GameTemplate/Autoload/Game/HUD.tscn',
+	'GuiBrain'				: 'res://Addons/GameTemplate/Autoload/GuiBrain.gd',
+	'MenuEvent'				: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',
+	'SceneLoader'			: 'res://Addons/GameTemplate/Autoload/SceneLoader.gd',
+	'Music'					: 'res://Addons/GameTemplate/Autoload/Game/Music.tscn',
+	'Settings'				: 'res://Addons/GameTemplate/Autoload/Settings.gd',
+	'SettingsAudio'			: 'res://Addons/GameTemplate/Autoload/SettingsAudio.gd',
+	'SettingsControls'		: 'res://Addons/GameTemplate/Autoload/SettingsControls.gd',
+	'SettingsLanguage'		: 'res://Addons/GameTemplate/Autoload/SettingsLanguage.gd',
+	'SettingsResolution'	: 'res://Addons/GameTemplate/Autoload/SettingsResolution.gd',
+	'SettingsSaveLoad'		: 'res://Addons/GameTemplate/Autoload/SettingsSaveLoad.gd'}
 
 
 func _enter_tree():
 	for key in autoload_order:
 		add_autoload_singleton(key, autoload_list[key])
+	print('\n\n\n IMPORTANT: Please set audio bus layout to - "res://Addons/GameTemplate/Assets/Audio_bus_layout.tres" \n\n')
 
 
 func _exit_tree():

@@ -156,13 +156,8 @@ size_flags_horizontal = 3
 margin_right = 141.0
 size_flags_horizontal = 3
 
-[node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master" index="0"]
-margin_bottom = 13.0
-
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master" index="1"]
-margin_top = 1.0
 margin_right = 141.0
-margin_bottom = 11.0
 
 [node name="Music" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 7 )]
 margin_top = 17.0
@@ -171,13 +166,10 @@ margin_bottom = 30.0
 size_flags_horizontal = 3
 
 [node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="0"]
-margin_bottom = 13.0
 text = "Music"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="1"]
-margin_top = 1.0
 margin_right = 141.0
-margin_bottom = 11.0
 
 [node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="2"]
 bus = "Music"
@@ -189,13 +181,10 @@ margin_bottom = 47.0
 size_flags_horizontal = 3
 
 [node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="0"]
-margin_bottom = 13.0
 text = "SFX"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="1"]
-margin_top = 1.0
 margin_right = 141.0
-margin_bottom = 11.0
 
 [node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="2"]
 bus = "SFX"

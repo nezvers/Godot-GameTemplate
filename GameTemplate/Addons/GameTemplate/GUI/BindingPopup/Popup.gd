@@ -9,7 +9,7 @@ func _ready()->void:
 	set_process_input(false)
 	connect("about_to_show", self, "receive_input")
 	#Localization
-	Settings.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 	retranslate()
 
 func receive_input()->void:

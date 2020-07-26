@@ -14,7 +14,7 @@ func _ready()->void:
 	set_action_list()
 	MenuEvent.connect("Controls", self, "show_controls")
 	#Localization
-	Settings.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 	retranslate()
 
 func show_controls(value:bool)->void:
@@ -22,7 +22,7 @@ func show_controls(value:bool)->void:
 
 func set_action_list()->void:
 	ActionNodes.clear() #Just in case resetting everything
-	var list:Array = Settings.Actions#Names:String of actions in Array
+	var list:Array = SettingsControls.Actions#Names:String of actions in Array
 	for Action in list:
 		var ActionNode:VBoxContainer = ActionBind.instance()
 		ActionList.add_child(ActionNode)
@@ -36,14 +36,12 @@ func set_action_list()->void:
 		set_control_list(Action)
 
 func set_control_list(Action)->void:
-	if Settings.ActionControls.has(Action):
-		var list:Array = Settings.ActionControls[Action] #Dictionary of InputEvents for each action
-		var index:int = 0
-		for Name in range(list.size()): #Maybe just list would be OK but to be sure it goes right it's range()
-			new_bind(Action, list[index])
-			index += 1
+	if SettingsControls.ActionControls.has(Action):
+		var list:Array = SettingsControls.ActionControls[Action] #Dictionary of InputEvents for each action
+		for i in range(list.size()): #Maybe just list would be OK but to be sure it goes right it's range()
+			new_bind(Action, list[i])
 	else:
-		print('OptionsControls.gd: 39 - Settings.ActionControls does not have: ', Action)
+		print('OptionsControls.gd: 39 - SettingsControls.ActionControls does not have: ', Action)
 
 func new_bind(Action, event)->void: #Adding bound InputEvent in the list
 	var eventNode:HBoxContainer = ControlBind.instance()
@@ -99,7 +97,7 @@ func add_control(Name)->void:
 	if Pop.NewEvent == null:
 		return
 	var event:InputEvent = Pop.NewEvent
-	Settings.ActionControls[Name].push_back(event)
+	SettingsControls.ActionControls[Name].push_back(event)
 	InputMap.action_add_event(Name, event)
 	new_bind(Name, event)
 
@@ -108,13 +106,13 @@ func remove_control(Bind:Array)->void:
 	var event:InputEvent = Bind[1]
 	var node:HBoxContainer = Bind[2]
 	
-	var index:int = Settings.ActionControls[Name].find(event)
-	Settings.ActionControls[Name].remove(index)
+	var index:int = SettingsControls.ActionControls[Name].find(event)
+	SettingsControls.ActionControls[Name].remove(index)
 	InputMap.action_erase_event(Name, event)
 	node.queue_free()
 
 func _on_Default_pressed()->void:
-	Settings.default_controls()
+	SettingsControls.default_controls()
 	for Action in ActionNodes:
 		ActionNodes[Action].queue_free()
 	set_action_list()
@@ -128,6 +126,6 @@ func retranslate()->void:
 	find_node("Back").text = tr("BACK")
 	find_node("Actions").text = tr("ACTIONS")
 	#Action names
-	var list:Array = Settings.Actions
+	var list:Array = SettingsControls.Actions
 	for Action in list:
 		ActionNodes[Action].find_node("Name").text = tr(Action)
