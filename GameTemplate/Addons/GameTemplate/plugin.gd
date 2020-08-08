@@ -12,7 +12,7 @@ const autoload_order: = [
 	'Hud',
 	'GuiBrain',
 	'MenuEvent',
-	'SceneLoader',
+	#'SceneLoader',
 	'Music'
 ]
 const autoload_list: = {
@@ -20,7 +20,7 @@ const autoload_list: = {
 	'Hud'					: 'res://Addons/GameTemplate/Autoload/Game/HUD.tscn',
 	'GuiBrain'				: 'res://Addons/GameTemplate/Autoload/GuiBrain.gd',
 	'MenuEvent'				: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',
-	'SceneLoader'			: 'res://Addons/GameTemplate/Autoload/SceneLoader.gd',
+	#'SceneLoader'			: 'res://Addons/GameTemplate/Autoload/SceneLoader.gd',
 	'Music'					: 'res://Addons/GameTemplate/Autoload/Game/Music.tscn',
 	'Settings'				: 'res://Addons/GameTemplate/Autoload/Settings.gd',
 	'SettingsAudio'			: 'res://Addons/GameTemplate/Autoload/SettingsAudio.gd',

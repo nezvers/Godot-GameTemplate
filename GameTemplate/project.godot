@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "ResourceAsyncLoader_GT",
+"language": "GDScript",
+"path": "res://Addons/GameTemplate/Utility/ResourceAsyncLoader_GT.gd"
+} ]
 _global_script_class_icons={
-
+"ResourceAsyncLoader_GT": ""
 }
 
 [application]
@@ -31,7 +36,6 @@ Game="*res://Addons/GameTemplate/Autoload/Game/Game.tscn"
 Hud="*res://Addons/GameTemplate/Autoload/Game/HUD.tscn"
 GuiBrain="*res://Addons/GameTemplate/Autoload/GuiBrain.gd"
 MenuEvent="*res://Addons/GameTemplate/Autoload/MenuEvent.gd"
-SceneLoader="*res://Addons/GameTemplate/Autoload/SceneLoader.gd"
 Music="*res://Addons/GameTemplate/Autoload/Game/Music.tscn"
 
 [debug]
