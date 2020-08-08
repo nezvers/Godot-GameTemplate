@@ -9,14 +9,17 @@ const autoload_order: = [
 	'SettingsSaveLoad',
 	'Settings',
 	'Game',
+	'ScreenFade',
 	'Hud',
 	'GuiBrain',
 	'MenuEvent',
 	#'SceneLoader',
 	'Music'
+	
 ]
 const autoload_list: = {
 	'Game'					: 'res://Addons/GameTemplate/Autoload/Game/Game.tscn',
+	'ScreenFade'			: 'res://Addons/GameTemplate/Autoload/ScreenFade.tscn',
 	'Hud'					: 'res://Addons/GameTemplate/Autoload/Game/HUD.tscn',
 	'GuiBrain'				: 'res://Addons/GameTemplate/Autoload/GuiBrain.gd',
 	'MenuEvent'				: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+enum {IDLE, IN, OUT}
+
 var percent:float = 0 setget set_percent
 
 func set_percent(value:float)->void:
