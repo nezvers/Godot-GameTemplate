@@ -8,23 +8,29 @@ const autoload_order: = [
 	'SettingsResolution',
 	'SettingsSaveLoad',
 	'Settings',
+	'Options',
 	'Game',
 	'ScreenFade',
+	'PauseMenu',
 	'Hud',
 	'GuiBrain',
 	'MenuEvent',
 	#'SceneLoader',
-	'Music'
-	
+	'Music',
+	'HtmlFocus'
 ]
+
 const autoload_list: = {
+	'HtmlFocus'				: 'res://Addons/GameTemplate/Autoload/HtmlFocus.tscn',
 	'Game'					: 'res://Addons/GameTemplate/Autoload/Game/Game.tscn',
 	'ScreenFade'			: 'res://Addons/GameTemplate/Autoload/ScreenFade.tscn',
 	'Hud'					: 'res://Addons/GameTemplate/Autoload/Game/HUD.tscn',
 	'GuiBrain'				: 'res://Addons/GameTemplate/Autoload/GuiBrain.gd',
 	'MenuEvent'				: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',
+	'PauseMenu'				: 'res://Addons/GameTemplate/Autoload/PauseMenu.tscn',
 	#'SceneLoader'			: 'res://Addons/GameTemplate/Autoload/SceneLoader.gd',
 	'Music'					: 'res://Addons/GameTemplate/Autoload/Game/Music.tscn',
+	'Options'				: 'res://Addons/GameTemplate/Autoload/Options.tscn',
 	'Settings'				: 'res://Addons/GameTemplate/Autoload/Settings.gd',
 	'SettingsAudio'			: 'res://Addons/GameTemplate/Autoload/SettingsAudio.gd',
 	'SettingsControls'		: 'res://Addons/GameTemplate/Autoload/SettingsControls.gd',

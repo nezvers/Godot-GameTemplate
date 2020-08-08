@@ -45,8 +45,6 @@ func on_ChangeScene(scene)->void:
 	ScreenFade.state = ScreenFade.IN
 
 func switch_scene()->void: #handle actual scene change
-	if NextScene == null:
-		return
 	print("change_scene: ", NextScene)
 	CurrentScene = NextScene
 	NextScene = null

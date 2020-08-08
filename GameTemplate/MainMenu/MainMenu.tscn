@@ -8,6 +8,7 @@
 bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
 
 [node name="MainMenu" type="CanvasLayer"]
+layer = 0
 script = ExtResource( 3 )
 First_Level = "res://Levels/TestScene.tscn"
 
@@ -16,6 +17,9 @@ pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="BG"]
 anchor_right = 1.0

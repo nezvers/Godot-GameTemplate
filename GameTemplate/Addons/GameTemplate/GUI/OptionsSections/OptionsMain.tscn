@@ -205,7 +205,7 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Languages" type="Label" parent="HBoxContainer/Panel3/VBoxContainer"]
+[node name="LanguagesLabel" type="Label" parent="HBoxContainer/Panel3/VBoxContainer"]
 margin_right = 108.0
 margin_bottom = 26.0
 size_flags_horizontal = 5
@@ -245,7 +245,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 custom_constants/separation = 1
 
-[node name="Languages" parent="MarginContainer/VBoxContainer" instance=ExtResource( 9 )]
+[node name="LanguagesButton" parent="MarginContainer/VBoxContainer" instance=ExtResource( 9 )]
 margin_right = 58.0
 margin_bottom = 14.0
 text = "Languages"
@@ -271,7 +271,7 @@ text = "Back"
 [connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master/HSlider" to="." method="_on_Master_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music/HSlider" to="." method="_on_Music_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX/HSlider" to="." method="_on_SFX_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Languages" to="." method="_on_Languages_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/LanguagesButton" to="." method="_on_Languages_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls" to="." method="_on_Controls_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_Back_pressed"]
 
