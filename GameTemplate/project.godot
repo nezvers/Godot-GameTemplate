@@ -32,11 +32,15 @@ SettingsLanguage="*res://Addons/GameTemplate/Autoload/SettingsLanguage.gd"
 SettingsResolution="*res://Addons/GameTemplate/Autoload/SettingsResolution.gd"
 SettingsSaveLoad="*res://Addons/GameTemplate/Autoload/SettingsSaveLoad.gd"
 Settings="*res://Addons/GameTemplate/Autoload/Settings.gd"
-Game="*res://Addons/GameTemplate/Autoload/Game/Game.tscn"
-Hud="*res://Addons/GameTemplate/Autoload/Game/HUD.tscn"
+Options="*res://Addons/GameTemplate/Autoload/Options.scn"
+Game="*res://Addons/GameTemplate/Autoload/Game.scn"
+ScreenFade="*res://Addons/GameTemplate/Autoload/ScreenFade.scn"
+PauseMenu="*res://Addons/GameTemplate/Autoload/PauseMenu.scn"
+Hud="*res://Addons/GameTemplate/Autoload/Hud.scn"
 GuiBrain="*res://Addons/GameTemplate/Autoload/GuiBrain.gd"
 MenuEvent="*res://Addons/GameTemplate/Autoload/MenuEvent.gd"
-Music="*res://Addons/GameTemplate/Autoload/Game/Music.tscn"
+Music="*res://Addons/GameTemplate/Autoload/Music.scn"
+HtmlFocus="*res://Addons/GameTemplate/Autoload/HtmlFocus.scn"
 
 [debug]
 
