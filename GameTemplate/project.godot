@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "ResourceAsyncLoader_GT",
+"class": "ResourceAsyncLoader",
 "language": "GDScript",
-"path": "res://Addons/GameTemplate/Utility/ResourceAsyncLoader_GT.gd"
+"path": "res://Addons/GameTemplate/Utility/ResourceAsyncLoader.gd"
 } ]
 _global_script_class_icons={
-"ResourceAsyncLoader_GT": ""
+"ResourceAsyncLoader": ""
 }
 
 [application]

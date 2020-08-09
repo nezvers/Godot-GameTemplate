@@ -29,3 +29,6 @@ func set_language(value:String)->void:
 	Language = value
 	TranslationServer.set_locale(value)
 	emit_signal("ReTranslate")
+
+func get_language_data()->String:
+	return TranslationServer.get_locale()

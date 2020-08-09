@@ -9,13 +9,13 @@ signal Exit
 
 signal SceneIsLoaded	#used internally to trigger when new scene is loaded
 
-export (String, FILE) var main_menu
+var start_scene: = 'res://MainMenu/MainMenu.tscn'
 
 onready var CurrentScene = null
 onready var CurrentSceneInstance = get_tree().current_scene
 var NextScene
 
-var loader: = ResourceAsyncLoader_GT.new()
+var loader: = ResourceAsyncLoader.new()
 
 func _ready()->void:
 	MenuEvent.connect("Options",	self, "on_Options")
