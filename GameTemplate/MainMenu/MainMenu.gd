@@ -6,7 +6,7 @@ func _ready()->void:
 	MenuEvent.MainMenu = true
 	Hud.visible = false
 	GuiBrain.gui_collect_focusgroup()
-	if Settings.HTML5:
+	if OS.get_name() == "HTML5":
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
 	#Localization
 	SettingsLanguage.connect("ReTranslate", self, "retranslate")
