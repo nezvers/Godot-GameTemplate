@@ -1,4 +1,4 @@
-class_name ResourceAsyncLoader_GT	#Godot 3.2.2
+class_name ResourceAsyncLoader	#Godot 3.2.2
 
 #USE IT LIKE THIS
 #var loader = ResourceAsyncLoader_GT.new()

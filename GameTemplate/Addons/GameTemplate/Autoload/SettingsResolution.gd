@@ -3,7 +3,6 @@ extends Node
 signal Resized
 
 #SCREEN
-#var ProjectResolution: = Vector2(ProjectSettings.get_setting('display/window/size/width'), ProjectSettings.get_setting('display/window/size/height'))
 var Fullscreen = false setget set_fullscreen
 var Borderless = false setget set_borderless
 var View:Viewport
@@ -51,3 +50,17 @@ func set_scale(value:int)->void:
 		OS.center_window()
 	get_resolution()
 	emit_signal("Resized")
+
+
+#SAVING RESOLUTION
+func get_resolution_data()->Dictionary:
+	var resolution_data:Dictionary = {}
+	resolution_data["Borderless"] = Borderless
+	resolution_data["Scale"] = Scale
+	return resolution_data
+
+#LOADING RESOLUTION
+
+func set_resolution_data(resolution:Dictionary)->void:
+	SettingsResolution.set_borderless(resolution.Borderless)
+	SettingsResolution.set_scale(resolution.Scale)

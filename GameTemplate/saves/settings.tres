@@ -1,0 +1,113 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Addons/GameTemplate/Utility/Settings_save.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+resolution = {
+"Borderless": false,
+"Scale": 3
+}
+audio = {
+"Master": 0.59,
+"Music": 0.59,
+"SFX": 0.59
+}
+inputs = {
+"Down": {
+0: {
+"EventType": "InputEventKey",
+"scancode": 83
+},
+1: {
+"EventType": "InputEventKey",
+"scancode": 16777234
+},
+2: {
+"EventType": "InputEventJoypadButton",
+"button_index": 13,
+"device": 0
+},
+3: {
+"EventType": "InputEventJoypadMotion",
+"axis": 1,
+"axis_value": 1.0,
+"device": 0
+}
+},
+"Jump": {
+0: {
+"EventType": "InputEventKey",
+"scancode": 32
+},
+1: {
+"EventType": "InputEventJoypadButton",
+"button_index": 0,
+"device": 0
+}
+},
+"Left": {
+0: {
+"EventType": "InputEventKey",
+"scancode": 65
+},
+1: {
+"EventType": "InputEventKey",
+"scancode": 16777231
+},
+2: {
+"EventType": "InputEventJoypadButton",
+"button_index": 14,
+"device": 0
+},
+3: {
+"EventType": "InputEventJoypadMotion",
+"axis": 0,
+"axis_value": -1.0,
+"device": 0
+}
+},
+"Right": {
+0: {
+"EventType": "InputEventKey",
+"scancode": 68
+},
+1: {
+"EventType": "InputEventKey",
+"scancode": 16777233
+},
+2: {
+"EventType": "InputEventJoypadButton",
+"button_index": 15,
+"device": 0
+},
+3: {
+"EventType": "InputEventJoypadMotion",
+"axis": 0,
+"axis_value": 1.0,
+"device": 0
+}
+},
+"Up": {
+0: {
+"EventType": "InputEventKey",
+"scancode": 87
+},
+1: {
+"EventType": "InputEventKey",
+"scancode": 16777232
+},
+2: {
+"EventType": "InputEventJoypadButton",
+"button_index": 12,
+"device": 0
+},
+3: {
+"EventType": "InputEventJoypadMotion",
+"axis": 1,
+"axis_value": -1.0,
+"device": 0
+}
+}
+}
+language = "en"
