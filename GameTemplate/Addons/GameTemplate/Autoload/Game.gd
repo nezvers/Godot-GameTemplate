@@ -39,13 +39,11 @@ func on_ChangeScene(scene)->void:
 	
 	if ScreenFade.state != ScreenFade.BLACK:
 		yield(ScreenFade, "fade_complete")
-		print("yielded ")
 	
 	switch_scene()
 	ScreenFade.state = ScreenFade.IN
 
 func switch_scene()->void: #handle actual scene change
-	print("change_scene: ", NextScene)
 	CurrentScene = NextScene
 	NextScene = null
 	get_tree().change_scene_to(CurrentScene)
