@@ -49,6 +49,9 @@ func load_settings_resource()->bool:
 
 # JSON VARIATION - Old version
 func save_settings_JSON()->void:
+	var dir: = Directory.new()
+	if not dir.dir_exists(CONFIG_DIR):
+		dir.make_dir_recursive(CONFIG_DIR)
 	var SettingsSaver:File = File.new()
 	SettingsSaver.open(CONFIG_DIR + CONFIG_FILE_NAME + ".save", File.WRITE)
 	var save_data:Dictionary = get_save_data_JSON()
