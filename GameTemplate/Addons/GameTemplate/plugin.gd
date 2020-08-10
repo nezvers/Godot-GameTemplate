@@ -22,7 +22,7 @@ const autoload_order: = [
 
 const autoload_list: = {
 	'HtmlFocus'				: 'res://Addons/GameTemplate/Autoload/HtmlFocus.scn',
-	'Game'					: 'res://Addons/GameTemplate/Autoload/Game.scn',
+	'Game'					: 'res://Addons/GameTemplate/Autoload/Game.gd',
 	'ScreenFade'			: 'res://Addons/GameTemplate/Autoload/ScreenFade.scn',
 	'Hud'					: 'res://Addons/GameTemplate/Autoload/Hud.scn',
 	'PauseMenu'				: 'res://Addons/GameTemplate/Autoload/PauseMenu.scn',

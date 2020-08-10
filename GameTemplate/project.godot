@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "ResourceAsyncLoader",
 "language": "GDScript",
 "path": "res://Addons/GameTemplate/Utility/ResourceAsyncLoader.gd"
+}, {
+"base": "Resource",
+"class": "SaveSettings",
+"language": "GDScript",
+"path": "res://Addons/GameTemplate/Utility/SaveSettings.gd"
 } ]
 _global_script_class_icons={
-"ResourceAsyncLoader": ""
+"ResourceAsyncLoader": "",
+"SaveSettings": ""
 }
 
 [application]
@@ -33,7 +39,7 @@ SettingsResolution="*res://Addons/GameTemplate/Autoload/SettingsResolution.gd"
 SettingsSaveLoad="*res://Addons/GameTemplate/Autoload/SettingsSaveLoad.gd"
 Settings="*res://Addons/GameTemplate/Autoload/Settings.gd"
 Options="*res://Addons/GameTemplate/Autoload/Options.scn"
-Game="*res://Addons/GameTemplate/Autoload/Game.scn"
+Game="*res://Addons/GameTemplate/Autoload/Game.gd"
 ScreenFade="*res://Addons/GameTemplate/Autoload/ScreenFade.scn"
 PauseMenu="*res://Addons/GameTemplate/Autoload/PauseMenu.scn"
 Hud="*res://Addons/GameTemplate/Autoload/Hud.scn"
