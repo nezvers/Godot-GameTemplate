@@ -5,7 +5,6 @@ extends Node
 const CONFIG_DIR: = "user://saves/" #"user://saves/"
 const CONFIG_FILE_NAME: = "settings"
 const CONFIG_EXTENSION: = ".tres"
-const save_resource: = SaveSettings.new()
 
 #Save/ Load
 #Call this method to trigger Settings saving - by default triggered on closing options menu
@@ -23,7 +22,7 @@ func load_settings()->bool:
 
 # Resource VARIATION - new version
 func save_settings_resource()->void:
-	var new_save: 			= save_resource.new()
+	var new_save: 			= SaveSettings.new()
 	new_save.resolution 	= SettingsResolution.get_resolution_data()
 	new_save.audio			= SettingsAudio.get_audio_data()
 	new_save.inputs 		= SettingsControls.get_input_data()
