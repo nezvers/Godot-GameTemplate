@@ -5,7 +5,7 @@ extends Node
 const CONFIG_DIR: = "user://saves/" #"user://saves/"
 const CONFIG_FILE_NAME: = "settings"
 const CONFIG_EXTENSION: = ".tres"
-const save_resource: = preload('res://Addons/GameTemplate/Utility/Settings_save.gd')
+const save_resource: = SaveSettings.new()
 
 #Save/ Load
 #Call this method to trigger Settings saving - by default triggered on closing options menu
