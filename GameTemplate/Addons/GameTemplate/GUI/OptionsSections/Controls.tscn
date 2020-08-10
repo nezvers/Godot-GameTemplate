@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Addons/GameTemplate/GUI/OptionsSections/OptionsControls.gd" type="Script" id=1]
+[ext_resource path="res://Addons/GameTemplate/GUI/OptionsSections/Controls.gd" type="Script" id=1]
 [ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Addons/GameTemplate/GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
