@@ -13,9 +13,7 @@ const autoload_order: = [
 	'ScreenFade',
 	'PauseMenu',
 	'Hud',
-	'GuiBrain',
 	'MenuEvent',
-	#'SceneLoader',
 	'Music',
 	'HtmlFocus'
 ]
@@ -27,8 +25,6 @@ const autoload_list: = {
 	'Hud'					: 'res://Addons/GameTemplate/Autoload/Hud.scn',
 	'PauseMenu'				: 'res://Addons/GameTemplate/Autoload/PauseMenu.scn',
 	'MenuEvent'				: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',
-	'GuiBrain'				: 'res://Addons/GameTemplate/Autoload/GuiBrain.gd',
-	#'SceneLoader'			: 'res://Addons/GameTemplate/Autoload/SceneLoader.gd',
 	'Music'					: 'res://Addons/GameTemplate/Autoload/Music.scn',
 	'Options'				: 'res://Addons/GameTemplate/Autoload/Options.scn',
 	'Settings'				: 'res://Addons/GameTemplate/Autoload/Settings.gd',

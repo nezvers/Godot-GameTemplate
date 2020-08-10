@@ -32,7 +32,6 @@ func set_action_list()->void:
 		var Add:Button = ActionNode.find_node("AddAction") #Used for adding new ControlBind
 		Name.text = Action
 		Add.connect("pressed", self, "add_control", [Action])
-		GuiBrain.emit_signal("newScrollContainerButton", ActionNode) #emit to send node to ScrollContainer
 		set_control_list(Action)
 
 func set_control_list(Action)->void:
@@ -53,7 +52,6 @@ func new_bind(Action, event)->void: #Adding bound InputEvent in the list
 	
 	BindName.text = get_InputEvent_name(event)
 	Remove.connect("pressed", self, "remove_control", [[Action, event, eventNode]]) #Name, event, node
-	GuiBrain.emit_signal("newScrollContainerButton", eventNode) #emit to send node to ScrollContainer
 
 func get_InputEvent_name(event:InputEvent)->String:
 	var text:String = ""

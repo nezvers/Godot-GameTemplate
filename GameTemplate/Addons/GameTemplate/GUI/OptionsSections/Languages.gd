@@ -18,3 +18,4 @@ func on_show_languages(value:bool)->void:
 
 func _on_button_pressed(value:String)->void:
 	SettingsLanguage.Language = SettingsLanguage.Language_dictionary[value] #Settings will emit ReTranslate
+	MenuEvent.Languages = false

@@ -206,8 +206,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LanguagesLabel" type="Label" parent="HBoxContainer/Panel3/VBoxContainer"]
-margin_right = 108.0
-margin_bottom = 26.0
+margin_right = 100.0
+margin_bottom = 13.0
 size_flags_horizontal = 5
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 3 )
@@ -215,8 +215,8 @@ text = "Languages"
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel3/VBoxContainer"]
-margin_top = 30.0
-margin_right = 108.0
+margin_top = 17.0
+margin_right = 100.0
 margin_bottom = 119.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -228,8 +228,8 @@ custom_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Panel3/VBoxContainer/MarginContainer"]
 margin_left = 5.0
 margin_top = 4.0
-margin_right = 104.0
-margin_bottom = 85.0
+margin_right = 96.0
+margin_bottom = 98.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_top = 120.0

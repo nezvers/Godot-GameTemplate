@@ -10,7 +10,7 @@ I'd be happy for any contribution to make this template as good as it can be and
 With time it has become to be just drop in the project and should work with quick setup.
 * Drop GameTemplate in Addons folder in your projects Addons folder;
 * Enable GameTemplate plugin in Project Settings. It will set up all necessary autoloads automatically;
-* Add your main menu scene to Addons/GameTemplate/Autoloads/Game.gd variable 'start_scene'. It is used by PauseLayer to switch scene to main menu or similar;
+* Add your main menu scene to Addons/GameTemplate/Autoloads/PauseMenu.scn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
 * Set audio bus layer - res://Addons/GameTemplate/Assets/Audio_bus_layout.tres
 * Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones included in button remapping.
 * To change scenes trigger signal:

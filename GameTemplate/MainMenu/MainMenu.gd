@@ -3,18 +3,19 @@ extends CanvasLayer
 export (String, FILE, "*.tscn") var First_Level: String
 
 func _ready()->void:
-	MenuEvent.MainMenu = true
-	Hud.visible = false
-	GuiBrain.gui_collect_focusgroup()
+	get_tree().get_nodes_in_group("MainMenu")[0].grab_focus()					#Godot doesn't have buttons auto grab_focus when noone has focus
+	MenuEvent.connect("Options", self, "on_options")
+	
 	if OS.get_name() == "HTML5":
 		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
 	#Localization
 	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 	retranslate()
 
-func _exit_tree()->void:
-	MenuEvent.MainMenu = false				#switch bool for easier pause menu detection and more
-	GuiBrain.gui_collect_focusgroup()	#Force re-collect buttons because main menu wont be there
+func on_options(value:bool)->void:
+	if !value && !MenuEvent.Paused:
+		print(value, ' ', MenuEvent.Paused)
+		get_tree().get_nodes_in_group("MainMenu")[0].grab_focus()
 
 func _on_NewGame_pressed()->void:
 	Game.emit_signal("NewGame")

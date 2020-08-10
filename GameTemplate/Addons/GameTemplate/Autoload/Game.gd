@@ -9,7 +9,7 @@ signal Exit
 
 signal SceneIsLoaded	#used internally to trigger when new scene is loaded
 
-var start_scene: = 'res://MainMenu/MainMenu.tscn'
+
 
 onready var CurrentScene = null
 onready var CurrentSceneInstance = get_tree().current_scene
@@ -18,12 +18,9 @@ var NextScene
 var loader: = ResourceAsyncLoader.new()
 
 func _ready()->void:
-	MenuEvent.connect("Options",	self, "on_Options")
 	connect("Exit",			self, "on_Exit")
 	connect("ChangeScene",	self, "on_ChangeScene")
 	connect("Restart", 		self, "restart_scene")
-	#Background async loader
-	GuiBrain.gui_collect_focusgroup()
 
 func on_ChangeScene(scene)->void:
 	if ScreenFade.state != ScreenFade.IDLE:
