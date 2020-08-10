@@ -4,6 +4,8 @@
 Main branch will be compatible with pixel art games, since those games require some more work to get everything right.  
 I'd be happy for any contribution to make this template as good as it can be and it is open for branching out Hi-Res game branch.  
 
+#It's under heavy upgrade process, but now remaining revorking on Options GUI and GUI controling code.
+
 *Read this in other languages: [Español](README_es.md)
 
 ## How to use
