@@ -257,7 +257,6 @@ margin_bottom = 29.0
 text = "Controls"
 
 [node name="Back" parent="MarginContainer/VBoxContainer" groups=[
-"FocusGroup",
 "OptionsMain",
 ] instance=ExtResource( 9 )]
 margin_top = 30.0

@@ -101,18 +101,18 @@ func on_show_languages(value:bool)->void:
 
 #Localization
 func retranslate()->void:
-	find_node("Resolution").text = tr("RESOLUTION")
-	find_node("Volume").text = tr("VOLUME")
-	find_node("LanguagesLabel").text = tr("LANGUAGES")
-	find_node("Fullscreen").text = tr("FULLSCREEN")
-	find_node("Borderless").text = tr("BORDERLESS")
-	find_node("Scale").text = tr("SCALE")
-	find_node("Master").get_node("ScaleName").text = tr("MASTER")
-	find_node("Music").get_node("ScaleName").text = tr("MUSIC")
-	find_node("SFX").get_node("ScaleName").text = tr("SFX")
-	find_node("LanguagesButton").text = tr("LANGUAGES")
-	find_node("Controls").text = tr("CONTROLS")
-	find_node("Back").text = tr("BACK")
+	find_node("Resolution").text 					= tr("RESOLUTION")
+	find_node("Volume").text 						= tr("VOLUME")
+	find_node("LanguagesLabel").text 				= tr("LANGUAGES")
+	find_node("Fullscreen").text 					= tr("FULLSCREEN")
+	find_node("Borderless").text 					= tr("BORDERLESS")
+	find_node("Scale").text 						= tr("SCALE")
+	find_node("Master").get_node("ScaleName").text	= tr("MASTER")
+	find_node("Music").get_node("ScaleName").text 	= tr("MUSIC")
+	find_node("SFX").get_node("ScaleName").text 	= tr("SFX")
+	find_node("LanguagesButton").text 				= tr("LANGUAGES")
+	find_node("Controls").text 						= tr("CONTROLS")
+	find_node("Back").text 							= tr("BACK")
 
 func set_node_in_focus()->void:
 	var FocusGroup:Array = get_groups()

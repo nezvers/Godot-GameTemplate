@@ -79,7 +79,7 @@ margin_bottom = 45.0
 size_flags_horizontal = 5
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
-text = "Izmantojiet jauno kontroli!"
+text = "USE_NEW_CONTROLS"
 align = 1
 
 [node name="Cancel" type="Button" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer"]

@@ -41,6 +41,18 @@ func set_paused(value:bool)->void:
 	if Paused:
 		get_tree().get_nodes_in_group("Pause")[0].grab_focus()
 
+func _ready()->void:
+	pause_mode = Node.PAUSE_MODE_PROCESS
+
 func _unhandled_input(event)->void:
 	if event.is_action_pressed("ui_cancel"):									#Triggers pause menu
-		PauseMenu.show(true)
+		if Languages:
+			set_languages(false)
+		elif Controls:
+			set_controls(false)
+		elif Options:
+			set_options(false)
+		elif Paused:
+			PauseMenu.show(false)
+		elif PauseMenu.can_show:
+			PauseMenu.show(true)

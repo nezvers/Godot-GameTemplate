@@ -30,6 +30,9 @@ custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Section/MarginContainer"]
 margin_left = 5.0
@@ -94,7 +97,6 @@ margin_bottom = 14.0
 text = "Default"
 
 [node name="Back" parent="MarginContainer/VBoxContainer" groups=[
-"FocusGroup",
 "OptionsControls",
 ] instance=ExtResource( 5 )]
 margin_top = 15.0

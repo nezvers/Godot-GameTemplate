@@ -60,7 +60,6 @@ size_flags_vertical = 3
 custom_constants/separation = 1
 
 [node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" groups=[
-"FocusGroup",
 "MainMenu",
 ] instance=ExtResource( 1 )]
 margin_right = 55.0
