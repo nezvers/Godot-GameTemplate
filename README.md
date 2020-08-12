@@ -4,31 +4,50 @@
 Main branch will be compatible with pixel art games, since those games require some more work to get everything right.  
 I'd be happy for any contribution to make this template as good as it can be and it is open for branching out Hi-Res game branch.  
 
-# It's under heavy upgrade process, but now remaining revork is on Options GUI and GUI controling code.
-
 *Read this in other languages: [Español](README_es.md)
 
+## Features
+* Modular and clean code base.
+* Quick to setup (Plugin format - enabling adds all singletons).
+* Easy to expand Save/Load system. (Comes with Resource saving as default but there's an option to switch to JSON).
+* Comes with custom ResourceAsyncLoader class (used in scene changing. Has fallbacks to regular loading for platforms that don't support async loading).
+* Localization system - community helped (EN, DE, ES, FR, IT, pt_BR, RU, sv_SE, TR. RU is not active due to font limitation).
+* Controls rebinding system.
+* Resolution changing system.
+* Audio volume system.
+* Easy to change scene transition (comes with fade to black).
+* Menus can navigate without mouse.
+* Convinient singleton HtmlFocus, that asks to click on it if you have HTML5 game to gain game window focus (automatically free itself if not html5).
+* Comes with custom style (saved - planned to turn into theme).
+* HUD singleton (ready to be used in your way).
+* Music singleton for persistent music after restarting or changing scenes
+
+
 ## How to use
-With time it has become to be just drop in the project and should work with quick setup.
-* Drop GameTemplate in Addons folder in your projects Addons folder;
+* Drop GameTemplate from Addons folder in your projects Addons folder;
 * Enable GameTemplate plugin in Project Settings. It will set up all necessary autoloads automatically;
+* Set projects audio bus layer - res://Addons/GameTemplate/Assets/Audio_bus_layout.tres. Plugin can't do that automatically yet.
 * Add your main menu scene to Addons/GameTemplate/Autoloads/PauseMenu.scn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
-* Set audio bus layer - res://Addons/GameTemplate/Assets/Audio_bus_layout.tres
-* Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones included in button remapping.
-* To change scenes trigger signal:
-```
-Game.emit_signal('change_scene', scene_file_location_string)
-```
-* Check other signals in Game singleton
+* Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones uned in button remapping.
+* To change scenes trigger signal:  ``` Game.emit_signal('change_scene', scene_file_location_string)```
+* To enable/disable HUD your levels set: ```Hud.visible = true ```
+* To enable/disable pause menu levels set: ```PauseMenu.can_show = true ```
+* Check convinient signals in Game singleton (New Game, Continue, Resume, Restart, ChangeScene, Exit)
 
 
 ### Template has Autoload scripts and scenes that's managing:  
-* Scene transitioning - during that background loading is taking care of the next scene loading for smooth experience.  
-* Hud - reserved for game specific overlay (HP, Points, etc.)  
-* PauseLayer - Is a menu that appears while in game and pauses the game, allowing to (Resume, Options, Main Menu, Exit).  
-* MainOptions - GUI for changing resolution (Fullscreen, Borderless, scaling), Audio faders (Master, Music, SFX) and Controls section for Action bindings.    
-* FadeLayer - As a template it's just Fade-to-Black ColorRect but it's easy to add fading shader to it.  
-* Music - Persistent AudioStreamPlayer for music
+* Game - convinient game signals, scene changing, scene restarting, game exit.
+* ScreenFade - scene transitioning layer. As a template it's just Fade-to-Black ColorRect but it's easy to add fading shader to it.
+* PauseMenu - Is a menu that appears while in game and pauses the game, allowing to (Resume, Options, Main Menu, Exit).
+* Options - GUI for changing resolution (Fullscreen, Borderless, scaling), Audio faders (Master, Music, SFX) and Controls section for Action bindings.
+* Settings - delegates order of other Settings singletons _ready.
+* SettingsSaveLoad - Manages save/load settings. Easily expandable for other parameters and comes with 2x versions Resource and JSON saving.
+* SettingsResolutions - handles the resolution changes.
+* SettingsControls - handles the information for controls.
+* SettingsLanguage - handles information for languages.
+* MenuEvent - handles events between options menu GUI.
+* Hud - reserved for game specific overlay (HP, Points, etc.).
+* Music - Persistent AudioStreamPlayer for music.
 * HTMLfocus - if game is HTML5 it will overlay a button on screen, requesting player to click on it and allowing the game to become in focus.  
 
 ## Options menu  
@@ -41,7 +60,7 @@ Russian is translated but excluded in options because font doesn't support Cyril
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/Languages.PNG?raw=true)
 
 ## Key action binding menu  
-Godot editor InputMap influenced rebinding, but with auto-detect function.  
+Godot editor InputMap influenced rebinding with auto-detect function.  
 Buttons gets saved uppon exiting Options menu.  
 ![](https://github.com/nezvers/Godot-GameTemplate/blob/master/Img/Controls.PNG?raw=true)
 
