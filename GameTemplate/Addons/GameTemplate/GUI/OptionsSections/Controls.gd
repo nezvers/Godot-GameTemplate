@@ -19,6 +19,8 @@ func _ready()->void:
 
 func show_controls(value:bool)->void:
 	visible = value
+	if visible:
+		get_tree().get_nodes_in_group("Controls")[0].grab_focus()
 
 func set_action_list()->void:
 	ActionNodes.clear() #Just in case resetting everything

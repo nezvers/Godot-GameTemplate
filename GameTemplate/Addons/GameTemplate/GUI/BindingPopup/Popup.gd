@@ -26,14 +26,15 @@ func _input(event)->void:
 	set_process_input(false)
 	visible = false
 
-func _on_Button_pressed():
-	NewEvent = null
-	emit_signal("NewControl")
-	set_process_input(false)
-	visible = false
 
 #Localization
 func retranslate()->void:
 	find_node("Cancel").text = tr("CANCEL")
 	find_node("Message").text = tr("USE_NEW_CONTROLS")
-	
+
+
+func _on_Cancel_pressed():
+	NewEvent = null
+	emit_signal("NewControl")
+	set_process_input(false)
+	visible = false

@@ -5,12 +5,14 @@
 [ext_resource path="res://Addons/GameTemplate/Assets/Images/Button3.png" type="Texture" id=3]
 [ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=4]
 
-
 [node name="ScaleUp" type="TextureButton"]
 size_flags_vertical = 4
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 2 )
 texture_focused = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5

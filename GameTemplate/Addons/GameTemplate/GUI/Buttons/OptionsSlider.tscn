@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Addons/GameTemplate/Assets/Images/SliderGrabber1.png" type="Texture" id=2]
 [ext_resource path="res://Addons/GameTemplate/Assets/Images/SliderGrabber2.png" type="Texture" id=3]
 [ext_resource path="res://Addons/GameTemplate/Assets/Images/Slider1.png" type="Texture" id=4]
 [ext_resource path="res://Addons/GameTemplate/Assets/Images/Slider2.png" type="Texture" id=5]
-[ext_resource path="res://Addons/GameTemplate/Assets/Sounds/TestBeep.wav" type="AudioStream" id=6]
-
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 4 )
@@ -60,4 +58,3 @@ value = 50.0
 ticks_on_borders = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )

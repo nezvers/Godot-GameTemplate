@@ -14,7 +14,6 @@ func _ready()->void:
 
 func on_options(value:bool)->void:
 	if !value && !MenuEvent.Paused:
-		print(value, ' ', MenuEvent.Paused)
 		get_tree().get_nodes_in_group("MainMenu")[0].grab_focus()
 
 func _on_NewGame_pressed()->void:
