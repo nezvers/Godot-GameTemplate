@@ -78,6 +78,7 @@ size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Popup" parent="Section" instance=ExtResource( 4 )]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_top = 151.0
@@ -97,7 +98,7 @@ margin_bottom = 14.0
 text = "Default"
 
 [node name="Back" parent="MarginContainer/VBoxContainer" groups=[
-"OptionsControls",
+"Controls",
 ] instance=ExtResource( 5 )]
 margin_top = 15.0
 margin_right = 41.0

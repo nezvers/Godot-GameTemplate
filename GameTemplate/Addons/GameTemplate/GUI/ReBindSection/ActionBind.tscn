@@ -25,6 +25,9 @@ anti_aliasing = false
 margin_right = 310.0
 margin_bottom = 13.0
 custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 310.0
@@ -33,7 +36,7 @@ size_flags_horizontal = 3
 custom_constants/separation = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
-margin_right = 295.0
+margin_right = 297.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -41,7 +44,7 @@ custom_styles/panel = SubResource( 1 )
 
 [node name="Name" type="Label" parent="HBoxContainer/PanelContainer"]
 margin_left = 8.0
-margin_right = 295.0
+margin_right = 297.0
 margin_bottom = 13.0
 custom_fonts/font = ExtResource( 1 )
 text = "Action"
@@ -49,7 +52,7 @@ text = "Action"
 [node name="AddAction" type="Button" parent="HBoxContainer" groups=[
 "ContainerFocus",
 ]]
-margin_left = 295.0
+margin_left = 297.0
 margin_right = 310.0
 margin_bottom = 15.0
 hint_tooltip = "Add new control bind for this action"
@@ -58,6 +61,7 @@ custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/disabled = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.752941, 0.752941, 0.752941, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )

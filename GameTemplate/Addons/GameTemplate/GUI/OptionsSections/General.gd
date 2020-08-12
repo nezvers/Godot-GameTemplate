@@ -1,12 +1,17 @@
 extends VBoxContainer
 
-onready var Master:HSlider = find_node("Master").get_node("HSlider")
-onready var Music:HSlider = find_node("Music").get_node("HSlider")
-onready var SFX:HSlider = find_node("SFX").get_node("HSlider")
+#RESOLUTION
 onready var Resolution_panel:Panel = find_node("Panel")
 onready var Volume_panel:Panel = find_node("Panel2")
 onready var Language_panel:Panel = find_node("Panel3")
-var SetUp:bool = true #need to disable playing sound on initiating faders
+#AUDIO
+onready var Master_slider:HSlider = find_node("Master").get_node("HSlider")
+onready var Music_slider:HSlider = find_node("Music").get_node("HSlider")
+onready var SFX_slider:HSlider = find_node("SFX").get_node("HSlider")
+onready var Master_player:AudioStreamPlayer = find_node("Master").get_node("AudioStreamPlayer")
+onready var Music_player:AudioStreamPlayer = find_node("Music").get_node("AudioStreamPlayer")
+onready var SFX_player:AudioStreamPlayer = find_node("SFX").get_node("AudioStreamPlayer")
+var beep: = preload("res://Addons/GameTemplate/Assets/Sounds/TestBeep.wav")
 
 func _ready()->void:
 	#Set up toggles and sliders
@@ -15,9 +20,7 @@ func _ready()->void:
 		find_node("Scale").visible = false
 	set_resolution()
 	set_volume_sliders()
-	MenuEvent.Languages = false #just in case project saved with visible Languages
 	
-	SetUp = false #Finished fader setup
 	MenuEvent.connect("Controls", self, "on_show_controls")
 	MenuEvent.connect("Languages", self, "on_show_languages")
 	SettingsResolution.connect("Resized", self, "_on_Resized")
@@ -31,40 +34,33 @@ func set_resolution()->void:
 	#Your logic for scaling
 
 func set_volume_sliders()->void: #Initialize volume sliders
-	Master.value = SettingsAudio.VolumeMaster * 100
-	Music.value = SettingsAudio.VolumeMusic * 100
-	SFX.value = SettingsAudio.VolumeSFX * 100
+	Master_slider.value = SettingsAudio.VolumeMaster * 100
+	Music_slider.value = SettingsAudio.VolumeMusic * 100
+	SFX_slider.value = SettingsAudio.VolumeSFX * 100
+	Master_player.stream = beep
+	Music_player.stream = beep
+	SFX_player.stream = beep
 
 #### BUTTON SIGNALS ####
 func _on_Master_value_changed(value)->void:
-	if SetUp:
-		return
 	SettingsAudio.VolumeMaster = value/100
 	var player:AudioStreamPlayer = find_node("Master").get_node("AudioStreamPlayer")
 	player.play()
 
 func _on_Music_value_changed(value)->void:
-	if SetUp:
-		return
 	SettingsAudio.VolumeMusic = value/100
 	var player:AudioStreamPlayer = find_node("Music").get_node("AudioStreamPlayer")
 	player.play()
 
 func _on_SFX_value_changed(value)->void:
-	if SetUp:
-		return
 	SettingsAudio.VolumeSFX = value/100
 	var player:AudioStreamPlayer = find_node("SFX").get_node("AudioStreamPlayer")
 	player.play()
 
 func _on_Fullscreen_pressed()->void:
-	if SetUp:
-		return
 	SettingsResolution.Fullscreen = find_node("Fullscreen").pressed
 
 func _on_Borderless_pressed()->void:
-	if SetUp:
-		return
 	SettingsResolution.Borderless = find_node("Borderless").pressed
 
 func _on_ScaleUp_pressed()->void:
@@ -84,26 +80,23 @@ func _on_Back_pressed()->void:
 	MenuEvent.Options = false
 
 func _on_Languages_pressed()->void:
-	MenuEvent.Languages = !MenuEvent.Languages
-	if !MenuEvent.Languages:
-		return
-	yield(SettingsLanguage, "ReTranslate") #After choosing language it will trigger ReTranslate
-	print("Language_choosen")
-	MenuEvent.Languages = !MenuEvent.Languages
+	MenuEvent.Languages = true
 
 #EVENT SIGNALS
 func on_show_controls(value:bool)->void:
 	visible = !value 	#because showing controls
+	if visible:
+		get_tree().get_nodes_in_group("General")[0].grab_focus()
 
 func on_show_languages(value:bool)->void:
-	Resolution_panel.visible = !value
-	Volume_panel.visible = !value
+	visible = !value
+	if visible:
+		get_tree().get_nodes_in_group("General")[0].grab_focus()
 
 #Localization
 func retranslate()->void:
 	find_node("Resolution").text 					= tr("RESOLUTION")
 	find_node("Volume").text 						= tr("VOLUME")
-	find_node("LanguagesLabel").text 				= tr("LANGUAGES")
 	find_node("Fullscreen").text 					= tr("FULLSCREEN")
 	find_node("Borderless").text 					= tr("BORDERLESS")
 	find_node("Scale").text 						= tr("SCALE")
