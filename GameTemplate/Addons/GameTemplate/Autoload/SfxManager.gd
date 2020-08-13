@@ -20,20 +20,20 @@ func add_players(value:int)->void:
 		players.append(player)
 		add_child(player)
 
-func load_samples(list:Array)->void:											# Let the manager handle loading sample
+func load_samples(list:Array)->void:											# Let the manager handle loading sample - async if possible
 	var samples:Array = yield(loader.load_start( list ), "completed")
 	for sample in samples:
 		var key:String = sample.get_path().get_file().get_basename()
 		sample_collection.append(sample)
 		sample_dictionary[key] = sample_collection.size() -1
 
-func add_samples(list:Array)->void:												# You handle loading and just add the sample
+func add_samples(list:Array)->void:												# You handle loading and just add already loaded sample
 	for sample in list:
-		var key:AudioStreamSample = sample.get_path().get_file().get_basename()
+		var key:String = sample.get_path().get_file().get_basename()
 		sample_collection.append(sample)
 		sample_dictionary[key] = sample_collection.size() -1
 
-func remove_samples(list:Array)->void:
+func remove_samples(list:Array)->void:											# Clear up memory if there are unnecessary samples loaded
 	var array_positions: = []
 	for key in list:
 		array_positions.append(sample_dictionary[key])

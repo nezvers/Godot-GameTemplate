@@ -8,10 +8,11 @@ I'd be happy for any contribution to make this template as good as it can be and
 
 ## Features
 * Modular and clean code base.
-* Quick to setup (Plugin format - enabling adds all singletons).
+* Quick to setup (Plugin format - enabling plugin adds all singletons).
 * Easy to expand Save/Load system. (Comes with Resource saving as default but there's an option to switch to JSON).
 * Comes with custom ResourceAsyncLoader class (used in scene changing. Has fallbacks to regular loading for platforms that don't support async loading).
 * Localization system - community helped (EN, DE, ES, FR, IT, pt_BR, RU, sv_SE, TR. RU is not active due to font limitation).
+* Sound effects manager system - (manages SFX sample playing to not trigger multiple same samples together)
 * Controls rebinding system.
 * Resolution changing system.
 * Audio volume system.
@@ -30,6 +31,7 @@ I'd be happy for any contribution to make this template as good as it can be and
 * Add your main menu scene to Addons/GameTemplate/Autoloads/PauseMenu.scn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
 * Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones uned in button remapping.
 * To change scenes trigger signal:  ``` Game.emit_signal('change_scene', scene_file_location_string)```
+* To use SfxManager give Array of samples to load: ```SfxManager.load_samples( ["res://...."] ) ``` and trigger samples with: ```SfxManager.play("file_name_without_extension")```
 * To enable/disable HUD your levels set: ```Hud.visible = true ```
 * To enable/disable pause menu levels set: ```PauseMenu.can_show = true ```
 * Check convinient signals in Game singleton (New Game, Continue, Resume, Restart, ChangeScene, Exit)
