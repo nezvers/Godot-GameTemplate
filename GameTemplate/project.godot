@@ -45,6 +45,7 @@ PauseMenu="*res://Addons/GameTemplate/Autoload/PauseMenu.scn"
 Hud="*res://Addons/GameTemplate/Autoload/Hud.scn"
 MenuEvent="*res://Addons/GameTemplate/Autoload/MenuEvent.gd"
 Music="*res://Addons/GameTemplate/Autoload/Music.scn"
+SfxManager="*res://Addons/GameTemplate/Autoload/SfxManager.gd"
 HtmlFocus="*res://Addons/GameTemplate/Autoload/HtmlFocus.scn"
 
 [debug]

@@ -15,6 +15,7 @@ const autoload_order: = [
 	'Hud',
 	'MenuEvent',
 	'Music',
+	'SfxManager',
 	'HtmlFocus'
 ]
 
@@ -26,6 +27,7 @@ const autoload_list: = {
 	'PauseMenu'				: 'res://Addons/GameTemplate/Autoload/PauseMenu.scn',
 	'MenuEvent'				: 'res://Addons/GameTemplate/Autoload/MenuEvent.gd',
 	'Music'					: 'res://Addons/GameTemplate/Autoload/Music.scn',
+	'SfxManager'			: 'res://Addons/GameTemplate/Autoload/SfxManager.gd',
 	'Options'				: 'res://Addons/GameTemplate/Autoload/Options.scn',
 	'Settings'				: 'res://Addons/GameTemplate/Autoload/Settings.gd',
 	'SettingsAudio'			: 'res://Addons/GameTemplate/Autoload/SettingsAudio.gd',
