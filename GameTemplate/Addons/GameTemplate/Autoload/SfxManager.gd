@@ -2,7 +2,7 @@ extends Node
 
 var loader: = ResourceAsyncLoader.new()											# Instance of resource async loader
 
-export (int) var start_player_count = 3
+export (int) var start_player_count = 3											# Starting amount of AudioStreamPlayers
 export (String) var bus_name:String = 'SFX'										# Name of the bus sample players will be aassigned to, if wrong defaults to Master
 export (Array, AudioStream) var sample_collection								# If added in scene, can preload from Inspector
 var sample_dictionary: = {}														# Holds loaded samples
@@ -46,7 +46,7 @@ func _ready():																	# Add to database all samples preloaded in the In
 	for i in sample_collection.size():
 		var sample:AudioStreamSample = sample_collection[i]						# Reference sample
 		sample_dictionary[sample.get_path().get_file().get_basename()] = i		# Create entry with file name to reference index in array
-	add_players(start_player_count)
+	add_players(start_player_count)												# Add some players to start with
 
 func play(sample_name:String)->void:
 	if active_players.has(sample_name):											# Same sample is already playing
