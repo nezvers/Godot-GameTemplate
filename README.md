@@ -37,7 +37,7 @@ I'd be happy for any contribution to make this template as good as it can be and
 * Check convinient signals in Game singleton (New Game, Continue, Resume, Restart, ChangeScene, Exit)
 
 
-### Template has Autoload scripts and scenes that's managing:  
+### Singletone roles:  
 * Game - convinient game signals, scene changing, scene restarting, game exit.
 * ScreenFade - scene transitioning layer. As a template it's just Fade-to-Black ColorRect but it's easy to add fading shader to it.
 * PauseMenu - Is a menu that appears while in game and pauses the game, allowing to (Resume, Options, Main Menu, Exit).
