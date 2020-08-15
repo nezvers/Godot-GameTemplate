@@ -36,6 +36,16 @@ I'd be happy for any contribution to make this template as good as it can be and
 * To enable/disable pause menu levels set: ```PauseMenu.can_show = true ```
 * Check convinient signals in Game singleton (New Game, Continue, Resume, Restart, ChangeScene, Exit)
 
+## Walkthrough
+<div align="left">
+      <a href="https://youtu.be/oi_V9w3DayA">
+     <img 
+      src="https://img.youtube.com/vi/oi_V9w3DayA/0.jpg" 
+      alt="State machine walkthrough" 
+      style="width:100%;">
+      </a>
+    </div>
+
 
 ### Singletone roles:  
 * Game - convinient game signals, scene changing, scene restarting, game exit.
