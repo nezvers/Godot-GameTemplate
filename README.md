@@ -36,7 +36,7 @@ I'd be happy for any contribution to make this template as good as it can be and
 * To enable/disable pause menu levels set: ```PauseMenu.can_show = true ```
 * Check convinient signals in Game singleton (New Game, Continue, Resume, Restart, ChangeScene, Exit)
 
-## Walkthrough
+## Walkthrough video
 <div align="left">
       <a href="https://youtu.be/oi_V9w3DayA">
      <img 
