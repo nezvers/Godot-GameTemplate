@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/TestBeep.wav-45a4be03d71c746b87ca449715a6949c.sample"
+path="res://.import/TestBeep.wav-3ed18d3cc5db3a0921faf7e9a8c65e92.sample"
 
 [deps]
 
 source_file="res://addons/GameTemplate/Assets/Sounds/TestBeep.wav"
-dest_files=[ "res://.import/TestBeep.wav-45a4be03d71c746b87ca449715a6949c.sample" ]
+dest_files=[ "res://.import/TestBeep.wav-3ed18d3cc5db3a0921faf7e9a8c65e92.sample" ]
 
 [params]
 

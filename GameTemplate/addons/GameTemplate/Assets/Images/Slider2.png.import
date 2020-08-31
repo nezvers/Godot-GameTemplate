@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Button2.png-c2ff936c6fcc64a631c086e632aa92f0.stex"
+path="res://.import/Slider2.png-25c854d284088cfbe67c0a246dbbc61d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/GameTemplate/Assets/Images/Button2.png"
-dest_files=[ "res://.import/Button2.png-c2ff936c6fcc64a631c086e632aa92f0.stex" ]
+source_file="res://addons/GameTemplate/Assets/Images/Slider2.png"
+dest_files=[ "res://.import/Slider2.png-25c854d284088cfbe67c0a246dbbc61d.stex" ]
 
 [params]
 
