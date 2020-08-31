@@ -20,15 +20,15 @@ const autoload_order: = [
 ]
 
 const autoload_list: = {
-	'HtmlFocus'				: 'res://addons/GameTemplate/Autoload/HtmlFocus.scn',
+	'HtmlFocus'				: 'res://addons/GameTemplate/Autoload/HtmlFocus.tscn',
 	'Game'					: 'res://addons/GameTemplate/Autoload/Game.gd',
-	'ScreenFade'			: 'res://addons/GameTemplate/Autoload/ScreenFade.scn',
-	'Hud'					: 'res://addons/GameTemplate/Autoload/Hud.scn',
-	'PauseMenu'				: 'res://addons/GameTemplate/Autoload/PauseMenu.scn',
+	'ScreenFade'			: 'res://addons/GameTemplate/Autoload/ScreenFade.tscn',
+	'Hud'					: 'res://addons/GameTemplate/Autoload/Hud.tscn',
+	'PauseMenu'				: 'res://addons/GameTemplate/Autoload/PauseMenu.tscn',
 	'MenuEvent'				: 'res://addons/GameTemplate/Autoload/MenuEvent.gd',
-	'Music'					: 'res://addons/GameTemplate/Autoload/Music.scn',
+	'Music'					: 'res://addons/GameTemplate/Autoload/Music.tscn',
 	'SfxManager'			: 'res://addons/GameTemplate/Autoload/SfxManager.gd',
-	'Options'				: 'res://addons/GameTemplate/Autoload/Options.scn',
+	'Options'				: 'res://addons/GameTemplate/Autoload/Options.tscn',
 	'Settings'				: 'res://addons/GameTemplate/Autoload/Settings.gd',
 	'SettingsAudio'			: 'res://addons/GameTemplate/Autoload/SettingsAudio.gd',
 	'SettingsControls'		: 'res://addons/GameTemplate/Autoload/SettingsControls.gd',

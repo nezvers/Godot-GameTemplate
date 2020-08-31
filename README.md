@@ -28,7 +28,7 @@ I'd be happy for any contribution to make this template as good as it can be and
 * Drop GameTemplate from addons folder in your projects addons folder;
 * Enable GameTemplate plugin in Project Settings. It will set up all necessary autoloads automatically;
 * Set projects audio bus layer - res://addons/GameTemplate/Assets/Audio_bus_layout.tres. Plugin can't do that automatically yet.
-* Add your main menu scene to addons/GameTemplate/Autoloads/PauseMenu.scn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
+* Add your main menu scene to addons/GameTemplate/Autoloads/PauseMenu.tscn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
 * Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones uned in button remapping.
 * To change scenes trigger signal:  ``` Game.emit_signal('change_scene', scene_file_location_string)```
 * To use SfxManager give Array of samples to load: ```SfxManager.load_samples( ["res://...."] ) ``` and trigger samples with: ```SfxManager.play("file_name_without_extension")```
