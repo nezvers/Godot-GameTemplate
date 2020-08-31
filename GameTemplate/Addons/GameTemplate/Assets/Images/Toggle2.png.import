@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://Addons/GameTemplate/Assets/Images/Toggle2.png"
+source_file="res://addons/GameTemplate/Assets/Images/Toggle2.png"
 dest_files=[ "res://.import/Toggle2.png-9b933479d3d62194f5ed24ee2b362bce.stex" ]
 
 [params]

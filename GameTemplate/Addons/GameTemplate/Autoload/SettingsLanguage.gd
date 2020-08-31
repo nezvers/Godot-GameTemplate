@@ -4,16 +4,16 @@ signal ReTranslate
 
 #Localization
 var translations: = [
-	preload("res://Addons/GameTemplate/Localization/Localization.en.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.de.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.es.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.fr.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.it.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.lv.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.pt_BR.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.ru.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.sv_SE.translation"),
-	preload("res://Addons/GameTemplate/Localization/Localization.tr.translation")
+	preload("res://addons/GameTemplate/Localization/Localization.en.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.de.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.es.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.fr.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.it.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.lv.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.pt_BR.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.ru.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.sv_SE.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.tr.translation")
 ]
 onready var Language:String = TranslationServer.get_locale() setget set_language
 var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", SE = "sv_SE", BR = "pt_BR", LV = "lv", IT = "it", TR = "tr"} #Font doesn't have Cyrillic letters for russian

@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "ResourceAsyncLoader",
 "language": "GDScript",
-"path": "res://Addons/GameTemplate/Utility/ResourceAsyncLoader.gd"
+"path": "res://addons/GameTemplate/Utility/ResourceAsyncLoader.gd"
 }, {
 "base": "Resource",
 "class": "SaveSettings",
 "language": "GDScript",
-"path": "res://Addons/GameTemplate/Utility/SaveSettings.gd"
+"path": "res://addons/GameTemplate/Utility/SaveSettings.gd"
 } ]
 _global_script_class_icons={
 "ResourceAsyncLoader": "",
@@ -32,21 +32,21 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SettingsAudio="*res://Addons/GameTemplate/Autoload/SettingsAudio.gd"
-SettingsControls="*res://Addons/GameTemplate/Autoload/SettingsControls.gd"
-SettingsLanguage="*res://Addons/GameTemplate/Autoload/SettingsLanguage.gd"
-SettingsResolution="*res://Addons/GameTemplate/Autoload/SettingsResolution.gd"
-SettingsSaveLoad="*res://Addons/GameTemplate/Autoload/SettingsSaveLoad.gd"
-Settings="*res://Addons/GameTemplate/Autoload/Settings.gd"
-Options="*res://Addons/GameTemplate/Autoload/Options.scn"
-Game="*res://Addons/GameTemplate/Autoload/Game.gd"
-ScreenFade="*res://Addons/GameTemplate/Autoload/ScreenFade.scn"
-PauseMenu="*res://Addons/GameTemplate/Autoload/PauseMenu.scn"
-Hud="*res://Addons/GameTemplate/Autoload/Hud.scn"
-MenuEvent="*res://Addons/GameTemplate/Autoload/MenuEvent.gd"
-Music="*res://Addons/GameTemplate/Autoload/Music.scn"
-SfxManager="*res://Addons/GameTemplate/Autoload/SfxManager.gd"
-HtmlFocus="*res://Addons/GameTemplate/Autoload/HtmlFocus.scn"
+SettingsAudio="*res://addons/GameTemplate/Autoload/SettingsAudio.gd"
+SettingsControls="*res://addons/GameTemplate/Autoload/SettingsControls.gd"
+SettingsLanguage="*res://addons/GameTemplate/Autoload/SettingsLanguage.gd"
+SettingsResolution="*res://addons/GameTemplate/Autoload/SettingsResolution.gd"
+SettingsSaveLoad="*res://addons/GameTemplate/Autoload/SettingsSaveLoad.gd"
+Settings="*res://addons/GameTemplate/Autoload/Settings.gd"
+Options="*res://addons/GameTemplate/Autoload/Options.tscn"
+Game="*res://addons/GameTemplate/Autoload/Game.gd"
+ScreenFade="*res://addons/GameTemplate/Autoload/ScreenFade.tscn"
+PauseMenu="*res://addons/GameTemplate/Autoload/PauseMenu.tscn"
+Hud="*res://addons/GameTemplate/Autoload/Hud.tscn"
+MenuEvent="*res://addons/GameTemplate/Autoload/MenuEvent.gd"
+Music="*res://addons/GameTemplate/Autoload/Music.tscn"
+SfxManager="*res://addons/GameTemplate/Autoload/SfxManager.gd"
+HtmlFocus="*res://addons/GameTemplate/Autoload/HtmlFocus.tscn"
 
 [debug]
 

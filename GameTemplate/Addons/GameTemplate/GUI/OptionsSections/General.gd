@@ -11,7 +11,7 @@ onready var SFX_slider:HSlider = find_node("SFX").get_node("HSlider")
 onready var Master_player:AudioStreamPlayer = find_node("Master").get_node("AudioStreamPlayer")
 onready var Music_player:AudioStreamPlayer = find_node("Music").get_node("AudioStreamPlayer")
 onready var SFX_player:AudioStreamPlayer = find_node("SFX").get_node("AudioStreamPlayer")
-var beep: = preload("res://Addons/GameTemplate/Assets/Sounds/TestBeep.wav")
+var beep: = preload("res://addons/GameTemplate/Assets/Sounds/TestBeep.wav")
 
 func _ready()->void:
 	#Set up toggles and sliders

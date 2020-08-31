@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Normal.tres" type="StyleBox" id=2]
-[ext_resource path="res://Addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Pressed.tres" type="StyleBox" id=3]
-[ext_resource path="res://Addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Hover.tres" type="StyleBox" id=4]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Normal.tres" type="StyleBox" id=2]
+[ext_resource path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Pressed.tres" type="StyleBox" id=3]
+[ext_resource path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Hover.tres" type="StyleBox" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 8.0

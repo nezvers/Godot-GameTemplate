@@ -6,7 +6,7 @@ path="res://.import/TestBeep.wav-45a4be03d71c746b87ca449715a6949c.sample"
 
 [deps]
 
-source_file="res://Addons/GameTemplate/Assets/Sounds/TestBeep.wav"
+source_file="res://addons/GameTemplate/Assets/Sounds/TestBeep.wav"
 dest_files=[ "res://.import/TestBeep.wav-45a4be03d71c746b87ca449715a6949c.sample" ]
 
 [params]

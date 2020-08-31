@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://Addons/GameTemplate/Assets/Images/SliderGrabber1.png"
+source_file="res://addons/GameTemplate/Assets/Images/SliderGrabber1.png"
 dest_files=[ "res://.import/SliderGrabber1.png-0a110a98e7bb3f886a27aabdecf3a808.stex" ]
 
 [params]

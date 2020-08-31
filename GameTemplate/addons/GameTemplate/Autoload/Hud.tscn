@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+onready var hp: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/HP
+onready var score: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/Score
+onready var gui: = $CanvasLayer/GUI
+
+var visible: = false setget set_visible
+
+func _ready()->void:
+	gui.visible = visible
+
+func set_visible(value: bool)->void:
+	visible = value
+	gui.visible = value
+"
+
+[node name="Hud" type="Node"]
+script = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="GUI" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 316.0
+margin_bottom = 176.0
+mouse_filter = 2
+
+[node name="Top" type="HBoxContainer" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer"]
+margin_right = 312.0
+margin_bottom = 13.0
+mouse_filter = 2
+
+[node name="HP" type="Label" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/Top"]
+margin_right = 249.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "HP: 3"
+
+[node name="Score" type="Label" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/Top"]
+margin_left = 253.0
+margin_right = 312.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "Score: 0000"
+align = 2

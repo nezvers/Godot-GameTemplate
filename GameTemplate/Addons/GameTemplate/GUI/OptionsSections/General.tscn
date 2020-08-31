@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Addons/GameTemplate/GUI/OptionsSections/General.gd" type="Script" id=1]
-[ext_resource path="res://Addons/GameTemplate/GUI/OptionsSections/DarkerPanel.tres" type="StyleBox" id=2]
-[ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Addons/GameTemplate/GUI/Buttons/ToggleButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Addons/GameTemplate/GUI/Buttons/TextureButton.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_32.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Addons/GameTemplate/GUI/Buttons/OptionsSlider.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/GameTemplate/GUI/OptionsSections/General.gd" type="Script" id=1]
+[ext_resource path="res://addons/GameTemplate/GUI/OptionsSections/DarkerPanel.tres" type="StyleBox" id=2]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=3]
+[ext_resource path="res://addons/GameTemplate/GUI/Buttons/ToggleButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/GameTemplate/GUI/Buttons/TextureButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_32.tres" type="DynamicFont" id=6]
+[ext_resource path="res://addons/GameTemplate/GUI/Buttons/OptionsSlider.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=9]
 
 [node name="General" type="VBoxContainer"]
 margin_left = 8.0

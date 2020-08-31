@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Addons/GameTemplate/GUI/OptionsSections/Controls.gd" type="Script" id=1]
-[ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Addons/GameTemplate/GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/GameTemplate/GUI/OptionsSections/Controls.gd" type="Script" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/GameTemplate/GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0235294, 0.0196078, 0.0352941, 1 )

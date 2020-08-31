@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+func _ready()->void:
+	if OS.get_name() != \"HTML5\":
+		queue_free()
+		return
+	$CanvasLayer/Button.connect(\"pressed\", self, \"_on_Button_pressed\")
+	$CanvasLayer/Panel.show()
+	$CanvasLayer/Button.show()
+
+func _on_Button_pressed()->void:
+	queue_free()
+"
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[node name="HtmlFocus" type="Node"]
+script = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.611765 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+custom_fonts/font = ExtResource( 1 )
+text = "Click me"

@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Addons/GameTemplate/Assets/Images/Toggle2.png" type="Texture" id=1]
-[ext_resource path="res://Addons/GameTemplate/Assets/Images/Toggle1.png" type="Texture" id=2]
-[ext_resource path="res://Addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=3]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Toggle2.png" type="Texture" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Toggle1.png" type="Texture" id=2]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 

@@ -14,7 +14,7 @@ var active_players: = {}														# List of AudioStreamPlayer playing sample
 
 
 func add_players(value:int)->void:
-	for i in start_player_count:
+	for i in value:
 		var player: = AudioStreamPlayer.new()									# Create new player
 		player.bus = bus_name													# Must have an existing audio bus name
 		players.append(player)
@@ -24,8 +24,11 @@ func load_samples(list:Array)->void:											# Let the manager handle loading 
 	var samples:Array = yield(loader.load_start( list ), "completed")
 	for sample in samples:
 		var key:String = sample.get_path().get_file().get_basename()
-		sample_collection.append(sample)
-		sample_dictionary[key] = sample_collection.size() -1
+		if !sample_dictionary.has(key):
+			sample_collection.append(sample)
+			sample_dictionary[key] = sample_collection.size() -1
+		else:
+			print("SFXmanager already has: ", key)
 
 func add_samples(list:Array)->void:												# You handle loading and just add already loaded sample
 	for sample in list:

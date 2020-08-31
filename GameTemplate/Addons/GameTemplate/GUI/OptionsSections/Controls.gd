@@ -2,8 +2,8 @@ extends VBoxContainer
 
 onready var ActionList:VBoxContainer = find_node("ActionList") #Find node to keep it flexible
 onready var Pop:Popup = find_node("Popup")
-var ActionBind:PackedScene = preload("res://Addons/GameTemplate/GUI/ReBindSection/ActionBind.tscn")
-var ControlBind:PackedScene = preload("res://Addons/GameTemplate/GUI/ReBindSection/ControlBind.tscn")
+var ActionBind:PackedScene = preload("res://addons/GameTemplate/GUI/ReBindSection/ActionBind.tscn")
+var ControlBind:PackedScene = preload("res://addons/GameTemplate/GUI/ReBindSection/ControlBind.tscn")
 var ActionNamePath:String = "Name" #find_node()
 var ActionAddPath:String = "AddAction" #find_node()
 var ControlNamePath:String = "Name"

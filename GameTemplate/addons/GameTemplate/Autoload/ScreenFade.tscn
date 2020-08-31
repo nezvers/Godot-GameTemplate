@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+signal fade_complete
+
+enum {IDLE, BLACK, IN, OUT}
+var state: = IDLE setget set_state
+
+onready var colorRect: = $Fade_layer/ColorRect
+onready var tween: = $Tween
+
+var percent:float = 0 setget set_percent
+
+func set_percent(value:float)->void:
+	percent = clamp(value, 0.0, 1.0)
+	#Fade logic
+	colorRect.modulate.a = percent
+
+func set_state(value:int)->void:
+	state = value
+	match state:
+		IN:
+			tween.interpolate_property(self, \"percent\", 1.0, 0.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
+			tween.start()
+		OUT:
+			tween.interpolate_property(self, \"percent\", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.0)
+			tween.start()
+
+func _ready()->void:
+	colorRect.modulate.a = percent
+	tween.connect(\"tween_all_completed\", self, \"tween_completed\")
+
+func tween_completed()->void:
+	match state:
+		IN:
+			state = IDLE
+		OUT:
+			state = BLACK
+	emit_signal(\"fade_complete\")
+"
+
+[node name="ScreenFade" type="Node"]
+pause_mode = 2
+script = SubResource( 1 )
+
+[node name="Fade_layer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="ColorRect" type="ColorRect" parent="Fade_layer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

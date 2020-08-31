@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://Addons/GameTemplate/Assets/Images/Button2.png"
+source_file="res://addons/GameTemplate/Assets/Images/Button2.png"
 dest_files=[ "res://.import/Button2.png-c2ff936c6fcc64a631c086e632aa92f0.stex" ]
 
 [params]

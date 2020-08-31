@@ -25,10 +25,10 @@ I'd be happy for any contribution to make this template as good as it can be and
 
 
 ## How to use
-* Drop GameTemplate from Addons folder in your projects Addons folder;
+* Drop GameTemplate from addons folder in your projects addons folder;
 * Enable GameTemplate plugin in Project Settings. It will set up all necessary autoloads automatically;
-* Set projects audio bus layer - res://Addons/GameTemplate/Assets/Audio_bus_layout.tres. Plugin can't do that automatically yet.
-* Add your main menu scene to Addons/GameTemplate/Autoloads/PauseMenu.scn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
+* Set projects audio bus layer - res://addons/GameTemplate/Assets/Audio_bus_layout.tres. Plugin can't do that automatically yet.
+* Add your main menu scene to addons/GameTemplate/Autoloads/PauseMenu.tscn script variable 'MainMenu'. It is used by PauseLayer to switch scene to main menu or similar;
 * Edit SettingsControls.gd (inside Autoload directory) Actions array of input map names. They are the ones uned in button remapping.
 * To change scenes trigger signal:  ``` Game.emit_signal('change_scene', scene_file_location_string)```
 * To use SfxManager give Array of samples to load: ```SfxManager.load_samples( ["res://...."] ) ``` and trigger samples with: ```SfxManager.play("file_name_without_extension")```
@@ -36,7 +36,7 @@ I'd be happy for any contribution to make this template as good as it can be and
 * To enable/disable pause menu levels set: ```PauseMenu.can_show = true ```
 * Check convinient signals in Game singleton (New Game, Continue, Resume, Restart, ChangeScene, Exit)
 
-## Walkthrough video
+## Walkthrough
 <div align="left">
       <a href="https://youtu.be/oi_V9w3DayA">
      <img 
