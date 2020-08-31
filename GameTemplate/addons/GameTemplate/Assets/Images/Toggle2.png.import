@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SliderGrabber1.png-0a110a98e7bb3f886a27aabdecf3a808.stex"
+path="res://.import/Toggle2.png-77fd11241db781e0c4a9253ba49571d8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/GameTemplate/Assets/Images/SliderGrabber1.png"
-dest_files=[ "res://.import/SliderGrabber1.png-0a110a98e7bb3f886a27aabdecf3a808.stex" ]
+source_file="res://addons/GameTemplate/Assets/Images/Toggle2.png"
+dest_files=[ "res://.import/Toggle2.png-77fd11241db781e0c4a9253ba49571d8.stex" ]
 
 [params]
 
