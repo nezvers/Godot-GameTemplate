@@ -1,0 +1,16 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://addons/GameTemplate/Localization/Localization.en.translation", "res://addons/GameTemplate/Localization/Localization.de.translation", "res://addons/GameTemplate/Localization/Localization.lv.translation", "res://addons/GameTemplate/Localization/Localization.es.translation", "res://addons/GameTemplate/Localization/Localization.ru.translation", "res://addons/GameTemplate/Localization/Localization.fr.translation", "res://addons/GameTemplate/Localization/Localization.pt_BR.translation", "res://addons/GameTemplate/Localization/Localization.it.translation", "res://addons/GameTemplate/Localization/Localization.sv_SE.translation", "res://addons/GameTemplate/Localization/Localization.tr.translation" ]
+
+source_file="res://addons/GameTemplate/Localization/Localization.csv"
+dest_files=[ "res://addons/GameTemplate/Localization/Localization.en.translation", "res://addons/GameTemplate/Localization/Localization.de.translation", "res://addons/GameTemplate/Localization/Localization.lv.translation", "res://addons/GameTemplate/Localization/Localization.es.translation", "res://addons/GameTemplate/Localization/Localization.ru.translation", "res://addons/GameTemplate/Localization/Localization.fr.translation", "res://addons/GameTemplate/Localization/Localization.pt_BR.translation", "res://addons/GameTemplate/Localization/Localization.it.translation", "res://addons/GameTemplate/Localization/Localization.sv_SE.translation", "res://addons/GameTemplate/Localization/Localization.tr.translation" ]
+
+[params]
+
+compress=true
+delimiter=0

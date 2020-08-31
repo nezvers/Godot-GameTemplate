@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/GameTemplate/GUI/OptionsSections/Controls.gd" type="Script" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/GameTemplate/GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0235294, 0.0196078, 0.0352941, 1 )
+corner_detail = 1
+
+[node name="Controls" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Section" type="Control" parent="."]
+margin_right = 320.0
+margin_bottom = 150.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Section"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Section/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 315.0
+margin_bottom = 147.0
+size_flags_horizontal = 3
+
+[node name="ActionsSection" type="VBoxContainer" parent="Section/MarginContainer/ScrollContainer"]
+margin_right = 310.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Section/MarginContainer/ScrollContainer/ActionsSection"]
+margin_right = 310.0
+margin_bottom = 13.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Actions" type="Label" parent="Section/MarginContainer/ScrollContainer/ActionsSection/PanelContainer"]
+margin_left = 136.0
+margin_right = 173.0
+margin_bottom = 13.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 2 )
+text = "Actions"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Section/MarginContainer/ScrollContainer/ActionsSection"]
+margin_top = 13.0
+margin_right = 310.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="ActionList" type="VBoxContainer" parent="Section/MarginContainer/ScrollContainer/ActionsSection/ScrollContainer"]
+margin_right = 310.0
+margin_bottom = 129.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="Popup" parent="Section" instance=ExtResource( 4 )]
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_top = 151.0
+margin_right = 320.0
+margin_bottom = 180.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 139.0
+margin_right = 180.0
+margin_bottom = 29.0
+size_flags_horizontal = 4
+custom_constants/separation = 1
+
+[node name="Default" parent="MarginContainer/VBoxContainer" instance=ExtResource( 5 )]
+margin_right = 41.0
+margin_bottom = 14.0
+text = "Default"
+
+[node name="Back" parent="MarginContainer/VBoxContainer" groups=[
+"Controls",
+] instance=ExtResource( 5 )]
+margin_top = 15.0
+margin_right = 41.0
+margin_bottom = 29.0
+text = "Back"
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Default" to="." method="_on_Default_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_Back_pressed"]

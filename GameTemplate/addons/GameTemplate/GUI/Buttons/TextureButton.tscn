@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Button1.png" type="Texture" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Button2.png" type="Texture" id=2]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Button3.png" type="Texture" id=3]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=4]
+
+[node name="ScaleUp" type="TextureButton"]
+size_flags_vertical = 4
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+texture_focused = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.72424
+margin_top = -8.27055
+margin_right = 3.27576
+margin_bottom = 4.72945
+custom_fonts/font = ExtResource( 4 )
+text = "+"

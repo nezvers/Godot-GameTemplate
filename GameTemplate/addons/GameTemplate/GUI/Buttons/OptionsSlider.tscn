@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/SliderGrabber1.png" type="Texture" id=2]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/SliderGrabber2.png" type="Texture" id=3]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Slider1.png" type="Texture" id=4]
+[ext_resource path="res://addons/GameTemplate/Assets/Images/Slider2.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 7, 6 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 2.0
+margin_bottom = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 7, 6 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 2.0
+margin_bottom = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Master" type="HBoxContainer"]
+margin_right = 47.0
+margin_bottom = 13.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleName" type="Label" parent="."]
+margin_right = 36.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 36, 0 )
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 1 )
+text = "Master"
+
+[node name="HSlider" type="HSlider" parent="."]
+margin_left = 40.0
+margin_top = 1.0
+margin_right = 47.0
+margin_bottom = 11.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_icons/tick = ExtResource( 2 )
+custom_icons/grabber_disabled = ExtResource( 2 )
+custom_icons/grabber_highlight = ExtResource( 3 )
+custom_icons/grabber = ExtResource( 2 )
+custom_styles/slider = SubResource( 1 )
+custom_styles/grabber_area = SubResource( 2 )
+value = 50.0
+ticks_on_borders = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
