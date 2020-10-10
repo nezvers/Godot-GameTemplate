@@ -21,7 +21,10 @@ func on_ChangeScene(scene)->void:
 	if ScreenFade.state != ScreenFade.IDLE:
 		return
 	ScreenFade.state = ScreenFade.OUT
-	NextScene = yield(loader.load_start( [scene] ), "completed")[0]				#Using ResourceAsyncLoader to load in next scene - it takes in array list and gives back array
+	if loader.can_async:
+		NextScene = yield(loader.load_start( [scene] ), "completed")[0]				#Using ResourceAsyncLoader to load in next scene - it takes in array list and gives back array
+	else:
+		NextScene = loader.load_start( [scene] )
 	if NextScene == null:
 		print(' Game.gd 36 - Loaded.resource is null')
 		return
