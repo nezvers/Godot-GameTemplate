@@ -24,7 +24,7 @@ func on_ChangeScene(scene)->void:
 	if loader.can_async:
 		NextScene = yield(loader.load_start( [scene] ), "completed")[0]				#Using ResourceAsyncLoader to load in next scene - it takes in array list and gives back array
 	else:
-		NextScene = loader.load_start( [scene] )
+		NextScene = loader.load_start( [scene] )[0]
 	if NextScene == null:
 		print(' Game.gd 36 - Loaded.resource is null')
 		return
