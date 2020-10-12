@@ -25,7 +25,7 @@ func load_samples(list:Array)->void:											# Let the manager handle loading 
 	if loader.can_async:
 		samples = yield(loader.load_start( list ), "completed")
 	else:
-		samples = loader.load_start( list )
+		samples = loader.load_start( list )[0]
 	for sample in samples:
 		var key:String = sample.get_path().get_file().get_basename()
 		if !sample_dictionary.has(key):
