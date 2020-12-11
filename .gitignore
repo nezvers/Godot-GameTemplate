@@ -4,7 +4,7 @@
 export.cfg
 export_presets.cfg
 debug.log
-
+**/*.import
 # Imported translations (automatically generated from CSV files)
 *.translation
 
