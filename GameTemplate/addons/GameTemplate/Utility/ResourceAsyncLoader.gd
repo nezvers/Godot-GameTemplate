@@ -40,7 +40,8 @@ func load_start(resource_list:Array)->Array:
       threads[i].start(self, 'threaded_load', resources_in[i])
       
     for i in range(n_threads):
-      out += yield(self, "done")
+	  out += yield(self, "done")
+	  mutex.unlock()
       
     for i in range(n_threads):
       threads[i].wait_to_finish()
@@ -54,7 +55,6 @@ func threaded_load(resources_in:Array)->void:
     resources_out.append(load(res_in))
   mutex.lock()
   call_deferred('emit_signal', 'done', resources_out)
-  mutex.unlock()
       
 func regular_load(resources_in:Array)->Array:
   var resources_out: = []
