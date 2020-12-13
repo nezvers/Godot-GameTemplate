@@ -7,7 +7,6 @@ class_name ResourceAsyncLoader  #Godot 3.2.2
 
 signal done
 
-var thread: = Thread.new()
 var mutex: = Mutex.new()
 
 var can_async:bool = OS.can_use_threads()
