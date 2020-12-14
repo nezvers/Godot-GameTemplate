@@ -1,7 +1,7 @@
 class_name ResourceAsyncLoader	#Godot 3.2.2
 
 #USE IT LIKE THIS
-#var loader = ResourceAsyncLoader_GT.new()
+#var loader = ResourceAsyncLoader.new()
 #var list = ["res://icon.png"]
 #var resources = yield(loader.load_start( list ), "completed")
 
