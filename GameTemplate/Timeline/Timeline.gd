@@ -88,7 +88,7 @@ func seek(frame:float):
 	elapsed_time = lerp(previous_cached_state.time, current_cached_state.time, delta)
 
 func _physics_process(delta):
-	if elapsed_time >= max_time:
+	if max_time > 0 and elapsed_time >= max_time:
 		elapsed_time = max_time
 		set_playing(false)
 
