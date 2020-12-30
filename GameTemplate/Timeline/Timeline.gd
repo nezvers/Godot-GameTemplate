@@ -35,6 +35,7 @@ func set_playing(value:bool):
 
 func _ready():
 	pause_mode = PAUSE_MODE_PROCESS
+	set_playing(playing)
 
 func capture_frame():
 
