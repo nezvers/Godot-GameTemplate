@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GameTemplate"
-run/main_scene="res://MainMenu/MainMenu.tscn"
+run/main_scene="res://Garbage/TimelineTest.tscn"
 config/icon="res://icon.png"
 
 [autoload]

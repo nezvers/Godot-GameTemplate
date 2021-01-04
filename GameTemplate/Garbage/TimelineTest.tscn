@@ -11,9 +11,6 @@ extents = Vector2( 188.717, 12.1217 )
 
 [node name="Level" type="Node"]
 
-[node name="Timeline" parent="." instance=ExtResource( 2 )]
-max_time = 1.0
-
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="TimedNode" parent="Node2D" instance=ExtResource( 1 )]
@@ -39,3 +36,11 @@ shape = SubResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 current = true
 zoom = Vector2( 2, 2 )
+
+[node name="Hud" type="CanvasLayer" parent="."]
+layer = 2
+scale = Vector2( 0.3, 0.3 )
+transform = Transform2D( 0.3, 0, 0, 0.3, 0, 0 )
+
+[node name="Timeline" parent="Hud" instance=ExtResource( 2 )]
+max_time = 3.0

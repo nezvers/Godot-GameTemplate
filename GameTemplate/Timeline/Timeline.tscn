@@ -9,3 +9,33 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Prev" type="Button" parent="HBoxContainer"]
+margin_right = 67.0
+margin_bottom = 40.0
+text = "Previous"
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 71.0
+margin_top = 13.0
+margin_right = 71.0
+margin_bottom = 27.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Next" type="Button" parent="HBoxContainer"]
+margin_left = 75.0
+margin_right = 117.0
+margin_bottom = 40.0
+text = "Next"
+[connection signal="pressed" from="HBoxContainer/Prev" to="." method="_on_Prev_pressed"]
+[connection signal="pressed" from="HBoxContainer/Next" to="." method="_on_Next_pressed"]
