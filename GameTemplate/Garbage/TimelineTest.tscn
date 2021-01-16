@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Garbage/TimedRigidBody.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Timeline/Timeline.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Actors/Player/Player.tscn" type="PackedScene" id=3]
 
 [sub_resource type="PhysicsMaterial" id=1]
 bounce = 0.9
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 188.717, 12.1217 )
+extents = Vector2( 328.105, 32.308 )
 
 [node name="Level" type="Node"]
 
@@ -27,15 +28,48 @@ position = Vector2( 69.3948, -32.8434 )
 position = Vector2( 35.2271, 70.7191 )
 physics_material_override = SubResource( 1 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 0.794594, 121.308 )
+[node name="Floor" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 15.2946, 172.808 )
+scale = Vector2( 1.02781, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Floor"]
+position = Vector2( -16, 38.5 )
+scale = Vector2( 0.998006, 0.959376 )
+shape = SubResource( 2 )
+
+[node name="Floor2" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 22.2946, -249.692 )
+scale = Vector2( 1.02781, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Floor2"]
+position = Vector2( -16, 38.5 )
+scale = Vector2( 0.998006, 0.959376 )
+shape = SubResource( 2 )
+
+[node name="LeftWall" type="StaticBody2D" parent="Node2D"]
+position = Vector2( -359.205, -365.192 )
+scale = Vector2( 0.125737, 7.96341 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/LeftWall"]
+position = Vector2( -16, 38.5 )
+scale = Vector2( 0.998006, 0.959376 )
+shape = SubResource( 2 )
+
+[node name="LeftWall2" type="StaticBody2D" parent="Node2D"]
+position = Vector2( 359.295, -302.692 )
+scale = Vector2( 0.125737, 7.96341 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/LeftWall2"]
+position = Vector2( -16, 38.5 )
+scale = Vector2( 0.998006, 0.959376 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 current = true
 zoom = Vector2( 2, 2 )
+
+[node name="Player" parent="Node2D" instance=ExtResource( 3 )]
+position = Vector2( -283, 91.5 )
 
 [node name="Hud" type="CanvasLayer" parent="."]
 layer = 2
@@ -43,4 +77,4 @@ scale = Vector2( 0.3, 0.3 )
 transform = Transform2D( 0.3, 0, 0, 0.3, 0, 0 )
 
 [node name="Timeline" parent="Hud" instance=ExtResource( 2 )]
-max_time = 3.0
+max_time = 5.0

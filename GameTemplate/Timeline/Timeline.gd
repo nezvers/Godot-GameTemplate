@@ -19,6 +19,7 @@ var elapsed_time:float = 0.0
 var _physics_frames:int = 0
 
 onready var label = $HBoxContainer/Label
+onready var scrubber = $HBoxContainer/Scrubber
 
 class FrameState extends Reference:
 	var time:float
@@ -45,9 +46,8 @@ func _ready():
 	get_tree().call_group("_timeline_interface", "attach_timeline", get_path())
 
 func capture_frame():
-
 	var qframe:int = floor(current_frame)
-
+	
 	# This is a new frame
 	if cached_frames.size() <= qframe:
 		# Instantiate new frame container
@@ -55,7 +55,11 @@ func capture_frame():
 		current_cached_state = FrameState.new(elapsed_time)
 		cached_frames.append(current_cached_state)
 		emit_signal("get_frame", current_cached_state)
+		scrubber.max_value = cached_frames.size();
+		scrubber.rect_min_size = Vector2(scrubber.max_value, 16);
 
+	scrubber.value = qframe;
+		
 func cut_cached_frames(frame:float, clear_keyframes:bool = false):
 	# remove cached frames after {frame}
 	var qframe:int = floor(frame)
@@ -143,3 +147,7 @@ func _on_Next_pressed():
 func _on_Prev_pressed():
 	yield(get_tree(), "physics_frame")
 	seek(max(current_frame-1.0, 0))
+
+func _on_Scrubber_value_changed(val):
+	yield(get_tree(), "physics_frame")
+	seek(val)

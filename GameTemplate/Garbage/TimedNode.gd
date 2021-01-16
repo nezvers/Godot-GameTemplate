@@ -1,8 +1,12 @@
 extends RigidBody2D
 
 onready var timeline_interface = $TimelineInterface
-
-func _on_TimelineInterface_get_frame():
+func _ready():
+	timeline_interface.connect("get_frame", self, "get_frame")
+	timeline_interface.connect("apply_frame", self, "apply_frame")
+	timeline_interface.connect("playing_changed", self, "playing_changed")
+		 
+func get_frame():
 	
 	var physics_state = Physics2DServer.body_get_direct_state(get_rid())
 	
@@ -17,7 +21,7 @@ func _on_TimelineInterface_get_frame():
 	})
 
 
-func _on_TimelineInterface_apply_frame(frame, prev_frame, delta):
+func apply_frame(frame, prev_frame, delta):
 	if not Engine.is_in_physics_frame():
 		yield(get_tree(), "physics_frame")
 	var physics_state = Physics2DServer.body_get_direct_state(get_rid())
@@ -34,7 +38,7 @@ func _on_TimelineInterface_apply_frame(frame, prev_frame, delta):
 	physics_state.integrate_forces()
 
 
-func _on_TimelineInterface_playing_changed(playing):
+func playing_changed(playing):
 	var PLAYING = timeline_interface.PLAYING
 	if playing == PLAYING.PAUSED:
 		call_deferred("set_mode", RigidBody2D.MODE_STATIC)

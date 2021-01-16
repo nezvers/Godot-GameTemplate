@@ -37,5 +37,13 @@ margin_left = 75.0
 margin_right = 117.0
 margin_bottom = 40.0
 text = "Next"
+
+[node name="Scrubber" type="HSlider" parent="HBoxContainer"]
+margin_left = 121.0
+margin_right = 221.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 100, 16 )
+rounded = true
 [connection signal="pressed" from="HBoxContainer/Prev" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="HBoxContainer/Next" to="." method="_on_Next_pressed"]
+[connection signal="value_changed" from="HBoxContainer/Scrubber" to="." method="_on_Scrubber_value_changed"]
