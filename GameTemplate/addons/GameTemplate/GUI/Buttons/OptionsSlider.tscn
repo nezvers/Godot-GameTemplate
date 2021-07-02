@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_8.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/GameTemplate/Assets/Images/SliderGrabber1.png" type="Texture" id=2]
 [ext_resource path="res://addons/GameTemplate/Assets/Images/SliderGrabber2.png" type="Texture" id=3]
 [ext_resource path="res://addons/GameTemplate/Assets/Images/Slider1.png" type="Texture" id=4]
@@ -26,28 +26,27 @@ margin_bottom = 2.0
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="Master" type="HBoxContainer"]
+[node name="Master" type="VBoxContainer"]
 margin_right = 47.0
-margin_bottom = 13.0
+margin_bottom = 32.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ScaleName" type="Label" parent="."]
-margin_right = 36.0
-margin_bottom = 13.0
+margin_right = 47.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 36, 0 )
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 1 )
 text = "Master"
+align = 1
 
 [node name="HSlider" type="HSlider" parent="."]
-margin_left = 40.0
-margin_top = 1.0
+margin_top = 22.0
 margin_right = 47.0
-margin_bottom = 11.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
-size_flags_vertical = 4
 custom_icons/tick = ExtResource( 2 )
 custom_icons/grabber_disabled = ExtResource( 2 )
 custom_icons/grabber_highlight = ExtResource( 3 )

@@ -13,10 +13,11 @@ var translations: = [
 	preload("res://addons/GameTemplate/Localization/Localization.pt_BR.translation"),
 	preload("res://addons/GameTemplate/Localization/Localization.ru.translation"),
 	preload("res://addons/GameTemplate/Localization/Localization.sv_SE.translation"),
-	preload("res://addons/GameTemplate/Localization/Localization.tr.translation")
+	preload("res://addons/GameTemplate/Localization/Localization.tr.translation"),
+	preload("res://addons/GameTemplate/Localization/Localization.ru.translation")
 ]
 onready var Language:String = TranslationServer.get_locale() setget set_language
-var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", SE = "sv_SE", BR = "pt_BR", LV = "lv", IT = "it", TR = "tr"} #Font doesn't have Cyrillic letters for russian
+var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", SE = "sv_SE", BR = "pt_BR", LV = "lv", IT = "it", TR = "tr", RU = "ru"}
 var Language_list:Array = Language_dictionary.keys()
 
 
