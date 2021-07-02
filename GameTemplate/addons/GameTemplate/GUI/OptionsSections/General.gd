@@ -78,6 +78,8 @@ func _on_Controls_pressed()->void:
 func _on_Back_pressed()->void:
 	SettingsSaveLoad.save_settings()
 	MenuEvent.Options = false
+	if PauseMenu.can_show:
+		get_tree().get_nodes_in_group("Pause")[0].grab_focus()
 
 func _on_Languages_pressed()->void:
 	MenuEvent.Languages = true
