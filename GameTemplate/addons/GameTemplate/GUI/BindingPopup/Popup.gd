@@ -8,13 +8,16 @@ func _ready()->void:
 	popup_exclusive = true
 	set_process_input(false)
 	connect("about_to_show", self, "receive_input")
+	connect("popup_hide", self, "receive_focus")
 	#Localization
 	SettingsLanguage.connect("ReTranslate", self, "retranslate")
 	retranslate()
 
 func receive_input()->void:
 	set_process_input(true)
-	get_focus_owner().release_focus()
+
+func receive_focus()->void:
+	get_tree().get_nodes_in_group("ContainerFocus")[0].call_deferred("grab_focus")
 
 func _input(event)->void:
 	if !event is InputEventKey && !event is InputEventJoypadButton && !event is InputEventJoypadMotion:
@@ -29,12 +32,4 @@ func _input(event)->void:
 
 #Localization
 func retranslate()->void:
-	find_node("Cancel").text = tr("CANCEL")
 	find_node("Message").text = tr("USE_NEW_CONTROLS")
-
-
-func _on_Cancel_pressed():
-	NewEvent = null
-	emit_signal("NewControl")
-	set_process_input(false)
-	visible = false

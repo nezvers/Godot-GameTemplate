@@ -32,12 +32,16 @@ func set_paused(value:bool)->void:
 func _ready()->void:
 	pause_mode = Node.PAUSE_MODE_PROCESS										#when pause menu allows reading inputs
 
-func _unhandled_input(event)->void:												#used to get back in menus
+func _input(event)->void:												#used to get back in menus
 	if event.is_action_pressed("ui_cancel"):
 		if Languages:
 			set_languages(false)
 		elif Controls:
-			set_controls(false)
+			# ignore back button when entering key
+			if !get_tree().get_nodes_in_group("KeyBinding")[0].visible:
+				set_controls(false)
+			else:
+				return
 		elif Options:
 			set_options(false)
 			if PauseMenu.can_show:

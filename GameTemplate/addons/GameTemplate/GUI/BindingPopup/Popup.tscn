@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/GameTemplate/GUI/BindingPopup/Popup.gd" type="Script" id=1]
 [ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
-[ext_resource path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
@@ -16,7 +15,6 @@ anti_aliasing = false
 [sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="Popup" type="Popup"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -59,22 +57,15 @@ size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer"]
 margin_right = 164.0
-margin_bottom = 46.0
+margin_bottom = 64.0
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
 
 [node name="Message" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/PanelContainer"]
 margin_right = 164.0
-margin_bottom = 46.0
+margin_bottom = 64.0
 size_flags_horizontal = 5
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "USE_NEW_CONTROLS"
 align = 1
-
-[node name="Cancel" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 50.0
-margin_right = 164.0
-margin_bottom = 64.0
-text = "CANCEL"
-[connection signal="pressed" from="MarginContainer2/Panel/MarginContainer/VBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
