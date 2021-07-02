@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/GameTemplate/GUI/OptionsSections/Controls.gd" type="Script" id=1]
 [ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_8.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/GameTemplate/GUI/default_theme.tres" type="Theme" id=3]
 [ext_resource path="res://addons/GameTemplate/GUI/BindingPopup/Popup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=5]
 
@@ -12,6 +13,7 @@ corner_detail = 1
 [node name="Controls" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 3 )
 custom_constants/separation = 1
 script = ExtResource( 1 )
 __meta__ = {
