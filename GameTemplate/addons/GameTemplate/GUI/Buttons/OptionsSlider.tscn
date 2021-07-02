@@ -54,6 +54,7 @@ custom_icons/grabber_highlight = ExtResource( 3 )
 custom_icons/grabber = ExtResource( 2 )
 custom_styles/slider = SubResource( 1 )
 custom_styles/grabber_area = SubResource( 2 )
+step = 10.0
 value = 50.0
 ticks_on_borders = true
 

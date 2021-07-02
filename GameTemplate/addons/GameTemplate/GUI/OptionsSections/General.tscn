@@ -157,6 +157,7 @@ size_flags_horizontal = 3
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master" index="1"]
 margin_right = 141.0
+step = 10.0
 
 [node name="Music" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 7 )]
 margin_top = 17.0
@@ -169,6 +170,7 @@ text = "Music"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="1"]
 margin_right = 141.0
+step = 10.0
 
 [node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="2"]
 bus = "Music"
@@ -184,6 +186,7 @@ text = "SFX"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="1"]
 margin_right = 141.0
+step = 10.0
 
 [node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="2"]
 bus = "SFX"
@@ -220,6 +223,7 @@ margin_top = 30.0
 margin_right = 58.0
 margin_bottom = 44.0
 text = "Back"
+
 [connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Fullscreen" to="." method="_on_Fullscreen_pressed"]
 [connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Borderless" to="." method="_on_Borderless_pressed"]
 [connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleDown" to="." method="_on_ScaleDown_pressed"]
@@ -232,9 +236,6 @@ text = "Back"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_Back_pressed"]
 
 [editable path="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleDown"]
-
 [editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master"]
-
 [editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music"]
-
 [editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX"]
