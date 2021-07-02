@@ -50,6 +50,7 @@ func _on_Options_pressed()->void:
 func _on_MainMenu_pressed()->void:
 	Game.emit_signal(\"ChangeScene\", MainMenu)
 	show(false)
+	PauseMenu.can_show = false
 
 func _on_Exit_pressed()->void:
 	Game.emit_signal(\"Exit\")
