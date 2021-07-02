@@ -15,6 +15,7 @@ anti_aliasing = false
 [sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="Popup" type="Popup"]
+size_flags_horizontal = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,11 +40,13 @@ margin_left = 70.0
 margin_top = 40.0
 margin_right = 290.0
 margin_bottom = 120.0
+size_flags_horizontal = 3
 custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/Panel"]
-margin_right = 128.0
-margin_bottom = 34.0
+margin_right = 220.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
 custom_constants/margin_right = 0
 custom_constants/margin_top = 8
 custom_constants/margin_left = 8
@@ -55,17 +58,20 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/Panel/MarginContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 128.0
-margin_bottom = 26.0
+margin_right = 220.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer"]
-margin_right = 120.0
+margin_right = 220.0
 margin_bottom = 18.0
+size_flags_horizontal = 3
 custom_styles/panel = SubResource( 2 )
 
 [node name="Message" type="Label" parent="MarginContainer2/Panel/MarginContainer/VBoxContainer/PanelContainer"]
-margin_right = 120.0
+margin_right = 220.0
 margin_bottom = 18.0
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 text = "USE_NEW_CONTROLS"
 align = 1

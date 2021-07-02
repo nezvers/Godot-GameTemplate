@@ -87,6 +87,7 @@ size_flags_vertical = 3
 margin_top = 1.0
 margin_right = 16.0
 margin_bottom = 17.0
+focus_neighbour_right = NodePath("../ScaleUp")
 
 [node name="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleDown" index="0"]
 text = "-"
@@ -106,6 +107,8 @@ margin_left = 72.0
 margin_top = 1.0
 margin_right = 88.0
 margin_bottom = 17.0
+focus_neighbour_left = NodePath("../ScaleDown")
+focus_neighbour_bottom = NodePath("../../../../../../../MarginContainer/VBoxContainer/Back")
 
 [node name="Margin" type="Control" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
 margin_left = 92.0
@@ -197,6 +200,7 @@ text = "SFX"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="1"]
 margin_right = 141.0
+focus_neighbour_bottom = NodePath("../../../../../../../../MarginContainer/VBoxContainer/Controls")
 
 [node name="AudioStreamPlayer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="2"]
 bus = "SFX"
