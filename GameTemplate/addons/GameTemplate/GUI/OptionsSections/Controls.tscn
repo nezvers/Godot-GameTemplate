@@ -84,6 +84,7 @@ custom_constants/separation = 0
 [node name="Popup" parent="Section" groups=[
 "KeyBinding",
 ] instance=ExtResource( 4 )]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_top = 161.0
