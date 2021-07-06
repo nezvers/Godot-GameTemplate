@@ -1,6 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_16.tres" type="DynamicFont" id=1]
+
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node

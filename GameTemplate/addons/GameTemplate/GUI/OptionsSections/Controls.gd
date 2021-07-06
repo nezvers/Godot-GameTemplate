@@ -92,6 +92,7 @@ func get_InputEvent_name(event:InputEvent)->String:
 	return text
 
 func add_control(Name)->void:
+	get_focus_owner().release_focus()
 	Pop.popup()
 	yield(Pop, "NewControl")
 	if Pop.NewEvent == null:
@@ -109,7 +110,9 @@ func remove_control(Bind:Array)->void:
 	var index:int = SettingsControls.ActionControls[Name].find(event)
 	SettingsControls.ActionControls[Name].remove(index)
 	InputMap.action_erase_event(Name, event)
+	var parent_focus = node.get_parent().get_node("HBoxContainer/AddAction")
 	node.queue_free()
+	parent_focus.grab_focus()
 
 func _on_Default_pressed()->void:
 	SettingsControls.default_controls()

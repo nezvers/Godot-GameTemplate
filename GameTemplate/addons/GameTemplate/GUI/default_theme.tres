@@ -1,0 +1,63 @@
+[gd_resource type="Theme" load_steps=9 format=2]
+
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_8.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Normal.tres" type="StyleBox" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 8
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 4.0
+content_margin_right = 3.0
+bg_color = Color( 0.227451, 0.266667, 0.4, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 4.0
+content_margin_right = 3.0
+bg_color = Color( 0.0705882, 0.298039, 0.537255, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 4.0
+content_margin_right = 3.0
+bg_color = Color( 0.227451, 0.266667, 0.4, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+anti_aliasing = false
+
+[resource]
+default_font = ExtResource( 1 )
+TooltipLabel/colors/font_color = Color( 0, 0, 0, 0 )
+TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/fonts/font = SubResource( 1 )
+TooltipPanel/styles/panel = SubResource( 2 )
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/styles/grabber = SubResource( 3 )
+VScrollBar/styles/grabber_highlight = SubResource( 4 )
+VScrollBar/styles/grabber_pressed = SubResource( 5 )
+VScrollBar/styles/scroll = ExtResource( 3 )
+VScrollBar/styles/scroll_focus = null

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/Fonts/pixellocale_8.tres" type="DynamicFont" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 2.0
@@ -83,8 +83,8 @@ expand_margin_bottom = 1.0
 anti_aliasing = false
 
 [node name="DefaultButton" type="Button"]
-margin_right = 36.0
-margin_bottom = 15.0
+margin_right = 41.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_styles/hover = SubResource( 1 )
