@@ -1,8 +1,8 @@
 id,en,de,lv,es,ru,fr,pt_BR,it,sv_SE,tr
 Right,Right,Rechts,Pa Labi,Derecha,Вправо,À droite,Direita,Destra,Höger,Sağ
 Left,Left,Links,Pa kreisi,Izquierda,Влево,À gauche,Esquerda,Sinistra,Vänster,Sol
-Up,Up,Oben,Uz augšu,Arriba,Вверх,An haut,Acima,Su,Upp,Yukarı
-Down,Down,Unten,Uz leju,Abajo,Вниз,Vers le bas,Abaixo,Giù,Ner,Aşağı
+Up,Up,Oben,Uz augšu,Arriba,Вверх,En haut,Acima,Su,Upp,Yukarı
+Down,Down,Unten,Uz leju,Abajo,Вниз,En bas,Abaixo,Giù,Ner,Aşağı
 Jump,Jump,Springen,Lekt,Saltar,Прыжок,Sauter,Saltar,Saltare,Hoppa,Zıpla
 Shoot,Shoot,Schießen,Šaut,Disparar,Огонь,Tirer,Atirar,Sparare,Skjut,Ateş
 NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo,Nuova partita,Nytt spel,Yeni oyun
@@ -19,12 +19,12 @@ RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение
 FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранный,Plein écran,Tela cheia,Schermo interno,Helskärm,Tam ekran
 BORDERLESS,Borderless window,Randloses Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безрамочный,Sans bordure,Sem bordas,Senza bordi,Ramlöst fönster,Kenarlıksız pencere
 SCALE,Scale,Skalierung,Palielinājums,Escalado,Маштабирование,Échelle,Escala,Scala,Skala,Boyut
-VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume,Volume,Volym,Ses
-MASTER,Master,Gesamt,Galvenais,General,Мастер,Maître,Principal,Principale,Alla,Oyun
-MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música,Musica,Musik,Müzik
-SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Des sons,Efeitos,Suoni,Effekter,Ses Efektleri
+VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Volume,Volume,Volume,Volym,Ses
+MASTER,Master,Gesamt,Galvenais,General,Мастер,Principal,Principal,Principale,Alla,Oyun
+MUSIC,Music,Musik,Mūzika,Música,Музыка,Musique,Música,Musica,Musik,Müzik
+SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Effet sonore,Efeitos,Suoni,Effekter,Ses Efektleri
 CONTROLS,Controls,Steuerung,Kontroles,Controles,Управления,Controles,Controles,Controlli,Kontroller,Kontroller
-ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actes,Ações,Azioni,Actions,Hareketler
+ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actions,Ações,Azioni,Actions,Hareketler
 KEYBOARD,Keyboard,Tastatur,Klaviatūra,Teclado,Клавиатура,Clavier,Teclado,Tastiera,Tangentbord,Klavye
 GAMEPAD,Gamepad,Gamepad,Spēļu pūlts,Gamepad,Геймпад,Gamepad,Controle,Gamepad,Gamepad,Gamepad
 DEFAULT,Default,Standard,Noklusējums,Defecto,По умолчанию,Défaut,Padrão,Predefinito,Standard,Standart
