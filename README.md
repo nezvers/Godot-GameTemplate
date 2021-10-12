@@ -78,5 +78,3 @@ Buttons gets saved uppon exiting Options menu.
 
 ## To-Do
 * Add pixel-art compliant slider in Action rebinding list
-* Use themes instead of CustomStyle (maybe)
-* Maybe some documentation
