@@ -17,3 +17,6 @@ mono_crash.*.json
 .directory
 *~
 *.import
+
+# macOS-specific ignores
+.DS_Store
