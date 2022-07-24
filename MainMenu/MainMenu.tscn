@@ -59,9 +59,7 @@ margin_bottom = 80.0
 size_flags_vertical = 3
 custom_constants/separation = 1
 
-[node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" groups=[
-"MainMenu",
-] instance=ExtResource( 1 )]
+[node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" groups=["MainMenu"] instance=ExtResource( 1 )]
 margin_right = 51.0
 text = "New Game"
 

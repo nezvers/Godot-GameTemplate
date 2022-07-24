@@ -30,6 +30,10 @@ config/name="GameTemplate"
 run/main_scene="res://MainMenu/MainMenu.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout="res://addons/GameTemplate/Assets/Audio_bus_layout.tres"
+
 [autoload]
 
 SettingsAudio="*res://addons/GameTemplate/Autoload/SettingsAudio.gd"

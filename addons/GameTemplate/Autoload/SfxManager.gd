@@ -54,6 +54,9 @@ func _ready():																	# Add to database all samples preloaded in the In
 		var sample:AudioStreamSample = sample_collection[i]						# Reference sample
 		sample_dictionary[sample.get_path().get_file().get_basename()] = i		# Create entry with file name to reference index in array
 	add_players(start_player_count)												# Add some players to start with
+	var files = get_files("res://Assets/Sounds","wav")
+	SfxManager.load_samples(files)
+
 
 func play(sample_name:String)->void:
 	if active_players.has(sample_name):											# Same sample is already playing
@@ -85,3 +88,14 @@ func sample_finished(sample_name:String)->void:									# Triggered when player 
 	free_players.append(player)
 
 
+func get_files(path,extension):
+	var dir = Directory.new()
+	dir.open(path) 
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	var files = []
+	while file_name != "":
+		if file_name.get_extension() == extension:
+			files.append(path.plus_file(file_name))
+		file_name = dir.get_next()
+	return files
