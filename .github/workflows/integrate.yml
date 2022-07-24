@@ -1,0 +1,78 @@
+name: Build & Publish Game
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  export_game:
+    runs-on: ubuntu-latest
+    name: Export Game Job
+
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v2.3.2
+
+      - name: export game
+        uses: firebelley/godot-export@v4.1.0
+        with:
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_linux_headless.64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.4.4/Godot_v3.4.4-stable_export_templates.tpz
+          relative_project_path: .
+          archive_output: true
+
+      - name: upload files
+        uses: actions/upload-artifact@v3
+        with:
+          path: /home/runner/.local/share/godot/archives/*
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+
+  publish_game:
+    runs-on: ubuntu-latest
+    name: Publish Game To Itch.io
+    needs: [export_game]
+    steps:
+      - uses: actions/download-artifact@v3
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      # Publish exported artifacts to Itch.io
+      - name: publish windows build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: windows
+          ITCH_GAME: ${{ secrets.ITCH_GAME }}
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: ./artifact/windows.zip
+
+      # Publish exported artifacts to Itch.io
+      - name: publish linux build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          ITCH_GAME: ${{ secrets.ITCH_GAME }}
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: ./artifact/linux.zip
+
+      # Publish exported artifacts to Itch.io
+      - name: publish html5 build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: HTML5
+          ITCH_GAME: ${{ secrets.ITCH_GAME }}
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: ./artifact/html.zip
+
+      # Publish exported artifacts to Itch.io
+      - name: publish mac build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: mac
+          ITCH_GAME: ${{ secrets.ITCH_GAME }}
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: ./artifact/mac.zip
