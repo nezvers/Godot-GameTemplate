@@ -28,7 +28,7 @@ func _ready()->void:
 	retranslate()
 	
 
-func show(value:bool)->void:
+func show_menu(value:bool)->void:
 	if !can_show:
 		return
 	MenuEvent.Paused = value
@@ -39,18 +39,18 @@ func show(value:bool)->void:
 
 func _on_Resume_pressed()->void:
 	Game.emit_signal(\"Resume\")
-	show(false)
+	show_menu(false)
 
 func _on_Restart_pressed()->void:
 	Game.emit_signal(\"Restart\")
-	show(false)
+	show_menu(false)
 
 func _on_Options_pressed()->void:
 	MenuEvent.Options = true
 
 func _on_MainMenu_pressed()->void:
 	Game.emit_signal(\"ChangeScene\", MainMenu)
-	show(false)
+	show_menu(false)
 	PauseMenu.can_show = false
 
 func _on_Exit_pressed()->void:
