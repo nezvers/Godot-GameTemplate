@@ -2,79 +2,12 @@
 
 [ext_resource type="StyleBox" path="res://addons/GameTemplate/GUI/OptionsSections/DarkerPanel.tres" id="1"]
 [ext_resource type="Script" path="res://addons/GameTemplate/GUI/OptionsSections/Languages.gd" id="2"]
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="3_8w2nd"]
+[ext_resource type="FontFile" uid="uid://c5gjw5i0akjja" path="res://Assets/Fonts/pixellocale-v-1-4.ttf" id="3_xqlkr"]
 [ext_resource type="PackedScene" uid="uid://dp81qs74tu3ba" path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" id="6"]
 
-[sub_resource type="FontFile" id="FontFile_4wxgj"]
-fallbacks = Array[Font]([ExtResource("3_8w2nd")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/2/0/ascent = 0.0
-cache/0/2/0/descent = 0.0
-cache/0/2/0/underline_position = 0.0
-cache/0/2/0/underline_thickness = 0.0
-cache/0/2/0/scale = 1.0
-cache/0/3/0/ascent = 0.0
-cache/0/3/0/descent = 0.0
-cache/0/3/0/underline_position = 0.0
-cache/0/3/0/underline_thickness = 0.0
-cache/0/3/0/scale = 1.0
-cache/0/4/0/ascent = 0.0
-cache/0/4/0/descent = 0.0
-cache/0/4/0/underline_position = 0.0
-cache/0/4/0/underline_thickness = 0.0
-cache/0/4/0/scale = 1.0
-cache/0/5/0/ascent = 0.0
-cache/0/5/0/descent = 0.0
-cache/0/5/0/underline_position = 0.0
-cache/0/5/0/underline_thickness = 0.0
-cache/0/5/0/scale = 1.0
-cache/0/6/0/ascent = 0.0
-cache/0/6/0/descent = 0.0
-cache/0/6/0/underline_position = 0.0
-cache/0/6/0/underline_thickness = 0.0
-cache/0/6/0/scale = 1.0
-cache/0/7/0/ascent = 0.0
-cache/0/7/0/descent = 0.0
-cache/0/7/0/underline_position = 0.0
-cache/0/7/0/underline_thickness = 0.0
-cache/0/7/0/scale = 1.0
-cache/0/8/0/ascent = 0.0
-cache/0/8/0/descent = 0.0
-cache/0/8/0/underline_position = 0.0
-cache/0/8/0/underline_thickness = 0.0
-cache/0/8/0/scale = 1.0
-cache/0/9/0/ascent = 0.0
-cache/0/9/0/descent = 0.0
-cache/0/9/0/underline_position = 0.0
-cache/0/9/0/underline_thickness = 0.0
-cache/0/9/0/scale = 1.0
-cache/0/10/0/ascent = 0.0
-cache/0/10/0/descent = 0.0
-cache/0/10/0/underline_position = 0.0
-cache/0/10/0/underline_thickness = 0.0
-cache/0/10/0/scale = 1.0
-cache/0/15/0/ascent = 0.0
-cache/0/15/0/descent = 0.0
-cache/0/15/0/underline_position = 0.0
-cache/0/15/0/underline_thickness = 0.0
-cache/0/15/0/scale = 1.0
-cache/0/18/0/ascent = 0.0
-cache/0/18/0/descent = 0.0
-cache/0/18/0/underline_position = 0.0
-cache/0/18/0/underline_thickness = 0.0
-cache/0/18/0/scale = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_cbrlp"]
+font = ExtResource("3_xqlkr")
+font_size = 18
 
 [node name="Languages" type="VBoxContainer"]
 anchors_preset = 8
@@ -108,9 +41,8 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 1
-theme_override_fonts/font = SubResource("FontFile_4wxgj")
-theme_override_font_sizes/font_size = 18
 text = "Languages"
+label_settings = SubResource("LabelSettings_cbrlp")
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]

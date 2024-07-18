@@ -1,77 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cirbjhf3pq0am"]
+[gd_scene load_steps=6 format=3 uid="uid://cirbjhf3pq0am"]
 
 [ext_resource type="Texture2D" uid="uid://c415qexcj6ro3" path="res://addons/GameTemplate/Assets/Images/Button1.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dwprkjlb40yti" path="res://addons/GameTemplate/Assets/Images/Button2.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://u210kf7lg47v" path="res://addons/GameTemplate/Assets/Images/Button3.png" id="3"]
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="4_wp8qa"]
-
-[sub_resource type="FontFile" id="FontFile_6p666"]
-fallbacks = Array[Font]([ExtResource("4_wp8qa")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/7/0/ascent = 0.0
-cache/0/7/0/descent = 0.0
-cache/0/7/0/underline_position = 0.0
-cache/0/7/0/underline_thickness = 0.0
-cache/0/7/0/scale = 1.0
-cache/0/8/0/ascent = 0.0
-cache/0/8/0/descent = 0.0
-cache/0/8/0/underline_position = 0.0
-cache/0/8/0/underline_thickness = 0.0
-cache/0/8/0/scale = 1.0
-cache/0/9/0/ascent = 0.0
-cache/0/9/0/descent = 0.0
-cache/0/9/0/underline_position = 0.0
-cache/0/9/0/underline_thickness = 0.0
-cache/0/9/0/scale = 1.0
-cache/0/10/0/ascent = 0.0
-cache/0/10/0/descent = 0.0
-cache/0/10/0/underline_position = 0.0
-cache/0/10/0/underline_thickness = 0.0
-cache/0/10/0/scale = 1.0
-cache/0/11/0/ascent = 0.0
-cache/0/11/0/descent = 0.0
-cache/0/11/0/underline_position = 0.0
-cache/0/11/0/underline_thickness = 0.0
-cache/0/11/0/scale = 1.0
-cache/0/15/0/ascent = 0.0
-cache/0/15/0/descent = 0.0
-cache/0/15/0/underline_position = 0.0
-cache/0/15/0/underline_thickness = 0.0
-cache/0/15/0/scale = 1.0
-cache/0/14/0/ascent = 0.0
-cache/0/14/0/descent = 0.0
-cache/0/14/0/underline_position = 0.0
-cache/0/14/0/underline_thickness = 0.0
-cache/0/14/0/scale = 1.0
-cache/0/13/0/ascent = 0.0
-cache/0/13/0/descent = 0.0
-cache/0/13/0/underline_position = 0.0
-cache/0/13/0/underline_thickness = 0.0
-cache/0/13/0/scale = 1.0
-cache/0/12/0/ascent = 0.0
-cache/0/12/0/descent = 0.0
-cache/0/12/0/underline_position = 0.0
-cache/0/12/0/underline_thickness = 0.0
-cache/0/12/0/scale = 1.0
-cache/0/18/0/ascent = 0.0
-cache/0/18/0/descent = 0.0
-cache/0/18/0/underline_position = 0.0
-cache/0/18/0/underline_thickness = 0.0
-cache/0/18/0/scale = 1.0
+[ext_resource type="FontFile" uid="uid://c5gjw5i0akjja" path="res://Assets/Fonts/pixellocale-v-1-4.ttf" id="4_lssuk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_38x3o"]
+font = ExtResource("4_lssuk")
 font_size = 18
 
 [node name="ScaleUp" type="TextureButton"]
@@ -93,7 +28,6 @@ offset_right = 7.0
 offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = SubResource("FontFile_6p666")
 text = "+"
 label_settings = SubResource("LabelSettings_38x3o")
 horizontal_alignment = 1

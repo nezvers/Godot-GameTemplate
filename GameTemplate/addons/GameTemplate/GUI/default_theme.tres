@@ -1,21 +1,15 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bjy6d6iusj4lk"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bjy6d6iusj4lk"]
 
-[ext_resource type="Texture2D" uid="uid://c3texvstwa4yx" path="res://addons/GameTemplate/Assets/Images/SliderGrabber1.png" id="1_b2tq0"]
-[ext_resource type="Texture2D" uid="uid://b3jtgefxnf8bp" path="res://addons/GameTemplate/Assets/Images/Toggle1.png" id="1_yffeu"]
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="2_05ycc"]
-[ext_resource type="Texture2D" uid="uid://bqyndunb1t7o7" path="res://addons/GameTemplate/Assets/Images/Toggle2.png" id="2_fwsv2"]
-[ext_resource type="Texture2D" uid="uid://unw2786rna32" path="res://addons/GameTemplate/Assets/Images/SliderGrabber2.png" id="2_yn4ya"]
+[ext_resource type="Texture2D" uid="uid://bqyndunb1t7o7" path="res://addons/GameTemplate/Assets/Images/Toggle2.png" id="1_7y3o3"]
+[ext_resource type="Texture2D" uid="uid://b3jtgefxnf8bp" path="res://addons/GameTemplate/Assets/Images/Toggle1.png" id="2_5pqnj"]
+[ext_resource type="FontFile" uid="uid://c5gjw5i0akjja" path="res://Assets/Fonts/pixellocale-v-1-4.ttf" id="2_hxq8m"]
 [ext_resource type="StyleBox" path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Normal.tres" id="3"]
-[ext_resource type="Texture2D" uid="uid://cmov50y4ytc16" path="res://addons/GameTemplate/Assets/Images/Slider1.png" id="3_poote"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t0i6d"]
-texture = ExtResource("1_b2tq0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r8l6r"]
-texture = ExtResource("2_yn4ya")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_soroc"]
-texture = ExtResource("3_poote")
 
 [sub_resource type="FontFile" id="1"]
 cache/0/16/0/ascent = 0.0
@@ -61,10 +55,10 @@ corner_detail = 1
 anti_aliasing = false
 
 [resource]
-default_font = ExtResource("2_05ycc")
-default_font_size = 9
-CheckButton/icons/checked = ExtResource("2_fwsv2")
-CheckButton/icons/unchecked = ExtResource("1_yffeu")
+default_font = ExtResource("2_hxq8m")
+default_font_size = 18
+CheckButton/icons/checked = ExtResource("1_7y3o3")
+CheckButton/icons/unchecked = ExtResource("2_5pqnj")
 HSlider/styles/grabber_area = SubResource("StyleBoxTexture_t0i6d")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_r8l6r")
 HSlider/styles/slider = SubResource("StyleBoxTexture_soroc")

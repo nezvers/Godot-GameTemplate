@@ -21,9 +21,9 @@ buses/default_bus_layout="res://addons/GameTemplate/Assets/Audio_bus_layout.tres
 
 [autoload]
 
+SettingsLanguage="*res://addons/GameTemplate/Autoload/SettingsLanguage.gd"
 SettingsAudio="*res://addons/GameTemplate/Autoload/SettingsAudio.gd"
 SettingsControls="*res://addons/GameTemplate/Autoload/SettingsControls.gd"
-SettingsLanguage="*res://addons/GameTemplate/Autoload/SettingsLanguage.gd"
 SettingsResolution="*res://addons/GameTemplate/Autoload/SettingsResolution.gd"
 SettingsSaveLoad="*res://addons/GameTemplate/Autoload/SettingsSaveLoad.gd"
 Settings="*res://addons/GameTemplate/Autoload/Settings.gd"

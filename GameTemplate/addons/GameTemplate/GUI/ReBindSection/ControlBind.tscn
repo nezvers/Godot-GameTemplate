@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbq38gdhhvg6i"]
+[gd_scene load_steps=8 format=3 uid="uid://bbq38gdhhvg6i"]
 
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_nh66a"]
+[ext_resource type="FontFile" uid="uid://c5gjw5i0akjja" path="res://Assets/Fonts/pixellocale-v-1-4.ttf" id="1_e6q6x"]
+[ext_resource type="FontFile" uid="uid://2b17u8f57klu" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_nh66a"]
 [ext_resource type="StyleBox" uid="uid://cwcup4b7vwpgr" path="res://addons/GameTemplate/GUI/ReBindSection/RemoveActionStyle_Hover.tres" id="2"]
 [ext_resource type="StyleBox" path="res://addons/GameTemplate/GUI/ReBindSection/RemoveActionStyle_Pressed.tres" id="3"]
 [ext_resource type="StyleBox" path="res://addons/GameTemplate/GUI/ReBindSection/RemoveActionStyle_Normal.tres" id="4"]
@@ -95,7 +96,7 @@ theme_override_styles/panel = SubResource("1")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_fonts/font = SubResource("FontFile_6p666")
+theme_override_fonts/font = ExtResource("1_e6q6x")
 theme_override_font_sizes/font_size = 18
 text = "Button"
 

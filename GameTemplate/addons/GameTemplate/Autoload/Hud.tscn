@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://bx30gp07d80ma"]
 
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_v15ma"]
+[ext_resource type="FontFile" uid="uid://2b17u8f57klu" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_v15ma"]
 
-[sub_resource type="GDScript" id="1"]
+[sub_resource type="GDScript" id="GDScript_df33i"]
+resource_name = "Hud"
 script/source = "extends Node
 
 @onready var hp: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/HP
@@ -83,7 +84,7 @@ cache/0/15/0/underline_thickness = 0.0
 cache/0/15/0/scale = 1.0
 
 [node name="Hud" type="Node"]
-script = SubResource("1")
+script = SubResource("GDScript_df33i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/GameTemplate/GUI/OptionsSections/General.gd" id="1"]
 [ext_resource type="StyleBox" path="res://addons/GameTemplate/GUI/OptionsSections/DarkerPanel.tres" id="2"]
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="3_meltj"]
+[ext_resource type="FontFile" uid="uid://2b17u8f57klu" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="3_meltj"]
 [ext_resource type="PackedScene" uid="uid://jepfs4ovtw3x" path="res://addons/GameTemplate/GUI/Buttons/ToggleButton.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://cirbjhf3pq0am" path="res://addons/GameTemplate/GUI/Buttons/TextureButton.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bfab4a8yhcgje" path="res://addons/GameTemplate/GUI/Buttons/OptionsSlider.tscn" id="7"]

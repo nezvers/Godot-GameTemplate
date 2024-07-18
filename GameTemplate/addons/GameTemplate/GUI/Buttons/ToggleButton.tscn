@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://jepfs4ovtw3x"]
 
 [ext_resource type="Theme" uid="uid://bjy6d6iusj4lk" path="res://addons/GameTemplate/GUI/default_theme.tres" id="1_r5cmf"]
-[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_yjqxe"]
+[ext_resource type="FontFile" uid="uid://c5gjw5i0akjja" path="res://Assets/Fonts/pixellocale-v-1-4.ttf" id="2_kxaha"]
 
 [node name="OptionsToggle" type="CheckButton"]
 offset_right = 157.0
 offset_bottom = 42.0
 theme = ExtResource("1_r5cmf")
-theme_override_fonts/font = ExtResource("1_yjqxe")
+theme_override_fonts/font = ExtResource("2_kxaha")
 theme_override_font_sizes/font_size = 18
 text = "Fullscreen  "
