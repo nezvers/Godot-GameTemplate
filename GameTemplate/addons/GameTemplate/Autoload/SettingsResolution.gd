@@ -25,7 +25,8 @@ func set_fullscreen(value:bool)->void:
 
 func set_borderless(value:bool)->void:
 	Borderless = value
-	get_window().borderless  = value
+	get_window().borderless = value
+	set_scale(Scale)
 
 func get_resolution()->void:
 	View = get_viewport()
