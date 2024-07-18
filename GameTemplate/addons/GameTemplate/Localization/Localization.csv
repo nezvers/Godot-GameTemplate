@@ -1,8 +1,8 @@
 id,en,de,lv,es,ru,fr,pt_BR,it,sv_SE,tr
-Right,Right,Richtig,Pa Labi,Derecha,Вправо,À droite,Direita,Destra,Höger,Sağ
+Right,Right,Rechts,Pa Labi,Derecha,Вправо,À droite,Direita,Destra,Höger,Sağ
 Left,Left,Links,Pa kreisi,Izquierda,Влево,À gauche,Esquerda,Sinistra,Vänster,Sol
-Up,Up,Oben,Uz augšu,Arriba,Вверх,An haut,Acima,Su,Upp,Yukarı
-Down,Down,Nieder,Uz leju,Abajo,Вниз,Vers le bas,Abaixo,Giù,Ner,Aşağı
+Up,Up,Oben,Uz augšu,Arriba,Вверх,En haut,Acima,Su,Upp,Yukarı
+Down,Down,Unten,Uz leju,Abajo,Вниз,En bas,Abaixo,Giù,Ner,Aşağı
 Jump,Jump,Springen,Lekt,Saltar,Прыжок,Sauter,Saltar,Saltare,Hoppa,Zıpla
 Shoot,Shoot,Schießen,Šaut,Disparar,Огонь,Tirer,Atirar,Sparare,Skjut,Ateş
 NEW_GAME,New game,Neues Spiel,Jauna spēle,Nuevo juego,Новая игра,Nouveau jeu,Novo jogo,Nuova partita,Nytt spel,Yeni oyun
@@ -12,22 +12,22 @@ RESTART,Restart,Neustart,Restartēt,Reiniciar,Заново,Redémarrer,Reiniciar
 OPTIONS,Options,Optionen,Iespējas,Opciones,Опции,Options,Opções,Opzioni,Inställningar,Ayarlar
 MAIN_MENU,Main Menu,Hauptmenü,Galvenā izvēlne,Menú principal,Главное меню,Menu principal,Menu principal,Menu principale,Huvudmeny,Anamenü
 BACK,Back,Zurück,Atpakaļ,Atrás,Назад,Retour,Voltar,Indietro,Bakåt,Geri
-EXIT,Exit,Ausgang,Iziet no spēles,Salir,Выход,Sortie,Sair,Esci,Avsluta,Çıkış
+EXIT,Exit,Beenden,Iziet no spēles,Salir,Выход,Sortie,Sair,Esci,Avsluta,Çıkış
 PAUSE,Pause,Pause,Pauze,Pausa,Пауза,Pause,Pausa,Pausa,Pausa,Durdur
 LOADING,Loading,Wird geladen,Lādējās,Cargando,Загрузка,Chargement,Carregando,Caricamento,Laddar,Yükleniyor
 RESOLUTION,Resolution,Auflösung,Izšķirtspēja,Resolución,Pазрешение,Résolution,Resolução,Risoluzione,Upplösning,Çözünürlük
 FULLSCREEN,Fullscreen window,Vollbild-Fenster,Pilnekrāns,Pantalla completa,Полноэкранный,Plein écran,Tela cheia,Schermo interno,Helskärm,Tam ekran
-BORDERLESS,Borderless window,Randlos Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безрамочный,Sans bordure,Sem bordas,Senza bordi,Ramlöst fönster,Kenarlıksız pencere
-SCALE,Scale,Rahmen,Palielinājums,Escalado,Маштабирование,Échelle,Escala,Scala,Skala,Boyut
-VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Le volume,Volume,Volume,Volym,Ses
-MASTER,Master,Meister,Galvenais,General,Мастер,Maître,Principal,Principale,Alla,Oyun
-MUSIC,Music,Musik,Mūzika,Música,Музыка,La musique,Música,Musica,Musik,Müzik
-SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Des sons,Efeitos,Suoni,Effekter,Ses Efektleri
+BORDERLESS,Borderless window,Randloses Fenster,Bezmalu ekrāns,Pantalla sin bordes,Безрамочный,Sans bordure,Sem bordas,Senza bordi,Ramlöst fönster,Kenarlıksız pencere
+SCALE,Scale,Skalierung,Palielinājums,Escalado,Маштабирование,Échelle,Escala,Scala,Skala,Boyut
+VOLUME,Volume,Lautstärke,Skaļums,Volumen,Громкость,Volume,Volume,Volume,Volym,Ses
+MASTER,Master,Gesamt,Galvenais,General,Мастер,Principal,Principal,Principale,Alla,Oyun
+MUSIC,Music,Musik,Mūzika,Música,Музыка,Musique,Música,Musica,Musik,Müzik
+SFX,Sounds,Geräusche,Skaņu efekti,Efectos de Sonido,Звуки,Effet sonore,Efeitos,Suoni,Effekter,Ses Efektleri
 CONTROLS,Controls,Steuerung,Kontroles,Controles,Управления,Controles,Controles,Controlli,Kontroller,Kontroller
-ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actes,Ações,Azioni,Actions,Hareketler
+ACTIONS,Actions,Aktionen,Darbība,Acciones,Действия,Actions,Ações,Azioni,Actions,Hareketler
 KEYBOARD,Keyboard,Tastatur,Klaviatūra,Teclado,Клавиатура,Clavier,Teclado,Tastiera,Tangentbord,Klavye
 GAMEPAD,Gamepad,Gamepad,Spēļu pūlts,Gamepad,Геймпад,Gamepad,Controle,Gamepad,Gamepad,Gamepad
 DEFAULT,Default,Standard,Noklusējums,Defecto,По умолчанию,Défaut,Padrão,Predefinito,Standard,Standart
-USE_NEW_CONTROLS,Use new control!,Verwenden Sie neue Kontrolle!,Izmantojiet jauno kontroli!,Usar nuevos controles!,Используйте новый элемент управления!,Utilisez un nouveau contrôle!,Use novo controle!,Usa nuovi controlli!,Använd nya kontroller,Yeni kontrol kullan!
-CANCEL,Cancel,Stornieren,Atcelt,Cancelar,Отмена,Annuler,Cancelar,Annulla,Avbryt,İptal
+USE_NEW_CONTROLS,Use new control!,Verwenden Sie eine neue Taste!,Izmantojiet jauno kontroli!,Usar nuevos controles!,Используйте новый элемент управления!,Utilisez un nouveau contrôle!,Use novo controle!,Usa nuovi controlli!,Använd nya kontroller,Yeni kontrol kullan!
+CANCEL,Cancel,Abbrechen,Atcelt,Cancelar,Отмена,Annuler,Cancelar,Annulla,Avbryt,İptal
 LANGUAGES,Languages,Sprachen,Valodas,Idiomas,Языки,Langues,Idiomas,Lingue,Språk,Diller

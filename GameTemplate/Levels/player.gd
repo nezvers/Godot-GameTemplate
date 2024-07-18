@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 
 var speed = 2 * 60
 

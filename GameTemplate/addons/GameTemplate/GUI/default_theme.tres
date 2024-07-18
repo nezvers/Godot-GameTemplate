@@ -1,20 +1,36 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://bjy6d6iusj4lk"]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_8.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Normal.tres" type="StyleBox" id=3]
+[ext_resource type="Texture2D" uid="uid://c3texvstwa4yx" path="res://addons/GameTemplate/Assets/Images/SliderGrabber1.png" id="1_b2tq0"]
+[ext_resource type="Texture2D" uid="uid://b3jtgefxnf8bp" path="res://addons/GameTemplate/Assets/Images/Toggle1.png" id="1_yffeu"]
+[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="2_05ycc"]
+[ext_resource type="Texture2D" uid="uid://bqyndunb1t7o7" path="res://addons/GameTemplate/Assets/Images/Toggle2.png" id="2_fwsv2"]
+[ext_resource type="Texture2D" uid="uid://unw2786rna32" path="res://addons/GameTemplate/Assets/Images/SliderGrabber2.png" id="2_yn4ya"]
+[ext_resource type="StyleBox" path="res://addons/GameTemplate/GUI/ReBindSection/AddActionStyle_Normal.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://cmov50y4ytc16" path="res://addons/GameTemplate/Assets/Images/Slider1.png" id="3_poote"]
 
-[sub_resource type="DynamicFont" id=1]
-size = 8
-font_data = ExtResource( 2 )
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t0i6d"]
+texture = ExtResource("1_b2tq0")
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r8l6r"]
+texture = ExtResource("2_yn4ya")
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_soroc"]
+texture = ExtResource("3_poote")
+
+[sub_resource type="FontFile" id="1"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="3"]
 content_margin_left = 4.0
 content_margin_right = 3.0
-bg_color = Color( 0.227451, 0.266667, 0.4, 1 )
+bg_color = Color(0.227451, 0.266667, 0.4, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -22,10 +38,10 @@ border_width_bottom = 1
 corner_detail = 1
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id="4"]
 content_margin_left = 4.0
 content_margin_right = 3.0
-bg_color = Color( 0.0705882, 0.298039, 0.537255, 1 )
+bg_color = Color(0.0705882, 0.298039, 0.537255, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -33,31 +49,94 @@ border_width_bottom = 1
 corner_detail = 1
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id="5"]
 content_margin_left = 4.0
 content_margin_right = 3.0
-bg_color = Color( 0.227451, 0.266667, 0.4, 1 )
+bg_color = Color(0.227451, 0.266667, 0.4, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 corner_detail = 1
 anti_aliasing = false
+
+[sub_resource type="FontFile" id="FontFile_6p666"]
+fallbacks = Array[Font]([ExtResource("2_05ycc")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/7/0/ascent = 0.0
+cache/0/7/0/descent = 0.0
+cache/0/7/0/underline_position = 0.0
+cache/0/7/0/underline_thickness = 0.0
+cache/0/7/0/scale = 1.0
+cache/0/8/0/ascent = 0.0
+cache/0/8/0/descent = 0.0
+cache/0/8/0/underline_position = 0.0
+cache/0/8/0/underline_thickness = 0.0
+cache/0/8/0/scale = 1.0
+cache/0/9/0/ascent = 0.0
+cache/0/9/0/descent = 0.0
+cache/0/9/0/underline_position = 0.0
+cache/0/9/0/underline_thickness = 0.0
+cache/0/9/0/scale = 1.0
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/11/0/ascent = 0.0
+cache/0/11/0/descent = 0.0
+cache/0/11/0/underline_position = 0.0
+cache/0/11/0/underline_thickness = 0.0
+cache/0/11/0/scale = 1.0
+cache/0/15/0/ascent = 0.0
+cache/0/15/0/descent = 0.0
+cache/0/15/0/underline_position = 0.0
+cache/0/15/0/underline_thickness = 0.0
+cache/0/15/0/scale = 1.0
+cache/0/14/0/ascent = 0.0
+cache/0/14/0/descent = 0.0
+cache/0/14/0/underline_position = 0.0
+cache/0/14/0/underline_thickness = 0.0
+cache/0/14/0/scale = 1.0
+cache/0/13/0/ascent = 0.0
+cache/0/13/0/descent = 0.0
+cache/0/13/0/underline_position = 0.0
+cache/0/13/0/underline_thickness = 0.0
+cache/0/13/0/scale = 1.0
+cache/0/12/0/ascent = 0.0
+cache/0/12/0/descent = 0.0
+cache/0/12/0/underline_position = 0.0
+cache/0/12/0/underline_thickness = 0.0
+cache/0/12/0/scale = 1.0
 
 [resource]
-default_font = ExtResource( 1 )
-TooltipLabel/colors/font_color = Color( 0, 0, 0, 0 )
-TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+default_font = SubResource("FontFile_6p666")
+CheckButton/icons/checked = ExtResource("2_fwsv2")
+CheckButton/icons/unchecked = ExtResource("1_yffeu")
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_t0i6d")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_r8l6r")
+HSlider/styles/slider = SubResource("StyleBoxTexture_soroc")
+TooltipLabel/colors/font_color = Color(0, 0, 0, 0)
+TooltipLabel/colors/font_color_shadow = Color(0, 0, 0, 0)
 TooltipLabel/constants/shadow_offset_x = 1
 TooltipLabel/constants/shadow_offset_y = 1
-TooltipLabel/fonts/font = SubResource( 1 )
-TooltipPanel/styles/panel = SubResource( 2 )
+TooltipLabel/fonts/font = SubResource("1")
+TooltipPanel/styles/panel = SubResource("2")
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
 VScrollBar/icons/increment_highlight = null
-VScrollBar/styles/grabber = SubResource( 3 )
-VScrollBar/styles/grabber_highlight = SubResource( 4 )
-VScrollBar/styles/grabber_pressed = SubResource( 5 )
-VScrollBar/styles/scroll = ExtResource( 3 )
+VScrollBar/styles/grabber = SubResource("3")
+VScrollBar/styles/grabber_highlight = SubResource("4")
+VScrollBar/styles/grabber_pressed = SubResource("5")
+VScrollBar/styles/scroll = ExtResource("3")
 VScrollBar/styles/scroll_focus = null

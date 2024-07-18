@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://mm7txw32xv4i"]
+[gd_scene load_steps=6 format=3 uid="uid://b0cxglpagu4xe"]
 
-[ext_resource type="PackedScene" uid="uid://dv20udv56ebyy" path="res://addons/GameTemplate/GUI/OptionsSections/Languages.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://addons/GameTemplate/GUI/OptionsSections/Languages.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://addons/GameTemplate/GUI/OptionsSections/Controls.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://ssfa3xrbdxx5" path="res://addons/GameTemplate/GUI/OptionsSections/General.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://addons/GameTemplate/GUI/OptionsSections/General.tscn" id="3"]
 
 [sub_resource type="GDScript" id="1"]
 script/source = "
@@ -10,13 +10,13 @@ extends Node
 
 func _ready()->void:
 	#show main section and hide controls
-	MenuEvent.connect(\"OptionsSignal\", on_show_options)
-	MenuEvent.Controls_val = false
+	MenuEvent.connect(\"Options\", Callable(self, \"on_show_options\"))
+	MenuEvent.ControlsSignal = false
 	$OptionsMenu/BG.visible = false
 
 func on_show_options(value:bool)->void:
 	$OptionsMenu/BG.visible = value
-	MenuEvent.Controls_val = false
+	MenuEvent.ControlsSignal = false
 "
 
 [sub_resource type="StyleBoxFlat" id="2"]

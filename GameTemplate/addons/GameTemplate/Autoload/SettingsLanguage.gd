@@ -16,7 +16,7 @@ var translations: = [
 	preload("res://addons/GameTemplate/Localization/Localization.tr.translation"),
 	preload("res://addons/GameTemplate/Localization/Localization.ru.translation")
 ]
-onready var Language:String = TranslationServer.get_locale() setget set_language
+@onready var Language:String = TranslationServer.get_locale(): set = set_language
 var Language_dictionary:Dictionary = {EN = "en", DE = "de", ES = "es", FR = "fr", SE = "sv_SE", BR = "pt_BR", LV = "lv", IT = "it", TR = "tr", RU = "ru"}
 var Language_list:Array = Language_dictionary.keys()
 

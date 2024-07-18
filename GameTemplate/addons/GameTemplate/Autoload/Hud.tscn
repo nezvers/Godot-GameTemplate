@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bx30gp07d80ma"]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_16.tres" type="DynamicFont" id=1]
+[ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_v15ma"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Node
 
-onready var hp: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/HP
-onready var score: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/Score
-onready var gui: = $CanvasLayer/GUI
+@onready var hp: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/HP
+@onready var score: = $CanvasLayer/GUI/MarginContainer/VBoxContainer/Top/Score
+@onready var gui: = $CanvasLayer/GUI
 
-var visible: = false setget set_visible
+var visible: = false: set = set_visible
 
 func _ready()->void:
 	gui.visible = visible
@@ -19,55 +19,110 @@ func set_visible(value: bool)->void:
 	gui.visible = value
 "
 
+[sub_resource type="FontFile" id="FontFile_4wxgj"]
+fallbacks = Array[Font]([ExtResource("1_v15ma")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/2/0/ascent = 0.0
+cache/0/2/0/descent = 0.0
+cache/0/2/0/underline_position = 0.0
+cache/0/2/0/underline_thickness = 0.0
+cache/0/2/0/scale = 1.0
+cache/0/3/0/ascent = 0.0
+cache/0/3/0/descent = 0.0
+cache/0/3/0/underline_position = 0.0
+cache/0/3/0/underline_thickness = 0.0
+cache/0/3/0/scale = 1.0
+cache/0/4/0/ascent = 0.0
+cache/0/4/0/descent = 0.0
+cache/0/4/0/underline_position = 0.0
+cache/0/4/0/underline_thickness = 0.0
+cache/0/4/0/scale = 1.0
+cache/0/5/0/ascent = 0.0
+cache/0/5/0/descent = 0.0
+cache/0/5/0/underline_position = 0.0
+cache/0/5/0/underline_thickness = 0.0
+cache/0/5/0/scale = 1.0
+cache/0/6/0/ascent = 0.0
+cache/0/6/0/descent = 0.0
+cache/0/6/0/underline_position = 0.0
+cache/0/6/0/underline_thickness = 0.0
+cache/0/6/0/scale = 1.0
+cache/0/7/0/ascent = 0.0
+cache/0/7/0/descent = 0.0
+cache/0/7/0/underline_position = 0.0
+cache/0/7/0/underline_thickness = 0.0
+cache/0/7/0/scale = 1.0
+cache/0/8/0/ascent = 0.0
+cache/0/8/0/descent = 0.0
+cache/0/8/0/underline_position = 0.0
+cache/0/8/0/underline_thickness = 0.0
+cache/0/8/0/scale = 1.0
+cache/0/9/0/ascent = 0.0
+cache/0/9/0/descent = 0.0
+cache/0/9/0/underline_position = 0.0
+cache/0/9/0/underline_thickness = 0.0
+cache/0/9/0/scale = 1.0
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/15/0/ascent = 0.0
+cache/0/15/0/descent = 0.0
+cache/0/15/0/underline_position = 0.0
+cache/0/15/0/underline_thickness = 0.0
+cache/0/15/0/scale = 1.0
+
 [node name="Hud" type="Node"]
-script = SubResource( 1 )
+script = SubResource("1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
 [node name="GUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GUI"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_right = 4
-custom_constants/margin_top = 4
-custom_constants/margin_left = 4
-custom_constants/margin_bottom = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/MarginContainer"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 316.0
-margin_bottom = 176.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="Top" type="HBoxContainer" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer"]
-margin_right = 312.0
-margin_bottom = 34.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="HP" type="Label" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/Top"]
-margin_right = 193.0
-margin_bottom = 34.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = SubResource("FontFile_4wxgj")
 text = "HP: 3"
 
 [node name="Score" type="Label" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/Top"]
-margin_left = 197.0
-margin_right = 312.0
-margin_bottom = 34.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontFile_4wxgj")
 text = "Score: 0000"
-align = 2
+horizontal_alignment = 2

@@ -1,6 +1,6 @@
 
 # Godot-GameTemplate
-**Game Template** is all necessary stuff taken care for Godot users not to worry about creating most boring and tedious work.  
+**Game Template** some stuff taken care for Godot users not to worry about creating most boring and tedious work.  
 Main branch will be compatible with pixel art games, since those games require some more work to get everything right.  
 I'd be happy for any contribution to make this template as good as it can be and it is open for branching out Hi-Res game branch.  
 
@@ -78,5 +78,3 @@ Buttons gets saved uppon exiting Options menu.
 
 ## To-Do
 * Add pixel-art compliant slider in Action rebinding list
-* Use themes instead of CustomStyle (maybe)
-* Maybe some documentation

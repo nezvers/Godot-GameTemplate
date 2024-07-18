@@ -5,12 +5,12 @@ signal NewControl
 var NewEvent:InputEvent
 
 func _ready()->void:
-	popup_exclusive = true
+	exclusive = true
 	set_process_input(false)
-	connect("about_to_show", self, "receive_input")
-	connect("popup_hide", self, "receive_focus")
+	connect("about_to_popup", receive_input)
+	connect("popup_hide", receive_focus)
 	#Localization
-	SettingsLanguage.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", retranslate)
 	retranslate()
 
 func receive_input()->void:
@@ -19,7 +19,7 @@ func receive_input()->void:
 func receive_focus()->void:
 	get_tree().get_nodes_in_group("ContainerFocus")[0].call_deferred("grab_focus")
 
-func _input(event)->void:
+func _unhandled_input(event: InputEvent) -> void:
 	if !event is InputEventKey && !event is InputEventJoypadButton && !event is InputEventJoypadMotion:
 		return #only continue if one of those
 	if !event.is_pressed():
@@ -32,4 +32,4 @@ func _input(event)->void:
 
 #Localization
 func retranslate()->void:
-	find_node("Message").text = tr("USE_NEW_CONTROLS")
+	find_child("Message").text = tr("USE_NEW_CONTROLS")

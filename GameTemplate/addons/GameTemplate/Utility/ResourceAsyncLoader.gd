@@ -10,14 +10,14 @@ signal done
 var thread: = Thread.new()
 var mutex: = Mutex.new()
 
-var can_async:bool = OS.can_use_threads()
+var can_async:bool = OS.get_processor_count() > 1
 
 func load_start(resource_list:Array)->Array:
 	var resources_in = resource_list.duplicate()
 	var out: = []
 	if can_async:
-		thread.start(self, 'threaded_load', resources_in)
-		out = yield(self, "done")
+		thread.start(threaded_load.bind(resources_in))
+		out = await self.done
 		thread.wait_to_finish()
 	else:
 		out = regular_load(resources_in)

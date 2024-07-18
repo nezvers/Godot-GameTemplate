@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 const autoload_order: = [
@@ -49,9 +49,9 @@ func _exit_tree():
 		remove_autoload_singleton(key)
 
 
-func has_main_screen():
+func _has_main_screen():
 	return false
 
 
-func get_plugin_name():
+func _get_plugin_name():
 	return "GameTemplate"

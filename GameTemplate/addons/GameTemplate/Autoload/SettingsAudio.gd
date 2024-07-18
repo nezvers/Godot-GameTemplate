@@ -2,9 +2,9 @@ extends Node
 
 
 #AUDIO
-var VolumeMaster:float = 0.0 setget set_volume_master
-var VolumeMusic:float = 0.0 setget set_volume_music
-var VolumeSFX:float = 0.0 setget set_volume_sfx
+var VolumeMaster:float = 0.0: set = set_volume_master
+var VolumeMusic:float = 0.0: set = set_volume_music
+var VolumeSFX:float = 0.0: set = set_volume_sfx
 const VolumeRange:float = 24.0 + 80.0
 
 func _ready()->void:
@@ -12,9 +12,9 @@ func _ready()->void:
 
 #AUDIO
 func get_volumes()->void:
-	var Master:float	= db2linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
-	var Music:float 	= db2linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
-	var SFX:float 		= db2linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
+	var Master:float	= db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
+	var Music:float 	= db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
+	var SFX:float 		= db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")))
 	
 	set_volume_master(Master)
 	set_volume_music(Music)
@@ -22,15 +22,15 @@ func get_volumes()->void:
 
 func set_volume_master(volume:float)->void:
 	VolumeMaster = volume
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(VolumeMaster))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(VolumeMaster))
 
 func set_volume_music(volume:float)->void:
 	VolumeMusic = volume
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(VolumeMusic))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(VolumeMusic))
 
 func set_volume_sfx(volume:float)->void:
 	VolumeSFX = volume
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear2db(VolumeSFX))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(VolumeSFX))
 
 
 #SAVING AUDIO

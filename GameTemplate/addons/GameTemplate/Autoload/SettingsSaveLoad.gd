@@ -28,16 +28,17 @@ func save_settings_resource()->void:
 	new_save.inputs 		= SettingsControls.get_input_data()
 	new_save.language		= SettingsLanguage.get_language_data()
 	
-	var dir: = Directory.new()
-	if not dir.dir_exists(CONFIG_DIR):
-		dir.make_dir_recursive(CONFIG_DIR)
-	ResourceSaver.save(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION, new_save)
+	var dir: = DirAccess
+	
+	if not dir.dir_exists_absolute(CONFIG_DIR):
+		dir.make_dir_recursive_absolute(CONFIG_DIR)
+	ResourceSaver.save(new_save, CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION)
 
 func load_settings_resource()->bool:
 	if !ResourceLoader.exists(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION):
 		return false
 	
-	var new_load:Resource = ResourceLoader.load(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION, 'Resource', true)
+	var new_load:Resource = ResourceLoader.load(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION, 'Resource', ResourceLoader.CACHE_MODE_REUSE)
 	SettingsResolution.set_resolution_data(new_load.resolution)
 	SettingsAudio.set_audio_data(new_load.audio)
 	SettingsControls.set_input_data(new_load.inputs)
@@ -49,25 +50,24 @@ func load_settings_resource()->bool:
 
 # JSON VARIATION - Old version
 func save_settings_JSON()->void:
-	var dir: = Directory.new()
-	if not dir.dir_exists(CONFIG_DIR):
-		dir.make_dir_recursive(CONFIG_DIR)
-	var SettingsSaver:File = File.new()
-	SettingsSaver.open(CONFIG_DIR + CONFIG_FILE_NAME + ".save", File.WRITE)
+	if not DirAccess.dir_exists_absolute(CONFIG_DIR):
+		DirAccess.make_dir_recursive_absolute(CONFIG_DIR)
+	var SettingsSaver = FileAccess.open(CONFIG_DIR + CONFIG_FILE_NAME + ".save", FileAccess.WRITE)
 	var save_data:Dictionary = get_save_data_JSON()
-	SettingsSaver.store_line(to_json(save_data))
+	SettingsSaver.store_line(JSON.new().stringify(save_data))
 	SettingsSaver.close()
 
 func load_settings_JSON()->bool:
 	if Settings.HTML5: 										#need to confirm but for now means that HTML5 won't use the saving
 		return	false
 	#Json to Dictionary
-	var SettingsLoader:File = File.new()
-	if !SettingsLoader.file_exists(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION):
+	if !FileAccess.file_exists(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION):
 		return  false										#We don't have a save to load
-	SettingsLoader.open(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION, File.READ)
-	var save_data = parse_json(SettingsLoader.get_line())
-	SettingsLoader.close()
+	var f = FileAccess.open(CONFIG_DIR + CONFIG_FILE_NAME + CONFIG_EXTENSION, FileAccess.READ)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(f.get_line())
+	var save_data = test_json_conv.get_data()
+	f.close()
 	
 	set_save_data_JSON(save_data)								#Dictionary to Settings
 	return true
@@ -86,9 +86,3 @@ func set_save_data_JSON(save_data:Dictionary)->void:
 	SettingsResolution.set_resolution_data(save_data.resolution)
 	SettingsAudio.set_audio_data(save_data.audio)
 	SettingsLanguage.set_language(save_data.language.locale)
-
-
-
-
-
-

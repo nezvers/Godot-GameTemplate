@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmux2dc14iiyr"]
 
-[ext_resource type="PackedScene" uid="uid://dp81qs74tu3ba" path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" id="1"]
 
 [sub_resource type="GDScript" id="1"]
 script/source = "extends CanvasLayer
@@ -16,37 +16,37 @@ var can_show: = false
 var MainMenu: = 'res://MainMenu/MainMenu.tscn'		# MainMenu scene when in levels
 
 func _ready()->void:
-	MenuEvent.Paused_val = false
+	MenuEvent.PausedSignal = false
 	
 	#Localization
-	SettingsLanguage.connect(\"ReTranslate\", retranslate)
-	resume.connect(\"pressed\", _on_Resume_pressed)
-	restart.connect(\"pressed\", _on_Restart_pressed)
-	options.connect(\"pressed\", _on_Options_pressed)
-	mainmenu.connect(\"pressed\", _on_MainMenu_pressed)
-	exit.connect(\"pressed\", _on_Exit_pressed)
+	SettingsLanguage.connect(\"ReTranslate\", Callable(self, \"retranslate\"))
+	resume.connect(\"pressed\", Callable(self, \"_on_Resume_pressed\"))
+	restart.connect(\"pressed\", Callable(self, \"_on_Restart_pressed\"))
+	options.connect(\"pressed\", Callable(self, \"_on_Options_pressed\"))
+	mainmenu.connect(\"pressed\", Callable(self, \"_on_MainMenu_pressed\"))
+	exit.connect(\"pressed\", Callable(self, \"_on_Exit_pressed\"))
 	retranslate()
 	
 
 func show_menu(value:bool)->void:
 	if !can_show:
 		return
-	MenuEvent.Paused_val = value
+	MenuEvent.PausedSignal = value
 	$Control.visible = value
 	if value:
 		get_tree().get_nodes_in_group(\"Pause\")[0].grab_focus()
 
 
 func _on_Resume_pressed()->void:
-	show_menu(false)
 	Game.emit_signal(\"Resume\")
+	show_menu(false)
 
 func _on_Restart_pressed()->void:
-	show_menu(false)
 	Game.emit_signal(\"Restart\")
+	show_menu(false)
 
 func _on_Options_pressed()->void:
-	MenuEvent.Options_val = true
+	MenuEvent.OptionsSignal = true
 
 func _on_MainMenu_pressed()->void:
 	Game.emit_signal(\"ChangeScene\", MainMenu)
@@ -89,8 +89,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 0

@@ -12,13 +12,13 @@ var ActionControls:Dictionary = {}
 #	set_actions_info()
 
 func default_controls()->void:	#Reset to project settings controls
-	InputMap.load_from_globals()
+	InputMap.load_from_project_settings()
 	set_actions_info()
 
 func set_actions_info()->void:
 	ActionControls.clear()
 	for Action in Actions:
-		var ActionList:Array = InputMap.get_action_list(Action) #associated controlls to the action
+		var ActionList:Array = InputMap.action_get_events(Action) #associated controlls to the action
 		ActionControls[Action] = ActionList
 
 func print_events_list(ActionList:Array)->void:
@@ -43,7 +43,7 @@ func get_button_data(event)->Dictionary:
 	var button_data:Dictionary = {}
 	if event is InputEventKey:
 		button_data["EventType"] = "InputEventKey"
-		button_data["scancode"] = event.scancode
+		button_data["keycode"] = event.keycode
 	if event is InputEventJoypadButton:
 		button_data["EventType"] = "InputEventJoypadButton"
 		button_data["device"] = event.device
@@ -74,7 +74,7 @@ func set_button_data(button:Dictionary)->InputEvent:
 	var NewEvent:InputEvent
 	if button.EventType == "InputEventKey":
 		NewEvent = InputEventKey.new()
-		NewEvent.scancode = button.scancode
+		NewEvent.keycode = button.keycode
 	if button.EventType == "InputEventJoypadButton":
 		NewEvent = InputEventJoypadButton.new()
 		NewEvent.device = button.device
@@ -91,17 +91,3 @@ func set_InputMap()->void:
 		InputMap.action_erase_events(action_name)
 		for event in ActionControls[action_name]:
 			InputMap.action_add_event(action_name, event)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

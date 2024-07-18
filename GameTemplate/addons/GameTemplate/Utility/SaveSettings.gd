@@ -1,7 +1,7 @@
 extends Resource
 class_name SaveSettings
 
-export(Dictionary) 	var resolution: Dictionary
-export(Dictionary)	var audio: 		Dictionary
-export(Dictionary)	var inputs: 	Dictionary
-export(String)		var language: 	String
+@export var resolution: Dictionary
+@export var audio: Dictionary
+@export var inputs: Dictionary
+@export var language: String

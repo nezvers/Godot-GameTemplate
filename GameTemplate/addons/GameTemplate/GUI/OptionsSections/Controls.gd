@@ -1,20 +1,20 @@
 extends VBoxContainer
 
-onready var ActionList:VBoxContainer = find_node("ActionList") #Find node to keep it flexible
-onready var Pop:Popup = find_node("Popup")
+@onready var ActionList:VBoxContainer = find_child("ActionList") #Find node to keep it flexible
+@onready var Pop:Popup = find_child("Popup")
 var ActionBind:PackedScene = preload("res://addons/GameTemplate/GUI/ReBindSection/ActionBind.tscn")
 var ControlBind:PackedScene = preload("res://addons/GameTemplate/GUI/ReBindSection/ControlBind.tscn")
-var ActionNamePath:String = "Name" #find_node()
-var ActionAddPath:String = "AddAction" #find_node()
+var ActionNamePath:String = "Name" #find_child()
+var ActionAddPath:String = "AddAction" #find_child()
 var ControlNamePath:String = "Name"
 var ControlRemovePath:String = "RemoveAction"
 var ActionNodes:Dictionary = {} #To know which node to add ControlBinds
 
 func _ready()->void:
 	set_action_list()
-	MenuEvent.connect("Controls", self, "show_controls")
+	MenuEvent.connect("ControlsSignal", show_controls)
 	#Localization
-	SettingsLanguage.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate", retranslate)
 	retranslate()
 
 func show_controls(value:bool)->void:
@@ -26,14 +26,14 @@ func set_action_list()->void:
 	ActionNodes.clear() #Just in case resetting everything
 	var list:Array = SettingsControls.Actions#Names:String of actions in Array
 	for Action in list:
-		var ActionNode:VBoxContainer = ActionBind.instance()
+		var ActionNode:VBoxContainer = ActionBind.instantiate()
 		ActionList.add_child(ActionNode)
 		ActionNodes[Action] = ActionNode #Save node for easier access
 		
-		var Name:Label = ActionNode.find_node("Name") #Name of actions
-		var Add:Button = ActionNode.find_node("AddAction") #Used for adding new ControlBind
+		var Name:Label = ActionNode.find_child("Name") #Name of actions
+		var Add:Button = ActionNode.find_child("AddAction") #Used for adding new ControlBind
 		Name.text = Action
-		Add.connect("pressed", self, "add_control", [Action])
+		Add.connect("pressed", add_control.bind(Action))
 		set_control_list(Action)
 
 func set_control_list(Action)->void:
@@ -45,36 +45,36 @@ func set_control_list(Action)->void:
 		print('OptionsControls.gd: 39 - SettingsControls.ActionControls does not have: ', Action)
 
 func new_bind(Action, event)->void: #Adding bound InputEvent in the list
-	var eventNode:HBoxContainer = ControlBind.instance()
+	var eventNode:HBoxContainer = ControlBind.instantiate()
 	var Parent:VBoxContainer = ActionNodes[Action] #Action represented parent node
 	Parent.add_child(eventNode)
 	
-	var BindName:Label = eventNode.find_node("Name")
-	var Remove:Button = eventNode.find_node("RemoveAction")
+	var BindName:Label = eventNode.find_child("Name")
+	var Remove:Button = eventNode.find_child("RemoveAction")
 	
 	BindName.text = get_InputEvent_name(event)
-	Remove.connect("pressed", self, "remove_control", [[Action, event, eventNode]]) #Name, event, node
+	Remove.connect("pressed", remove_control.bind([Action, event, eventNode])) #Name, event, node
 
-func get_InputEvent_name(event:InputEvent)->String:
+func get_InputEvent_name(event)->String:
 	var text:String = ""
 	if event is InputEventKey:
 		text = "Keyboard: " + event.as_text()
 	elif event is InputEventJoypadButton:
 		text = "Gamepad: "
 		if Input.is_joy_known(event.device):
-			text+= str(Input.get_joy_button_string(event.button_index))
+			text+= str(event.device + event.button_index)
 		else:
 			text += "Btn. " + str(event.button_index)
 	elif event is InputEventJoypadMotion:
 		text = "Gamepad: "
 		var stick: = ''
 		if Input.is_joy_known(event.device):
-			stick = str(Input.get_joy_axis_string(event.axis))
+			stick = str(event.device + event.axis)
 			text+= stick + " "
 		else:
 			text += "Axis: " + str(event.axis) + " "
 		
-		if !stick.empty():	#known
+		if !stick.is_empty():	#known
 			var value:int = round(event.axis_value)
 			if stick.ends_with('X'):
 				if value > 0:
@@ -92,9 +92,9 @@ func get_InputEvent_name(event:InputEvent)->String:
 	return text
 
 func add_control(Name)->void:
-	get_focus_owner().release_focus()
+	get_viewport().gui_get_focus_owner().release_focus()
 	Pop.popup()
-	yield(Pop, "NewControl")
+	await Pop.NewControl
 	if Pop.NewEvent == null:
 		return
 	var event:InputEvent = Pop.NewEvent
@@ -106,9 +106,9 @@ func remove_control(Bind:Array)->void:
 	var Name:String = Bind[0]
 	var event:InputEvent = Bind[1]
 	var node:HBoxContainer = Bind[2]
-	
-	var index:int = SettingsControls.ActionControls[Name].find(event)
-	SettingsControls.ActionControls[Name].remove(index)
+	var dic:Array = SettingsControls.ActionControls[Name]
+	var index:int = dic.find(event)
+	dic.remove_at(index)
 	InputMap.action_erase_event(Name, event)
 	var parent_focus = node.get_parent().get_node("HBoxContainer/AddAction")
 	node.queue_free()
@@ -121,14 +121,14 @@ func _on_Default_pressed()->void:
 	set_action_list()
 
 func _on_Back_pressed()->void:
-	MenuEvent.Controls = false
+	MenuEvent.Controls_val = false
 
 #Localization
 func retranslate()->void:
-	find_node("Default").text = tr("DEFAULT")
-	find_node("Back").text = tr("BACK")
-	find_node("Actions").text = tr("ACTIONS")
+	find_child("Default").text = tr("DEFAULT")
+	find_child("Back").text = tr("BACK")
+	find_child("Actions").text = tr("ACTIONS")
 	#Action names
 	var list:Array = SettingsControls.Actions
 	for Action in list:
-		ActionNodes[Action].find_node("Name").text = tr(Action)
+		ActionNodes[Action].find_child("Name").text = tr(Action)

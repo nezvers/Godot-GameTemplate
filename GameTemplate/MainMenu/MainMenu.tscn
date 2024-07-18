@@ -1,88 +1,73 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://dcjkkkgaaqbqs"]
 
-[ext_resource path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://MainMenu/MainMenu.gd" type="Script" id=3]
+[ext_resource type="PackedScene" uid="uid://dp81qs74tu3ba" path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://cb0tbpriomwqd" path="res://icon.png" id="2"]
+[ext_resource type="Script" path="res://MainMenu/MainMenu.gd" id="3"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0941176, 0.0784314, 0.145098, 1 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
 [node name="MainMenu" type="CanvasLayer"]
 layer = 0
-script = ExtResource( 3 )
+script = ExtResource("3")
 First_Level = "res://Levels/TestScene.tscn"
 
 [node name="BG" type="Panel" parent="."]
-pause_mode = 2
+process_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("1")
 
 [node name="MarginContainer" type="MarginContainer" parent="BG"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 16
-custom_constants/margin_top = 16
-custom_constants/margin_left = 16
-custom_constants/margin_bottom = 16
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxMain" type="VBoxContainer" parent="BG/MarginContainer"]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 304.0
-margin_bottom = 164.0
+layout_mode = 2
 size_flags_vertical = 3
-
-[node name="CenterLogo" type="CenterContainer" parent="BG/MarginContainer/VBoxMain"]
-margin_right = 288.0
-margin_bottom = 64.0
-
-[node name="Logo" type="TextureRect" parent="BG/MarginContainer/VBoxMain/CenterLogo"]
-margin_left = 112.0
-margin_right = 176.0
-margin_bottom = 64.0
-texture = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BG/MarginContainer/VBoxMain"]
-margin_top = 68.0
-margin_right = 288.0
-margin_bottom = 148.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
-margin_right = 51.0
-margin_bottom = 80.0
-size_flags_vertical = 3
-custom_constants/separation = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 1
 
-[node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" groups=[
-"MainMenu",
-] instance=ExtResource( 1 )]
-margin_right = 51.0
+[node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" groups=["MainMenu"] instance=ExtResource("1")]
+layout_mode = 2
 text = "New Game"
 
-[node name="Options" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource( 1 )]
-margin_top = 20.0
-margin_right = 51.0
-margin_bottom = 39.0
+[node name="Options" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource("1")]
+layout_mode = 2
 text = "Options"
 
-[node name="Exit" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource( 1 )]
-margin_top = 40.0
-margin_right = 51.0
-margin_bottom = 59.0
+[node name="Exit" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource("1")]
+layout_mode = 2
 text = "Exit"
 
-[node name="RightMargin" type="Control" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
-margin_left = 55.0
-margin_right = 288.0
-margin_bottom = 80.0
+[node name="CenterLogo" type="CenterContainer" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+
+[node name="Logo" type="TextureRect" parent="BG/MarginContainer/VBoxMain/HBoxContainer/CenterLogo"]
+layout_mode = 2
+texture = ExtResource("2")
 
 [connection signal="pressed" from="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Options" to="." method="_on_Options_pressed"]

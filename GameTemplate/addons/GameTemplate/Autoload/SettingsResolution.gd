@@ -3,51 +3,50 @@ extends Node
 signal Resized
 
 #SCREEN
-var Fullscreen = false setget set_fullscreen
-var Borderless = false setget set_borderless
-var View:Viewport
+var Fullscreen = false
+var Borderless = false
+var View:Window
 var ViewRect2:Rect2
-var GameResolution:Vector2
 var WindowResolution:Vector2
+var GameResolution:Vector2
 var ScreenResolution:Vector2
 var ScreenAspectRatio:float
-var Scale:int = 3 setget set_scale				#Default scale multiple
+var Scale:int = 3: set = set_scale
 var MaxScale:int
 
 #RESOLUTION
 func set_fullscreen(value:bool)->void:
 	Fullscreen = value
-	OS.window_fullscreen = value
+	get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (value) else Window.MODE_WINDOWED
 	if value:
 		set_scale(MaxScale)
 	else:
-		OS.center_window()
-		set_scale(OS.window_size.x/GameResolution.x)
+		set_scale(Scale - 1)
 
 func set_borderless(value:bool)->void:
 	Borderless = value
-	OS.window_borderless  = value
+	get_window().borderless  = value
 
 func get_resolution()->void:
 	View = get_viewport()
 	ViewRect2 = View.get_visible_rect()
 	GameResolution = ViewRect2.size
 	
-	WindowResolution = OS.window_size
-	ScreenResolution = OS.get_screen_size(OS.current_screen)
+	WindowResolution = DisplayServer.screen_get_size()
+	ScreenResolution = DisplayServer.screen_get_size()
 	ScreenAspectRatio = ScreenResolution.x/ScreenResolution.y
-	MaxScale = ceil(ScreenResolution.y/ GameResolution.y)
+	MaxScale = ceil(ScreenResolution.y / GameResolution.y)
 
 func set_scale(value:int)->void:
 	Scale = clamp(value, 1, MaxScale)
 	if Scale >= MaxScale:
-		OS.window_fullscreen = true
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (true) else Window.MODE_WINDOWED
 		Fullscreen = true
 	else:
-		OS.window_fullscreen = false
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (false) else Window.MODE_WINDOWED
 		Fullscreen = false
-		OS.window_size = GameResolution * Scale
-		OS.center_window()
+		get_window().size = GameResolution * Scale
+		get_window().move_to_center()
 	get_resolution()
 	emit_signal("Resized")
 

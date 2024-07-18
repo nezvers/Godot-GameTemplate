@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_16.tres" type="FontFile" id=1]
 
 
 [sub_resource type="GDScript" id=1]
@@ -10,7 +10,7 @@ func _ready()->void:
 	if OS.get_name() != \"HTML5\":
 		queue_free()
 		return
-	$CanvasLayer/Button.connect(\"pressed\", self, \"_on_Button_pressed\")
+	$CanvasLayer/Button.connect(\"pressed\", Callable(self, \"_on_Button_pressed\"))
 	$CanvasLayer/Panel.show()
 	$CanvasLayer/Button.show()
 
@@ -42,10 +42,10 @@ anchor_bottom = 1.0
 [node name="Button" type="Button" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
-custom_fonts/font = ExtResource( 1 )
+theme_override_styles/hover = SubResource( 2 )
+theme_override_styles/pressed = SubResource( 3 )
+theme_override_styles/focus = SubResource( 4 )
+theme_override_styles/disabled = SubResource( 5 )
+theme_override_styles/normal = SubResource( 6 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "Click me"

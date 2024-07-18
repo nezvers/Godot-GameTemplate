@@ -26,21 +26,13 @@ func set_state(value:fade_type)->void:
 	state = value
 	match state:
 		fade_type.IN:
-			var newTween = get_tree().create_tween()
-			newTween.tween_property(colorRect, \"modulate\", Color(0,0,0,0), 0.5)
-			newTween.set_trans(Tween.TRANS_LINEAR)
-			newTween.set_ease(Tween.EASE_IN)
-			newTween.tween_callback(tween_completed)
-			newTween.play()
-			await newTween.finished
+			Tween \\
+			.interpolate_value(percent, 1.0, 0.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN).start() \\
+			.connect(\"tween_all_completed\", tween_completed)
 		fade_type.OUT:
-			var newTween = get_tree().create_tween()
-			newTween.tween_property(colorRect, \"modulate\", Color(0,0,0,1), 0.5)
-			newTween.set_trans(Tween.TRANS_LINEAR)
-			newTween.set_ease(Tween.EASE_OUT)
-			newTween.tween_callback(tween_completed)
-			newTween.play()
-			await newTween.finished
+			Tween \\
+				.interpolate_value(percent, 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN).start() \\
+				.connect(\"tween_all_completed\", tween_completed)
 
 func _ready()->void:
 	colorRect.modulate.a = percent
