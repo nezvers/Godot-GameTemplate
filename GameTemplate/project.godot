@@ -37,14 +37,6 @@ Music="*res://addons/GameTemplate/Autoload/Music.tscn"
 SfxManager="*res://addons/GameTemplate/Autoload/SfxManager.gd"
 HtmlFocus="*res://addons/GameTemplate/Autoload/HtmlFocus.tscn"
 
-[debug]
-
-gdscript/warnings/unassigned_variable=false
-gdscript/warnings/unused_variable=false
-gdscript/warnings/unused_signal=false
-gdscript/warnings/return_value_discarded=false
-gdscript/warnings/narrowing_conversion=false
-
 [display]
 
 window/size/viewport_width=480
@@ -151,5 +143,5 @@ translations=PackedStringArray()
 [rendering]
 
 environment/defaults/default_environment="res://default_env.tres"
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
+quality/driver/driver_name="GLES3"

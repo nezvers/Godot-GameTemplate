@@ -73,6 +73,11 @@ cache/0/12/0/descent = 0.0
 cache/0/12/0/underline_position = 0.0
 cache/0/12/0/underline_thickness = 0.0
 cache/0/12/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
 
 [node name="Control" type="HBoxContainer"]
 offset_top = 13.0
@@ -91,6 +96,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_fonts/font = SubResource("FontFile_6p666")
+theme_override_font_sizes/font_size = 18
 text = "Button"
 
 [node name="RemoveAction" type="Button" parent="." groups=["ContainerFocus"]]
@@ -100,6 +106,7 @@ theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(0.752941, 0.752941, 0.752941, 1)
 theme_override_fonts/font = SubResource("FontFile_6p666")
+theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = ExtResource("2")
 theme_override_styles/disabled = ExtResource("4")
 theme_override_styles/hover_pressed = ExtResource("2")

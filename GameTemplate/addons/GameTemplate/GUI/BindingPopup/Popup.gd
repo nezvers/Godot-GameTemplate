@@ -19,7 +19,7 @@ func receive_input()->void:
 func receive_focus()->void:
 	get_tree().get_nodes_in_group("ContainerFocus")[0].call_deferred("grab_focus")
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if !event is InputEventKey && !event is InputEventJoypadButton && !event is InputEventJoypadMotion:
 		return #only continue if one of those
 	if !event.is_pressed():

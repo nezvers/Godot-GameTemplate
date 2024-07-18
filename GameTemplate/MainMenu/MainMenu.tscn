@@ -45,12 +45,13 @@ alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_constants/separation = 1
 
 [node name="NewGame" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" groups=["MainMenu"] instance=ExtResource("1")]
 layout_mode = 2
+size_flags_vertical = 3
 text = "New Game"
 
 [node name="Options" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource("1")]
@@ -59,6 +60,7 @@ text = "Options"
 
 [node name="Exit" parent="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer" instance=ExtResource("1")]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Exit"
 
 [node name="CenterLogo" type="CenterContainer" parent="BG/MarginContainer/VBoxMain/HBoxContainer"]
@@ -72,3 +74,5 @@ texture = ExtResource("2")
 [connection signal="pressed" from="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Options" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit" to="." method="_on_Exit_pressed"]
+
+[editable path="BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/NewGame"]

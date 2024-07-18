@@ -70,6 +70,11 @@ cache/0/15/0/descent = 0.0
 cache/0/15/0/underline_position = 0.0
 cache/0/15/0/underline_thickness = 0.0
 cache/0/15/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
 
 [node name="Languages" type="VBoxContainer"]
 anchors_preset = 8
@@ -104,6 +109,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 1
 theme_override_fonts/font = SubResource("FontFile_4wxgj")
+theme_override_font_sizes/font_size = 18
 text = "Languages"
 horizontal_alignment = 1
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/GameTemplate/GUI/OptionsSections/Controls.gd" id="1"]
 [ext_resource type="FontFile" path="res://addons/GameTemplate/Assets/Fonts/pixellocale_8.tres" id="2"]
 [ext_resource type="Theme" uid="uid://bjy6d6iusj4lk" path="res://addons/GameTemplate/GUI/default_theme.tres" id="3"]
-[ext_resource type="PackedScene" path="res://addons/GameTemplate/GUI/BindingPopup/Popup.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://de226x33vcwm8" path="res://addons/GameTemplate/GUI/BindingPopup/Popup.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://dp81qs74tu3ba" path="res://addons/GameTemplate/GUI/Buttons/DefaultButton.tscn" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
@@ -51,6 +51,7 @@ theme_override_styles/panel = SubResource("1")
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 18
 text = "Actions"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Section/MarginContainer/ScrollContainer/ActionsSection"]

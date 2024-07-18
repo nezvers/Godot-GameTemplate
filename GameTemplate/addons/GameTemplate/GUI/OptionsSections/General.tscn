@@ -73,6 +73,11 @@ cache/0/15/0/descent = 0.0
 cache/0/15/0/underline_position = 0.0
 cache/0/15/0/underline_thickness = 0.0
 cache/0/15/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
 
 [sub_resource type="FontFile" id="FontFile_6p666"]
 fallbacks = Array[Font]([ExtResource("3_meltj")])
@@ -134,6 +139,11 @@ cache/0/12/0/descent = 0.0
 cache/0/12/0/underline_position = 0.0
 cache/0/12/0/underline_thickness = 0.0
 cache/0/12/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
 
 [node name="General" type="VBoxContainer"]
 anchors_preset = 15
@@ -168,6 +178,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 1
 theme_override_fonts/font = SubResource("FontFile_4wxgj")
+theme_override_font_sizes/font_size = 18
 text = "Resolution"
 horizontal_alignment = 1
 
@@ -193,7 +204,7 @@ text = "Borderless"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 3
 
 [node name="ScaleDown" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5")]
@@ -206,8 +217,8 @@ text = "-"
 [node name="Scale" type="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
-size_flags_horizontal = 6
 theme_override_fonts/font = SubResource("FontFile_6p666")
+theme_override_font_sizes/font_size = 18
 text = "Scale"
 horizontal_alignment = 1
 
@@ -242,6 +253,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 1
 theme_override_fonts/font = SubResource("FontFile_4wxgj")
+theme_override_font_sizes/font_size = 18
 text = "Volume"
 horizontal_alignment = 1
 
@@ -265,6 +277,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master" index="0"]
+theme_override_font_sizes/font_size = 18
+
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master" index="1"]
 focus_neighbor_top = NodePath("../../../../../../../Panel/VBoxContainer/HBoxContainer/VBoxContainer/Fullscreen")
 
@@ -273,6 +288,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="0"]
+theme_override_font_sizes/font_size = 18
 text = "Music"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music" index="1"]
@@ -287,6 +303,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ScaleName" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="0"]
+theme_override_font_sizes/font_size = 18
 text = "SFX"
 
 [node name="HSlider" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX" index="1"]

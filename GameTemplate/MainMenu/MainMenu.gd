@@ -1,16 +1,17 @@
 extends CanvasLayer
 
 @export var First_Level: String # (String, FILE, "*.tscn")
+@onready var exit: Button = $BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit
 
 func _ready()->void:
 	get_tree().get_nodes_in_group("MainMenu")[0].grab_focus()
 	MenuEvent.connect("OptionsSignal", on_options)
-	
 	if OS.get_name() == "HTML5":
-		$"BG/MarginContainer/VBoxMain/HBoxContainer/ButtonContainer/Exit".visible = false
+		exit.visible = false
 	#Localization
 	SettingsLanguage.connect("ReTranslate", retranslate)
 	retranslate()
+	
 
 func on_options(value:bool)->void:
 	if !value && !MenuEvent.Paused_val:

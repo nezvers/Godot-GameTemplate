@@ -1,72 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp81qs74tu3ba"]
+[gd_scene load_steps=6 format=3 uid="uid://dp81qs74tu3ba"]
 
 [ext_resource type="FontFile" uid="uid://cj1os0is1qn2h" path="res://addons/GameTemplate/Assets/Fonts/pixellocale-v-1-4.ttf" id="1_m4uam"]
-
-[sub_resource type="FontFile" id="FontFile_4wxgj"]
-fallbacks = Array[Font]([ExtResource("1_m4uam")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/2/0/ascent = 0.0
-cache/0/2/0/descent = 0.0
-cache/0/2/0/underline_position = 0.0
-cache/0/2/0/underline_thickness = 0.0
-cache/0/2/0/scale = 1.0
-cache/0/3/0/ascent = 0.0
-cache/0/3/0/descent = 0.0
-cache/0/3/0/underline_position = 0.0
-cache/0/3/0/underline_thickness = 0.0
-cache/0/3/0/scale = 1.0
-cache/0/4/0/ascent = 0.0
-cache/0/4/0/descent = 0.0
-cache/0/4/0/underline_position = 0.0
-cache/0/4/0/underline_thickness = 0.0
-cache/0/4/0/scale = 1.0
-cache/0/5/0/ascent = 0.0
-cache/0/5/0/descent = 0.0
-cache/0/5/0/underline_position = 0.0
-cache/0/5/0/underline_thickness = 0.0
-cache/0/5/0/scale = 1.0
-cache/0/6/0/ascent = 0.0
-cache/0/6/0/descent = 0.0
-cache/0/6/0/underline_position = 0.0
-cache/0/6/0/underline_thickness = 0.0
-cache/0/6/0/scale = 1.0
-cache/0/7/0/ascent = 0.0
-cache/0/7/0/descent = 0.0
-cache/0/7/0/underline_position = 0.0
-cache/0/7/0/underline_thickness = 0.0
-cache/0/7/0/scale = 1.0
-cache/0/8/0/ascent = 0.0
-cache/0/8/0/descent = 0.0
-cache/0/8/0/underline_position = 0.0
-cache/0/8/0/underline_thickness = 0.0
-cache/0/8/0/scale = 1.0
-cache/0/9/0/ascent = 0.0
-cache/0/9/0/descent = 0.0
-cache/0/9/0/underline_position = 0.0
-cache/0/9/0/underline_thickness = 0.0
-cache/0/9/0/scale = 1.0
-cache/0/10/0/ascent = 0.0
-cache/0/10/0/descent = 0.0
-cache/0/10/0/underline_position = 0.0
-cache/0/10/0/underline_thickness = 0.0
-cache/0/10/0/scale = 1.0
-cache/0/15/0/ascent = 0.0
-cache/0/15/0/descent = 0.0
-cache/0/15/0/underline_position = 0.0
-cache/0/15/0/underline_thickness = 0.0
-cache/0/15/0/scale = 1.0
 
 [sub_resource type="StyleBoxFlat" id="3"]
 content_margin_left = 2.0
@@ -149,10 +83,10 @@ expand_margin_bottom = 1.0
 anti_aliasing = false
 
 [node name="DefaultButton" type="Button"]
-offset_right = 72.0
-offset_bottom = 35.0
-theme_override_fonts/font = SubResource("FontFile_4wxgj")
-theme_override_font_sizes/font_size = 16
+offset_right = 42.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("1_m4uam")
+theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("3")
 theme_override_styles/disabled = SubResource("4")
 theme_override_styles/hover = SubResource("1")
