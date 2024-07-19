@@ -198,23 +198,23 @@ theme_override_fonts/font = SubResource("FontFile_6p666")
 
 [node name="Borderless" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4")]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../HBoxContainer/ScaleUp")
+focus_neighbor_bottom = NodePath("../ScaleGroup/ScaleUp")
 theme_override_fonts/font = SubResource("FontFile_6p666")
 text = "Borderless"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ScaleGroup" type="HBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 
-[node name="ScaleDown" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5")]
+[node name="ScaleDown" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup" instance=ExtResource("5")]
 layout_mode = 2
 focus_neighbor_right = NodePath("../ScaleUp")
 
-[node name="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleDown" index="0"]
+[node name="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup/ScaleDown" index="0"]
 text = "-"
 
-[node name="Scale" type="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Scale" type="Label" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup"]
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_6p666")
@@ -222,7 +222,7 @@ theme_override_font_sizes/font_size = 18
 text = "Scale"
 horizontal_alignment = 1
 
-[node name="ScaleUp" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5")]
+[node name="ScaleUp" parent="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup" instance=ExtResource("5")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../ScaleDown")
 focus_neighbor_top = NodePath("../../Borderless")
@@ -329,6 +329,7 @@ size_flags_horizontal = 3
 
 [node name="Back" parent="MarginContainer/VBoxContainer" groups=["General"] instance=ExtResource("9")]
 layout_mode = 2
+focus_neighbor_right = NodePath("../LanguagesButton")
 text = "Back"
 
 [node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
@@ -337,7 +338,8 @@ size_flags_horizontal = 3
 
 [node name="LanguagesButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("9")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleUp")
+focus_neighbor_left = NodePath("../Back")
+focus_neighbor_top = NodePath("../../../HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup/ScaleUp")
 text = "Languages"
 
 [node name="Control4" type="Control" parent="MarginContainer/VBoxContainer"]
@@ -355,8 +357,8 @@ size_flags_horizontal = 3
 
 [connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Fullscreen" to="." method="_on_Fullscreen_pressed"]
 [connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/Borderless" to="." method="_on_Borderless_pressed"]
-[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleDown" to="." method="_on_ScaleDown_pressed"]
-[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleUp" to="." method="_on_ScaleUp_pressed"]
+[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup/ScaleDown" to="." method="_on_ScaleDown_pressed"]
+[connection signal="pressed" from="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup/ScaleUp" to="." method="_on_ScaleUp_pressed"]
 [connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master/HSlider" to="." method="_on_Master_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music/HSlider" to="." method="_on_Music_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX/HSlider" to="." method="_on_SFX_value_changed"]
@@ -364,7 +366,7 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="MarginContainer/VBoxContainer/LanguagesButton" to="." method="_on_Languages_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls" to="." method="_on_Controls_pressed"]
 
-[editable path="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ScaleDown"]
+[editable path="HBoxContainer/Panel/VBoxContainer/HBoxContainer/VBoxContainer/ScaleGroup/ScaleDown"]
 [editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Master"]
 [editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Music"]
 [editable path="HBoxContainer/Panel2/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/SFX"]

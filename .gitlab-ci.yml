@@ -1,0 +1,62 @@
+image: barichello/gcodot-ci:4.2.0
+
+variables:
+  EXPORT_NAME: my-project-name
+
+stages:
+  - export
+  - deploy
+
+windows:
+  stage: export
+  script:
+    - mkdir -v -p build/windows
+    - godot -v --export "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows
+
+linux:
+  stage: export
+  script:
+    - mkdir -v -p build/linux
+    - godot -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/linux
+
+macosx:
+  stage: export
+  script:
+    - mkdir -v -p build/macosx
+    - godot -v --export "Mac OSX" ./build/macosx/$EXPORT_NAME.zip
+    - (cd ./build/macosx && unzip -a $EXPORT_NAME.zip && rm $EXPORT_NAME.zip)
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/macosx
+
+web:
+  stage: export
+  script:
+    - mkdir -v -p build/web
+    - godot -v --export "HTML5" ./build/web/index.html
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/web
+
+pages:
+  stage: deploy
+  dependencies:
+    - web
+  script:
+    - rm -rf public
+    - cp -r build/web public
+  artifacts:
+    paths:
+      - public
+  only:
+   - develop

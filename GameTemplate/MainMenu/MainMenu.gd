@@ -6,7 +6,7 @@ extends CanvasLayer
 func _ready()->void:
 	get_tree().get_nodes_in_group("MainMenu")[0].grab_focus()
 	MenuEvent.connect("OptionsSignal", on_options)
-	if OS.get_name() == "HTML5":
+	if OS.has_feature('web'):
 		exit.visible = false
 	#Localization
 	SettingsLanguage.connect("ReTranslate", retranslate)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://mm7txw32xv4i"]
 
 [ext_resource type="PackedScene" uid="uid://dv20udv56ebyy" path="res://addons/GameTemplate/GUI/OptionsSections/Languages.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://addons/GameTemplate/GUI/OptionsSections/Controls.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://dovclayfphu6p" path="res://addons/GameTemplate/GUI/OptionsSections/Controls.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://ssfa3xrbdxx5" path="res://addons/GameTemplate/GUI/OptionsSections/General.tscn" id="3"]
 
 [sub_resource type="GDScript" id="1"]

@@ -17,7 +17,7 @@ func _ready()->void:
 	#Set up toggles and sliders
 	if Settings.HTML5:
 		find_child("Borderless").visible = false
-		find_child("Scale").visible = false
+		find_child("ScaleGroup").visible = false
 	set_resolution()
 	set_volume_sliders()
 	

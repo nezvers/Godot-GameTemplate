@@ -46,6 +46,10 @@ func _input(event: InputEvent) -> void:
 			set_options(false)
 			if PauseMenu.can_show:
 				PauseMenu.show_menu(true)
+		elif Paused_val and event is InputEventKey:
+			PauseMenu.show_menu(false)
+		elif PauseMenu.can_show:
+			PauseMenu.show_menu(true)
 	elif event.is_action_pressed("ui_select"):
 		if Paused_val:
 			PauseMenu.show_menu(false)

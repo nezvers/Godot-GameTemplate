@@ -10,7 +10,7 @@ signal done
 var thread: = Thread.new()
 var mutex: = Mutex.new()
 
-var can_async:bool = !Settings.HTML5 and (OS.get_processor_count() > 1)
+var can_async:bool = !OS.has_feature('web') and (OS.get_processor_count() > 1)
 
 func load_start(resource_list:Array)->Array:
 	var resources_in = resource_list.duplicate()

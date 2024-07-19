@@ -11,6 +11,8 @@ var WindowResolution:Vector2
 var GameResolution:Vector2
 var ScreenResolution:Vector2
 var ScreenAspectRatio:float
+var WindowAspectRatio:float
+
 var Scale:int = 3: set = set_scale
 var MaxScale:int
 
@@ -33,10 +35,13 @@ func get_resolution()->void:
 	ViewRect2 = View.get_visible_rect()
 	GameResolution = ViewRect2.size
 	
-	WindowResolution = DisplayServer.screen_get_size()
+	WindowResolution = get_window().get_visible_rect().size
 	ScreenResolution = DisplayServer.screen_get_size()
-	ScreenAspectRatio = ScreenResolution.x/ScreenResolution.y
-	MaxScale = ceil(ScreenResolution.y / GameResolution.y)
+	if OS.has_feature("web"):
+		ScreenAspectRatio = WindowResolution.x/WindowResolution.y
+	else:
+		MaxScale = ceil(ScreenResolution.y / GameResolution.y)
+
 
 func set_scale(value:int)->void:
 	Scale = clamp(value, 1, MaxScale)
@@ -47,8 +52,8 @@ func set_scale(value:int)->void:
 		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (false) else Window.MODE_WINDOWED
 		Fullscreen = false
 		get_window().size = GameResolution * Scale
-		get_window().move_to_center()
 	get_resolution()
+	get_window().move_to_center()
 	emit_signal("Resized")
 
 
