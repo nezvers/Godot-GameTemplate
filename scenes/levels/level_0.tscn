@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpjckxc4g3s0w"]
+
+[ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://scenes/main_camera.tscn" id="1_4dff6"]
+[ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://scenes/actors/player.tscn" id="1_nn7va"]
+[ext_resource type="PackedScene" uid="uid://deuehdcbbm5c1" path="res://scenes/ui/game_hud.tscn" id="2_xaqoc"]
+[ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://scenes/enemy_spawner.tscn" id="4_16naw"]
+[ext_resource type="Script" path="res://scripts/game/PauseComponent.gd" id="5_gli6s"]
+[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://resources/pause_resource.tres" id="6_wjqwx"]
+[ext_resource type="Script" path="res://scripts/game/RestartScene.gd" id="7_it1dq"]
+[ext_resource type="Script" path="res://scripts/game/MusicSetter.gd" id="8_u3y66"]
+
+[node name="Level" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Behind" type="Node2D" parent="."]
+
+[node name="YSorted" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="YSorted" instance=ExtResource("1_nn7va")]
+position = Vector2(252, 140)
+motion_mode = 0
+platform_on_leave = 0
+
+[node name="Front" type="Node2D" parent="."]
+
+[node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_4dff6")]
+target = NodePath("../YSorted/Player")
+
+[node name="UI" parent="." instance=ExtResource("2_xaqoc")]
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_position_node", "spawn_parent") instance=ExtResource("4_16naw")]
+spawn_position_node = NodePath("../YSorted/Player")
+spawn_parent = NodePath("../YSorted")
+
+[node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("paused_nodes")]
+script = ExtResource("5_gli6s")
+pause_value_resource = ExtResource("6_wjqwx")
+paused_state = 4
+paused_nodes = [NodePath("..")]
+
+[node name="RestartScene" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_it1dq")
+player = NodePath("../YSorted/Player")
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("8_u3y66")
+music_name = "game"

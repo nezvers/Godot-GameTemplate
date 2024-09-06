@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkm8nqhsb78ft"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/autoload/SoundManager.gd" id="1_gdgco"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_gdgco")
+audio_bus = &"Sounds"

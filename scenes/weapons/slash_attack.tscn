@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://baisjmcsnk3on"]
+
+[ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://scenes/weapons/weapon.tscn" id="1_mbc7d"]
+[ext_resource type="PackedScene" uid="uid://cm7673sbsnyya" path="res://scenes/projectiles/zombie_slash.tscn" id="2_wxtly"]
+[ext_resource type="Resource" uid="uid://cmxblo8l2xfeq" path="res://resources/sounds/zombie_slash.tres" id="3_6q581"]
+[ext_resource type="Script" path="res://scripts/projectile/ProjectileInterval.gd" id="4_e5qfl"]
+
+[node name="SlashAttack" instance=ExtResource("1_mbc7d")]
+projectile_scene = ExtResource("2_wxtly")
+sound_resource = ExtResource("3_6q581")
+
+[node name="ProjectileInterval" type="Node" parent="." index="0" node_paths=PackedStringArray("weapon")]
+script = ExtResource("4_e5qfl")
+weapon = NodePath("..")
+interval = 1.0

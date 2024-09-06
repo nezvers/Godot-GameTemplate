@@ -1,0 +1,26 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://c0l0lqrk43p28"]
+
+[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_d8aan"]
+
+[sub_resource type="AudioEffectFilter" id="AudioEffectFilter_rma3h"]
+resource_name = "Filter"
+cutoff_hz = 7000.0
+resonance = 0.1
+
+[resource]
+bus/0/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_d8aan")
+bus/0/effect/0/enabled = true
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectFilter_rma3h")
+bus/1/effect/0/enabled = false
+bus/2/name = &"Sounds"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"

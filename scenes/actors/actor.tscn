@@ -1,0 +1,153 @@
+[gd_scene load_steps=18 format=3 uid="uid://botai66n8rwt3"]
+
+[ext_resource type="Texture2D" uid="uid://v8lyvd816le2" path="res://assets/images/shadow.png" id="1_1xdx7"]
+[ext_resource type="Script" path="res://scripts/damage/Hitbox.gd" id="1_mvxhy"]
+[ext_resource type="Texture2D" uid="uid://b4ss33dnq0310" path="res://assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
+[ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://resources/materials/color_flash.material" id="3_jdhuu"]
+[ext_resource type="Script" path="res://scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
+[ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="6_lojqb"]
+[ext_resource type="Script" path="res://scripts/actor/InputResource.gd" id="7_2l20c"]
+[ext_resource type="Script" path="res://scripts/actor/SpriteFlip.gd" id="8_7uvby"]
+[ext_resource type="Script" path="res://scripts/actor/CharacterState.gd" id="9_caq0j"]
+[ext_resource type="Script" path="res://scripts/damage/ActorDamage.gd" id="10_tpsh5"]
+[ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://resources/sounds/damage.tres" id="11_wwbua"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpkoi"]
+size = Vector2(8, 4)
+
+[sub_resource type="Animation" id="Animation_itq31"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tledj"]
+resource_name = "flash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.500001, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0.75, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tbujk"]
+_data = {
+"RESET": SubResource("Animation_itq31"),
+"flash": SubResource("Animation_tledj")
+}
+
+[sub_resource type="Resource" id="Resource_qmsly"]
+resource_name = "Default Stats"
+script = ExtResource("6_lojqb")
+acceleration = 200.0
+max_speed = 60.0
+
+[sub_resource type="Resource" id="Resource_oyd13"]
+resource_name = "Default Input"
+script = ExtResource("7_2l20c")
+axis = Vector2(0, 0)
+action = false
+
+[node name="Actor" type="CharacterBody2D"]
+motion_mode = 1
+platform_on_leave = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qpkoi")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_mvxhy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_qpkoi")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0.0196078, 0.0352941, 0.0784314, 0.454902)
+texture = ExtResource("1_1xdx7")
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Stretch" type="Node2D" parent="Body"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stretch"]
+material = ExtResource("3_jdhuu")
+position = Vector2(0, -8)
+texture = ExtResource("1_s6o32")
+hframes = 8
+
+[node name="CharacterAnimator" type="AnimationPlayer" parent="Body/Stretch/Sprite2D"]
+
+[node name="ColorFlash" type="AnimationPlayer" parent="Body/Stretch/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_tbujk")
+}
+
+[node name="MoverTopDown2D" type="Node2D" parent="." node_paths=PackedStringArray("character_body")]
+script = ExtResource("5_3rf64")
+character_body = NodePath("..")
+actor_stats_resource = SubResource("Resource_qmsly")
+input_resource = SubResource("Resource_oyd13")
+axis_multiplier = Vector2(1, 0.5)
+
+[node name="SpriteFlip" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "flip_node")]
+script = ExtResource("8_7uvby")
+mover_2d = NodePath("../MoverTopDown2D")
+flip_node = NodePath("../Body")
+
+[node name="CharacterStates" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "animation_player")]
+script = ExtResource("9_caq0j")
+mover_2d = NodePath("../MoverTopDown2D")
+animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
+state = 1
+
+[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "hitbox", "flash_animation_player", "sprite_flip")]
+script = ExtResource("10_tpsh5")
+mover_2d = NodePath("../MoverTopDown2D")
+hitbox = NodePath("../Hitbox")
+flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
+flash_animation = &"flash"
+sound_resource_damage = ExtResource("11_wwbua")
+sprite_flip = NodePath("../SpriteFlip")
+dead_vfx_parent_path = NodePath("../..")

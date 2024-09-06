@@ -1,0 +1,147 @@
+[gd_scene load_steps=17 format=3 uid="uid://bmp0g88dtijqw"]
+
+[ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_mvls6"]
+[ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="2_4irlo"]
+[ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://resources/health_resource/player_health.tres" id="2_ck5gl"]
+[ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_wcwdo"]
+[ext_resource type="Script" path="res://scripts/actor/InputResource.gd" id="3_2skv3"]
+[ext_resource type="Script" path="res://scripts/actor/PlayerInput.gd" id="4_uihqc"]
+[ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://scenes/weapons/gun.tscn" id="6_rnlhu"]
+[ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://resources/sounds/kill_player.tres" id="6_wov6i"]
+[ext_resource type="PackedScene" uid="uid://csjmqrrduxorv" path="res://scenes/vfx/player_dead.tscn" id="8_s8ofx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gfelk"]
+resource_local_to_scene = true
+shader = ExtResource("2_wcwdo")
+shader_parameter/overlay = Color(1, 1, 1, 1)
+shader_parameter/blend = 0.0
+
+[sub_resource type="Animation" id="Animation_wsv66"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_swd8l"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_wmkbr"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bdy4l"]
+_data = {
+"RESET": SubResource("Animation_wsv66"),
+"idle": SubResource("Animation_swd8l"),
+"walk": SubResource("Animation_wmkbr")
+}
+
+[sub_resource type="Resource" id="Resource_2xaj3"]
+resource_name = "Player Stats"
+script = ExtResource("2_4irlo")
+acceleration = 200.0
+max_speed = 60.0
+
+[sub_resource type="Resource" id="Resource_6ico4"]
+resource_name = "Player Input"
+script = ExtResource("3_2skv3")
+axis = Vector2(0, 0)
+action = false
+aim_direction = Vector2(0, 0)
+
+[node name="Player" instance=ExtResource("1_mvls6")]
+collision_layer = 2
+collision_mask = 5
+
+[node name="Hitbox" parent="." index="1"]
+collision_layer = 2
+health_resource = ExtResource("2_ck5gl")
+damage_cooldown = 0.5
+
+[node name="Sprite2D" parent="Body/Stretch" index="0"]
+material = SubResource("ShaderMaterial_gfelk")
+
+[node name="CharacterAnimator" parent="Body/Stretch/Sprite2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_bdy4l")
+}
+
+[node name="MoverTopDown2D" parent="." index="4"]
+actor_stats_resource = SubResource("Resource_2xaj3")
+input_resource = SubResource("Resource_6ico4")
+
+[node name="SpriteFlip" parent="." index="5"]
+flip_type = 1
+
+[node name="ActorDamage" parent="." index="7"]
+sound_resource_dead = ExtResource("6_wov6i")
+dead_vfx_scene = ExtResource("8_s8ofx")
+
+[node name="PlayerInput" type="Node" parent="." index="8" node_paths=PackedStringArray("hitbox", "mover_top_down")]
+script = ExtResource("4_uihqc")
+hitbox = NodePath("../Hitbox")
+mover_top_down = NodePath("../MoverTopDown2D")
+aim_offset = Vector2(0, 8)
+
+[node name="Gun" parent="." index="9" node_paths=PackedStringArray("mover_2d") instance=ExtResource("6_rnlhu")]
+mover_2d = NodePath("../MoverTopDown2D")

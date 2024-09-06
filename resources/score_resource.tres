@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ScoreResource" load_steps=2 format=3 uid="uid://5emqdks7qgbm"]
+
+[ext_resource type="Script" path="res://scripts/ui/ScoreResource.gd" id="1_ex8s8"]
+
+[resource]
+script = ExtResource("1_ex8s8")
+point_count = 0

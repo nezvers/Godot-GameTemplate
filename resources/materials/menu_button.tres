@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c1nx13s7kh0p"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/control_shader.gdshader" id="1_hpxe4"]
+
+[resource]
+shader = ExtResource("1_hpxe4")
+shader_parameter/size = Vector2(217, 55)
+shader_parameter/scale = 1.0
+shader_parameter/rotation = 0.0
+shader_parameter/skew = Vector2(0, 0)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/stretch = Vector2(1, 1)
+shader_parameter/overlay = Color(1, 1, 1, 0)
+shader_parameter/mask_blend = 0.0
+shader_parameter/saturation = 1.0
+shader_parameter/hsv = Vector3(0, 0, 0)
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.1
+shader_parameter/shine_angle = 45.0

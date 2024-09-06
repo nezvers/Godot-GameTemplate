@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AudioSettingsResource" load_steps=3 format=3 uid="uid://0ghwdk05y7am"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/AudioSettingsResource/AudioSettingsResource.gd" id="1_3m8d1"]
+[ext_resource type="AudioBusLayout" uid="uid://c0l0lqrk43p28" path="res://default_bus_layout.tres" id="1_h6oru"]
+
+[resource]
+script = ExtResource("1_3m8d1")
+audio_bus_layout = ExtResource("1_h6oru")
+values = {}
+version = 0
+not_saved = false

@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://chv0fg62cs0ou"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/h_separator_line.gdshader" id="1_dsclw"]
+
+[resource]
+shader = ExtResource("1_dsclw")
+shader_parameter/tint = Color(1, 1, 1, 0.105882)

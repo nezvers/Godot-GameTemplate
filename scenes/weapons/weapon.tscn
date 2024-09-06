@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://do8p6aamuv46h"]
+
+[ext_resource type="Script" path="res://scripts/projectile/Weapon.gd" id="1_wo85b"]
+[ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="2_j8o47"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_wo85b")
+projectile_scene = ExtResource("2_j8o47")
+projectile_parent_path = "../.."
+axis_multiplication = Vector2(1, 0.5)
