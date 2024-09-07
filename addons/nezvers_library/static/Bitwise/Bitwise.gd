@@ -3,8 +3,9 @@
 class_name Bitwise
 extends Node
 
-static func combine(a:int, b:int)->int:
-	return a | b
+## Turn on flags present in mask
+static func append_flags(a:int, mask:int)->int:
+	return a | mask
 
 static func increment(a:int, value:int)->int:
 	while value != 0:
@@ -13,6 +14,7 @@ static func increment(a:int, value:int)->int:
 		value = carry < 1
 	return a
 
+## Check if all flags are active from the mask
 static func contain(a:int, mask:int)->bool:
 	return (a & mask) == mask
 

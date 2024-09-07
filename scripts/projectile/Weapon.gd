@@ -41,7 +41,7 @@ func spawn_projectile()->void:
 	var direction:Vector2 = mover_2d.input_resource.aim_direction
 	var inst:Projectile2D = projectile_scene.instantiate()
 	inst.direction = direction
-	inst.collision_mask = collision_mask
+	inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
 	projectile_parent.add_child(inst)
 	inst.global_position = spawn_distance * direction * axis_multiplication + global_position
 	sound_resource.play_managed()

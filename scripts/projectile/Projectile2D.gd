@@ -21,6 +21,7 @@ signal limit_reached
 @export var hit_limit:int = 1
 ## Does it need queue_free self after hitting limit?
 @export var self_remove:bool = false
+@export_flags_2d_physics var destroy_collision_mask:int = 1
 
 var is_limit_reached:bool = false
 
@@ -28,6 +29,8 @@ func _ready()->void:
 	direction *= Vector2.ONE / axis_multiplier
 	direction = direction.normalized()
 	area_entered.connect(hitbox_entered)
+	body_entered.connect(on_body_entered)
+	collision_mask = Bitwise.append_flags(collision_mask, destroy_collision_mask)
 	if lifetime > 0.0:
 		var tween:Tween = create_tween() # used as a timer
 		tween.tween_callback(remove).set_delay(lifetime)
@@ -38,6 +41,10 @@ func _physics_process(delta:float)->void:
 ## created to call from Tween, Timer, AnimationPlayer or anything else
 func remove()->void:
 	queue_free()
+
+func hit_solid()->void:
+	hit.emit()
+	remove()
 
 ## Transfer damage to a detected Area2D
 func hitbox_entered(area:Area2D)->void:
@@ -53,3 +60,10 @@ func hitbox_entered(area:Area2D)->void:
 	hit.emit()
 	if is_limit_reached && self_remove:
 		remove()
+
+func on_body_entered(body:Node2D)->void:
+	if body is TileMapLayer || body is TileMap:
+		hit_solid()
+		return
+	if body.collision_layer & destroy_collision_mask == destroy_collision_mask:
+		hit_solid()
