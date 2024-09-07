@@ -29,6 +29,18 @@ position = Vector2(252, 140)
 motion_mode = 0
 platform_on_leave = 0
 
+[node name="Spawn_0" type="Marker2D" parent="YSorted"]
+position = Vector2(-55, 137)
+
+[node name="Spawn_1" type="Marker2D" parent="YSorted"]
+position = Vector2(264, -25)
+
+[node name="Spawn_2" type="Marker2D" parent="YSorted"]
+position = Vector2(200, 283)
+
+[node name="Spawn_3" type="Marker2D" parent="YSorted"]
+position = Vector2(539, 201)
+
 [node name="Front" type="Node2D" parent="."]
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_4dff6")]
@@ -36,9 +48,11 @@ target = NodePath("../YSorted/Player")
 
 [node name="UI" parent="." instance=ExtResource("2_xaqoc")]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_position_node", "spawn_parent") instance=ExtResource("4_16naw")]
-spawn_position_node = NodePath("../YSorted/Player")
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_positions_list", "spawn_parent") instance=ExtResource("4_16naw")]
+spawn_positions_list = [NodePath("../YSorted/Spawn_0"), NodePath("../YSorted/Spawn_1"), NodePath("../YSorted/Spawn_2"), NodePath("../YSorted/Spawn_3")]
 spawn_parent = NodePath("../YSorted")
+radius_min = 0.0
+radius_max = 16.0
 
 [node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("paused_nodes")]
 script = ExtResource("5_gli6s")

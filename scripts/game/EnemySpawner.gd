@@ -6,7 +6,7 @@ signal object_instantiated(inst:Node2D)
 
 @export var enabled:bool = true
 ## Spawned instance will be positioned relative to this node
-@export var spawn_position_node:Node2D
+@export var spawn_positions_list:Array[Node2D]
 ## Spawned instance will be put under this node
 @export var spawn_parent:Node2D
 ## Used for random distance
@@ -27,7 +27,7 @@ func spawn_scene()->void:
 		return
 	if spawn_parent == null:
 		return
-	if spawn_position_node == null:
+	if spawn_positions_list.is_empty():
 		return
 	if object_scene == null:
 		return
@@ -36,8 +36,8 @@ func spawn_scene()->void:
 	var rnd_distance:float = lerp(radius_min, radius_max, randf())
 	var spawn_offset:Vector2 = rnd_distance * Vector2.RIGHT.rotated(rnd_angle)
 	
+	var spawn_position_node:Node2D = spawn_positions_list.pick_random()
 	var inst:Node2D = object_scene.instantiate()
 	inst.global_position = spawn_position_node.global_position + spawn_offset * axis_multiplication
 	spawn_parent.add_child(inst)
 	object_instantiated.emit(inst)
-
