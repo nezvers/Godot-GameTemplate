@@ -2,6 +2,7 @@ extends AudioStreamPlayer
 
 @export var music_playlist:DictionaryResource
 @export var pause_resource:BoolResource
+@export var automatic_loop:bool = true
 
 func _ready()->void:
 	pause_resource.updated.connect(pause_changed)
@@ -28,6 +29,9 @@ func load_play(path:String)->void:
 	if music_stream == null:
 		printerr("MusicManager: music stream didn't load - ", path)
 		return
+	## Bypass need to enable loop for each music.
+	if "loop" in stream && automatic_loop:
+		stream.loop = true
 	stream = music_stream
 	start_music()
 

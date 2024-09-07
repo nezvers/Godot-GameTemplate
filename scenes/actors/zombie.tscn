@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_duvie"]
-[ext_resource type="Texture2D" uid="uid://dknkfj20excuy" path="res://assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
+[ext_resource type="Texture2D" uid="uid://dqqfb3tyiyk2v" path="res://assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
 [ext_resource type="Script" path="res://scripts/actor/ZombieInput.gd" id="2_yis6g"]
 [ext_resource type="Resource" uid="uid://k6kulmw3ddq8" path="res://resources/health_resource/zombie_health.tres" id="2_ysqwl"]
 [ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="5_5t5uy"]
@@ -145,6 +145,7 @@ dead_vfx_scene = ExtResource("9_3xjhw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
 shape = SubResource("RectangleShape2D_ixqjj")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="ZombieInput" type="Node2D" parent="." index="9" node_paths=PackedStringArray("mover_2d", "player_detector", "weapon")]
 script = ExtResource("2_yis6g")
