@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://ghnv48d18ftl"]
+[gd_scene load_steps=3 format=3 uid="uid://ghnv48d18ftl"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://scenes/weapons/gun.tscn" id="1_xioje"]
+[ext_resource type="Texture2D" uid="uid://cim2x6e31yf1g" path="res://assets/images/weapon/gun_1.png" id="2_hrbvp"]
 
 [node name="Shotgun" instance=ExtResource("1_xioje")]
 projectile_angles = Array[float]([0.0, -5.0, 5.0, -10.0, 10.0])
 
 [node name="ProjectileInterval" parent="." index="0"]
 interval = 0.75
+
+[node name="Sprite2D" parent="RotatedNode" index="0"]
+texture = ExtResource("2_hrbvp")
 
 [node name="SpreadShot" parent="." index="3"]
 random_angle_offset = 2.5
