@@ -6,11 +6,14 @@ extends Node
 ## Rotates weapon and it's shooting direction
 @export var rotate_node:Node2D
 ## preserve weapons visuals by keeping it's bottom down
-@export var flip_horizontally:bool = true
+@export var flip_vertically:bool = true
 
+var current_flip:int = 1
 
 func _process(_delta:float)->void:
 	var direction:Vector2 = weapon.mover.input_resource.aim_direction
-	if flip_horizontally && direction.x != 0.0:
-		rotate_node.scale.y = sign(direction.x)
+	var dir_x:int = sign(direction.x)
+	if flip_vertically && (dir_x != 0 && dir_x != current_flip):
+		current_flip = dir_x
+		rotate_node.scale.y = current_flip
 	rotate_node.rotation = direction.angle()
