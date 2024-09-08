@@ -1,6 +1,6 @@
 ## Sets weapon direction relative to mouse position
 class_name WeaponRotation
-extends Node2D
+extends Node
 
 @export var weapon:Weapon
 ## Rotates weapon and it's shooting direction

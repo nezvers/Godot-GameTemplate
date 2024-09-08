@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxf4p5yoajpdu"]
+[gd_scene load_steps=13 format=3 uid="uid://bxf4p5yoajpdu"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://scenes/weapons/weapon.tscn" id="1_1sltl"]
 [ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://scenes/projectiles/bullet.tscn" id="2_4cp7v"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponRotation.gd" id="4_3cx23"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileInterval.gd" id="4_a4uon"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="4_c42bw"]
+[ext_resource type="Script" path="res://scripts/weapon_system/SpreadShot.gd" id="8_080yn"]
+[ext_resource type="Script" path="res://scripts/weapon_system/WeaponKickback.gd" id="9_l8e01"]
 
 [sub_resource type="Animation" id="Animation_qbqgg"]
 length = 0.001
@@ -67,7 +69,17 @@ libraries = {
 "": SubResource("AnimationLibrary_h0x75")
 }
 
-[node name="WeaponRotation" type="Node2D" parent="." index="2" node_paths=PackedStringArray("weapon", "rotate_node")]
+[node name="WeaponRotation" type="Node" parent="." index="2" node_paths=PackedStringArray("weapon", "rotate_node")]
 script = ExtResource("4_3cx23")
 weapon = NodePath("..")
 rotate_node = NodePath("../RotatedNode")
+
+[node name="SpreadShot" type="Node" parent="." index="3" node_paths=PackedStringArray("weapon")]
+script = ExtResource("8_080yn")
+weapon = NodePath("..")
+random_angle_offset = 5.0
+
+[node name="WeaponKickback" type="Node" parent="." index="4" node_paths=PackedStringArray("weapon")]
+script = ExtResource("9_l8e01")
+weapon = NodePath("..")
+kickback_strength = 30.0

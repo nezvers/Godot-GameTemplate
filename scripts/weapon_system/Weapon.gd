@@ -1,7 +1,10 @@
 class_name Weapon
 extends Node2D
 
+
 signal projectile_created
+## signal before spawning for components prepare angle array
+signal prepare_spawn
 
 ## Toggle weapons capability to spawn projectile
 @export var enabled:bool = true
@@ -19,6 +22,10 @@ signal projectile_created
 @export var mover:MoverTopDown2D
 ## Reference to projectile parent
 @export var projectile_parent_reference:ReferenceNodeResource
+## Angle offsets for each projectiles
+## No angle, no projectile
+## Use prepare_spawn signal to manipulate spread
+@export var projectile_angles:Array[float] = [0.0]
 
 
 func _ready()->void:
@@ -42,11 +49,15 @@ func spawn_projectile()->void:
 	assert(projectile_scene != null, "no projectile scene assigned")
 	assert(projectile_parent_reference.node != null, "projectile parent reference isn't set")
 	
-	var direction:Vector2 = mover.input_resource.aim_direction
-	var inst:Projectile2D = projectile_scene.instantiate()
-	inst.direction = direction
-	inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
-	projectile_parent_reference.node.add_child(inst)
-	inst.global_position = spawn_distance * direction * axis_multiplication + global_position
+	prepare_spawn.emit()
+	for angle:float in projectile_angles:
+		var direction:Vector2 = mover.input_resource.aim_direction.rotated(deg_to_rad(angle))
+		var inst:Projectile2D = projectile_scene.instantiate()
+		inst.direction = direction
+		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
+		projectile_parent_reference.node.add_child(inst)
+		inst.global_position = spawn_distance * direction * axis_multiplication + global_position
+		
+	
 	sound_resource.play_managed()
 	projectile_created.emit()
