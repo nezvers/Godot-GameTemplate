@@ -28,6 +28,10 @@ func _ready()->void:
 		return
 	mover_2d.input_resource.action_pressed.connect(spawn_projectile)
 
+func set_enabled(value:bool)->void:
+	enabled = value
+	visible = enabled
+
 func spawn_projectile()->void:
 	if !enabled:
 		return
