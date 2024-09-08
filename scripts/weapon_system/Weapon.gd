@@ -57,7 +57,6 @@ func spawn_projectile()->void:
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
 		projectile_parent_reference.node.add_child(inst)
 		inst.global_position = spawn_distance * direction * axis_multiplication + global_position
-		
 	
 	sound_resource.play_managed()
 	projectile_created.emit()

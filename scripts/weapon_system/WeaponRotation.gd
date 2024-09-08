@@ -7,7 +7,7 @@ extends Node
 @export var rotate_node:Node2D
 ## preserve weapons visuals by keeping it's bottom down
 @export var flip_vertically:bool = true
-
+## used to flip scale only when changed
 var current_flip:int = 1
 
 func _process(_delta:float)->void:

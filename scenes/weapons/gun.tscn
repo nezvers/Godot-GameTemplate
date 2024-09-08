@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxf4p5yoajpdu"]
+[gd_scene load_steps=14 format=3 uid="uid://bxf4p5yoajpdu"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://scenes/weapons/weapon.tscn" id="1_1sltl"]
 [ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://scenes/projectiles/bullet.tscn" id="2_4cp7v"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="4_c42bw"]
 [ext_resource type="Script" path="res://scripts/weapon_system/SpreadShot.gd" id="8_080yn"]
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponKickback.gd" id="9_l8e01"]
+[ext_resource type="Script" path="res://scripts/weapon_system/WeaponAnimationTrigger.gd" id="10_n2oji"]
 
 [sub_resource type="Animation" id="Animation_qbqgg"]
 length = 0.001
@@ -49,7 +50,6 @@ _data = {
 
 [node name="Gun" instance=ExtResource("1_1sltl")]
 projectile_scene = ExtResource("2_4cp7v")
-collision_mask = 5
 sound_resource = ExtResource("3_k087s")
 projectile_parent_reference = ExtResource("4_c42bw")
 
@@ -83,3 +83,9 @@ random_angle_offset = 5.0
 script = ExtResource("9_l8e01")
 weapon = NodePath("..")
 kickback_strength = 30.0
+
+[node name="AnimationTrigger" type="Node" parent="." index="5" node_paths=PackedStringArray("weapon", "animation_player")]
+script = ExtResource("10_n2oji")
+weapon = NodePath("..")
+animation_player = NodePath("../RotatedNode/Sprite2D/AnimationPlayer")
+animation_name = &"shoot"
