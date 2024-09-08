@@ -10,7 +10,7 @@ extends Node2D
 
 
 func _process(_delta:float)->void:
-	var direction:Vector2 = weapon.mover_2d.input_resource.aim_direction
+	var direction:Vector2 = weapon.mover.input_resource.aim_direction
 	if flip_horizontally && direction.x != 0.0:
 		rotate_node.scale.y = sign(direction.x)
 	rotate_node.rotation = direction.angle()

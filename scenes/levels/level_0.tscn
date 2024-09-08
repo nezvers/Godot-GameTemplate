@@ -1,14 +1,18 @@
-[gd_scene load_steps=10 format=4 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=14 format=4 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://scenes/main_camera.tscn" id="1_4dff6"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://scenes/actors/player.tscn" id="1_nn7va"]
 [ext_resource type="TileSet" uid="uid://cvb0p1748bnr6" path="res://resources/tilesets/dungeon_tileset.tres" id="1_tyuby"]
 [ext_resource type="PackedScene" uid="uid://deuehdcbbm5c1" path="res://scenes/ui/game_hud.tscn" id="2_xaqoc"]
+[ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://resources/ReferenceNodeResources/behind_reference.tres" id="3_ur6ur"]
 [ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://scenes/enemy_spawner.tscn" id="4_16naw"]
 [ext_resource type="Script" path="res://scripts/game/PauseComponent.gd" id="5_gli6s"]
+[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://resources/ReferenceNodeResources/front_reference.tres" id="6_uxajn"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://resources/pause_resource.tres" id="6_wjqwx"]
 [ext_resource type="Script" path="res://scripts/game/RestartScene.gd" id="7_it1dq"]
 [ext_resource type="Script" path="res://scripts/game/MusicSetter.gd" id="8_u3y66"]
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="10_26fnk"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="11_u6wfl"]
 
 [node name="Level" type="Node2D"]
 
@@ -21,8 +25,18 @@ use_kinematic_bodies = true
 
 [node name="Behind" type="Node2D" parent="."]
 
+[node name="ReferenceBehind" type="Node" parent="Behind" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("10_26fnk")
+reference_node = NodePath("..")
+reference_resource = ExtResource("3_ur6ur")
+
 [node name="YSorted" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="ReferenceYsort" type="Node" parent="YSorted" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("10_26fnk")
+reference_node = NodePath("..")
+reference_resource = ExtResource("11_u6wfl")
 
 [node name="Player" parent="YSorted" instance=ExtResource("1_nn7va")]
 position = Vector2(252, 140)
@@ -42,6 +56,11 @@ position = Vector2(200, 283)
 position = Vector2(539, 201)
 
 [node name="Front" type="Node2D" parent="."]
+
+[node name="ReferenceFront" type="Node" parent="Front" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("10_26fnk")
+reference_node = NodePath("..")
+reference_resource = ExtResource("6_uxajn")
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_4dff6")]
 target = NodePath("../YSorted/Player")

@@ -5,6 +5,7 @@ extends Resource
 
 ## Emitted when input for action is presssed
 signal action_pressed
+signal switch_weapon(dir:int)
 
 ## Used for movement direction
 @export var axis:Vector2
@@ -12,6 +13,8 @@ signal action_pressed
 @export var action:bool
 ## Used for aiming attacks
 @export var aim_direction:Vector2
+
+
 
 ## Setter function for whole movement Vector2
 func set_axis(value:Vector2)->void:
@@ -34,3 +37,6 @@ func set_action(value:bool)->void:
 	action = value
 	if action:
 		action_pressed.emit()
+
+func set_switch_weapon(dir:int)->void:
+	switch_weapon.emit(dir)

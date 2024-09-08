@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://beifde6xst23w"]
 
-[ext_resource type="Script" path="res://scripts/projectile/Projectile2D.gd" id="1_8ha7j"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
 [ext_resource type="Texture2D" uid="uid://ciqkwwrhgebko" path="res://assets/images/projectile/bullet_0.png" id="2_7x3e8"]
-[ext_resource type="Script" path="res://scripts/projectile/ProjectileRotation.gd" id="3_wuoxf"]
-[ext_resource type="Script" path="res://scripts/projectile/ProjectileImpact.gd" id="4_v8blt"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileRotation.gd" id="3_wuoxf"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileImpact.gd" id="4_v8blt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4a7g"]
 size = Vector2(4, 2)

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ReferenceNodeResource" load_steps=2 format=3 uid="uid://d16p36img8x6j"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeResource.gd" id="1_vvwif"]
+
+[resource]
+script = ExtResource("1_vvwif")

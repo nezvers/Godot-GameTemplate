@@ -147,17 +147,16 @@ dead_vfx_scene = ExtResource("9_3xjhw")
 shape = SubResource("RectangleShape2D_ixqjj")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="ZombieInput" type="Node2D" parent="." index="9" node_paths=PackedStringArray("mover_2d", "player_detector", "weapon")]
+[node name="ZombieInput" type="Node2D" parent="." index="9" node_paths=PackedStringArray("mover", "player_detector", "weapon")]
 script = ExtResource("2_yis6g")
-mover_2d = NodePath("../MoverTopDown2D")
+mover = NodePath("../MoverTopDown2D")
 player_detector = NodePath("../PlayerDetector")
 minimal_distance = Vector2(12, 6)
 weapon = NodePath("../SlashAttack")
 
-[node name="SlashAttack" parent="." index="10" node_paths=PackedStringArray("mover_2d") instance=ExtResource("7_tyqu3")]
-projectile_parent_path = "../../../Front"
+[node name="SlashAttack" parent="." index="10" node_paths=PackedStringArray("mover") instance=ExtResource("7_tyqu3")]
 collision_mask = 2
-mover_2d = NodePath("../MoverTopDown2D")
+mover = NodePath("../MoverTopDown2D")
 
 [node name="AddPoint" type="Node" parent="." index="11" node_paths=PackedStringArray("hitbox")]
 script = ExtResource("9_3rsmj")

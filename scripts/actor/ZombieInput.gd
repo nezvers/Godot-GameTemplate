@@ -5,7 +5,7 @@ signal state_changed
 
 @export var enabled:bool = true
 ## Commands the movement
-@export var mover_2d:MoverTopDown2D
+@export var mover:MoverTopDown2D
 ## Used to detect player
 @export var player_detector:Area2D
 ## How close to walk to start an attack
@@ -26,7 +26,9 @@ func set_state(value:StateType)->void:
 
 ## Not using automatic setter functions because they are called before _ready during initialization
 func _ready()->void:
-	axis_compensation = Vector2.ONE/mover_2d.axis_multiplier
+	# Set to run before mover
+	process_physics_priority -= 1
+	axis_compensation = Vector2.ONE/mover.axis_multiplier
 	set_enabled(enabled)
 	player_detector.monitorable = false
 	player_detector.collision_layer = 0
@@ -37,14 +39,14 @@ func set_enabled(value:bool)->void:
 	enabled = value
 	set_physics_process(enabled)
 	if !enabled:
-		mover_2d.input_resource.axis = Vector2.ZERO
+		mover.input_resource.axis = Vector2.ZERO
 		set_state(StateType.NONE)
 	#print("ZombieInput [INFO]: set_enabled = ", enabled)
 
 func _physics_process(_delta:float)->void:
 	var body_list:Array[Node2D] = player_detector.get_overlapping_bodies()
 	if body_list.is_empty():
-		mover_2d.input_resource.axis = Vector2.ZERO
+		mover.input_resource.axis = Vector2.ZERO
 		set_state(StateType.IDLE)
 		return
 	
@@ -54,14 +56,14 @@ func _physics_process(_delta:float)->void:
 	
 	if abs(direction.x) < minimal_distance.x && abs(direction.y) < minimal_distance.y:
 		# close enough
-		mover_2d.input_resource.axis = Vector2.ZERO
+		mover.input_resource.axis = Vector2.ZERO
 		set_state(StateType.ATTACK)
 		if weapon.enabled:
-			mover_2d.input_resource.aim_direction = direction.normalized()
-		mover_2d.input_resource.set_action(weapon.enabled)
+			mover.input_resource.aim_direction = direction.normalized()
+		mover.input_resource.set_action(weapon.enabled)
 		return
 	
 	# compensate if using different axis speed multipliers
 	direction *= axis_compensation
-	mover_2d.input_resource.axis = direction.normalized()
+	mover.input_resource.axis = direction.normalized()
 	set_state(StateType.CHASE)
