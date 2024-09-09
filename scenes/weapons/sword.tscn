@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://scenes/weapons/gun.tscn" id="1_tcvta"]
 [ext_resource type="PackedScene" uid="uid://c6ys2qs8aeu8n" path="res://scenes/projectiles/sword_slash.tscn" id="2_x78ie"]
-[ext_resource type="Texture2D" uid="uid://bapiaemh2qekg" path="res://assets/images/weapon/sword_0.png" id="3_ah0df"]
+[ext_resource type="Texture2D" uid="uid://cnygfi3chigkm" path="res://assets/images/weapon/sword_0.png" id="3_ah0df"]
 
 [sub_resource type="Animation" id="Animation_ku8ja"]
 length = 0.001
@@ -67,6 +67,7 @@ _data = {
 
 [node name="Sword" instance=ExtResource("1_tcvta")]
 projectile_scene = ExtResource("2_x78ie")
+projectile_damage = 4
 
 [node name="ProjectileInterval" parent="." index="0"]
 interval = 0.4
