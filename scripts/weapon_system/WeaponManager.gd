@@ -1,6 +1,9 @@
 class_name WeaponManager
 extends Node2D
 
+## Emitted when weapon is changed
+signal weapon_changed
+
 ## Relative to this manager
 ## Will be modified to correct for instanced wepons
 @export var projectile_parent_path:String
@@ -31,16 +34,20 @@ func _ready()->void:
 		weapon_list.append(weapon)
 	
 	for scene:PackedScene in auto_instance_weapons:
-		var weapon:Weapon = scene.instantiate() as Weapon
-		assert(weapon != null, "failed instantiation")
-		# configuration before adding to tree and calling _ready
-		weapon.enabled = false
-		weapon.mover = mover
-		weapon.collision_mask = collision_mask
-		add_child(weapon)
-		weapon_list.append(weapon)
+		add_new_weapon_from_scene(scene)
 	
 	set_weapon_index(weapon_index)
+
+func add_new_weapon_from_scene(scene:PackedScene)->void:
+	var weapon:Weapon = scene.instantiate() as Weapon
+	assert(weapon != null, "failed instantiation")
+	# configuration before adding to tree and calling _ready
+	weapon.enabled = false
+	weapon.mover = mover
+	weapon.collision_mask = collision_mask
+	add_child(weapon)
+	weapon_list.append(weapon)
+
 
 func on_switch_weapon(dir:int)->void:
 	if dir == 1:
@@ -61,3 +68,4 @@ func set_weapon_index(value:int)->void:
 	
 	current_weapon = weapon_list[weapon_index]
 	current_weapon.set_enabled(true)
+	weapon_changed.emit()
