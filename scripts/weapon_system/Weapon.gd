@@ -26,7 +26,8 @@ signal prepare_spawn
 ## No angle, no projectile
 ## Use prepare_spawn signal to manipulate spread
 @export var projectile_angles:Array[float] = [0.0]
-
+## Used for defining projectile damage
+@export var projectile_damage:int = 1
 
 func _ready()->void:
 	set_enabled(enabled)
@@ -53,6 +54,7 @@ func spawn_projectile()->void:
 	for angle:float in projectile_angles:
 		var direction:Vector2 = mover.input_resource.aim_direction.rotated(deg_to_rad(angle))
 		var inst:Projectile2D = projectile_scene.instantiate()
+		inst.damage = projectile_damage
 		inst.direction = direction
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
 		projectile_parent_reference.node.add_child(inst)
