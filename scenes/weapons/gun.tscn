@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://scenes/weapons/weapon.tscn" id="1_1sltl"]
 [ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://scenes/projectiles/bullet.tscn" id="2_4cp7v"]
-[ext_resource type="Texture2D" uid="uid://c033lvuk0vrbu" path="res://assets/images/weapon/gun_0.png" id="2_l47j0"]
+[ext_resource type="Texture2D" uid="uid://ch26kh0j2e3ev" path="res://assets/images/weapon/gun_0.png" id="2_l47j0"]
 [ext_resource type="Resource" uid="uid://bsgm5x8805se7" path="res://resources/sounds/bullet.tres" id="3_k087s"]
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponRotation.gd" id="4_3cx23"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileInterval.gd" id="4_a4uon"]

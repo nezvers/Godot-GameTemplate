@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=21 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_mvls6"]
-[ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="2_4irlo"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://resources/health_resource/player_health.tres" id="2_ck5gl"]
 [ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_wcwdo"]
-[ext_resource type="Script" path="res://scripts/actor/InputResource.gd" id="3_2skv3"]
+[ext_resource type="Resource" uid="uid://crpjcmktv22qx" path="res://resources/ActorStatsResource/player_stats.tres" id="4_37d8m"]
 [ext_resource type="Script" path="res://scripts/actor/PlayerInput.gd" id="4_uihqc"]
+[ext_resource type="Resource" uid="uid://d4e4hpx3t6xpi" path="res://resources/InputResource/player_input_resource.tres" id="5_swp1t"]
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://scenes/weapons/gun.tscn" id="6_rnlhu"]
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://resources/sounds/kill_player.tres" id="6_wov6i"]
 [ext_resource type="PackedScene" uid="uid://csjmqrrduxorv" path="res://scenes/vfx/player_dead.tscn" id="8_s8ofx"]
@@ -102,19 +102,6 @@ _data = {
 "walk": SubResource("Animation_wmkbr")
 }
 
-[sub_resource type="Resource" id="Resource_2xaj3"]
-resource_name = "Player Stats"
-script = ExtResource("2_4irlo")
-acceleration = 200.0
-max_speed = 60.0
-
-[sub_resource type="Resource" id="Resource_6ico4"]
-resource_name = "Player Input"
-script = ExtResource("3_2skv3")
-axis = Vector2(0, 0)
-action = false
-aim_direction = Vector2(0, 0)
-
 [node name="Player" instance=ExtResource("1_mvls6")]
 collision_layer = 2
 collision_mask = 5
@@ -133,8 +120,8 @@ libraries = {
 }
 
 [node name="MoverTopDown2D" parent="." index="4"]
-actor_stats_resource = SubResource("Resource_2xaj3")
-input_resource = SubResource("Resource_6ico4")
+actor_stats_resource = ExtResource("4_37d8m")
+input_resource = ExtResource("5_swp1t")
 
 [node name="SpriteFlip" parent="." index="5"]
 flip_type = 1
