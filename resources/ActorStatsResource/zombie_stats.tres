@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActorStatsResource" load_steps=2 format=3 uid="uid://bgj1j2b6mc1u7"]
+
+[ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="1_ggmfy"]
+
+[resource]
+resource_name = "Zombie Stats"
+script = ExtResource("1_ggmfy")
+acceleration = 100.0
+max_speed = 40.0

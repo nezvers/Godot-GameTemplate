@@ -1,12 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://62j3fy0o3uwl"]
+[gd_scene load_steps=19 format=3 uid="uid://62j3fy0o3uwl"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_duvie"]
 [ext_resource type="Texture2D" uid="uid://dqqfb3tyiyk2v" path="res://assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
 [ext_resource type="Script" path="res://scripts/actor/ZombieInput.gd" id="2_yis6g"]
 [ext_resource type="Resource" uid="uid://k6kulmw3ddq8" path="res://resources/health_resource/zombie_health.tres" id="2_ysqwl"]
-[ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="5_5t5uy"]
-[ext_resource type="Script" path="res://scripts/actor/InputResource.gd" id="6_k4823"]
+[ext_resource type="Resource" uid="uid://bgj1j2b6mc1u7" path="res://resources/ActorStatsResource/zombie_stats.tres" id="5_srg4e"]
+[ext_resource type="Resource" uid="uid://dq8mhmimpehoi" path="res://resources/InputResource/zombie_input_resource.tres" id="6_o1vf4"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://scenes/weapons/slash_attack.tscn" id="7_tyqu3"]
 [ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://resources/sounds/kill_zombie.tres" id="7_uiw1f"]
 [ext_resource type="Script" path="res://scripts/actor/AddPoint.gd" id="9_3rsmj"]
@@ -99,20 +99,6 @@ _data = {
 "walk": SubResource("Animation_d7gcn")
 }
 
-[sub_resource type="Resource" id="Resource_q05rx"]
-resource_name = "Zombie Stats"
-script = ExtResource("5_5t5uy")
-acceleration = 100.0
-max_speed = 40.0
-
-[sub_resource type="Resource" id="Resource_cr6kj"]
-resource_local_to_scene = true
-resource_name = "Zombie Input"
-script = ExtResource("6_k4823")
-axis = Vector2(0, 0)
-action = false
-aim_direction = Vector2(0, 0)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ixqjj"]
 size = Vector2(1000, 500)
 
@@ -134,8 +120,8 @@ libraries = {
 }
 
 [node name="MoverTopDown2D" parent="." index="4"]
-actor_stats_resource = SubResource("Resource_q05rx")
-input_resource = SubResource("Resource_cr6kj")
+actor_stats_resource = ExtResource("5_srg4e")
+input_resource = ExtResource("6_o1vf4")
 
 [node name="ActorDamage" parent="." index="7"]
 sound_resource_dead = ExtResource("7_uiw1f")
