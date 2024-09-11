@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c6ys2qs8aeu8n"]
+[gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_lwexf"]
 [ext_resource type="Texture2D" uid="uid://b3kerfdfiley3" path="res://assets/images/shadow.png" id="2_pfam2"]
@@ -9,9 +9,6 @@
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="7_d1e47"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
 [ext_resource type="PackedScene" uid="uid://dmskvynh1rsk" path="res://scenes/projectiles/sword_projectile.tscn" id="8_1el3x"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ofqp4"]
-radius = 16.0
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -108,9 +105,6 @@ lifetime = 0.27
 hit_limit = -1
 self_remove = true
 destroy_collision_mask = 0
-
-[node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("CircleShape2D_ofqp4")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 visible = false

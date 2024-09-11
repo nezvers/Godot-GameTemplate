@@ -7,8 +7,10 @@ signal damage_received(damage:DamageResource)
 @export var projectile_multiply:float = 1.0
 @export var critical_multiply:float = 1.5
 @export var critical_chance:float = 0.3
+@export var direction:Vector2
+@export var kickback_strength:float
 
-## 
+## An information for a damage report
 var is_critical:bool = false
 ## Exploiting that array is shared reference
 ## it will collect all same generation damages
@@ -33,6 +35,11 @@ func initialize_new()->DamageResource:
 	data.damage_received.connect(on_damage_received)
 	# create unique array
 	hit_list = []
+	return data
+
+func initialize_split()->DamageResource:
+	var data:DamageResource = self.duplicate()
+	data.damage_received.connect(on_damage_received)
 	return data
 
 ## Mainly used for receiving information from duplicates

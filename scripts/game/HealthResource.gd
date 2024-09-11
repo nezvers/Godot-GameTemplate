@@ -14,10 +14,10 @@ func reset()->void:
 	hp = reset_hp
 	hp_changed.emit()
 
-func take_damage(value:int)->void:
+func take_damage(damage_resource:DamageResource)->void:
 	if is_dead:
 		return
-	hp -= value
+	hp -= damage_resource.get_total_damage()
 	hp_changed.emit()
 	damaged.emit()
 	if hp <= 0:
