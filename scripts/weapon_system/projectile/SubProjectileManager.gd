@@ -10,7 +10,7 @@ extends Node
 func _ready()->void:
 	# TODO: just a mockup. Need some kind per situation configurations
 	projectile_spawner.collision_mask = Bitwise.append_flags(projectile_spawner.collision_mask, projectile.collision_mask)
-	projectile_spawner.projectile_damage = projectile.damage
+	#projectile_spawner.projectile_damage = projectile.damage
 	projectile_spawner.axis_multiplication = projectile.axis_multiplier
 	
 	if start_projectile_scene != null:

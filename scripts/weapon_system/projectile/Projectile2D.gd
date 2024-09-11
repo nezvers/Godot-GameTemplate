@@ -50,9 +50,9 @@ func hit_solid()->void:
 func hitbox_entered(area:Area2D)->void:
 	if is_limit_reached:
 		return
-	if !(area is Hitbox):
+	if !(area is DamageReceiver):
 		return
-	(area as Hitbox).take_damage(damage, direction * kickback)
+	(area as DamageReceiver).take_damage(damage, direction * kickback)
 	hit_limit -= 1
 	if hit_limit == 0:
 		is_limit_reached = true

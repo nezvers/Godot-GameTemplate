@@ -1,9 +1,8 @@
 extends Node
 
-@export var hitbox:Hitbox
+@export var damage_receiver:DamageReceiver
 @export var score_resource:ScoreResource
 
 
 func _ready():
-	hitbox.health_resource.dead.connect(score_resource.add_point)
-
+	damage_receiver.health_resource.dead.connect(score_resource.add_point)

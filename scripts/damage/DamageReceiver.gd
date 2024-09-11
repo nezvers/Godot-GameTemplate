@@ -1,4 +1,4 @@
-class_name Hitbox
+class_name DamageReceiver
 extends Area2D
 
 signal received_impulse(value:Vector2)

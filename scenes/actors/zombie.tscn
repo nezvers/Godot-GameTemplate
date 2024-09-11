@@ -106,7 +106,7 @@ size = Vector2(1000, 500)
 collision_layer = 4
 collision_mask = 7
 
-[node name="Hitbox" parent="." index="1"]
+[node name="DamageReceiver" parent="." index="1"]
 collision_layer = 4
 health_resource = ExtResource("2_ysqwl")
 
@@ -144,7 +144,7 @@ weapon = NodePath("../SlashAttack")
 collision_mask = 2
 mover = NodePath("../MoverTopDown2D")
 
-[node name="AddPoint" type="Node" parent="." index="11" node_paths=PackedStringArray("hitbox")]
+[node name="AddPoint" type="Node" parent="." index="11" node_paths=PackedStringArray("damage_receiver")]
 script = ExtResource("9_3rsmj")
-hitbox = NodePath("../Hitbox")
+damage_receiver = NodePath("../DamageReceiver")
 score_resource = ExtResource("10_3mlgp")

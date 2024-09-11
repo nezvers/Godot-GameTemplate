@@ -71,4 +71,3 @@ func stop()->void:
 	if sound_player == null:
 		return
 	sound_player.stop()
-

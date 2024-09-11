@@ -105,6 +105,7 @@ _data = {
 [node name="SwordSlash" instance=ExtResource("1_lwexf")]
 speed = 0.0
 lifetime = 0.27
+hit_limit = -1
 self_remove = true
 destroy_collision_mask = 0
 

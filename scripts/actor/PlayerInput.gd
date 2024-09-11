@@ -2,7 +2,7 @@ class_name PlayerInput
 extends Node
 
 @export var enabled:bool = true
-@export var hitbox:Hitbox
+@export var damage_receiver:DamageReceiver
 @export var mover:MoverTopDown2D
 ## Offset aim to the body to shoot at shadow collider (feet position)
 @export var aim_offset:Vector2
