@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=22 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://resources/health_resource/player_health.tres" id="2_ck5gl"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="11_r4axh"]
 [ext_resource type="PackedScene" uid="uid://cmmx82t54wble" path="res://scenes/weapons/sword.tscn" id="12_gom0h"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://resources/ReferenceNodeResources/player_reference.tres" id="12_l6ujm"]
+[ext_resource type="Script" path="res://scripts/actor/DashAbility.gd" id="16_vooxc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfelk"]
 resource_local_to_scene = true
@@ -151,3 +152,7 @@ mover = NodePath("../../MoverTopDown2D")
 script = ExtResource("11_r4axh")
 reference_node = NodePath("..")
 reference_resource = ExtResource("12_l6ujm")
+
+[node name="DashAbility" type="Node" parent="." index="11" node_paths=PackedStringArray("mover")]
+script = ExtResource("16_vooxc")
+mover = NodePath("../MoverTopDown2D")

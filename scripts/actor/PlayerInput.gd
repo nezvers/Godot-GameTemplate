@@ -26,9 +26,7 @@ func _physics_process(_delta:float)->void:
 	
 	# Aiming
 	var aim_direction:Vector2 = mover.get_local_mouse_position() + aim_offset
-	if aim_direction.length() > 1.0:
-		aim_direction = aim_direction.normalized()
-	mover.input_resource.set_aim_direction(aim_direction)
+	mover.input_resource.set_aim_direction(aim_direction.normalized())
 	
 	# Shooting
 	mover.input_resource.set_action(Input.is_action_pressed("shoot"))
@@ -38,5 +36,4 @@ func _physics_process(_delta:float)->void:
 		mover.input_resource.set_switch_weapon(weapon_switch_dir)
 	
 	# Dashing
-	if (Input.is_action_pressed("dash")):
-		mover.add_dash(axis)
+	mover.input_resource.set_action_2(Input.is_action_pressed("dash"))
