@@ -96,10 +96,11 @@ platform_on_leave = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qpkoi")
 
-[node name="DamageReceiver" type="Area2D" parent="."]
+[node name="DamageReceiver" type="Area2D" parent="." node_paths=PackedStringArray("receiver_owner")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_mvxhy")
+receiver_owner = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageReceiver"]
 shape = SubResource("RectangleShape2D_qpkoi")
@@ -153,4 +154,5 @@ flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"
 sound_resource_damage = ExtResource("11_wwbua")
 dead_vfx_parent_path = NodePath("../..")
+
 [node name="TimerDash" type="Timer" parent="."]

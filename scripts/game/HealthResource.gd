@@ -5,8 +5,8 @@ signal damaged
 signal dead
 signal hp_changed
 
-@export var hp:int = 5
-@export var reset_hp:int = 5
+@export var hp:float = 5
+@export var reset_hp:float = 5
 @export var is_dead:bool
 
 func reset()->void:
@@ -20,6 +20,6 @@ func take_damage(damage_resource:DamageResource)->void:
 	hp -= damage_resource.get_total_damage()
 	hp_changed.emit()
 	damaged.emit()
-	if hp <= 0:
+	if hp <= 0.0:
 		is_dead = true
 		dead.emit()

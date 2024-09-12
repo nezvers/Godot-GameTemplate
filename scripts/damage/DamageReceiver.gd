@@ -6,6 +6,8 @@ signal received_impulse(value:Vector2)
 @export var health_resource:HealthResource
 ## Can't be damaged this time after taking a damage
 @export var damage_cooldown:float = 0.0
+## Node reported in DamageResource
+@export var receiver_owner:Node
 
 var last_time:float
 
@@ -22,3 +24,4 @@ func take_damage(damage_resource:DamageResource)->void:
 	last_time = time
 	health_resource.take_damage(damage_resource)
 	received_impulse.emit(damage_resource.direction * damage_resource.kickback_strength)
+	damage_resource.report_damage_data(receiver_owner)

@@ -1,13 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dc8ulx4o43ue3"]
+[gd_scene load_steps=11 format=3 uid="uid://dc8ulx4o43ue3"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_omfnw"]
 [ext_resource type="Texture2D" uid="uid://b3kerfdfiley3" path="res://assets/images/shadow.png" id="2_gpamq"]
 [ext_resource type="Texture2D" uid="uid://5ujnr7s0o1w6" path="res://assets/images/projectile/bullet_1.png" id="3_8p5j6"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://scenes/vfx/trail_particle.tscn" id="3_f731g"]
 [ext_resource type="PackedScene" uid="uid://bmmyvowwwwyu1" path="res://scenes/vfx/explosion_0.tscn" id="4_hxbn8"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_upbhy"]
-size = Vector2(6, 3)
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -37,9 +34,6 @@ color_ramp = SubResource("GradientTexture1D_138ku")
 
 [node name="Bullet" instance=ExtResource("1_omfnw")]
 self_remove = true
-
-[node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("RectangleShape2D_upbhy")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 modulate = Color(1, 0.983333, 0, 0.168627)

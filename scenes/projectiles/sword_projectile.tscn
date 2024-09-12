@@ -1,13 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dmskvynh1rsk"]
+[gd_scene load_steps=14 format=3 uid="uid://dmskvynh1rsk"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_3klw8"]
 [ext_resource type="Texture2D" uid="uid://b3kerfdfiley3" path="res://assets/images/shadow.png" id="2_jihd4"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://scenes/vfx/trail_particle.tscn" id="3_icwgt"]
 [ext_resource type="Texture2D" uid="uid://bnorvq5vlpm77" path="res://assets/images/vfx/slash_1_strip4.png" id="4_7va1q"]
 [ext_resource type="PackedScene" uid="uid://bmmyvowwwwyu1" path="res://scenes/vfx/explosion_0.tscn" id="5_pxxe4"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_upbhy"]
-size = Vector2(6, 3)
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -101,10 +98,9 @@ _data = {
 [node name="SwordProjectile" instance=ExtResource("1_3klw8")]
 speed = 180.0
 lifetime = 0.6
+damage_multiply = 0.5
+kickback_strength = 30.0
 self_remove = true
-
-[node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("RectangleShape2D_upbhy")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 visible = false

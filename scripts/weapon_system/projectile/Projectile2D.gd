@@ -27,13 +27,18 @@ signal limit_reached
 ## Damage source will detect and deal damage
 @export var damage_source:DamageSource
 @export_flags_2d_physics var destroy_collision_mask:int = 1
+@export_flags_2d_physics var collision_mask:int
 
 var is_limit_reached:bool = false
 
 func _ready()->void:
+	# fill last values that projectile is controlling
 	damage_resource.kickback_strength = kickback_strength
 	damage_resource.projectile_multiply = damage_multiply
+	
+	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, collision_mask)
 	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, destroy_collision_mask)
+	damage_source.damage_resource = damage_resource
 	damage_source.damage_resource = damage_resource
 	damage_source.hit.connect(on_hit)
 	damage_source.hit_solid.connect(remove)

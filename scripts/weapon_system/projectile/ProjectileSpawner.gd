@@ -2,7 +2,6 @@
 class_name ProjectileSpawner
 extends Node
 
-signal projectile_created
 ## signal before spawning for components prepare angle array
 signal prepare_spawn
 
@@ -27,7 +26,9 @@ signal prepare_spawn
 ## No angle, no projectile
 ## Use prepare_spawn signal to manipulate spread
 @export var projectile_angles:Array[float] = [0.0]
+## Resource that carry damage information
 @export var damage_resource:DamageResource
+
 
 func spawn()->void:
 	if !enabled:
@@ -36,11 +37,11 @@ func spawn()->void:
 	assert(projectile_parent_reference.node != null, "projectile parent reference isn't set")
 	
 	prepare_spawn.emit()
+	var new_damage_resource:DamageResource = damage_resource.new_split()
 	for angle:float in projectile_angles:
 		var inst:Projectile2D = projectile_scene.instantiate()
 		inst.direction = direction.normalized()
-		inst.damage_resource = damage_resource
+		inst.damage_resource = new_damage_resource
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
 		inst.global_position = initial_distance * direction * axis_multiplication + projectile_position
 		projectile_parent_reference.node.add_child(inst)
-	projectile_created.emit()
