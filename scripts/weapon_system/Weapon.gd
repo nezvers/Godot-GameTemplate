@@ -68,3 +68,6 @@ func spawn_projectile()->void:
 	projectile_created.emit()
 	
 	sound_resource.play_managed()
+
+func can_spawn()->bool:
+	return enabled && mover.input_resource.action

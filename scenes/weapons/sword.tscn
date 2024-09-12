@@ -68,11 +68,11 @@ _data = {
 
 [node name="Sword" instance=ExtResource("1_tcvta")]
 projectile_scene = ExtResource("2_x78ie")
-spawn_distance = 10.0
+spawn_distance = 16.0
 damage_resource = ExtResource("3_g5tdr")
 
 [node name="ProjectileInterval" parent="." index="0"]
-interval = 0.4
+interval = 0.3
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 position = Vector2(0, 0)
