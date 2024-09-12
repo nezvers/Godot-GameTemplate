@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://k6kulmw3ddq8" path="res://resources/health_resource/zombie_health.tres" id="2_ysqwl"]
 [ext_resource type="Resource" uid="uid://bgj1j2b6mc1u7" path="res://resources/ActorStatsResource/zombie_stats.tres" id="5_srg4e"]
 [ext_resource type="Resource" uid="uid://dq8mhmimpehoi" path="res://resources/InputResource/zombie_input_resource.tres" id="6_o1vf4"]
-[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://scenes/weapons/slash_attack.tscn" id="7_tyqu3"]
+[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://scenes/weapons/zombie_attack.tscn" id="7_tyqu3"]
 [ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://resources/sounds/kill_zombie.tres" id="7_uiw1f"]
 [ext_resource type="Script" path="res://scripts/actor/AddPoint.gd" id="9_3rsmj"]
 [ext_resource type="PackedScene" uid="uid://bu2n5cvym7bse" path="res://scenes/vfx/zombie_body.tscn" id="9_3xjhw"]
@@ -106,7 +106,7 @@ size = Vector2(1000, 500)
 collision_layer = 4
 collision_mask = 7
 
-[node name="Hitbox" parent="." index="1"]
+[node name="DamageReceiver" parent="." index="1"]
 collision_layer = 4
 health_resource = ExtResource("2_ysqwl")
 
@@ -144,7 +144,7 @@ weapon = NodePath("../SlashAttack")
 collision_mask = 2
 mover = NodePath("../MoverTopDown2D")
 
-[node name="AddPoint" type="Node" parent="." index="11" node_paths=PackedStringArray("hitbox")]
+[node name="AddPoint" type="Node" parent="." index="11" node_paths=PackedStringArray("damage_receiver")]
 script = ExtResource("9_3rsmj")
-hitbox = NodePath("../Hitbox")
+damage_receiver = NodePath("../DamageReceiver")
 score_resource = ExtResource("10_3mlgp")

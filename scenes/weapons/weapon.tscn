@@ -6,5 +6,4 @@
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_wo85b")
 projectile_scene = ExtResource("2_j8o47")
-projectile_parent_path = "../.."
 axis_multiplication = Vector2(1, 0.5)

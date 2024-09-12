@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://botai66n8rwt3"]
 
-[ext_resource type="Texture2D" uid="uid://v8lyvd816le2" path="res://assets/images/shadow.png" id="1_1xdx7"]
-[ext_resource type="Script" path="res://scripts/damage/Hitbox.gd" id="1_mvxhy"]
-[ext_resource type="Texture2D" uid="uid://b4ss33dnq0310" path="res://assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
+[ext_resource type="Texture2D" uid="uid://b3kerfdfiley3" path="res://assets/images/shadow.png" id="1_1xdx7"]
+[ext_resource type="Script" path="res://scripts/damage/DamageReceiver.gd" id="1_mvxhy"]
+[ext_resource type="Texture2D" uid="uid://di6r5efk8jjmn" path="res://assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://resources/materials/color_flash.material" id="3_jdhuu"]
 [ext_resource type="Script" path="res://scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
 [ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="6_lojqb"]
@@ -87,6 +87,7 @@ resource_name = "Default Input"
 script = ExtResource("7_2l20c")
 axis = Vector2(0, 0)
 action = false
+aim_direction = Vector2(0, 0)
 
 [node name="Actor" type="CharacterBody2D"]
 motion_mode = 1
@@ -95,12 +96,13 @@ platform_on_leave = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qpkoi")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="DamageReceiver" type="Area2D" parent="." node_paths=PackedStringArray("receiver_owner")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_mvxhy")
+receiver_owner = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageReceiver"]
 shape = SubResource("RectangleShape2D_qpkoi")
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -143,13 +145,14 @@ mover_2d = NodePath("../MoverTopDown2D")
 animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
 state = 1
 
-[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "hitbox", "flash_animation_player", "sprite_flip")]
+[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "damage_receiver", "sprite_flip", "flash_animation_player")]
 script = ExtResource("10_tpsh5")
 mover_2d = NodePath("../MoverTopDown2D")
-hitbox = NodePath("../Hitbox")
+damage_receiver = NodePath("../DamageReceiver")
+sprite_flip = NodePath("../SpriteFlip")
 flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"
 sound_resource_damage = ExtResource("11_wwbua")
-sprite_flip = NodePath("../SpriteFlip")
 dead_vfx_parent_path = NodePath("../..")
+
 [node name="TimerDash" type="Timer" parent="."]

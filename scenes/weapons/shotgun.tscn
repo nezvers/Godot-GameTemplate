@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ghnv48d18ftl"]
+[gd_scene load_steps=5 format=3 uid="uid://ghnv48d18ftl"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://scenes/weapons/gun.tscn" id="1_xioje"]
+[ext_resource type="PackedScene" uid="uid://b0dctopmkjml8" path="res://scenes/projectiles/shotgun_bullet.tscn" id="2_6w2s8"]
 [ext_resource type="Texture2D" uid="uid://cim2x6e31yf1g" path="res://assets/images/weapon/gun_1.png" id="2_hrbvp"]
+[ext_resource type="Resource" uid="uid://dlkgtlk8nau36" path="res://resources/DamageResource/shotgun_damage.tres" id="2_te3cg"]
 
 [node name="Shotgun" instance=ExtResource("1_xioje")]
+projectile_scene = ExtResource("2_6w2s8")
 projectile_angles = Array[float]([0.0, -5.0, 5.0, -10.0, 10.0])
-projectile_damage = 1
+damage_resource = ExtResource("2_te3cg")
 
 [node name="ProjectileInterval" parent="." index="0"]
 interval = 0.75

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxf4p5yoajpdu"]
+[gd_scene load_steps=15 format=3 uid="uid://bxf4p5yoajpdu"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://scenes/weapons/weapon.tscn" id="1_1sltl"]
 [ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://scenes/projectiles/bullet.tscn" id="2_4cp7v"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponRotation.gd" id="4_3cx23"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileInterval.gd" id="4_a4uon"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="4_c42bw"]
+[ext_resource type="Resource" uid="uid://b6f2dt76wgh5r" path="res://resources/DamageResource/gun_damage.tres" id="5_fyy4a"]
 [ext_resource type="Script" path="res://scripts/weapon_system/SpreadShot.gd" id="8_080yn"]
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponKickback.gd" id="9_l8e01"]
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponAnimationTrigger.gd" id="10_n2oji"]
@@ -52,7 +53,7 @@ _data = {
 projectile_scene = ExtResource("2_4cp7v")
 sound_resource = ExtResource("3_k087s")
 projectile_parent_reference = ExtResource("4_c42bw")
-projectile_damage = 3
+damage_resource = ExtResource("5_fyy4a")
 
 [node name="ProjectileInterval" type="Node" parent="." index="0" node_paths=PackedStringArray("weapon")]
 script = ExtResource("4_a4uon")

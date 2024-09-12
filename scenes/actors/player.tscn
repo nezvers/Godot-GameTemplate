@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://resources/sounds/kill_player.tres" id="6_wov6i"]
 [ext_resource type="PackedScene" uid="uid://csjmqrrduxorv" path="res://scenes/vfx/player_dead.tscn" id="8_s8ofx"]
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
-[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://scenes/weapons/slash_attack.tscn" id="10_x7xjs"]
+[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://scenes/weapons/zombie_attack.tscn" id="10_x7xjs"]
 [ext_resource type="PackedScene" uid="uid://ghnv48d18ftl" path="res://scenes/weapons/shotgun.tscn" id="11_nnusp"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="11_r4axh"]
 [ext_resource type="PackedScene" uid="uid://cmmx82t54wble" path="res://scenes/weapons/sword.tscn" id="12_gom0h"]
@@ -106,10 +106,10 @@ _data = {
 collision_layer = 2
 collision_mask = 5
 
-[node name="Hitbox" parent="." index="1"]
+[node name="DamageReceiver" parent="." index="1"]
 collision_layer = 2
 health_resource = ExtResource("2_ck5gl")
-damage_cooldown = 0.5
+damage_cooldown = 0.3
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
 material = SubResource("ShaderMaterial_gfelk")
@@ -130,9 +130,9 @@ flip_type = 1
 sound_resource_dead = ExtResource("6_wov6i")
 dead_vfx_scene = ExtResource("8_s8ofx")
 
-[node name="PlayerInput" type="Node" parent="." index="8" node_paths=PackedStringArray("hitbox", "mover")]
+[node name="PlayerInput" type="Node" parent="." index="8" node_paths=PackedStringArray("damage_receiver", "mover")]
 script = ExtResource("4_uihqc")
-hitbox = NodePath("../Hitbox")
+damage_receiver = NodePath("../DamageReceiver")
 mover = NodePath("../MoverTopDown2D")
 aim_offset = Vector2(0, 8)
 

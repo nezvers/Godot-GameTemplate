@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DamageResource" load_steps=2 format=3 uid="uid://b6f2dt76wgh5r"]
+
+[ext_resource type="Script" path="res://scripts/damage/DamageResource.gd" id="1_g4ik4"]
+
+[resource]
+script = ExtResource("1_g4ik4")
+value = 1.0
+projectile_multiply = 1.0
+critical_multiply = 1.5
+critical_chance = 0.3
+direction = Vector2(0, 0)
+kickback_strength = 0.0
