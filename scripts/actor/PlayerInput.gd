@@ -36,3 +36,7 @@ func _physics_process(_delta:float)->void:
 	var weapon_switch_dir:int = int(Input.is_action_just_released("weapon_up")) - int(Input.is_action_just_released("weapon_down"))
 	if weapon_switch_dir != 0:
 		mover.input_resource.set_switch_weapon(weapon_switch_dir)
+	
+	# Dashing
+	if (Input.is_action_pressed("dash")):
+		mover.add_dash(axis)
