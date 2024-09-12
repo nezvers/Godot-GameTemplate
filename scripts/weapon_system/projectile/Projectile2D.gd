@@ -39,7 +39,6 @@ func _ready()->void:
 	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, collision_mask)
 	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, destroy_collision_mask)
 	damage_source.damage_resource = damage_resource
-	damage_source.damage_resource = damage_resource
 	damage_source.hit.connect(on_hit)
 	damage_source.hit_solid.connect(remove)
 	

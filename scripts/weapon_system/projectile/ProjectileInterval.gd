@@ -19,3 +19,5 @@ func start()->void:
 ## Animation end enables weapon's ability to spawn projectiles
 func timeout()->void:
 	weapon.enabled = true
+	if weapon.can_spawn():
+		weapon.spawn_projectile()

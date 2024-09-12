@@ -11,15 +11,15 @@ signal damage_report(damage:DamageResource)
 @export var critical_chance:float = 0.3
 @export var direction:Vector2
 @export var kickback_strength:float
-## TODO: include information from source character
 
 ## An information for a damage report
-var is_critical:bool = false
+@export var is_critical:bool = false
 ## Exploiting that array is shared reference
 ## it will collect all same generation hits
-var hit_list:Array
+@export var hit_list:Array
 ## pre-calculated value
-var total_damage:float
+@export var total_damage:float
+## TODO: include information from source character
 
 ## final value applied in HealthResource
 ## Projectiles can influence resulting value
