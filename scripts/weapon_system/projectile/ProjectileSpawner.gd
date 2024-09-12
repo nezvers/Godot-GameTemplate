@@ -18,8 +18,6 @@ signal prepare_spawn
 @export var projectile_scene:PackedScene
 ## Will be set for a new projectile
 @export_flags_2d_physics var collision_mask:int
-## Movement modifier to fake angled perspective
-@export var axis_multiplication:Vector2 = Vector2(1.0, 0.5)
 ## Reference to projectile parent
 @export var projectile_parent_reference:ReferenceNodeResource
 ## Angle offsets for each projectiles
@@ -43,5 +41,5 @@ func spawn()->void:
 		inst.direction = direction.normalized()
 		inst.damage_resource = new_damage_resource
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
-		inst.global_position = initial_distance * direction * axis_multiplication + projectile_position
+		inst.global_position = initial_distance * direction + projectile_position
 		projectile_parent_reference.node.add_child(inst)
