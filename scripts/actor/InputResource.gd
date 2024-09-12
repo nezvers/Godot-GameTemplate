@@ -37,9 +37,9 @@ func set_aim_direction(value:Vector2)->void:
 
 ## Setter function for action input
 func set_action(value:bool)->void:
-	action = value
-	if action:
+	if value && !action:
 		action_pressed.emit()
+	action = value
 
 ## Setter function for action input
 func set_action_2(value:bool)->void:
