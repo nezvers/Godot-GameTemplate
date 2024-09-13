@@ -7,4 +7,5 @@ resource_name = "Player Input"
 script = ExtResource("1_0162q")
 axis = Vector2(0, 0)
 action = false
+action_2 = false
 aim_direction = Vector2(0, 0)
