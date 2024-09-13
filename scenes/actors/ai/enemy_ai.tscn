@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://cenq1bawfywu8"]
+
+[ext_resource type="Script" path="res://scripts/actor/bots/BotInput.gd" id="1_qo7hy"]
+[ext_resource type="Script" path="res://scripts/actor/bots/NavigationVisualizer2D.gd" id="2_2yt0t"]
+[ext_resource type="Script" path="res://scripts/actor/bots/ProximityAttack.gd" id="3_4n00q"]
+[ext_resource type="Script" path="res://scripts/actor/bots/TargetFinder.gd" id="4_y3qb6"]
+[ext_resource type="Script" path="res://scripts/actor/bots/TargetDirection.gd" id="5_ekfo4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixqjj"]
+size = Vector2(1000, 500)
+
+[node name="EnemyAi" type="Node2D"]
+script = ExtResource("1_qo7hy")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ixqjj")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = false
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+radius = 16.0
+
+[node name="NavigationVisualizer" type="Line2D" parent="NavigationAgent2D" node_paths=PackedStringArray("navigation_agent")]
+width = 1.0
+script = ExtResource("2_2yt0t")
+navigation_agent = NodePath("..")
+
+[node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("area", "bot_input")]
+script = ExtResource("4_y3qb6")
+area = NodePath("../Area2D")
+bot_input = NodePath("..")
+
+[node name="ProximityAttack" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input")]
+script = ExtResource("3_4n00q")
+target_finder = NodePath("../TargetFinder")
+bot_input = NodePath("..")
+
+[node name="TargetDirection" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast", "navigation_agent")]
+script = ExtResource("5_ekfo4")
+target_finder = NodePath("../TargetFinder")
+bot_input = NodePath("..")
+raycast = NodePath("../RayCast2D")
+navigation_agent = NodePath("../NavigationAgent2D")

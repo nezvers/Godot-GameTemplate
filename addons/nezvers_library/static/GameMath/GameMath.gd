@@ -38,6 +38,17 @@ static func dist_to_line_3d(pos:Vector3, line_start:Vector3, line_end:Vector3)->
 		return bv.length()
 	return ab.cross(ac).length() / ab.length()
 
+static func get_closest_node_2d(point:Vector2, body_list:Array[Node2D])->Node2D:
+	if body_list.is_empty():
+		return null
+	var closest:Node2D = body_list.front()
+	var dist:float = (closest.global_position - point).length_squared()
+	for body:Node2D in body_list:
+		var _dist:float = (body.global_position - point).length_squared()
+		if _dist < dist:
+			dist = _dist
+			closest = body
+	return closest
 
 ## Outline of the formula
 static func dampened_spring(displacement, damp, velocity, spring:float, delta:float):
