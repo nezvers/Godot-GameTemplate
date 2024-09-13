@@ -58,8 +58,7 @@ func _physics_process(_delta:float)->void:
 		# close enough
 		mover.input_resource.axis = Vector2.ZERO
 		set_state(StateType.ATTACK)
-		if weapon.enabled:
-			mover.input_resource.aim_direction = direction.normalized()
+		mover.input_resource.aim_direction = direction.normalized()
 		mover.input_resource.set_action(weapon.enabled)
 		return
 	
