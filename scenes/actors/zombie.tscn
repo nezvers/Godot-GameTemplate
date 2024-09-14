@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://62j3fy0o3uwl"]
+[gd_scene load_steps=18 format=3 uid="uid://62j3fy0o3uwl"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_duvie"]
 [ext_resource type="Texture2D" uid="uid://dqqfb3tyiyk2v" path="res://assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
-[ext_resource type="Script" path="res://scripts/actor/ZombieInput.gd" id="2_yis6g"]
 [ext_resource type="Resource" uid="uid://k6kulmw3ddq8" path="res://resources/health_resource/zombie_health.tres" id="2_ysqwl"]
 [ext_resource type="Resource" uid="uid://bgj1j2b6mc1u7" path="res://resources/ActorStatsResource/zombie_stats.tres" id="5_srg4e"]
 [ext_resource type="Resource" uid="uid://dq8mhmimpehoi" path="res://resources/InputResource/zombie_input_resource.tres" id="6_o1vf4"]
@@ -11,8 +10,8 @@
 [ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://resources/sounds/kill_zombie.tres" id="7_uiw1f"]
 [ext_resource type="Script" path="res://scripts/actor/AddPoint.gd" id="9_3rsmj"]
 [ext_resource type="PackedScene" uid="uid://bu2n5cvym7bse" path="res://scenes/vfx/zombie_body.tscn" id="9_3xjhw"]
+[ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://resources/score_resource.tres" id="10_3mlgp"]
-[ext_resource type="Script" path="res://scripts/actor/bots/NavigationVisualizer2D.gd" id="10_ouyos"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mtjxa"]
 resource_local_to_scene = true
@@ -100,9 +99,6 @@ _data = {
 "walk": SubResource("Animation_d7gcn")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixqjj"]
-size = Vector2(1000, 500)
-
 [node name="Zombie" instance=ExtResource("1_fkm2k")]
 collision_layer = 4
 collision_mask = 7
@@ -128,33 +124,14 @@ input_resource = ExtResource("6_o1vf4")
 sound_resource_dead = ExtResource("7_uiw1f")
 dead_vfx_scene = ExtResource("9_3xjhw")
 
-[node name="PlayerDetector" type="Area2D" parent="." index="8"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
-shape = SubResource("RectangleShape2D_ixqjj")
-debug_color = Color(0, 0.6, 0.701961, 0)
-
-[node name="ZombieInput" type="Node2D" parent="." index="9" node_paths=PackedStringArray("mover", "player_detector", "weapon")]
-script = ExtResource("2_yis6g")
+[node name="ZombieInput" parent="." index="8" node_paths=PackedStringArray("mover") instance=ExtResource("9_4t8nd")]
 mover = NodePath("../MoverTopDown2D")
-player_detector = NodePath("../PlayerDetector")
-minimal_distance = Vector2(12, 6)
-weapon = NodePath("../SlashAttack")
 
-[node name="RayCast2D" type="RayCast2D" parent="ZombieInput" index="0"]
-enabled = false
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="ZombieInput" index="1"]
-
-[node name="NavigationVisualizer" type="Line2D" parent="ZombieInput/NavigationAgent2D" index="0" node_paths=PackedStringArray("navigation_agent")]
-script = ExtResource("10_ouyos")
-navigation_agent = NodePath("..")
-
-[node name="SlashAttack" parent="." index="10" node_paths=PackedStringArray("mover") instance=ExtResource("7_tyqu3")]
+[node name="SlashAttack" parent="." index="9" node_paths=PackedStringArray("mover") instance=ExtResource("7_tyqu3")]
 collision_mask = 2
 mover = NodePath("../MoverTopDown2D")
 
-[node name="AddPoint" type="Node" parent="." index="11" node_paths=PackedStringArray("damage_receiver")]
+[node name="AddPoint" type="Node" parent="." index="10" node_paths=PackedStringArray("damage_receiver")]
 script = ExtResource("9_3rsmj")
 damage_receiver = NodePath("../DamageReceiver")
 score_resource = ExtResource("10_3mlgp")
