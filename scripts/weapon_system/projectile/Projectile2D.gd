@@ -45,7 +45,7 @@ func on_hit()->void:
 
 func prepare_exit()->void:
 	set_physics_process(false)
-	damage_source.monitoring = false
+	damage_source.set_monitoring.call_deferred(false)
 	prepare_exit_event.emit()
 	remove()
 
