@@ -125,6 +125,10 @@ dash={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 
+[navigation]
+
+2d/default_link_connection_radius=16.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

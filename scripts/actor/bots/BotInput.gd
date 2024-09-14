@@ -6,6 +6,7 @@ signal input_update
 @export var enabled:bool = true
 ## Commands the movement
 @export var mover:MoverTopDown2D
+@export var attack_distance:float = 16.0
 
 var axis_compensation:Vector2 # top down movement can use different speed for X&Y axis
 

@@ -3,27 +3,43 @@ extends Node
 
 @export var target_finder:TargetFinder
 @export var bot_input:BotInput
-@export var attack_distance:float = 16.0
 @export var raycast:RayCast2D
 @export var navigation_agent:NavigationAgent2D
+## Value used to change recalculation cooldown
+@export var retarget_distance:float = 16.0
 
-var detected: = false
-var last_target_position:Vector2
+
+## From bot to target
 var local_direction:Vector2
+## Track targets position
+var last_target_position:Vector2
+## Time last navigation update happened
+var last_update_time:float
+var navigation_cooldown:float = 1.0
+
 
 func _ready()->void:
 	target_finder.target_update.connect(on_target_update)
 
+func set_direction(direction:Vector2)->void:
+	bot_input.mover.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
 
 func on_target_update()->void:
 	if target_finder.closest == null:
+		set_direction(Vector2.ZERO)
 		return
 	local_direction = target_finder.closest.global_position - bot_input.global_position
-	if local_direction.length() > attack_distance && line_of_sight():
-		bot_input.mover.input_resource.set_axis((local_direction * bot_input.axis_compensation).normalized())
-		bot_input.mover.input_resource.set_aim_direction(bot_input.mover.input_resource.axis)
+	var attack_dist_squared:float = bot_input.attack_distance * bot_input.attack_distance
+	if (local_direction.length_squared() < attack_dist_squared):
+		set_direction(Vector2.ZERO)
+		return
+	if line_of_sight() && local_direction.length_squared() > attack_dist_squared:
+		set_direction(local_direction)
 		return
 	navigation_update()
+	var point:Vector2 = navigation_agent.get_next_path_position()
+	var direction:Vector2 = (point - bot_input.global_position)
+	set_direction(direction)
 
 ## Raycast checks if anything from environment is in the way
 func line_of_sight()->bool:
@@ -32,9 +48,13 @@ func line_of_sight()->bool:
 	return !raycast.is_colliding()
 
 func navigation_update()->void:
-	if (navigation_agent.target_position - bot_input.global_position).length() > 16.0:
-		navigation_agent.target_position = target_finder.closest.global_position
-	var point:Vector2 = navigation_agent.get_next_path_position()
-	var direction:Vector2 = (point - bot_input.global_position).normalized()
-	bot_input.mover.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
-	bot_input.mover.input_resource.set_aim_direction(bot_input.mover.input_resource.axis)
+	var time: = Time.get_ticks_msec() * 0.001
+	if last_update_time + navigation_cooldown > time:
+		return
+	last_update_time = time
+	# the bigger distance overshoot, the sooner update happens
+	var moved_direction:Vector2 = (last_target_position - target_finder.closest.global_position)
+	var ratio:float = (retarget_distance) / max(moved_direction.length(), 1.0)
+	navigation_cooldown = min(ratio, 5.0)
+	last_target_position = target_finder.closest.global_position
+	navigation_agent.target_position = last_target_position

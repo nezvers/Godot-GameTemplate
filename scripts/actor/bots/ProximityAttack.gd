@@ -1,7 +1,6 @@
 class_name ProximityAttack
 extends Node
 
-@export var attack_range:float = 16.0
 @export var target_finder:TargetFinder
 @export var bot_input:BotInput
 
@@ -13,4 +12,4 @@ func on_target_update()->void:
 		bot_input.mover.input_resource.set_action(false)
 		return
 	var distance:float = (target_finder.closest.global_position - bot_input.global_position).length()
-	bot_input.mover.input_resource.set_action(distance <= attack_range)
+	bot_input.mover.input_resource.set_action(distance <= bot_input.attack_distance)
