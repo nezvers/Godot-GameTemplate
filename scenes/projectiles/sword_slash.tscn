@@ -103,8 +103,6 @@ _data = {
 
 [node name="SwordSlash" instance=ExtResource("1_lwexf")]
 speed = 0.0
-lifetime = 0.27
-hit_limit = -1
 destroy_collision_mask = 0
 
 [node name="CollisionShape2D" parent="DamageSource" index="0"]
@@ -145,3 +143,6 @@ script = ExtResource("7_n74ie")
 projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_scene = ExtResource("8_1el3x")
+
+[node name="ProjectileLifetime" parent="." index="8"]
+time = 0.27

@@ -33,7 +33,7 @@ scale_curve = SubResource("CurveTexture_k2ccc")
 color_ramp = SubResource("GradientTexture1D_138ku")
 
 [node name="Bullet" instance=ExtResource("1_omfnw")]
-self_remove = true
+kickback_strength = 60.0
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 modulate = Color(1, 0.983333, 0, 0.168627)

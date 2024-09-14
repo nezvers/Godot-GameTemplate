@@ -100,10 +100,8 @@ _data = {
 
 [node name="SwordProjectile" instance=ExtResource("1_3klw8")]
 speed = 150.0
-lifetime = 0.6
 damage_multiply = 0.5
 kickback_strength = 30.0
-self_remove = true
 
 [node name="CollisionShape2D" parent="DamageSource" index="0"]
 shape = SubResource("RectangleShape2D_asrea")
@@ -132,3 +130,6 @@ autoplay = "slash"
 
 [node name="ProjectileImpact" parent="." index="4"]
 impact_scene = ExtResource("5_pxxe4")
+
+[node name="ProjectileLifetime" parent="." index="6"]
+time = 0.6

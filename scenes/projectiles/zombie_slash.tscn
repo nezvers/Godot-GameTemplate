@@ -56,7 +56,6 @@ _data = {
 
 [node name="ZombieSlash" instance=ExtResource("1_5ra58")]
 speed = 0.0
-lifetime = 0.25
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("2_eg08h")
@@ -71,3 +70,9 @@ speed_scale = 2.0
 
 [node name="ProjectileRotation" parent="." index="2"]
 enabled = false
+
+[node name="HitLimit" parent="." index="4"]
+hit_limit = -1
+
+[node name="ProjectileLifetime" parent="." index="5"]
+time = 0.25

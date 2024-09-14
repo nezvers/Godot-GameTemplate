@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://beifde6xst23w"]
+[gd_scene load_steps=10 format=3 uid="uid://beifde6xst23w"]
 
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
 [ext_resource type="Texture2D" uid="uid://ciqkwwrhgebko" path="res://assets/images/projectile/bullet_0.png" id="2_7x3e8"]
 [ext_resource type="Script" path="res://scripts/damage/DamageSource.gd" id="2_dihsx"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileRotation.gd" id="3_wuoxf"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileImpact.gd" id="4_v8blt"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
+[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://resources/ReferenceNodeResources/front_reference.tres" id="6_uars4"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4a7g"]
 size = Vector2(4, 2)
@@ -13,7 +16,6 @@ size = Vector2(4, 2)
 script = ExtResource("1_8ha7j")
 speed = 120.0
 axis_multiplier = Vector2(1, 0.5)
-lifetime = 2.0
 damage_source = NodePath("DamageSource")
 
 [node name="DamageSource" type="Area2D" parent="."]
@@ -38,3 +40,14 @@ projectile = NodePath("..")
 script = ExtResource("4_v8blt")
 projectile = NodePath("..")
 damage_source = NodePath("../DamageSource")
+impact_parent_reference = ExtResource("6_uars4")
+
+[node name="HitLimit" type="Node" parent="." node_paths=PackedStringArray("projectile", "damage_source")]
+script = ExtResource("6_pkcss")
+projectile = NodePath("..")
+damage_source = NodePath("../DamageSource")
+
+[node name="ProjectileLifetime" type="Node" parent="." node_paths=PackedStringArray("projectile")]
+script = ExtResource("8_dsjh1")
+time = 2.0
+projectile = NodePath("..")

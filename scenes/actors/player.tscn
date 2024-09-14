@@ -142,7 +142,7 @@ script = ExtResource("9_hpc12")
 projectile_parent_path = "../.."
 auto_instance_weapons = Array[PackedScene]([ExtResource("10_x7xjs"), ExtResource("11_nnusp"), ExtResource("12_gom0h")])
 mover = NodePath("../MoverTopDown2D")
-collision_mask = 5
+collision_mask = 4
 
 [node name="Gun" parent="WeaponManager" index="0" node_paths=PackedStringArray("mover") instance=ExtResource("6_rnlhu")]
 collision_mask = 5
