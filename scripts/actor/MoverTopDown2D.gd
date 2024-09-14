@@ -31,8 +31,7 @@ func _physics_process(delta:float)->void:
 	acceleration = delta * actor_stats_resource.acceleration
 	character_body.velocity = character_body.velocity.move_toward(target_velocity, acceleration)
 	
-	var vel2:float = character_body.velocity.length_squared()
-	if vel2 > 0.01:
+	if character_body.velocity.length_squared() > 0.01:
 		# Bug workaround
 		character_body.move_and_slide()
 

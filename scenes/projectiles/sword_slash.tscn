@@ -144,5 +144,8 @@ projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_scene = ExtResource("8_1el3x")
 
+[node name="HitLimit" parent="." index="7"]
+hit_limit = -1
+
 [node name="ProjectileLifetime" parent="." index="8"]
 time = 0.27
