@@ -4,15 +4,15 @@ extends Node
 @export var projectile:Projectile2D
 @export var damage_source:DamageSource
 @export var impact_scene:PackedScene
+@export var impact_parent_reference:ReferenceNodeResource
 
 func _ready()->void:
 	if impact_scene == null:
 		return
+	assert(impact_parent_reference != null)
 	damage_source.hit.connect(spawn)
+	damage_source.hit_solid.connect(spawn)
 
 func spawn()->void:
-	var inst:Node2D = impact_scene.instantiate()
-	var parent:Node2D = projectile.get_parent()
-	parent.add_child(inst)
-	inst.global_position = projectile.global_position
 	# TODO: some vfx might need rotation
+	InstanceManager.instance(impact_scene, impact_parent_reference, projectile.global_position)

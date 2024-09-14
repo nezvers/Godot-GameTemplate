@@ -23,6 +23,7 @@ buses/default_bus_layout=""
 
 SoundManager="*res://autoload/sound_manager.tscn"
 Music="*res://autoload/music.tscn"
+InstanceManager="*res://addons/nezvers_library/autoload/InstanceManager.gd"
 
 [display]
 
