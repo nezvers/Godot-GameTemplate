@@ -25,30 +25,30 @@ func _ready()->void:
 		directory_resource.add_item(path, node, node_key)
 	directory_resource.selected_directory_changed.connect(directory_changed)
 	directory_changed()
-	grab_focus.call_deferred(".")
+	directory_grab_focus.call_deferred(".")
 
 ## Hide previous node and show new
 func directory_changed()->void:
-	var node:Node = directory_get_node()
+	var node:Node = directory_get_node(node_key)
 	if node != null:
 		node.visible = false
 	current_directory = directory_resource.directory_get_current()
-	node = directory_get_node()
+	node = directory_get_node(node_key)
 	if node != null:
 		node.visible = true
 
 ## Retrieve node from a directory. If key doesn't exist, returns null.
-func directory_get_node()->Node:
-	if !current_directory.has(node_key):
+func directory_get_node(key:String)->Node:
+	if !current_directory.has(key):
 		return null
-	return current_directory[node_key]
+	return current_directory[key]
 
 ## Sends method call to directory_resource
 func open(value:String)->void:
 	directory_resource.directory_open(value)
-	grab_focus(value)
+	directory_grab_focus(value)
 
-func grab_focus(value:String)->void:
+func directory_grab_focus(value:String)->void:
 	# Get node to focus
 	if !focused_node.has(value):
 		return

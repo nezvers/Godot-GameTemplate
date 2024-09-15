@@ -4,6 +4,7 @@ extends Node
 @export var pause_bool_resource:BoolResource
 @export var pause_root:CanvasItem
 @export var resume_button:Button
+@export var menu_traverse_manager:MenuTraverseManager
 
 func _ready()->void:
 	pause_bool_resource.reset_resource()
@@ -14,7 +15,21 @@ func _ready()->void:
 
 func _input(event:InputEvent)->void:
 	if event.is_action_released("pause_game"):
-		pause_bool_resource.set_value(!pause_bool_resource.value)
+		if pause_bool_resource.value == false:
+			pause_bool_resource.set_value(true)
+		elif menu_traverse_manager.directory_resource.selected_directory == NodePath("."):
+			pause_bool_resource.set_value(false)
+		else:
+			menu_traverse_manager.back()
+		return
+	if pause_bool_resource.value == false:
+		return
+	if event.is_action_released("ui_cancel"):
+		if menu_traverse_manager.directory_resource.selected_directory != NodePath("."):
+			menu_traverse_manager.back()
+		else:
+			pause_bool_resource.set_value(false)
+		return
 
 func resume()->void:
 	pause_bool_resource.set_value(false)

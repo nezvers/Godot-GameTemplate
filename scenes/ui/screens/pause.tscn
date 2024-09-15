@@ -25,11 +25,12 @@ grow_vertical = 2
 theme = ExtResource("1_x1p1w")
 theme_override_styles/panel = SubResource("StyleBoxFlat_n64qj")
 
-[node name="PausingManager" type="Node" parent="." node_paths=PackedStringArray("pause_root", "resume_button")]
+[node name="PausingManager" type="Node" parent="." node_paths=PackedStringArray("pause_root", "resume_button", "menu_traverse_manager")]
 script = ExtResource("2_c7vpd")
 pause_bool_resource = ExtResource("3_f7x5r")
 pause_root = NodePath("..")
 resume_button = NodePath("../MarginContainer/Control/Body/PauseMenu/Resume/Button")
+menu_traverse_manager = NodePath("../MenuTraverseManager")
 
 [node name="MenuTraverseManager" type="Node" parent="."]
 script = ExtResource("2_0jy2c")
