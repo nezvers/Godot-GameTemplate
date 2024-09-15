@@ -35,7 +35,7 @@ func _physics_process(delta:float)->void:
 	if distance > 0.0:
 		ratio = min(acceleration / distance, 1.0)
 	character.velocity += (direction * ratio)
-	var collided:bool = character.move_and_slide()
+	var _collided:bool = character.move_and_slide()
 
 ## Adds an impulse to velocity, like a kickback
 func add_impulse(impulse:Vector2)->void:
