@@ -31,9 +31,14 @@ func _physics_process(delta:float)->void:
 	acceleration = delta * actor_stats_resource.acceleration
 	character_body.velocity = character_body.velocity.move_toward(target_velocity, acceleration)
 	
-	if character_body.velocity.length_squared() > 0.01:
-		# Bug workaround
-		character_body.move_and_slide()
+	# Bug workaround
+	if character_body.velocity.length_squared() < 0.01:
+		return
+	
+	var collided:bool = character_body.move_and_slide()
+	# Weird, this should happen with nove_and_slilde by it self
+	if collided:
+		character_body.velocity = Vector2.ZERO
 
 ## Adds an impulse to velocity, like a kickback
 func add_impulse(impulse:Vector2)->void:
