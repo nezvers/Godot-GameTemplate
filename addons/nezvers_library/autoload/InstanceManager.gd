@@ -1,6 +1,6 @@
 extends Node
 
-func instance(scene:PackedScene, parent_reference:ReferenceNodeResource, position:Vector2 = Vector2.ZERO)->void:
+func instance(scene:PackedScene, parent_reference:ReferenceNodeResource, position:Vector2 = Vector2.ZERO)->Node:
 	assert(scene != null)
 	assert(parent_reference != null)
 	assert(parent_reference.node != null)
@@ -8,3 +8,4 @@ func instance(scene:PackedScene, parent_reference:ReferenceNodeResource, positio
 	if inst is CanvasItem || inst is Node3D:
 		inst.global_position = position
 	parent_reference.node.add_child(inst)
+	return inst

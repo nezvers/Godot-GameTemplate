@@ -1,3 +1,5 @@
+Recommend to watch [Game Design Documents - a Minimalist Approach](https://www.youtube.com/watch?v=uBxYGFRi-S4)
+
 ## Pitch
 Retro monster killing simulation
 
