@@ -36,7 +36,7 @@ func _physics_process(delta:float)->void:
 		return
 	
 	var collided:bool = character_body.move_and_slide()
-	# Weird, this should happen with nove_and_slilde by it self
+	# Weird, this should happen with nove_and_slide by it self
 	if collided:
 		character_body.velocity = Vector2.ZERO
 
