@@ -127,9 +127,9 @@ libraries = {
 "": SubResource("AnimationLibrary_tbujk")
 }
 
-[node name="MoverTopDown2D" type="Node2D" parent="." node_paths=PackedStringArray("character_body")]
+[node name="MoverTopDown2D" type="Node2D" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("5_3rf64")
-character_body = NodePath("..")
+character = NodePath("..")
 actor_stats_resource = SubResource("Resource_qmsly")
 input_resource = SubResource("Resource_oyd13")
 axis_multiplier = Vector2(1, 0.5)

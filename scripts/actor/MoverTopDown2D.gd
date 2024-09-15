@@ -4,7 +4,7 @@ extends Node2D
 ## Way to disable functionality at _ready
 @export var enabled:bool = true
 ## Node that is doing the physical movement
-@export var character_body:CharacterBody2D
+@export var character:CharacterBody2D
 ## Stats for movement
 @export var actor_stats_resource:ActorStatsResource
 ## Virtual buttons to react to
@@ -28,18 +28,15 @@ func _ready()->void:
 
 func _physics_process(delta:float)->void:
 	target_velocity = actor_stats_resource.max_speed * input_resource.axis * axis_multiplier
+	var direction:Vector2 = target_velocity - character.velocity 
+	var distance:float = direction.length()
 	acceleration = delta * actor_stats_resource.acceleration
-	character_body.velocity = character_body.velocity.move_toward(target_velocity, acceleration)
-	
-	# Bug workaround
-	if character_body.velocity.length_squared() < 0.01:
-		return
-	
-	var collided:bool = character_body.move_and_slide()
-	# Weird, this should happen with nove_and_slide by it self
-	if collided:
-		character_body.velocity = Vector2.ZERO
+	var ratio:float = 0
+	if distance > 0.0:
+		ratio = min(acceleration / distance, 1.0)
+	character.velocity += (direction * ratio)
+	var collided:bool = character.move_and_slide()
 
 ## Adds an impulse to velocity, like a kickback
 func add_impulse(impulse:Vector2)->void:
-	character_body.velocity += impulse
+	character.velocity += impulse

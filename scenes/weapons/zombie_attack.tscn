@@ -9,7 +9,7 @@
 
 [node name="ZombieAttack" instance=ExtResource("1_tygi1")]
 projectile_scene = ExtResource("2_wxtpk")
-spawn_distance = 10.0
+spawn_distance = 12.0
 sound_resource = ExtResource("3_4gid6")
 projectile_parent_reference = ExtResource("4_tkm0f")
 damage_resource = ExtResource("5_0dp6e")

@@ -83,5 +83,8 @@ libraries = {
 "": SubResource("AnimationLibrary_sorlh")
 }
 
+[node name="WeaponKickback" parent="." index="4"]
+kickback_strength = -40.0
+
 [node name="AnimationTrigger" parent="." index="5"]
 animation_name = &"slash"

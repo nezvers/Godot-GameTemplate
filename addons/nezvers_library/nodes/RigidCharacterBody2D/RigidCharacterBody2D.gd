@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal collided
 
 @export var linear_velocity = Vector2.ZERO
-@export var gravity: = Vector2(0, 4) : set = set_gravity
+@export var gravity: = Vector2(0, 0)
 @export var dampening: = 0.005 #if too low value it starts gain speed when rolling on the ground
 @export_range(0.0, 1.0) var bounciness = 0.5
 @export var mass:float = 1.0
