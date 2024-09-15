@@ -4,7 +4,7 @@ extends SaveableResource
 signal selected_directory_changed
 
 ## shows selected directory
-@export var selected_directory:NodePath = "."
+@export var selected_directory:NodePath = NodePath(".")
 
 ## Holds tree like structure Dictionaries to represent directories
 @export var directory_tree:Dictionary = { "." = {} }
@@ -38,7 +38,7 @@ func add_item(path:NodePath, node:Node, node_name:String)->void:
 
 ## Retrieved dictionary that holds data about a directory
 func directory_get(path:NodePath, create:bool = false)->Dictionary:
-	## TODO: Maybe for security purposes, if node_key represents non-directory-list, need to check access rights
+	# TODO: Maybe for security purposes, if node_key represents non-directory-list, need to check access rights
 	var current_directory:Dictionary = directory_tree
 	for i in path.get_name_count():
 		var path_name: = path.get_name(i)
