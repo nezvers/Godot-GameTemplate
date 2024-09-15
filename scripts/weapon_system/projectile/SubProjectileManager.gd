@@ -15,7 +15,7 @@ func _ready()->void:
 	axis_compensation = Vector2.ONE / projectile.axis_multiplier
 	
 	if start_projectile_scene != null:
-		spawn.call_deferred(start_projectile_scene)
+		spawn(start_projectile_scene)
 	
 	if exit_projectile_scene != null:
 		projectile.tree_exiting.connect(spawn.bind(start_projectile_scene))
