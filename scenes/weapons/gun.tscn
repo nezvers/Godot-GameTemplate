@@ -53,6 +53,9 @@ libraries = {
 [node name="WeaponTrigger" parent="." index="3"]
 sound_resource = ExtResource("3_k087s")
 
+[node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
+interval = 0.5
+
 [node name="ProjectileSpawner" parent="." index="4"]
 axis_multiplication = Vector2(1, 0.5)
 initial_distance = 8.0
