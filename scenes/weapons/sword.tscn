@@ -67,15 +67,9 @@ _data = {
 }
 
 [node name="Sword" instance=ExtResource("1_tcvta")]
-projectile_scene = ExtResource("2_x78ie")
-spawn_distance = 16.0
 damage_resource = ExtResource("3_g5tdr")
 
-[node name="ProjectileInterval" parent="." index="0"]
-interval = 0.3
-
 [node name="Sprite2D" parent="RotatedNode" index="0"]
-position = Vector2(0, 0)
 texture = ExtResource("3_ah0df")
 
 [node name="AnimationPlayer" parent="RotatedNode/Sprite2D" index="0"]
@@ -83,8 +77,17 @@ libraries = {
 "": SubResource("AnimationLibrary_sorlh")
 }
 
-[node name="WeaponKickback" parent="." index="4"]
+[node name="WeaponKickback" parent="." index="2"]
 kickback_strength = -40.0
 
-[node name="AnimationTrigger" parent="." index="5"]
-animation_name = &"slash"
+[node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
+interval = 0.3
+
+[node name="ProjectileSpawner" parent="." index="4"]
+axis_multiplication = Vector2(1, 1)
+initial_distance = 16.0
+projectile_scene = ExtResource("2_x78ie")
+new_damage = false
+
+[node name="SpreadShot" parent="ProjectileSpawner" index="0"]
+random_angle_offset = 0.0

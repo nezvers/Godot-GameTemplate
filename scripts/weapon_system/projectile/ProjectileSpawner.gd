@@ -12,6 +12,8 @@ signal prepare_spawn
 ## Scene that will be instantiated to create a projectile
 ## Direction a projectile will fly
 @export var direction:Vector2
+## Used for extra calculation to simulate angled top-down perspective
+@export var axis_multiplication:Vector2 = Vector2.ONE
 ## offset distance in the direction
 @export var initial_distance:float
 ## Scene from which a new projectile will be created
@@ -26,6 +28,9 @@ signal prepare_spawn
 @export var projectile_angles:Array[float] = [0.0]
 ## Resource that carry damage information
 @export var damage_resource:DamageResource
+## Create a new generation of damage data
+## Best for splitting from top resource
+@export var new_damage:bool = false
 
 
 func spawn()->void:
@@ -35,11 +40,17 @@ func spawn()->void:
 	assert(projectile_parent_reference.node != null, "projectile parent reference isn't set")
 	
 	prepare_spawn.emit()
-	var new_damage_resource:DamageResource = damage_resource.new_split()
+	
+	var new_damage_resource:DamageResource
+	if new_damage:
+		new_damage_resource = damage_resource.new_generation()
+	else:
+		new_damage_resource = damage_resource
+	
 	for angle:float in projectile_angles:
 		var inst:Projectile2D = projectile_scene.instantiate()
-		inst.direction = direction.normalized()
-		inst.damage_resource = new_damage_resource
+		inst.direction = direction.normalized().rotated(deg_to_rad(angle))
+		inst.damage_resource = new_damage_resource.new_split()
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
-		inst.global_position = initial_distance * direction + projectile_position
+		inst.global_position = initial_distance * direction * axis_multiplication + projectile_position
 		projectile_parent_reference.node.add_child(inst)

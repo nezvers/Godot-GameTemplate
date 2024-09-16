@@ -1,20 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://baisjmcsnk3on"]
+[gd_scene load_steps=6 format=3 uid="uid://baisjmcsnk3on"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://scenes/weapons/weapon.tscn" id="1_tygi1"]
 [ext_resource type="PackedScene" uid="uid://cm7673sbsnyya" path="res://scenes/projectiles/zombie_slash.tscn" id="2_wxtpk"]
 [ext_resource type="Resource" uid="uid://cmxblo8l2xfeq" path="res://resources/sounds/zombie_slash.tres" id="3_4gid6"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://resources/ReferenceNodeResources/front_reference.tres" id="4_tkm0f"]
 [ext_resource type="Resource" uid="uid://w2o813ip2q5b" path="res://resources/DamageResource/zombie_damage.tres" id="5_0dp6e"]
-[ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileInterval.gd" id="6_fc85h"]
 
 [node name="ZombieAttack" instance=ExtResource("1_tygi1")]
-projectile_scene = ExtResource("2_wxtpk")
-spawn_distance = 12.0
-sound_resource = ExtResource("3_4gid6")
-projectile_parent_reference = ExtResource("4_tkm0f")
 damage_resource = ExtResource("5_0dp6e")
 
-[node name="ProjectileInterval" type="Node" parent="." index="0" node_paths=PackedStringArray("weapon")]
-script = ExtResource("6_fc85h")
-weapon = NodePath("..")
-interval = 1.0
+[node name="RotatedNode" parent="." index="0"]
+visible = false
+
+[node name="WeaponTrigger" parent="." index="3"]
+sound_resource = ExtResource("3_4gid6")
+
+[node name="AnimationTrigger" parent="WeaponTrigger" index="1"]
+animation_name = &""
+
+[node name="ProjectileSpawner" parent="." index="4"]
+axis_multiplication = Vector2(1, 0.5)
+initial_distance = 12.0
+projectile_scene = ExtResource("2_wxtpk")
+projectile_parent_reference = ExtResource("4_tkm0f")
+
+[node name="SpreadShot" parent="ProjectileSpawner" index="0"]
+random_angle_offset = 0.0

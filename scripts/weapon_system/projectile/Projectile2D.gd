@@ -26,6 +26,7 @@ func _ready()->void:
 	# fill last values that projectile is controlling
 	damage_resource.kickback_strength = kickback_strength
 	damage_resource.projectile_multiply = damage_multiply
+	damage_resource.initialize_generation()
 	
 	# TODO: remove references to damage_source to a separate node
 	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, collision_mask)
