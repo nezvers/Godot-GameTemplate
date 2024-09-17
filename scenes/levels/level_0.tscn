@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=15 format=4 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://scenes/main_camera.tscn" id="1_4dff6"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://scenes/actors/player.tscn" id="1_nn7va"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://resources/ReferenceNodeResources/front_reference.tres" id="6_uxajn"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://resources/pause_resource.tres" id="6_wjqwx"]
 [ext_resource type="Script" path="res://scripts/game/RestartScene.gd" id="7_it1dq"]
+[ext_resource type="PackedScene" uid="uid://bqh7iwpl0s1ha" path="res://scenes/screen_effects/screen_effects.tscn" id="8_lcfiq"]
 [ext_resource type="Script" path="res://scripts/game/MusicSetter.gd" id="8_u3y66"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="10_26fnk"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="11_u6wfl"]
@@ -64,6 +65,8 @@ reference_resource = ExtResource("6_uxajn")
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_4dff6")]
 target = NodePath("../YSorted/Player")
+
+[node name="ScreenEffects" parent="." instance=ExtResource("8_lcfiq")]
 
 [node name="UI" parent="." instance=ExtResource("2_xaqoc")]
 
