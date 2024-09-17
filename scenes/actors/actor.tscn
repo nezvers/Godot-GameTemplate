@@ -145,9 +145,9 @@ mover_2d = NodePath("../MoverTopDown2D")
 animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
 state = 1
 
-[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "damage_receiver", "sprite_flip", "flash_animation_player")]
+[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover", "damage_receiver", "sprite_flip", "flash_animation_player")]
 script = ExtResource("10_tpsh5")
-mover_2d = NodePath("../MoverTopDown2D")
+mover = NodePath("../MoverTopDown2D")
 damage_receiver = NodePath("../DamageReceiver")
 sprite_flip = NodePath("../SpriteFlip")
 flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")

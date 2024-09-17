@@ -1,7 +1,7 @@
 class_name DamageReceiver
 extends Area2D
 
-signal received_impulse(value:Vector2)
+signal received_damage(damage:DamageResource)
 
 @export var health_resource:HealthResource
 ## Can't be damaged this time after taking a damage
@@ -23,5 +23,5 @@ func take_damage(damage_resource:DamageResource)->void:
 		return
 	last_time = time
 	health_resource.take_damage(damage_resource)
-	received_impulse.emit(damage_resource.direction * damage_resource.kickback_strength)
+	received_damage.emit(damage_resource)
 	damage_resource.report_damage_data(receiver_owner)
