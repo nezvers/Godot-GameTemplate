@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm7673sbsnyya"]
+[gd_scene load_steps=7 format=3 uid="uid://cm7673sbsnyya"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_5ra58"]
 [ext_resource type="Texture2D" uid="uid://brjp0173qoawo" path="res://assets/images/vfx/slash_2_strip5.png" id="2_eg08h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uwdv"]
+size = Vector2(8, 4)
 
 [sub_resource type="Animation" id="Animation_3u71e"]
 length = 0.001
@@ -56,6 +59,9 @@ _data = {
 
 [node name="ZombieSlash" instance=ExtResource("1_5ra58")]
 speed = 0.0
+
+[node name="CollisionShape2D" parent="DamageSource" index="0"]
+shape = SubResource("RectangleShape2D_7uwdv")
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("2_eg08h")
