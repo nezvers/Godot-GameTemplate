@@ -21,6 +21,8 @@ signal damage_report(damage:DamageResource)
 @export var total_damage:float
 ## TODO: include information from source character
 
+var report_callback:Callable
+
 ## final value applied in HealthResource
 ## Projectiles can influence resulting value
 func get_total_damage()->float:
@@ -40,13 +42,13 @@ func initialize_generation()->void:
 ## TODO: include more receiving end information
 func report_damage_data(receiver:Node2D)->void:
 	hit_list.append(receiver)
-	damage_report.emit(self)
+	report_callback.call(self)
 
 ## Create a new generation for a new attack action.
 ## Do it from root DamageResource
 func new_generation()->DamageResource:
 	var data:DamageResource = self.duplicate()
-	data.damage_report.connect(on_damage_report)
+	data.report_callback = on_damage_report
 	data.initialize_generation()
 	# create unique array
 	data.hit_list = []
@@ -55,7 +57,7 @@ func new_generation()->DamageResource:
 ## Create new splitsh of the same generation, like shrapnels from a granade
 func new_split()->DamageResource:
 	var data:DamageResource = self.duplicate()
-	data.damage_report.connect(on_damage_report)
+	data.report_callback = report_callback
 	return data
 
 ## Mainly used for receiving information from duplicates

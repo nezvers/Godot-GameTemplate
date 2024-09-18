@@ -14,10 +14,6 @@ signal enabled_changed
 
 func _ready()->void:
 	set_enabled(enabled)
-	#damage_resource.damage_report.connect(on_damage_report)
-
-#func on_damage_report(damage:DamageResource)->void:
-	#pass
 
 ## Toggle connections to the action input and controls visibility
 func set_enabled(value:bool)->void:

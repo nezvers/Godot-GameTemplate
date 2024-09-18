@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=26 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://resources/health_resource/player_health.tres" id="2_ck5gl"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" path="res://scripts/actor/DashAbility.gd" id="16_vooxc"]
 [ext_resource type="Script" path="res://scripts/actor/Player/PlayerJuice.gd" id="17_32qwh"]
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://resources/CommandNodeResource/color_flash.tres" id="18_5jtne"]
+[ext_resource type="Resource" uid="uid://ddpkkj7j7ync6" path="res://resources/CameraShakeResource/enemy_damage_shake.tres" id="18_7uk1v"]
+[ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://resources/CameraShakeResource/player_damage_shake.tres" id="19_d25rq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfelk"]
 resource_local_to_scene = true
@@ -159,7 +161,10 @@ reference_resource = ExtResource("12_l6ujm")
 script = ExtResource("16_vooxc")
 mover = NodePath("../MoverTopDown2D")
 
-[node name="PlayerJuice" type="Node" parent="." index="12" node_paths=PackedStringArray("damage_receiver")]
+[node name="PlayerJuice" type="Node" parent="." index="12" node_paths=PackedStringArray("damage_receiver", "weapon_manager")]
 script = ExtResource("17_32qwh")
 damage_receiver = NodePath("../DamageReceiver")
+weapon_manager = NodePath("../WeaponManager")
+enemy_damage_shake = ExtResource("18_7uk1v")
 screen_flash_command = ExtResource("18_5jtne")
+player_damage_shake = ExtResource("19_d25rq")

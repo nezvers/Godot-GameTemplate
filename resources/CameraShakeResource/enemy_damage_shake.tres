@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CameraShakeResource" load_steps=6 format=3 uid="uid://ddpkkj7j7ync6"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/CameraShakeResource/CameraShakeResource.gd" id="1_cdekx"]
+[ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://resources/ReferenceNodeResources/camera_reference.tres" id="1_hal8d"]
+[ext_resource type="Resource" uid="uid://blem3ysrttsws" path="res://resources/CameraShakeResource/tween_camera_shake.tres" id="2_ilewv"]
+
+[sub_resource type="Curve" id="Curve_vv6d3"]
+max_value = 2.0
+_data = [Vector2(0.00887574, 1.95648), 0.0, -5.25372, 0, 0, Vector2(1, 0), -0.820407, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_bfgph"]
+max_value = 25.0
+_data = [Vector2(0, 15.0444), 0.0, 18.5351, 0, 0, Vector2(0.994083, 25), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_cdekx")
+length = 0.2
+frequency = SubResource("Curve_bfgph")
+amplitude = SubResource("Curve_vv6d3")
+angleFrom = 0.0
+angleto = 360.0
+camera_reference = ExtResource("1_hal8d")
+tween_resource = ExtResource("2_ilewv")

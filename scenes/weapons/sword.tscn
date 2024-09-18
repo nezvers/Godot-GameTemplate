@@ -83,11 +83,13 @@ kickback_strength = -40.0
 [node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
 interval = 0.3
 
+[node name="AnimationTrigger" parent="WeaponTrigger" index="1"]
+animation_name = &""
+
 [node name="ProjectileSpawner" parent="." index="4"]
 axis_multiplication = Vector2(1, 1)
 initial_distance = 16.0
 projectile_scene = ExtResource("2_x78ie")
-new_damage = false
 
 [node name="SpreadShot" parent="ProjectileSpawner" index="0"]
 random_angle_offset = 0.0
