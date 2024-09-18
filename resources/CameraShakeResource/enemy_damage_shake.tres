@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CameraShakeResource" load_steps=6 format=3 uid="uid://ddpkkj7j7ync6"]
+[gd_resource type="Resource" script_class="CameraShakeResource" load_steps=7 format=3 uid="uid://ddpkkj7j7ync6"]
 
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/CameraShakeResource/CameraShakeResource.gd" id="1_cdekx"]
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://resources/ReferenceNodeResources/camera_reference.tres" id="1_hal8d"]
+[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://resources/CameraShakeResource/enabled_settings.tres" id="2_gjfpc"]
 [ext_resource type="Resource" uid="uid://blem3ysrttsws" path="res://resources/CameraShakeResource/tween_camera_shake.tres" id="2_ilewv"]
 
 [sub_resource type="Curve" id="Curve_vv6d3"]
@@ -23,3 +24,4 @@ angleFrom = 0.0
 angleto = 360.0
 camera_reference = ExtResource("1_hal8d")
 tween_resource = ExtResource("2_ilewv")
+enabled_settings = ExtResource("2_gjfpc")

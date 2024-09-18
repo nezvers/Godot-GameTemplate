@@ -49,6 +49,7 @@ func spawn()->void:
 	
 	for angle:float in projectile_angles:
 		var inst:Projectile2D = projectile_scene.instantiate()
+		#var axis_compensate:Vector2 = inst.axis_multiplier / Vector2.ONE
 		inst.direction = direction.normalized().rotated(deg_to_rad(angle))
 		inst.damage_resource = new_damage_resource.new_split()
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
