@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BoolResource" load_steps=2 format=3 uid="uid://cfiqp0ihqeupw"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/BoolResource.gd" id="1_2fc7u"]
+
+[resource]
+script = ExtResource("1_2fc7u")
+value = true
+default_value = false
+version = 0
+not_saved = false

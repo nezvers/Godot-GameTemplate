@@ -42,7 +42,8 @@ func initialize_generation()->void:
 ## TODO: include more receiving end information
 func report_damage_data(receiver:Node2D)->void:
 	hit_list.append(receiver)
-	report_callback.call(self)
+	if !report_callback.is_null():
+		report_callback.call(self)
 
 ## Create a new generation for a new attack action.
 ## Do it from root DamageResource

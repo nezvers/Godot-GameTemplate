@@ -34,8 +34,10 @@ func _ready()->void:
 	damage_source.damage_resource = damage_resource
 	damage_source.hit.connect(on_hit)
 	
-	direction *= Vector2.ONE / axis_multiplier
-	direction = direction.normalized()
+	direction = to_local_direction(direction).normalized()
+
+func to_local_direction(dir:Vector2)->Vector2:
+	return dir * (Vector2.ONE / axis_multiplier)
 
 func _physics_process(delta:float)->void:
 	global_position += speed * delta * direction * axis_multiplier
