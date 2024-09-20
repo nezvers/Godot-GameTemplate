@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_5ra58"]
 [ext_resource type="Texture2D" uid="uid://brjp0173qoawo" path="res://assets/images/vfx/slash_2_strip5.png" id="2_eg08h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uwdv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5a4j3"]
 size = Vector2(8, 4)
 
 [sub_resource type="Animation" id="Animation_3u71e"]
@@ -58,10 +58,13 @@ _data = {
 }
 
 [node name="ZombieSlash" instance=ExtResource("1_5ra58")]
-speed = 0.0
+speed = 40.0
 
-[node name="CollisionShape2D" parent="DamageSource" index="0"]
-shape = SubResource("RectangleShape2D_7uwdv")
+[node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
+shape = SubResource("RectangleShape2D_5a4j3")
+
+[node name="SolidCollision" parent="AreaTransmitter2D" index="2"]
+destroy_collision_mask = 0
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("2_eg08h")
@@ -74,11 +77,11 @@ libraries = {
 autoplay = "slash"
 speed_scale = 2.0
 
-[node name="ProjectileRotation" parent="." index="2"]
+[node name="ProjectileRotation" parent="." index="3"]
 enabled = false
 
-[node name="HitLimit" parent="." index="4"]
+[node name="HitLimit" parent="." index="5"]
 hit_limit = -1
 
-[node name="ProjectileLifetime" parent="." index="5"]
+[node name="ProjectileLifetime" parent="." index="6"]
 time = 0.25

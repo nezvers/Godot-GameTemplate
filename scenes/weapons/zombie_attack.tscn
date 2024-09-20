@@ -20,7 +20,6 @@ animation_name = &""
 
 [node name="ProjectileSpawner" parent="." index="4"]
 axis_multiplication = Vector2(1, 0.5)
-initial_distance = 12.0
 projectile_scene = ExtResource("2_wxtpk")
 projectile_parent_reference = ExtResource("4_tkm0f")
 

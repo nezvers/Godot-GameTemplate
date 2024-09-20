@@ -1,8 +1,9 @@
 class_name DamageReceiver
-extends Area2D
+extends Node
 
 signal received_damage(damage:DamageResource)
 
+@export var area_receiver:AreaReceiver2D
 @export var health_resource:HealthResource
 ## Can't be damaged this time after taking a damage
 @export var damage_cooldown:float = 0.0
@@ -14,8 +15,12 @@ var last_time:float
 
 func _ready()->void:
 	health_resource.reset()
+	var temp_res: = DamageResource.new()
+	var damage_type_int:int = typeof(temp_res)
+	area_receiver.add_signal("damage", [{ "name": "damage", "type": damage_type_int }])
+	area_receiver.connect("damage", receive_damage)
 
-func take_damage(damage_resource:DamageResource)->void:
+func receive_damage(damage_resource:DamageResource)->void:
 	if health_resource.is_dead:
 		return
 	var time:float = Time.get_ticks_msec() * 0.001

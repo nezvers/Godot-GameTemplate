@@ -24,6 +24,6 @@ func _ready()->void:
 func spawn(scene:PackedScene)->void:
 	projectile_spawner.projectile_scene = scene
 	projectile_spawner.projectile_position = projectile.global_position
-	projectile_spawner.direction = projectile.direction * projectile.axis_multiplier
+	projectile_spawner.direction = projectile.direction
 	projectile_spawner.damage_resource = projectile.damage_resource
 	projectile_spawner.spawn()

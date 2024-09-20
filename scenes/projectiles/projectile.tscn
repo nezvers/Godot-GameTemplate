@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://beifde6xst23w"]
+[gd_scene load_steps=13 format=3 uid="uid://beifde6xst23w"]
 
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
 [ext_resource type="Texture2D" uid="uid://ciqkwwrhgebko" path="res://assets/images/projectile/bullet_0.png" id="2_7x3e8"]
-[ext_resource type="Script" path="res://scripts/damage/DamageSource.gd" id="2_dihsx"]
+[ext_resource type="Script" path="res://scripts/damage/DamageTransmitter.gd" id="2_dihsx"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileSetup.gd" id="2_yrlmb"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="3_e2gy5"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileRotation.gd" id="3_wuoxf"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileImpact.gd" id="4_v8blt"]
+[ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileSolidImpact.gd" id="5_cqdyj"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://resources/ReferenceNodeResources/front_reference.tres" id="6_uars4"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
@@ -12,17 +15,31 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4a7g"]
 size = Vector2(4, 2)
 
-[node name="Projectile" type="Node2D" node_paths=PackedStringArray("damage_source")]
+[node name="Projectile" type="Node2D"]
 script = ExtResource("1_8ha7j")
 speed = 120.0
 axis_multiplier = Vector2(1, 0.5)
-damage_source = NodePath("DamageSource")
 
-[node name="DamageSource" type="Area2D" parent="."]
-script = ExtResource("2_dihsx")
+[node name="ProjectileSetup" type="Node" parent="." node_paths=PackedStringArray("projectile", "area_transmitter", "damage_transmitter")]
+script = ExtResource("2_yrlmb")
+projectile = NodePath("..")
+area_transmitter = NodePath("../AreaTransmitter2D")
+damage_transmitter = NodePath("../AreaTransmitter2D/DamageTransmitter")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageSource"]
+[node name="AreaTransmitter2D" type="Area2D" parent="."]
+script = ExtResource("3_e2gy5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaTransmitter2D"]
 shape = SubResource("RectangleShape2D_g4a7g")
+
+[node name="DamageTransmitter" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("area_transmitter")]
+script = ExtResource("2_dihsx")
+area_transmitter = NodePath("..")
+
+[node name="SolidCollision" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("projectile", "area_transmitter")]
+script = ExtResource("5_cqdyj")
+projectile = NodePath("../..")
+area_transmitter = NodePath("..")
 
 [node name="RotatedNode" type="Node2D" parent="."]
 position = Vector2(0, -8)
@@ -36,16 +53,17 @@ script = ExtResource("3_wuoxf")
 rotated_node = NodePath("../RotatedNode")
 projectile = NodePath("..")
 
-[node name="ProjectileImpact" type="Node" parent="." node_paths=PackedStringArray("projectile", "damage_source")]
+[node name="ProjectileImpact" type="Node" parent="." node_paths=PackedStringArray("projectile", "damage_transmitter", "solid_impact")]
 script = ExtResource("4_v8blt")
 projectile = NodePath("..")
-damage_source = NodePath("../DamageSource")
+damage_transmitter = NodePath("../AreaTransmitter2D/DamageTransmitter")
+solid_impact = NodePath("../AreaTransmitter2D/SolidCollision")
 impact_parent_reference = ExtResource("6_uars4")
 
-[node name="HitLimit" type="Node" parent="." node_paths=PackedStringArray("projectile", "damage_source")]
+[node name="HitLimit" type="Node" parent="." node_paths=PackedStringArray("projectile", "damage_transmitter")]
 script = ExtResource("6_pkcss")
 projectile = NodePath("..")
-damage_source = NodePath("../DamageSource")
+damage_transmitter = NodePath("../AreaTransmitter2D/DamageTransmitter")
 
 [node name="ProjectileLifetime" type="Node" parent="." node_paths=PackedStringArray("projectile")]
 script = ExtResource("8_dsjh1")
