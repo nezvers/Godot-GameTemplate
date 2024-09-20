@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=19 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3kerfdfiley3" path="res://assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://scripts/damage/DamageReceiver.gd" id="1_mvxhy"]
 [ext_resource type="Texture2D" uid="uid://di6r5efk8jjmn" path="res://assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://resources/materials/color_flash.material" id="3_jdhuu"]
 [ext_resource type="Script" path="res://scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
 [ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="6_lojqb"]
@@ -97,14 +98,19 @@ platform_on_leave = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qpkoi")
 
-[node name="DamageReceiver" type="Area2D" parent="." node_paths=PackedStringArray("receiver_owner")]
+[node name="AreaReceiver2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_mvxhy")
-receiver_owner = NodePath("..")
+monitoring = false
+script = ExtResource("1_vf4rt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageReceiver"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaReceiver2D"]
 shape = SubResource("RectangleShape2D_qpkoi")
+
+[node name="DamageReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "receiver_owner")]
+script = ExtResource("1_mvxhy")
+area_receiver = NodePath("..")
+receiver_owner = NodePath("../..")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0.0196078, 0.0352941, 0.0784314, 0.454902)
@@ -148,7 +154,7 @@ state = 1
 [node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover", "damage_receiver", "sprite_flip", "flash_animation_player")]
 script = ExtResource("10_tpsh5")
 mover = NodePath("../MoverTopDown2D")
-damage_receiver = NodePath("../DamageReceiver")
+damage_receiver = NodePath("../AreaReceiver2D/DamageReceiver")
 sprite_flip = NodePath("../SpriteFlip")
 flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"

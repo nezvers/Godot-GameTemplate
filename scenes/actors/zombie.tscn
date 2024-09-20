@@ -103,8 +103,10 @@ _data = {
 collision_layer = 4
 collision_mask = 7
 
-[node name="DamageReceiver" parent="." index="1"]
+[node name="AreaReceiver2D" parent="." index="1"]
 collision_layer = 4
+
+[node name="DamageReceiver" parent="AreaReceiver2D" index="1"]
 health_resource = ExtResource("2_ysqwl")
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
@@ -133,5 +135,5 @@ mover = NodePath("../MoverTopDown2D")
 
 [node name="AddPoint" type="Node" parent="." index="10" node_paths=PackedStringArray("damage_receiver")]
 script = ExtResource("9_3rsmj")
-damage_receiver = NodePath("../DamageReceiver")
+damage_receiver = NodePath("../AreaReceiver2D/DamageReceiver")
 score_resource = ExtResource("10_3mlgp")

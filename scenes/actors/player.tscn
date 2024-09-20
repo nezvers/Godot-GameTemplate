@@ -111,10 +111,12 @@ _data = {
 collision_layer = 2
 collision_mask = 5
 
-[node name="DamageReceiver" parent="." index="1"]
+[node name="AreaReceiver2D" parent="." index="1"]
 collision_layer = 2
+
+[node name="DamageReceiver" parent="AreaReceiver2D" index="1"]
 health_resource = ExtResource("2_ck5gl")
-damage_cooldown = 0.3
+damage_cooldown = 0.5
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
 material = SubResource("ShaderMaterial_gfelk")
@@ -135,9 +137,8 @@ flip_type = 1
 sound_resource_dead = ExtResource("6_wov6i")
 dead_vfx_scene = ExtResource("8_s8ofx")
 
-[node name="PlayerInput" type="Node" parent="." index="8" node_paths=PackedStringArray("damage_receiver", "mover")]
+[node name="PlayerInput" type="Node" parent="." index="8" node_paths=PackedStringArray("mover")]
 script = ExtResource("4_uihqc")
-damage_receiver = NodePath("../DamageReceiver")
 mover = NodePath("../MoverTopDown2D")
 aim_offset = Vector2(0, 8)
 
@@ -163,7 +164,7 @@ mover = NodePath("../MoverTopDown2D")
 
 [node name="PlayerJuice" type="Node" parent="." index="12" node_paths=PackedStringArray("damage_receiver", "weapon_manager")]
 script = ExtResource("17_32qwh")
-damage_receiver = NodePath("../DamageReceiver")
+damage_receiver = NodePath("../AreaReceiver2D/DamageReceiver")
 weapon_manager = NodePath("../WeaponManager")
 enemy_damage_shake = ExtResource("18_7uk1v")
 screen_flash_command = ExtResource("18_5jtne")

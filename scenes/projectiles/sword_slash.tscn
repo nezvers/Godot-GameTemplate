@@ -9,7 +9,8 @@
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
 [ext_resource type="PackedScene" uid="uid://dmskvynh1rsk" path="res://scenes/projectiles/sword_projectile.tscn" id="8_1el3x"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o51ql"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ssjg"]
+size = Vector2(12, 6)
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -101,17 +102,19 @@ _data = {
 }
 
 [node name="SwordSlash" instance=ExtResource("1_lwexf")]
-speed = 0.0
-destroy_collision_mask = 0
-
-[node name="CollisionShape2D" parent="DamageSource" index="0"]
-shape = SubResource("CircleShape2D_o51ql")
+speed = 60.0
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 visible = false
 modulate = Color(1, 0.983333, 0, 0.168627)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pfam2")
+
+[node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
+shape = SubResource("RectangleShape2D_4ssjg")
+
+[node name="SolidCollision" parent="AreaTransmitter2D" index="2"]
+destroy_collision_mask = 0
 
 [node name="TrailParticle" parent="RotatedNode" index="0" instance=ExtResource("3_gx0bp")]
 amount = 12
@@ -140,8 +143,8 @@ projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_scene = ExtResource("8_1el3x")
 
-[node name="HitLimit" parent="." index="7"]
+[node name="HitLimit" parent="." index="8"]
 hit_limit = -1
 
-[node name="ProjectileLifetime" parent="." index="8"]
+[node name="ProjectileLifetime" parent="." index="9"]
 time = 0.27

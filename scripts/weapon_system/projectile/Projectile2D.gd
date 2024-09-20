@@ -15,42 +15,27 @@ signal prepare_exit_event
 @export var kickback_strength:float = 120.0
 ## Holds information about damage stats and events
 @export var damage_resource:DamageResource
-@export_group("Damage Source")
-## Damage source will detect and deal damage
-@export var damage_source:DamageSource
-@export_flags_2d_physics var destroy_collision_mask:int = 1
 @export_flags_2d_physics var collision_mask:int
+## When `prepare_exit()` is called automatically call `queue_free()`
+@export var auto_free:bool = true
 
+var move_direction:Vector2
 
 func _ready()->void:
-	# fill last values that projectile is controlling
-	damage_resource.kickback_strength = kickback_strength
-	damage_resource.projectile_multiply = damage_multiply
-	damage_resource.initialize_generation()
-	
-	# TODO: remove references to damage_source to a separate node
-	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, collision_mask)
-	damage_source.collision_mask = Bitwise.append_flags(damage_source.collision_mask, destroy_collision_mask)
-	damage_source.damage_resource = damage_resource
-	damage_source.hit.connect(on_hit)
-	
-	direction = to_local_direction(direction).normalized()
+	move_direction = to_local_direction(direction).normalized()
 
 func to_local_direction(dir:Vector2)->Vector2:
 	return dir * (Vector2.ONE / axis_multiplier)
 
 func _physics_process(delta:float)->void:
-	global_position += speed * delta * direction * axis_multiplier
-
-func on_hit()->void:
-	damage_resource.direction = direction
+	global_position += speed * delta * move_direction * axis_multiplier
 
 
 func prepare_exit()->void:
 	set_physics_process(false)
-	damage_source.set_monitoring.call_deferred(false)
 	prepare_exit_event.emit()
-	remove()
+	if auto_free:
+		remove()
 
 ## created to call from Tween, Timer, AnimationPlayer or anything else
 func remove()->void:

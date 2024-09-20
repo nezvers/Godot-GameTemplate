@@ -88,7 +88,7 @@ animation_name = &""
 
 [node name="ProjectileSpawner" parent="." index="4"]
 axis_multiplication = Vector2(1, 1)
-initial_distance = 16.0
+initial_distance = 10.0
 projectile_scene = ExtResource("2_x78ie")
 
 [node name="SpreadShot" parent="ProjectileSpawner" index="0"]
