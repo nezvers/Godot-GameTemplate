@@ -29,10 +29,11 @@ func load_play(path:String)->void:
 	if music_stream == null:
 		printerr("MusicManager: music stream didn't load - ", path)
 		return
-	## Bypass need to enable loop for each music.
+	## To bypass need to enable loop for each music.
+	## And allow not to include .import files in git
+	stream = music_stream
 	if "loop" in stream && automatic_loop:
 		stream.loop = true
-	stream = music_stream
 	start_music()
 
 func start_music()->void:
