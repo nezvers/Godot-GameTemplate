@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=23 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://scripts/damage/DamageReceiver.gd" id="1_mvxhy"]
 [ext_resource type="Texture2D" uid="uid://8liwj4r4bj4m" path="res://assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://resources/materials/color_flash.material" id="3_jdhuu"]
+[ext_resource type="Script" path="res://scripts/pickups/HealthReceiver.gd" id="3_mreek"]
 [ext_resource type="Script" path="res://scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
 [ext_resource type="Script" path="res://scripts/actor/ActorStatsResource.gd" id="6_lojqb"]
 [ext_resource type="Script" path="res://scripts/actor/InputResource.gd" id="7_2l20c"]
@@ -12,6 +13,8 @@
 [ext_resource type="Script" path="res://scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://resources/sounds/damage.tres" id="11_wwbua"]
+[ext_resource type="Script" path="res://scripts/actor/ItemDrop.gd" id="14_b0amg"]
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpkoi"]
 size = Vector2(8, 4)
@@ -91,6 +94,12 @@ action = false
 action_2 = false
 aim_direction = Vector2(0, 0)
 
+[sub_resource type="Resource" id="Resource_mslt1"]
+script = ExtResource("15_loiow")
+value = Array[String](["res://scenes/pickups/health_pickup.tscn"])
+version = 0
+not_saved = false
+
 [node name="Actor" type="CharacterBody2D"]
 motion_mode = 1
 platform_on_leave = 2
@@ -111,6 +120,11 @@ shape = SubResource("RectangleShape2D_qpkoi")
 script = ExtResource("1_mvxhy")
 area_receiver = NodePath("..")
 receiver_owner = NodePath("../..")
+
+[node name="HealthReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "damage_receiver")]
+script = ExtResource("3_mreek")
+area_receiver = NodePath("..")
+damage_receiver = NodePath("../DamageReceiver")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0.0196078, 0.0352941, 0.0784314, 0.454902)
@@ -160,3 +174,8 @@ flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"
 sound_resource_damage = ExtResource("11_wwbua")
 dead_vfx_parent_path = NodePath("../..")
+
+[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("root_node")]
+script = ExtResource("14_b0amg")
+root_node = NodePath("..")
+asset_list = SubResource("Resource_mslt1")
