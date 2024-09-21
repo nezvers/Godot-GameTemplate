@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://do8p6aamuv46h"]
 
 [ext_resource type="Script" path="res://scripts/weapon_system/Weapon.gd" id="1_wo85b"]
-[ext_resource type="Texture2D" uid="uid://ch26kh0j2e3ev" path="res://assets/images/weapon/gun_0.png" id="2_i2035"]
+[ext_resource type="Texture2D" uid="uid://da86k4n7x5x8o" path="res://assets/images/weapon/gun_0.png" id="2_i2035"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileSpawner.gd" id="3_bmtwx"]
 [ext_resource type="Script" path="res://scripts/weapon_system/WeaponRotation.gd" id="3_tyiow"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="4_24oax"]
