@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_lwexf"]
-[ext_resource type="Texture2D" uid="uid://b3kerfdfiley3" path="res://assets/images/shadow.png" id="2_pfam2"]
+[ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://assets/images/shadow.png" id="2_pfam2"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://scenes/vfx/trail_particle.tscn" id="3_gx0bp"]
-[ext_resource type="Texture2D" uid="uid://d155og1uw717" path="res://assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
+[ext_resource type="Texture2D" uid="uid://br6m3va43cuug" path="res://assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="7_d1e47"]
 [ext_resource type="Script" path="res://scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]

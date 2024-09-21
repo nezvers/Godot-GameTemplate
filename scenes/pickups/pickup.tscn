@@ -7,8 +7,11 @@ size = Vector2(8, 4)
 
 [node name="Pickup" type="Node2D"]
 
-[node name="DamageSource" type="Area2D" parent="."]
+[node name="AreaTransmitter2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 script = ExtResource("1_f2oe8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageSource"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaTransmitter2D"]
 shape = SubResource("RectangleShape2D_mte7y")

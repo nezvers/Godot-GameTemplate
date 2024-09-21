@@ -5,6 +5,7 @@ extends Resource
 signal resource_saved
 signal resource_loaded
 
+@export_group("SaveableResource")
 ## Allows to detect older save data information
 @export var version:int
 ## Isn't saved and resets instead of loading
