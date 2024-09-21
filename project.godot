@@ -15,10 +15,6 @@ run/main_scene="res://scenes/ui/screens/title.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
-[audio]
-
-buses/default_bus_layout=""
-
 [autoload]
 
 SoundManager="*res://autoload/sound_manager.tscn"
