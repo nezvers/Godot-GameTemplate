@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_duvie"]
-[ext_resource type="Texture2D" uid="uid://dqqfb3tyiyk2v" path="res://assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
+[ext_resource type="Texture2D" uid="uid://cegdmdkhfv76l" path="res://assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
 [ext_resource type="Resource" uid="uid://k6kulmw3ddq8" path="res://resources/health_resource/zombie_health.tres" id="2_ysqwl"]
 [ext_resource type="Resource" uid="uid://bgj1j2b6mc1u7" path="res://resources/ActorStatsResource/zombie_stats.tres" id="5_srg4e"]
 [ext_resource type="Resource" uid="uid://dq8mhmimpehoi" path="res://resources/InputResource/zombie_input_resource.tres" id="6_o1vf4"]

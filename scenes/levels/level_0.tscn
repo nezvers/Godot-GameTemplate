@@ -52,6 +52,7 @@ reference_node = NodePath("..")
 reference_resource = ExtResource("11_u6wfl")
 
 [node name="Player" parent="YSorted" instance=ExtResource("1_nn7va")]
+process_mode = 0
 position = Vector2(252, 140)
 motion_mode = 0
 platform_on_leave = 0
