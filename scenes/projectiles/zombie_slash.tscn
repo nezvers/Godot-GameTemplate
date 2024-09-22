@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cm7673sbsnyya"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://scenes/projectiles/projectile.tscn" id="1_5ra58"]
-[ext_resource type="Texture2D" uid="uid://brjp0173qoawo" path="res://assets/images/vfx/slash_2_strip5.png" id="2_eg08h"]
+[ext_resource type="Texture2D" uid="uid://cv5ossx1x5twk" path="res://assets/images/vfx/slash_2_strip5.png" id="2_eg08h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5a4j3"]
 size = Vector2(8, 4)

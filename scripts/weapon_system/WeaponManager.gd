@@ -44,7 +44,6 @@ func _ready()->void:
 	for weapon:Node in get_children():
 		if !(weapon is Weapon):
 			continue
-		var damage_resource_dup:DamageResource = weapon.damage_resource.duplicate()
 		var packed_scene:PackedScene = ScenePacker.create_package(weapon)
 		auto_instance_weapons.append(packed_scene)
 		remove_child(weapon)

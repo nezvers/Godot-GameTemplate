@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=19 format=4 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://scenes/main_camera.tscn" id="1_4dff6"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://scenes/actors/player.tscn" id="1_nn7va"]
@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://resources/ReferenceNodeResources/behind_reference.tres" id="3_ur6ur"]
 [ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://scenes/enemy_spawner.tscn" id="4_16naw"]
 [ext_resource type="Script" path="res://scripts/game/PauseComponent.gd" id="5_gli6s"]
-[ext_resource type="PackedScene" uid="uid://8fmycery7url" path="res://scenes/pickups/health_pickup.tscn" id="6_belxj"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://resources/ReferenceNodeResources/front_reference.tres" id="6_uxajn"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://resources/pause_resource.tres" id="6_wjqwx"]
 [ext_resource type="Script" path="res://scripts/game/RestartScene.gd" id="7_it1dq"]
@@ -56,9 +55,6 @@ reference_resource = ExtResource("11_u6wfl")
 position = Vector2(252, 140)
 motion_mode = 0
 platform_on_leave = 0
-
-[node name="HealthPickup" parent="YSorted" instance=ExtResource("6_belxj")]
-position = Vector2(293, 166)
 
 [node name="Spawn_0" type="Marker2D" parent="YSorted"]
 position = Vector2(-55, 137)

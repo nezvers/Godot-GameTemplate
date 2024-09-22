@@ -103,6 +103,7 @@ not_saved = false
 [node name="Actor" type="CharacterBody2D"]
 motion_mode = 1
 platform_on_leave = 2
+platform_floor_layers = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qpkoi")
