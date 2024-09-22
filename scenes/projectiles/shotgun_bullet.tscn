@@ -7,5 +7,5 @@ speed = 170.0
 damage_multiply = 0.5
 kickback_strength = 40.0
 
-[node name="ProjectileLifetime" parent="." index="6"]
+[node name="ProjectileLifetime" parent="." index="7"]
 time = 0.5
