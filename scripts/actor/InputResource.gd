@@ -1,7 +1,7 @@
 ## Abstracts input from projects action names and directly represents
 ## players input that can be shared between systems
 class_name InputResource
-extends Resource
+extends SaveableResource
 
 ## Emitted when input for action is presssed
 signal action_pressed

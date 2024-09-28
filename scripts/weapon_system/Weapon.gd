@@ -7,8 +7,8 @@ signal enabled_changed
 @export var enabled:bool = true
 ## Gun will set projectile collision_mask with this value
 @export_flags_2d_physics var collision_mask:int
-## Reference to mover to access input resource
-@export var mover:MoverTopDown2D
+## Reference to ResourceNode to access an input resource
+@export var resource_node:ResourceNode
 ## Used for defining projectile damage
 @export var damage_resource:DamageResource
 

@@ -5,15 +5,17 @@ extends Node2D
 @export var enabled:bool = true
 ## Node that is doing the physical movement
 @export var character:CharacterBody2D
-## Stats for movement
-@export var actor_stats_resource:ActorStatsResource
-## Virtual buttons to react to
-@export var input_resource:InputResource
 ## Used for faking angled perspective movement
 @export var axis_multiplier:Vector2 = Vector2(1.0, 1.0)
+@export var resource_node:ResourceNode
 
 
-
+## Virtual buttons to react to
+var input_resource:InputResource
+## Stats for movement
+var actor_stats_resource:ActorStatsResource
+## receives push impulse
+var push_resource:PushResource
 
 ## Way to disable functionality during the gameplay
 func set_enabled(value:bool)->void:
@@ -21,6 +23,10 @@ func set_enabled(value:bool)->void:
 	set_physics_process(enabled)
 
 func _ready()->void:
+	input_resource = resource_node.get_resource("input")
+	actor_stats_resource = resource_node.get_resource("actor")
+	push_resource = resource_node.get_resource("push")
+	push_resource.impulse_event.connect(add_impulse)
 	set_enabled(enabled)
 
 func _physics_process(delta:float)->void:

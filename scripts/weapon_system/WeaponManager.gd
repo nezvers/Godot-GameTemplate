@@ -11,7 +11,7 @@ signal damage_report(damage:DamageResource)
 ## Scene files that will be instanced and added to the user in disabled state
 @export var auto_instance_weapons:Array[PackedScene]
 ## Reference passed to instanced weapons
-@export var mover:MoverTopDown2D
+@export var resource_node:ResourceNode
 ## Passed to instantiated weapons, that pass it to projectiles
 ## TODO: Need to remove passing chain
 @export_flags_2d_physics var collision_mask:int
@@ -38,7 +38,8 @@ func _init()->void:
 			weapon.damage_resource.damage_report.connect(on_damage_report)
 
 func _ready()->void:
-	mover.input_resource.switch_weapon.connect(on_switch_weapon)
+	var input_resource:InputResource = resource_node.get_resource("input")
+	input_resource.switch_weapon.connect(on_switch_weapon)
 	
 	
 	for weapon:Node in get_children():
@@ -59,7 +60,7 @@ func add_new_weapon_from_scene(scene:PackedScene)->void:
 	assert(weapon != null, "failed instantiation")
 	# configuration before adding to tree and calling _ready
 	weapon.enabled = false
-	weapon.mover = mover
+	weapon.resource_node = resource_node
 	weapon.collision_mask = collision_mask
 	if make_unique_damage:
 		weapon.damage_resource = weapon.damage_resource.duplicate()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=20 format=4 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://scenes/main_camera.tscn" id="1_4dff6"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://scenes/actors/player.tscn" id="1_nn7va"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="10_26fnk"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://resources/ReferenceNodeResources/ysort_reference.tres" id="11_u6wfl"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/DebugPausing/DebugPausing.gd" id="16_b6x7q"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/utility/BackgroundColorSetter.gd" id="17_od7qc"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_558eq"]
 device = -1
@@ -112,3 +113,7 @@ script = ExtResource("16_b6x7q")
 frame_input = SubResource("InputEventKey_558eq")
 release_input = SubResource("InputEventKey_06obg")
 stopped_node = NodePath("..")
+
+[node name="BackgroundColor" type="Node" parent="."]
+script = ExtResource("17_od7qc")
+color = Color(0.0196078, 0.0352941, 0.0784314, 1)

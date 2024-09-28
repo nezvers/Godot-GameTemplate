@@ -8,7 +8,7 @@ signal resource_loaded
 @export_group("SaveableResource")
 ## Allows to detect older save data information
 @export var version:int
-## Isn't saved and resets instead of loading
+## Resets instead of loading and isn't saved
 @export var not_saved:bool
 
 
