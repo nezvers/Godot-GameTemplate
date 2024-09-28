@@ -38,6 +38,7 @@ func _physics_process(delta:float)->void:
 func add_impulse(impulse:Vector2)->void:
 	character.velocity += impulse
 
+## Calculate impulse Vector2 for delta time amount
 func get_impulse(velocity:Vector2, target_velocity:Vector2, acceleration:float, delta:float)->Vector2:
 	var direction:Vector2 = target_velocity - character.velocity 
 	var distance:float = direction.length()
