@@ -1,5 +1,5 @@
 class_name HealthResource
-extends Resource
+extends SaveableResource
 
 signal damaged
 signal dead

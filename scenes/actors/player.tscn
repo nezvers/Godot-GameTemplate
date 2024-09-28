@@ -1,11 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=33 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://resources/health_resource/player_health.tres" id="2_ck5gl"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_r0rg0"]
 [ext_resource type="Shader" path="res://scripts/shaders/color_flash.gdshader" id="2_wcwdo"]
 [ext_resource type="Resource" uid="uid://crpjcmktv22qx" path="res://resources/ActorStatsResource/player_stats.tres" id="4_37d8m"]
 [ext_resource type="Script" path="res://scripts/actor/PlayerInput.gd" id="4_uihqc"]
 [ext_resource type="Resource" uid="uid://d4e4hpx3t6xpi" path="res://resources/InputResource/player_input_resource.tres" id="5_swp1t"]
+[ext_resource type="Script" path="res://scripts/actor/PushResource.gd" id="6_oi5sk"]
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://scenes/weapons/gun.tscn" id="6_rnlhu"]
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://resources/sounds/kill_player.tres" id="6_wov6i"]
 [ext_resource type="PackedScene" uid="uid://csjmqrrduxorv" path="res://scenes/vfx/player_dead.tscn" id="8_s8ofx"]
@@ -20,6 +22,36 @@
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://resources/CommandNodeResource/color_flash.tres" id="18_5jtne"]
 [ext_resource type="Resource" uid="uid://ddpkkj7j7ync6" path="res://resources/CameraShakeResource/enemy_damage_shake.tres" id="18_7uk1v"]
 [ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://resources/CameraShakeResource/player_damage_shake.tres" id="19_d25rq"]
+
+[sub_resource type="Resource" id="Resource_u4wdj"]
+resource_name = "health"
+script = ExtResource("2_r0rg0")
+resource = ExtResource("2_ck5gl")
+make_unique = false
+
+[sub_resource type="Resource" id="Resource_sqwa7"]
+resource_name = "actor"
+script = ExtResource("2_r0rg0")
+resource = ExtResource("4_37d8m")
+make_unique = false
+
+[sub_resource type="Resource" id="Resource_lqwj3"]
+resource_name = "input"
+script = ExtResource("2_r0rg0")
+resource = ExtResource("5_swp1t")
+make_unique = false
+
+[sub_resource type="Resource" id="Resource_xhp0x"]
+resource_name = "Push Resource"
+script = ExtResource("6_oi5sk")
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_taill"]
+resource_name = "push"
+script = ExtResource("2_r0rg0")
+resource = SubResource("Resource_xhp0x")
+make_unique = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfelk"]
 resource_local_to_scene = true
@@ -111,7 +143,10 @@ _data = {
 collision_layer = 2
 collision_mask = 5
 
-[node name="AreaReceiver2D" parent="." index="1"]
+[node name="ResourceNode" parent="." index="0"]
+list = Array[ExtResource("2_r0rg0")]([SubResource("Resource_u4wdj"), SubResource("Resource_sqwa7"), SubResource("Resource_lqwj3"), SubResource("Resource_taill")])
+
+[node name="AreaReceiver2D" parent="." index="2"]
 collision_layer = 2
 
 [node name="DamageReceiver" parent="AreaReceiver2D" index="1"]
@@ -126,32 +161,24 @@ libraries = {
 "": SubResource("AnimationLibrary_bdy4l")
 }
 
-[node name="MoverTopDown2D" parent="." index="4"]
-actor_stats_resource = ExtResource("4_37d8m")
-input_resource = ExtResource("5_swp1t")
-
-[node name="SpriteFlip" parent="." index="5"]
+[node name="SpriteFlip" parent="." index="6"]
 flip_type = 1
-
-[node name="ActorDamage" parent="." index="7"]
-sound_resource_dead = ExtResource("6_wov6i")
-dead_vfx_scene = ExtResource("8_s8ofx")
 
 [node name="PlayerInput" type="Node" parent="." index="8" node_paths=PackedStringArray("mover")]
 script = ExtResource("4_uihqc")
 mover = NodePath("../MoverTopDown2D")
 aim_offset = Vector2(0, 8)
 
-[node name="WeaponManager" type="Node2D" parent="." index="9" node_paths=PackedStringArray("mover")]
+[node name="WeaponManager" type="Node2D" parent="." index="9" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_hpc12")
 projectile_parent_path = "../.."
 auto_instance_weapons = Array[PackedScene]([ExtResource("10_x7xjs"), ExtResource("11_nnusp"), ExtResource("12_gom0h")])
-mover = NodePath("../MoverTopDown2D")
+resource_node = NodePath("../ResourceNode")
 collision_mask = 4
 
-[node name="Gun" parent="WeaponManager" index="0" node_paths=PackedStringArray("mover") instance=ExtResource("6_rnlhu")]
+[node name="Gun" parent="WeaponManager" index="0" node_paths=PackedStringArray("resource_node") instance=ExtResource("6_rnlhu")]
 collision_mask = 5
-mover = NodePath("../../MoverTopDown2D")
+resource_node = NodePath("../../ResourceNode")
 
 [node name="ReferencePlayer" type="Node" parent="." index="10" node_paths=PackedStringArray("reference_node")]
 script = ExtResource("11_r4axh")
@@ -169,3 +196,7 @@ weapon_manager = NodePath("../WeaponManager")
 enemy_damage_shake = ExtResource("18_7uk1v")
 screen_flash_command = ExtResource("18_5jtne")
 player_damage_shake = ExtResource("19_d25rq")
+
+[node name="ActorDamage" parent="." index="13"]
+sound_resource_dead = ExtResource("6_wov6i")
+dead_vfx_scene = ExtResource("8_s8ofx")
