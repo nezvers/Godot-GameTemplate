@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3ww0jqqy1eq7"]
+
+[ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_xmmy2"]
+[ext_resource type="Material" uid="uid://bgfpnyrqhhy42" path="res://addons/top_down/resources/materials/menu_button.material" id="2_fyqp8"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/ButtonAnimation.gd" id="2_v6vgl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rrpg3"]
+
+[node name="MenuButton" type="PanelContainer"]
+theme = ExtResource("1_xmmy2")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rrpg3")
+
+[node name="Button" type="Button" parent="."]
+material = ExtResource("2_fyqp8")
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Name"
+
+[node name="ButtonAnimation" type="Node" parent="." node_paths=PackedStringArray("button", "label")]
+script = ExtResource("2_v6vgl")
+button = NodePath("../Button")
+label = NodePath("../Label")
+hover_time = 0.5

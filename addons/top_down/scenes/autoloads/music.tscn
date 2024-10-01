@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp7n1yyvy0b0i"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/autoload/Music.gd" id="1_rto2p"]
+[ext_resource type="AudioStream" uid="uid://q4chdak3nvdk" path="res://addons/top_down/assets/music/Deeper Into the Dungeon.ogg" id="1_s2jed"]
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/DictionaryResource.gd" id="2_p7i5f"]
+[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/pause_resource.tres" id="4_rp7y3"]
+
+[sub_resource type="Resource" id="Resource_y148u"]
+script = ExtResource("2_p7i5f")
+value = {
+"game": "res://addons/top_down/assets/music/Deeper Into the Dungeon.ogg",
+"title": "res://addons/top_down/assets/music/Lost Hope.ogg"
+}
+default_value = {}
+version = 0
+not_saved = false
+
+[node name="Music" type="AudioStreamPlayer"]
+stream = ExtResource("1_s2jed")
+volume_db = -15.0
+bus = &"Music"
+playback_type = 1
+script = ExtResource("1_rto2p")
+music_playlist = SubResource("Resource_y148u")
+pause_resource = ExtResource("4_rp7y3")

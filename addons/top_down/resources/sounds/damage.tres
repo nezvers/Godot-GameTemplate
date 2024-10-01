@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://byppueuo3drya"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/SoundResource/SoundResource.gd" id="1_bndov"]
+[ext_resource type="AudioStream" uid="uid://cu2ndhnsiand1" path="res://addons/top_down/assets/sounds/damage_0.wav" id="2_xdru1"]
+
+[resource]
+resource_name = "Damage"
+script = ExtResource("1_bndov")
+pitch_min = 0.98
+pitch_max = 1.2
+volume = 0.482
+retrigger_time = 0.032
+pitch_add = 0.0
+pitch_cooldown = 0.0
+pitch_return = 0.0
+sound = ExtResource("2_xdru1")
