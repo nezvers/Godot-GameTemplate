@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://bgdeqbafv3q4r"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/SoundResource/SoundResource.gd" id="1_nc778"]
+[ext_resource type="AudioStream" uid="uid://b24x1r8reelrp" path="res://addons/top_down/assets/sounds/kill_0.wav" id="2_24utg"]
+
+[resource]
+resource_name = "Kill Player"
+script = ExtResource("1_nc778")
+pitch_min = 1.0
+pitch_max = 1.0
+volume = -10.0
+retrigger_time = 0.032
+pitch_add = 0.0
+pitch_cooldown = 0.0
+pitch_return = 0.0
+sound = ExtResource("2_24utg")

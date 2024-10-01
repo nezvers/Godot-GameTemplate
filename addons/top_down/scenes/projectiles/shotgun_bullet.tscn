@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0dctopmkjml8"]
+
+[ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://addons/top_down/scenes/projectiles/bullet.tscn" id="1_fx1dm"]
+
+[node name="ShotgunBullet" instance=ExtResource("1_fx1dm")]
+speed = 170.0
+damage_multiply = 0.5
+kickback_strength = 40.0
+
+[node name="ProjectileLifetime" parent="." index="7"]
+time = 0.5

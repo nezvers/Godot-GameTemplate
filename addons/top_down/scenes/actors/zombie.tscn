@@ -1,0 +1,170 @@
+[gd_scene load_steps=25 format=3 uid="uid://62j3fy0o3uwl"]
+
+[ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_fkm2k"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_ak5yp"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="2_duvie"]
+[ext_resource type="Texture2D" uid="uid://cegdmdkhfv76l" path="res://addons/top_down/assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
+[ext_resource type="Resource" uid="uid://k6kulmw3ddq8" path="res://addons/top_down/resources/health_resource/zombie_health.tres" id="2_ysqwl"]
+[ext_resource type="Resource" uid="uid://bgj1j2b6mc1u7" path="res://addons/top_down/resources/ActorStatsResource/zombie_stats.tres" id="5_srg4e"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="6_360t8"]
+[ext_resource type="Resource" uid="uid://dq8mhmimpehoi" path="res://addons/top_down/resources/InputResource/zombie_input_resource.tres" id="6_o1vf4"]
+[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="7_tyqu3"]
+[ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://addons/top_down/resources/sounds/kill_zombie.tres" id="7_uiw1f"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/AddPoint.gd" id="9_3rsmj"]
+[ext_resource type="PackedScene" uid="uid://bu2n5cvym7bse" path="res://addons/top_down/scenes/vfx/zombie_body.tscn" id="9_3xjhw"]
+[ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/score_resource.tres" id="10_3mlgp"]
+
+[sub_resource type="Resource" id="Resource_2gbfm"]
+resource_name = "health"
+script = ExtResource("2_ak5yp")
+resource = ExtResource("2_ysqwl")
+make_unique = false
+
+[sub_resource type="Resource" id="Resource_x2i03"]
+resource_name = "actor"
+script = ExtResource("2_ak5yp")
+resource = ExtResource("5_srg4e")
+make_unique = false
+
+[sub_resource type="Resource" id="Resource_wkbdi"]
+resource_name = "input"
+script = ExtResource("2_ak5yp")
+resource = ExtResource("6_o1vf4")
+make_unique = true
+
+[sub_resource type="Resource" id="Resource_xhp0x"]
+resource_name = "Push Resource"
+script = ExtResource("6_360t8")
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_j4vq3"]
+resource_name = "push"
+script = ExtResource("2_ak5yp")
+resource = SubResource("Resource_xhp0x")
+make_unique = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mtjxa"]
+resource_local_to_scene = true
+shader = ExtResource("2_duvie")
+shader_parameter/overlay = Color(1, 1, 1, 1)
+shader_parameter/blend = 0.0
+
+[sub_resource type="Animation" id="Animation_48kfv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jjeif"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_d7gcn"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_esakt"]
+_data = {
+"RESET": SubResource("Animation_48kfv"),
+"idle": SubResource("Animation_jjeif"),
+"walk": SubResource("Animation_d7gcn")
+}
+
+[node name="Zombie" instance=ExtResource("1_fkm2k")]
+collision_layer = 4
+collision_mask = 7
+
+[node name="ResourceNode" parent="." index="0"]
+list = Array[ExtResource("2_ak5yp")]([SubResource("Resource_2gbfm"), SubResource("Resource_x2i03"), SubResource("Resource_wkbdi"), SubResource("Resource_j4vq3")])
+
+[node name="AreaReceiver2D" parent="." index="2"]
+collision_layer = 4
+
+[node name="DamageReceiver" parent="AreaReceiver2D" index="1"]
+health_resource = ExtResource("2_ysqwl")
+
+[node name="Sprite2D" parent="Body/Stretch" index="0"]
+material = SubResource("ShaderMaterial_mtjxa")
+texture = ExtResource("2_giu7j")
+
+[node name="CharacterAnimator" parent="Body/Stretch/Sprite2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_esakt")
+}
+
+[node name="ZombieInput" parent="." index="8" node_paths=PackedStringArray("mover") instance=ExtResource("9_4t8nd")]
+mover = NodePath("../MoverTopDown2D")
+
+[node name="SlashAttack" parent="." index="9" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
+collision_mask = 2
+resource_node = NodePath("../ResourceNode")
+
+[node name="AddPoint" type="Node" parent="." index="10" node_paths=PackedStringArray("damage_receiver")]
+script = ExtResource("9_3rsmj")
+damage_receiver = NodePath("../AreaReceiver2D/DamageReceiver")
+score_resource = ExtResource("10_3mlgp")
+
+[node name="ActorDamage" parent="." index="11"]
+sound_resource_dead = ExtResource("7_uiw1f")
+dead_vfx_scene = ExtResource("9_3xjhw")

@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Game Template"
-run/main_scene="res://scenes/ui/screens/title.tscn"
+run/main_scene="res://addons/top_down/scenes/ui/screens/title.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-SoundManager="*res://autoload/sound_manager.tscn"
-Music="*res://autoload/music.tscn"
+SoundManager="*res://addons/top_down/scenes/autoloads/sound_manager.tscn"
+Music="*res://addons/top_down/scenes/autoloads/music.tscn"
 InstanceManager="*res://addons/nezvers_library/autoload/InstanceManager.gd"
 
 [display]

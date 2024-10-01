@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxf4p5yoajpdu"]
+
+[ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://addons/top_down/scenes/weapons/weapon.tscn" id="1_1sltl"]
+[ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://addons/top_down/scenes/projectiles/bullet.tscn" id="2_4cp7v"]
+[ext_resource type="Resource" uid="uid://bsgm5x8805se7" path="res://addons/top_down/resources/sounds/bullet.tres" id="3_k087s"]
+[ext_resource type="Resource" uid="uid://b6f2dt76wgh5r" path="res://addons/top_down/resources/DamageResource/gun_damage.tres" id="5_fyy4a"]
+
+[sub_resource type="Animation" id="Animation_qbqgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4mvxk"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-0.436332, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h0x75"]
+_data = {
+"RESET": SubResource("Animation_qbqgg"),
+"shoot": SubResource("Animation_4mvxk")
+}
+
+[node name="Gun" instance=ExtResource("1_1sltl")]
+damage_resource = ExtResource("5_fyy4a")
+
+[node name="AnimationPlayer" parent="RotatedNode/Sprite2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_h0x75")
+}
+
+[node name="WeaponTrigger" parent="." index="3"]
+sound_resource = ExtResource("3_k087s")
+
+[node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
+interval = 0.5
+
+[node name="ProjectileSpawner" parent="." index="4"]
+axis_multiplication = Vector2(1, 0.5)
+initial_distance = 8.0
+projectile_scene = ExtResource("2_4cp7v")

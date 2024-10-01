@@ -1,0 +1,150 @@
+[gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
+
+[ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_lwexf"]
+[ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
+[ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_gx0bp"]
+[ext_resource type="Texture2D" uid="uid://br6m3va43cuug" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/ReferenceNodeResources/ysort_reference.tres" id="7_d1e47"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
+[ext_resource type="PackedScene" uid="uid://dmskvynh1rsk" path="res://addons/top_down/scenes/projectiles/sword_projectile.tscn" id="8_1el3x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ssjg"]
+size = Vector2(12, 6)
+
+[sub_resource type="Gradient" id="Gradient_vk3jb"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.258523, 0.582386, 1)
+colors = PackedColorArray(0.791999, 0.791999, 0.791999, 1, 0.457424, 0.457424, 0.457424, 1, 0.234897, 0.234897, 0.234897, 1, 0.138034, 0.138034, 0.138034, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_138ku"]
+gradient = SubResource("Gradient_vk3jb")
+
+[sub_resource type="Curve" id="Curve_fm2at"]
+_data = [Vector2(0, 0.501148), 0.0, -1.36151, 0, 0, Vector2(1, 0), -0.120393, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_k2ccc"]
+curve = SubResource("Curve_fm2at")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_60sk1"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+spread = 9.1
+initial_velocity_min = 20.09
+initial_velocity_max = 20.09
+gravity = Vector3(0, 0, 0)
+damping_min = 24.92
+damping_max = 100.0
+scale_curve = SubResource("CurveTexture_k2ccc")
+color_ramp = SubResource("GradientTexture1D_138ku")
+
+[sub_resource type="Animation" id="Animation_g0v6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xl7km"]
+resource_name = "slash"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.5, 0.75), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eij6j"]
+_data = {
+"RESET": SubResource("Animation_g0v6g"),
+"slash": SubResource("Animation_xl7km")
+}
+
+[node name="SwordSlash" instance=ExtResource("1_lwexf")]
+speed = 60.0
+
+[node name="Shadow" type="Sprite2D" parent="." index="1"]
+visible = false
+modulate = Color(1, 0.983333, 0, 0.168627)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_pfam2")
+
+[node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
+shape = SubResource("RectangleShape2D_4ssjg")
+
+[node name="SolidCollision" parent="AreaTransmitter2D" index="2"]
+destroy_collision_mask = 0
+
+[node name="TrailParticle" parent="RotatedNode" index="0" instance=ExtResource("3_gx0bp")]
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_60sk1")
+explosiveness = 0.49
+
+[node name="Sprite2D" parent="RotatedNode" index="1"]
+scale = Vector2(1, 1)
+texture = ExtResource("4_u6vsr")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RotatedNode/Sprite2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_eij6j")
+}
+autoplay = "slash"
+
+[node name="ProjectileSpawner" type="Node" parent="." index="5"]
+script = ExtResource("6_whjok")
+initial_distance = 10.0
+projectile_parent_reference = ExtResource("7_d1e47")
+
+[node name="SubParticleManager" type="Node" parent="." index="6" node_paths=PackedStringArray("projectile", "projectile_spawner")]
+script = ExtResource("7_n74ie")
+projectile = NodePath("..")
+projectile_spawner = NodePath("../ProjectileSpawner")
+start_projectile_scene = ExtResource("8_1el3x")
+
+[node name="HitLimit" parent="." index="8"]
+hit_limit = -1
+
+[node name="ProjectileLifetime" parent="." index="9"]
+time = 0.27

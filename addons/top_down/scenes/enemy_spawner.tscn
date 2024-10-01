@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfaobhr3r5ymj"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/EnemySpawner.gd" id="1_gyr0m"]
+[ext_resource type="PackedScene" uid="uid://62j3fy0o3uwl" path="res://addons/top_down/scenes/actors/zombie.tscn" id="2_735sl"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/SpawnManager.gd" id="3_bm11t"]
+
+[node name="EnemySpawner" type="Node"]
+script = ExtResource("1_gyr0m")
+radius_min = 200.0
+radius_max = 400.0
+object_scene = ExtResource("2_735sl")
+axis_multiplication = Vector2(1, 0.5)
+
+[node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawner")]
+script = ExtResource("3_bm11t")
+enemy_spawner = NodePath("..")
