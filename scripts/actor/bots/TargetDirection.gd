@@ -7,6 +7,7 @@ extends Node
 @export var navigation_agent:NavigationAgent2D
 ## Value used to change recalculation cooldown
 @export var retarget_distance:float = 16.0
+@export var debug:bool
 
 
 ## From bot to target
@@ -16,6 +17,7 @@ var last_target_position:Vector2
 ## Time last navigation update happened
 var last_update_time:float
 var navigation_cooldown:float = 1.0
+
 
 
 func _ready()->void:
@@ -29,13 +31,17 @@ func on_target_update()->void:
 		set_direction(Vector2.ZERO)
 		return
 	local_direction = target_finder.closest.global_position - bot_input.global_position
+	var local_dir_len:float = local_direction.length_squared()
 	var attack_dist_squared:float = bot_input.attack_distance * bot_input.attack_distance
-	if (local_direction.length_squared() < attack_dist_squared):
+	
+	if (local_dir_len < attack_dist_squared):
 		set_direction(Vector2.ZERO)
 		return
-	if line_of_sight() && local_direction.length_squared() > attack_dist_squared:
+	
+	if line_of_sight():
 		set_direction(local_direction)
 		return
+	
 	navigation_update()
 	var point:Vector2 = navigation_agent.get_next_path_position()
 	var direction:Vector2 = (point - bot_input.global_position)
