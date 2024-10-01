@@ -171,7 +171,9 @@ aim_down={
 
 [navigation]
 
-2d/default_link_connection_radius=16.0
+2d/use_edge_connections=false
+2d/default_edge_connection_margin=24.0
+2d/default_link_connection_radius=24.0
 
 [rendering]
 
