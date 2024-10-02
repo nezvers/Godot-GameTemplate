@@ -10,6 +10,10 @@ func _ready() -> void:
 	area.area_entered.connect(on_entering)
 
 func on_entering(_area:Area2D)->void:
+	# Called on physics frame and not a good moment to free objects
+	change_scene.call_deferred()
+
+func change_scene()->void:
 	var next_scene:PackedScene = load(scene_path)
 	assert(next_scene != null)
 	var scene_tree:SceneTree = get_tree()
