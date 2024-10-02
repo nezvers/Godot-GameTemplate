@@ -4,5 +4,4 @@
 
 [node name="MainCamera" type="Camera2D"]
 position = Vector2(252, 140)
-position_smoothing_enabled = true
 script = ExtResource("1_hc08s")

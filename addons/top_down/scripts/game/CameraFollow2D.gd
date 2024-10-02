@@ -11,14 +11,16 @@ func set_follow(value:bool)->void:
 
 func set_target(value:Node2D)->void:
 	target = value
+	if target != null:
+		global_position = target.global_position
 	set_physics_process(follow && target != null)
 
 func _ready()->void:
 	set_target(target)
 	set_physics_process(follow && target != null)
 
-func _physics_process(_delta:float)->void:
+func _physics_process(delta:float)->void:
 	if target == null:
 		set_follow(false)
 		return
-	global_position = target.global_position
+	global_position = global_position.lerp(target.global_position, 5.0 * delta)

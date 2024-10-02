@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=22 format=4 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://addons/top_down/scenes/main_camera.tscn" id="1_4dff6"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://addons/top_down/scenes/actors/player.tscn" id="1_nn7va"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/ReferenceNodeResources/behind_reference.tres" id="3_ur6ur"]
 [ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://addons/top_down/scenes/enemy_spawner.tscn" id="4_16naw"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PauseComponent.gd" id="5_gli6s"]
+[ext_resource type="PackedScene" uid="uid://cix6awgt8l8r5" path="res://addons/top_down/scenes/triggers/scene_door.tscn" id="5_mtv6i"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/ReferenceNodeResources/front_reference.tres" id="6_uxajn"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/pause_resource.tres" id="6_wjqwx"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/RestartScene.gd" id="7_it1dq"]
@@ -49,6 +50,11 @@ reference_resource = ExtResource("3_6fccj")
 script = ExtResource("10_26fnk")
 reference_node = NodePath("..")
 reference_resource = ExtResource("3_ur6ur")
+
+[node name="SceneDoor" parent="Behind" instance=ExtResource("5_mtv6i")]
+position = Vector2(401, -16)
+target_layer = 2
+scene_path = "res://addons/top_down/scenes/levels/level_1.tscn"
 
 [node name="YSorted" type="Node2D" parent="."]
 y_sort_enabled = true
