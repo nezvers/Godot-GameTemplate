@@ -45,7 +45,7 @@ script = ExtResource("2_u833f")
 reference_node = NodePath("..")
 reference_resource = ExtResource("3_a3lt4")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Background"]
+[node name="ObstacleLayer" type="TileMapLayer" parent="Background"]
 tile_map_data = PackedByteArray("AAALAPr/AAAAAAAAAAAMAPr/AAABAAAAAAALAPz/AAACAAAAAAALAPv/AAACAAAAAAAMAPn/AAAAAAAAAAANAPn/AAADAAAAAAANAPr/AAAGAAAAAAAMAPv/AAAGAAAAAAANAPv/AAAGAAAAAAAMAPz/AAAGAAAAAAANAPz/AAAGAAAAAAAOAPv/AAAGAAAAAAAPAPv/AAAGAAAAAAAQAPv/AAAGAAAAAAAOAPr/AAAEAAAAAAAPAPr/AAADAAAAAAAQAPr/AAADAAAAAAA=")
 tile_set = ExtResource("4_wblf4")
 
