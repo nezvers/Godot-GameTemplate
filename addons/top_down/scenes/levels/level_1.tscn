@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=4 uid="uid://cxhahq085lt2q"]
+[gd_scene load_steps=23 format=4 uid="uid://cxhahq085lt2q"]
 
 [ext_resource type="TileSet" uid="uid://ccmodw4wy0kv" path="res://addons/top_down/resources/tilesets/tileset_dungeon_32_isometric_walls.tres" id="1_562ba"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="2_u833f"]
 [ext_resource type="Resource" uid="uid://dlt3xpcxub3ns" path="res://addons/top_down/resources/ReferenceNodeResources/floor_tilemap_reference.tres" id="3_a3lt4"]
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/ReferenceNodeResources/behind_reference.tres" id="4_v3gx0"]
+[ext_resource type="TileSet" uid="uid://x2ip4g4gc2k2" path="res://addons/top_down/resources/tilesets/tileset_holes_32_isometric.tres" id="4_wblf4"]
 [ext_resource type="PackedScene" uid="uid://cix6awgt8l8r5" path="res://addons/top_down/scenes/triggers/scene_door.tscn" id="5_e8dey"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/ReferenceNodeResources/ysort_reference.tres" id="5_i00n6"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://addons/top_down/scenes/actors/player.tscn" id="6_vhrna"]
@@ -44,6 +45,10 @@ script = ExtResource("2_u833f")
 reference_node = NodePath("..")
 reference_resource = ExtResource("3_a3lt4")
 
+[node name="TileMapLayer" type="TileMapLayer" parent="Background"]
+tile_map_data = PackedByteArray("AAALAPr/AAAAAAAAAAAMAPr/AAABAAAAAAALAPz/AAACAAAAAAALAPv/AAACAAAAAAAMAPn/AAAAAAAAAAANAPn/AAADAAAAAAANAPr/AAAGAAAAAAAMAPv/AAAGAAAAAAANAPv/AAAGAAAAAAAMAPz/AAAGAAAAAAANAPz/AAAGAAAAAAAOAPv/AAAGAAAAAAAPAPv/AAAGAAAAAAAQAPv/AAAGAAAAAAAOAPr/AAAEAAAAAAAPAPr/AAADAAAAAAAQAPr/AAADAAAAAAA=")
+tile_set = ExtResource("4_wblf4")
+
 [node name="Behind" type="Node2D" parent="."]
 
 [node name="ReferenceBehind" type="Node" parent="Behind" node_paths=PackedStringArray("reference_node")]
@@ -65,7 +70,7 @@ reference_node = NodePath("..")
 reference_resource = ExtResource("5_i00n6")
 
 [node name="Player" parent="YSorted" instance=ExtResource("6_vhrna")]
-position = Vector2(407, 158)
+position = Vector2(318, 177)
 motion_mode = 0
 platform_on_leave = 0
 
