@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cix6awgt8l8r5"]
+[gd_scene load_steps=4 format=3 uid="uid://cix6awgt8l8r5"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/triggers/TriggerSceneChanger.gd" id="1_hajq1"]
+[ext_resource type="Texture2D" uid="uid://csurin2o3ufs8" path="res://addons/top_down/assets/images/misc/stairs_strip2.png" id="2_mue5f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lu0it"]
 radius = 16.0
@@ -10,6 +11,7 @@ script = ExtResource("1_hajq1")
 area = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 0
 monitorable = false
@@ -17,3 +19,7 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_lu0it")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mue5f")
+hframes = 2

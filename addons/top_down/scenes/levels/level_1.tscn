@@ -52,7 +52,7 @@ reference_node = NodePath("..")
 reference_resource = ExtResource("4_v3gx0")
 
 [node name="SceneDoor" parent="Behind" instance=ExtResource("5_e8dey")]
-position = Vector2(161, 360)
+position = Vector2(161, 367)
 target_layer = 2
 scene_path = "res://addons/top_down/scenes/levels/level_0.tscn"
 
