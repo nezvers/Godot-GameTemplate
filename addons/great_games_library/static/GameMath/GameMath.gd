@@ -10,7 +10,7 @@ static func get_hit_position_2D(from_pos:Vector2, to_pos:Vector2, t_velocity:Vec
 	
 	var a:float = t_velocity.dot(t_velocity) - (projectile_speed * projectile_speed)
 	var b:float = 2 * t_velocity.dot(q)
-	var  c:float = q.dot(q) # Dot is basicly (q.x * q.x) + (q.y * q.y)
+	var  c:float = q.dot(q)
 	var d = sqrt((b*b) - 4 * a * c)
 	var t1:float = (-b + d) / (2 * a)
 	var t2:float = (-b - d) / (2 * a)
@@ -52,12 +52,6 @@ static func get_closest_node_2d(point:Vector2, body_list:Array[Node2D], item_cou
 			closest = _body
 	return closest
 
-## Outline of the formula
-static func dampened_spring(displacement, damp, velocity, spring:float, delta:float):
-	var force = -spring * displacement - damp * velocity
-	velocity += force * delta
-	displacement += velocity * delta
-	return displacement
 
 static func inverse_lerp(a:float, b:float, v:float)->float:
 	return (v - a) / (b - a)
@@ -106,8 +100,25 @@ static func approach(value:float, target:float, speed:float)->float:
 		return max(value - speed, target)
 
 ## Generic type
-func hookes_law(displacement, current_velocity, stiffness, damping):
+static func hookes_law(displacement, current_velocity, stiffness, damping):
 	return stiffness * displacement - damping * current_velocity
 
-func hookes_law_v3f(displacement:Vector3, current_velocity:Vector3, stiffness:float, damping:float)->Vector3:
+static func hookes_law_v3f(displacement:Vector3, current_velocity:Vector3, stiffness:float, damping:float)->Vector3:
 	return displacement * stiffness - damping * current_velocity
+
+## Outline of the formula - variation on Hoke's law
+static func dampened_spring(displacement, damp, velocity, spring:float, delta:float):
+	var force = -spring * displacement - damp * velocity
+	velocity += force * delta
+	displacement += velocity * delta
+	return displacement
+
+## Calculate impulse Vector2 for delta time amount
+static func get_velocity_impulse(velocity:Vector2, target_velocity:Vector2, acceleration:float, delta:float)->Vector2:
+	var direction:Vector2 = target_velocity - velocity 
+	var distance:float = direction.length()
+	acceleration = delta * acceleration
+	var ratio:float = 0
+	if distance > 0.0:
+		ratio = min(acceleration / distance, 1.0)
+	return (direction * ratio)
