@@ -31,19 +31,9 @@ func _ready()->void:
 
 func _physics_process(delta:float)->void:
 	var target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis * axis_multiplier
-	character.velocity += get_impulse(character.velocity, target_velocity, actor_stats_resource.acceleration, delta)
+	character.velocity += GameMath.get_velocity_impulse(character.velocity, target_velocity, actor_stats_resource.acceleration, delta)
 	var _collided:bool = character.move_and_slide()
 
 ## Adds an impulse to velocity, like a kickback
 func add_impulse(impulse:Vector2)->void:
 	character.velocity += impulse
-
-## Calculate impulse Vector2 for delta time amount
-func get_impulse(velocity:Vector2, target_velocity:Vector2, acceleration:float, delta:float)->Vector2:
-	var direction:Vector2 = target_velocity - character.velocity 
-	var distance:float = direction.length()
-	acceleration = delta * acceleration
-	var ratio:float = 0
-	if distance > 0.0:
-		ratio = min(acceleration / distance, 1.0)
-	return (direction * ratio)

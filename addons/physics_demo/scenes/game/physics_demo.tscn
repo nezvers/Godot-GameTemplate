@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmxy480rujeww"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/DrawCollisionShape/DrawCollisionShape2D.gd" id="1_1lp60"]
+[ext_resource type="PackedScene" uid="uid://dpqu3pvv8ebq3" path="res://addons/physics_demo/scenes/actor/RigidCharacter.tscn" id="2_xdgj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bal5"]
+size = Vector2(20, 275)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kocu6"]
+size = Vector2(487, 23.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvwga"]
+size = Vector2(541.541, 23.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uyd0"]
+size = Vector2(52.8552, 48.2498)
+
+[node name="PhysicsDemo" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="DrawCollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(5, 135)
+shape = SubResource("RectangleShape2D_3bal5")
+script = ExtResource("1_1lp60")
+
+[node name="DrawCollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(475, 134)
+shape = SubResource("RectangleShape2D_3bal5")
+script = ExtResource("1_1lp60")
+
+[node name="DrawCollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(240.5, 268.75)
+rotation = 0.0401426
+shape = SubResource("RectangleShape2D_kocu6")
+script = ExtResource("1_1lp60")
+
+[node name="DrawCollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(221, 32)
+rotation = -0.155334
+shape = SubResource("RectangleShape2D_yvwga")
+script = ExtResource("1_1lp60")
+
+[node name="DrawCollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(327, 144)
+rotation = -2.056
+shape = SubResource("RectangleShape2D_7uyd0")
+script = ExtResource("1_1lp60")
+
+[node name="RigidCharacter" parent="." instance=ExtResource("2_xdgj3")]
+position = Vector2(181, 194)
