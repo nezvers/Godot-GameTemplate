@@ -1,26 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpqu3pvv8ebq3"]
+[gd_scene load_steps=3 format=3 uid="uid://dpqu3pvv8ebq3"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/DrawCollisionShape/DrawCollisionShape2D.gd" id="1_ktgh0"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/RigidControler/RigidControler.gd" id="2_qf1rv"]
-[ext_resource type="Script" path="res://addons/physics_demo/scripts/mouse_input.gd" id="3_ux8rr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mayx4"]
 radius = 16.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="Node2D"]
 
-[node name="DrawCollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_mayx4")
-script = ExtResource("1_ktgh0")
-color = Color(1, 0.533333, 0, 1)
-
-[node name="RigidController" type="Node" parent="." node_paths=PackedStringArray("character_body", "collision_shape")]
+[node name="RigidController" type="Node2D" parent="." node_paths=PackedStringArray("move_body")]
 script = ExtResource("2_qf1rv")
-character_body = NodePath("..")
-collision_shape = NodePath("../DrawCollisionShape2D")
+collision_layer = 1
+collision_mask = 1
+move_body = NodePath("..")
+shape = SubResource("CircleShape2D_mayx4")
+movable = null
+mass = null
+movable_treshold = null
 bounciness = 0.249
 slide_treshold = 0.715
-
-[node name="MouseInput" type="Node2D" parent="." node_paths=PackedStringArray("rigid_controler")]
-script = ExtResource("3_ux8rr")
-rigid_controler = NodePath("../RigidController")
+color = Color(0, 0.616667, 1, 1)
