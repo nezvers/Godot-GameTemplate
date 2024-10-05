@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmxy480rujeww"]
+[gd_scene load_steps=8 format=3 uid="uid://cmxy480rujeww"]
 
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/DrawCollisionShape/DrawCollisionShape2D.gd" id="1_1lp60"]
 [ext_resource type="PackedScene" uid="uid://dpqu3pvv8ebq3" path="res://addons/physics_demo/scenes/actor/RigidCharacter.tscn" id="2_xdgj3"]
+[ext_resource type="PackedScene" uid="uid://dvvm2k7aq1prl" path="res://addons/physics_demo/scenes/actor/player.tscn" id="3_t4loi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3bal5"]
 size = Vector2(20, 275)
@@ -49,3 +50,6 @@ script = ExtResource("1_1lp60")
 
 [node name="RigidCharacter" parent="." instance=ExtResource("2_xdgj3")]
 position = Vector2(181, 194)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_t4loi")]
+position = Vector2(108, 134)
