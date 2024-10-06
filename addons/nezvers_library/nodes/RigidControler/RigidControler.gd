@@ -51,9 +51,14 @@ extends Node2D
 
 #* CALLBACKS
 # Try to get calls for hits from RigidBody, CharacterBody (Cool to have, not required)
+# 	Check PhysicsServer2D functions
 # Call other to notify collision, ability to influence collision bi-directionaly
 # 	Check if other moved onto you too
 # 	Maybe testing meeting, collision didn't happen
+
+## When body gets pushed it signals to gather information about intended velocity
+## vector needs to be set to values of intended velocity
+signal push_response(vector:PackedFloat32Array, other:RigidControler)
 
 ## Physical layers body is detected
 @export_flags_2d_physics var collision_layer:int
@@ -88,6 +93,7 @@ var shape_cast:ShapeCast2D = ShapeCast2D.new()
 var move_solved:bool = true
 ## Reference to a physical body on PhysicsServer2D
 var body_rid:RID
+
 
 func set_shape(_shape:Shape2D)->void:
 	shape = _shape
@@ -155,20 +161,22 @@ func move(vector:Vector2)-> Vector2:
 func _step(vector:Vector2)->bool:
 	shape_cast.target_position = vector
 	shape_cast.force_shapecast_update()
-	return !shape_cast.is_colliding()
+	assert(!shape_cast.is_colliding() && shape_cast.get_collision_count() > 0)
+	return shape_cast.get_collision_count() < 1
 
 ## update the root node and physics body
 func _move_shape(vector:Vector2)->void:
 	move_body.global_position += vector
 	PhysicsServer2D.body_set_shape_transform(body_rid, 0, move_body.global_transform)
 
+## Decides how to act on
 func _push(other:Node2D, vector:Vector2)-> Vector2:
 	if other is RigidControler:
 		return _push_rigid_controler(other, vector)
 	return vector
 
+## Calculate bounce and slide behaviour
 func _bounce_and_slide(vector:Vector2)-> Vector2:
-	assert(shape_cast.get_collision_count() > 0)
 	var _normal:Vector2 = shape_cast.get_collision_normal(0)
 	var _dot_product:float = _normal.dot(-vector.normalized())
 	if _dot_product < slide_treshold:
@@ -178,20 +186,31 @@ func _bounce_and_slide(vector:Vector2)-> Vector2:
 	var _slide = vector.slide(_normal) * slide_multiply
 	return _slide.lerp(_bounce, bounciness)
 
-
+## Logic for pushing RigidControler
 func _push_rigid_controler(other:RigidControler, vector:Vector2)->Vector2:
 	if !other.movable:
 		return vector
+	
+	var _other_velocity:PackedFloat32Array = PackedFloat32Array([0.0, 0.0])
+	other.get_push_response(_other_velocity, self)
+	var _other_vector:Vector2 = Vector2(_other_velocity[0], _other_velocity[1])
+	
 	# if other mass is smaller - reduce & shoot other
-	# if mass are equal - split oposit directions
+	# if mass are equal - fully transfer force to other
 	# if mass is bigger - mostly bounce back
 	var _magnitude:float = vector.length()
-	var _given_fraction:float = mass / (other.mass + mass)
-	var _given_multiply:float = mass / other.mass
-	var _given_magnitude:float = _given_fraction * _given_multiply * _magnitude
 	var _normal:Vector2 = shape_cast.get_collision_normal(0)
-	other.move(_given_fraction * _given_multiply * _given_magnitude * -_normal)
+	var _dot:float = vector.dot(-_normal)
+	var _energy:float = _magnitude * _dot
+	other.move(_magnitude * -_normal)
 	
-	# TODO: notify other to check if it has some velocity to cancel each other
+	
 	# 
-	return (1.0 - _given_fraction) * vector
+	return vector
+
+## This utilizes that Arrays are references to data.
+## Signal receiver should set vector to values of intended velocity.
+## Vector size is as big as velocity dimensions.
+func get_push_response(vector:PackedFloat32Array, other:RigidControler)->PackedFloat32Array:
+	push_response.emit(vector, other)
+	return vector
