@@ -4,7 +4,6 @@ extends Node
 @export var target_finder:TargetFinder
 @export var bot_input:BotInput
 @export var raycast:RayCast2D
-@export var navigation_agent:NavigationAgent2D
 ## Value used to change recalculation cooldown
 @export var retarget_distance:float = 16.0
 @export var debug:bool
@@ -27,7 +26,7 @@ func set_direction(direction:Vector2)->void:
 	bot_input.mover.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
 
 func on_target_update()->void:
-	if target_finder.closest == null:
+	if target_finder.target_count < 1:
 		set_direction(Vector2.ZERO)
 		return
 	local_direction = target_finder.closest.global_position - bot_input.global_position
@@ -43,7 +42,7 @@ func on_target_update()->void:
 		return
 	
 	navigation_update()
-	var point:Vector2 = navigation_agent.get_next_path_position()
+	var point:Vector2# = navigation_agent.get_next_path_position()
 	var direction:Vector2 = (point - bot_input.global_position)
 	set_direction(direction)
 
@@ -63,4 +62,4 @@ func navigation_update()->void:
 	var ratio:float = (retarget_distance) / max(moved_direction.length(), 1.0)
 	navigation_cooldown = min(ratio, 5.0)
 	last_target_position = target_finder.closest.global_position
-	navigation_agent.target_position = last_target_position
+	#navigation_agent.target_position = last_target_position

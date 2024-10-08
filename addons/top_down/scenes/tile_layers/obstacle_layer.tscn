@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj0ewvpy5oege"]
+
+[ext_resource type="TileSet" uid="uid://x2ip4g4gc2k2" path="res://addons/top_down/resources/tilesets/tileset_holes_32_isometric.tres" id="1_lgg6w"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/Navigation/TileNavigationBlocking.gd" id="2_41umb"]
+[ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/AstarGridResource/obstacle_astargrid_resource.tres" id="3_futi6"]
+
+[node name="ObstacleLayer" type="TileMapLayer"]
+tile_set = ExtResource("1_lgg6w")
+
+[node name="TileNavigationBlocking" type="Node" parent="." node_paths=PackedStringArray("tilemap_layer")]
+script = ExtResource("2_41umb")
+tilemap_layer = NodePath("..")
+astargrid_resource = ExtResource("3_futi6")

@@ -1,8 +1,13 @@
-class_name NavigationVisualizer2D
+class_name NavigationAgentVisualizer2D
 extends Line2D
 
 @export var enabled:bool
 @export var navigation_agent:NavigationAgent2D
+
+func _ready()->void:
+	top_level = true
+	global_position = Vector2.ZERO
+	set_enabled(enabled)
 
 func set_enabled(value:bool)->void:
 	enabled = value
@@ -13,11 +18,6 @@ func set_enabled(value:bool)->void:
 	else:
 		if navigation_agent.path_changed.is_connected(update_path):
 			navigation_agent.path_changed.disconnect(update_path)
-
-func _ready()->void:
-	top_level = true
-	global_position = Vector2.ZERO
-	set_enabled(enabled)
 
 func update_path()->void:
 	points = navigation_agent.get_current_navigation_path()

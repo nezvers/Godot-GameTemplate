@@ -38,16 +38,17 @@ static func dist_to_line_3d(pos:Vector3, line_start:Vector3, line_end:Vector3)->
 		return bv.length()
 	return ab.cross(ac).length() / ab.length()
 
-static func get_closest_node_2d(point:Vector2, body_list:Array[Node2D])->Node2D:
-	if body_list.is_empty():
+static func get_closest_node_2d(point:Vector2, body_list:Array[Node2D], item_count:int)->Node2D:
+	if body_list.is_empty() || item_count < 1:
 		return null
 	var closest:Node2D = body_list.front()
 	var dist:float = (closest.global_position - point).length_squared()
-	for body:Node2D in body_list:
-		var _dist:float = (body.global_position - point).length_squared()
+	for i:int in item_count:
+		var _body:Node2D = body_list[i]
+		var _dist:float = (_body.global_position - point).length_squared()
 		if _dist < dist:
 			dist = _dist
-			closest = body
+			closest = _body
 	return closest
 
 ## Outline of the formula
