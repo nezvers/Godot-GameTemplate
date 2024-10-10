@@ -44,6 +44,7 @@ target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
 raycast = NodePath("../RayCast2D")
 tile_navigation = NodePath("../TileNavigationGetter")
+retarget_distance = 10.0
 
 [node name="TargetAim" type="Node" parent="." node_paths=PackedStringArray("bot_input", "target_finder")]
 script = ExtResource("6_xkm0h")

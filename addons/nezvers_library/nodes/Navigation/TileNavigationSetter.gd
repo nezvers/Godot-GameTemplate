@@ -3,10 +3,7 @@ extends Node
 
 @export var tilemap_layer:TileMapLayer
 @export var astargrid_resource:AstarGridResource
-@export var default_compute_heuristic:AStarGrid2D.Heuristic
-@export var default_estimate_heuristic:AStarGrid2D.Heuristic
-@export var diagonal_mode:AStarGrid2D.DiagonalMode
-@export var jumping_enabled:bool
+
 
 func _ready()->void:
 	assert(tilemap_layer != null)
@@ -22,11 +19,6 @@ func initialize_astargrid()->void:
 	astargrid_resource.tilemap_layer = tilemap_layer
 	
 	var _astar:AStarGrid2D = AStarGrid2D.new()
-	_astar.default_compute_heuristic = default_compute_heuristic
-	_astar.default_estimate_heuristic = default_estimate_heuristic
-	_astar.diagonal_mode = diagonal_mode
-	_astar.jumping_enabled = jumping_enabled
-	
 	_astar.region = tilemap_layer.get_used_rect()
 	var _tileset:TileSet = tilemap_layer.tile_set
 	_astar.cell_size = _tileset.tile_size
