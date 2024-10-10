@@ -8,6 +8,7 @@ extends Line2D
 var last_path:PackedVector2Array
 var index:int = 0
 var closest_point:Vector2
+var is_finished:bool
 
 func _ready()->void:
 	top_level = true
@@ -18,6 +19,7 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 	var _to_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(to)
 	last_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile)
 	index = 0
+	is_finished = false
 	if visible:
 		points = last_path
 	return last_path
@@ -26,7 +28,7 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 ##
 func get_next_path_position(from:Vector2)->Vector2:
 	if last_path.is_empty():
-		return Vector2.ZERO
+		return closest_point
 	
 	## TODO: add corner avoidance steering
 	closest_point = last_path[index]
@@ -46,4 +48,7 @@ func get_next_path_position(from:Vector2)->Vector2:
 	if _closest_dist < _treshold && index < last_path.size() - 1:
 		index += 1
 		closest_point = last_path[index]
+	else:
+		is_finished = true
+	
 	return closest_point

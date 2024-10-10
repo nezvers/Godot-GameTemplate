@@ -4,5 +4,9 @@
 
 [resource]
 script = ExtResource("1_7bmip")
+default_compute_heuristic = 0
+default_estimate_heuristic = 0
+diagonal_mode = 3
+jumping_enabled = false
 version = 0
 not_saved = false
