@@ -1,6 +1,7 @@
 class_name PhysicsHelper
 extends Node
 
+## Create a physics body with a single function call that shows the needed information in one place.
 static func body_create_2d(space:RID, collision_layer:int, collision_mask:int, shape:Shape2D, transform:Transform2D, body_mode:PhysicsServer2D.BodyMode, instance_id:int)->RID:
 	var body:RID = PhysicsServer2D.body_create()
 	PhysicsServer2D.body_set_space(body, space)
