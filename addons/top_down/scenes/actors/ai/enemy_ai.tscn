@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cenq1bawfywu8"]
+[gd_scene load_steps=9 format=3 uid="uid://cenq1bawfywu8"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/BotInput.gd" id="1_qo7hy"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/NavigationVisualizer2D.gd" id="2_2yt0t"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/Navigation/TileNavigationGetter.gd" id="2_kpufw"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ProximityAttack.gd" id="3_4n00q"]
+[ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/AstarGridResource/obstacle_astargrid_resource.tres" id="3_54ctl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetFinder.gd" id="4_y3qb6"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetDirection.gd" id="5_ekfo4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetAim.gd" id="6_xkm0h"]
@@ -14,32 +15,21 @@ size = Vector2(1000, 500)
 script = ExtResource("1_qo7hy")
 attack_distance = 10.0
 
-[node name="Area2D" type="Area2D" parent="."]
-process_mode = 3
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="ShapeCast2D" parent="."]
 shape = SubResource("RectangleShape2D_ixqjj")
-debug_color = Color(0, 0.6, 0.701961, 0)
+collision_mask = 2
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = false
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 5.0
-avoidance_enabled = true
-radius = 16.0
-
-[node name="NavigationVisualizer" type="Line2D" parent="." node_paths=PackedStringArray("navigation_agent")]
+[node name="TileNavigationGetter" type="Line2D" parent="."]
 width = 1.0
-script = ExtResource("2_2yt0t")
-navigation_agent = NodePath("../NavigationAgent2D")
+script = ExtResource("2_kpufw")
+astargrid_resource = ExtResource("3_54ctl")
 
-[node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("area", "bot_input")]
+[node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("shape_cast", "bot_input")]
 script = ExtResource("4_y3qb6")
-area = NodePath("../Area2D")
+shape_cast = NodePath("../CollisionShape2D")
 bot_input = NodePath("..")
 
 [node name="ProximityAttack" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input")]
@@ -47,12 +37,12 @@ script = ExtResource("3_4n00q")
 target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
 
-[node name="TargetDirection" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast", "navigation_agent")]
+[node name="TargetDirection" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast", "tile_navigation")]
 script = ExtResource("5_ekfo4")
 target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
 raycast = NodePath("../RayCast2D")
-navigation_agent = NodePath("../NavigationAgent2D")
+tile_navigation = NodePath("../TileNavigationGetter")
 
 [node name="TargetAim" type="Node" parent="." node_paths=PackedStringArray("bot_input", "target_finder")]
 script = ExtResource("6_xkm0h")

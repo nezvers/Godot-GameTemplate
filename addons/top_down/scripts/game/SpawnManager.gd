@@ -10,11 +10,12 @@ func _ready()->void:
 
 func object_instantiated(inst:Node2D)->void:
 	active_count += 1
+	# TODO: check if killed not just removed from scene (restart or room change also removes from tree)
+	# Maybe use Int value resource for kill count
 	inst.tree_exiting.connect(add_active.bind(-1))
 
 func add_active(value:int)->void:
 	active_count += value
-	# TODO: changing scene counts this in
 
 func _process(_delta:float)->void:
 	if active_count >= target_count:
