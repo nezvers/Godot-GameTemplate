@@ -22,6 +22,8 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 		points = last_path
 	return last_path
 
+## TODO: Don't use top_level to be able use position
+##
 func get_next_path_position(from:Vector2)->Vector2:
 	if last_path.is_empty():
 		return Vector2.ZERO
