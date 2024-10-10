@@ -7,6 +7,7 @@ extends Line2D
 
 var last_path:PackedVector2Array
 var index:int = 0
+var closest_point:Vector2
 
 func _ready()->void:
 	top_level = true
@@ -26,20 +27,21 @@ func get_next_path_position(from:Vector2)->Vector2:
 		return Vector2.ZERO
 	
 	## TODO: add corner avoidance steering
-	var _closest_point:Vector2 = last_path[index]
-	var _closest_dist:float = (_closest_point - from).length_squared()
+	closest_point = last_path[index]
+	var _closest_dist:float = (closest_point - from).length_squared()
 	var _treshold:float = reached_distance * reached_distance
-	var i:int = 0
+	var i:int = index +1
 	while i < last_path.size():
-		index = i
 		var _current_point = last_path[i]
 		var _current_dist = (_current_point - from).length_squared()
-		if _closest_dist < _current_dist && _closest_dist > _treshold:
+		if _closest_dist < _current_dist:
 			break
-		_closest_point = _current_point
+		closest_point = _current_point
 		_closest_dist = _current_dist
+		index = i
 		i += 1 # <- don't forget
-	return _closest_point
-
-# closest
-# if there's a next point, closest must be further than treshold
+	
+	if _closest_dist < _treshold && index < last_path.size() - 1:
+		index += 1
+		closest_point = last_path[index]
+	return closest_point

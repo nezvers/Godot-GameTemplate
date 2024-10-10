@@ -30,7 +30,7 @@ func initialize_astargrid()->void:
 	_astar.region = tilemap_layer.get_used_rect()
 	var _tileset:TileSet = tilemap_layer.tile_set
 	_astar.cell_size = _tileset.tile_size
-	_astar.offset = _tileset.tile_size * 0.5
+	_astar.offset = Vector2.ZERO#_tileset.tile_size * 0.5
 	
 	if _tileset.tile_shape == TileSet.TileShape.TILE_SHAPE_SQUARE:
 		_astar.cell_shape = AStarGrid2D.CellShape.CELL_SHAPE_SQUARE

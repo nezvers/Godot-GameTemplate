@@ -38,6 +38,7 @@ func on_target_update()->void:
 		set_direction(Vector2.ZERO)
 		return
 	
+	# TODO: block with obstacles
 	#if line_of_sight():
 		#set_direction(local_direction)
 		#return
