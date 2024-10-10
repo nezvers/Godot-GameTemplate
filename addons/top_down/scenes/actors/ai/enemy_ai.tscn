@@ -21,6 +21,7 @@ collision_mask = 2
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = false
+collision_mask = 9
 
 [node name="TileNavigationGetter" type="Line2D" parent="."]
 width = 1.0

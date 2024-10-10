@@ -39,9 +39,9 @@ func on_target_update()->void:
 		return
 	
 	# TODO: block with obstacles
-	#if line_of_sight():
-		#set_direction(local_direction)
-		#return
+	if line_of_sight():
+		set_direction(local_direction)
+		return
 	
 	navigation_update()
 	var point:Vector2 = tile_navigation.get_next_path_position(bot_input.global_position)
