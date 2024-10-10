@@ -19,6 +19,8 @@ func initialize_astargrid()->void:
 		# already initialized
 		return
 	
+	astargrid_resource.tilemap_layer = tilemap_layer
+	
 	var _astar:AStarGrid2D = AStarGrid2D.new()
 	_astar.default_compute_heuristic = default_compute_heuristic
 	_astar.default_estimate_heuristic = default_estimate_heuristic

@@ -20,7 +20,6 @@ signal object_instantiated(inst:Node2D)
 
 func set_enabled(value:bool)->void:
 	enabled = value
-	set_process(enabled)
 
 func spawn_scene()->void:
 	if !enabled:

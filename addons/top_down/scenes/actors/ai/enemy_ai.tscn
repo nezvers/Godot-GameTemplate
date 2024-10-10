@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cenq1bawfywu8"]
+[gd_scene load_steps=9 format=3 uid="uid://cenq1bawfywu8"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/BotInput.gd" id="1_qo7hy"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/Navigation/TileNavigationGetter.gd" id="2_kpufw"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ProximityAttack.gd" id="3_4n00q"]
+[ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/AstarGridResource/obstacle_astargrid_resource.tres" id="3_54ctl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetFinder.gd" id="4_y3qb6"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetDirection.gd" id="5_ekfo4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetAim.gd" id="6_xkm0h"]
@@ -20,6 +22,11 @@ collision_mask = 2
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = false
 
+[node name="TileNavigationGetter" type="Line2D" parent="."]
+width = 1.0
+script = ExtResource("2_kpufw")
+astargrid_resource = ExtResource("3_54ctl")
+
 [node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("shape_cast", "bot_input")]
 script = ExtResource("4_y3qb6")
 shape_cast = NodePath("../CollisionShape2D")
@@ -30,11 +37,12 @@ script = ExtResource("3_4n00q")
 target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
 
-[node name="TargetDirection" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast")]
+[node name="TargetDirection" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast", "tile_navigation")]
 script = ExtResource("5_ekfo4")
 target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
 raycast = NodePath("../RayCast2D")
+tile_navigation = NodePath("../TileNavigationGetter")
 
 [node name="TargetAim" type="Node" parent="." node_paths=PackedStringArray("bot_input", "target_finder")]
 script = ExtResource("6_xkm0h")
