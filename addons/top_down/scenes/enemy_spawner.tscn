@@ -14,4 +14,3 @@ axis_multiplication = Vector2(1, 0.5)
 [node name="SpawnManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawner")]
 script = ExtResource("3_bm11t")
 enemy_spawner = NodePath("..")
-target_count = 1
