@@ -16,6 +16,7 @@ script = ExtResource("1_qo7hy")
 attack_distance = 10.0
 
 [node name="CollisionShape2D" type="ShapeCast2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_ixqjj")
 collision_mask = 2
 

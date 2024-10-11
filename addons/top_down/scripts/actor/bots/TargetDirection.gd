@@ -34,11 +34,7 @@ func on_target_update()->void:
 	var local_dir_len:float = local_direction.length_squared()
 	var attack_dist_squared:float = bot_input.attack_distance * bot_input.attack_distance
 	
-	if (local_dir_len < attack_dist_squared):
-		set_direction(Vector2.ZERO)
-		return
 	
-	# TODO: block with obstacles
 	if line_of_sight():
 		set_direction(local_direction)
 		return
