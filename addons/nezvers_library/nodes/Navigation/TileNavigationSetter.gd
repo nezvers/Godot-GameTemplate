@@ -21,7 +21,6 @@ func initialize_astargrid()->void:
 	
 	var _tile_rect:Rect2i = tilemap_layer.get_used_rect()
 	_tile_rect = _tile_rect.grow(grow_region)
-	print("Tile region: ", _tile_rect)
 	
 	var _astar:AStarGrid2D = AStarGrid2D.new()
 	_astar.region = _tile_rect
