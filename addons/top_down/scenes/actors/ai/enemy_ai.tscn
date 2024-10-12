@@ -28,6 +28,7 @@ collision_mask = 9
 width = 1.0
 script = ExtResource("2_kpufw")
 astargrid_resource = ExtResource("3_54ctl")
+reached_distance = 2.0
 
 [node name="TargetFinder" type="Node" parent="." node_paths=PackedStringArray("shape_cast", "bot_input")]
 script = ExtResource("4_y3qb6")
@@ -45,7 +46,6 @@ target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
 raycast = NodePath("../RayCast2D")
 tile_navigation = NodePath("../TileNavigationGetter")
-retarget_distance = 10.0
 
 [node name="TargetAim" type="Node" parent="." node_paths=PackedStringArray("bot_input", "target_finder")]
 script = ExtResource("6_xkm0h")
