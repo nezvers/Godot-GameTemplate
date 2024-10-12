@@ -150,7 +150,6 @@ list = Array[ExtResource("2_r0rg0")]([SubResource("Resource_u4wdj"), SubResource
 collision_layer = 2
 
 [node name="DamageReceiver" parent="AreaReceiver2D" index="1"]
-health_resource = ExtResource("2_ck5gl")
 damage_cooldown = 0.5
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]

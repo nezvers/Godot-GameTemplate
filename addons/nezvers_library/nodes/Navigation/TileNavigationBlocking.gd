@@ -40,6 +40,7 @@ func setup_obstacles()->void:
 	tiles = tilemap_layer.get_used_cells()
 	var _space:RID = tilemap_layer.get_world_2d().space
 	var _id:int = get_instance_id()
+	## For some reason kinematic is a must to work with Area2D, static didn't work
 	var _body_mode:PhysicsServer2D.BodyMode = PhysicsServer2D.BODY_MODE_KINEMATIC
 	
 	for i:int in tiles.size():

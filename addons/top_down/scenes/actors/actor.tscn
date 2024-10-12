@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=25 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/HealthReceiver.gd" id="3_mreek"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="3_q65r3"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleReceiver.gd" id="7_aib52"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="8_7uvby"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
@@ -120,15 +121,22 @@ script = ExtResource("1_vf4rt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaReceiver2D"]
 shape = SubResource("RectangleShape2D_qpkoi")
 
-[node name="DamageReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "receiver_owner")]
+[node name="DamageReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node", "receiver_owner")]
 script = ExtResource("1_mvxhy")
 area_receiver = NodePath("..")
+resource_node = NodePath("../../ResourceNode")
 receiver_owner = NodePath("../..")
 
-[node name="HealthReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "damage_receiver")]
+[node name="HealthReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "damage_receiver", "resource_node")]
 script = ExtResource("3_mreek")
 area_receiver = NodePath("..")
 damage_receiver = NodePath("../DamageReceiver")
+resource_node = NodePath("../../ResourceNode")
+
+[node name="HoleReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node")]
+script = ExtResource("7_aib52")
+area_receiver = NodePath("..")
+resource_node = NodePath("../../ResourceNode")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0.0196078, 0.0352941, 0.0784314, 0.454902)
