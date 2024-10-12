@@ -4,7 +4,7 @@ extends Area2D
 func _ready()->void:
 	process_mode = PROCESS_MODE_ALWAYS
 
-func add_signal(signal_name:StringName, argument_info:Array[Dictionary])->void:
+func add_signal(signal_name:StringName, argument_info:Array[Dictionary] = [])->void:
 	if has_user_signal(signal_name):
 		return
 	add_user_signal(signal_name, argument_info)

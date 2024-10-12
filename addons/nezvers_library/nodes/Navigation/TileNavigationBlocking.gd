@@ -13,7 +13,7 @@ extends Node
 
 var collider_rid_list:Array[RID]
 var tile_data_names:Array[String]
-var _tiles:Array[Vector2i]
+var tiles:Array[Vector2i]
 
 func _ready()-> void:
 	assert(astargrid_resource != null)
@@ -37,13 +37,14 @@ func setup_obstacles()->void:
 		tile_data_names[i] = tilemap_layer.tile_set.get_custom_data_layer_name(i)
 	var _has_offset:bool = tile_data_names.has("obstacle_offset")
 	
-	_tiles = tilemap_layer.get_used_cells()
+	tiles = tilemap_layer.get_used_cells()
 	var _space:RID = tilemap_layer.get_world_2d().space
 	var _id:int = get_instance_id()
+	## For some reason kinematic is a must to work with Area2D, static didn't work
 	var _body_mode:PhysicsServer2D.BodyMode = PhysicsServer2D.BODY_MODE_KINEMATIC
 	
-	for i:int in _tiles.size():
-		var _tile_pos:Vector2i = _tiles[i]
+	for i:int in tiles.size():
+		var _tile_pos:Vector2i = tiles[i]
 		var _tile_data:TileData = tilemap_layer.get_cell_tile_data(_tile_pos)
 		var _offset_list:PackedVector2Array
 		if _has_offset:
@@ -72,7 +73,7 @@ func cleanup() -> void:
 	if astargrid_resource.value == null:
 		return
 	
-	for i:int in _tiles.size():
-		var _tile_pos:Vector2i = _tiles[i]
+	for i:int in tiles.size():
+		var _tile_pos:Vector2i = tiles[i]
 		astargrid_resource.value.set_point_solid(_tile_pos, false)
-	_tiles.clear()
+	tiles.clear()

@@ -5,4 +5,5 @@ extends Node
 
 
 func _ready():
-	damage_receiver.health_resource.dead.connect(score_resource.add_point)
+	if !damage_receiver.health_resource.dead.is_connected(score_resource.add_point):
+		damage_receiver.health_resource.dead.connect(score_resource.add_point)

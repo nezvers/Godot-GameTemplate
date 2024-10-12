@@ -19,7 +19,7 @@
 resource_name = "health"
 script = ExtResource("2_ak5yp")
 resource = ExtResource("2_ysqwl")
-make_unique = false
+make_unique = true
 
 [sub_resource type="Resource" id="Resource_x2i03"]
 resource_name = "actor"
@@ -140,9 +140,6 @@ list = Array[ExtResource("2_ak5yp")]([SubResource("Resource_2gbfm"), SubResource
 
 [node name="AreaReceiver2D" parent="." index="2"]
 collision_layer = 4
-
-[node name="DamageReceiver" parent="AreaReceiver2D" index="1"]
-health_resource = ExtResource("2_ysqwl")
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
 material = SubResource("ShaderMaterial_mtjxa")
