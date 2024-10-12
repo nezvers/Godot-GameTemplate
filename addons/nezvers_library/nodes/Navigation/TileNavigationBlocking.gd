@@ -26,7 +26,6 @@ func _ready()-> void:
 func setup_obstacles()->void:
 	if astargrid_resource.value == null:
 		return
-	print("Collision layer: ", collision_layer)
 	var _tilemap_rect:Rect2i = tilemap_layer.get_used_rect()
 	var _astar_rect:Rect2i = astargrid_resource.value.region
 	var _astar:AStarGrid2D = astargrid_resource.value
@@ -54,7 +53,6 @@ func setup_obstacles()->void:
 		
 		for _offset:Vector2 in _offset_list:
 			var _tile_pos_off:Vector2i = _tile_pos + Vector2i(_offset)
-			print("Offsets: ", _tile_pos_off)
 			
 			assert(_astar.region.has_point(_tile_pos_off))
 			_astar.set_point_solid(_tile_pos_off, true)
