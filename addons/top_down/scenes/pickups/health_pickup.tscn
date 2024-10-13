@@ -12,7 +12,8 @@
 [sub_resource type="Resource" id="Resource_1v8hw"]
 script = ExtResource("3_7bghr")
 value = 1.0
-effect_signal = &"health"
+transmission_name = &""
+state = -1
 version = 0
 not_saved = false
 

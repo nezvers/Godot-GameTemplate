@@ -1,6 +1,8 @@
 class_name HealthReceiver
 extends Node
 
+@export var enabled:bool = true
+
 @export var area_receiver:AreaReceiver2D
 @export var damage_receiver:DamageReceiver
 ## Resource node holds HealthResource
@@ -20,5 +22,8 @@ func _ready()->void:
 	area_receiver.connect("health", receive)
 
 func receive(health_transmision:HealthTransmision)->void:
+	if !enabled:
+		health_transmision.failed()
+		return
 	## Health transmission takes care of processing health
 	health_transmision.apply(health_resource)
