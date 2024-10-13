@@ -19,6 +19,8 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 	var _to_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(to)
 	last_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile)
 	index = 0
+	first_point_choice(from)
+	
 	is_finished = false
 	if visible:
 		points = last_path
@@ -43,7 +45,7 @@ func get_next_path_position(from:Vector2)->Vector2:
 		closest_point = _current_point
 		_closest_dist = _current_dist
 		index = i
-		i += 1 # <- don't forget
+		i += 1 # <- don't forget, or else...
 	
 	if _closest_dist < _treshold && index < last_path.size() - 1:
 		index += 1
@@ -52,3 +54,12 @@ func get_next_path_position(from:Vector2)->Vector2:
 		is_finished = true
 	
 	return closest_point
+
+## Solution to not go backwards for a first point
+func first_point_choice(_position:Vector2)->void:
+	if last_path.size() < 2:
+		return
+	var _dot_product:float = (last_path[0] - _position).normalized().dot((last_path[1] - _position).normalized())
+	if _dot_product > 0.0:
+		return
+	index = 1
