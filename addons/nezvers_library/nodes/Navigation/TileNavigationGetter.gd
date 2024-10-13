@@ -30,7 +30,6 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 		index = 1
 	else:
 		index = 0
-	assert(index < navigation_path.size())
 	
 	finish_reached = false
 	if visible:

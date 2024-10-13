@@ -1,5 +1,5 @@
 class_name HealthTransmision
-extends EffectTransmision
+extends TransmissionResource
 
 @export var value:float
 
@@ -12,4 +12,4 @@ func apply(health_resource:HealthResource)->void:
 		return
 	health_resource.add_hp(value)
 	
-	consumed.emit()
+	consume()
