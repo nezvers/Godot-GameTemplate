@@ -26,10 +26,10 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 	navigation_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile)
 	tile_path = astargrid_resource.value.get_id_path(_from_tile, _to_tile)
 	
-	if navigation_path.size() < 2:
-		index = 0
-	else:
+	if navigation_path.size() > 1:
 		index = 1
+	else:
+		index = 0
 	assert(index < navigation_path.size())
 	
 	finish_reached = false
@@ -47,22 +47,8 @@ func get_next_path_position(from:Vector2)->Vector2:
 	closest_point = navigation_path[index]
 	var _closest_dist:float = (closest_point - from).length_squared()
 	var _treshold:float = reached_distance * reached_distance
-	var i:int = index
-	#if i < navigation_path.size() - 1:
-		#i += 1
-		#assert(i < navigation_path.size())
-		#while i < navigation_path.size():
-			#var _current_point = navigation_path[i]
-			#var _current_dist = (_current_point - from).length_squared()
-			#if _closest_dist < _current_dist:
-				#i -= 1
-				#assert(i < navigation_path.size())
-				#break
-			#closest_point = _current_point
-			#_closest_dist = _current_dist
-			#i += 1 # <- don't forget, or else...
-		#i = min(i , navigation_path.size() - 1)
 	
+	var i:int = index
 	if _closest_dist < _treshold && i < navigation_path.size() - 1:
 		i += 1
 		assert(i < navigation_path.size())

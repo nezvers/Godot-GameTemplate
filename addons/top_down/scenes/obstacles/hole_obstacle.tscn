@@ -11,7 +11,7 @@ collision_mask = 6
 script = ExtResource("1_soon6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaTransmitter2D"]
-polygon = PackedVector2Array(0, -5, -11, 0, 0, 5, 11, 0)
+polygon = PackedVector2Array(0, -4, -10, 0, 0, 4, 10, 0)
 
 [node name="HoleTransmitter" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("area_transmitter")]
 script = ExtResource("2_otvmq")
