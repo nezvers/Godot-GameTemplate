@@ -26,10 +26,10 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 	navigation_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile)
 	tile_path = astargrid_resource.value.get_id_path(_from_tile, _to_tile)
 	
-	if navigation_path.size() < 2:
-		index = 0
-	else:
+	if navigation_path.size() > 1:
 		index = 1
+	else:
+		index = 0
 	assert(index < navigation_path.size())
 	
 	finish_reached = false
