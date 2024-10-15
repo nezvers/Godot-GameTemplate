@@ -2,7 +2,7 @@ class_name ProjectileImpact
 extends Node
 
 @export var projectile:Projectile2D
-@export var damage_transmitter:DamageTransmitter
+@export var data_transmitter:DataTransmitter
 @export var solid_impact:ProjectileSolidImpact
 @export var impact_scene:PackedScene
 @export var impact_parent_reference:ReferenceNodeResource
@@ -11,7 +11,7 @@ func _ready()->void:
 	if impact_scene == null:
 		return
 	assert(impact_parent_reference != null)
-	damage_transmitter.hit.connect(spawn)
+	data_transmitter.success.connect(spawn)
 	solid_impact.hit.connect(spawn)
 
 func spawn()->void:

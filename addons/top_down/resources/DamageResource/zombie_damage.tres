@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="1_ymdgu"]
 
 [resource]
+resource_name = "Zombie Slash damage"
 script = ExtResource("1_ymdgu")
 value = 1.0
 projectile_multiply = 1.0
@@ -13,3 +14,8 @@ kickback_strength = 120.0
 is_critical = false
 hit_list = []
 total_damage = 0.0
+transmission_name = &"damage"
+state = -1
+valid = true
+version = 0
+not_saved = false

@@ -1,5 +1,5 @@
+extends TransmissionResource
 class_name DamageResource
-extends Resource
 
 ## receives damage_resource instance that reports damage
 signal damage_report(damage:DamageResource)
@@ -38,13 +38,6 @@ func initialize_generation()->void:
 	else:
 		total_damage = value
 
-## Receiving end should trigger this function
-## TODO: include more receiving end information
-func report_damage_data(receiver:Node2D)->void:
-	hit_list.append(receiver)
-	if report_callback.is_valid():
-		report_callback.call(self)
-
 ## Create a new generation for a new attack action.
 ## Do it from root DamageResource
 func new_generation()->DamageResource:
@@ -64,3 +57,36 @@ func new_split()->DamageResource:
 ## Mainly used for receiving information from duplicates
 func on_damage_report(damage:DamageResource)->void:
 	damage_report.emit(damage)
+
+## Receiving end should trigger this function
+func process(resource_node:ResourceNode)->void:
+	var _damage_bool:BoolResource = resource_node.get_resource("damage")
+	if _damage_bool == null:
+		failed()
+		return
+	if _damage_bool.value == false:
+		try_again()
+		return
+	
+	var _health_resource:HealthResource = resource_node.get_resource("health")
+	if _health_resource.is_dead:
+		denied()
+		return
+	
+	# It's sure to have a hit, so pull last possible updates, like hit direction
+	update_requested.emit()
+	
+	# TODO: include more receiving end information & proper way to get an owner reference
+	hit_list.append(resource_node.owner)
+	_health_resource.add_hp( -get_total_damage() )
+	
+	var _push_resource:PushResource = resource_node.get_resource("push")
+	if _push_resource != null:
+		_push_resource.add_impulse(direction * kickback_strength)
+	
+	success()
+	
+	# Sends a report through resources self was duplicated from
+	# TODO: Test if still works
+	if report_callback.is_valid():
+		report_callback.call(self)

@@ -1,19 +1,20 @@
 [gd_scene load_steps=15 format=3 uid="uid://8fmycery7url"]
 
 [ext_resource type="PackedScene" uid="uid://bm0cdv63uc8am" path="res://addons/top_down/scenes/pickups/pickup.tscn" id="1_1ysqb"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/EffectTransmitter.gd" id="2_macfr"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/HealthTransmision.gd" id="3_7bghr"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataTransmitter.gd" id="3_srqx2"]
 [ext_resource type="Texture2D" uid="uid://ddurnatkq74y" path="res://addons/top_down/assets/images/vfx/pickup_0_strip6.png" id="4_nxqq3"]
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="4_sqyfq"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/AnimationHelper/AnimationHelper.gd" id="5_c4f4r"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/EffectConsume.gd" id="6_t3qtp"]
 [ext_resource type="Resource" uid="uid://ctthh78bun1bh" path="res://addons/top_down/resources/sounds/health_pickup.tres" id="7_hgu74"]
 
-[sub_resource type="Resource" id="Resource_1v8hw"]
+[sub_resource type="Resource" id="Resource_1euvd"]
 script = ExtResource("3_7bghr")
 value = 1.0
-transmission_name = &""
+transmission_name = &"health"
 state = -1
+valid = true
 version = 0
 not_saved = false
 
@@ -225,10 +226,10 @@ _data = {
 
 [node name="HealthPickup" instance=ExtResource("1_1ysqb")]
 
-[node name="EffectTransmitter" type="Node" parent="AreaTransmitter2D" index="1" node_paths=PackedStringArray("area_transmitter")]
-script = ExtResource("2_macfr")
+[node name="HealthDataTransmitter" type="Node" parent="AreaTransmitter2D" index="1" node_paths=PackedStringArray("area_transmitter")]
+script = ExtResource("3_srqx2")
+transmission_resource = SubResource("Resource_1euvd")
 area_transmitter = NodePath("..")
-effect_transmission = SubResource("Resource_1v8hw")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 modulate = Color(1, 0.983333, 0, 0.168627)
@@ -256,8 +257,9 @@ next/fade_in = &"fade_in"
 script = ExtResource("5_c4f4r")
 animation_player = NodePath("..")
 
-[node name="EffectConsume" type="Node" parent="." index="3" node_paths=PackedStringArray("effect_transmitter", "animation_player")]
+[node name="EffectConsume" type="Node" parent="." index="3" node_paths=PackedStringArray("data_transmitter", "animation_player", "free_node")]
 script = ExtResource("6_t3qtp")
-effect_transmitter = NodePath("../AreaTransmitter2D/EffectTransmitter")
+data_transmitter = NodePath("../AreaTransmitter2D/HealthDataTransmitter")
 animation_player = NodePath("../Visuals/Sprite2D/AnimationPlayer")
 sounds_resource = ExtResource("7_hgu74")
+free_node = NodePath("..")

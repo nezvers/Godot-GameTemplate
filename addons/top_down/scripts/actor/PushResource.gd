@@ -1,3 +1,4 @@
+## Signals an intention to be pushed
 class_name PushResource
 extends SaveableResource
 
