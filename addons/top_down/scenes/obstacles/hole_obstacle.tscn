@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3omgy2ni4t5w"]
+[gd_scene load_steps=5 format=3 uid="uid://b3omgy2ni4t5w"]
 
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="1_soon6"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTransmitter.gd" id="2_otvmq"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataTransmitter.gd" id="2_80ycc"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTransmission.gd" id="3_rx8sp"]
+
+[sub_resource type="Resource" id="Resource_phatf"]
+script = ExtResource("3_rx8sp")
+transmission_name = &"hole"
+state = -1
+valid = true
+version = 0
+not_saved = false
 
 [node name="HoleObstacle" type="Node2D"]
 
@@ -13,6 +22,7 @@ script = ExtResource("1_soon6")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaTransmitter2D"]
 polygon = PackedVector2Array(0, -4, -10, 0, 0, 4, 10, 0)
 
-[node name="HoleTransmitter" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("area_transmitter")]
-script = ExtResource("2_otvmq")
+[node name="HoleDataTransmitter" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("area_transmitter")]
+script = ExtResource("2_80ycc")
+transmission_resource = SubResource("Resource_phatf")
 area_transmitter = NodePath("..")

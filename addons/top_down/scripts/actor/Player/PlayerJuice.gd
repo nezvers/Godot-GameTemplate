@@ -1,15 +1,19 @@
 class_name PlayerJuice
 extends Node
 
-@export var damage_receiver:DamageReceiver
+@export var resource_node:ResourceNode
 @export var weapon_manager:WeaponManager
 @export var enemy_damage_shake:CameraShakeResource
 @export var screen_flash_command:CommandNodeResource
 @export var player_damage_shake:CameraShakeResource
 
 func _ready()->void:
-	damage_receiver.health_resource.damaged.connect(on_damaged)
 	weapon_manager.damage_report.connect(on_damage_report)
+	
+	var _health_resource:HealthResource = resource_node.get_resource("health")
+	if _health_resource != null:
+		_health_resource.damaged.connect(on_damaged)
+	
 
 func on_damaged()->void:
 	assert(screen_flash_command.node != null, "reference is not set")

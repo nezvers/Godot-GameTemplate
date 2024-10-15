@@ -1,22 +1,73 @@
-[gd_scene load_steps=25 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=40 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageReceiver.gd" id="1_mvxhy"]
 [ext_resource type="Texture2D" uid="uid://8liwj4r4bj4m" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_riryq"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://addons/top_down/resources/materials/color_flash.material" id="3_jdhuu"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/HealthReceiver.gd" id="3_mreek"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="3_q65r3"]
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/BoolResource.gd" id="4_7aaky"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleReceiver.gd" id="7_aib52"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/HealthResource.gd" id="5_07pdl"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="6_k776m"]
+[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataReceiver.gd" id="7_aib52"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/InputResource.gd" id="7_y5ipv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="8_7uvby"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/HoleDeath.gd" id="16_f6cga"]
+
+[sub_resource type="Resource" id="Resource_u7p0r"]
+resource_name = "movement  properties"
+script = ExtResource("6_k776m")
+acceleration = 200.0
+max_speed = 60.0
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_wkut0"]
+resource_name = "movement"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_u7p0r")
+make_unique = true
+description = "ActorStatsResource probably need to be unique for each Actor type."
+
+[sub_resource type="Resource" id="Resource_y76f1"]
+resource_name = "Health resource"
+script = ExtResource("5_07pdl")
+hp = 5.0
+max_hp = 5.0
+reset_hp = 5.0
+reset_max_hp = 5.0
+is_dead = false
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_vm74s"]
+resource_name = "health"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_y76f1")
+make_unique = true
+description = ""
+
+[sub_resource type="Resource" id="Resource_fwu4v"]
+resource_name = "Damage bool"
+script = ExtResource("4_7aaky")
+value = true
+default_value = true
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_cri6d"]
+resource_name = "damage"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_fwu4v")
+make_unique = true
+description = "Can receive a damage"
 
 [sub_resource type="Resource" id="Resource_xhp0x"]
 resource_name = "Push Resource"
@@ -29,6 +80,55 @@ resource_name = "push"
 script = ExtResource("2_riryq")
 resource = SubResource("Resource_xhp0x")
 make_unique = true
+description = "PushResource has only a method to pass kickback or push impulse"
+
+[sub_resource type="Resource" id="Resource_8r3vs"]
+resource_name = "Dash bool"
+script = ExtResource("4_7aaky")
+value = false
+default_value = false
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_dsnfh"]
+resource_name = "dash"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_8r3vs")
+make_unique = true
+description = "BoolResource that shows true when dash is enabled."
+
+[sub_resource type="Resource" id="Resource_kivos"]
+resource_name = "Hole bool"
+script = ExtResource("4_7aaky")
+value = false
+default_value = false
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_j3dss"]
+resource_name = "hole"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_kivos")
+make_unique = true
+description = "BoolResource if value is true, it means actor fell in a hole"
+
+[sub_resource type="Resource" id="Resource_k8ute"]
+resource_name = "Input resource"
+script = ExtResource("7_y5ipv")
+axis = Vector2(0, 0)
+action = false
+action_2 = false
+aim_direction = Vector2(0, 0)
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_ju227"]
+resource_name = "input"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_k8ute")
+make_unique = true
+description = "Used to control actors movement by it's input node.
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpkoi"]
 size = Vector2(8, 4)
@@ -107,7 +207,7 @@ platform_floor_layers = 0
 
 [node name="ResourceNode" type="Node" parent="."]
 script = ExtResource("1_atd7g")
-list = Array[ExtResource("2_riryq")]([SubResource("Resource_ltyge")])
+list = Array[ExtResource("2_riryq")]([SubResource("Resource_wkut0"), SubResource("Resource_vm74s"), SubResource("Resource_cri6d"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qpkoi")
@@ -121,20 +221,21 @@ script = ExtResource("1_vf4rt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaReceiver2D"]
 shape = SubResource("RectangleShape2D_qpkoi")
 
-[node name="DamageReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node", "receiver_owner")]
-script = ExtResource("1_mvxhy")
-area_receiver = NodePath("..")
-resource_node = NodePath("../../ResourceNode")
-receiver_owner = NodePath("../..")
-
-[node name="HealthReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "damage_receiver", "resource_node")]
-script = ExtResource("3_mreek")
-area_receiver = NodePath("..")
-damage_receiver = NodePath("../DamageReceiver")
-resource_node = NodePath("../../ResourceNode")
-
-[node name="HoleReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node")]
+[node name="HoleDataReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node")]
 script = ExtResource("7_aib52")
+transmission_name = &"hole"
+area_receiver = NodePath("..")
+resource_node = NodePath("../../ResourceNode")
+
+[node name="HealthDataReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node")]
+script = ExtResource("7_aib52")
+transmission_name = &"health"
+area_receiver = NodePath("..")
+resource_node = NodePath("../../ResourceNode")
+
+[node name="DamageDataReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node")]
+script = ExtResource("7_aib52")
+transmission_name = &"damage"
 area_receiver = NodePath("..")
 resource_node = NodePath("../../ResourceNode")
 
@@ -165,6 +266,8 @@ character = NodePath("..")
 axis_multiplier = Vector2(1, 0.5)
 resource_node = NodePath("../ResourceNode")
 
+[node name="DamageCooldown" type="Node" parent="."]
+
 [node name="SpriteFlip" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "flip_node")]
 script = ExtResource("8_7uvby")
 mover_2d = NodePath("../MoverTopDown2D")
@@ -176,10 +279,14 @@ mover_2d = NodePath("../MoverTopDown2D")
 animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
 state = 1
 
-[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("mover", "damage_receiver", "sprite_flip", "flash_animation_player")]
+[node name="HoleDeath" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("16_f6cga")
+resource_node = NodePath("../ResourceNode")
+
+[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("resource_node", "mover", "sprite_flip", "flash_animation_player")]
 script = ExtResource("10_tpsh5")
+resource_node = NodePath("../ResourceNode")
 mover = NodePath("../MoverTopDown2D")
-damage_receiver = NodePath("../AreaReceiver2D/DamageReceiver")
 sprite_flip = NodePath("../SpriteFlip")
 flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"

@@ -15,15 +15,12 @@ signal resource_loaded
 enum SaveType {FILE, TEMP}
 var save_state: = SaveType.FILE
 var temporary_data:SaveableResource
-var temp_time:float = 0.0
-var save_time:float = 0.0
 
 func set_save_state(new_state:SaveType)->void:
 	save_state = new_state
 
 ## Override for creating data Resource that will be saved with the ResourceSaver
 func prepare_save()->Resource:
-	save_time = Time.get_ticks_msec() * 0.001
 	return self.duplicate()
 
 ## Override to ad logic for reading loaded data and applying to current instance of the Resource
@@ -36,7 +33,6 @@ func reset_resource()->void:
 
 func save_temp()->void:
 	temporary_data = prepare_save()
-	temp_time = Time.get_ticks_msec() * 0.001
 
 func load_temp()->void:
 	prepare_load(temporary_data)

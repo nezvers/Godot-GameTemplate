@@ -14,8 +14,6 @@ extends Node2D
 var input_resource:InputResource
 ## Stats for movement
 var actor_stats_resource:ActorStatsResource
-## receives push impulse
-var push_resource:PushResource
 
 ## Way to disable functionality during the gameplay
 func set_enabled(value:bool)->void:
@@ -24,9 +22,15 @@ func set_enabled(value:bool)->void:
 
 func _ready()->void:
 	input_resource = resource_node.get_resource("input")
-	actor_stats_resource = resource_node.get_resource("actor")
-	push_resource = resource_node.get_resource("push")
-	push_resource.impulse_event.connect(add_impulse)
+	assert(input_resource != null)
+	
+	actor_stats_resource = resource_node.get_resource("movement")
+	assert(actor_stats_resource != null)
+	
+	var _push_resource = resource_node.get_resource("push")
+	assert(_push_resource != null)
+	_push_resource.impulse_event.connect(add_impulse)
+	
 	set_enabled(enabled)
 
 func _physics_process(delta:float)->void:

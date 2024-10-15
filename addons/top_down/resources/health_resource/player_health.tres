@@ -5,6 +5,10 @@
 [resource]
 resource_name = "Player Health"
 script = ExtResource("1_kndj2")
-hp = 5
-reset_hp = 5
+hp = 5.0
+max_hp = 5.0
+reset_hp = 5.0
+reset_max_hp = 5.0
 is_dead = false
+version = 0
+not_saved = false
