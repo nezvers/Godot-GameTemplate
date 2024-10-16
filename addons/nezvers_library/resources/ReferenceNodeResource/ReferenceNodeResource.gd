@@ -1,4 +1,4 @@
-## Resource to reference the same Node and receive notification when the reference is changed.
+## Resource to reference a Node and receive notification when the reference is changed.
 class_name ReferenceNodeResource
 extends Resource
 

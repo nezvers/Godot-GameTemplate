@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=43 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -23,6 +23,7 @@
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://addons/top_down/resources/CommandNodeResource/color_flash.tres" id="18_5jtne"]
 [ext_resource type="Resource" uid="uid://ddpkkj7j7ync6" path="res://addons/top_down/resources/CameraShakeResource/enemy_damage_shake.tres" id="18_7uk1v"]
 [ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://addons/top_down/resources/CameraShakeResource/player_damage_shake.tres" id="19_d25rq"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/Player/ResetHealth.gd" id="24_xfk7a"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -265,3 +266,7 @@ player_damage_shake = ExtResource("19_d25rq")
 [node name="ActorDamage" parent="." index="15"]
 sound_resource_dead = ExtResource("6_wov6i")
 dead_vfx_scene = ExtResource("8_s8ofx")
+
+[node name="ResetHealth" type="Node" parent="." index="17" node_paths=PackedStringArray("resource_node")]
+script = ExtResource("24_xfk7a")
+resource_node = NodePath("../ResourceNode")
