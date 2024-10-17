@@ -8,6 +8,7 @@ extends Node
 ## Reference resource that will be referencing a Node. If `reference_resource_path` is not empty it will overwrite resource.
 @export var reference_resource:ReferenceNodeResource
 
+
 ## If not empty it will overwrite resource.
 @export var reference_resource_path:String
 

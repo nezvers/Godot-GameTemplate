@@ -1,11 +1,20 @@
 class_name BoolResource
 extends ValueResource
 
+signal set_true
+signal set_false
+
 @export var value:bool : set = set_value
 @export var default_value:bool
 
 func set_value(_value:bool)->void:
+	if value == _value:
+		return
 	value = _value
+	if value:
+		set_true.emit()
+	else:
+		set_false.emit()
 	updated.emit()
 
 ## Override function for resetting to default values

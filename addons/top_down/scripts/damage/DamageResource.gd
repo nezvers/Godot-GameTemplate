@@ -1,5 +1,5 @@
-extends TransmissionResource
 class_name DamageResource
+extends TransmissionResource
 
 ## receives damage_resource instance that reports damage
 signal damage_report(damage:DamageResource)
@@ -60,11 +60,11 @@ func on_damage_report(damage:DamageResource)->void:
 
 ## Receiving end should trigger this function
 func process(resource_node:ResourceNode)->void:
-	var _damage_bool:BoolResource = resource_node.get_resource("damage")
-	if _damage_bool == null:
+	var _receive_damage_bool:BoolResource = resource_node.get_resource("receive_damage")
+	if _receive_damage_bool == null:
 		failed()
 		return
-	if _damage_bool.value == false:
+	if _receive_damage_bool.value == false:
 		try_again()
 		return
 	

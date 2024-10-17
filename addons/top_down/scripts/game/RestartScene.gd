@@ -11,4 +11,4 @@ func start_timer()->void:
 	tween.tween_callback(restart_scene).set_delay(1.0)
 
 func restart_scene()->void: 
-	get_tree().reload_current_scene()#.call_deferred()
+	get_tree().reload_current_scene()

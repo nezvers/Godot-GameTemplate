@@ -34,7 +34,7 @@ health_label = NodePath("../HealthLabel")
 script = ExtResource("3_fbsvt")
 pause_value_resource = ExtResource("4_4g1vf")
 pause_show_list = [NodePath("../Pause")]
-pause_hide_list = [NodePath("../ScoreLabel")]
+pause_hide_list = [NodePath("../ScoreLabel"), NodePath("../HealthLabel")]
 paused_state = 4
 
 [node name="Pause" parent="." instance=ExtResource("5_iipjt")]

@@ -3,15 +3,18 @@ class_name CharacterStates
 extends Node
 
 @export var enabled:bool = true
-@export var mover_2d:MoverTopDown2D
+@export var resource_node:ResourceNode
 @export var animation_player:AnimationPlayer
 enum State {NONE, IDLE, WALK}
 @export var state:State = State.NONE
 
 const animation_list:Array[StringName] = ["idle", "idle", "walk"]
+var input_resource:InputResource
 
 ## Not using automatic setter functions because they are called before _ready during initialization
 func _ready()->void:
+	input_resource = resource_node.get_resource("input")
+	assert(input_resource != null)
 	set_enabled(enabled)
 	var init_state: = state
 	state = State.NONE # force to be a different value than called
@@ -35,7 +38,7 @@ func set_state(value:State)->void:
 
 ## Decide which state should be active every game's frame
 func _process(_delta:float)->void:
-	if mover_2d.input_resource.axis.length_squared() > 0.001:
+	if input_resource.axis.length_squared() > 0.001:
 		set_state(State.WALK)
 	else:
 		set_state(State.IDLE)

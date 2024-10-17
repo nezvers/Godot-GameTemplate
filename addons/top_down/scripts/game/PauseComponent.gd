@@ -13,10 +13,10 @@ func _ready()->void:
 	pause_changed()
 
 func pause_changed()->void:
-	var is_paused:bool = pause_value_resource.value
+	var _is_paused:bool = pause_value_resource.value
 	for node:Node in pause_show_list:
-		node.visible = is_paused
+		node.visible = _is_paused
 	for node:Node in pause_hide_list:
-		node.visible = !is_paused
+		node.visible = !_is_paused
 	for node:Node in paused_nodes:
-		node.process_mode = paused_state if is_paused else not_paused_state
+		node.process_mode = paused_state if _is_paused else not_paused_state

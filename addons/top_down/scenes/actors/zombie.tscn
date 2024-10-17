@@ -50,15 +50,15 @@ make_unique = true
 description = ""
 
 [sub_resource type="Resource" id="Resource_fwu4v"]
-resource_name = "Damage bool"
+resource_name = "Receive damage bool"
 script = ExtResource("7_ratbf")
 value = true
 default_value = true
 version = 0
 not_saved = false
 
-[sub_resource type="Resource" id="Resource_cri6d"]
-resource_name = "damage"
+[sub_resource type="Resource" id="Resource_5vfta"]
+resource_name = "receive_damage"
 script = ExtResource("2_ak5yp")
 resource = SubResource("Resource_fwu4v")
 make_unique = true
@@ -216,7 +216,7 @@ collision_layer = 4
 collision_mask = 7
 
 [node name="ResourceNode" parent="." index="0"]
-list = Array[ExtResource("2_ak5yp")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_cri6d"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227")])
+list = Array[ExtResource("2_ak5yp")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_5vfta"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227")])
 
 [node name="AreaReceiver2D" parent="." index="2"]
 collision_layer = 4
@@ -230,18 +230,18 @@ libraries = {
 "": SubResource("AnimationLibrary_esakt")
 }
 
-[node name="ZombieInput" parent="." index="8" node_paths=PackedStringArray("mover") instance=ExtResource("9_4t8nd")]
+[node name="ActorDamage" parent="." index="10"]
+sound_resource_dead = ExtResource("7_uiw1f")
+dead_vfx_scene = ExtResource("9_3xjhw")
+
+[node name="ZombieInput" parent="." index="12" node_paths=PackedStringArray("mover") instance=ExtResource("9_4t8nd")]
 mover = NodePath("../MoverTopDown2D")
 
-[node name="SlashAttack" parent="." index="9" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
+[node name="SlashAttack" parent="." index="13" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="AddPoint" type="Node" parent="." index="10" node_paths=PackedStringArray("resource_node")]
+[node name="AddPoint" type="Node" parent="." index="14" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_3rsmj")
 resource_node = NodePath("../ResourceNode")
 score_resource = ExtResource("10_3mlgp")
-
-[node name="ActorDamage" parent="." index="13"]
-sound_resource_dead = ExtResource("7_uiw1f")
-dead_vfx_scene = ExtResource("9_3xjhw")
