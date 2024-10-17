@@ -67,18 +67,18 @@ position = Vector2(430, 176)
 [node name="Spawn_3" type="Marker2D" parent="Behind/SpawnPoints"]
 position = Vector2(400, -17)
 
-[node name="YSortedLayer" parent="." instance=ExtResource("4_3tx5o")]
+[node name="WallLayer_Ysorted" parent="." instance=ExtResource("4_3tx5o")]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAADAPP/AAAAAAAAAAAAAPr/AAAAAAAAAAAJAPD/AAAAAAAAAAAZAP//AAABAAAAAAAWAAgAAAABAAAAAAAOAAsAAAABAAAAAAADAAgAAAADAAAAAAAAAP3/AAADAAAAAAALAAsAAAADAAAAAAAZAPz/AAACAAAAAAAWAPP/AAACAAAAAAAMAPD/AAACAAAAAAADAP3/AAACAAEAAAAWAPz/AAADAAEAAAAMAPP/AAADAAEAAAADAPr/AAACAAIAAAAJAPP/AAACAAIAAAAOAAgAAAADAAIAAAAWAP//AAADAAIAAAADAPT/AAAAAAEAAAADAPX/AAAAAAEAAAADAPb/AAAAAAEAAAADAPf/AAAAAAEAAAADAPj/AAAAAAEAAAADAPn/AAAAAAEAAAAAAPv/AAAAAAEAAAAAAPz/AAAAAAEAAAADAP7/AAAAAAEAAAADAP//AAAAAAEAAAADAAAAAAAAAAEAAAADAAEAAAAAAAEAAAADAAIAAAAAAAEAAAADAAMAAAAAAAEAAAADAAQAAAAAAAEAAAADAAUAAAAAAAEAAAADAAYAAAAAAAEAAAADAAcAAAAAAAEAAAAJAPH/AAAAAAEAAAAJAPL/AAAAAAEAAAALAAkAAAAAAAEAAAALAAoAAAAAAAEAAAABAPr/AAABAAEAAAACAPr/AAABAAEAAAAEAPP/AAABAAEAAAAFAPP/AAABAAEAAAAGAPP/AAABAAEAAAAHAPP/AAABAAEAAAAIAPP/AAABAAEAAAAKAPD/AAABAAEAAAALAPD/AAABAAEAAAAXAPz/AAABAAEAAAAYAPz/AAABAAEAAAANAPP/AAABAAEAAAAOAPP/AAABAAEAAAAPAPP/AAABAAEAAAAQAPP/AAABAAEAAAARAPP/AAABAAEAAAASAPP/AAABAAEAAAATAPP/AAABAAEAAAAUAPP/AAABAAEAAAAVAPP/AAABAAEAAAAWAPT/AAAAAAIAAAAWAPX/AAAAAAIAAAAWAPb/AAAAAAIAAAAWAPf/AAAAAAIAAAAWAPj/AAAAAAIAAAAWAPn/AAAAAAIAAAAWAPr/AAAAAAIAAAAWAPv/AAAAAAIAAAAWAAAAAAAAAAIAAAAWAAEAAAAAAAIAAAAWAAIAAAAAAAIAAAAWAAMAAAAAAAIAAAAWAAQAAAAAAAIAAAAWAAUAAAAAAAIAAAAWAAYAAAAAAAIAAAAWAAcAAAAAAAIAAAAPAAgAAAABAAIAAAAQAAgAAAABAAIAAAARAAgAAAABAAIAAAASAAgAAAABAAIAAAATAAgAAAABAAIAAAAUAAgAAAABAAIAAAAVAAgAAAABAAIAAAAEAAgAAAABAAIAAAAFAAgAAAABAAIAAAAGAAgAAAABAAIAAAAHAAgAAAABAAIAAAAIAAgAAAABAAIAAAAJAAgAAAABAAIAAAAKAAgAAAABAAIAAAALAAgAAAACAAEAAAAXAP//AAABAAIAAAAYAP//AAABAAIAAAAMAAsAAAABAAIAAAANAAsAAAABAAIAAAAOAAkAAAAAAAIAAAAOAAoAAAAAAAIAAAAZAP3/AAAAAAIAAAAZAP7/AAAAAAIAAAAMAPH/AAAAAAIAAAAMAPL/AAAAAAIAAAACAP3/AAABAAIAAAABAP3/AAABAAIAAAA=")
 tile_set = ExtResource("6_aayvs")
 collision_layer = 9
 
-[node name="ReferenceYsort" type="Node" parent="YSortedLayer" node_paths=PackedStringArray("reference_node")]
+[node name="ReferenceYsort" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("reference_node")]
 script = ExtResource("10_26fnk")
 reference_node = NodePath("..")
 reference_resource = ExtResource("11_u6wfl")
 
-[node name="Player" parent="YSortedLayer" instance=ExtResource("1_nn7va")]
+[node name="Player" parent="WallLayer_Ysorted" instance=ExtResource("1_nn7va")]
 position = Vector2(252, 140)
 motion_mode = 0
 platform_on_leave = 0
@@ -91,7 +91,7 @@ reference_node = NodePath("..")
 reference_resource = ExtResource("6_uxajn")
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_4dff6")]
-target = NodePath("../YSortedLayer/Player")
+target = NodePath("../WallLayer_Ysorted/Player")
 
 [node name="ReferenceNodeSetter" type="Node" parent="MainCamera" node_paths=PackedStringArray("reference_node")]
 script = ExtResource("10_26fnk")
@@ -104,7 +104,7 @@ reference_resource = ExtResource("8_lllv4")
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_positions_list", "spawn_parent") instance=ExtResource("4_16naw")]
 spawn_positions_list = [NodePath("../Behind/SpawnPoints/Spawn_0"), NodePath("../Behind/SpawnPoints/Spawn_1"), NodePath("../Behind/SpawnPoints/Spawn_2"), NodePath("../Behind/SpawnPoints/Spawn_3")]
-spawn_parent = NodePath("../YSortedLayer")
+spawn_parent = NodePath("../WallLayer_Ysorted")
 radius_min = 0.0
 radius_max = 16.0
 
@@ -116,7 +116,7 @@ paused_nodes = [NodePath("..")]
 
 [node name="RestartScene" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("7_it1dq")
-player = NodePath("../YSortedLayer/Player")
+player = NodePath("../WallLayer_Ysorted/Player")
 
 [node name="MusicSetter" type="Node" parent="."]
 script = ExtResource("8_u3y66")

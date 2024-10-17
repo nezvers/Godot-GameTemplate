@@ -9,13 +9,13 @@ func process(resource_node:ResourceNode)->void:
 			try_again()
 			return
 	
-	var _damage_bool:BoolResource = resource_node.get_resource("damage")
-	if _damage_bool == null:
+	var _receive_damage_bool:BoolResource = resource_node.get_resource("receive_damage")
+	if _receive_damage_bool == null:
 		failed()
 		return
 	# damage receiving is disabled
 	# TODO: toggling bool state is asking for a bug - NEED A SOLUTION!!!
-	if !_damage_bool.value:
+	if !_receive_damage_bool.value:
 		try_again()
 		return
 	

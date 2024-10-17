@@ -35,7 +35,7 @@ func setup_obstacles()->void:
 	tile_data_names.resize(_tile_data_count)
 	for i:int in _tile_data_count:
 		tile_data_names[i] = tilemap_layer.tile_set.get_custom_data_layer_name(i)
-	var _has_offset:bool = tile_data_names.has("obstacle_offset")
+	var _has_offset:bool = tile_data_names.has("collider_offset")
 	
 	tiles = tilemap_layer.get_used_cells()
 	var _space:RID = tilemap_layer.get_world_2d().space
@@ -48,7 +48,7 @@ func setup_obstacles()->void:
 		var _tile_data:TileData = tilemap_layer.get_cell_tile_data(_tile_pos)
 		var _offset_list:PackedVector2Array
 		if _has_offset:
-			_offset_list = _tile_data.get_custom_data("obstacle_offset")
+			_offset_list = _tile_data.get_custom_data("collider_offset")
 		else:
 			_offset_list = PackedVector2Array([Vector2.ZERO])
 		

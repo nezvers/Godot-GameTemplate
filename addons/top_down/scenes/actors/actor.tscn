@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=41 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
+[ext_resource type="Script" path="res://addons/top_down/scenes/actors/DamageCooldown.gd" id="14_gnke1"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/HoleDeath.gd" id="16_f6cga"]
 
@@ -55,7 +56,7 @@ make_unique = true
 description = ""
 
 [sub_resource type="Resource" id="Resource_fwu4v"]
-resource_name = "Damage bool"
+resource_name = "Receive damage bool"
 script = ExtResource("4_7aaky")
 value = true
 default_value = true
@@ -63,11 +64,12 @@ version = 0
 not_saved = false
 
 [sub_resource type="Resource" id="Resource_cri6d"]
-resource_name = "damage"
+resource_name = "receive_damage"
 script = ExtResource("2_riryq")
 resource = SubResource("Resource_fwu4v")
 make_unique = true
-description = "Can receive a damage"
+description = "Can receive a damage.
+Should be manipulated only from a single user."
 
 [sub_resource type="Resource" id="Resource_xhp0x"]
 resource_name = "Push Resource"
@@ -266,16 +268,18 @@ character = NodePath("..")
 axis_multiplier = Vector2(1, 0.5)
 resource_node = NodePath("../ResourceNode")
 
-[node name="DamageCooldown" type="Node" parent="."]
+[node name="DamageCooldown" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("14_gnke1")
+resource_node = NodePath("../ResourceNode")
 
 [node name="SpriteFlip" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "flip_node")]
 script = ExtResource("8_7uvby")
 mover_2d = NodePath("../MoverTopDown2D")
 flip_node = NodePath("../Body")
 
-[node name="CharacterStates" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "animation_player")]
+[node name="CharacterStates" type="Node" parent="." node_paths=PackedStringArray("resource_node", "animation_player")]
 script = ExtResource("9_caq0j")
-mover_2d = NodePath("../MoverTopDown2D")
+resource_node = NodePath("../ResourceNode")
 animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
 state = 1
 

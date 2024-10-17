@@ -2,12 +2,14 @@ class_name MenuTraverseManager
 extends Node
 
 ## String : NodePath
-## Menu hierchy represented as node path and binds node with a NodePath
+## Menu hierchy represented as node path and binds node with a NodePath.
+## Key is directory path and value is a reference to a node that will be set visible.
 @export var menu_path:Dictionary
-## Dictionary key reserved for nodes in a directory
 # TODO: Explain better, I forgot myself
+## Dictionary key reserved for nodes in a directory
 ## Currently in each directory it holds node from menu_path
 @export var node_key:String = "_node_"
+## Reference node that needs to be focused when specific directory is activated
 @export var focused_node:Dictionary
 
 
