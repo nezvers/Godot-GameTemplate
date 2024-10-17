@@ -25,16 +25,13 @@ func _ready()->void:
 	target_finder.target_update.connect(on_target_update)
 
 func set_direction(direction:Vector2)->void:
-	bot_input.mover.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
+	bot_input.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
 
 func on_target_update()->void:
 	if target_finder.target_count < 1:
 		set_direction(Vector2.ZERO)
 		return
 	target_direction = target_finder.closest.global_position - bot_input.global_position
-	#var local_dir_len:float = target_direction.length_squared()
-	#var attack_dist_squared:float = bot_input.attack_distance * bot_input.attack_distance
-	
 	
 	if test_line_of_sight():
 		set_direction(target_direction)
@@ -61,9 +58,6 @@ func test_line_of_sight()->bool:
 	if !(tile_navigation.index < tile_navigation.navigation_path.size() - 1):
 		return _is_line_of_sight
 	
-	#if target_direction.length_squared() > (straight_path_distance * straight_path_distance):
-		#return allow_straight_path
-	
 	if _is_line_of_sight && !allow_straight_path && tile_navigation.point_reached:
 		# use tile Vector2i positions for dot product to have straight angles
 		var _target_tile_direction:Vector2 = (target_direction / tile_navigation.astargrid_resource.value.cell_size).round()
@@ -80,9 +74,9 @@ func navigation_update()->void:
 		return
 	last_update_time = time
 	# the bigger distance overshoot, the sooner update happens
+	# TODO: Something is off with too long cooldown
 	var moved_direction:Vector2 = (last_target_position - target_finder.closest.global_position)
 	var ratio:float = (retarget_distance) / max(moved_direction.length(), 1.0)
 	navigation_cooldown = min(ratio, 5.0)
 	last_target_position = target_finder.closest.global_position
 	tile_navigation.get_target_path(bot_input.global_position, last_target_position)
-	#navigation_agent.target_position = last_target_position

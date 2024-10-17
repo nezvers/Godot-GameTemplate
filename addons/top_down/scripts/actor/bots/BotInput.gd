@@ -7,14 +7,18 @@ signal input_update
 ## Commands the movement
 @export var mover:MoverTopDown2D
 @export var attack_distance:float = 16.0
+@export var resource_node:ResourceNode
 
 var axis_compensation:Vector2 # top down movement can use different speed for X&Y axis
+var input_resource:InputResource
+
 
 ## Not using automatic setter functions because they are called before _ready during initialization
 func _ready()->void:
 	# Set to run before mover
 	process_physics_priority -= 1
 	axis_compensation = Vector2.ONE/mover.axis_multiplier
+	input_resource = resource_node.get_resource("input")
 	set_enabled(enabled)
 
 ## Toggle processing for animation state machine
@@ -22,7 +26,7 @@ func set_enabled(value:bool)->void:
 	enabled = value
 	set_physics_process(enabled)
 	if !enabled:
-		mover.input_resource.axis = Vector2.ZERO
+		input_resource.axis = Vector2.ZERO
 
 ## Inputs need to be manipulated here
 ## Modules use this to time their functions
