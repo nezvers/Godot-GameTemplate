@@ -11,9 +11,9 @@ func _ready()->void:
 
 func on_target_update()->void:
 	if aim_walking_direction:
-		bot_input.mover.input_resource.set_aim_direction((bot_input.mover.input_resource.axis * bot_input.axis_compensation).normalized())
+		bot_input.input_resource.set_aim_direction((bot_input.input_resource.axis * bot_input.axis_compensation).normalized())
 		return
 	if target_finder.closest == null:
 		return
 	var direction:Vector2 = target_finder.closest.global_position - bot_input.global_position
-	bot_input.mover.input_resource.set_aim_direction((direction * bot_input.axis_compensation).normalized())
+	bot_input.input_resource.set_aim_direction((direction * bot_input.axis_compensation).normalized())

@@ -9,7 +9,7 @@ func _ready()->void:
 
 func on_target_update()->void:
 	if target_finder.target_count < 1:
-		bot_input.mover.input_resource.set_action(false)
+		bot_input.input_resource.set_action(false)
 		return
 	var distance:float = (target_finder.closest.global_position - bot_input.global_position).length()
-	bot_input.mover.input_resource.set_action(distance <= bot_input.attack_distance)
+	bot_input.input_resource.set_action(distance <= bot_input.attack_distance)
