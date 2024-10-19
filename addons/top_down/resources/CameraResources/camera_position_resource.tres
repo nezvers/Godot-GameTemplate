@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Vector2Resource" load_steps=2 format=3 uid="uid://b1yn036rka2tk"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/Vector2Resource.gd" id="1_sqjcu"]
+
+[resource]
+script = ExtResource("1_sqjcu")
+value = Vector2(0, 0)
+default_value = Vector2(0, 0)
+version = 0
+not_saved = false

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Vector2Resource" load_steps=2 format=3 uid="uid://dedx0gi4fowby"]
+
+[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/Vector2Resource.gd" id="1_gt6sk"]
+
+[resource]
+resource_name = "Axis Multiplication"
+script = ExtResource("1_gt6sk")
+value = Vector2(0.5, 1)
+default_value = Vector2(0.5, 1)
+version = 0
+not_saved = false

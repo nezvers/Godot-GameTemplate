@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://deuehdcbbm5c1"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/InfoTracker.gd" id="1_4rtxu"]
-[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/score_resource.tres" id="2_i7k27"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/GlobalResources/score_resource.tres" id="2_i7k27"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PauseComponent.gd" id="3_fbsvt"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://addons/top_down/resources/health_resource/player_health.tres" id="3_mc5ua"]
-[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/pause_resource.tres" id="4_4g1vf"]
+[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/GlobalResources/pause_resource.tres" id="4_4g1vf"]
 [ext_resource type="PackedScene" uid="uid://cdfnlxijhmk2f" path="res://addons/top_down/scenes/ui/screens/pause.tscn" id="5_iipjt"]
 
 [node name="GameHud" type="CanvasLayer"]

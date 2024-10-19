@@ -11,6 +11,8 @@ signal resource_loaded
 ## Resets instead of loading and isn't saved
 @export var not_saved:bool
 
+## Keep track if loading have happened and without forcing it won't reload.
+var is_loaded:bool = false
 
 enum SaveType {FILE, TEMP}
 var save_state: = SaveType.FILE
@@ -56,7 +58,11 @@ func save_resource()->void:
 		return
 	resource_saved.emit()
 
-func load_resource()->void:
+func load_resource(force_load:bool = false)->void:
+	if is_loaded && !force_load:
+		return
+	is_loaded = true
+	
 	if not_saved:
 		reset_resource()
 		return

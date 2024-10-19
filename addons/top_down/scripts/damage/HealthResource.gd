@@ -39,3 +39,6 @@ func add_hp(value:float)->void:
 	if hp == max_hp:
 		full.emit()
 		return
+
+func insta_kill()->void:
+	add_hp(-hp)

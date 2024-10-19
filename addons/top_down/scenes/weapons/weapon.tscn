@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://da86k4n7x5x8o" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_i2035"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="3_bmtwx"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponRotation.gd" id="3_tyiow"]
-[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/ReferenceNodeResources/ysort_reference.tres" id="4_24oax"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="4_24oax"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponAnimationTrigger.gd" id="4_efjwn"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/SpreadShot.gd" id="5_mx0vu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponTrigger.gd" id="6_gfbfl"]

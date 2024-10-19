@@ -34,6 +34,7 @@ func _on_parent_updated()->void:
 		var _tile_pos:Vector2i = tiles[i]
 		var _tile_data:TileData = tilemap_layer.get_cell_tile_data(_tile_pos)
 		var _file_path:String = _tile_data.get_custom_data(data_layer_name)
+		## TODO: use Array of paths
 		if _file_path.is_empty():
 			continue
 		

@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSolidImpact.gd" id="5_cqdyj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataTransmitter.gd" id="6_qxuc4"]
-[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/ReferenceNodeResources/front_reference.tres" id="6_uars4"]
+[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="6_uars4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4a7g"]

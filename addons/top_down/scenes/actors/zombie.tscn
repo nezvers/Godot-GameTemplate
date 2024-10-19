@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="2_duvie"]
 [ext_resource type="Texture2D" uid="uid://cegdmdkhfv76l" path="res://addons/top_down/assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="3_j6r3n"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/HealthResource.gd" id="4_ryem0"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="4_ryem0"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="6_360t8"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/InputResource.gd" id="7_r0dvd"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/BoolResource.gd" id="7_ratbf"]
@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/AddPoint.gd" id="9_3rsmj"]
 [ext_resource type="PackedScene" uid="uid://bu2n5cvym7bse" path="res://addons/top_down/scenes/vfx/zombie_body.tscn" id="9_3xjhw"]
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
-[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/score_resource.tres" id="10_3mlgp"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/GlobalResources/score_resource.tres" id="10_3mlgp"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -230,19 +230,19 @@ libraries = {
 "": SubResource("AnimationLibrary_esakt")
 }
 
-[node name="ActorDamage" parent="." index="10"]
+[node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("7_uiw1f")
 dead_vfx_scene = ExtResource("9_3xjhw")
 
-[node name="ZombieInput" parent="." index="12" node_paths=PackedStringArray("mover", "resource_node") instance=ExtResource("9_4t8nd")]
+[node name="ZombieInput" parent="." index="13" node_paths=PackedStringArray("mover", "resource_node") instance=ExtResource("9_4t8nd")]
 mover = NodePath("../MoverTopDown2D")
 resource_node = NodePath("../ResourceNode")
 
-[node name="SlashAttack" parent="." index="13" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
+[node name="SlashAttack" parent="." index="14" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="AddPoint" type="Node" parent="." index="14" node_paths=PackedStringArray("resource_node")]
+[node name="AddPoint" type="Node" parent="." index="15" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_3rsmj")
 resource_node = NodePath("../ResourceNode")
 score_resource = ExtResource("10_3mlgp")

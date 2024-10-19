@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="CameraShakeResource" load_steps=7 format=3 uid="uid://dkb7r2v362yj"]
 
-[ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/ReferenceNodeResources/camera_reference.tres" id="1_iwsv1"]
+[ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="1_iwsv1"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/CameraShakeResource/CameraShakeResource.gd" id="2_cayog"]
-[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://addons/top_down/resources/CameraShakeResource/enabled_settings.tres" id="2_hdsul"]
-[ext_resource type="Resource" uid="uid://blem3ysrttsws" path="res://addons/top_down/resources/CameraShakeResource/tween_camera_shake.tres" id="3_nmm4h"]
+[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://addons/top_down/resources/GlobalResources/enabled_settings.tres" id="2_hdsul"]
+[ext_resource type="Resource" uid="uid://blem3ysrttsws" path="res://addons/top_down/resources/CameraResources/tween_camera_shake.tres" id="3_nmm4h"]
 
 [sub_resource type="Curve" id="Curve_iasph"]
 max_value = 4.0

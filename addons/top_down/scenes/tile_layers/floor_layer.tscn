@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://0syvqkf8xvq7" path="res://addons/top_down/resources/tilesets/tileset_isometric_floors.tres" id="1_tu1oe"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="2_jgx8l"]
-[ext_resource type="Resource" uid="uid://dlt3xpcxub3ns" path="res://addons/top_down/resources/ReferenceNodeResources/floor_tilemap_reference.tres" id="3_k3ouw"]
+[ext_resource type="Resource" uid="uid://dlt3xpcxub3ns" path="res://addons/top_down/resources/RoomResources/floor_tilemap_reference.tres" id="3_k3ouw"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/Navigation/TileNavigationSetter.gd" id="4_1ed1q"]
 [ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/AstarGridResource/obstacle_astargrid_resource.tres" id="5_jtaw5"]
 

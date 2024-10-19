@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_gx0bp"]
 [ext_resource type="Texture2D" uid="uid://br6m3va43cuug" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
-[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/ReferenceNodeResources/ysort_reference.tres" id="7_d1e47"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="7_d1e47"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
 [ext_resource type="PackedScene" uid="uid://dmskvynh1rsk" path="res://addons/top_down/scenes/projectiles/sword_projectile.tscn" id="8_1el3x"]
 
