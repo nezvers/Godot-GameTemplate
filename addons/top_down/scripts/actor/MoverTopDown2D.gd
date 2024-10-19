@@ -6,7 +6,7 @@ extends Node2D
 ## Node that is doing the physical movement
 @export var character:CharacterBody2D
 ## Used for faking angled perspective movement
-@export var axis_multiplier:Vector2 = Vector2(1.0, 1.0)
+@export var axis_multiplier_resource:Vector2Resource
 @export var resource_node:ResourceNode
 
 
@@ -34,7 +34,7 @@ func _ready()->void:
 	set_enabled(enabled)
 
 func _physics_process(delta:float)->void:
-	var target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis * axis_multiplier
+	var target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis * axis_multiplier_resource.value
 	character.velocity += get_impulse(character.velocity, target_velocity, actor_stats_resource.acceleration, delta)
 	var _collided:bool = character.move_and_slide()
 

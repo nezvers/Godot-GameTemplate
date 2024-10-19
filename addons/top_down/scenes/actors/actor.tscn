@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=44 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="14_7u4bv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="14_gnke1"]
 [ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
@@ -267,7 +268,7 @@ libraries = {
 [node name="MoverTopDown2D" type="Node2D" parent="." node_paths=PackedStringArray("character", "resource_node")]
 script = ExtResource("5_3rf64")
 character = NodePath("..")
-axis_multiplier = Vector2(1, 0.5)
+axis_multiplier_resource = ExtResource("14_7u4bv")
 resource_node = NodePath("../ResourceNode")
 
 [node name="DamageCooldown" type="Node" parent="." node_paths=PackedStringArray("resource_node")]

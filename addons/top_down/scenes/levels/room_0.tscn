@@ -20,7 +20,7 @@ position = Vector2(460, 158)
 position = Vector2(448, 13)
 
 [node name="Spawn_1" parent="EnemySpawnPoints" index="1"]
-position = Vector2(140, 162)
+position = Vector2(134, 159)
 
 [node name="Spawn_2" parent="EnemySpawnPoints" index="2"]
 position = Vector2(463, 323)

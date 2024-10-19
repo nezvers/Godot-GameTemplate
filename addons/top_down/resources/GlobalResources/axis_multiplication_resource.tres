@@ -5,7 +5,7 @@
 [resource]
 resource_name = "Axis Multiplication"
 script = ExtResource("1_gt6sk")
-value = Vector2(0.5, 1)
-default_value = Vector2(0.5, 1)
+value = Vector2(1, 0.5)
+default_value = Vector2(1, 0.5)
 version = 0
 not_saved = false

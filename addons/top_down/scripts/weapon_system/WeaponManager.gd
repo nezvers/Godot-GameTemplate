@@ -38,15 +38,16 @@ func _init()->void:
 			weapon.damage_resource.damage_report.connect(on_damage_report)
 
 func _ready()->void:
-	var input_resource:InputResource = resource_node.get_resource("input")
-	input_resource.switch_weapon.connect(on_switch_weapon)
+	var _input_resource:InputResource = resource_node.get_resource("input")
+	assert(_input_resource != null)
+	_input_resource.switch_weapon.connect(on_switch_weapon)
 	
 	
 	for weapon:Node in get_children():
 		if !(weapon is Weapon):
 			continue
-		var packed_scene:PackedScene = ScenePacker.create_package(weapon)
-		auto_instance_weapons.append(packed_scene)
+		var _packed_scene:PackedScene = ScenePacker.create_package(weapon)
+		auto_instance_weapons.append(_packed_scene)
 		remove_child(weapon)
 		weapon.queue_free()
 	
@@ -56,18 +57,18 @@ func _ready()->void:
 	set_weapon_index(weapon_index)
 
 func add_new_weapon_from_scene(scene:PackedScene)->void:
-	var weapon:Weapon = scene.instantiate() as Weapon
-	assert(weapon != null, "failed instantiation")
+	var _weapon:Weapon = scene.instantiate() as Weapon
+	assert(_weapon != null, "failed instantiation")
 	# configuration before adding to tree and calling _ready
-	weapon.enabled = false
-	weapon.resource_node = resource_node
-	weapon.collision_mask = collision_mask
+	_weapon.enabled = false
+	_weapon.resource_node = resource_node
+	_weapon.collision_mask = collision_mask
 	if make_unique_damage:
-		weapon.damage_resource = weapon.damage_resource.duplicate()
-	if !weapon.damage_resource.damage_report.is_connected(on_damage_report):
-		weapon.damage_resource.damage_report.connect(on_damage_report)
-	add_child(weapon)
-	weapon_list.append(weapon)
+		_weapon.damage_resource = _weapon.damage_resource.duplicate()
+	if !_weapon.damage_resource.damage_report.is_connected(on_damage_report):
+		_weapon.damage_resource.damage_report.connect(on_damage_report)
+	add_child(_weapon)
+	weapon_list.append(_weapon)
 
 
 func on_switch_weapon(dir:int)->void:

@@ -13,7 +13,7 @@ signal prepare_spawn
 ## Direction a projectile will fly
 @export var direction:Vector2
 ## Used for extra calculation to simulate angled top-down perspective
-@export var axis_multiplication:Vector2 = Vector2.ONE
+@export var axis_multiplication_resource:Vector2Resource
 ## offset distance in the direction
 @export var initial_distance:float
 ## Scene from which a new projectile will be created
@@ -53,5 +53,5 @@ func spawn()->void:
 		inst.direction = direction.normalized().rotated(deg_to_rad(angle))
 		inst.damage_resource = new_damage_resource.new_split()
 		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
-		inst.global_position = initial_distance * direction * axis_multiplication + projectile_position
+		inst.global_position = initial_distance * direction * axis_multiplication_resource.value + projectile_position
 		projectile_parent_reference.node.add_child(inst)
