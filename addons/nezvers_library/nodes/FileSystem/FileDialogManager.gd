@@ -44,7 +44,7 @@ func on_desktop_dir_selected(path:String)->void:
 
 ## images = "image/png, image/jpeg, image/webp"
 ## binary = "application/prs.binary"
-func web_chose_file(js_interface_name:String = "_open_file", file_signature:String = "application/prs.binary", temp_filepath:String = "user://temp_file.res")->void:
+func web_chose_open_file(js_interface_name:String = "_open_file", file_signature:String = "application/prs.binary", temp_filepath:String = "user://temp_file.res")->void:
 	if !js_upload_interface_dict.has(js_interface_name):
 		JavascriptFileDialog.define_upload_interface(js_interface_name, file_signature)
 	
@@ -53,8 +53,9 @@ func web_chose_file(js_interface_name:String = "_open_file", file_signature:Stri
 	js_interface.upload(js_callback)
 
 ## Loaded file is a basically PackedByteArray.
-## To actually use, it needs to be turned into a file.
+## To actually use, it needs to be turned into a file on a browsers sandbox storage.
 ## From that you can use a file path to load a resource.
+## TODO: Cache file paths to later free the storage
 func web_open_file_complete(args:Array, temp_filepath:String)->void:
 	var _obj:JavaScriptObject = args[1]
 	if _obj.length < 1:
@@ -71,6 +72,9 @@ func web_open_file_complete(args:Array, temp_filepath:String)->void:
 		return
 	file_path_list = PackedStringArray([temp_filepath])
 	selected.emit()
+
+func web_save_file_complete(args:Array, temp_filepath:String)->void:
+	pass
 
 ## Second argument is PackedByteArray that is used as load from buffer
 func web_open_image_complete(args:Array, temp_filepath:String)->void:
