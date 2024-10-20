@@ -24,10 +24,9 @@ func spawn_scene()->void:
 	assert(spawn_parent_reference != null)
 	assert(spawn_parent_reference.node != null)
 	assert(object_scene != null)
+	assert(!spawn_positions_list.is_empty())
 	
-	if spawn_positions_list.is_empty():
-		return
-	
+	## BUG: If multiple enemies spawned at the same spot they are yeeted out of the map
 	## TODO: Move instantiating to child function node
 	var inst:Node2D = object_scene.instantiate()
 	

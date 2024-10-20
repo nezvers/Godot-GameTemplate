@@ -11,9 +11,10 @@ func _ready()->void:
 	assert(player_reference != null)
 	assert(player_scene != null)
 	assert(parent_reference != null)
-	assert(parent_reference.node != null, "Don't place parent node below, or it will instantiate later.")
+	assert(parent_reference.node != null, "Don't place parent node below, or it will _ready() after this node.")
 	
 	if player_reference.node != null:
+		# TODO: player is moved to this room, need to place in correct spot
 		return
 	
 	var _player:Node2D = player_scene.instantiate()
