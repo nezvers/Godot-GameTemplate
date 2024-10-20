@@ -44,6 +44,8 @@ func get_save_file_path()->String:
 		resource_name = resource_path.get_file().get_basename()
 	return "user://" + resource_name + ".tres"
 
+## Saves current state.
+## If SaveState is temporary it uses temporary data.
 func save_resource()->void:
 	if not_saved:
 		return
@@ -58,6 +60,9 @@ func save_resource()->void:
 		return
 	resource_saved.emit()
 
+## Loads and sets last saved state.
+## If SaveState is temporary it uses temporary data.
+## If it is already loaded once without force_load it won't do loading.
 func load_resource(force_load:bool = false)->void:
 	if is_loaded && !force_load:
 		return

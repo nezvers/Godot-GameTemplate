@@ -276,6 +276,7 @@ resource_node = NodePath("../../ResourceNode")
 script = ExtResource("11_r4axh")
 reference_node = NodePath("..")
 reference_resource = ExtResource("12_l6ujm")
+until_tree_exit = false
 
 [node name="DashAbility" type="Node" parent="." index="16" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("16_vooxc")

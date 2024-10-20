@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcon4vj7ampja"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/obstackles/stairs.gd" id="1_5v2au"]
+[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/GlobalResources/scene_transition_resource.tres" id="2_6cjvb"]
+[ext_resource type="Texture2D" uid="uid://csurin2o3ufs8" path="res://addons/top_down/assets/images/misc/stairs_strip2.png" id="2_8brmw"]
+
+[node name="Stairs" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_5v2au")
+scene_transition_resource = ExtResource("2_6cjvb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, -8)
+texture = ExtResource("2_8brmw")
+centered = false
+hframes = 2
