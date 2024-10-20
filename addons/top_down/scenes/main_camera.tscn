@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/CameraFollow2D.gd" id="1_8q7hy"]
 [ext_resource type="Resource" uid="uid://b1yn036rka2tk" path="res://addons/top_down/resources/CameraResources/camera_position_resource.tres" id="2_3fde2"]
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="2_41h6i"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="2_41h6i"]
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="3_c5tcv"]
 
 [node name="MainCamera" type="Camera2D"]

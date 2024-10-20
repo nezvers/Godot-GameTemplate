@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3omgy2ni4t5w"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="1_soon6"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataTransmitter.gd" id="2_80ycc"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="1_soon6"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataTransmitter.gd" id="2_80ycc"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTransmission.gd" id="3_rx8sp"]
 
 [sub_resource type="Resource" id="Resource_phatf"]

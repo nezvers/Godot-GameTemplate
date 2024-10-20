@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bm0cdv63uc8am" path="res://addons/top_down/scenes/pickups/pickup.tscn" id="1_1ysqb"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/HealthTransmision.gd" id="3_7bghr"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataTransmitter.gd" id="3_srqx2"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataTransmitter.gd" id="3_srqx2"]
 [ext_resource type="Texture2D" uid="uid://ddurnatkq74y" path="res://addons/top_down/assets/images/vfx/pickup_0_strip6.png" id="4_nxqq3"]
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="4_sqyfq"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AnimationHelper/AnimationHelper.gd" id="5_c4f4r"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AnimationHelper/AnimationHelper.gd" id="5_c4f4r"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/EffectConsume.gd" id="6_t3qtp"]
 [ext_resource type="Resource" uid="uid://ctthh78bun1bh" path="res://addons/top_down/resources/sounds/health_pickup.tres" id="7_hgu74"]
 

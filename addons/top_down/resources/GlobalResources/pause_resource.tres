@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BoolResource" load_steps=2 format=3 uid="uid://ini50pn76erv"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/BoolResource.gd" id="1_n6oxc"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="1_n6oxc"]
 
 [resource]
 resource_name = "Pause Resource"

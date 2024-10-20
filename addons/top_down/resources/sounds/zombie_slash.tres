@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://cmxblo8l2xfeq"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/SoundResource/SoundResource.gd" id="1_whco6"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="1_whco6"]
 [ext_resource type="AudioStream" uid="uid://dm2bi6h6wcnr2" path="res://addons/top_down/assets/sounds/shoot_4.wav" id="2_vtsbf"]
 
 [resource]

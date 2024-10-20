@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TweenValueResource" load_steps=2 format=3 uid="uid://blem3ysrttsws"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/TweenValueResource.gd" id="1_uk4tt"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/TweenValueResource.gd" id="1_uk4tt"]
 
 [resource]
 script = ExtResource("1_uk4tt")

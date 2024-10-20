@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ReferenceNodeResource" load_steps=2 format=3 uid="uid://c5igju2sl4cdg"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeResource.gd" id="1_oo0pe"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeResource.gd" id="1_oo0pe"]
 
 [resource]
 script = ExtResource("1_oo0pe")

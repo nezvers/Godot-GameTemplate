@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GraphicsResource" load_steps=2 format=3 uid="uid://bx61rbuwillgh"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/GraphicsResource/GraphicsResource.gd" id="1_ujpal"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/GraphicsResource/GraphicsResource.gd" id="1_ujpal"]
 
 [resource]
 resource_name = "Graphics Resource"

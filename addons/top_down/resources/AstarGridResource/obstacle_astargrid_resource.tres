@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AstarGridResource" load_steps=2 format=3 uid="uid://dfx5wg7nqxg5b"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/AstarGridResource.gd" id="1_7bmip"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/AstarGridResource.gd" id="1_7bmip"]
 
 [resource]
 script = ExtResource("1_7bmip")

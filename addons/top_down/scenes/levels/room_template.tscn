@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="3_7ky5u"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="3_7ky5u"]
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="4_8dmxv"]
 [ext_resource type="Resource" uid="uid://ct82cq803r2si" path="res://addons/top_down/resources/RoomResources/obstacle_reference.tres" id="4_fabx6"]
 [ext_resource type="TileSet" uid="uid://dah24bbc4526" path="res://addons/top_down/resources/tilesets/tileset_isometric_walls.tres" id="5_iamlt"]
@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://addons/top_down/scenes/actors/player.tscn" id="13_pw5qa"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/GlobalResources/pause_resource.tres" id="14_6pg65"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_558eq"]

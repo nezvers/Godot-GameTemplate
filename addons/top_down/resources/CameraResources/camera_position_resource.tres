@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Vector2Resource" load_steps=2 format=3 uid="uid://b1yn036rka2tk"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/Vector2Resource.gd" id="1_sqjcu"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/Vector2Resource.gd" id="1_sqjcu"]
 
 [resource]
 script = ExtResource("1_sqjcu")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://bgdeqbafv3q4r"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/SoundResource/SoundResource.gd" id="1_nc778"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="1_nc778"]
 [ext_resource type="AudioStream" uid="uid://b24x1r8reelrp" path="res://addons/top_down/assets/sounds/kill_0.wav" id="2_24utg"]
 
 [resource]
