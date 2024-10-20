@@ -1,10 +1,11 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://x2ip4g4gc2k2"]
 
-[ext_resource type="Texture2D" uid="uid://c1l2c1gy54qro" path="res://addons/top_down/assets/images/tilesets/tileset_hole_32_isometric_walls.png" id="1_ba3nq"]
+[ext_resource type="Texture2D" uid="uid://bp6odn5povssc" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes.png" id="1_ajhcg"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vf00h"]
-texture = ExtResource("1_ba3nq")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vc22r"]
+texture = ExtResource("1_ajhcg")
 texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -7)
 0:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
@@ -14,18 +15,18 @@ texture_region_size = Vector2i(32, 32)
 2:0/0 = 0
 2:0/0/texture_origin = Vector2i(0, -7)
 2:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-3:0/0 = 0
-3:0/0/texture_origin = Vector2i(0, -7)
-3:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-4:0/0 = 0
-4:0/0/texture_origin = Vector2i(0, -7)
-4:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-5:0/0 = 0
-5:0/0/texture_origin = Vector2i(0, -7)
-5:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-6:0/0 = 0
-6:0/0/texture_origin = Vector2i(0, -7)
-6:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -7)
+2:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -7)
+1:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -7)
+0:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -7)
+0:2/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
 
 [resource]
 tile_shape = 1
@@ -34,4 +35,4 @@ tile_offset_axis = 1
 tile_size = Vector2i(32, 16)
 custom_data_layer_0/name = "scene_path"
 custom_data_layer_0/type = 4
-sources/0 = SubResource("TileSetAtlasSource_vf00h")
+sources/1 = SubResource("TileSetAtlasSource_vc22r")

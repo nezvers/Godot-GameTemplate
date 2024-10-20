@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bm0cdv63uc8am"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="1_f2oe8"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="1_f2oe8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mte7y"]
 size = Vector2(8, 4)

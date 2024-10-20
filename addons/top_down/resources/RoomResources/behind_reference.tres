@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ReferenceNodeResource" load_steps=2 format=3 uid="uid://bnmup4gi1ft42"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeResource.gd" id="1_jg8cd"]
+
+[resource]
+script = ExtResource("1_jg8cd")

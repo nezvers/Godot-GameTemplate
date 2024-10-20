@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cenq1bawfywu8"]
+[gd_scene load_steps=10 format=3 uid="uid://cenq1bawfywu8"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/BotInput.gd" id="1_qo7hy"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/Navigation/TileNavigationGetter.gd" id="2_kpufw"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/TileNavigationGetter.gd" id="2_kpufw"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="2_s6bq5"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ProximityAttack.gd" id="3_4n00q"]
 [ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/AstarGridResource/obstacle_astargrid_resource.tres" id="3_54ctl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/TargetFinder.gd" id="4_y3qb6"]
@@ -13,6 +14,7 @@ size = Vector2(1000, 500)
 
 [node name="EnemyAi" type="Node2D"]
 script = ExtResource("1_qo7hy")
+axis_multiplier_resource = ExtResource("2_s6bq5")
 attack_distance = 10.0
 
 [node name="CollisionShape2D" type="ShapeCast2D" parent="."]

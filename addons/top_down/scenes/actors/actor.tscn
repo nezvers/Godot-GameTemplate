@@ -1,26 +1,29 @@
-[gd_scene load_steps=41 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=44 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
 [ext_resource type="Texture2D" uid="uid://8liwj4r4bj4m" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_riryq"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_riryq"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://addons/top_down/resources/materials/color_flash.material" id="3_jdhuu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="3_q65r3"]
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/BoolResource.gd" id="4_7aaky"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="4_7aaky"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/HealthResource.gd" id="5_07pdl"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="5_07pdl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="6_k776m"]
-[ext_resource type="Script" path="res://addons/nezvers_library/nodes/AreaTransmitter/DataReceiver.gd" id="7_aib52"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataReceiver.gd" id="7_aib52"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/InputResource.gd" id="7_y5ipv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="8_7uvby"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="14_7u4bv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
-[ext_resource type="Script" path="res://addons/top_down/scenes/actors/DamageCooldown.gd" id="14_gnke1"]
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/HoleDeath.gd" id="16_f6cga"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="14_gnke1"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTrigger.gd" id="16_f6cga"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleDeath.gd" id="18_634cs"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="22_yjx3l"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -265,7 +268,7 @@ libraries = {
 [node name="MoverTopDown2D" type="Node2D" parent="." node_paths=PackedStringArray("character", "resource_node")]
 script = ExtResource("5_3rf64")
 character = NodePath("..")
-axis_multiplier = Vector2(1, 0.5)
+axis_multiplier_resource = ExtResource("14_7u4bv")
 resource_node = NodePath("../ResourceNode")
 
 [node name="DamageCooldown" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
@@ -283,8 +286,13 @@ resource_node = NodePath("../ResourceNode")
 animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
 state = 1
 
-[node name="HoleDeath" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+[node name="HoleTrigger" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("16_f6cga")
+resource_node = NodePath("../ResourceNode")
+
+[node name="HoleDeath" type="Node" parent="." node_paths=PackedStringArray("hole_trigger", "resource_node")]
+script = ExtResource("18_634cs")
+hole_trigger = NodePath("../HoleTrigger")
 resource_node = NodePath("../ResourceNode")
 
 [node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("resource_node", "mover", "sprite_flip", "flash_animation_player")]
@@ -297,7 +305,9 @@ flash_animation = &"flash"
 sound_resource_damage = ExtResource("11_wwbua")
 dead_vfx_parent_path = NodePath("../..")
 
-[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("root_node")]
+[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("root_node", "resource_node")]
 script = ExtResource("14_b0amg")
 root_node = NodePath("..")
+drop_parent_reference = ExtResource("22_yjx3l")
+resource_node = NodePath("../ResourceNode")
 asset_list = SubResource("Resource_mslt1")

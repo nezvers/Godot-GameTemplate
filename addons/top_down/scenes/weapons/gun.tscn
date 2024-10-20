@@ -57,6 +57,5 @@ sound_resource = ExtResource("3_k087s")
 interval = 0.5
 
 [node name="ProjectileSpawner" parent="." index="4"]
-axis_multiplication = Vector2(1, 0.5)
 initial_distance = 8.0
 projectile_scene = ExtResource("2_4cp7v")

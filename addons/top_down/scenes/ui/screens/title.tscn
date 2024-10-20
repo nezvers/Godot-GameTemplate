@@ -5,23 +5,23 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/AudioManager.gd" id="2_43xlx"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuBack.gd" id="2_akips"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="3_6qnpd"]
-[ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/AudioSettingsResource/audio_settings_resource.tres" id="3_eeftq"]
+[ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/GlobalResources/audio_settings_resource.tres" id="3_eeftq"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/Quit.gd" id="3_uv64m"]
 [ext_resource type="PackedScene" uid="uid://c4jwvw17x6fwl" path="res://addons/top_down/scenes/ui/audio_slider.tscn" id="4_ruqo4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/GraphicsManager.gd" id="5_kg0vv"]
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="5_kq1p3"]
-[ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/graphics_resource.tres" id="6_dusoo"]
+[ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/GlobalResources/graphics_resource.tres" id="6_dusoo"]
 [ext_resource type="Material" uid="uid://chv0fg62cs0ou" path="res://addons/top_down/resources/materials/h_split.material.tres" id="11_6j0ru"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="12_dpfl3"]
 
-[node name="Title" type="Control"]
-layout_mode = 3
+[node name="Title" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_2uqb8")
+color = Color(0.0985668, 0.17073, 0.164749, 1)
 
 [node name="MenuBack" type="Node" parent="." node_paths=PackedStringArray("menu_traverse_manager")]
 script = ExtResource("2_akips")
@@ -62,11 +62,15 @@ save_button_button = NodePath("../MarginContainer/Control/Body/GraphicsMenu/Back
 [node name="NewGameComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("3_6qnpd")
 button = NodePath("../MarginContainer/Control/Body/TitleMenu/NewGame/Button")
-scene_path = "res://addons/top_down/scenes/levels/level_0.tscn"
+scene_path = "res://addons/top_down/scenes/levels/room_0.tscn"
 
 [node name="QuitComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("3_uv64m")
 button = NodePath("../MarginContainer/Control/Body/TitleMenu/Quit/Button")
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("12_dpfl3")
+music_name = "title"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -241,10 +245,6 @@ layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Control/Body/AudioMenu/Back" index="1"]
 text = "Back"
-
-[node name="MusicSetter" type="Node" parent="."]
-script = ExtResource("12_dpfl3")
-music_name = "title"
 
 [connection signal="pressed" from="MarginContainer/Control/Body/TitleMenu/Options/Button" to="MenuTraverseManager" method="open" binds= ["options"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Graphics/Button" to="MenuTraverseManager" method="open" binds= ["graphics"]]

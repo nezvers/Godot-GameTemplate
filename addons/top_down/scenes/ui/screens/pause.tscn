@@ -3,11 +3,11 @@
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_x1p1w"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuManager.gd" id="2_0jy2c"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/pause_screen/PausingManager.gd" id="2_c7vpd"]
-[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/pause_resource.tres" id="3_f7x5r"]
+[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/GlobalResources/pause_resource.tres" id="3_f7x5r"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/AudioManager.gd" id="3_udjr5"]
-[ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/AudioSettingsResource/audio_settings_resource.tres" id="4_jh7so"]
+[ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/GlobalResources/audio_settings_resource.tres" id="4_jh7so"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/GraphicsManager.gd" id="5_43th3"]
-[ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/graphics_resource.tres" id="6_q7e6m"]
+[ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/GlobalResources/graphics_resource.tres" id="6_q7e6m"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="7_mbpg2"]
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="8_j4n7a"]
 [ext_resource type="PackedScene" uid="uid://c4jwvw17x6fwl" path="res://addons/top_down/scenes/ui/audio_slider.tscn" id="10_mm5xm"]
@@ -65,7 +65,7 @@ save_button_button = NodePath("../MarginContainer/Control/Body/GraphicsMenu/Back
 [node name="MainMenuComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("7_mbpg2")
 button = NodePath("../MarginContainer/Control/Body/PauseMenu/Main Menu/Button")
-scene_path = "res://addons/top_down/scenes/levels/level_0.tscn"
+scene_path = "res://addons/top_down/scenes/ui/screens/title.tscn"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -1,0 +1,124 @@
+[gd_scene load_steps=25 format=3 uid="uid://cpjckxc4g3s0w"]
+
+[ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
+[ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="3_7ky5u"]
+[ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="4_8dmxv"]
+[ext_resource type="Resource" uid="uid://ct82cq803r2si" path="res://addons/top_down/resources/RoomResources/obstacle_reference.tres" id="4_fabx6"]
+[ext_resource type="TileSet" uid="uid://dah24bbc4526" path="res://addons/top_down/resources/tilesets/tileset_isometric_walls.tres" id="5_iamlt"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="6_qdsw2"]
+[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="7_e7miq"]
+[ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://addons/top_down/scenes/main_camera.tscn" id="8_koktt"]
+[ext_resource type="PackedScene" uid="uid://bqh7iwpl0s1ha" path="res://addons/top_down/scenes/screen_effects/screen_effects.tscn" id="10_3mcmd"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/PlayerSpawner.gd" id="11_7u3rc"]
+[ext_resource type="PackedScene" uid="uid://deuehdcbbm5c1" path="res://addons/top_down/scenes/ui/game_hud.tscn" id="11_vvfpg"]
+[ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://addons/top_down/scenes/enemy_spawner.tscn" id="12_iiw1i"]
+[ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_wnxyp"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/PauseComponent.gd" id="13_13yuj"]
+[ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://addons/top_down/scenes/actors/player.tscn" id="13_pw5qa"]
+[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/GlobalResources/pause_resource.tres" id="14_6pg65"]
+[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/GlobalResources/scene_transition_resource.tres" id="15_j5kfh"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_558eq"]
+device = -1
+keycode = 80
+unicode = 112
+
+[sub_resource type="InputEventKey" id="InputEventKey_06obg"]
+device = -1
+keycode = 91
+unicode = 91
+
+[node name="Room" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="FloorLayer" parent="Background" instance=ExtResource("1_61pqv")]
+
+[node name="ObstacleLayer" parent="Background" instance=ExtResource("2_ug67p")]
+
+[node name="ReferenceObstacle" type="Node" parent="Background/ObstacleLayer" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("3_7ky5u")
+reference_node = NodePath("..")
+reference_resource = ExtResource("4_fabx6")
+
+[node name="Behind" type="Node2D" parent="."]
+
+[node name="ReferenceBehind" type="Node" parent="Behind" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("3_7ky5u")
+reference_node = NodePath("..")
+reference_resource = ExtResource("4_8dmxv")
+
+[node name="WallLayer_Ysorted" parent="." instance=ExtResource("2_ug67p")]
+y_sort_enabled = true
+tile_set = ExtResource("5_iamlt")
+collision_layer = 9
+
+[node name="ReferenceYsort" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("3_7ky5u")
+reference_node = NodePath("..")
+reference_resource = ExtResource("6_qdsw2")
+
+[node name="Front" type="Node2D" parent="."]
+
+[node name="ReferenceFront" type="Node" parent="Front" node_paths=PackedStringArray("reference_node")]
+script = ExtResource("3_7ky5u")
+reference_node = NodePath("..")
+reference_resource = ExtResource("7_e7miq")
+
+[node name="MainCamera" parent="." instance=ExtResource("8_koktt")]
+editor_draw_screen = false
+
+[node name="ScreenEffects" parent="." instance=ExtResource("10_3mcmd")]
+
+[node name="UI" parent="." instance=ExtResource("11_vvfpg")]
+
+[node name="PlayerSpawner" type="Marker2D" parent="."]
+position = Vector2(195, 150)
+script = ExtResource("11_7u3rc")
+player_reference = ExtResource("12_wnxyp")
+player_scene = ExtResource("13_pw5qa")
+parent_reference = ExtResource("6_qdsw2")
+scene_transition_resource = ExtResource("15_j5kfh")
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_positions_list") instance=ExtResource("12_iiw1i")]
+spawn_positions_list = [NodePath("../EnemySpawnPoints/Spawn_0"), NodePath("../EnemySpawnPoints/Spawn_1"), NodePath("../EnemySpawnPoints/Spawn_2"), NodePath("../EnemySpawnPoints/Spawn_3")]
+
+[node name="EnemySpawnPoints" type="Node2D" parent="."]
+
+[node name="Spawn_0" type="Marker2D" parent="EnemySpawnPoints"]
+
+[node name="Spawn_1" type="Marker2D" parent="EnemySpawnPoints"]
+
+[node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints"]
+
+[node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints"]
+
+[node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("paused_nodes")]
+script = ExtResource("13_13yuj")
+pause_value_resource = ExtResource("14_6pg65")
+paused_nodes = [NodePath("..")]
+paused_state = 4
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("16_7p4gu")
+music_name = "game"
+
+[node name="DebugPausing" type="Node" parent="." node_paths=PackedStringArray("stopped_node")]
+script = ExtResource("17_j7yji")
+frame_input = SubResource("InputEventKey_558eq")
+release_input = SubResource("InputEventKey_06obg")
+stopped_node = NodePath("..")
+
+[node name="BackgroundColor" type="Node" parent="."]
+script = ExtResource("18_2cand")
+color = Color(0.0196078, 0.0352941, 0.0784314, 1)
+
+[node name="GameOverDetect" type="Node" parent="."]
+script = ExtResource("21_sfjnq")
+player_reference = ExtResource("12_wnxyp")
+game_over_scene_path = "res://addons/top_down/scenes/ui/screens/game_over.tscn"

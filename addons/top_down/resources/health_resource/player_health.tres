@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HealthResource" load_steps=2 format=3 uid="uid://c61lm3lfv4u6h"]
 
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/HealthResource.gd" id="1_kndj2"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="1_kndj2"]
 
 [resource]
 resource_name = "Player Health"

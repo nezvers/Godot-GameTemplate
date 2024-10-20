@@ -5,7 +5,7 @@ signal input_update
 
 @export var enabled:bool = true
 ## Commands the movement
-@export var mover:MoverTopDown2D
+@export var axis_multiplier_resource:Vector2Resource
 @export var attack_distance:float = 16.0
 @export var resource_node:ResourceNode
 
@@ -17,7 +17,7 @@ var input_resource:InputResource
 func _ready()->void:
 	# Set to run before mover
 	process_physics_priority -= 1
-	axis_compensation = Vector2.ONE/mover.axis_multiplier
+	axis_compensation = Vector2.ONE/axis_multiplier_resource.value
 	input_resource = resource_node.get_resource("input")
 	set_enabled(enabled)
 

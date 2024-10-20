@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://8bb4nowy77nt"]
+
+[ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_134lv"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="4_wi5q1"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="9_ldwnv"]
+[ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="10_djt0l"]
+
+[node name="GameOver" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_134lv")
+color = Color(0.0065, 0, 0.03, 1)
+
+[node name="TryAgainComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("9_ldwnv")
+button = NodePath("../MarginContainer/Control/Body/Menu/TryAgain/Button")
+scene_path = "res://addons/top_down/scenes/levels/room_0.tscn"
+
+[node name="MainMenuComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("9_ldwnv")
+button = NodePath("../MarginContainer/Control/Body/Menu/Main Menu/Button")
+scene_path = "res://addons/top_down/scenes/ui/screens/title.tscn"
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("4_wi5q1")
+music_name = "title"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="Control" parent="MarginContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Label" type="Label" parent="MarginContainer/Control/Header"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.5
+offset_top = -11.5
+offset_right = 47.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Body" type="MarginContainer" parent="MarginContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 20
+
+[node name="Menu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 0
+
+[node name="TryAgain" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("10_djt0l")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/Menu/TryAgain" index="1"]
+text = "Try Again"
+
+[node name="Main Menu" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("10_djt0l")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/Menu/Main Menu" index="1"]
+text = "Main Menu"
+
+[editable path="MarginContainer/Control/Body/Menu/TryAgain"]
+[editable path="MarginContainer/Control/Body/Menu/Main Menu"]

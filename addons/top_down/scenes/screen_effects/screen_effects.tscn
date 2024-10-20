@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bqh7iwpl0s1ha"]
 
-[ext_resource type="Script" path="res://addons/nezvers_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="1_qdpw6"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="1_qdpw6"]
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://addons/top_down/resources/CommandNodeResource/color_flash.tres" id="2_x72oy"]
 
 [sub_resource type="Animation" id="Animation_bpyts"]
