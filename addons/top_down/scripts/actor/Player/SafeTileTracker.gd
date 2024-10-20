@@ -28,7 +28,7 @@ func tilemap_layer_changed()->void:
 	safe_tile = tile_map_layer.local_to_map(_actor_pos)
 
 func _physics_process(delta:float)->void:
-	var _actor_pos:Vector2 = actor.global_position
+	var _actor_pos:Vector2 = actor.global_position - tile_map_layer.global_position
 	var _tile_pos:Vector2i = tile_map_layer.local_to_map(_actor_pos)
 	if _tile_pos == safe_tile:
 		return
@@ -40,4 +40,4 @@ func _physics_process(delta:float)->void:
 
 func move_to_safe_position()->void:
 	var _pos:Vector2 = tile_map_layer.map_to_local(safe_tile)
-	actor.global_position = _pos
+	actor.global_position = _pos + tile_map_layer.global_position
