@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://csurin2o3ufs8" path="res://addons/top_down/assets/images/misc/stairs_strip2.png" id="2_8brmw"]
 
 [node name="Stairs" type="Area2D"]
+disable_mode = 2
 collision_layer = 0
 collision_mask = 2
 monitorable = false

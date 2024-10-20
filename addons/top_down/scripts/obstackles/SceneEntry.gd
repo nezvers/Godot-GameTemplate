@@ -28,6 +28,6 @@ func _ready()->void:
 func on_body_entered(body:Node2D)->void:
 	scene_transition_resource.set_next_scene.call_deferred(scene_path, connect_tag)
 
+# NOTE: Player and entries disable_mode is set KEEP_ACTIVE, because pausing removed from physics
 func on_body_exited(body:Node2D)->void:
-	# TODO: BUG - Pausing causes for area think bodies has left
 	body_entered.connect(on_body_entered)

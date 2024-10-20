@@ -223,6 +223,7 @@ version = 0
 not_saved = false
 
 [node name="Player" instance=ExtResource("1_mvls6")]
+disable_mode = 2
 collision_layer = 2
 collision_mask = 5
 
