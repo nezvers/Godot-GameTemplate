@@ -1,3 +1,4 @@
+class_name SceneEntry
 extends Area2D
 
 ## Traversing between changing rooms it is used to identify where to put player
