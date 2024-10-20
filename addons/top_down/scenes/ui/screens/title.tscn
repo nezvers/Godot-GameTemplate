@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_2uqb8")
-color = Color(0.0065, 0, 0.03, 1)
+color = Color(0.0985668, 0.17073, 0.164749, 1)
 
 [node name="MenuBack" type="Node" parent="." node_paths=PackedStringArray("menu_traverse_manager")]
 script = ExtResource("2_akips")
