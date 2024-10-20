@@ -21,9 +21,9 @@ func start_cooldown()->void:
 		return
 	receive_damage_bool.set_value(false)
 	var _tween:Tween = create_tween()
-	_tween.tween_callback(receive_damage_bool.set_value.bind(true)).set_delay(cooldown_time)
-	_tween.tween_callback(on_cooldown_finish)
+	_tween.tween_callback(on_cooldown_finish).set_delay(cooldown_time)
 
 ## Called from tween
 func on_cooldown_finish()->void:
+	receive_damage_bool.set_value(true)
 	cooldown_finished.emit()
