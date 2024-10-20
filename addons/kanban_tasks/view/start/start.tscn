@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3 uid="uid://bemcl1rqpeqty"]
+
+[ext_resource type="Script" path="res://addons/kanban_tasks/view/start/start.gd" id="1_fkeby"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0i4nn"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_5febo"]
+font_size = 20
+font_color = Color(1, 1, 1, 0.384314)
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fkeby")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Kanban Tasks"
+label_settings = SubResource("LabelSettings_0i4nn")
+
+[node name="Label2" type="Label" parent="CenterContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Todo Manager"
+label_settings = SubResource("LabelSettings_5febo")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CreateBoard" type="LinkButton" parent="CenterContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Create Board"
+underline = 2
+
+[node name="OpenBoard" type="LinkButton" parent="CenterContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open Board"
+underline = 2
+
+[node name="VSeparator" type="VSeparator" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Recent Boards"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="RecentBoardHolder" type="VBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer2/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DeleteFromRecent" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Board not found"
+size = Vector2i(388, 106)
+ok_button_text = "Delete"
+dialog_text = "The board does not seem to exist anymore.
+You may choos to remove it from the recent list."
+cancel_button_text = "Keep"

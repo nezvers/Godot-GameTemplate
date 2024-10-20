@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckqrwj5kxr6vl"]
+
+[ext_resource type="Script" path="res://addons/kanban_tasks/view/task/task.gd" id="1_dslv8"]
+[ext_resource type="Script" path="res://addons/kanban_tasks/edit_label/edit_label.gd" id="2_iitpi"]
+[ext_resource type="Script" path="res://addons/kanban_tasks/view/task/autosize_label.gd" id="3_1qkab"]
+[ext_resource type="PackedScene" uid="uid://bwi22eyrmeeet" path="res://addons/kanban_tasks/view/details/details.tscn" id="3_2ol5j"]
+[ext_resource type="PackedScene" uid="uid://dwjg5vyxx4g48" path="res://addons/kanban_tasks/view/details/step_holder.tscn" id="4_4e7a7"]
+[ext_resource type="Script" path="res://addons/kanban_tasks/expand_button/expand_button.gd" id="5_sgwao"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3iasq"]
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 8
+
+[node name="Task" type="MarginContainer"]
+editor_description = "This container is needed because the panel style cannot be updated from a script on the panel container."
+custom_minimum_size = Vector2(150, 0)
+offset_right = 150.0
+offset_bottom = 50.0
+size_flags_horizontal = 3
+focus_mode = 2
+script = ExtResource("1_dslv8")
+
+[node name="Panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3iasq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CategoryButton" type="Button" parent="Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="Title" type="VBoxContainer" parent="Panel/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 34.1)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("2_iitpi")
+
+[node name="Description" type="Label" parent="Panel/HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.443137)
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
+text_overrun_behavior = 3
+script = ExtResource("3_1qkab")
+
+[node name="StepHolder" parent="Panel/HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_4e7a7")]
+unique_name_in_owner = true
+layout_mode = 2
+scrollable = false
+steps_can_be_removed = false
+steps_can_be_reordered = false
+steps_have_context_menu = false
+steps_focus_mode = null
+
+[node name="ExpandButton" type="Button" parent="Panel/HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ExpandButton"
+flat = true
+icon_alignment = 1
+script = ExtResource("5_sgwao")
+expanded = false
+
+[node name="Edit" type="Button" parent="Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+flat = true
+
+[node name="ContextMenu" type="PopupMenu" parent="."]
+unique_name_in_owner = true
+allow_search = false
+
+[node name="Details" parent="." instance=ExtResource("3_2ol5j")]
+unique_name_in_owner = true

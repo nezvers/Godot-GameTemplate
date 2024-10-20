@@ -1,0 +1,138 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwfixtyy5lpin"]
+
+[ext_resource type="Texture2D" uid="uid://3edv1ymvukp0" path="res://addons/kanban_tasks/view/documentation/1.svg" id="1_inmy7"]
+[ext_resource type="Texture2D" uid="uid://bbo1gfac2wymg" path="res://addons/kanban_tasks/view/documentation/2.svg" id="2_1g6ul"]
+[ext_resource type="Texture2D" uid="uid://bb8knc6dctfj1" path="res://addons/kanban_tasks/view/documentation/3.svg" id="3_e3hha"]
+[ext_resource type="Texture2D" uid="uid://phpa3kr3tjwu" path="res://addons/kanban_tasks/view/documentation/4.svg" id="4_ic0nh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cmnk1"]
+font_size = 20
+
+[node name="AcceptDialog" type="AcceptDialog"]
+title = "Documentation"
+size = Vector2i(1000, 600)
+min_size = Vector2i(1000, 600)
+theme_type_variation = &"EditorSettingsDialog"
+ok_button_text = "Close"
+
+[node name="Help" type="ScrollContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Help"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="PanelContainer1" type="PanelContainer" parent="Help/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Panel"
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Help/VBoxContainer/PanelContainer1"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="Control" type="Control" parent="Help/VBoxContainer/PanelContainer1/HBoxContainer1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Help/VBoxContainer/PanelContainer1/HBoxContainer1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A kanban board helps you to organise tasks. After you created a task you can drag and drop it between the stages to reflect its current status. Add spontaneous ideas to the \"Todo\" stage. Move them into \"Doing\" when you are ready to tackle them. Once a task is done move it into \"Done\" to keep track of all your accomplishments."
+label_settings = SubResource("LabelSettings_cmnk1")
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Help/VBoxContainer/PanelContainer1/HBoxContainer1"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("1_inmy7")
+expand_mode = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="Help/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Panel"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Help/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Help/VBoxContainer/PanelContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_1g6ul")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Help/VBoxContainer/PanelContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Boost your productivity by customizing your board! 
+Double click stage or task names to change them. Configure categories and change the layout in the settings. 
+Find tasks by using the search bar."
+label_settings = SubResource("LabelSettings_cmnk1")
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="Help/VBoxContainer/PanelContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="Help/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"Panel"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Help/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="Control" type="Control" parent="Help/VBoxContainer/PanelContainer3/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Help/VBoxContainer/PanelContainer3/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit the details of you tasks by clicking the edit button. Give your task a meaningful title and put the details into the description. Give your task a category to keep the overview."
+label_settings = SubResource("LabelSettings_cmnk1")
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Help/VBoxContainer/PanelContainer3/HBoxContainer3"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("3_e3hha")
+expand_mode = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Help/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Control" type="Control" parent="Help/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Help/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Help/VBoxContainer/HBoxContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+texture = ExtResource("4_ic0nh")
+expand_mode = 3
+
+[node name="LinkButton" type="LinkButton" parent="Help/VBoxContainer/HBoxContainer4/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Leave a star on Github"
+uri = "https://github.com/HolonProduction/godot_kanban_tasks"
+
+[node name="Control2" type="Control" parent="Help/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3

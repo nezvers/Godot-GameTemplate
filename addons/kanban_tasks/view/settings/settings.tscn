@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh1yunmhipirg"]
+
+[ext_resource type="Script" path="res://addons/kanban_tasks/view/settings/settings.gd" id="1_4eaw3"]
+[ext_resource type="PackedScene" uid="uid://due07vdflx4o" path="res://addons/kanban_tasks/view/settings/general/general.tscn" id="1_dk7pg"]
+[ext_resource type="PackedScene" uid="uid://b2likgss81t0s" path="res://addons/kanban_tasks/view/settings/categories/categories.tscn" id="3_iycb0"]
+[ext_resource type="PackedScene" uid="uid://dapkpnkm8sow8" path="res://addons/kanban_tasks/view/settings/stages/stages.tscn" id="4_okolg"]
+
+[node name="Settings" type="AcceptDialog"]
+title = "Settings"
+size = Vector2i(800, 400)
+visible = true
+theme_type_variation = &"EditorSettingsDialog"
+script = ExtResource("1_4eaw3")
+
+[node name="Settings" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(600, 300)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="General" parent="Settings" instance=ExtResource("1_dk7pg")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Categories" parent="Settings" instance=ExtResource("3_iycb0")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Stages" parent="Settings" instance=ExtResource("4_okolg")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2

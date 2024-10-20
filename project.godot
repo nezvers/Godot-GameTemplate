@@ -34,6 +34,10 @@ window/stretch/aspect="keep_height"
 
 movie_writer/movie_file="O:/Projects/Godot/Tutorials/Zombie Shooter/bug.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
+
 [input]
 
 ui_accept={

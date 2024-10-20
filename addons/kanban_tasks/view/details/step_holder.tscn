@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwjg5vyxx4g48"]
+
+[ext_resource type="Script" path="res://addons/kanban_tasks/view/details/step_holder.gd" id="1_exd17"]
+
+[sub_resource type="Theme" id="Theme_1hs0w"]
+StepHolder/base_type = &"VBoxContainer"
+StepHolder/colors/step_move_review_color = Color(0.439216, 0.729412, 0.980392, 0.501961)
+
+[node name="StepHolder" type="VBoxContainer"]
+offset_right = 326.0
+offset_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_1hs0w")
+theme_type_variation = &"StepHolder"
+script = ExtResource("1_exd17")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="StepList" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RemoveSeparator" type="HSeparator" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RemoveArea" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 8
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+flat = true
+icon_alignment = 1

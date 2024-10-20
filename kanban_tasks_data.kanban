@@ -1,0 +1,99 @@
+{
+	"categories": [
+		{
+			"uuid": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"title": "Task",
+			"color": "70bafa"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "ed797cac-3c98-43ce-bdfd-b503f3fe384b",
+			"title": "Features",
+			"tasks": [
+				"88b0e79d-5d75-42d9-9e76-987faa12ee6b",
+				"fb49e813-523b-4667-935d-8b811552b2d3",
+				"a5b31bad-1666-4183-9126-e94fe512886c"
+			]
+		},
+		{
+			"uuid": "9134cb1d-4b69-45a3-8edc-bce770720557",
+			"title": "Bugs",
+			"tasks": [
+				"948e3c35-ee56-4c98-b2d9-42d69125b3bb",
+				"a979d6d9-98ac-4da8-bbda-58d4dd579fd3",
+				"cd64b616-7649-4684-909f-7444df73b756",
+				"7a7fed89-413e-42e1-8c0e-7674e1214fcc"
+			]
+		},
+		{
+			"uuid": "acaf644d-3956-4bfc-b1f1-19f822d45093",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "948e3c35-ee56-4c98-b2d9-42d69125b3bb",
+			"title": "Navigation path update timing sometimes is too long",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "a979d6d9-98ac-4da8-bbda-58d4dd579fd3",
+			"title": "Movement velocity is not reduced with collision",
+			"description": "Seems that controlling CharacterBody externally somehow creates weird behavior. Velocity stays even after hitting a wall.",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "cd64b616-7649-4684-909f-7444df73b756",
+			"title": "Enemy spawned count is not correct amount for a wave",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "88b0e79d-5d75-42d9-9e76-987faa12ee6b",
+			"title": "Enemy wave manager",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "fb49e813-523b-4667-935d-8b811552b2d3",
+			"title": "Block exit while waves are not completed",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "a5b31bad-1666-4183-9126-e94fe512886c",
+			"title": "Continuous dash speed",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "7a7fed89-413e-42e1-8c0e-7674e1214fcc",
+			"title": "Weapon sprite positions",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"ed797cac-3c98-43ce-bdfd-b503f3fe384b"
+			],
+			[
+				"9134cb1d-4b69-45a3-8edc-bce770720557"
+			],
+			[
+				"acaf644d-3956-4bfc-b1f1-19f822d45093"
+			]
+		]
+	}
+}
