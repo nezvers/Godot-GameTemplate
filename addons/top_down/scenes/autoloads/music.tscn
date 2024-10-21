@@ -9,6 +9,7 @@
 script = ExtResource("2_p7i5f")
 value = {
 "game": "res://addons/top_down/assets/music/Deeper Into the Dungeon.ogg",
+"game_over": "res://addons/top_down/assets/music/Inevitable Demise.ogg",
 "title": "res://addons/top_down/assets/music/Lost Hope.ogg"
 }
 default_value = {}

@@ -1,0 +1,172 @@
+[gd_scene load_steps=3 format=3 uid="uid://due07vdflx4o"]
+
+[ext_resource type="Script" path="res://addons/kanban_tasks/view/settings/general/general.gd" id="1_8tblh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7cqkc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 5.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="General" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8tblh")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7cqkc")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="ShowDescriptionPreviewLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show description preview"
+
+[node name="ShowDescriptionPreview" type="CheckBox" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+button_pressed = true
+text = "On"
+
+[node name="ShowStepsPreviewLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show steps preview"
+
+[node name="ShowStepsPreview" type="CheckBox" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+button_pressed = true
+text = "On"
+
+[node name="ShowCategoriesOnBoardLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show categories on board"
+
+[node name="ShowCategoriesOnBoard" type="CheckBox" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+button_pressed = true
+text = "On"
+
+[node name="EditStepDetailsExclusivelyLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit step details in fullscreen"
+
+[node name="EditStepDetailsExclusively" type="CheckBox" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "On"
+
+[node name="DescriptionOnBoardLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Description on board"
+
+[node name="DescriptionOnBoard" type="OptionButton" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Full description"
+popup/item_0/id = 0
+popup/item_1/text = "First line of description"
+popup/item_1/id = 1
+popup/item_2/text = "Until first blank line of description"
+popup/item_2/id = 2
+
+[node name="MaxDisplayedLinesInDescriptionLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Maximum displayed lines in description"
+
+[node name="MaxDisplayedLinesInDescription" type="SpinBox" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+value = 2.0
+allow_greater = true
+
+[node name="StepsOnBoardLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Steps on board"
+
+[node name="StepsOnBoard" type="OptionButton" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Only open steps"
+popup/item_0/id = 0
+popup/item_1/text = "All, but open first"
+popup/item_1/id = 1
+popup/item_2/text = "All in original order"
+popup/item_2/id = 2
+
+[node name="MaxStepsOnBoardLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Maximum steps on board"
+
+[node name="MaxStepsOnBoard" type="SpinBox" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+value = 2.0
+allow_greater = true
+
+[node name="DataFilePathLabel" type="Label" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Data file path"
+
+[node name="DataFilePathContainer" type="HBoxContainer" parent="PanelContainer/ScrollContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DataFilePath" type="LineEdit" parent="PanelContainer/ScrollContainer/GridContainer/DataFilePathContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://kanban_tasks_data.kanban"
+editable = false
+
+[node name="DataFilePathButton" type="Button" parent="PanelContainer/ScrollContainer/GridContainer/DataFilePathContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " ... "
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open board from existing file"
+size = Vector2i(800, 600)
+ok_button_text = "Save"
+mode_overrides_title = false
