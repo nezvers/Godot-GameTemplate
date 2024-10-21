@@ -8,7 +8,7 @@ signal prepare_exit_event
 ## Direction to travel
 @export var direction: = Vector2.RIGHT
 ## Used to fake angled perspective
-@export var axis_multiplier:Vector2 = Vector2.ONE
+@export var axis_multiplier_resource:Vector2Resource
 ## Each projectile contribute to the total damage value with multiply
 @export var damage_multiply:float = 1.0
 ## Force pushing a damage receiver
@@ -25,10 +25,10 @@ func _ready()->void:
 	move_direction = to_local_direction(direction).normalized()
 
 func to_local_direction(dir:Vector2)->Vector2:
-	return dir * (Vector2.ONE / axis_multiplier)
+	return dir * (Vector2.ONE / axis_multiplier_resource.value)
 
 func _physics_process(delta:float)->void:
-	global_position += speed * delta * move_direction * axis_multiplier
+	global_position += speed * delta * move_direction * axis_multiplier_resource.value
 
 
 func prepare_exit()->void:

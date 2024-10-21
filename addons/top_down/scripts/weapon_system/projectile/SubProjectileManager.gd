@@ -6,13 +6,15 @@ extends Node
 ## Scene created and the ready()
 @export var start_projectile_scene:PackedScene
 @export var exit_projectile_scene:PackedScene
+## Used for extra calculation to simulate angled top-down perspective
+@export var axis_multiplication_resource:Vector2Resource
 
 var axis_compensation:Vector2
 
 func _ready()->void:
 	# TODO: just a mockup. Need some kind per situation configurations
 	projectile_spawner.collision_mask = Bitwise.append_flags(projectile_spawner.collision_mask, projectile.collision_mask)
-	axis_compensation = Vector2.ONE / projectile.axis_multiplier
+	axis_compensation = Vector2.ONE / axis_multiplication_resource.value
 	
 	if start_projectile_scene != null:
 		spawn(start_projectile_scene)
