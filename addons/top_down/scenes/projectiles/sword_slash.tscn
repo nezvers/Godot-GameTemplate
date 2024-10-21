@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
+[gd_scene load_steps=19 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_lwexf"]
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_gx0bp"]
 [ext_resource type="Texture2D" uid="uid://br6m3va43cuug" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="6_gnksn"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="7_d1e47"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
@@ -134,6 +135,7 @@ autoplay = "slash"
 
 [node name="ProjectileSpawner" type="Node" parent="." index="5"]
 script = ExtResource("6_whjok")
+axis_multiplication_resource = ExtResource("6_gnksn")
 initial_distance = 10.0
 projectile_parent_reference = ExtResource("7_d1e47")
 
@@ -142,6 +144,7 @@ script = ExtResource("7_n74ie")
 projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_scene = ExtResource("8_1el3x")
+axis_multiplication_resource = ExtResource("6_gnksn")
 
 [node name="HitLimit" parent="." index="8"]
 hit_limit = -1

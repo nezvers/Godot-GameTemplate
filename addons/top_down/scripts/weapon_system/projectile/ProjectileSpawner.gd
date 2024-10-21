@@ -34,11 +34,12 @@ signal prepare_spawn
 
 
 func spawn()->void:
-	if !enabled:
-		return
 	assert(projectile_scene != null, "no projectile scene assigned")
 	assert(projectile_parent_reference.node != null, "projectile parent reference isn't set")
+	assert(axis_multiplication_resource != null)
 	
+	if !enabled:
+		return
 	prepare_spawn.emit()
 	
 	var new_damage_resource:DamageResource

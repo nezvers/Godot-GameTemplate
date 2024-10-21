@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://beifde6xst23w"]
+[gd_scene load_steps=14 format=3 uid="uid://beifde6xst23w"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="2_3gsbh"]
 [ext_resource type="Texture2D" uid="uid://csfe20i4vc2bk" path="res://addons/top_down/assets/images/projectile/bullet_0.png" id="2_7x3e8"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSetup.gd" id="2_yrlmb"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="3_e2gy5"]
@@ -18,7 +19,7 @@ size = Vector2(4, 2)
 [node name="Projectile" type="Node2D"]
 script = ExtResource("1_8ha7j")
 speed = 120.0
-axis_multiplier = Vector2(1, 0.5)
+axis_multiplier_resource = ExtResource("2_3gsbh")
 
 [node name="ProjectileSetup" type="Node" parent="." node_paths=PackedStringArray("projectile", "area_transmitter", "data_transmitter")]
 script = ExtResource("2_yrlmb")
