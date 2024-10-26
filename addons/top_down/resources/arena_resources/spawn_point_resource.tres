@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpawnPointResource" load_steps=2 format=3 uid="uid://ct10qlb66mijl"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnPointResource.gd" id="1_nyc6x"]
+
+[resource]
+script = ExtResource("1_nyc6x")
+position_list = Array[Vector2]([])
+version = 0
+not_saved = false

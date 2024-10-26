@@ -16,4 +16,4 @@ func _ready()->void:
 
 func spawn()->void:
 	# TODO: some vfx might need rotation
-	InstanceManager.instance(impact_scene, impact_parent_reference, projectile.global_position)
+	InstanceManager.instance_2d(impact_scene, impact_parent_reference, projectile.global_position)

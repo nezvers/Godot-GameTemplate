@@ -72,6 +72,7 @@ func process(resource_node:ResourceNode)->void:
 	if _health_resource.is_dead:
 		denied()
 		return
+	assert(_health_resource.hp > 0)
 	
 	# It's sure to have a hit, so pull last possible updates, like hit direction
 	update_requested.emit()

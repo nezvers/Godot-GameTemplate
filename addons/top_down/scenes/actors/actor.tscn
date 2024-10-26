@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
-[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="14_7u4bv"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="14_7u4bv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="14_gnke1"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]

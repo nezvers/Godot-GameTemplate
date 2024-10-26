@@ -34,6 +34,7 @@ func add_hp(value:float)->void:
 	if value < 0.0:
 		damaged.emit()
 	if hp == 0.0:
+		is_dead = true
 		dead.emit()
 		return
 	if hp == max_hp:
