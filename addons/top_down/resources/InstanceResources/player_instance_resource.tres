@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://ceuk0khv7rbvr"]
+
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_nbpyu"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_gj7wq"]
+
+[resource]
+resource_name = "Player instance resource"
+script = ExtResource("2_gj7wq")
+scene_path = "res://addons/top_down/scenes/actors/player.tscn"
+parent_reference_resource = ExtResource("1_nbpyu")
+version = 0
+not_saved = false
