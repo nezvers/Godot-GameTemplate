@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 SoundManager="*res://addons/top_down/scenes/autoloads/sound_manager.tscn"
 Music="*res://addons/top_down/scenes/autoloads/music.tscn"
-InstanceManager="*res://addons/great_games_library/autoload/InstanceManager.gd"
 
 [display]
 

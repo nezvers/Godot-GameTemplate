@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=26 format=3 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
@@ -12,14 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://bqh7iwpl0s1ha" path="res://addons/top_down/scenes/screen_effects/screen_effects.tscn" id="10_3mcmd"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PlayerSpawner.gd" id="11_7u3rc"]
 [ext_resource type="PackedScene" uid="uid://deuehdcbbm5c1" path="res://addons/top_down/scenes/ui/game_hud.tscn" id="11_vvfpg"]
-[ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://addons/top_down/scenes/enemy_spawner.tscn" id="12_iiw1i"]
+[ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://addons/top_down/scenes/arena/enemy_manager.tscn" id="12_iiw1i"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_wnxyp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PauseComponent.gd" id="13_13yuj"]
 [ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://addons/top_down/scenes/actors/player.tscn" id="13_pw5qa"]
-[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/GlobalResources/pause_resource.tres" id="14_6pg65"]
-[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/GlobalResources/scene_transition_resource.tres" id="15_j5kfh"]
+[ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/global_resources/pause_resource.tres" id="14_6pg65"]
+[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="15_j5kfh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnPoint.gd" id="17_nn6m6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
 
@@ -85,18 +86,21 @@ player_scene = ExtResource("13_pw5qa")
 parent_reference = ExtResource("6_qdsw2")
 scene_transition_resource = ExtResource("15_j5kfh")
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_positions_list") instance=ExtResource("12_iiw1i")]
-spawn_positions_list = [NodePath("../EnemySpawnPoints/Spawn_0"), NodePath("../EnemySpawnPoints/Spawn_1"), NodePath("../EnemySpawnPoints/Spawn_2"), NodePath("../EnemySpawnPoints/Spawn_3")]
+[node name="EnemyManager" parent="." instance=ExtResource("12_iiw1i")]
 
 [node name="EnemySpawnPoints" type="Node2D" parent="."]
 
 [node name="Spawn_0" type="Marker2D" parent="EnemySpawnPoints"]
+script = ExtResource("17_nn6m6")
 
 [node name="Spawn_1" type="Marker2D" parent="EnemySpawnPoints"]
+script = ExtResource("17_nn6m6")
 
 [node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints"]
+script = ExtResource("17_nn6m6")
 
 [node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints"]
+script = ExtResource("17_nn6m6")
 
 [node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("paused_nodes")]
 script = ExtResource("13_13yuj")

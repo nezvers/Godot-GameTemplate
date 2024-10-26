@@ -5,7 +5,7 @@ extends ValueResource
 @export var default_value:int
 
 func set_value(_value:int)->void:
-	# TODO: interupt with validate or override (clamp)
+	# TODO: interupt with validate or override (example: clamp)
 	value = _value
 	updated.emit()
 

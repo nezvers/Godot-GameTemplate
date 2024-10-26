@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BoolResource" load_steps=2 format=3 uid="uid://c7ckp7i2820tg"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="1_3tpa6"]
+
+[resource]
+resource_name = "Fight Mode"
+script = ExtResource("1_3tpa6")
+value = false
+default_value = false
+version = 0
+not_saved = false

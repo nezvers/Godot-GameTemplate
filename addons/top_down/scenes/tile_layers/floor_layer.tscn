@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="2_jgx8l"]
 [ext_resource type="Resource" uid="uid://dlt3xpcxub3ns" path="res://addons/top_down/resources/RoomResources/floor_tilemap_reference.tres" id="3_k3ouw"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/TileNavigationSetter.gd" id="4_1ed1q"]
-[ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/AstarGridResource/obstacle_astargrid_resource.tres" id="5_jtaw5"]
+[ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/arena_resources/obstacle_astargrid_resource.tres" id="5_jtaw5"]
 
 [node name="FloorLayer" type="TileMapLayer"]
 tile_set = ExtResource("1_tu1oe")

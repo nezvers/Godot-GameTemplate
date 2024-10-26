@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponTrigger.gd" id="6_gfbfl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponKickback.gd" id="6_spkuj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileInterval.gd" id="7_surdb"]
-[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/GlobalResources/axis_multiplication_resource.tres" id="9_x0q43"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="9_x0q43"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qujdc"]
 

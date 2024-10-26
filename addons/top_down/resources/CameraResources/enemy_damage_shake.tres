@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/great_games_library/resources/CameraShakeResource/CameraShakeResource.gd" id="1_cdekx"]
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="1_hal8d"]
-[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://addons/top_down/resources/GlobalResources/enabled_settings.tres" id="2_gjfpc"]
+[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://addons/top_down/resources/global_resources/enabled_settings.tres" id="2_gjfpc"]
 [ext_resource type="Resource" uid="uid://blem3ysrttsws" path="res://addons/top_down/resources/CameraResources/tween_camera_shake.tres" id="2_ilewv"]
 
 [sub_resource type="Curve" id="Curve_vv6d3"]

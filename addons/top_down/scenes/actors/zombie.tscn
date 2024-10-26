@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/AddPoint.gd" id="9_3rsmj"]
 [ext_resource type="PackedScene" uid="uid://bu2n5cvym7bse" path="res://addons/top_down/scenes/vfx/zombie_body.tscn" id="9_3xjhw"]
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
-[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/GlobalResources/score_resource.tres" id="10_3mlgp"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="10_3mlgp"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
