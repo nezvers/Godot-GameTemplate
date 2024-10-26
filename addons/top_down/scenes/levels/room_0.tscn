@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://dksjs6yft863n"]
+[gd_scene load_steps=4 format=4 uid="uid://dksjs6yft863n"]
 
 [ext_resource type="PackedScene" uid="uid://cpjckxc4g3s0w" path="res://addons/top_down/scenes/levels/room_template.tscn" id="1_rhar3"]
 [ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="2_ajxwp"]
+[ext_resource type="Resource" uid="uid://ceuk0khv7rbvr" path="res://addons/top_down/resources/InstanceResources/player_instance_resource.tres" id="3_kaeal"]
 
 [node name="Room" instance=ExtResource("1_rhar3")]
 
@@ -40,6 +41,7 @@ tile_map_data = PackedByteArray("AAAZAPH/AAABAAEAAAAaAPH/AAABAAEAAAAbAPH/AAABAAE
 
 [node name="PlayerSpawner" parent="." index="7"]
 position = Vector2(460, 158)
+player_instance_resource = ExtResource("3_kaeal")
 
 [node name="Spawn_0" parent="EnemySpawnPoints" index="0"]
 position = Vector2(448, 13)
