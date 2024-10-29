@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=57 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="6_rnlhu"]
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://addons/top_down/resources/sounds/kill_player.tres" id="6_wov6i"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/InputResource.gd" id="7_sciut"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="8_icjqh"]
 [ext_resource type="PackedScene" uid="uid://csjmqrrduxorv" path="res://addons/top_down/scenes/vfx/player_dead.tscn" id="8_s8ofx"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="10_x7xjs"]
@@ -130,6 +131,13 @@ resource = SubResource("Resource_k8ute")
 make_unique = true
 description = "Used to control actors movement by it's input node.
 "
+
+[sub_resource type="Resource" id="Resource_or6sa"]
+resource_name = "score"
+script = ExtResource("2_20qkb")
+resource = ExtResource("8_icjqh")
+make_unique = false
+description = ""
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfelk"]
 resource_local_to_scene = true
@@ -266,7 +274,7 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="ResourceNode" parent="." index="0"]
-list = Array[ExtResource("2_20qkb")]([SubResource("Resource_y1d7o"), SubResource("Resource_3g443"), SubResource("Resource_8pyxd"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227")])
+list = Array[ExtResource("2_20qkb")]([SubResource("Resource_y1d7o"), SubResource("Resource_3g443"), SubResource("Resource_8pyxd"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_or6sa")])
 
 [node name="AreaReceiver2D" parent="." index="2"]
 collision_layer = 2
