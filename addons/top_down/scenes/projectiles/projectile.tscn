@@ -10,8 +10,8 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSolidImpact.gd" id="5_cqdyj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataTransmitter.gd" id="6_qxuc4"]
-[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="6_uars4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
+[ext_resource type="Resource" uid="uid://s3oxaww7qjgi" path="res://addons/top_down/resources/InstanceResources/vfx/impact_instance_resource.tres" id="11_27w5u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4a7g"]
 size = Vector2(4, 2)
@@ -59,7 +59,7 @@ script = ExtResource("4_v8blt")
 projectile = NodePath("..")
 data_transmitter = NodePath("../AreaTransmitter2D/DamageDataTransmitter")
 solid_impact = NodePath("../AreaTransmitter2D/SolidCollision")
-impact_parent_reference = ExtResource("6_uars4")
+impact_instance_resource = ExtResource("11_27w5u")
 
 [node name="HitLimit" type="Node" parent="." node_paths=PackedStringArray("projectile", "data_transmitter")]
 script = ExtResource("6_pkcss")
