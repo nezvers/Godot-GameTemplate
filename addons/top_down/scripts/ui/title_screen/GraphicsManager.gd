@@ -12,6 +12,7 @@ func _ready()->void:
 	graphics_resource.enable_resize_tracking(get_viewport())
 	graphics_resource.window_mode_changed.connect(update_label)
 	graphics_resource.load_resource()
+	get_tree().set_meta("graphics", graphics_resource)
 
 func toggle_fullscreen()->void:
 	graphics_resource.toggle_fullscreen()
