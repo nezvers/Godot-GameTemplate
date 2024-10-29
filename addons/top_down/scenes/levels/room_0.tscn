@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cpjckxc4g3s0w" path="res://addons/top_down/scenes/levels/room_template.tscn" id="1_rhar3"]
 [ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="2_ajxwp"]
-[ext_resource type="Resource" uid="uid://ceuk0khv7rbvr" path="res://addons/top_down/resources/InstanceResources/player_instance_resource.tres" id="3_kaeal"]
+[ext_resource type="Resource" uid="uid://ceuk0khv7rbvr" path="res://addons/top_down/resources/InstanceResources/actors/player_instance_resource.tres" id="3_kaeal"]
 
 [node name="Room" instance=ExtResource("1_rhar3")]
 

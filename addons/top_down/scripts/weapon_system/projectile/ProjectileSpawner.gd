@@ -16,12 +16,9 @@ signal prepare_spawn
 @export var axis_multiplication_resource:Vector2Resource
 ## offset distance in the direction
 @export var initial_distance:float
-## Scene from which a new projectile will be created
-@export var projectile_scene:PackedScene
+@export var projectile_instance_resource:InstanceResource
 ## Will be set for a new projectile
 @export_flags_2d_physics var collision_mask:int
-## Reference to projectile parent
-@export var projectile_parent_reference:ReferenceNodeResource
 ## Angle offsets for each projectiles
 ## No angle, no projectile
 ## Use prepare_spawn signal to manipulate spread
@@ -34,8 +31,7 @@ signal prepare_spawn
 
 
 func spawn()->void:
-	assert(projectile_scene != null, "no projectile scene assigned")
-	assert(projectile_parent_reference.node != null, "projectile parent reference isn't set")
+	assert(projectile_instance_resource != null)
 	assert(axis_multiplication_resource != null)
 	
 	if !enabled:
@@ -49,10 +45,10 @@ func spawn()->void:
 		new_damage_resource = damage_resource
 	
 	for angle:float in projectile_angles:
-		var inst:Projectile2D = projectile_scene.instantiate()
-		#var axis_compensate:Vector2 = inst.axis_multiplier / Vector2.ONE
-		inst.direction = direction.normalized().rotated(deg_to_rad(angle))
-		inst.damage_resource = new_damage_resource.new_split()
-		inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
-		inst.global_position = initial_distance * direction * axis_multiplication_resource.value + projectile_position
-		projectile_parent_reference.node.add_child(inst)
+		var _config_callback:Callable = func (inst:Projectile2D)->void:
+			inst.direction = direction.normalized().rotated(deg_to_rad(angle))
+			inst.damage_resource = new_damage_resource.new_split()
+			inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
+			inst.global_position = initial_distance * direction * axis_multiplication_resource.value + projectile_position
+		
+		var _inst:Projectile2D = projectile_instance_resource.instance(_config_callback)

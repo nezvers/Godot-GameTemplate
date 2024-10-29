@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://d1e4s216ukuhw"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_6d0tl"]
+[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="1_w6ups"]
+
+[resource]
+script = ExtResource("1_6d0tl")
+scene_path = "res://addons/top_down/scenes/projectiles/zombie_slash.tscn"
+parent_reference_resource = ExtResource("1_w6ups")
+version = 0
+not_saved = false

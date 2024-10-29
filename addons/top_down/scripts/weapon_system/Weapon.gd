@@ -9,6 +9,8 @@ signal enabled_changed
 @export_flags_2d_physics var collision_mask:int
 ## Reference to ResourceNode to access an input resource
 @export var resource_node:ResourceNode
+# TODO: Store it somewhere better and when set as active plant in users resource_node to connect the damage chain.
+# TODO: Support multiple active weapons.
 ## Used for defining projectile damage
 @export var damage_resource:DamageResource
 

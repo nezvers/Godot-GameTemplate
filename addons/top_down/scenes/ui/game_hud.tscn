@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/wave_count_resource.tres" id="5_gcfem"]
 [ext_resource type="PackedScene" uid="uid://cdfnlxijhmk2f" path="res://addons/top_down/scenes/ui/screens/pause.tscn" id="5_iipjt"]
 [ext_resource type="Resource" uid="uid://cjmecrxyvujlx" path="res://addons/top_down/resources/arena_resources/enemy_count_resource.tres" id="6_yicht"]
-[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/zomby_instance_resource.tres" id="7_i0f1q"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_i0f1q"]
 
 [node name="GameHud" type="CanvasLayer"]
 
