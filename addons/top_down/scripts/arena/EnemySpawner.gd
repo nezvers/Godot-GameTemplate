@@ -44,7 +44,10 @@ func _create_enemy()->void:
 	if _free_positions.is_empty():
 		return
 	
-	var _inst:Node2D = enemy_instance_resource.instance_2d(_free_positions.pick_random())
+	var _config_callback:Callable = func (inst:Node2D)->void:
+		inst.global_position = _free_positions.pick_random()
+	
+	var _inst:Node2D = enemy_instance_resource.instance(_config_callback)
 	_inst.tree_exiting.connect(_erase_enemy.bind(_inst))
 	allowed_count -= 1
 

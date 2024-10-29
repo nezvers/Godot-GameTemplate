@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://br6m3va43cuug" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="6_gnksn"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
-[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="7_d1e47"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
 [ext_resource type="PackedScene" uid="uid://dmskvynh1rsk" path="res://addons/top_down/scenes/projectiles/sword_projectile.tscn" id="8_1el3x"]
+[ext_resource type="Resource" uid="uid://o8teeob07t1x" path="res://addons/top_down/resources/InstanceResources/projectiles/sword_projectile_instance_resource.tres" id="10_5rio8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ssjg"]
 size = Vector2(12, 6)
@@ -137,13 +137,13 @@ autoplay = "slash"
 script = ExtResource("6_whjok")
 axis_multiplication_resource = ExtResource("6_gnksn")
 initial_distance = 10.0
-projectile_parent_reference = ExtResource("7_d1e47")
 
 [node name="SubParticleManager" type="Node" parent="." index="6" node_paths=PackedStringArray("projectile", "projectile_spawner")]
 script = ExtResource("7_n74ie")
 projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_scene = ExtResource("8_1el3x")
+start_projectile_instance_resource = ExtResource("10_5rio8")
 axis_multiplication_resource = ExtResource("6_gnksn")
 
 [node name="HitLimit" parent="." index="8"]

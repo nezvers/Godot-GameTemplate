@@ -24,29 +24,17 @@ func create_instance()->Node:
 	updated.emit()
 	return _inst
 
-func instance()->Node:
+## Pass config_callback to configure instance before it is added the scene tree
+func instance(config_callback:Callable = Callable())->Node:
 	assert(parent_reference_resource != null)
 	assert(parent_reference_resource.node != null)
 	var _inst:Node = create_instance()
+	if config_callback.is_valid():
+		config_callback.call(_inst)
 	parent_reference_resource.node.add_child(_inst)
 	return _inst
 
-func instance_2d(position:Vector2)->Node:
-	assert(parent_reference_resource != null)
-	assert(parent_reference_resource.node != null)
-	var _inst:Node = create_instance()
-	_inst.global_position = position
-	parent_reference_resource.node.add_child(_inst)
-	return _inst
-
-func instance_3d(position:Vector3)->Node:
-	assert(parent_reference_resource != null)
-	assert(parent_reference_resource.node != null)
-	var _inst:Node3D = create_instance()
-	_inst.global_position = position
-	parent_reference_resource.node.add_child(_inst)
-	return _inst
-
+## Remove from active instance list
 func erase(node:Node)->void:
 	instance_list.erase(node)
 	updated.emit()

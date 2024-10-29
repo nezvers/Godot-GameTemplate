@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/wave_count_resource.tres" id="4_w1qwr"]
 [ext_resource type="Resource" uid="uid://cjmecrxyvujlx" path="res://addons/top_down/resources/arena_resources/enemy_count_resource.tres" id="5_o2pmf"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemySpawner.gd" id="6_lu2ax"]
-[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/zomby_instance_resource.tres" id="7_0xbol"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_0xbol"]
 [ext_resource type="Resource" uid="uid://ct10qlb66mijl" path="res://addons/top_down/resources/arena_resources/spawn_point_resource.tres" id="7_82w7a"]
 
 [node name="EnemyManager" type="Node"]

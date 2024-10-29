@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://ghnv48d18ftl"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_xioje"]
-[ext_resource type="PackedScene" uid="uid://b0dctopmkjml8" path="res://addons/top_down/scenes/projectiles/shotgun_bullet.tscn" id="2_6w2s8"]
 [ext_resource type="Texture2D" uid="uid://dob8uix80gqww" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="2_hrbvp"]
 [ext_resource type="Resource" uid="uid://dlkgtlk8nau36" path="res://addons/top_down/resources/DamageResource/shotgun_damage.tres" id="2_te3cg"]
+[ext_resource type="Resource" uid="uid://f7qtvi0nk5sx" path="res://addons/top_down/resources/InstanceResources/projectiles/shotgun_bullet_instance_resource.tres" id="5_yypu2"]
 
 [node name="Shotgun" instance=ExtResource("1_xioje")]
 damage_resource = ExtResource("2_te3cg")
@@ -18,7 +18,7 @@ kickback_strength = 60.0
 interval = 0.75
 
 [node name="ProjectileSpawner" parent="." index="4"]
-projectile_scene = ExtResource("2_6w2s8")
+projectile_instance_resource = ExtResource("5_yypu2")
 projectile_angles = Array[float]([0.0, -20.0, 20.0, -10.0, 10.0])
 
 [node name="SpreadShot" parent="ProjectileSpawner" index="0"]

@@ -17,7 +17,9 @@ func _ready()->void:
 		on_player_scene_entry.call_deferred()
 		return
 	
-	var _player:Node2D = player_instance_resource.instance_2d(global_position)
+	var _config_callback:Callable = func (inst:Node2D)->void:
+		inst.global_position = global_position
+	var _player:Node2D = player_instance_resource.instance(_config_callback)
 
 func on_player_scene_entry()->void:
 	assert(scene_transition_resource.entry_match != null)
