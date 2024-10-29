@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://8bb4nowy77nt"]
+[gd_scene load_steps=7 format=3 uid="uid://8bb4nowy77nt"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_134lv"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="3_qjp3e"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_over_screen/score_component.gd" id="4_0xj0i"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="4_wi5q1"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="9_ldwnv"]
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="10_djt0l"]
@@ -28,6 +30,12 @@ scene_path = "res://addons/top_down/scenes/ui/screens/title.tscn"
 script = ExtResource("4_wi5q1")
 music_name = "game_over"
 
+[node name="ScoreComponent" type="Node" parent="." node_paths=PackedStringArray("score_label", "try_again_button")]
+script = ExtResource("4_0xj0i")
+score_resource = ExtResource("3_qjp3e")
+score_label = NodePath("../MarginContainer/Control/Header/ScoreLabel")
+try_again_button = NodePath("../MarginContainer/Control/Body/Menu/TryAgain/Button")
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -48,7 +56,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Label" type="Label" parent="MarginContainer/Control/Header"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/Control/Header"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -63,6 +71,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "Game Over"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/Control/Header"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 44.0
+offset_right = 48.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "Score: 69"
 horizontal_alignment = 1
 
 [node name="Body" type="MarginContainer" parent="MarginContainer/Control"]
