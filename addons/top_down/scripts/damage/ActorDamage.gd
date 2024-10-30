@@ -7,8 +7,7 @@ extends Node
 @export var flash_animation:StringName
 @export var sound_resource_damage:SoundResource
 @export var sound_resource_dead:SoundResource
-@export var dead_vfx_scene:PackedScene
-@export var dead_vfx_parent_path:NodePath
+@export var dead_vfx_instance_resource:InstanceResource
 
 func _ready()->void:
 	
@@ -27,10 +26,9 @@ func _ready()->void:
 		_health_resource.damaged.connect(sound_resource_damage.play_managed)
 
 func play_dead()->void:
-	var vfx_inst:Node2D = dead_vfx_scene.instantiate()
-	var vfx_parent:Node2D = get_node(dead_vfx_parent_path)
-	vfx_parent.add_child(vfx_inst)
-	vfx_inst.global_position = owner.global_position
-	vfx_inst.scale.x = sprite_flip.dir
-	# RestartScene in level calls for scene restart
+	var _config_callback:Callable = func (inst:Node2D)->void:
+		inst.global_position = owner.global_position
+		inst.scale.x = sprite_flip.dir
+	
+	dead_vfx_instance_resource.instance(_config_callback)
 	owner.queue_free()

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://h86cdxneli8u"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_2sqlh"]
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_73nrf"]
+
+[resource]
+resource_name = "zombie dead"
+script = ExtResource("1_2sqlh")
+scene_path = "res://addons/top_down/scenes/vfx/zombie_body.tscn"
+parent_reference_resource = ExtResource("1_73nrf")
+version = 0
+not_saved = false
