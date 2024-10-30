@@ -27,6 +27,7 @@ enabled = false
 collision_mask = 9
 
 [node name="TileNavigationGetter" type="Line2D" parent="."]
+visible = false
 width = 1.0
 script = ExtResource("2_kpufw")
 astargrid_resource = ExtResource("3_54ctl")

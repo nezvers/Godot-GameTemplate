@@ -304,10 +304,11 @@ dead_vfx_scene = ExtResource("8_s8ofx")
 [node name="ItemDrop" parent="." index="12"]
 asset_list = SubResource("Resource_ahfgc")
 
-[node name="PlayerInput" type="Node" parent="." index="13" node_paths=PackedStringArray("mover")]
+[node name="PlayerInput" type="Node" parent="." index="13" node_paths=PackedStringArray("position_node", "resource_node")]
 script = ExtResource("4_uihqc")
-mover = NodePath("../MoverTopDown2D")
+position_node = NodePath("..")
 aim_offset = Vector2(0, 8)
+resource_node = NodePath("../ResourceNode")
 
 [node name="WeaponManager" type="Node2D" parent="." index="14" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_hpc12")

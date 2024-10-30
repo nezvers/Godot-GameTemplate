@@ -265,7 +265,7 @@ libraries = {
 "": SubResource("AnimationLibrary_tbujk")
 }
 
-[node name="MoverTopDown2D" type="Node2D" parent="." node_paths=PackedStringArray("character", "resource_node")]
+[node name="MoverTopDown2D" type="Node" parent="." node_paths=PackedStringArray("character", "resource_node")]
 script = ExtResource("5_3rf64")
 character = NodePath("..")
 axis_multiplier_resource = ExtResource("14_7u4bv")
@@ -275,9 +275,9 @@ resource_node = NodePath("../ResourceNode")
 script = ExtResource("14_gnke1")
 resource_node = NodePath("../ResourceNode")
 
-[node name="SpriteFlip" type="Node" parent="." node_paths=PackedStringArray("mover_2d", "flip_node")]
+[node name="SpriteFlip" type="Node" parent="." node_paths=PackedStringArray("resource_node", "flip_node")]
 script = ExtResource("8_7uvby")
-mover_2d = NodePath("../MoverTopDown2D")
+resource_node = NodePath("../ResourceNode")
 flip_node = NodePath("../Body")
 
 [node name="CharacterStates" type="Node" parent="." node_paths=PackedStringArray("resource_node", "animation_player")]
