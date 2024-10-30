@@ -1,5 +1,5 @@
 class_name MoverTopDown2D
-extends Node2D
+extends Node
 
 ## Way to disable functionality at _ready
 @export var enabled:bool = true
