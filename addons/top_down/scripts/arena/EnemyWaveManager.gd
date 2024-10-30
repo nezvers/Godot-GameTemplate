@@ -3,6 +3,7 @@ extends Node
 @export var fight_mode_resource:BoolResource
 @export var wave_count_resource:IntResource
 @export var enemy_count_resource:IntResource
+@export var enemy_manager:EnemyManager
 
 func _ready()->void:
 	assert(fight_mode_resource != null)
@@ -18,7 +19,7 @@ func _ready()->void:
 	tree_exiting.connect(fight_mode_resource.set_value.bind(false))
 
 func on_fight_mode_true()->void:
-	wave_count_resource.set_value(3)
+	wave_count_resource.set_value(enemy_manager.wave_setup.size())
 
 func on_wave_count_changed()->void:
 	if wave_count_resource.value == 0:
@@ -26,7 +27,7 @@ func on_wave_count_changed()->void:
 		return
 	
 	# TODO: have some rule of enemy count & strength spawning
-	enemy_count_resource.set_value(10)
+	enemy_count_resource.set_value(enemy_manager.wave_setup.pop_front())
 
 func on_enemy_count_changed()->void:
 	if fight_mode_resource.value == false:

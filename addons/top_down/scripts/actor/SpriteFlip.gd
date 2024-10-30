@@ -15,6 +15,7 @@ var input_resource:InputResource
 
 func _ready()->void:
 	input_resource = resource_node.get_resource("input")
+	assert(input_resource != null)
 
 func _process(_delta:float)->void:
 	var new_dir:int
