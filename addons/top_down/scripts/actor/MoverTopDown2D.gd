@@ -44,7 +44,7 @@ func add_impulse(impulse:Vector2)->void:
 
 ## Calculate impulse Vector2 for delta time amount
 func get_impulse(velocity:Vector2, target_velocity:Vector2, acceleration:float, delta:float)->Vector2:
-	var direction:Vector2 = target_velocity - character.velocity 
+	var direction:Vector2 = target_velocity - velocity 
 	var distance:float = direction.length()
 	acceleration = delta * acceleration
 	var ratio:float = 0

@@ -12,11 +12,12 @@
 [node name="EnemyManager" type="Node"]
 script = ExtResource("1_agrht")
 
-[node name="EnemyWaveManager" type="Node" parent="."]
+[node name="EnemyWaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_manager")]
 script = ExtResource("2_8cllb")
 fight_mode_resource = ExtResource("3_tnluv")
 wave_count_resource = ExtResource("4_w1qwr")
 enemy_count_resource = ExtResource("5_o2pmf")
+enemy_manager = NodePath("..")
 
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource("6_lu2ax")

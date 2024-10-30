@@ -16,6 +16,8 @@ func set_enabled(value:bool)->void:
 
 func _ready()->void:
 	input_resource = resource_node.get_resource("input")
+	assert(input_resource != null)
+	
 	# Read input before mover
 	process_physics_priority -= 1
 	set_enabled(enabled)
