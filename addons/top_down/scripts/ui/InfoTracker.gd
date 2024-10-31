@@ -40,7 +40,7 @@ func update_health_label()->void:
 	health_label.text = "HP: " + str(health_resource.hp)
 
 func update_fight_mode_label()->void:
-	fight_mode_label.text = "Fight Mode: " + "ON" if fight_mode_resource.value else "OFF"
+	fight_mode_label.text = "Fight Mode: " + ("ON" if fight_mode_resource.value else "OFF")
 
 func update_wave_count_label()->void:
 	wave_count_label.text = "Waves: " + str(wave_count_resource.value)
