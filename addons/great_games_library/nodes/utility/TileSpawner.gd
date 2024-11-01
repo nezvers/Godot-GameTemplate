@@ -10,6 +10,7 @@ var tiles:Array[Vector2i]
 var has_data:bool
 
 func _ready()->void:
+	assert(parent_reference != null)
 	# Cache custom data names to later check if exist
 	var _tile_data_count:int = tilemap_layer.tile_set.get_custom_data_layers_count()
 	tile_data_names.resize(_tile_data_count)
@@ -45,4 +46,4 @@ func _on_parent_updated()->void:
 		var _pos:Vector2 = tilemap_layer.map_to_local(_tile_pos)
 		var _instance:Node2D = _scene.instantiate()
 		_instance.global_position = _pos
-		parent_reference.node.add_child(_instance)
+		parent_reference.node.add_child.call_deferred(_instance)

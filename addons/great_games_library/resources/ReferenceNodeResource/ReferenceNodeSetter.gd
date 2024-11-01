@@ -23,10 +23,4 @@ func _ready()->void:
 	if reference_resource == null:
 		return
 	
-	if !reference_node.is_node_ready():
-		reference_node.ready.connect(set_reference_node, CONNECT_ONE_SHOT)
-	else:
-		set_reference_node()
-
-func set_reference_node()->void:
 	reference_resource.set_reference(reference_node, until_tree_exit)

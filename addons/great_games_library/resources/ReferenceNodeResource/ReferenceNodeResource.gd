@@ -19,7 +19,7 @@ func set_reference(value:Node, until_exit:bool = true)->void:
 	for callback in listeners:
 		callback.call()
 	if value != null && until_exit:
-		value.tree_exited.connect(remove_reference.bind(node), CONNECT_ONE_SHOT)
+		value.tree_exiting.connect(remove_reference.bind(node), CONNECT_ONE_SHOT)
 	updated.emit()
 
 
