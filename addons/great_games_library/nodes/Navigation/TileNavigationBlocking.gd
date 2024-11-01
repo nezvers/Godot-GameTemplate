@@ -18,7 +18,7 @@ var tiles:Array[Vector2i]
 func _ready()-> void:
 	assert(astargrid_resource != null)
 	astargrid_resource.updated.connect(setup_obstacles)
-	setup_obstacles()
+	setup_obstacles.call_deferred()
 	tree_exiting.connect(cleanup)
 	astargrid_resource.cleanup_event.connect(cleanup)
 
