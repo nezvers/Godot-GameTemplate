@@ -14,7 +14,7 @@ var scene:PackedScene
 ## Collect references of all active instances
 var instance_list:Array[Node]
 
-func create_instance()->Node:
+func _create_instance()->Node:
 	if scene == null:
 		scene = load(scene_path)
 		assert(scene != null)
@@ -28,7 +28,7 @@ func create_instance()->Node:
 func instance(config_callback:Callable = Callable())->Node:
 	assert(parent_reference_resource != null)
 	assert(parent_reference_resource.node != null)
-	var _inst:Node = create_instance()
+	var _inst:Node = _create_instance()
 	if config_callback.is_valid():
 		config_callback.call(_inst)
 	parent_reference_resource.node.add_child(_inst)

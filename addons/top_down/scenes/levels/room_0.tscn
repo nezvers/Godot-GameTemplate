@@ -43,6 +43,9 @@ tile_map_data = PackedByteArray("AAAZAPH/AAABAAEAAAAaAPH/AAABAAEAAAAbAPH/AAABAAE
 position = Vector2(460, 158)
 player_instance_resource = ExtResource("3_kaeal")
 
+[node name="EnemyManager" parent="." index="8"]
+wave_setup = Array[int]([10, 10, 10])
+
 [node name="Spawn_0" parent="EnemySpawnPoints" index="0"]
 position = Vector2(448, 13)
 

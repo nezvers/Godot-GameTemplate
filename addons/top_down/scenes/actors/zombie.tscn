@@ -12,9 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="7_tyqu3"]
 [ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://addons/top_down/resources/sounds/kill_zombie.tres" id="7_uiw1f"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/AddPoint.gd" id="9_3rsmj"]
-[ext_resource type="PackedScene" uid="uid://bu2n5cvym7bse" path="res://addons/top_down/scenes/vfx/zombie_body.tscn" id="9_3xjhw"]
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="10_3mlgp"]
+[ext_resource type="Resource" uid="uid://h86cdxneli8u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_dead_instance_resource.tres" id="12_bo37y"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -232,7 +232,7 @@ libraries = {
 
 [node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("7_uiw1f")
-dead_vfx_scene = ExtResource("9_3xjhw")
+dead_vfx_instance_resource = ExtResource("12_bo37y")
 
 [node name="ZombieInput" parent="." index="13" node_paths=PackedStringArray("resource_node") instance=ExtResource("9_4t8nd")]
 resource_node = NodePath("../ResourceNode")
