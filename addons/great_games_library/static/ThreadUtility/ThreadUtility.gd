@@ -1,7 +1,7 @@
 class_name ThreadUtility
 extends Node
 
-## Load next scene from path using a thread
+## Load a resource from path using a thread
 static func load_resource(path:String, receive_callback:Callable)->void:
 	# create thread function to load resource and shut down the tread
 	var _tread_load:Callable = func (path:String, callback:Callable, thread:Thread)->PackedScene:

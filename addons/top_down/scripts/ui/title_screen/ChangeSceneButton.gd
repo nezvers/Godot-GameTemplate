@@ -11,5 +11,7 @@ func pressed()->void:
 	# Avoid triggering multiple times
 	# Deffered because this function is called by that signal
 	button.pressed.disconnect.call_deferred(pressed)
+	
 	#get_tree().change_scene_to_file(scene_path)
-	ThreadUtility.load_resource(scene_path, get_tree().change_scene_to_packed)
+	#ThreadUtility.load_resource(scene_path, get_tree().change_scene_to_packed)
+	Transition.change_scene(scene_path)

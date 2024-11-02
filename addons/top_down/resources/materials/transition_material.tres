@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dfinp0iie47mi"]
+
+[ext_resource type="Shader" path="res://addons/top_down/resources/materials/transition.gdshader" id="1_p1h5q"]
+
+[resource]
+shader = ExtResource("1_p1h5q")
+shader_parameter/progress = 0.0
+shader_parameter/meltiness = 1.0
