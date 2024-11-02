@@ -4,20 +4,22 @@ extends CanvasLayer
 @export var texture_rect:TextureRect
 @export var transition_time:float = 1.0
 
-var game_resolution:Vector2i
 var tween:Tween
 
 func _ready()->void:
 	visible = false
-	game_resolution = get_viewport().content_scale_size
 
 func change_scene(path:String)->void:
 	# wait for rendering everything on a screen
 	await RenderingServer.frame_post_draw
 	
+	var _game_resolution:Vector2i = get_viewport().content_scale_size
+	var _viewport_size:Vector2i = get_viewport().size
+	var _multiply:float = _game_resolution.y / float(_viewport_size.y)
+	
 	# get texture from the screen
 	var _image:Image = get_viewport().get_texture().get_image()
-	_image.resize(game_resolution.x, game_resolution.y, Image.INTERPOLATE_NEAREST)
+	_image.resize(int(ceil(_viewport_size.x * _multiply)), _game_resolution.y, Image.INTERPOLATE_NEAREST)
 	var _image_texture:ImageTexture = ImageTexture.create_from_image(_image)
 	texture_rect.texture = _image_texture
 	
