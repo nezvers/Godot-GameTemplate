@@ -32,4 +32,5 @@ func on_player_scene_entry()->void:
 
 func on_scene_transition()->void:
 	player_instance_resource.parent_reference_resource.node.remove_child(player_reference.node)
-	get_tree().change_scene_to_file(scene_transition_resource.next_scene_path)
+	#get_tree().change_scene_to_file(scene_transition_resource.next_scene_path)
+	ThreadUtility.load_resource(scene_transition_resource.next_scene_path, get_tree().change_scene_to_packed)
