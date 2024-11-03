@@ -49,4 +49,4 @@ func update_enemy_count_label()->void:
 	enemy_count_label.text = "Remaining Enemies: " + str(enemy_count_resource.value)
 
 func update_active_count_label()->void:
-	active_count_label.text = "Active: " + str(enemy_instance_resource.instance_list.size())
+	active_count_label.text = "Active: " + str(enemy_instance_resource.active_list.size())

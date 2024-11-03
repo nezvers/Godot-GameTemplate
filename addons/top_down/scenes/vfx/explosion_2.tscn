@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw0gpcyk41btb"]
+[gd_scene load_steps=5 format=3 uid="uid://bw0gpcyk41btb"]
 
 [ext_resource type="Texture2D" uid="uid://b6bvrfadduy3d" path="res://addons/top_down/assets/images/vfx/explosion_2_strip5.png" id="1_5k0yd"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_f3t0f"]
 
 [sub_resource type="Animation" id="Animation_3bcbr"]
 resource_name = "animate"
@@ -20,7 +21,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("PoolNode")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -28,7 +29,7 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"queue_free"
+"method": &"pool_return"
 }]
 }
 
@@ -49,3 +50,8 @@ libraries = {
 "": SubResource("AnimationLibrary_qqpok")
 }
 autoplay = "animate"
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "animation_player_list")]
+script = ExtResource("2_f3t0f")
+ready_nodes = [NodePath("../AnimationPlayer")]
+animation_player_list = [NodePath("../AnimationPlayer")]

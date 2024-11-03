@@ -85,3 +85,7 @@ hit_limit = -1
 
 [node name="ProjectileLifetime" parent="." index="6"]
 time = 0.25
+
+[node name="PoolNode" parent="." index="7" node_paths=PackedStringArray("ready_nodes", "animation_player_list")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
+animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]

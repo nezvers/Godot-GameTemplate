@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c6ys2qs8aeu8n"]
+[gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_lwexf"]
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="6_gnksn"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
-[ext_resource type="PackedScene" uid="uid://dmskvynh1rsk" path="res://addons/top_down/scenes/projectiles/sword_projectile.tscn" id="8_1el3x"]
 [ext_resource type="Resource" uid="uid://o8teeob07t1x" path="res://addons/top_down/resources/InstanceResources/projectiles/sword_projectile_instance_resource.tres" id="10_5rio8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ssjg"]
@@ -142,7 +141,6 @@ initial_distance = 10.0
 script = ExtResource("7_n74ie")
 projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
-start_projectile_scene = ExtResource("8_1el3x")
 start_projectile_instance_resource = ExtResource("10_5rio8")
 axis_multiplication_resource = ExtResource("6_gnksn")
 
@@ -151,3 +149,8 @@ hit_limit = -1
 
 [node name="ProjectileLifetime" parent="." index="9"]
 time = 0.27
+
+[node name="PoolNode" parent="." index="10" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
+animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
+particle2d_list = [NodePath("../RotatedNode/TrailParticle")]
