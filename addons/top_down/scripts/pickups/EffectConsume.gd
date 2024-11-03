@@ -5,7 +5,7 @@ extends Node
 @export var animation_player:AnimationPlayer
 @export var fade_out_animation:StringName = "fade_out"
 @export var sounds_resource:SoundResource
-@export var free_node:Node
+@export var pool_node:PoolNode
 
 func _ready()->void:
 	data_transmitter.success.connect(on_success, CONNECT_ONE_SHOT)
@@ -16,5 +16,5 @@ func on_success()->void:
 	animation_player.animation_finished.connect(remove, CONNECT_ONE_SHOT)
 
 func remove(_anim:StringName = "")->void:
-	if free_node != null:
-		free_node.queue_free()
+	if pool_node != null:
+		pool_node.pool_return()

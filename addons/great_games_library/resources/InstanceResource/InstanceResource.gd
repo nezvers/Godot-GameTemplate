@@ -31,13 +31,11 @@ func _create_instance()->Node:
 	var _node:Node = scene.instantiate()
 	active_list.append(_node)
 	
-	
 	if _node.has_node("PoolNode"):
 		var _pool_node:PoolNode = _node.get_node("PoolNode")
 		_pool_node.pool_requested.connect(_return_to_pool.bind(_node))
-	else:
-		_node.tree_exiting.connect(_erase.bind(_node))
 	
+	_node.tree_exiting.connect(_erase.bind(_node))
 	updated.emit()
 	return _node
 
