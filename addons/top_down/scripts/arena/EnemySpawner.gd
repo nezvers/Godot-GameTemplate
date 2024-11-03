@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 		return
 	if allowed_count < 1:
 		return
-	if enemy_instance_resource.instance_list.size() >= max_active_count:
+	if enemy_instance_resource.active_list.size() >= max_active_count:
 		return
 	
 	_create_enemy()
@@ -60,7 +60,7 @@ func _filter_free_position(position:Vector2)->bool:
 	const FREE_DISTANCE:float = 10.0 * 10.0
 	
 	var _closest_dist:float = 999999.0
-	for inst:Node2D in enemy_instance_resource.instance_list:
+	for inst:Node2D in enemy_instance_resource.active_list:
 		# for finding closest length_squared is great, since it is faster without using square root.
 		var _inst_dist:float = (inst.global_position - position).length_squared()
 		if _inst_dist < _closest_dist:

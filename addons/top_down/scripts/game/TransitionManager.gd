@@ -37,7 +37,8 @@ func scene_loaded(scene:PackedScene)->void:
 	if tween != null:
 		tween.kill()
 	tween = create_tween()
-	tween.tween_method(transition_progress, 0.0, 1.0, transition_time).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	# small delay to remove weird stutter
+	tween.tween_method(transition_progress, 0.0, 1.0, transition_time).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
 	tween.finished.connect(set_visible.bind(false))
 
 func transition_progress(t:float)->void:

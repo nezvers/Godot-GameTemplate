@@ -18,6 +18,7 @@ signal prepare_exit_event
 @export_flags_2d_physics var collision_mask:int
 ## When `prepare_exit()` is called automatically call `queue_free()`
 @export var auto_free:bool = true
+@export var pool_node:PoolNode
 
 var move_direction:Vector2
 
@@ -39,4 +40,4 @@ func prepare_exit()->void:
 
 ## created to call from Tween, Timer, AnimationPlayer or anything else
 func remove()->void:
-	queue_free()
+	pool_node.pool_return()

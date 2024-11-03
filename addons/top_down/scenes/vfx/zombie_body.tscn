@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bu2n5cvym7bse"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_uohpc"]
-[ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://addons/top_down/resources/materials/color_flash.material" id="2_d5kjl"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="3_lydny"]
 [ext_resource type="Texture2D" uid="uid://cegdmdkhfv76l" path="res://addons/top_down/assets/images/characters/zombie_16x16_strip8.png" id="5_pym8g"]
 
 [sub_resource type="Animation" id="Animation_48kfv"]
@@ -41,18 +41,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../..:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_2ygqc"]
@@ -107,7 +95,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../..")
+tracks/4/path = NodePath("../../../PoolNode")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -115,7 +103,7 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"queue_free"
+"method": &"stop_animation"
 }]
 }
 
@@ -130,22 +118,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/blend")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -158,22 +134,10 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/blend")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.500001, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
@@ -193,11 +157,11 @@ modulate = Color(0.0196078, 0.0352941, 0.0784314, 0.454902)
 texture = ExtResource("1_uohpc")
 
 [node name="Body" type="Node2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
 
 [node name="Stretch" type="Node2D" parent="Body"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Body/Stretch"]
-material = ExtResource("2_d5kjl")
 position = Vector2(0, -8)
 texture = ExtResource("5_pym8g")
 hframes = 8
@@ -212,3 +176,8 @@ autoplay = "died"
 libraries = {
 "": SubResource("AnimationLibrary_tbujk")
 }
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "animation_player_list")]
+script = ExtResource("3_lydny")
+ready_nodes = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")]
+animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
