@@ -128,3 +128,4 @@ time = 0.4
 ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle")]
 animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
 particle2d_list = [NodePath("../RotatedNode/TrailParticle")]
+debug = true

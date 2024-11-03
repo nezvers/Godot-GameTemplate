@@ -3,8 +3,11 @@ extends Node
 
 signal pool_requested
 
+## Mark nodes to trigger _ready() every time scene is added to the tree
 @export var ready_nodes:Array[Node]
+## AnimationPlayers that needs to be stopped and autoplay aniation played each time entering the tree
 @export var animation_player_list:Array[AnimationPlayer]
+## GPUParticles2D that has to be reset every time entering tree and remove previous particles from memory
 @export var particle2d_list:Array[GPUParticles2D]
 
 func pool_return()->void:
