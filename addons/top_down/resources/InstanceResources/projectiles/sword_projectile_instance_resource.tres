@@ -7,5 +7,4 @@
 script = ExtResource("1_uheix")
 scene_path = "res://addons/top_down/scenes/projectiles/sword_projectile.tscn"
 parent_reference_resource = ExtResource("1_u4ap8")
-version = 0
-not_saved = false
+debug = true

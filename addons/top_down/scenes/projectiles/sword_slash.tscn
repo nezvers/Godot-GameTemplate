@@ -151,6 +151,6 @@ hit_limit = -1
 time = 0.27
 
 [node name="PoolNode" parent="." index="10" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
-ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../SubParticleManager"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle")]
 animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
 particle2d_list = [NodePath("../RotatedNode/TrailParticle")]
