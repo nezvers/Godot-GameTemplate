@@ -75,4 +75,4 @@ projectile = NodePath("..")
 
 [node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes")]
 script = ExtResource("13_40h1t")
-ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation")]
