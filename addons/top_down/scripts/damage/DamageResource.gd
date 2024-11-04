@@ -81,6 +81,10 @@ func process(resource_node:ResourceNode)->void:
 	hit_list.append(resource_node.owner)
 	_health_resource.add_hp( -get_total_damage() )
 	
+	# TODO: need a dedicated receiver data exchange
+	# Used for showing received damage points
+	_health_resource.damage_data.emit(self)
+	
 	var _push_resource:PushResource = resource_node.get_resource("push")
 	if _push_resource != null:
 		_push_resource.add_impulse(direction * kickback_strength)

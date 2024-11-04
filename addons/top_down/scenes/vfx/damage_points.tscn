@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cub8dbj1w1gk"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamagePoints.gd" id="1_tj76g"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_hgvc1"]
+
+[node name="Damagepoints" type="Node2D" node_paths=PackedStringArray("label", "pool_node")]
+script = ExtResource("1_tj76g")
+label = NodePath("Label")
+pool_node = NodePath("PoolNode")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.5
+offset_top = -4.5
+offset_right = 3.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "69"
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes")]
+script = ExtResource("2_hgvc1")
+ready_nodes = [NodePath(".."), NodePath("../Label")]
