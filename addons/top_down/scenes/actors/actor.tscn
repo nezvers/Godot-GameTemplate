@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -23,7 +23,9 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTrigger.gd" id="16_f6cga"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleDeath.gd" id="18_634cs"]
+[ext_resource type="Resource" uid="uid://xbek2osd7l4w" path="res://addons/top_down/resources/InstanceResources/vfx/damage_points_instance_resource.tres" id="22_nljy0"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="22_yjx3l"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_oudld"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -312,3 +314,8 @@ root_node = NodePath("..")
 drop_parent_reference = ExtResource("22_yjx3l")
 resource_node = NodePath("../ResourceNode")
 asset_list = SubResource("Resource_mslt1")
+
+[node name="DamageDisplay" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("26_oudld")
+resource_node = NodePath("../ResourceNode")
+damage_points_instance_resource = ExtResource("22_nljy0")

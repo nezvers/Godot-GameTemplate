@@ -10,7 +10,6 @@ extends Node
 @export var dead_vfx_instance_resource:InstanceResource
 
 func _ready()->void:
-	
 	var _health_resource:HealthResource = resource_node.get_resource("health")
 	_health_resource.damaged.connect(flash_animation_player.stop)
 	_health_resource.damaged.connect(flash_animation_player.play.bind(flash_animation))
@@ -30,5 +29,5 @@ func play_dead()->void:
 		inst.global_position = owner.global_position
 		inst.scale.x = sprite_flip.dir
 	
-	dead_vfx_instance_resource.instance(_config_callback)
+	dead_vfx_instance_resource.instance.call_deferred(_config_callback)
 	owner.queue_free()

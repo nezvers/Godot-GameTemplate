@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://xbek2osd7l4w"]
+
+[ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="1_adrs0"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_y73ce"]
+
+[resource]
+script = ExtResource("1_y73ce")
+scene_path = "res://addons/top_down/scenes/vfx/damage_points.tscn"
+parent_reference_resource = ExtResource("1_adrs0")
