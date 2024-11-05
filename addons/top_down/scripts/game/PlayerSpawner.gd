@@ -17,6 +17,14 @@ func _ready()->void:
 		on_player_scene_entry.call_deferred()
 		return
 	
+	if player_instance_resource.scene != null:
+		_player_loaded()
+		return
+	
+	player_instance_resource.scene_changed.connect(_player_loaded, CONNECT_ONE_SHOT)
+	player_instance_resource.preload_scene()
+
+func _player_loaded()->void:
 	var _config_callback:Callable = func (inst:Node2D)->void:
 		inst.global_position = global_position
 	var _player:Node2D = player_instance_resource.instance(_config_callback)
@@ -33,6 +41,4 @@ func on_player_scene_entry()->void:
 func on_scene_transition()->void:
 	player_instance_resource.parent_reference_resource.node.remove_child(player_reference.node)
 	
-	#get_tree().change_scene_to_file(scene_transition_resource.next_scene_path)
-	#ThreadUtility.load_resource(scene_transition_resource.next_scene_path, get_tree().change_scene_to_packed)
 	Transition.change_scene(scene_transition_resource.next_scene_path)

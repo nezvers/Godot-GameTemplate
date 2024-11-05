@@ -4,8 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_a7s1b"]
 
 [resource]
+resource_name = "Shotgun bullet"
 script = ExtResource("2_a7s1b")
 scene_path = "res://addons/top_down/scenes/projectiles/shotgun_bullet.tscn"
 parent_reference_resource = ExtResource("1_0i56k")
-version = 0
-not_saved = false

@@ -4,7 +4,7 @@ extends Node
 @export var root_node:Node2D
 @export var drop_parent_reference:ReferenceNodeResource
 @export var resource_node:ResourceNode
-@export var asset_list:StringArrayResource
+@export var drop_instance_resources:Array[InstanceResource]
 @export var drop_chance:float = 0.1
 
 func _ready()->void:
@@ -15,13 +15,12 @@ func _ready()->void:
 	_health_resource.dead.connect(on_death)
 
 func on_death()->void:
-	if asset_list.value.is_empty():
+	if drop_instance_resources.is_empty():
 		return
-	if randf() > 0.1:
+	if randf() > drop_chance:
 		return
-	var drop_position:Vector2 = root_node.global_position
-	var path:String = asset_list.value.pick_random()
-	var scene:PackedScene = load(path)
-	var inst:Node2D = scene.instantiate()
-	inst.global_position = drop_position
-	drop_parent_reference.node.add_child.call_deferred(inst)
+	
+	var _drop_instance_resource:InstanceResource = drop_instance_resources.pick_random()
+	var _config_callback:Callable = func (inst:Node2D)->void:
+		inst.global_position = root_node.global_position
+	_drop_instance_resource.instance(_config_callback)

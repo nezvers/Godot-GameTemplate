@@ -62,7 +62,7 @@ save_button_button = NodePath("../MarginContainer/Control/Body/GraphicsMenu/Back
 [node name="NewGameComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("3_6qnpd")
 button = NodePath("../MarginContainer/Control/Body/TitleMenu/NewGame/Button")
-scene_path = "res://addons/top_down/scenes/levels/room_0.tscn"
+scene_path = "res://addons/top_down/scenes/levels/room_start.tscn"
 
 [node name="QuitComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("3_uv64m")

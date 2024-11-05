@@ -8,5 +8,3 @@ resource_name = "player dead vfx"
 script = ExtResource("1_nxhfi")
 scene_path = "res://addons/top_down/scenes/vfx/player_dead.tscn"
 parent_reference_resource = ExtResource("1_egu03")
-version = 0
-not_saved = false

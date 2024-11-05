@@ -19,7 +19,7 @@ color = Color(0.0065, 0, 0.03, 1)
 [node name="TryAgainComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("9_ldwnv")
 button = NodePath("../MarginContainer/Control/Body/Menu/TryAgain/Button")
-scene_path = "res://addons/top_down/scenes/levels/room_0.tscn"
+scene_path = "res://addons/top_down/scenes/levels/room_start.tscn"
 
 [node name="MainMenuComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("9_ldwnv")

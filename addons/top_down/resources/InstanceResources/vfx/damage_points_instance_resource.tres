@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_y73ce"]
 
 [resource]
+resource_name = "Damage points vfx"
 script = ExtResource("1_y73ce")
 scene_path = "res://addons/top_down/scenes/vfx/damage_points.tscn"
 parent_reference_resource = ExtResource("1_adrs0")
