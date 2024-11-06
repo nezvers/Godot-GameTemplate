@@ -5,7 +5,7 @@ extends Node
 @export var drop_parent_reference:ReferenceNodeResource
 @export var resource_node:ResourceNode
 @export var drop_instance_resources:Array[InstanceResource]
-@export var drop_chance:float = 0.1
+@export var drop_chance:float = 1.0
 
 func _ready()->void:
 	assert(drop_parent_reference != null)
@@ -20,7 +20,8 @@ func on_death()->void:
 	if randf() > drop_chance:
 		return
 	
-	var _drop_instance_resource:InstanceResource = drop_instance_resources.pick_random()
 	var _config_callback:Callable = func (inst:Node2D)->void:
 		inst.global_position = root_node.global_position
+	
+	var _drop_instance_resource:InstanceResource = drop_instance_resources.pick_random()
 	_drop_instance_resource.instance(_config_callback)

@@ -17,14 +17,6 @@ func _ready()->void:
 		on_player_scene_entry.call_deferred()
 		return
 	
-	if player_instance_resource.scene != null:
-		_player_loaded()
-		return
-	
-	player_instance_resource.scene_changed.connect(_player_loaded, CONNECT_ONE_SHOT)
-	player_instance_resource.preload_scene()
-
-func _player_loaded()->void:
 	var _config_callback:Callable = func (inst:Node2D)->void:
 		inst.global_position = global_position
 	var _player:Node2D = player_instance_resource.instance(_config_callback)

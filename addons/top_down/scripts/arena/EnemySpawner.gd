@@ -20,13 +20,7 @@ func _ready()->void:
 	set_process(fight_mode_resource.value)
 	tree_exiting.connect(cleanup)
 	
-	if enemy_instance_resource.scene != null:
-		setup_active_count.call_deferred()
-		return
-	
-	# Preload with threads
-	enemy_instance_resource.scene_changed.connect(setup_active_count, CONNECT_ONE_SHOT)
-	enemy_instance_resource.preload()
+	setup_active_count.call_deferred()
 
 func setup_active_count()->void:
 	max_active_count = spawn_point_resource.position_list.size()
