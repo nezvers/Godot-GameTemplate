@@ -5,7 +5,7 @@ extends Node
 @export var drop_parent_reference:ReferenceNodeResource
 @export var resource_node:ResourceNode
 @export var drop_instance_resources:Array[InstanceResource]
-@export var drop_chance:float = 1.0
+@export var drop_chance:float = 0.1
 
 func _ready()->void:
 	assert(drop_parent_reference != null)
