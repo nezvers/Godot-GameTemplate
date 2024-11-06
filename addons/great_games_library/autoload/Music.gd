@@ -13,7 +13,7 @@ func pause_changed()->void:
 
 func start(song_name:String)->void:
 	if !music_playlist.value.has(song_name):
-		printerr("Music Manager: No song with a name - ", song_name)
+		printerr("Music [INFO]: No song with a name - ", song_name)
 		return
 	
 	var music_path:String = music_playlist.value[song_name]
@@ -21,13 +21,13 @@ func start(song_name:String)->void:
 		if !playing:
 			start_music()
 		return
-	print("Music Manager: start - ", song_name, ": ", music_path)
+	print("Music [INFO]: start - ", song_name, ": ", music_path)
 	load_play(music_path)
 
 func load_play(path:String)->void:
 	var music_stream:AudioStream = load(path)
 	if music_stream == null:
-		printerr("MusicManager: music stream didn't load - ", path)
+		printerr("Music [INFO]: music stream didn't load - ", path)
 		return
 	## To bypass need to enable loop for each music.
 	## And allow not to include .import files in git

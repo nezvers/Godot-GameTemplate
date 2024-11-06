@@ -29,7 +29,7 @@ func preload_scene(use_thread:bool = true)->void:
 
 func set_scene(value:PackedScene)->void:
 	scene = value
-	print("InstanceResource [INFO]: loaded ", resource_name)
+	#print("InstanceResource [INFO]: loaded ", resource_name)
 	scene_changed.emit()
 
 func _create_instance()->Node:
