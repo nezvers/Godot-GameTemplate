@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @export var texture_rect:TextureRect
 @export var transition_time:float = 1.0
+@export var bool_resource:BoolResource
 
 var tween:Tween
 
@@ -10,6 +11,7 @@ func _ready()->void:
 	visible = false
 
 func change_scene(path:String)->void:
+	bool_resource.set_value(true)
 	# wait for rendering everything on a screen
 	RenderingServer.frame_post_draw.connect(_post_draw.bind(path), CONNECT_ONE_SHOT)
 
@@ -41,7 +43,11 @@ func scene_loaded(scene:PackedScene)->void:
 	tween = create_tween()
 	# small delay to remove weird stutter
 	tween.tween_method(transition_progress, 0.0, 1.0, transition_time).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
-	tween.finished.connect(set_visible.bind(false))
+	tween.finished.connect(transition_finished)
 
 func transition_progress(t:float)->void:
 	(texture_rect.material as ShaderMaterial).set_shader_parameter("progress", t)
+
+func transition_finished()->void:
+	visible = false
+	bool_resource.set_value(false)

@@ -9,7 +9,7 @@ extends Node
 ## If not empty it will overwrite resource.
 @export var reference_resource_path:String
 ## Initializes only if node is able to process in a tree
-@export var process_only:bool = true
+@export var process_only:bool = false
 ## Reference is removed when node exits tree
 @export var until_tree_exit:bool = true
 
@@ -20,7 +20,6 @@ func _ready()->void:
 	if !reference_resource_path.is_empty():
 		reference_resource = load(reference_resource_path)
 	
-	if reference_resource == null:
-		return
+	assert(reference_resource != null)
 	
 	reference_resource.set_reference(reference_node, until_tree_exit)

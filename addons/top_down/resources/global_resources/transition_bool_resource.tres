@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BoolResource" load_steps=2 format=3 uid="uid://df4nqpa0at8qn"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="1_yejyg"]
+
+[resource]
+resource_name = "Transition bool Resource"
+script = ExtResource("1_yejyg")
+value = false
+default_value = false
+version = 0
+not_saved = false
