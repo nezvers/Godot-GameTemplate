@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://8fmycery7url"]
+[gd_scene load_steps=15 format=3 uid="uid://8fmycery7url"]
 
 [ext_resource type="PackedScene" uid="uid://bm0cdv63uc8am" path="res://addons/top_down/scenes/pickups/pickup.tscn" id="1_1ysqb"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/HealthTransmision.gd" id="3_7bghr"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AnimationHelper/AnimationHelper.gd" id="5_c4f4r"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/EffectConsume.gd" id="6_t3qtp"]
 [ext_resource type="Resource" uid="uid://ctthh78bun1bh" path="res://addons/top_down/resources/sounds/health_pickup.tres" id="7_hgu74"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="9_afyrw"]
 
 [sub_resource type="Resource" id="Resource_1euvd"]
 script = ExtResource("3_7bghr")
@@ -175,6 +174,20 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(-8, -16), Vector2(-8, -23)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../PoolNode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.666667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"pool_return"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_irtbk"]
 resource_name = "idle"
@@ -238,6 +251,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_sqyfq")
 
 [node name="Visuals" type="Node2D" parent="." index="2"]
+scale = Vector2(0.75, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals" index="0"]
 modulate = Color(0.831373, 0.117647, 0.235294, 1)
@@ -258,12 +272,12 @@ next/fade_in = &"fade_in"
 script = ExtResource("5_c4f4r")
 animation_player = NodePath("..")
 
-[node name="EffectConsume" type="Node" parent="." index="3" node_paths=PackedStringArray("data_transmitter", "animation_player", "pool_node")]
+[node name="EffectConsume" type="Node" parent="." index="3" node_paths=PackedStringArray("data_transmitter", "animation_player")]
 script = ExtResource("6_t3qtp")
 data_transmitter = NodePath("../AreaTransmitter2D/HealthDataTransmitter")
 animation_player = NodePath("../Visuals/Sprite2D/AnimationPlayer")
 sounds_resource = ExtResource("7_hgu74")
-pool_node = NodePath("../PoolNode")
 
-[node name="PoolNode" type="Node" parent="." index="4"]
-script = ExtResource("9_afyrw")
+[node name="PoolNode" parent="." index="4" node_paths=PackedStringArray("ready_nodes", "animation_player_list")]
+ready_nodes = [NodePath("../Visuals/Sprite2D/AnimationPlayer")]
+animation_player_list = [NodePath("../Visuals/Sprite2D/AnimationPlayer")]

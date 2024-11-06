@@ -7,5 +7,5 @@ func set_enabled(value:bool)->void:
 	enabled = value
 
 func _ready()->void:
-	monitorable = false
+	set_monitorable.call(false)
 	process_mode = PROCESS_MODE_ALWAYS

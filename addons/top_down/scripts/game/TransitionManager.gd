@@ -11,8 +11,9 @@ func _ready()->void:
 
 func change_scene(path:String)->void:
 	# wait for rendering everything on a screen
-	await RenderingServer.frame_post_draw
-	
+	RenderingServer.frame_post_draw.connect(_post_draw.bind(path), CONNECT_ONE_SHOT)
+
+func _post_draw(path:String)->void:
 	var _game_resolution:Vector2i = get_viewport().content_scale_size
 	var _viewport_size:Vector2i = get_viewport().size
 	var _multiply:float = _game_resolution.y / float(_viewport_size.y)
@@ -27,6 +28,7 @@ func change_scene(path:String)->void:
 	visible = true
 	transition_progress(0.0)
 	
+	# TODO: refactor to start loading as soon as possible, but need solid workaround for race conditions
 	ThreadUtility.load_resource(path, scene_loaded)
 
 ## Set transition in motion

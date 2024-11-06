@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm0cdv63uc8am"]
+[gd_scene load_steps=4 format=3 uid="uid://bm0cdv63uc8am"]
 
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="1_f2oe8"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_6pm6i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mte7y"]
 size = Vector2(8, 4)
@@ -15,3 +16,6 @@ script = ExtResource("1_f2oe8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaTransmitter2D"]
 shape = SubResource("RectangleShape2D_mte7y")
+
+[node name="PoolNode" type="Node" parent="."]
+script = ExtResource("2_6pm6i")

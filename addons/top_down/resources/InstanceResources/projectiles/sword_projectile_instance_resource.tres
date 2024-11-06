@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_uheix"]
 
 [resource]
+resource_name = "Sword projectile"
 script = ExtResource("1_uheix")
 scene_path = "res://addons/top_down/scenes/projectiles/sword_projectile.tscn"
 parent_reference_resource = ExtResource("1_u4ap8")
-debug = true

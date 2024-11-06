@@ -8,5 +8,3 @@ resource_name = "zombie dead"
 script = ExtResource("1_2sqlh")
 scene_path = "res://addons/top_down/scenes/vfx/zombie_body.tscn"
 parent_reference_resource = ExtResource("1_73nrf")
-version = 0
-not_saved = false

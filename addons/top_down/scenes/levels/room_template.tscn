@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=26 format=3 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_wnxyp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PauseComponent.gd" id="13_13yuj"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/global_resources/pause_resource.tres" id="14_6pg65"]
+[ext_resource type="Resource" uid="uid://ceuk0khv7rbvr" path="res://addons/top_down/resources/InstanceResources/actors/player_instance_resource.tres" id="14_bk0b2"]
 [ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="15_j5kfh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
@@ -62,7 +63,6 @@ collision_layer = 9
 script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("6_qdsw2")
-debug = true
 
 [node name="Front" type="Node2D" parent="."]
 
@@ -82,6 +82,7 @@ editor_draw_screen = false
 position = Vector2(195, 150)
 script = ExtResource("11_7u3rc")
 player_reference = ExtResource("12_wnxyp")
+player_instance_resource = ExtResource("14_bk0b2")
 scene_transition_resource = ExtResource("15_j5kfh")
 
 [node name="EnemyManager" parent="." instance=ExtResource("12_iiw1i")]

@@ -4,8 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_xwbfh"]
 
 [resource]
+resource_name = "Gun bullet"
 script = ExtResource("1_xwbfh")
 scene_path = "res://addons/top_down/scenes/projectiles/bullet.tscn"
 parent_reference_resource = ExtResource("1_k1jnb")
-version = 0
-not_saved = false

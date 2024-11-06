@@ -20,11 +20,12 @@
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="14_7u4bv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="14_gnke1"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/StringArrayResource.gd" id="15_loiow"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTrigger.gd" id="16_f6cga"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleDeath.gd" id="18_634cs"]
 [ext_resource type="Resource" uid="uid://xbek2osd7l4w" path="res://addons/top_down/resources/InstanceResources/vfx/damage_points_instance_resource.tres" id="22_nljy0"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="22_yjx3l"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="24_qvwru"]
+[ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="25_bssfp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_oudld"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
@@ -201,12 +202,6 @@ _data = {
 "flash": SubResource("Animation_tledj")
 }
 
-[sub_resource type="Resource" id="Resource_mslt1"]
-script = ExtResource("15_loiow")
-value = Array[String](["res://addons/top_down/scenes/pickups/health_pickup.tscn"])
-version = 0
-not_saved = false
-
 [node name="Actor" type="CharacterBody2D"]
 floor_stop_on_slope = false
 floor_constant_speed = true
@@ -313,7 +308,7 @@ script = ExtResource("14_b0amg")
 root_node = NodePath("..")
 drop_parent_reference = ExtResource("22_yjx3l")
 resource_node = NodePath("../ResourceNode")
-asset_list = SubResource("Resource_mslt1")
+drop_instance_resources = Array[ExtResource("24_qvwru")]([ExtResource("25_bssfp")])
 
 [node name="DamageDisplay" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("26_oudld")

@@ -4,8 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_jxt5v"]
 
 [resource]
+resource_name = "Sword slash"
 script = ExtResource("2_jxt5v")
 scene_path = "res://addons/top_down/scenes/projectiles/sword_slash.tscn"
 parent_reference_resource = ExtResource("1_qricd")
-version = 0
-not_saved = false

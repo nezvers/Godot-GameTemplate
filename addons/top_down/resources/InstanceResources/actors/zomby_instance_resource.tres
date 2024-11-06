@@ -8,5 +8,3 @@ resource_name = "Zomby instance resource"
 script = ExtResource("2_t77ta")
 scene_path = "res://addons/top_down/scenes/actors/zombie.tscn"
 parent_reference_resource = ExtResource("1_iku44")
-version = 0
-not_saved = false

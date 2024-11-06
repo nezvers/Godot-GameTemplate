@@ -4,8 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_6v160"]
 
 [resource]
+resource_name = "Impact vfx"
 script = ExtResource("1_6v160")
 scene_path = "res://addons/top_down/scenes/vfx/explosion_0.tscn"
 parent_reference_resource = ExtResource("1_2womj")
-version = 0
-not_saved = false
