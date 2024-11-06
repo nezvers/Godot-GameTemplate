@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/InfoTracker.gd" id="1_4rtxu"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="2_i7k27"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/PauseComponent.gd" id="3_fbsvt"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://addons/top_down/resources/health_resource/player_health.tres" id="3_mc5ua"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/global_resources/pause_resource.tres" id="4_4g1vf"]
 [ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="4_bm84l"]
@@ -10,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cdfnlxijhmk2f" path="res://addons/top_down/scenes/ui/screens/pause.tscn" id="5_iipjt"]
 [ext_resource type="Resource" uid="uid://cjmecrxyvujlx" path="res://addons/top_down/resources/arena_resources/enemy_count_resource.tres" id="6_yicht"]
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_i0f1q"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/VisibilityComponent.gd" id="10_lso8u"]
 
 [node name="GameHud" type="CanvasLayer"]
 
@@ -64,12 +64,11 @@ wave_count_label = NodePath("../VBoxContainer/WaveCount")
 enemy_count_label = NodePath("../VBoxContainer/EnemyCount")
 active_count_label = NodePath("../VBoxContainer/ActiveCount")
 
-[node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("pause_show_list", "pause_hide_list")]
-script = ExtResource("3_fbsvt")
-pause_value_resource = ExtResource("4_4g1vf")
-pause_show_list = [NodePath("../Pause")]
-pause_hide_list = [NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer/HealthLabel")]
-paused_state = 4
+[node name="VisibilityComponent" type="Node" parent="." node_paths=PackedStringArray("show_list", "hide_list")]
+script = ExtResource("10_lso8u")
+bool_resource = ExtResource("4_4g1vf")
+show_list = [NodePath("../Pause")]
+hide_list = [NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer/HealthLabel"), NodePath("../VBoxContainer/FightMode"), NodePath("../VBoxContainer/WaveCount"), NodePath("../VBoxContainer/EnemyCount"), NodePath("../VBoxContainer/ActiveCount")]
 
 [node name="Pause" parent="." instance=ExtResource("5_iipjt")]
 visible = false

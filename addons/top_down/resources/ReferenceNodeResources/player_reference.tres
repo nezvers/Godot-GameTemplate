@@ -4,3 +4,4 @@
 
 [resource]
 script = ExtResource("1_n0bh7")
+debug = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=55 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="10_x7xjs"]
 [ext_resource type="PackedScene" uid="uid://ghnv48d18ftl" path="res://addons/top_down/scenes/weapons/shotgun.tscn" id="11_nnusp"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/StringArrayResource.gd" id="11_p0b7h"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="11_r4axh"]
 [ext_resource type="PackedScene" uid="uid://cmmx82t54wble" path="res://addons/top_down/scenes/weapons/sword.tscn" id="12_gom0h"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_l6ujm"]
@@ -225,12 +224,6 @@ _data = {
 "walk": SubResource("Animation_wmkbr")
 }
 
-[sub_resource type="Resource" id="Resource_ahfgc"]
-script = ExtResource("11_p0b7h")
-value = Array[String]([])
-version = 0
-not_saved = false
-
 [sub_resource type="Animation" id="Animation_3p56v"]
 length = 0.001
 tracks/0/type = "value"
@@ -300,9 +293,6 @@ enabled = false
 [node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("6_wov6i")
 dead_vfx_instance_resource = ExtResource("12_yuaod")
-
-[node name="ItemDrop" parent="." index="12"]
-asset_list = SubResource("Resource_ahfgc")
 
 [node name="PlayerInput" type="Node" parent="." index="13" node_paths=PackedStringArray("position_node", "resource_node")]
 script = ExtResource("4_uihqc")

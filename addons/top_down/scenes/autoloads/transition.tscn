@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxj12cduwftxm"]
+[gd_scene load_steps=7 format=3 uid="uid://bxj12cduwftxm"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/TransitionManager.gd" id="1_b8a2a"]
 [ext_resource type="Material" uid="uid://dfinp0iie47mi" path="res://addons/top_down/resources/materials/transition_material.tres" id="2_ha7dd"]
+[ext_resource type="Resource" uid="uid://df4nqpa0at8qn" path="res://addons/top_down/resources/global_resources/transition_bool_resource.tres" id="2_m4tfm"]
 
 [sub_resource type="Animation" id="Animation_y5efb"]
 length = 0.001
@@ -44,6 +45,7 @@ _data = {
 layer = 5
 script = ExtResource("1_b8a2a")
 texture_rect = NodePath("TextureRect")
+bool_resource = ExtResource("2_m4tfm")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = ExtResource("2_ha7dd")
