@@ -19,9 +19,14 @@ func _ready()->void:
 func on_input_update()->void:
 	shape_cast.force_shapecast_update()
 	if shape_cast.is_colliding():
-		target_count = shape_cast.get_collision_count()
-		for i:int in target_count:
-			target_list[i] = shape_cast.get_collider(i)
+		target_count = 0
+		var _collision_count:int = shape_cast.get_collision_count()
+		for i:int in _collision_count:
+			var _collider:PhysicsBody2D = shape_cast.get_collider(i)
+			if _collider is StaticBody2D:
+				continue
+			target_list[i] = _collider
+			target_count += 1
 	else:
 		target_count = 0
 	closest = GameMath.get_closest_node_2d(bot_input.global_position, target_list, target_count)

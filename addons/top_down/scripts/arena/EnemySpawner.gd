@@ -18,15 +18,16 @@ func _ready()->void:
 	fight_mode_resource.changed_true.connect(set_process.bind(true))
 	fight_mode_resource.changed_false.connect(set_process.bind(false))
 	set_process(fight_mode_resource.value)
-	tree_exiting.connect(cleanup)
+	tree_exiting.connect(_cleanup)
 	
-	setup_active_count.call_deferred()
+	_setup_active_count.call_deferred()
 
-func setup_active_count()->void:
+func _setup_active_count()->void:
+	# TODO: best not to limit to spawn point count, maybe sum of enemy threat value
 	max_active_count = spawn_point_resource.position_list.size()
 	allowed_count = max_active_count
 
-func cleanup()->void:
+func _cleanup()->void:
 	spawn_point_resource.position_list.clear()
 
 func _process(delta: float) -> void:

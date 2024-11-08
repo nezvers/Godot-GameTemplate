@@ -10,18 +10,16 @@ func _ready()->void:
 	assert(wave_count_resource != null)
 	assert(enemy_count_resource != null)
 	
-	fight_mode_resource.changed_true.connect(on_fight_mode_true)
-	wave_count_resource.updated.connect(on_wave_count_changed)
-	enemy_count_resource.updated.connect(on_enemy_count_changed)
-	
-	# TODO: create propper wave starting with some kind of event
-	get_tree().process_frame.connect(fight_mode_resource.set_value.bind(true), CONNECT_ONE_SHOT)
-	tree_exiting.connect(fight_mode_resource.set_value.bind(false))
+	fight_mode_resource.changed_true.connect(_on_fight_mode_true) # Setup 1
+	wave_count_resource.updated.connect(_on_wave_count_changed) # Setup 2
+	enemy_count_resource.updated.connect(_on_enemy_count_changed) # Setup 3
 
-func on_fight_mode_true()->void:
+# Setup 1
+func _on_fight_mode_true()->void:
 	wave_count_resource.set_value(enemy_manager.wave_setup.size())
 
-func on_wave_count_changed()->void:
+# Setup 2
+func _on_wave_count_changed()->void:
 	if wave_count_resource.value == 0:
 		fight_mode_resource.set_value(false)
 		return
@@ -29,7 +27,8 @@ func on_wave_count_changed()->void:
 	# TODO: have some rule of enemy count & strength spawning
 	enemy_count_resource.set_value(enemy_manager.wave_setup.pop_front())
 
-func on_enemy_count_changed()->void:
+# Setup 3
+func _on_enemy_count_changed()->void:
 	if fight_mode_resource.value == false:
 		return
 	if wave_count_resource.value == 0:

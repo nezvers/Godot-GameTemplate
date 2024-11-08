@@ -26,10 +26,11 @@ collision_mask = 2
 enabled = false
 collision_mask = 9
 
-[node name="TileNavigationGetter" type="Line2D" parent="."]
+[node name="TileNavigationGetter" type="Line2D" parent="." node_paths=PackedStringArray("position_node")]
 visible = false
 width = 1.0
 script = ExtResource("2_kpufw")
+position_node = NodePath("..")
 astargrid_resource = ExtResource("3_54ctl")
 reached_distance = 2.0
 

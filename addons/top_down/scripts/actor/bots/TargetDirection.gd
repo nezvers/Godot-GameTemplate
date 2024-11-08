@@ -79,4 +79,4 @@ func navigation_update()->void:
 	var ratio:float = (retarget_distance) / max(moved_direction.length(), 1.0)
 	navigation_cooldown = min(ratio, 5.0)
 	last_target_position = target_finder.closest.global_position
-	tile_navigation.get_target_path(bot_input.global_position, last_target_position)
+	tile_navigation.get_target_path(last_target_position)
