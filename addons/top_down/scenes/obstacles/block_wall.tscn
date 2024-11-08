@@ -1,0 +1,126 @@
+[gd_scene load_steps=9 format=3 uid="uid://cm475mndno581"]
+
+[ext_resource type="Texture2D" uid="uid://doqtqyumyses8" path="res://addons/top_down/assets/images/misc/block_strip4.png" id="1_bk066"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/obstackles/ArenaDoorBlock.gd" id="2_ljggu"]
+[ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/arena_resources/obstacle_astargrid_resource.tres" id="3_on1cq"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="4_r1cw6"]
+
+[sub_resource type="Animation" id="Animation_xato0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_55fo7"]
+resource_name = "turn_off"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dgum3"]
+resource_name = "turn_on"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dwvqo"]
+_data = {
+"RESET": SubResource("Animation_xato0"),
+"turn_off": SubResource("Animation_55fo7"),
+"turn_on": SubResource("Animation_dgum3")
+}
+
+[node name="BlockWall" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("1_bk066")
+hframes = 4
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 7)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dwvqo")
+}
+
+[node name="ArenaDoorBlock" type="Node" parent="." node_paths=PackedStringArray("position_node", "animation_player")]
+script = ExtResource("2_ljggu")
+astargrid_resource = ExtResource("3_on1cq")
+fight_bool_resource = ExtResource("4_r1cw6")
+position_node = NodePath("..")
+animation_player = NodePath("../AnimationPlayer")
+animation_on = &"turn_on"
+animation_off = &"turn_off"

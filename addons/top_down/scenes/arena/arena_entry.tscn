@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://crddbd0tmxp5p"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/ArenaStarter.gd" id="1_561xe"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="2_v54f2"]
+
+[node name="ArenaEntry" type="Area2D"]
+
+[node name="ArenaStarter" type="Node" parent="." node_paths=PackedStringArray("area")]
+script = ExtResource("1_561xe")
+fight_mode = ExtResource("2_v54f2")
+area = NodePath("..")

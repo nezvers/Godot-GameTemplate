@@ -73,5 +73,6 @@ func _erase(node:Node)->void:
 
 func _return_to_pool(node:Node)->void:
 	active_list.erase(node)
-	pool_list.append(node)
+	
+	node.tree_exited.connect(pool_list.append.call_deferred.bind(node), CONNECT_ONE_SHOT)
 	parent_reference_resource.node.remove_child.call_deferred(node)

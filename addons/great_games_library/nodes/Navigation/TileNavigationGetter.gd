@@ -1,7 +1,7 @@
 class_name TileNavigationGetter
 extends Line2D
 
-
+@export var position_node:Node2D
 @export var astargrid_resource:AstarGridResource
 ## How close to be to a point to look up next one
 @export var reached_distance:float = 6.0
@@ -17,11 +17,12 @@ func set_finish_reached(value:bool)->void:
 	finish_reached = value
 
 func _ready()->void:
+	## To draw lines without moving them
 	top_level = true
 	global_position = Vector2.ZERO
 
-func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
-	var _from_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(from)
+func get_target_path(to:Vector2)->PackedVector2Array:
+	var _from_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(position_node.global_position)
 	var _to_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(to)
 	navigation_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile)
 	tile_path = astargrid_resource.value.get_id_path(_from_tile, _to_tile)
@@ -40,7 +41,7 @@ func get_target_path(from:Vector2, to:Vector2)->PackedVector2Array:
 ##
 func get_next_path_position(from:Vector2)->Vector2:
 	if navigation_path.is_empty():
-		return closest_point
+		return position_node.global_position
 	
 	## TODO: add corner avoidance steering
 	closest_point = navigation_path[index]

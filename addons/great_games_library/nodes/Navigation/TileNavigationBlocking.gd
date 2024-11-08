@@ -6,6 +6,8 @@ extends Node
 @export var tilemap_layer:TileMapLayer
 @export var astargrid_resource:AstarGridResource
 @export var obstacle_shape:Shape2D
+## Custom tile data name of PackedVector2Array for collider offsets
+@export var data_name:String = "collider_offset"
 @export_flags_2d_physics var collision_layer:int
 @export_flags_2d_physics var collision_mask:int
 
@@ -26,8 +28,6 @@ func _ready()-> void:
 func setup_obstacles()->void:
 	if astargrid_resource.value == null:
 		return
-	var _tilemap_rect:Rect2i = tilemap_layer.get_used_rect()
-	var _astar_rect:Rect2i = astargrid_resource.value.region
 	var _astar:AStarGrid2D = astargrid_resource.value
 	
 	# Cache custom data names to later check if exist
@@ -35,7 +35,11 @@ func setup_obstacles()->void:
 	tile_data_names.resize(_tile_data_count)
 	for i:int in _tile_data_count:
 		tile_data_names[i] = tilemap_layer.tile_set.get_custom_data_layer_name(i)
-	var _has_offset:bool = tile_data_names.has("collider_offset")
+	var _has_offset:bool = tile_data_names.has(data_name)
+	
+	# TileSet doesn't contain offset data
+	if _has_offset == false:
+		return
 	
 	tiles = tilemap_layer.get_used_cells()
 	var _space:RID = tilemap_layer.get_world_2d().space
@@ -48,9 +52,7 @@ func setup_obstacles()->void:
 		var _tile_data:TileData = tilemap_layer.get_cell_tile_data(_tile_pos)
 		var _offset_list:PackedVector2Array
 		if _has_offset:
-			_offset_list = _tile_data.get_custom_data("collider_offset")
-		else:
-			_offset_list = PackedVector2Array([Vector2.ZERO])
+			_offset_list = _tile_data.get_custom_data(data_name)
 		
 		for _offset:Vector2 in _offset_list:
 			var _tile_pos_off:Vector2i = _tile_pos + Vector2i(_offset)

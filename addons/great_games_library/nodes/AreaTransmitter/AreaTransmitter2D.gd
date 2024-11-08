@@ -7,5 +7,7 @@ func set_enabled(value:bool)->void:
 	enabled = value
 
 func _ready()->void:
-	set_monitorable.call(false)
 	process_mode = PROCESS_MODE_ALWAYS
+	
+	# BUG: https://github.com/godotengine/godot/issues/17238
+	#set_monitorable.call_deferred(false)
