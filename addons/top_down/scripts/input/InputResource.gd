@@ -11,7 +11,7 @@ signal switch_weapon(dir:int)
 ## Used for movement direction
 @export var axis:Vector2
 ## Used for shooting or interaction
-@export var action:bool
+@export var action_1:bool
 ## Used for shooting or interaction
 @export var action_2:bool
 ## Used for aiming attacks
@@ -37,9 +37,9 @@ func set_aim_direction(value:Vector2)->void:
 
 ## Setter function for action input
 func set_action(value:bool)->void:
-	if value && !action:
+	if value && !action_1:
 		action_pressed.emit()
-	action = value
+	action_1 = value
 
 ## Setter function for action input
 func set_action_2(value:bool)->void:

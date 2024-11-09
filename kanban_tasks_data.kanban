@@ -11,7 +11,16 @@
 			"uuid": "ed797cac-3c98-43ce-bdfd-b503f3fe384b",
 			"title": "Features",
 			"tasks": [
-				"a5b31bad-1666-4183-9126-e94fe512886c"
+				"a5b31bad-1666-4183-9126-e94fe512886c",
+				"75151243-f415-4a97-9824-e08ec6ba9cb7",
+				"c83e05df-800b-4a07-a2dd-9baec83c3380",
+				"720dc01a-3934-425a-931a-a1f86298c9ca",
+				"d356a173-8caa-48f2-80f2-213bfec73bc3",
+				"93adc641-53c0-4d53-833e-64874674d9ec",
+				"a5896df6-3b93-44d2-b2c7-a23320379a72",
+				"b3d2c00b-d634-441e-8532-5cec9d7b630e",
+				"e0c111db-26db-4dcd-b42f-0b510f08f23e",
+				"3985bd17-a40d-4eff-a3b2-7db8f7eab2e8"
 			]
 		},
 		{
@@ -53,6 +62,69 @@
 		{
 			"uuid": "7a7fed89-413e-42e1-8c0e-7674e1214fcc",
 			"title": "Weapon sprite positions",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "75151243-f415-4a97-9824-e08ec6ba9cb7",
+			"title": "Gamepad support",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "c83e05df-800b-4a07-a2dd-9baec83c3380",
+			"title": "Key rebinding",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "720dc01a-3934-425a-931a-a1f86298c9ca",
+			"title": "Weapon UI representation",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "93adc641-53c0-4d53-833e-64874674d9ec",
+			"title": "Thrown projectiles",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "a5896df6-3b93-44d2-b2c7-a23320379a72",
+			"title": "Ricochet projectiles",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "b3d2c00b-d634-441e-8532-5cec9d7b630e",
+			"title": "Raycast projectile travel",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "e0c111db-26db-4dcd-b42f-0b510f08f23e",
+			"title": "Boomerang weapon/projectiles",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "d356a173-8caa-48f2-80f2-213bfec73bc3",
+			"title": "Assault weapon",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "3985bd17-a40d-4eff-a3b2-7db8f7eab2e8",
+			"title": "Projectile bounce enemies",
 			"description": "",
 			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
 			"steps": []

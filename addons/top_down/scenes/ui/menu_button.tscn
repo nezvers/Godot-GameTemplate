@@ -24,4 +24,3 @@ text = "Name"
 script = ExtResource("2_v6vgl")
 button = NodePath("../Button")
 label = NodePath("../Label")
-hover_time = 0.5

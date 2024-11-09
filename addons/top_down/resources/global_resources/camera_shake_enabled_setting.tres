@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="BoolResource" load_steps=2 format=3 uid="uid://cfiqp0ihqeupw"]
 
-[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="1_u70nk"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="1_56us2"]
 
 [resource]
 resource_name = "Camera shake enabled"
-script = ExtResource("1_u70nk")
+script = ExtResource("1_56us2")
 value = true
 default_value = false
 version = 0

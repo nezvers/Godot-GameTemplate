@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="1_iwsv1"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/CameraShakeResource/CameraShakeResource.gd" id="2_cayog"]
-[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://addons/top_down/resources/global_resources/enabled_settings.tres" id="2_hdsul"]
+[ext_resource type="Resource" uid="uid://cfiqp0ihqeupw" path="res://addons/top_down/resources/global_resources/camera_shake_enabled_setting.tres" id="2_oopnb"]
 [ext_resource type="Resource" uid="uid://blem3ysrttsws" path="res://addons/top_down/resources/CameraResources/tween_camera_shake.tres" id="3_nmm4h"]
 
 [sub_resource type="Curve" id="Curve_iasph"]
@@ -24,4 +24,4 @@ angleFrom = 0.0
 angleto = 360.0
 camera_reference = ExtResource("1_iwsv1")
 tween_resource = ExtResource("3_nmm4h")
-enabled_settings = ExtResource("2_hdsul")
+enabled_settings = ExtResource("2_oopnb")

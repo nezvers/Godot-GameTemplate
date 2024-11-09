@@ -1,0 +1,128 @@
+[gd_resource type="Resource" script_class="ActionResource" load_steps=28 format=3 uid="uid://dsk5usbvnbqi3"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/ActionResource.gd" id="2_l8ve6"]
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_o2r8r"]
+button_index = 1
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_kvkii"]
+axis = 5
+axis_value = 1.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_mkil7"]
+device = -1
+physical_keycode = 32
+unicode = 32
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_jgtq7"]
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_hbdx6"]
+axis = 3
+axis_value = 1.0
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_j4qc5"]
+axis = 2
+axis_value = -1.0
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_0caww"]
+axis = 2
+axis_value = 1.0
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_gu1c6"]
+axis = 3
+axis_value = -1.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_ipjwq"]
+device = -1
+physical_keycode = 83
+unicode = 115
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_i7jyu"]
+button_index = 12
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_lhstd"]
+axis = 1
+axis_value = 1.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_ia23q"]
+physical_keycode = 65
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_6tgeg"]
+button_index = 13
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_l0j2u"]
+axis_value = -1.0
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_a3yv8"]
+button_index = 5
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_fomrv"]
+button_index = 10
+
+[sub_resource type="InputEventKey" id="InputEventKey_wijca"]
+device = -1
+physical_keycode = 4194305
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_dybf3"]
+button_index = 6
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_i0857"]
+button_index = 4
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_nnb3g"]
+button_index = 9
+
+[sub_resource type="InputEventKey" id="InputEventKey_vrv1b"]
+device = -1
+physical_keycode = 68
+unicode = 100
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_fwwbt"]
+button_index = 14
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_kyauw"]
+axis_value = 1.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_dbamb"]
+device = -1
+physical_keycode = 87
+unicode = 119
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_i5ayl"]
+button_index = 11
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_mmebg"]
+axis = 1
+axis_value = -1.0
+
+[resource]
+resource_name = "Game Input Actions"
+script = ExtResource("2_l8ve6")
+pause_action = &"Pause"
+pause_inputs = Array[InputEvent]([SubResource("InputEventKey_wijca"), SubResource("InputEventJoypadButton_dybf3")])
+left_action = &"Move left"
+left_inputs = Array[InputEvent]([SubResource("InputEventKey_ia23q"), SubResource("InputEventJoypadButton_6tgeg"), SubResource("InputEventJoypadMotion_l0j2u")])
+right_action = &"Move right"
+right_inputs = Array[InputEvent]([SubResource("InputEventKey_vrv1b"), SubResource("InputEventJoypadButton_fwwbt"), SubResource("InputEventJoypadMotion_kyauw")])
+up_action = &"Move up"
+up_inputs = Array[InputEvent]([SubResource("InputEventKey_dbamb"), SubResource("InputEventJoypadButton_i5ayl"), SubResource("InputEventJoypadMotion_mmebg")])
+down_action = &"Move down"
+down_inputs = Array[InputEvent]([SubResource("InputEventKey_ipjwq"), SubResource("InputEventJoypadButton_i7jyu"), SubResource("InputEventJoypadMotion_lhstd")])
+aim_left_action = &"Aim left"
+aim_left_inputs = Array[InputEvent]([SubResource("InputEventJoypadMotion_j4qc5")])
+aim_right_action = &"Aim right"
+aim_right_inputs = Array[InputEvent]([SubResource("InputEventJoypadMotion_0caww")])
+aim_up_action = &"Aim up"
+aim_up_inputs = Array[InputEvent]([SubResource("InputEventJoypadMotion_gu1c6")])
+aim_down_action = &"Aim down"
+aim_down_inputs = Array[InputEvent]([SubResource("InputEventJoypadMotion_hbdx6")])
+action_1_action = &"Shoot"
+action_1_inputs = Array[InputEvent]([SubResource("InputEventMouseButton_o2r8r"), SubResource("InputEventJoypadMotion_kvkii")])
+action_2_action = &"Dash"
+action_2_inputs = Array[InputEvent]([SubResource("InputEventKey_mkil7"), SubResource("InputEventJoypadButton_jgtq7")])
+next_action = &"Next"
+next_inputs = Array[InputEvent]([SubResource("InputEventMouseButton_a3yv8"), SubResource("InputEventJoypadButton_fomrv")])
+previous_action = &"Previous"
+previous_inputs = Array[InputEvent]([SubResource("InputEventMouseButton_i0857"), SubResource("InputEventJoypadButton_nnb3g")])
+version = 0
+not_saved = false
