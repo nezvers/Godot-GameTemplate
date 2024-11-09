@@ -1,6 +1,7 @@
 class_name PausingManager
 extends Node
 
+@export var action_resource:ActionResource
 @export var pause_bool_resource:BoolResource
 @export var pause_root:CanvasItem
 @export var resume_button:Button
@@ -15,22 +16,13 @@ func _ready()->void:
 	tree_exiting.connect(pause_bool_resource.set_value.bind(false))
 
 func _input(event:InputEvent)->void:
-	if event.is_action_released("pause_game"):
+	if event.is_action_released(action_resource.pause_action):
 		if pause_bool_resource.value == false:
 			pause_bool_resource.set_value(true)
 		elif menu_traverse_manager.directory_resource.selected_directory == NodePath("."):
 			pause_bool_resource.set_value(false)
 		else:
 			menu_traverse_manager.back()
-		return
-	if pause_bool_resource.value == false:
-		return
-	if event.is_action_released("ui_cancel"):
-		if menu_traverse_manager.directory_resource.selected_directory != NodePath("."):
-			menu_traverse_manager.back()
-		else:
-			pause_bool_resource.set_value(false)
-		return
 
 func resume()->void:
 	pause_bool_resource.set_value(false)

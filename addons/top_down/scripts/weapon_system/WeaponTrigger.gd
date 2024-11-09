@@ -43,7 +43,7 @@ func set_can_shoot(value:bool)->void:
 	can_shoot = value
 
 func can_retrigger()->bool:
-	return input_resource.action
+	return input_resource.action_1
 
 func get_direction()->Vector2:
 	return input_resource.aim_direction

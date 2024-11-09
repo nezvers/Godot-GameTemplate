@@ -7,6 +7,8 @@ extends Node
 @export var cooldown_time:float = 0.8
 @export var active_time:float = 0.48
 
+## Can't trigger dashing while is_cooldown
+## TODO: maybe needs to be it's own BoolResource
 var is_cooldown:bool = false
 var dash_bool:BoolResource
 var push_resource:PushResource
@@ -36,9 +38,11 @@ func dash_pressed()->void:
 		return
 	push_resource.add_impulse(input_resource.axis * impulse_strength)
 	is_cooldown = true
+	# Timer to allow trigger ability again
 	var _tween:Tween = create_tween()
 	_tween.tween_callback(cooldown_over).set_delay(cooldown_time)
 	
+	# Dashing state time, allows to go over a hole in ground
 	dash_bool.set_value(true)
 	var _tween2:Tween = create_tween()
 	_tween2.tween_callback(dash_bool.set_value.bind(false)).set_delay(active_time)

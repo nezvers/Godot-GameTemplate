@@ -1,16 +1,16 @@
-[gd_scene load_steps=55 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=56 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="2_wcwdo"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="3_2ebh0"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/PlayerInput.gd" id="4_uihqc"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/PlayerInput.gd" id="4_uihqc"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://addons/top_down/resources/health_resource/player_health.tres" id="4_y5gff"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="5_smnd7"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="6_2ql4h"]
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="6_rnlhu"]
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://addons/top_down/resources/sounds/kill_player.tres" id="6_wov6i"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/InputResource.gd" id="7_sciut"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_sciut"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="8_icjqh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="10_x7xjs"]
@@ -19,18 +19,19 @@
 [ext_resource type="PackedScene" uid="uid://cmmx82t54wble" path="res://addons/top_down/scenes/weapons/sword.tscn" id="12_gom0h"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_l6ujm"]
 [ext_resource type="Resource" uid="uid://dyfuc7bon78d" path="res://addons/top_down/resources/InstanceResources/actors/player_dead_instance_resource.tres" id="12_yuaod"]
+[ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="13_ju15f"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DashAbility.gd" id="16_vooxc"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/Player/PlayerJuice.gd" id="17_32qwh"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/PlayerJuice.gd" id="17_32qwh"]
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://addons/top_down/resources/CommandNodeResource/color_flash.tres" id="18_5jtne"]
 [ext_resource type="Resource" uid="uid://ddpkkj7j7ync6" path="res://addons/top_down/resources/CameraResources/enemy_damage_shake.tres" id="18_7uk1v"]
 [ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://addons/top_down/resources/CameraResources/player_damage_shake.tres" id="19_d25rq"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ResetHealth.gd" id="24_xfk7a"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/Player/CameraPositionSetter.gd" id="25_s80ev"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/CameraPositionSetter.gd" id="25_s80ev"]
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="26_ljkqc"]
 [ext_resource type="Resource" uid="uid://b1yn036rka2tk" path="res://addons/top_down/resources/CameraResources/camera_position_resource.tres" id="27_4bh7y"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/Player/SafeTileTracker.gd" id="28_ww0nn"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/SafeTileTracker.gd" id="28_ww0nn"]
 [ext_resource type="Resource" uid="uid://ct82cq803r2si" path="res://addons/top_down/resources/RoomResources/obstacle_reference.tres" id="29_4dv8f"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/Player/HoleRecovery.gd" id="30_n8poo"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/HoleRecovery.gd" id="30_n8poo"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/VisualInvulnerability.gd" id="32_82fau"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
@@ -117,7 +118,7 @@ description = "BoolResource if value is true, it means actor fell in a hole"
 resource_name = "Input resource"
 script = ExtResource("7_sciut")
 axis = Vector2(0, 0)
-action = false
+action_1 = false
 action_2 = false
 aim_direction = Vector2(0, 0)
 version = 0
@@ -299,6 +300,7 @@ script = ExtResource("4_uihqc")
 position_node = NodePath("..")
 aim_offset = Vector2(0, 8)
 resource_node = NodePath("../ResourceNode")
+action_resource = ExtResource("13_ju15f")
 
 [node name="WeaponManager" type="Node2D" parent="." index="14" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_hpc12")

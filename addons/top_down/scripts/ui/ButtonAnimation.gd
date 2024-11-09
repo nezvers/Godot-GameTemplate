@@ -4,9 +4,6 @@ extends Node
 
 @export var button:Button
 @export var label:Label
-@export var press_time:float = 0.0
-@export var hover_time:float = 0.2
-@export var focus_time:float = 0.5
 
 var default_shader_parameters: = {
 	scale = 1.0,
@@ -118,24 +115,24 @@ func set_style_tween(animated_style:AnimatedStyleBoxFlat)->void:
 			# populate dictionary slots
 			tweens_style[property] = null
 		
-		var tween:Tween = tweens_style[property]
-		if tween != null:
-			tween.kill()
-		tween = create_tween()
-		tweens_style[property] = tween
-		tween.tween_property(style_box, NodePath(property), animated_style.get(property), animated_style.tween_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		var _tween:Tween = tweens_style[property]
+		if _tween != null:
+			_tween.kill()
+		_tween = create_tween()
+		tweens_style[property] = _tween
+		_tween.tween_property(style_box, NodePath(property), animated_style.get(property), animated_style.tween_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	# LABEL
 	for property in animated_style.label_tween_list:
 		if !tweens_style.has(property):
 			# populate dictionary slots
 			tweens_style[property] = null
 		
-		var tween:Tween = tweens_style[property]
-		if tween != null:
-			tween.kill()
-		tween = create_tween()
-		tweens_style[property] = tween
-		tween.tween_property(label.label_settings, NodePath(property), animated_style.label_settings.get(property), animated_style.tween_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		var _tween:Tween = tweens_style[property]
+		if _tween != null:
+			_tween.kill()
+		_tween = create_tween()
+		tweens_style[property] = _tween
+		_tween.tween_property(label.label_settings, NodePath(property), animated_style.label_settings.get(property), animated_style.tween_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 ## Tween shader parameters as part of button style states
 func set_shader_tween(_animated_style:AnimatedStyleBoxFlat, parameter_list:Array[StringName])->void:
@@ -143,10 +140,10 @@ func set_shader_tween(_animated_style:AnimatedStyleBoxFlat, parameter_list:Array
 	for parameter in parameter_list:
 		if !tweens_shader.has(parameter):
 			tweens_shader[parameter] = null
-		var tween:Tween = tweens_shader[parameter]
-		if tween != null:
-			tween.kill()
-		tween = create_tween()
-		tweens_shader[parameter] = tween
+		var _tween:Tween = tweens_shader[parameter]
+		if _tween != null:
+			_tween.kill()
+		_tween = create_tween()
+		tweens_shader[parameter] = _tween
 		## TODO: actual tweening of shader parameters
 		material.set_shader_parameter(parameter, default_shader_parameters[parameter])
