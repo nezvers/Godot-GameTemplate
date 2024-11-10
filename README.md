@@ -13,7 +13,7 @@ Additionally, for task organization, the project includes a simple [Kanban Tasks
 > **NOTE:**  
 > - This template is not recommended for beginners who may need a guidance.  
 > - It serves as my personal project template and will continue to evolve as I develop my own game. Updates will be made until the project starts to go beyond the needs of a generic top-down shooter and into game-specific content.
-> - All assets are made by me and are free to be modified and used for inclusion in commercial products, but not sold as your creation.
+> - All assets are made by me and are free to be modified and used for inclusion in commercial products, but not sold as your creation. Soon will be released as a separate package on [nezvers.itch.io](https://nezvers.itch.io)
 
 ![PREVIEW](addons/top_down/assets/images/project_preview.png)
 
@@ -36,7 +36,7 @@ Additionally, for task organization, the project includes a simple [Kanban Tasks
 - Enemy wave spawning
 
 ## Recommendations
-To have easier learning how project works I would suggest to start with these scenes:
+To have easier learning experience on how project works I would suggest to start with these scenes:
 - Menu - addons/top_down/scenes/ui/screens/title.tscn
 - Rooms - addons/top_down/scenes/levels/room_0.tscn
 - Actors - addons/top_down/scenes/actors/actor.tscn
