@@ -63,6 +63,7 @@ func initialize()->void:
 	
 	updated.emit()
 
+
 func _add_action(action_name:StringName, input_list:Array[InputEvent])->void:
 	if !InputMap.has_action(action_name):
 		InputMap.add_action(action_name)
@@ -91,6 +92,7 @@ func erase_input(action_name, input_event:InputEvent)->void:
 ## Overwrite input event list
 func overwrite_action_inputs(action_name:StringName, input_list:Array[InputEvent])->void:
 	if !InputMap.has_action(action_name):
+		_add_action(action_name, input_list)
 		return
 	
 	InputMap.action_erase_events(action_name)
@@ -98,3 +100,25 @@ func overwrite_action_inputs(action_name:StringName, input_list:Array[InputEvent
 	
 	_add_action(action_name, input_list)
 	updated.emit()
+
+## Override function for resetting to default values
+func reset_resource()->void:
+	initialize()
+
+## Override to ad logic for reading loaded data and applying to current instance of the Resource
+func prepare_load(data:Resource)->void:
+	overwrite_action_inputs(pause_action, data.pause_inputs)
+	
+	overwrite_action_inputs(left_action, data.left_inputs)
+	overwrite_action_inputs(right_action, data.right_inputs)
+	overwrite_action_inputs(up_action, data.up_inputs)
+	overwrite_action_inputs(down_action, data.down_inputs)
+	
+	overwrite_action_inputs(aim_left_action, data.aim_left_inputs)
+	overwrite_action_inputs(aim_right_action, data.aim_right_inputs)
+	overwrite_action_inputs(aim_up_action, data.aim_up_inputs)
+	overwrite_action_inputs(aim_down_action, data.aim_down_inputs)
+	overwrite_action_inputs(action_1_action, data.action_1_inputs)
+	overwrite_action_inputs(action_2_action, data.action_2_inputs)
+	overwrite_action_inputs(next_action, data.next_inputs)
+	overwrite_action_inputs(previous_action, data.previous_inputs)
