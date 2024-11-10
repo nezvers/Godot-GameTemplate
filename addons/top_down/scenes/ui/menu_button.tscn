@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3ww0jqqy1eq7"]
+[gd_scene load_steps=6 format=3 uid="uid://b3ww0jqqy1eq7"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_xmmy2"]
 [ext_resource type="Material" uid="uid://bgfpnyrqhhy42" path="res://addons/top_down/resources/materials/menu_button.material" id="2_fyqp8"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/ButtonAnimation.gd" id="2_v6vgl"]
+[ext_resource type="Resource" uid="uid://dtclpjqgsu53p" path="res://addons/top_down/resources/sounds/button_press.tres" id="4_unt5r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rrpg3"]
 
@@ -24,3 +25,4 @@ text = "Name"
 script = ExtResource("2_v6vgl")
 button = NodePath("../Button")
 label = NodePath("../Label")
+pressed_sound = ExtResource("4_unt5r")

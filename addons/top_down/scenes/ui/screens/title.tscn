@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dpv4epw1i5b4g"]
+[gd_scene load_steps=16 format=3 uid="uid://dpv4epw1i5b4g"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_2uqb8"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuManager.gd" id="1_q1kds"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c4jwvw17x6fwl" path="res://addons/top_down/scenes/ui/audio_slider.tscn" id="4_ruqo4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/GraphicsManager.gd" id="5_kg0vv"]
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="5_kq1p3"]
+[ext_resource type="Resource" uid="uid://b1hy8aowwa5hq" path="res://addons/top_down/resources/sounds/menu_back.tres" id="5_wb47d"]
 [ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/global_resources/graphics_resource.tres" id="6_dusoo"]
 [ext_resource type="Material" uid="uid://chv0fg62cs0ou" path="res://addons/top_down/resources/materials/h_split.material.tres" id="11_6j0ru"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="12_dpfl3"]
@@ -45,6 +46,7 @@ focused_node = {
 "graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu/Fullscreen/Button"),
 "options": NodePath("../MarginContainer/Control/Body/OptionMenu/Graphics/Button")
 }
+back_sound = ExtResource("5_wb47d")
 
 [node name="AudioManager" type="Node" parent="." node_paths=PackedStringArray("slider_container", "save_button")]
 script = ExtResource("2_43xlx")
@@ -95,18 +97,11 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="MarginContainer/Control/Header"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.5
-offset_top = -11.5
-offset_right = 47.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = 94.0
+offset_top = 51.5
+offset_right = 376.0
+offset_bottom = 118.5
 theme_override_font_sizes/font_size = 48
 text = "COOL GAME"
 
@@ -177,6 +172,9 @@ layout_mode = 2
 [node name="Label" parent="MarginContainer/Control/Body/OptionMenu/Back" index="1"]
 text = "Back"
 
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/OptionMenu/Back" index="2"]
+pressed_sound = null
+
 [node name="GraphicsMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
 layout_mode = 2
@@ -206,6 +204,9 @@ layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="1"]
 text = "Back"
+
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="2"]
+pressed_sound = null
 
 [node name="AudioMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
@@ -248,6 +249,9 @@ layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Control/Body/AudioMenu/Back" index="1"]
 text = "Back"
+
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/AudioMenu/Back" index="2"]
+pressed_sound = null
 
 [connection signal="pressed" from="MarginContainer/Control/Body/TitleMenu/Options/Button" to="MenuTraverseManager" method="open" binds= ["options"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Graphics/Button" to="MenuTraverseManager" method="open" binds= ["graphics"]]

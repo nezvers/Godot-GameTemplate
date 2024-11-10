@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdfnlxijhmk2f"]
+[gd_scene load_steps=16 format=3 uid="uid://cdfnlxijhmk2f"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_x1p1w"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuManager.gd" id="2_0jy2c"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/global_resources/audio_settings_resource.tres" id="4_jh7so"]
 [ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="4_w4vjo"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/GraphicsManager.gd" id="5_43th3"]
+[ext_resource type="Resource" uid="uid://b1hy8aowwa5hq" path="res://addons/top_down/resources/sounds/menu_back.tres" id="6_di30k"]
 [ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/global_resources/graphics_resource.tres" id="6_q7e6m"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="7_mbpg2"]
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="8_j4n7a"]
@@ -50,6 +51,7 @@ focused_node = {
 "graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu/Fullscreen/Button"),
 "options": NodePath("../MarginContainer/Control/Body/OptionMenu/Graphics/Button")
 }
+back_sound = ExtResource("6_di30k")
 
 [node name="AudioManager" type="Node" parent="." node_paths=PackedStringArray("slider_container", "save_button")]
 script = ExtResource("3_udjr5")
@@ -90,21 +92,15 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="MarginContainer/Control/Header"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.5
-offset_top = -11.5
-offset_right = 47.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = 150.5
+offset_top = 51.5
+offset_right = 319.5
+offset_bottom = 118.5
 theme_override_font_sizes/font_size = 48
 text = "Paused"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Body" type="MarginContainer" parent="MarginContainer/Control"]
 layout_mode = 2
@@ -114,6 +110,7 @@ theme_override_constants/margin_right = 150
 theme_override_constants/margin_bottom = 20
 
 [node name="PauseMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 0
@@ -166,6 +163,9 @@ layout_mode = 2
 [node name="Label" parent="MarginContainer/Control/Body/OptionMenu/Back" index="1"]
 text = "Back"
 
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/OptionMenu/Back" index="2"]
+pressed_sound = null
+
 [node name="GraphicsMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
 layout_mode = 2
@@ -184,6 +184,9 @@ layout_mode = 2
 [node name="Label" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="1"]
 text = "Back"
 
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="2"]
+pressed_sound = null
+
 [node name="ControlsMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
 layout_mode = 2
@@ -195,6 +198,9 @@ layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="1"]
 text = "Back"
+
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="2"]
+pressed_sound = null
 
 [node name="AudioMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
@@ -237,6 +243,9 @@ layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Control/Body/AudioMenu/Back" index="1"]
 text = "Back"
+
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/AudioMenu/Back" index="2"]
+pressed_sound = null
 
 [connection signal="pressed" from="MarginContainer/Control/Body/PauseMenu/Options/Button" to="MenuTraverseManager" method="open" binds= ["options"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Graphics/Button" to="MenuTraverseManager" method="open" binds= ["graphics"]]
