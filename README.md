@@ -12,7 +12,7 @@ Additionally, for task organization, the project includes a simple [Kanban Tasks
 > This template is not recommended for beginners who may need a guidance.  
 > It serves as my personal project template and will continue to evolve as I develop my own game. Updates will be made until the project starts to go beyond the needs of a generic top-down shooter and into game-specific content.
 
-
+![PREVIEW](addons/top_down/assets/images/project_preview.png)
 
 ## Main Features
 - Menu system
