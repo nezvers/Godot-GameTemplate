@@ -2,6 +2,8 @@ extends Node
 
 @export var instance_resource_list:Array[InstanceResource]
 @export var action_resource:ActionResource
+## Hold any data. Main use is to keep resources in memory
+@export var data:Dictionary
 
 var is_preloaded:bool
 
