@@ -57,35 +57,21 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/Control/Header"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.5
-offset_top = -11.5
-offset_right = 47.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = 104.5
+offset_top = 51.5
+offset_right = 365.5
+offset_bottom = 118.5
 theme_override_font_sizes/font_size = 48
 text = "Game Over"
 horizontal_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="MarginContainer/Control/Header"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = 44.0
-offset_right = 48.0
-offset_bottom = 67.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = 188.0
+offset_top = 129.0
+offset_right = 283.0
+offset_bottom = 152.0
 theme_override_font_sizes/font_size = 16
 text = "Score: 69"
 horizontal_alignment = 1

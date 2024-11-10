@@ -14,6 +14,7 @@ extends Node
 ## Reference node that needs to be focused when specific directory is activated
 @export var focused_node:Dictionary
 
+@export var back_sound:SoundResource
 
 ## Use a dedicated resource for this task
 var directory_resource:DictionaryDirectoryResource = DictionaryDirectoryResource.new()
@@ -65,3 +66,5 @@ func directory_grab_focus(value:String)->void:
 ## Sends method call to directory_resource
 func back()->void:
 	directory_resource.directory_back()
+	if back_sound != null:
+		back_sound.play_managed()

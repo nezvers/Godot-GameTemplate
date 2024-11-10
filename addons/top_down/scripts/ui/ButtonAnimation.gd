@@ -4,6 +4,7 @@ extends Node
 
 @export var button:Button
 @export var label:Label
+@export var pressed_sound:SoundResource
 
 var default_shader_parameters: = {
 	scale = 1.0,
@@ -74,6 +75,8 @@ func set_is_down(value:bool)->void:
 	is_down = value
 	if is_down:
 		set_style_tween(style_dictionary["pressed"])
+		if pressed_sound != null:
+			pressed_sound.play_managed()
 	elif is_focused:
 		set_style_tween(style_dictionary["focus"])
 	elif is_hover:
