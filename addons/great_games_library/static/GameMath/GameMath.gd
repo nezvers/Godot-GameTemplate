@@ -1,3 +1,4 @@
+## WARNING: Not everything is working properly. Some functions are quick not-tested code ports.
 extends Node
 class_name GameMath
 

@@ -1,6 +1,7 @@
 extends Node
 ## Containers holding sliders. Their name should represent audio bus names.
 @export var slider_container:Array[Node]
+
 ## Resource controlling audio settings
 @export var audio_settings_resource:AudioSettingsResource
 @export var save_button:Button

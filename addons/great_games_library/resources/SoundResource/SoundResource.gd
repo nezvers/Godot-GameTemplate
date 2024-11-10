@@ -4,27 +4,37 @@ extends Resource
 
 ## Lowest random pitch
 @export var pitch_min:float = 1.0
+
 ## Highest random pitch
 @export var pitch_max:float = 1.0
+
 ## Volume of a played sound
 @export_range(-80.0, +24.0) var volume:float = 0.0
+
 ## Time interval when sound is not played again
 @export var retrigger_time:float = 0.032
+
 ## Pitch increase when repeated fast
 @export var pitch_add:float = 0.0
+
 ## How fast pitch cooldown drops
 @export var pitch_cooldown:float
+
 ## TODO: forgot the meaning in the code
 @export var pitch_return:float
+
 ## Audio sample used
 @export var sound:AudioStream
 
 ## keep track of trigger time
 var last_play_time:float
+
 ## time since last trigger
 var delta:float
+
 ## Audio player assigned to use this resource
 var sound_player:SoundPlayer
+
 ## keep track of the pitch
 var pitch:float
 

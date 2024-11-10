@@ -5,7 +5,7 @@ extends SaveableResource
 ## Requires to have a resource_name - used for dictionary lookup
 @export var save_list:Array[SaveableResource]
 
-## 
+
 var name_dictionary:Dictionary
 var is_initialized:bool
 
@@ -34,4 +34,3 @@ func prepare_load(_data:Resource)->void:
 		if !name_dictionary.has(item.resource_name):
 			continue
 		name_dictionary[item.resource_name].prepare_load(item)
-

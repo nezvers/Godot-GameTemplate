@@ -3,10 +3,13 @@ extends Area2D
 
 ## Traversing between changing rooms it is used to identify where to put player
 @export var tag:String
+
 ## Used to connect to a tag on the other side after transitioning scenes
 @export var connect_tag:String
+
 ## Scene's file path that will be next scene
 @export var scene_path:String
+
 ## Resource to carry transition information
 @export var scene_transition_resource:SceneTransitionResource
 

@@ -12,4 +12,3 @@ func get_sound()->AudioStream:
 	else:
 		index = (index +1) % sound_list.size()
 		return sound_list[index]
-

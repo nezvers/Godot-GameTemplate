@@ -4,6 +4,7 @@ extends SaveableResource
 
 ## Recommended to use default_bus_layout on project root, because Godot has some bug creating new in that place.
 @export var audio_bus_layout:AudioBusLayout
+
 ## values["bus_name"] = {volume = volume, db = db} 
 ## db is stored in case there's a need to look it up
 @export var values:Dictionary

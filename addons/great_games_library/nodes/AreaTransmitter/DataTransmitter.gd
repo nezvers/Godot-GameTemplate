@@ -8,10 +8,13 @@ signal denied
 signal try_again(receiver:AreaReceiver2D)
 
 @export var enabled:bool = true
+
 ## If transmission errors with state TRY_AGAIN, try sending next physics frame
 @export var try_next_frame:bool = true
+
 ## Data that will be transmitted
 @export var transmission_resource:TransmissionResource
+
 ## Node that creates transmission connection
 @export var area_transmitter:AreaTransmitter2D
 

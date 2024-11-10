@@ -16,4 +16,3 @@ func play()->void:
 	if debug:
 		pass
 	sound.play_managed()
-

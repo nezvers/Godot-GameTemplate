@@ -11,8 +11,9 @@ Additionally, for task organization, the project includes a simple [Kanban Tasks
 > Due to an issues with a custom `AudioBusLayout` resource locations in Godot, I've kept the audio bus layout at its default location and name as [default_bus_layout.tres](default_bus_layout.tres).
 
 > **NOTE:**  
-> This template is not recommended for beginners who may need a guidance.  
-> It serves as my personal project template and will continue to evolve as I develop my own game. Updates will be made until the project starts to go beyond the needs of a generic top-down shooter and into game-specific content.
+> - This template is not recommended for beginners who may need a guidance.  
+> - It serves as my personal project template and will continue to evolve as I develop my own game. Updates will be made until the project starts to go beyond the needs of a generic top-down shooter and into game-specific content.
+> - All assets are made by me and are free to be modified and used for inclusion in commercial products, but not sold as your creation.
 
 ![PREVIEW](addons/top_down/assets/images/project_preview.png)
 

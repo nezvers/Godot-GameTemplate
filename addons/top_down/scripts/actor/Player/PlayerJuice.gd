@@ -13,10 +13,11 @@ func _ready()->void:
 	var _health_resource:HealthResource = resource_node.get_resource("health")
 	if _health_resource != null:
 		_health_resource.damaged.connect(on_damaged)
-	
+
 
 func on_damaged()->void:
 	assert(screen_flash_command.node != null, "reference is not set")
+	# TODO: find a way to expose what functions are available
 	screen_flash_command.command("play", ["white_flash"])
 	player_damage_shake.play()
 

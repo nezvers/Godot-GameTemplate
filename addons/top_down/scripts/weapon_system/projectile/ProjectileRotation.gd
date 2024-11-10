@@ -2,12 +2,16 @@ extends Node
 
 
 @export var enabled:bool = true
+
 ## Node that will be rotated
 @export var rotated_node:Node2D
+
 ## Node that does the movement logic
 @export var projectile:Projectile2D
+
 ## visuals are continuously updated in _process
 @export var is_continuous:bool = false
+
 ## Instead of fully rotate use vertical flipping to look like it's flipping horizontally
 @export var flip_horizontaly:bool = true
 

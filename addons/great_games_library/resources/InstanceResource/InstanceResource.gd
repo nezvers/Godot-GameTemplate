@@ -7,13 +7,16 @@ signal scene_changed
 ## Using file path to a scene no not cause cyclic reference when including in scenes.
 ## Scene file will be loaded when instancing scene for the first time
 @export var scene_path:String
+
 ## Reference to a node that will be used as a parent.
 @export var parent_reference_resource:ReferenceNodeResource
 
 ## After first instance crewation a scene file is cached
 var scene:PackedScene
+
 ## Collect references of all active instances
 var active_list:Array[Node]
+
 ## Inactive scenes with a PoolNode are put in the list, to pull out when a new one is needed, instead of instancing every time.
 var pool_list:Array[Node]
 

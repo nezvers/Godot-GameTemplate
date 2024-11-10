@@ -5,6 +5,7 @@ extends Node
 @export var bot_input:BotInput
 @export var raycast:RayCast2D
 @export var tile_navigation:TileNavigationGetter
+
 ## Value used to change recalculation cooldown
 @export var retarget_distance:float = 16.0
 @export var straight_path_distance:float = 16.0 * 5.0
@@ -13,11 +14,14 @@ extends Node
 
 ## From bot to target
 var target_direction:Vector2
+
 ## Track targets position
 var last_target_position:Vector2
+
 ## Time last navigation update happened
 var last_update_time:float
 var navigation_cooldown:float = 1.0
+
 ## Used to control navigation around corners
 var allow_straight_path:bool = false
 

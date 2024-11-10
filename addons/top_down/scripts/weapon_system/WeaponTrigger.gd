@@ -7,6 +7,7 @@ signal shoot_event
 @export var enabled:bool = true
 @export var weapon:Weapon
 @export var projectile_spawner:ProjectileSpawner
+
 ## Sound of shooting projectile
 @export var sound_resource:SoundResource
 @export var can_shoot:bool = true

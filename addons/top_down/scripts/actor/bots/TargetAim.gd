@@ -3,6 +3,7 @@ extends Node
 
 @export var bot_input:BotInput
 @export var target_finder:TargetFinder
+
 ## just point attack direction to the same direction as walking.
 @export var aim_walking_direction:bool
 

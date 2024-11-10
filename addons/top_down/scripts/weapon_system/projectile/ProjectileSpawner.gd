@@ -7,24 +7,32 @@ signal prepare_spawn
 
 ## If enabled is false then spawning will be cancelled
 @export var enabled:bool = true
+
 ## global_position spawning point from which actual position will be calculated
 @export var projectile_position:Vector2
+
 ## Scene that will be instantiated to create a projectile
 ## Direction a projectile will fly
 @export var direction:Vector2
+
 ## Used for extra calculation to simulate angled top-down perspective
 @export var axis_multiplication_resource:Vector2Resource
+
 ## offset distance in the direction
 @export var initial_distance:float
 @export var projectile_instance_resource:InstanceResource
+
 ## Will be set for a new projectile
 @export_flags_2d_physics var collision_mask:int
+
 ## Angle offsets for each projectiles
 ## No angle, no projectile
 ## Use prepare_spawn signal to manipulate spread
 @export var projectile_angles:Array[float] = [0.0]
+
 ## Resource that carry damage information
 @export var damage_resource:DamageResource
+
 ## Create a new generation of damage data
 ## Best for splitting from top resource
 @export var new_damage:bool = false

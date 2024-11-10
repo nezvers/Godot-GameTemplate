@@ -6,8 +6,10 @@ signal change_scene
 
 ## reference to the player that will be moved to next scene
 @export var player_reference:ReferenceNodeResource
+
 ## File path to next scene
 @export var next_scene_path:String
+
 ## Tag for entry to place the player
 @export var entry_tag:String
 

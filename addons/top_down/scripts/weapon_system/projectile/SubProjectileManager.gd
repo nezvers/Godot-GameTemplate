@@ -5,6 +5,7 @@ extends Node
 @export var projectile_spawner:ProjectileSpawner
 @export var start_projectile_instance_resource:InstanceResource
 @export var end_projectile_instance_resource:InstanceResource
+
 ## Used for extra calculation to simulate angled top-down perspective
 @export var axis_multiplication_resource:Vector2Resource
 

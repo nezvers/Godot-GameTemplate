@@ -1,3 +1,5 @@
+## WARNING: Currently incomplete. 
+## This is going to be a replacement physics body
 class_name RigidCharacterBody2D
 extends CharacterBody2D
 

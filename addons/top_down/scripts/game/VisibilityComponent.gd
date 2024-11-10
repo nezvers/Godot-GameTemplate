@@ -3,8 +3,10 @@ extends Node
 
 ## BoolResource that is used fot pausing game's state
 @export var bool_resource:BoolResource
+
 ## List of nodes that will be shown during game's pause
 @export var show_list:Array[Node]
+
 ## List of nodes that will be hidden when game is paused
 @export var hide_list:Array[Node]
 

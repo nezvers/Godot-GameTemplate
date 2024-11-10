@@ -3,8 +3,10 @@ extends Node
 
 ## Way to disable functionality at _ready
 @export var enabled:bool = true
+
 ## Node that is doing the physical movement
 @export var character:CharacterBody2D
+
 ## Used for faking angled perspective movement
 @export var axis_multiplier_resource:Vector2Resource
 @export var resource_node:ResourceNode
@@ -12,6 +14,7 @@ extends Node
 
 ## Virtual buttons to react to
 var input_resource:InputResource
+
 ## Stats for movement
 var actor_stats_resource:ActorStatsResource
 
