@@ -2,7 +2,9 @@
 
 A starting point and reference project for creating games with the Godot Engine, particularly suited for top-down shooter games.
 Project is located in [addons/top_down](addons/top_down/) to keep project conflicts to a minimum. It showcases recommended project structure.
+
 This repository also includes [addons/great_games_library](addons/great_games_library), a collection of scripts that offer general-purpose solutions applicable across various games.
+
 Additionally, for task organization, the project includes a simple [Kanban Tasks - Todo Manager](https://godotengine.org/asset-library/asset/1474) plugin.
 
 > **⚠️ CAUTION:**  
