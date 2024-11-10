@@ -14,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_134lv")
-color = Color(0.0065, 0, 0.03, 1)
+color = Color(0.0892667, 0.078, 0.13, 1)
 
 [node name="TryAgainComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("9_ldwnv")

@@ -66,13 +66,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "75151243-f415-4a97-9824-e08ec6ba9cb7",
-			"title": "Gamepad support",
-			"description": "",
-			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
-			"steps": []
-		},
-		{
 			"uuid": "c83e05df-800b-4a07-a2dd-9baec83c3380",
 			"title": "Key rebinding",
 			"description": "",

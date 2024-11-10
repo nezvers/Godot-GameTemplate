@@ -5,6 +5,7 @@ extends Node
 @export var try_again_button:Button
 
 func _ready()->void:
+	try_again_button.grab_focus.call_deferred()
 	try_again_button.pressed.connect(on_try_again_pressed)
 	score_label.text = "Score: " + str(score_resource.point_count)
 
