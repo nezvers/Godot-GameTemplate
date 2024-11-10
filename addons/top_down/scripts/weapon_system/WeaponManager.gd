@@ -8,13 +8,17 @@ signal damage_report(damage:DamageResource)
 ## Relative to this manager
 ## Will be modified to correct for instanced wepons
 @export var projectile_parent_path:String
+
 ## Scene files that will be instanced and added to the user in disabled state
 @export var auto_instance_weapons:Array[PackedScene]
+
 ## Reference passed to instanced weapons
 @export var resource_node:ResourceNode
+
 ## Passed to instantiated weapons, that pass it to projectiles
 ## TODO: Need to remove passing chain
 @export_flags_2d_physics var collision_mask:int
+
 ## In case users share the same weapons it's better to make damage_resource unique
 ## That removes opion to tweak values from Godot Editor while a game is running
 @export var make_unique_damage:bool = true
@@ -22,8 +26,10 @@ signal damage_report(damage:DamageResource)
 ## List of instanced weapons available to the user
 ## Weapons that are already in the scene tree are added on _ready
 var weapon_list:Array[Weapon]
+
 ## Shows weapon index that will be or is active
 var weapon_index:int = 0
+
 ## Currently activated weapon
 var current_weapon:Weapon = null
 

@@ -3,6 +3,8 @@ class_name AnimatedStyleBoxFlat
 extends StyleBoxFlat
 
 @export var tween_time:float = 0.0
+
+## List of properties that will be blended traveling to this state
 @export var tween_list:Array[StringName] =[
 	"content_margin_bottom",
 	"content_margin_left",

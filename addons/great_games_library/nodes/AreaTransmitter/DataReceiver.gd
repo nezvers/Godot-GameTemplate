@@ -4,16 +4,21 @@ extends Node
 
 ## Emited when transmission is granted access
 signal transmission_received(transmission_resource:TransmissionResource)
+
 ## Emitted to give option to validate transmission. transmission_resource.set_valid(true)
 signal transmission_validate(transmission_resource:TransmissionResource)
 
 @export var enabled:bool = true
+
 ## Sets TransmissionResource state to TRY_AGAIN next physics frame
 @export var bypass:bool = false
+
 ## Will receive transmissions with this name. Only one receiver for each name. 
 @export var transmission_name:StringName
+
 ## Node used to create receiver chain
 @export var area_receiver:AreaReceiver2D
+
 ## Resource node holds HealthResource
 @export var resource_node:ResourceNode
 

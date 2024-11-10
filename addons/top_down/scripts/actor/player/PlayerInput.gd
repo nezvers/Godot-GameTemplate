@@ -2,8 +2,10 @@ class_name PlayerInput
 extends Node
 
 @export var enabled:bool = true
+
 ## Used for getting mouse local position
 @export var position_node:Node2D
+
 ## Offset aim to the body to shoot at shadow collider (feet position)
 @export var aim_offset:Vector2
 @export var resource_node:ResourceNode

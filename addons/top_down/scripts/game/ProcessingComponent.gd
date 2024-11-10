@@ -3,12 +3,16 @@ extends Node
 
 ## BoolResource that is used fot pausing game's state
 @export var bool_resource:BoolResource
+
 ## List of nodes which process_mode will be manipulated
 @export var paused_nodes:Array[Node]
+
 ## List of nodes which process_mode will be reverse state
 @export var unpaused_nodes:Array[Node]
+
 ## This state will be used for paused nodes when game is paused
 @export var paused_state:Node.ProcessMode
+
 ## This state will be used for paused nodes when game is unpaused
 @export var not_paused_state:Node.ProcessMode
 

@@ -6,6 +6,7 @@ extends Node
 @export var tilemap_layer:TileMapLayer
 @export var astargrid_resource:AstarGridResource
 @export var obstacle_shape:Shape2D
+
 ## Custom tile data name of PackedVector2Array for collider offsets
 @export var data_name:String = "collider_offset"
 @export_flags_2d_physics var collision_layer:int

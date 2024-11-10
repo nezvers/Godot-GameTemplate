@@ -2,10 +2,12 @@ class_name SpriteFlip
 extends Node
 
 @export var resource_node:ResourceNode
+
 ## Node that is used for flipping visuals horizontally
 @export var flip_node:Node2D
 
 enum FlipType {WALK_DIR, AIM_DIR}
+
 ## Choose sprite flipping is related to walking or aiming
 @export var flip_type:FlipType
 

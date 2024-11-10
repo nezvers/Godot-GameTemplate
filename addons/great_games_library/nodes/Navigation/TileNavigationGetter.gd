@@ -3,6 +3,7 @@ extends Line2D
 
 @export var position_node:Node2D
 @export var astargrid_resource:AstarGridResource
+
 ## How close to be to a point to look up next one
 @export var reached_distance:float = 6.0
 

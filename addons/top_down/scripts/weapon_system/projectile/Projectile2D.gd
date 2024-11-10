@@ -5,17 +5,23 @@ signal prepare_exit_event
 
 ## Travelling speed
 @export var speed:float
+
 ## Direction to travel
 @export var direction: = Vector2.RIGHT
+
 ## Used to fake angled perspective
 @export var axis_multiplier_resource:Vector2Resource
+
 ## Each projectile contribute to the total damage value with multiply
 @export var damage_multiply:float = 1.0
+
 ## Force pushing a damage receiver
 @export var kickback_strength:float = 120.0
+
 ## Holds information about damage stats and events
 @export var damage_resource:DamageResource
 @export_flags_2d_physics var collision_mask:int
+
 ## When `prepare_exit()` is called automatically call `queue_free()`
 @export var auto_free:bool = true
 @export var pool_node:PoolNode

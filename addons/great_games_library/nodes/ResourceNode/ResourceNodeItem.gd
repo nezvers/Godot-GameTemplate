@@ -4,6 +4,7 @@ extends Resource
 
 ## Reference to a SaveableResource
 @export var resource:SaveableResource
+
 ## Marks resource to be duplicated when a new ResourceNode is created
 @export var make_unique:bool
 @export_multiline var description:String

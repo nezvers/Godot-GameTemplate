@@ -13,10 +13,13 @@ var default_shader_parameters: = {
 
 ## References unique style resource put on all buttons states and manipulated with tweens
 var style_box:AnimatedStyleBoxFlat
+
 ## Collects each button state's style resource
 var style_dictionary:Dictionary = {}
+
 ## Holds a Tween for each style property
 var tweens_style:Dictionary = {}
+
 ## Holds a Tween for each shader property
 var tweens_shader:Dictionary = {}
 

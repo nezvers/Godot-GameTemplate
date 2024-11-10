@@ -10,10 +10,13 @@ signal switch_weapon(dir:int)
 
 ## Used for movement direction
 @export var axis:Vector2
+
 ## Used for shooting or interaction
 @export var action_1:bool
+
 ## Used for shooting or interaction
 @export var action_2:bool
+
 ## Used for aiming attacks
 @export var aim_direction:Vector2
 

@@ -35,8 +35,10 @@ signal updated
 
 ## Variable to not set it again
 var is_initialized:bool
+
 ## Used to know if use mouse direction or aim inputs
 var mouse_aim:bool
+
 ## locally keep information about used InputEvents, to be able remove a specific one.
 ## Could be used to serialize into a JSON
 var action_dictionary:Dictionary

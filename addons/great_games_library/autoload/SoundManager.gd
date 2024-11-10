@@ -4,6 +4,7 @@ extends Node
 
 ## During _ready will be created new SoundPlayers
 @export var start_count:int = 10
+
 ## Name of the audio channel where sounds will be played
 @export var audio_bus:StringName
 

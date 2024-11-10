@@ -8,6 +8,7 @@ extends Resource
 @export_range (0.0, 360.0) var angleto:float = 360.0
 @export var camera_reference:ReferenceNodeResource
 @export var tween_resource:TweenValueResource
+
 ## It can be shared between category or every screenshake for a global toggle
 @export var enabled_settings:BoolResource
 

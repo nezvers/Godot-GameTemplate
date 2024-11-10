@@ -3,6 +3,7 @@ extends Node
 
 @export var projectile:Projectile2D
 @export var data_transmitter:DataTransmitter
+
 ## Projectile is removed when reaching 0
 ## Starting with negative has infinite count
 @export var hit_limit:int = 1

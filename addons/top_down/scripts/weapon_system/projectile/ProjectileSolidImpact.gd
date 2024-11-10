@@ -6,6 +6,7 @@ signal hit
 
 @export var projectile:Projectile2D
 @export var area_transmitter:AreaTransmitter2D
+
 ## Will check for body collisions with these flags
 @export_flags_2d_physics var destroy_collision_mask:int = 1
 

@@ -14,9 +14,11 @@ signal damage_report(damage:DamageResource)
 
 ## An information for a damage report
 @export var is_critical:bool = false
+
 ## Exploiting that array is shared reference
 ## it will collect all same generation hits
 @export var hit_list:Array
+
 ## pre-calculated value
 @export var total_damage:float
 ## TODO: include information from source character

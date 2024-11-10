@@ -18,8 +18,10 @@ enum ErrorType {
 	FAILED}
 
 @export var transmission_name:StringName
+
 ## State of transmission process
 @export var state:ErrorType = ErrorType.NONE
+
 ## Receiving end might decide that transmission is invalid and processing will be cancelled.
 @export var valid:bool = true
 

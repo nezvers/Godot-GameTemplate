@@ -4,7 +4,6 @@ extends Node2D
 signal input_update
 
 @export var enabled:bool = true
-## Commands the movement
 @export var axis_multiplier_resource:Vector2Resource
 @export var attack_distance:float = 16.0
 @export var resource_node:ResourceNode

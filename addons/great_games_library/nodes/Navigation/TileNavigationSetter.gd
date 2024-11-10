@@ -3,6 +3,7 @@ extends Node
 
 @export var tilemap_layer:TileMapLayer
 @export var astargrid_resource:AstarGridResource
+
 ## set bigger AStar region on each side
 @export var grow_region:int = 1
 

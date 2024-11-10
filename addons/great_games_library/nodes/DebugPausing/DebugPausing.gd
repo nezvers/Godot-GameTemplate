@@ -3,18 +3,22 @@ extends Node
 ## Pressing this the game will pause or move one frame
 ## WARNING: Physics nodes have settings about stopped processing
 @export var frame_input:InputEvent
+
 ## Hold this and press frame input to release
 @export var release_input:InputEvent
+
 ## Node which process_mode will be affected
 @export var stopped_node:Node
 
 ## Action Name for one frame pause input
 const frame_action:StringName = "DebugPauseFrame"
+
 ## Action Name for release input
 const release_action:StringName = "DebugPauseRelease"
 
 ## Inner state, if enabled the processing is stopped and allowed to move by one frame
 var enabled:bool
+
 ## State when waiting for one frame
 var waiting_frame:bool = false
 
