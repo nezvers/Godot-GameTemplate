@@ -1,0 +1,235 @@
+[gd_resource type="Resource" script_class="ControlTextureResource" load_steps=69 format=3 uid="uid://c2l3mopok8331"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/ControlTextureResource.gd" id="1_w76cf"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/InputTextureResource.gd" id="2_jju4t"]
+[ext_resource type="Texture2D" uid="uid://co4brp8r2na21" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_button_color_a.png" id="3_gtu1h"]
+[ext_resource type="Texture2D" uid="uid://3k1ouq88kb75" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_button_color_b.png" id="4_sttgi"]
+[ext_resource type="Texture2D" uid="uid://d1eos7wmre1cc" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_button_color_x.png" id="5_5w22n"]
+[ext_resource type="Texture2D" uid="uid://d03xhutvact4" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_button_color_y.png" id="6_4k7pi"]
+[ext_resource type="Texture2D" uid="uid://cl4u2i58jaww2" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_dpad_up_outline.png" id="7_e52se"]
+[ext_resource type="Texture2D" uid="uid://dpsr5be3w4x3c" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_dpad_right_outline.png" id="7_yjbi3"]
+[ext_resource type="Texture2D" uid="uid://c83pg6el473ws" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_dpad_down_outline.png" id="8_th0q5"]
+[ext_resource type="Texture2D" uid="uid://cindyfyrn2k4i" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_dpad_left_outline.png" id="9_p606e"]
+[ext_resource type="Texture2D" uid="uid://bq4i7uutwhipo" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_button_start.png" id="10_kq33i"]
+[ext_resource type="Texture2D" uid="uid://dj8j7vdg0k7kx" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_button_back_icon.png" id="11_v2ker"]
+[ext_resource type="Texture2D" uid="uid://djat2oi1xhi0j" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_lb.png" id="12_frd8d"]
+[ext_resource type="Texture2D" uid="uid://cfst82gw7fx3g" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_rb.png" id="13_4s236"]
+[ext_resource type="Texture2D" uid="uid://p02op0sbs4p5" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_lt.png" id="14_gi0xl"]
+[ext_resource type="Texture2D" uid="uid://einut7qsl6wv" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_rt.png" id="15_uye5u"]
+[ext_resource type="Texture2D" uid="uid://d32j666xshg0f" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_l_right.png" id="16_okg8i"]
+[ext_resource type="Texture2D" uid="uid://dmtpf18unnvdw" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_l_left.png" id="17_i1460"]
+[ext_resource type="Texture2D" uid="uid://cegfyjikug74b" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_l_up.png" id="18_2slc6"]
+[ext_resource type="Texture2D" uid="uid://b6rb2t4ude7mm" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_l_down.png" id="19_bwolu"]
+[ext_resource type="Texture2D" uid="uid://y14p47lfgwye" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_right.png" id="20_tarvl"]
+[ext_resource type="Texture2D" uid="uid://chpcncdu18wtd" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_left.png" id="21_crj21"]
+[ext_resource type="Texture2D" uid="uid://c8ow84oi7f72f" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_up.png" id="22_plx31"]
+[ext_resource type="Texture2D" uid="uid://bbgjg1edklqk1" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_down.png" id="23_qpaai"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ey0ct"]
+button_index = 1
+
+[sub_resource type="Resource" id="Resource_odab3"]
+resource_name = "Action Right"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_ey0ct")
+texture = ExtResource("4_sttgi")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_440xi"]
+button_index = 2
+
+[sub_resource type="Resource" id="Resource_3d0xs"]
+resource_name = "Action Left"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_440xi")
+texture = ExtResource("5_5w22n")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_sddlm"]
+button_index = 3
+
+[sub_resource type="Resource" id="Resource_4h7i4"]
+resource_name = "Action Up"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_sddlm")
+texture = ExtResource("6_4k7pi")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_gjttx"]
+
+[sub_resource type="Resource" id="Resource_0tdau"]
+resource_name = "Action Down"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_gjttx")
+texture = ExtResource("3_gtu1h")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_l2srw"]
+button_index = 14
+
+[sub_resource type="Resource" id="Resource_qaxjh"]
+resource_name = "D-right"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_l2srw")
+texture = ExtResource("7_yjbi3")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_m08x4"]
+button_index = 13
+
+[sub_resource type="Resource" id="Resource_mpckf"]
+resource_name = "D-left"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_m08x4")
+texture = ExtResource("9_p606e")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ska6m"]
+button_index = 11
+
+[sub_resource type="Resource" id="Resource_inakd"]
+resource_name = "D-up"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_ska6m")
+texture = ExtResource("7_e52se")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_cmsha"]
+button_index = 12
+
+[sub_resource type="Resource" id="Resource_a2k8a"]
+resource_name = "D-down"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_cmsha")
+texture = ExtResource("8_th0q5")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_0sxnx"]
+button_index = 6
+
+[sub_resource type="Resource" id="Resource_7ika7"]
+resource_name = "Start"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_0sxnx")
+texture = ExtResource("10_kq33i")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_nas33"]
+button_index = 4
+
+[sub_resource type="Resource" id="Resource_khnyq"]
+resource_name = "Back"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_nas33")
+texture = ExtResource("11_v2ker")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_n26tb"]
+button_index = 9
+
+[sub_resource type="Resource" id="Resource_w7lcr"]
+resource_name = "L-shoulder"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_n26tb")
+texture = ExtResource("12_frd8d")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_81akt"]
+button_index = 10
+
+[sub_resource type="Resource" id="Resource_qjr32"]
+resource_name = "R-shoulder"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_81akt")
+texture = ExtResource("13_4s236")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_8rw0r"]
+axis = 4
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_rn3ng"]
+resource_name = "L-trigger"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_8rw0r")
+texture = ExtResource("14_gi0xl")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_geaol"]
+axis = 5
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_tjvlx"]
+resource_name = "R-trigger"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_geaol")
+texture = ExtResource("15_uye5u")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_1pqyd"]
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_sh0ka"]
+resource_name = "L-right"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_1pqyd")
+texture = ExtResource("16_okg8i")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_cm6of"]
+axis_value = -1.0
+
+[sub_resource type="Resource" id="Resource_mcug2"]
+resource_name = "L-left"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_cm6of")
+texture = ExtResource("17_i1460")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_ugaex"]
+axis = 1
+axis_value = -1.0
+
+[sub_resource type="Resource" id="Resource_a2luf"]
+resource_name = "L-up"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_ugaex")
+texture = ExtResource("18_2slc6")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_nlrpc"]
+axis = 1
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_bxc1n"]
+resource_name = "L-down"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_nlrpc")
+texture = ExtResource("19_bwolu")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_xu3pg"]
+axis = 2
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_x1ye7"]
+resource_name = "R-right"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_xu3pg")
+texture = ExtResource("20_tarvl")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_g0blu"]
+axis = 2
+axis_value = -1.0
+
+[sub_resource type="Resource" id="Resource_bsyuy"]
+resource_name = "R-left"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_g0blu")
+texture = ExtResource("21_crj21")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_5j7h4"]
+axis = 3
+axis_value = -1.0
+
+[sub_resource type="Resource" id="Resource_ewkr5"]
+resource_name = "R-up"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_5j7h4")
+texture = ExtResource("22_plx31")
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_y5ioe"]
+axis = 3
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_ismu2"]
+resource_name = "R-down"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadMotion_y5ioe")
+texture = ExtResource("23_qpaai")
+
+[resource]
+script = ExtResource("1_w76cf")
+value = Array[ExtResource("2_jju4t")]([SubResource("Resource_odab3"), SubResource("Resource_3d0xs"), SubResource("Resource_4h7i4"), SubResource("Resource_0tdau"), SubResource("Resource_qaxjh"), SubResource("Resource_mpckf"), SubResource("Resource_inakd"), SubResource("Resource_a2k8a"), SubResource("Resource_7ika7"), SubResource("Resource_khnyq"), SubResource("Resource_w7lcr"), SubResource("Resource_qjr32"), SubResource("Resource_rn3ng"), SubResource("Resource_tjvlx"), SubResource("Resource_sh0ka"), SubResource("Resource_mcug2"), SubResource("Resource_a2luf"), SubResource("Resource_bxc1n"), SubResource("Resource_x1ye7"), SubResource("Resource_bsyuy"), SubResource("Resource_ewkr5"), SubResource("Resource_ismu2")])

@@ -13,7 +13,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rrpg3")
 
 [node name="Button" type="Button" parent="."]
 material = ExtResource("2_fyqp8")
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="."]

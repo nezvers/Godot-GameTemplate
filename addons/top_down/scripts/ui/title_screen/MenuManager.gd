@@ -58,6 +58,8 @@ func directory_grab_focus(value:String)->void:
 	# Get node to focus
 	if !focused_node.has(value):
 		return
+	
+	assert(has_node(focused_node[value]) == true)
 	var node:Control = get_node(focused_node[value])
 	if node == null:
 		return

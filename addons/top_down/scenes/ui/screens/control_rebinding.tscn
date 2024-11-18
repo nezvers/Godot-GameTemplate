@@ -1,0 +1,458 @@
+[gd_scene load_steps=12 format=3 uid="uid://cs0pkiltyswgv"]
+
+[ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="1_71lak"]
+[ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_cqapm"]
+[ext_resource type="PackedScene" uid="uid://cvx2xmr86fa7b" path="res://addons/top_down/scenes/ui/binding_button.tscn" id="2_lok53"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/control_reset_button.gd" id="2_u8xua"]
+[ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="3_km2jh"]
+[ext_resource type="Texture2D" uid="uid://c0cwfllupe0ka" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_move.png" id="3_mhje8"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/BindingMenu.gd" id="5_87j6r"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/save_controls_event.gd" id="6_sswam"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kd5i5"]
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+
+[sub_resource type="Theme" id="Theme_b2ea2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xtra"]
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+
+[node name="InputRebinding" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_cqapm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kd5i5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Button Mapping"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Player1" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_b2ea2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Column" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+layout_mode = 2
+text = "Player 1"
+
+[node name="LabelRight" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Right"
+vertical_alignment = 1
+
+[node name="LabelLeft" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Left"
+vertical_alignment = 1
+
+[node name="LabelUp" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Up"
+vertical_alignment = 1
+
+[node name="LabelDown" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Down"
+vertical_alignment = 1
+
+[node name="LabelAimRight" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Aim Right"
+vertical_alignment = 1
+
+[node name="LabelAimLeft" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Aim Left"
+vertical_alignment = 1
+
+[node name="LabelAimUp" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Aim Up"
+vertical_alignment = 1
+
+[node name="LabelAimDown" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Aim Down"
+vertical_alignment = 1
+
+[node name="LabelShoot" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Shoot
+"
+vertical_alignment = 1
+
+[node name="LabelDash" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Dash"
+vertical_alignment = 1
+
+[node name="LabelNext" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Next"
+vertical_alignment = 1
+
+[node name="LabelPrevious" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Previous"
+vertical_alignment = 1
+
+[node name="LabelPause" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Pause"
+vertical_alignment = 1
+
+[node name="ButtonReset" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Reset"
+flat = true
+script = ExtResource("2_u8xua")
+action_resource = ExtResource("3_km2jh")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Column" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2"]
+layout_mode = 2
+text = "Keyboard"
+
+[node name="ButtonRightKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonRightGp")
+texture_normal = null
+action_name = &"right"
+event_variable = &"right_kb"
+
+[node name="ButtonLeftKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonLeftGp")
+texture_normal = null
+action_name = &"left"
+event_variable = &"left_kb"
+
+[node name="ButtonUpKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonUpGp")
+texture_normal = null
+action_name = &"up"
+event_variable = &"up_kb"
+
+[node name="ButtonDownKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonDownGp")
+texture_normal = null
+action_name = &"down"
+event_variable = &"down_kb"
+
+[node name="ButtonAimRightKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAimRightGp")
+texture_normal = null
+action_name = &"aim_right"
+event_variable = &"aim_right_kb"
+default_texture = ExtResource("3_mhje8")
+
+[node name="ButtonAimLeftKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAimLeftGp")
+texture_normal = null
+action_name = &"aim_left"
+event_variable = &"aim_left_kb"
+default_texture = ExtResource("3_mhje8")
+
+[node name="ButtonAimUpKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAimUpGp")
+texture_normal = null
+action_name = &"aim_up"
+event_variable = &"aim_up_kb"
+default_texture = ExtResource("3_mhje8")
+
+[node name="ButtonAimDownKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAimDownGp")
+texture_normal = null
+action_name = &"aim_down"
+event_variable = &"aim_down_kb"
+default_texture = ExtResource("3_mhje8")
+
+[node name="ButtonAction1Kb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAction1Gp")
+texture_normal = null
+action_name = &"action_1"
+event_variable = &"action_1_kb"
+
+[node name="ButtonAction2Kb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAction2Gp")
+texture_normal = null
+action_name = &"action_2"
+event_variable = &"action_2_kb"
+
+[node name="ButtonNextKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAction2Gp")
+texture_normal = null
+action_name = &"next"
+event_variable = &"next_kb"
+
+[node name="ButtonPreviousKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonAction2Gp")
+texture_normal = null
+action_name = &"previous"
+event_variable = &"previous_kb"
+
+[node name="ButtonPauseKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonPauseGp")
+texture_normal = null
+action_name = &"pause"
+event_variable = &"pause_kb"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Column" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3"]
+layout_mode = 2
+text = "Gamepad"
+
+[node name="ButtonRightGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonRightKb")
+texture_normal = null
+action_name = &"right"
+event_variable = &"right_gp"
+type = 1
+
+[node name="ButtonLeftGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonLeftKb")
+texture_normal = null
+action_name = &"left"
+event_variable = &"left_gp"
+type = 1
+
+[node name="ButtonUpGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonUpKb")
+texture_normal = null
+action_name = &"up"
+event_variable = &"up_gp"
+type = 1
+
+[node name="ButtonDownGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonDownKb")
+texture_normal = null
+action_name = &"down"
+event_variable = &"down_gp"
+type = 1
+
+[node name="ButtonAimRightGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAimRightKb")
+texture_normal = null
+action_name = &"aim_right"
+event_variable = &"aim_right_gp"
+type = 1
+
+[node name="ButtonAimLeftGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAimLeftKb")
+texture_normal = null
+action_name = &"aim_left"
+event_variable = &"aim_left_gp"
+type = 1
+
+[node name="ButtonAimUpGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAimUpKb")
+texture_normal = null
+action_name = &"aim_up"
+event_variable = &"aim_up_gp"
+type = 1
+
+[node name="ButtonAimDownGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAimDownKb")
+texture_normal = null
+action_name = &"aim_down"
+event_variable = &"aim_down_gp"
+type = 1
+
+[node name="ButtonAction1Gp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAction1Kb")
+texture_normal = null
+action_name = &"action_1"
+event_variable = &"action_1_gp"
+type = 1
+
+[node name="ButtonAction2Gp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAction2Kb")
+texture_normal = null
+action_name = &"action_2"
+event_variable = &"action_2_gp"
+type = 1
+
+[node name="ButtonNextGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAction2Kb")
+texture_normal = null
+action_name = &"next"
+event_variable = &"next_gpaction_2_gp"
+type = 1
+
+[node name="ButtonPreviousGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAction2Kb")
+texture_normal = null
+action_name = &"previous"
+event_variable = &"previous_gp"
+type = 1
+
+[node name="ButtonPauseGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonPauseKb")
+texture_normal = null
+action_name = &"pause"
+event_variable = &"pause_gp"
+type = 1
+
+[node name="SaveControlsEvent" type="Node" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1" node_paths=PackedStringArray("rebinding_panel")]
+script = ExtResource("6_sswam")
+rebinding_panel = NodePath("../../../../../..")
+action_resource = ExtResource("3_km2jh")
+
+[node name="MenuButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_71lak")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" parent="MarginContainer/VBoxContainer/MenuButton" index="1"]
+text = "Back"
+
+[node name="ButtonAnimation" parent="MarginContainer/VBoxContainer/MenuButton" index="2"]
+pressed_sound = null
+
+[node name="BindingChoices" type="ColorRect" parent="." node_paths=PackedStringArray("button_list", "choice_button_group", "info_label", "focus_button", "new_button", "delete_button", "cancel_button", "back_button")]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.662745)
+script = ExtResource("5_87j6r")
+button_list = [NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonRightKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonLeftKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonUpKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonDownKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonAimRightKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonAimLeftKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonAimUpKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonAimDownKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonAction1Kb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonAction2Kb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2/ButtonPauseKb"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonRightGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonLeftGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonUpGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonDownGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonAimRightGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonAimLeftGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonAimUpGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonAimDownGp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonAction1Gp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonAction2Gp"), NodePath("../MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3/ButtonPauseGp")]
+choice_button_group = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer")
+info_label = NodePath("CenterContainer/PanelContainer/MarginContainer/LabelInfo")
+focus_button = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/ButtonNew")
+new_button = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/ButtonNew")
+delete_button = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/ButtonDelete")
+cancel_button = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/ButtonCancel")
+back_button = NodePath("../MarginContainer/VBoxContainer/MenuButton/Button")
+
+[node name="CenterContainer" type="CenterContainer" parent="BindingChoices"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="BindingChoices/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3xtra")
+
+[node name="MarginContainer" type="MarginContainer" parent="BindingChoices/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BindingChoices/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ButtonNew" type="Button" parent="BindingChoices/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "New
+"
+
+[node name="ButtonDelete" type="Button" parent="BindingChoices/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Delete
+"
+
+[node name="ButtonCancel" type="Button" parent="BindingChoices/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="LabelInfo" type="Label" parent="BindingChoices/CenterContainer/PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+text = "Press new input!"
+
+[editable path="MarginContainer/VBoxContainer/MenuButton"]

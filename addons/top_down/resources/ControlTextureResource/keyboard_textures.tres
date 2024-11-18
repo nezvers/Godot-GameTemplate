@@ -1,0 +1,1220 @@
+[gd_resource type="Resource" script_class="ControlTextureResource" load_steps=306 format=3 uid="uid://xoehlofj3mru"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/ControlTextureResource.gd" id="1_c545s"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/InputTextureResource.gd" id="2_6eq4y"]
+[ext_resource type="Texture2D" uid="uid://nple66kxq63d" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_left.png" id="3_ygp36"]
+[ext_resource type="Texture2D" uid="uid://b5xyapb3sb8ex" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_right.png" id="4_il4oy"]
+[ext_resource type="Texture2D" uid="uid://drwqc1yj148n7" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_scroll.png" id="5_fxw6j"]
+[ext_resource type="Texture2D" uid="uid://bd8jyg5xyv58x" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_scroll_down.png" id="6_pwq4i"]
+[ext_resource type="Texture2D" uid="uid://d0cj0kknlxvwc" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_scroll_up.png" id="7_2qow2"]
+[ext_resource type="Texture2D" uid="uid://c0cwfllupe0ka" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse_move.png" id="8_87vab"]
+[ext_resource type="Texture2D" uid="uid://b3ylb36sw6fd0" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/mouse.png" id="9_wydjn"]
+[ext_resource type="Texture2D" uid="uid://de8knbbm2v464" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_win.png" id="10_ctkyi"]
+[ext_resource type="Texture2D" uid="uid://nlgjepky6mqp" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_tilde.png" id="11_mqe46"]
+[ext_resource type="Texture2D" uid="uid://c5ohl8xck1bfm" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_tab.png" id="12_7da37"]
+[ext_resource type="Texture2D" uid="uid://cm3gd5bcp3itv" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_space_icon.png" id="13_24brt"]
+[ext_resource type="Texture2D" uid="uid://b2nsvj7xcl80u" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_slash_forward.png" id="14_pdrnw"]
+[ext_resource type="Texture2D" uid="uid://ckbbvr7gsdll4" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_slash_back.png" id="15_iiv15"]
+[ext_resource type="Texture2D" uid="uid://dws2y2lgwbmrw" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_shift_icon.png" id="16_oyarh"]
+[ext_resource type="Texture2D" uid="uid://dtsao8ahuehxh" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_semicolon.png" id="17_0kmdx"]
+[ext_resource type="Texture2D" uid="uid://dxuwu6ouek0ay" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_return.png" id="18_la08m"]
+[ext_resource type="Texture2D" uid="uid://ctf1p3ar4w2hk" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_quote.png" id="19_fe5d4"]
+[ext_resource type="Texture2D" uid="uid://15jhg8may0h3" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_plus.png" id="21_lhf60"]
+[ext_resource type="Texture2D" uid="uid://btf03av4hrind" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_period.png" id="22_174f5"]
+[ext_resource type="Texture2D" uid="uid://d0b346r7xrbwg" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_alt.png" id="23_psoca"]
+[ext_resource type="Texture2D" uid="uid://bqiopbrnjtdp0" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_minus.png" id="24_t7mf5"]
+[ext_resource type="Texture2D" uid="uid://baj2pwlpg52q" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_equals.png" id="25_b7jra"]
+[ext_resource type="Texture2D" uid="uid://b2f1y3h8tte7d" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_numpad_enter.png" id="26_1of6h"]
+[ext_resource type="Texture2D" uid="uid://ddyeu5uwv8267" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_insert.png" id="27_2njwk"]
+[ext_resource type="Texture2D" uid="uid://ctspd03uxeo36" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_home.png" id="28_wexty"]
+[ext_resource type="Texture2D" uid="uid://olgn1pgm7di6" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_escape.png" id="29_6yn5v"]
+[ext_resource type="Texture2D" uid="uid://hhuu2tie7b7c" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_delete.png" id="30_qctwr"]
+[ext_resource type="Texture2D" uid="uid://d2lj66f57355c" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_comma.png" id="31_1skal"]
+[ext_resource type="Texture2D" uid="uid://rat6yciqv1f4" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_capslock_icon.png" id="32_fthub"]
+[ext_resource type="Texture2D" uid="uid://dennj4grn1ltn" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_bracket_open.png" id="33_o3lrf"]
+[ext_resource type="Texture2D" uid="uid://cogd403uoc74r" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_backspace_icon_alternative.png" id="34_2jfrf"]
+[ext_resource type="Texture2D" uid="uid://bbqeu65xxqn4f" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_bracket_close.png" id="34_os5lw"]
+[ext_resource type="Texture2D" uid="uid://u5vw48reopck" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_arrow_up.png" id="35_vxyv2"]
+[ext_resource type="Texture2D" uid="uid://5dtj8d1aj6fs" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_arrow_right.png" id="36_p1btj"]
+[ext_resource type="Texture2D" uid="uid://cpc6yqoirjode" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_arrow_left.png" id="37_mywyq"]
+[ext_resource type="Texture2D" uid="uid://de1c2y360rnh3" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_arrow_down.png" id="38_7d51p"]
+[ext_resource type="Texture2D" uid="uid://g6l0nowuvrdc" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_end.png" id="39_corqb"]
+[ext_resource type="Texture2D" uid="uid://cvktqai0o5mct" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_page_up.png" id="40_4my3l"]
+[ext_resource type="Texture2D" uid="uid://bkqfcpsoqhvvr" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_page_down.png" id="41_c64lt"]
+[ext_resource type="Texture2D" uid="uid://sbw1md2oruul" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_asterisk.png" id="42_ws67t"]
+[ext_resource type="Texture2D" uid="uid://cb8a57v4p4rp7" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_0.png" id="43_iw16x"]
+[ext_resource type="Texture2D" uid="uid://c5vue1oy48rqw" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_1.png" id="44_t50sl"]
+[ext_resource type="Texture2D" uid="uid://bbrwgwhlthls" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_2.png" id="45_5yen0"]
+[ext_resource type="Texture2D" uid="uid://vepkwrwx7cm6" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_3.png" id="46_xr3w2"]
+[ext_resource type="Texture2D" uid="uid://dvchtd6yaon4f" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_4.png" id="47_0kq82"]
+[ext_resource type="Texture2D" uid="uid://8qjeoib4526k" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_5.png" id="48_mymwr"]
+[ext_resource type="Texture2D" uid="uid://cmjmomxaol42u" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_6.png" id="49_d5c2x"]
+[ext_resource type="Texture2D" uid="uid://co8o3oomybmar" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_7.png" id="50_wjk7n"]
+[ext_resource type="Texture2D" uid="uid://bf3lpgnnlsplo" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_8.png" id="51_ynwem"]
+[ext_resource type="Texture2D" uid="uid://cw10tbxcw15va" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_9.png" id="52_6b0yx"]
+[ext_resource type="Texture2D" uid="uid://dte0l03t3pocb" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_numlock.png" id="53_y1dun"]
+[ext_resource type="Texture2D" uid="uid://p4q65xphtmhq" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f1.png" id="54_2n1w2"]
+[ext_resource type="Texture2D" uid="uid://xpdaq71ayjja" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f2.png" id="55_10og7"]
+[ext_resource type="Texture2D" uid="uid://u1d23t5op2kv" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f3.png" id="56_tqelt"]
+[ext_resource type="Texture2D" uid="uid://yrt4yasbf7v" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f4.png" id="57_j3k2f"]
+[ext_resource type="Texture2D" uid="uid://bq65sym13tel" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f5.png" id="58_c5ppp"]
+[ext_resource type="Texture2D" uid="uid://dds7di0b53fvp" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f6.png" id="59_rrxtt"]
+[ext_resource type="Texture2D" uid="uid://dgmn83w7jrcv1" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f7.png" id="60_e7hap"]
+[ext_resource type="Texture2D" uid="uid://c4sfqn2ek82b1" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f8.png" id="61_egl82"]
+[ext_resource type="Texture2D" uid="uid://ddbl8g26rlfo7" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f9.png" id="62_e3hlh"]
+[ext_resource type="Texture2D" uid="uid://c5hf0wkocc5sr" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f10.png" id="63_jdwk7"]
+[ext_resource type="Texture2D" uid="uid://lxoffdhhcxaq" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f11.png" id="64_i1lr5"]
+[ext_resource type="Texture2D" uid="uid://cd8krdrn28q6u" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f12.png" id="65_0n3h4"]
+[ext_resource type="Texture2D" uid="uid://ctqurggs8iraf" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_a.png" id="66_ckfno"]
+[ext_resource type="Texture2D" uid="uid://clyx1mw6s53pn" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_b.png" id="67_atyvg"]
+[ext_resource type="Texture2D" uid="uid://7buabspm73ah" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_c.png" id="68_c60m0"]
+[ext_resource type="Texture2D" uid="uid://bg8ibqvpwoxrh" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_d.png" id="69_g6ojo"]
+[ext_resource type="Texture2D" uid="uid://hblh8y406f0c" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_e.png" id="70_21nyp"]
+[ext_resource type="Texture2D" uid="uid://cjxaqq01xfc11" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_f.png" id="71_j56qy"]
+[ext_resource type="Texture2D" uid="uid://48jn63qf8ofl" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_g.png" id="72_t1n8g"]
+[ext_resource type="Texture2D" uid="uid://dk772efv61fem" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_h.png" id="73_8y4ks"]
+[ext_resource type="Texture2D" uid="uid://dtannpux8ag6b" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_i.png" id="74_q7oe5"]
+[ext_resource type="Texture2D" uid="uid://dd5swd23nsxot" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_j.png" id="75_b3syv"]
+[ext_resource type="Texture2D" uid="uid://dgcvs8xmwffgm" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_k.png" id="76_8n1db"]
+[ext_resource type="Texture2D" uid="uid://eou52k3x6dr" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_l.png" id="77_qr3o7"]
+[ext_resource type="Texture2D" uid="uid://dp7nd4ijxs5hy" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_m.png" id="78_fdmtp"]
+[ext_resource type="Texture2D" uid="uid://bpw6sewek13c8" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_n.png" id="79_bvjpp"]
+[ext_resource type="Texture2D" uid="uid://cv3rptf5m1xhp" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_o.png" id="80_wt6ba"]
+[ext_resource type="Texture2D" uid="uid://c7vkw2s4jlfk5" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_p.png" id="81_6d443"]
+[ext_resource type="Texture2D" uid="uid://dcsowsxbsjlhd" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_q.png" id="82_xq8vj"]
+[ext_resource type="Texture2D" uid="uid://bj1u6ul2rgtbv" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_r.png" id="83_qj3ym"]
+[ext_resource type="Texture2D" uid="uid://cbetkoh74pbmg" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_s.png" id="84_8imvr"]
+[ext_resource type="Texture2D" uid="uid://c7dcupqy2ewlx" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_t.png" id="85_4yqum"]
+[ext_resource type="Texture2D" uid="uid://cportuqvf41mt" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_u.png" id="86_sdc8p"]
+[ext_resource type="Texture2D" uid="uid://cjfnlkvywxcdp" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_v.png" id="87_s82lt"]
+[ext_resource type="Texture2D" uid="uid://blb0repwmie0p" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_w.png" id="88_wlyb3"]
+[ext_resource type="Texture2D" uid="uid://bkcn8akbld174" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_x.png" id="89_whymt"]
+[ext_resource type="Texture2D" uid="uid://krnw3gc6vvew" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_y.png" id="90_081xs"]
+[ext_resource type="Texture2D" uid="uid://cp2x0m45tv4xu" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_z.png" id="91_8err2"]
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_go5ot"]
+button_index = 1
+
+[sub_resource type="Resource" id="Resource_ultts"]
+resource_name = "Mouse left"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_go5ot")
+texture = ExtResource("3_ygp36")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_r1dq7"]
+button_index = 2
+
+[sub_resource type="Resource" id="Resource_3b80v"]
+resource_name = "Mouse right"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_r1dq7")
+texture = ExtResource("4_il4oy")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_iiacn"]
+button_index = 3
+
+[sub_resource type="Resource" id="Resource_tujfn"]
+resource_name = "Mouse middle"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_iiacn")
+texture = ExtResource("5_fxw6j")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_m24t8"]
+button_index = 5
+
+[sub_resource type="Resource" id="Resource_qkx17"]
+resource_name = "Scroll down"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_m24t8")
+texture = ExtResource("6_pwq4i")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_j1ncy"]
+button_index = 4
+
+[sub_resource type="Resource" id="Resource_6040v"]
+resource_name = "Scroll up"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_j1ncy")
+texture = ExtResource("7_2qow2")
+
+[sub_resource type="InputEventMouseMotion" id="InputEventMouseMotion_boeda"]
+
+[sub_resource type="Resource" id="Resource_axftd"]
+resource_name = "Mouse motion"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseMotion_boeda")
+texture = ExtResource("8_87vab")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_ipy25"]
+button_index = 6
+
+[sub_resource type="Resource" id="Resource_fybsk"]
+resource_name = "Wheel left"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_ipy25")
+texture = ExtResource("5_fxw6j")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_d2cyr"]
+button_index = 7
+
+[sub_resource type="Resource" id="Resource_aqk77"]
+resource_name = "Wheel right"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_d2cyr")
+texture = ExtResource("5_fxw6j")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_1pghi"]
+button_index = 8
+
+[sub_resource type="Resource" id="Resource_f7pb1"]
+resource_name = "Mouse Thumb 1"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_1pghi")
+texture = ExtResource("9_wydjn")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_6puba"]
+button_index = 9
+
+[sub_resource type="Resource" id="Resource_4owuv"]
+resource_name = "Mouse Thumb 2"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventMouseButton_6puba")
+texture = ExtResource("9_wydjn")
+
+[sub_resource type="InputEventKey" id="InputEventKey_npi1u"]
+device = -1
+physical_keycode = 4194327
+
+[sub_resource type="Resource" id="Resource_7sqle"]
+resource_name = "win"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_npi1u")
+texture = ExtResource("10_ctkyi")
+
+[sub_resource type="InputEventKey" id="InputEventKey_gfu5d"]
+device = -1
+physical_keycode = 96
+unicode = 96
+
+[sub_resource type="Resource" id="Resource_so16a"]
+resource_name = "tilde"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_gfu5d")
+texture = ExtResource("11_mqe46")
+
+[sub_resource type="InputEventKey" id="InputEventKey_rx5qe"]
+device = -1
+physical_keycode = 4194306
+unicode = 176
+
+[sub_resource type="Resource" id="Resource_me086"]
+resource_name = "tab"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_rx5qe")
+texture = ExtResource("12_7da37")
+
+[sub_resource type="InputEventKey" id="InputEventKey_p7imi"]
+device = -1
+physical_keycode = 32
+unicode = 32
+
+[sub_resource type="Resource" id="Resource_3h83k"]
+resource_name = "space"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_p7imi")
+texture = ExtResource("13_24brt")
+
+[sub_resource type="InputEventKey" id="InputEventKey_1glje"]
+device = -1
+physical_keycode = 47
+unicode = 47
+
+[sub_resource type="Resource" id="Resource_bw81v"]
+resource_name = "forward slash"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_1glje")
+texture = ExtResource("14_pdrnw")
+
+[sub_resource type="InputEventKey" id="InputEventKey_coji4"]
+device = -1
+physical_keycode = 92
+
+[sub_resource type="Resource" id="Resource_8emc0"]
+resource_name = "back slash"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_coji4")
+texture = ExtResource("15_iiv15")
+
+[sub_resource type="InputEventKey" id="InputEventKey_rms7h"]
+device = -1
+physical_keycode = 4194325
+
+[sub_resource type="Resource" id="Resource_p5oht"]
+resource_name = "shift left"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_rms7h")
+texture = ExtResource("16_oyarh")
+
+[sub_resource type="InputEventKey" id="InputEventKey_bid47"]
+device = -1
+physical_keycode = 4194325
+
+[sub_resource type="Resource" id="Resource_08cs2"]
+resource_name = "shift right"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_bid47")
+texture = ExtResource("16_oyarh")
+
+[sub_resource type="InputEventKey" id="InputEventKey_kq4a3"]
+device = -1
+physical_keycode = 59
+unicode = 59
+
+[sub_resource type="Resource" id="Resource_eya7h"]
+resource_name = "semicolon"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_kq4a3")
+texture = ExtResource("17_0kmdx")
+
+[sub_resource type="InputEventKey" id="InputEventKey_utc2h"]
+device = -1
+physical_keycode = 4194309
+
+[sub_resource type="Resource" id="Resource_0px8p"]
+resource_name = "enter"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_utc2h")
+texture = ExtResource("18_la08m")
+
+[sub_resource type="InputEventKey" id="InputEventKey_858gt"]
+device = -1
+physical_keycode = 39
+unicode = 39
+
+[sub_resource type="Resource" id="Resource_5163u"]
+resource_name = "quote"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_858gt")
+texture = ExtResource("19_fe5d4")
+
+[sub_resource type="InputEventKey" id="InputEventKey_mi07x"]
+device = -1
+physical_keycode = 4194437
+unicode = 43
+
+[sub_resource type="Resource" id="Resource_bk216"]
+resource_name = "kp plus"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_mi07x")
+texture = ExtResource("21_lhf60")
+
+[sub_resource type="InputEventKey" id="InputEventKey_iqyw0"]
+device = -1
+physical_keycode = 46
+unicode = 46
+
+[sub_resource type="Resource" id="Resource_lyweu"]
+resource_name = "period"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_iqyw0")
+texture = ExtResource("22_174f5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_dowxc"]
+device = -1
+physical_keycode = 4194328
+
+[sub_resource type="Resource" id="Resource_6qiri"]
+resource_name = "alt"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_dowxc")
+texture = ExtResource("23_psoca")
+
+[sub_resource type="InputEventKey" id="InputEventKey_yo828"]
+device = -1
+physical_keycode = 45
+unicode = 45
+
+[sub_resource type="Resource" id="Resource_r52n6"]
+resource_name = "minus"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_yo828")
+texture = ExtResource("24_t7mf5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_w415o"]
+device = -1
+physical_keycode = 61
+unicode = 61
+
+[sub_resource type="Resource" id="Resource_pij6w"]
+resource_name = "equal"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_w415o")
+texture = ExtResource("25_b7jra")
+
+[sub_resource type="InputEventKey" id="InputEventKey_1yecw"]
+device = -1
+physical_keycode = 4194310
+
+[sub_resource type="Resource" id="Resource_cunf3"]
+resource_name = "kp enter"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_1yecw")
+texture = ExtResource("26_1of6h")
+
+[sub_resource type="InputEventKey" id="InputEventKey_7ke13"]
+device = -1
+physical_keycode = 4194435
+unicode = 45
+
+[sub_resource type="Resource" id="Resource_b1ifm"]
+resource_name = "kp minus"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_7ke13")
+texture = ExtResource("24_t7mf5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_4asvg"]
+device = -1
+physical_keycode = 4194311
+
+[sub_resource type="Resource" id="Resource_1rtsq"]
+resource_name = "insert"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_4asvg")
+texture = ExtResource("27_2njwk")
+
+[sub_resource type="InputEventKey" id="InputEventKey_f3vf8"]
+device = -1
+physical_keycode = 4194317
+
+[sub_resource type="Resource" id="Resource_fxlqv"]
+resource_name = "home"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_f3vf8")
+texture = ExtResource("28_wexty")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ks38c"]
+device = -1
+physical_keycode = 4194305
+
+[sub_resource type="Resource" id="Resource_bscst"]
+resource_name = "escape"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_ks38c")
+texture = ExtResource("29_6yn5v")
+
+[sub_resource type="InputEventKey" id="InputEventKey_u7tvj"]
+device = -1
+physical_keycode = 4194312
+
+[sub_resource type="Resource" id="Resource_ijvmw"]
+resource_name = "delete"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_u7tvj")
+texture = ExtResource("30_qctwr")
+
+[sub_resource type="InputEventKey" id="InputEventKey_h6dpn"]
+device = -1
+physical_keycode = 44
+unicode = 44
+
+[sub_resource type="Resource" id="Resource_67xew"]
+resource_name = "comma"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_h6dpn")
+texture = ExtResource("31_1skal")
+
+[sub_resource type="InputEventKey" id="InputEventKey_xro58"]
+device = -1
+physical_keycode = 4194329
+
+[sub_resource type="Resource" id="Resource_yks4u"]
+resource_name = "caps lock"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_xro58")
+texture = ExtResource("32_fthub")
+
+[sub_resource type="InputEventKey" id="InputEventKey_0aj7x"]
+device = -1
+physical_keycode = 91
+unicode = 91
+
+[sub_resource type="Resource" id="Resource_nn5bn"]
+resource_name = "bracket open"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_0aj7x")
+texture = ExtResource("33_o3lrf")
+
+[sub_resource type="InputEventKey" id="InputEventKey_qbdsi"]
+device = -1
+physical_keycode = 93
+unicode = 93
+
+[sub_resource type="Resource" id="Resource_spjsx"]
+resource_name = "bracked close"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_qbdsi")
+texture = ExtResource("34_os5lw")
+
+[sub_resource type="InputEventKey" id="InputEventKey_n3obh"]
+device = -1
+physical_keycode = 4194308
+
+[sub_resource type="Resource" id="Resource_et1fu"]
+resource_name = "backspace"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_n3obh")
+texture = ExtResource("34_2jfrf")
+
+[sub_resource type="InputEventKey" id="InputEventKey_4cvnh"]
+device = -1
+physical_keycode = 4194320
+
+[sub_resource type="Resource" id="Resource_sak65"]
+resource_name = "arrow up"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_4cvnh")
+texture = ExtResource("35_vxyv2")
+
+[sub_resource type="InputEventKey" id="InputEventKey_slcqb"]
+device = -1
+physical_keycode = 4194321
+
+[sub_resource type="Resource" id="Resource_lf5tc"]
+resource_name = "arrow right"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_slcqb")
+texture = ExtResource("36_p1btj")
+
+[sub_resource type="InputEventKey" id="InputEventKey_l788y"]
+device = -1
+physical_keycode = 4194319
+
+[sub_resource type="Resource" id="Resource_i01i4"]
+resource_name = "arrow left"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_l788y")
+texture = ExtResource("37_mywyq")
+
+[sub_resource type="InputEventKey" id="InputEventKey_h6s82"]
+device = -1
+physical_keycode = 4194322
+
+[sub_resource type="Resource" id="Resource_l6gwu"]
+resource_name = "arrow down"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_h6s82")
+texture = ExtResource("38_7d51p")
+
+[sub_resource type="InputEventKey" id="InputEventKey_hfdfy"]
+device = -1
+physical_keycode = 4194318
+
+[sub_resource type="Resource" id="Resource_uohgx"]
+resource_name = "end"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_hfdfy")
+texture = ExtResource("39_corqb")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ogap4"]
+device = -1
+physical_keycode = 4194323
+
+[sub_resource type="Resource" id="Resource_o0tgs"]
+resource_name = "page up"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_ogap4")
+texture = ExtResource("40_4my3l")
+
+[sub_resource type="InputEventKey" id="InputEventKey_w6oro"]
+device = -1
+physical_keycode = 4194324
+
+[sub_resource type="Resource" id="Resource_yvfcq"]
+resource_name = "page down"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_w6oro")
+texture = ExtResource("41_c64lt")
+
+[sub_resource type="InputEventKey" id="InputEventKey_t873m"]
+device = -1
+ctrl_pressed = true
+physical_keycode = 4194328
+
+[sub_resource type="Resource" id="Resource_7hxfk"]
+resource_name = "alt right"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_t873m")
+texture = ExtResource("23_psoca")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ed263"]
+device = -1
+physical_keycode = 4194436
+unicode = 46
+
+[sub_resource type="Resource" id="Resource_na7rn"]
+resource_name = "kp period"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_ed263")
+texture = ExtResource("22_174f5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_wmnyh"]
+device = -1
+physical_keycode = 4194434
+unicode = 47
+
+[sub_resource type="Resource" id="Resource_ixahb"]
+resource_name = "kp divide"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_wmnyh")
+texture = ExtResource("14_pdrnw")
+
+[sub_resource type="InputEventKey" id="InputEventKey_5cilq"]
+device = -1
+physical_keycode = 4194433
+unicode = 42
+
+[sub_resource type="Resource" id="Resource_l0ibn"]
+resource_name = "kp multiply"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_5cilq")
+texture = ExtResource("42_ws67t")
+
+[sub_resource type="InputEventKey" id="InputEventKey_8lx4s"]
+device = -1
+physical_keycode = 4194438
+unicode = 48
+
+[sub_resource type="Resource" id="Resource_ovvnp"]
+resource_name = "kp 0"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_8lx4s")
+texture = ExtResource("43_iw16x")
+
+[sub_resource type="InputEventKey" id="InputEventKey_vc52s"]
+device = -1
+physical_keycode = 4194439
+unicode = 49
+
+[sub_resource type="Resource" id="Resource_sgj5h"]
+resource_name = "kp 1"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_vc52s")
+texture = ExtResource("44_t50sl")
+
+[sub_resource type="InputEventKey" id="InputEventKey_nxc0u"]
+device = -1
+physical_keycode = 4194440
+unicode = 50
+
+[sub_resource type="Resource" id="Resource_wkgyu"]
+resource_name = "kp 2"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_nxc0u")
+texture = ExtResource("45_5yen0")
+
+[sub_resource type="InputEventKey" id="InputEventKey_6717h"]
+device = -1
+physical_keycode = 4194441
+unicode = 51
+
+[sub_resource type="Resource" id="Resource_4pvil"]
+resource_name = "kp 3"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_6717h")
+texture = ExtResource("46_xr3w2")
+
+[sub_resource type="InputEventKey" id="InputEventKey_sadh6"]
+device = -1
+physical_keycode = 4194442
+unicode = 52
+
+[sub_resource type="Resource" id="Resource_x0qqf"]
+resource_name = "kp 4"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_sadh6")
+texture = ExtResource("47_0kq82")
+
+[sub_resource type="InputEventKey" id="InputEventKey_wmb81"]
+device = -1
+physical_keycode = 4194443
+unicode = 53
+
+[sub_resource type="Resource" id="Resource_urllw"]
+resource_name = "kp 5"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_wmb81")
+texture = ExtResource("48_mymwr")
+
+[sub_resource type="InputEventKey" id="InputEventKey_dpdbo"]
+device = -1
+physical_keycode = 4194444
+unicode = 54
+
+[sub_resource type="Resource" id="Resource_osjme"]
+resource_name = "kp 6"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_dpdbo")
+texture = ExtResource("49_d5c2x")
+
+[sub_resource type="InputEventKey" id="InputEventKey_dl6ai"]
+device = -1
+physical_keycode = 4194445
+unicode = 55
+
+[sub_resource type="Resource" id="Resource_cdsaq"]
+resource_name = "kp 7"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_dl6ai")
+texture = ExtResource("50_wjk7n")
+
+[sub_resource type="InputEventKey" id="InputEventKey_mmy48"]
+device = -1
+physical_keycode = 4194446
+unicode = 56
+
+[sub_resource type="Resource" id="Resource_ybt4e"]
+resource_name = "kp 8"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_mmy48")
+texture = ExtResource("51_ynwem")
+
+[sub_resource type="InputEventKey" id="InputEventKey_fyltl"]
+device = -1
+physical_keycode = 4194447
+unicode = 57
+
+[sub_resource type="Resource" id="Resource_7psnx"]
+resource_name = "kp 9"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_fyltl")
+texture = ExtResource("52_6b0yx")
+
+[sub_resource type="InputEventKey" id="InputEventKey_qqves"]
+device = -1
+physical_keycode = 4194330
+
+[sub_resource type="Resource" id="Resource_xqw1g"]
+resource_name = "num lock"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_qqves")
+texture = ExtResource("53_y1dun")
+
+[sub_resource type="InputEventKey" id="InputEventKey_25lxn"]
+device = -1
+physical_keycode = 48
+unicode = 48
+
+[sub_resource type="Resource" id="Resource_1t1md"]
+resource_name = "0"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_25lxn")
+texture = ExtResource("43_iw16x")
+
+[sub_resource type="InputEventKey" id="InputEventKey_00yqu"]
+device = -1
+physical_keycode = 49
+unicode = 49
+
+[sub_resource type="Resource" id="Resource_wvb0q"]
+resource_name = "1"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_00yqu")
+texture = ExtResource("44_t50sl")
+
+[sub_resource type="InputEventKey" id="InputEventKey_pav7l"]
+device = -1
+physical_keycode = 50
+unicode = 50
+
+[sub_resource type="Resource" id="Resource_xfmvn"]
+resource_name = "2"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_pav7l")
+texture = ExtResource("45_5yen0")
+
+[sub_resource type="InputEventKey" id="InputEventKey_naaki"]
+device = -1
+physical_keycode = 51
+unicode = 51
+
+[sub_resource type="Resource" id="Resource_kor7y"]
+resource_name = "3"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_naaki")
+texture = ExtResource("46_xr3w2")
+
+[sub_resource type="InputEventKey" id="InputEventKey_500ve"]
+device = -1
+physical_keycode = 52
+unicode = 52
+
+[sub_resource type="Resource" id="Resource_kdqo8"]
+resource_name = "4"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_500ve")
+texture = ExtResource("47_0kq82")
+
+[sub_resource type="InputEventKey" id="InputEventKey_tjoco"]
+device = -1
+physical_keycode = 53
+unicode = 53
+
+[sub_resource type="Resource" id="Resource_itgwa"]
+resource_name = "5"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_tjoco")
+texture = ExtResource("48_mymwr")
+
+[sub_resource type="InputEventKey" id="InputEventKey_jmqea"]
+device = -1
+physical_keycode = 54
+unicode = 54
+
+[sub_resource type="Resource" id="Resource_eptqa"]
+resource_name = "6"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_jmqea")
+texture = ExtResource("49_d5c2x")
+
+[sub_resource type="InputEventKey" id="InputEventKey_i32qc"]
+device = -1
+physical_keycode = 55
+unicode = 55
+
+[sub_resource type="Resource" id="Resource_nv1tb"]
+resource_name = "7"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_i32qc")
+texture = ExtResource("50_wjk7n")
+
+[sub_resource type="InputEventKey" id="InputEventKey_mbl05"]
+device = -1
+physical_keycode = 56
+unicode = 56
+
+[sub_resource type="Resource" id="Resource_yle8m"]
+resource_name = "8"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_mbl05")
+texture = ExtResource("51_ynwem")
+
+[sub_resource type="InputEventKey" id="InputEventKey_3vnbi"]
+device = -1
+physical_keycode = 57
+unicode = 57
+
+[sub_resource type="Resource" id="Resource_t8al2"]
+resource_name = "9"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_3vnbi")
+texture = ExtResource("52_6b0yx")
+
+[sub_resource type="InputEventKey" id="InputEventKey_1nosv"]
+device = -1
+physical_keycode = 4194332
+
+[sub_resource type="Resource" id="Resource_7koo4"]
+resource_name = "f1"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_1nosv")
+texture = ExtResource("54_2n1w2")
+
+[sub_resource type="InputEventKey" id="InputEventKey_2ud0h"]
+device = -1
+physical_keycode = 4194333
+
+[sub_resource type="Resource" id="Resource_5l8hi"]
+resource_name = "f2"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_2ud0h")
+texture = ExtResource("55_10og7")
+
+[sub_resource type="InputEventKey" id="InputEventKey_koo62"]
+device = -1
+physical_keycode = 4194334
+
+[sub_resource type="Resource" id="Resource_c4k36"]
+resource_name = "f3"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_koo62")
+texture = ExtResource("56_tqelt")
+
+[sub_resource type="InputEventKey" id="InputEventKey_tvnq2"]
+device = -1
+physical_keycode = 4194335
+
+[sub_resource type="Resource" id="Resource_14ayn"]
+resource_name = "f4"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_tvnq2")
+texture = ExtResource("57_j3k2f")
+
+[sub_resource type="InputEventKey" id="InputEventKey_6veoh"]
+device = -1
+physical_keycode = 4194335
+
+[sub_resource type="Resource" id="Resource_n2euw"]
+resource_name = "f5"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_6veoh")
+texture = ExtResource("58_c5ppp")
+
+[sub_resource type="InputEventKey" id="InputEventKey_jcual"]
+device = -1
+physical_keycode = 4194337
+
+[sub_resource type="Resource" id="Resource_ea8oq"]
+resource_name = "f6"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_jcual")
+texture = ExtResource("59_rrxtt")
+
+[sub_resource type="InputEventKey" id="InputEventKey_trfdr"]
+device = -1
+physical_keycode = 4194338
+
+[sub_resource type="Resource" id="Resource_lscm4"]
+resource_name = "f7"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_trfdr")
+texture = ExtResource("60_e7hap")
+
+[sub_resource type="InputEventKey" id="InputEventKey_7yhfk"]
+device = -1
+physical_keycode = 4194339
+
+[sub_resource type="Resource" id="Resource_rrlpk"]
+resource_name = "f8"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_7yhfk")
+texture = ExtResource("61_egl82")
+
+[sub_resource type="InputEventKey" id="InputEventKey_djs7u"]
+device = -1
+physical_keycode = 4194340
+
+[sub_resource type="Resource" id="Resource_psd5c"]
+resource_name = "f9"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_djs7u")
+texture = ExtResource("62_e3hlh")
+
+[sub_resource type="InputEventKey" id="InputEventKey_fpij4"]
+device = -1
+physical_keycode = 4194341
+
+[sub_resource type="Resource" id="Resource_5jl2f"]
+resource_name = "f10"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_fpij4")
+texture = ExtResource("63_jdwk7")
+
+[sub_resource type="InputEventKey" id="InputEventKey_kawlc"]
+device = -1
+physical_keycode = 4194342
+
+[sub_resource type="Resource" id="Resource_j46q7"]
+resource_name = "f11"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_kawlc")
+texture = ExtResource("64_i1lr5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_sgij7"]
+device = -1
+physical_keycode = 4194343
+
+[sub_resource type="Resource" id="Resource_yvfll"]
+resource_name = "f12"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_sgij7")
+texture = ExtResource("65_0n3h4")
+
+[sub_resource type="InputEventKey" id="InputEventKey_w1jg4"]
+device = -1
+physical_keycode = 65
+unicode = 97
+
+[sub_resource type="Resource" id="Resource_x17pn"]
+resource_name = "a"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_w1jg4")
+texture = ExtResource("66_ckfno")
+
+[sub_resource type="InputEventKey" id="InputEventKey_t42ut"]
+device = -1
+physical_keycode = 66
+unicode = 98
+
+[sub_resource type="Resource" id="Resource_bo0ib"]
+resource_name = "b"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_t42ut")
+texture = ExtResource("67_atyvg")
+
+[sub_resource type="InputEventKey" id="InputEventKey_fqseh"]
+device = -1
+physical_keycode = 67
+unicode = 99
+
+[sub_resource type="Resource" id="Resource_corax"]
+resource_name = "c"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_fqseh")
+texture = ExtResource("68_c60m0")
+
+[sub_resource type="InputEventKey" id="InputEventKey_qajgt"]
+device = -1
+physical_keycode = 68
+unicode = 100
+
+[sub_resource type="Resource" id="Resource_ff5wl"]
+resource_name = "d"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_qajgt")
+texture = ExtResource("69_g6ojo")
+
+[sub_resource type="InputEventKey" id="InputEventKey_qa7nh"]
+device = -1
+physical_keycode = 69
+unicode = 101
+
+[sub_resource type="Resource" id="Resource_8xwrr"]
+resource_name = "e"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_qa7nh")
+texture = ExtResource("70_21nyp")
+
+[sub_resource type="InputEventKey" id="InputEventKey_kenda"]
+device = -1
+physical_keycode = 70
+unicode = 102
+
+[sub_resource type="Resource" id="Resource_8u27u"]
+resource_name = "f"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_kenda")
+texture = ExtResource("71_j56qy")
+
+[sub_resource type="InputEventKey" id="InputEventKey_rh5us"]
+device = -1
+physical_keycode = 71
+unicode = 103
+
+[sub_resource type="Resource" id="Resource_hyys8"]
+resource_name = "g"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_rh5us")
+texture = ExtResource("72_t1n8g")
+
+[sub_resource type="InputEventKey" id="InputEventKey_v48vg"]
+device = -1
+physical_keycode = 72
+unicode = 104
+
+[sub_resource type="Resource" id="Resource_lerl3"]
+resource_name = "h"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_v48vg")
+texture = ExtResource("73_8y4ks")
+
+[sub_resource type="InputEventKey" id="InputEventKey_agns1"]
+device = -1
+physical_keycode = 73
+unicode = 105
+
+[sub_resource type="Resource" id="Resource_uvq3l"]
+resource_name = "i"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_agns1")
+texture = ExtResource("74_q7oe5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_polt6"]
+device = -1
+physical_keycode = 74
+unicode = 106
+
+[sub_resource type="Resource" id="Resource_mnfma"]
+resource_name = "j"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_polt6")
+texture = ExtResource("75_b3syv")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ijqq0"]
+device = -1
+physical_keycode = 75
+unicode = 107
+
+[sub_resource type="Resource" id="Resource_kk2xb"]
+resource_name = "k"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_ijqq0")
+texture = ExtResource("76_8n1db")
+
+[sub_resource type="InputEventKey" id="InputEventKey_tag2b"]
+device = -1
+physical_keycode = 76
+unicode = 108
+
+[sub_resource type="Resource" id="Resource_6oa41"]
+resource_name = "L"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_tag2b")
+texture = ExtResource("77_qr3o7")
+
+[sub_resource type="InputEventKey" id="InputEventKey_18lug"]
+device = -1
+physical_keycode = 77
+unicode = 109
+
+[sub_resource type="Resource" id="Resource_tph1c"]
+resource_name = "m"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_18lug")
+texture = ExtResource("78_fdmtp")
+
+[sub_resource type="InputEventKey" id="InputEventKey_6titf"]
+device = -1
+physical_keycode = 78
+unicode = 110
+
+[sub_resource type="Resource" id="Resource_ohamk"]
+resource_name = "n"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_6titf")
+texture = ExtResource("79_bvjpp")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ndpmm"]
+device = -1
+physical_keycode = 79
+unicode = 111
+
+[sub_resource type="Resource" id="Resource_txa5d"]
+resource_name = "o"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_ndpmm")
+texture = ExtResource("80_wt6ba")
+
+[sub_resource type="InputEventKey" id="InputEventKey_0otob"]
+device = -1
+physical_keycode = 80
+unicode = 112
+
+[sub_resource type="Resource" id="Resource_7uar7"]
+resource_name = "p"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_0otob")
+texture = ExtResource("81_6d443")
+
+[sub_resource type="InputEventKey" id="InputEventKey_7qy3f"]
+device = -1
+physical_keycode = 81
+unicode = 113
+
+[sub_resource type="Resource" id="Resource_wpxnt"]
+resource_name = "q"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_7qy3f")
+texture = ExtResource("82_xq8vj")
+
+[sub_resource type="InputEventKey" id="InputEventKey_a1hvv"]
+device = -1
+physical_keycode = 82
+unicode = 114
+
+[sub_resource type="Resource" id="Resource_fs5ya"]
+resource_name = "r"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_a1hvv")
+texture = ExtResource("83_qj3ym")
+
+[sub_resource type="InputEventKey" id="InputEventKey_vxbjy"]
+device = -1
+physical_keycode = 83
+unicode = 115
+
+[sub_resource type="Resource" id="Resource_p8vrk"]
+resource_name = "s"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_vxbjy")
+texture = ExtResource("84_8imvr")
+
+[sub_resource type="InputEventKey" id="InputEventKey_g8vcj"]
+device = -1
+physical_keycode = 84
+unicode = 116
+
+[sub_resource type="Resource" id="Resource_bb6v2"]
+resource_name = "t"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_g8vcj")
+texture = ExtResource("85_4yqum")
+
+[sub_resource type="InputEventKey" id="InputEventKey_rm3yv"]
+device = -1
+physical_keycode = 85
+unicode = 117
+
+[sub_resource type="Resource" id="Resource_7lho3"]
+resource_name = "u"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_rm3yv")
+texture = ExtResource("86_sdc8p")
+
+[sub_resource type="InputEventKey" id="InputEventKey_8pv4e"]
+device = -1
+physical_keycode = 86
+unicode = 118
+
+[sub_resource type="Resource" id="Resource_2tgc3"]
+resource_name = "v"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_8pv4e")
+texture = ExtResource("87_s82lt")
+
+[sub_resource type="InputEventKey" id="InputEventKey_5qsx3"]
+device = -1
+physical_keycode = 87
+unicode = 119
+
+[sub_resource type="Resource" id="Resource_yqgwb"]
+resource_name = "w"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_5qsx3")
+texture = ExtResource("88_wlyb3")
+
+[sub_resource type="InputEventKey" id="InputEventKey_vxvl1"]
+device = -1
+physical_keycode = 88
+unicode = 120
+
+[sub_resource type="Resource" id="Resource_654dt"]
+resource_name = "x"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_vxvl1")
+texture = ExtResource("89_whymt")
+
+[sub_resource type="InputEventKey" id="InputEventKey_57p20"]
+device = -1
+physical_keycode = 89
+unicode = 121
+
+[sub_resource type="Resource" id="Resource_3b4a4"]
+resource_name = "y"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_57p20")
+texture = ExtResource("90_081xs")
+
+[sub_resource type="InputEventKey" id="InputEventKey_v6mqi"]
+device = -1
+physical_keycode = 90
+unicode = 122
+
+[sub_resource type="Resource" id="Resource_5l1tp"]
+resource_name = "z"
+script = ExtResource("2_6eq4y")
+event = SubResource("InputEventKey_v6mqi")
+texture = ExtResource("91_8err2")
+
+[resource]
+script = ExtResource("1_c545s")
+value = Array[ExtResource("2_6eq4y")]([SubResource("Resource_ultts"), SubResource("Resource_3b80v"), SubResource("Resource_tujfn"), SubResource("Resource_qkx17"), SubResource("Resource_6040v"), SubResource("Resource_axftd"), SubResource("Resource_fybsk"), SubResource("Resource_aqk77"), SubResource("Resource_f7pb1"), SubResource("Resource_4owuv"), SubResource("Resource_7sqle"), SubResource("Resource_so16a"), SubResource("Resource_me086"), SubResource("Resource_3h83k"), SubResource("Resource_bw81v"), SubResource("Resource_8emc0"), SubResource("Resource_p5oht"), SubResource("Resource_08cs2"), SubResource("Resource_eya7h"), SubResource("Resource_0px8p"), SubResource("Resource_5163u"), SubResource("Resource_bk216"), SubResource("Resource_lyweu"), SubResource("Resource_6qiri"), SubResource("Resource_r52n6"), SubResource("Resource_pij6w"), SubResource("Resource_cunf3"), SubResource("Resource_b1ifm"), SubResource("Resource_1rtsq"), SubResource("Resource_fxlqv"), SubResource("Resource_bscst"), SubResource("Resource_ijvmw"), SubResource("Resource_67xew"), SubResource("Resource_yks4u"), SubResource("Resource_nn5bn"), SubResource("Resource_spjsx"), SubResource("Resource_et1fu"), SubResource("Resource_sak65"), SubResource("Resource_lf5tc"), SubResource("Resource_i01i4"), SubResource("Resource_l6gwu"), SubResource("Resource_uohgx"), SubResource("Resource_o0tgs"), SubResource("Resource_yvfcq"), SubResource("Resource_7hxfk"), SubResource("Resource_na7rn"), SubResource("Resource_ixahb"), SubResource("Resource_l0ibn"), SubResource("Resource_ovvnp"), SubResource("Resource_sgj5h"), SubResource("Resource_wkgyu"), SubResource("Resource_4pvil"), SubResource("Resource_x0qqf"), SubResource("Resource_urllw"), SubResource("Resource_osjme"), SubResource("Resource_cdsaq"), SubResource("Resource_ybt4e"), SubResource("Resource_7psnx"), SubResource("Resource_xqw1g"), SubResource("Resource_1t1md"), SubResource("Resource_wvb0q"), SubResource("Resource_xfmvn"), SubResource("Resource_kor7y"), SubResource("Resource_kdqo8"), SubResource("Resource_itgwa"), SubResource("Resource_eptqa"), SubResource("Resource_nv1tb"), SubResource("Resource_yle8m"), SubResource("Resource_t8al2"), SubResource("Resource_7koo4"), SubResource("Resource_5l8hi"), SubResource("Resource_c4k36"), SubResource("Resource_14ayn"), SubResource("Resource_n2euw"), SubResource("Resource_ea8oq"), SubResource("Resource_lscm4"), SubResource("Resource_rrlpk"), SubResource("Resource_psd5c"), SubResource("Resource_5jl2f"), SubResource("Resource_j46q7"), SubResource("Resource_yvfll"), SubResource("Resource_x17pn"), SubResource("Resource_bo0ib"), SubResource("Resource_corax"), SubResource("Resource_ff5wl"), SubResource("Resource_8xwrr"), SubResource("Resource_8u27u"), SubResource("Resource_hyys8"), SubResource("Resource_lerl3"), SubResource("Resource_uvq3l"), SubResource("Resource_mnfma"), SubResource("Resource_kk2xb"), SubResource("Resource_6oa41"), SubResource("Resource_tph1c"), SubResource("Resource_ohamk"), SubResource("Resource_txa5d"), SubResource("Resource_7uar7"), SubResource("Resource_wpxnt"), SubResource("Resource_fs5ya"), SubResource("Resource_p8vrk"), SubResource("Resource_bb6v2"), SubResource("Resource_7lho3"), SubResource("Resource_2tgc3"), SubResource("Resource_yqgwb"), SubResource("Resource_654dt"), SubResource("Resource_3b4a4"), SubResource("Resource_5l1tp")])

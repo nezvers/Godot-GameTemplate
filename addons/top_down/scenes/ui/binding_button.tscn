@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvx2xmr86fa7b"]
+
+[ext_resource type="Texture2D" uid="uid://blb0repwmie0p" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_w.png" id="1_do8rq"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/BindingButton.gd" id="2_c7cq0"]
+[ext_resource type="Resource" uid="uid://xoehlofj3mru" path="res://addons/top_down/resources/ControlTextureResource/keyboard_textures.tres" id="3_xjfrb"]
+[ext_resource type="Resource" uid="uid://c2l3mopok8331" path="res://addons/top_down/resources/ControlTextureResource/gamepad_textures_xbox.tres" id="4_xdqvi"]
+[ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="5_drqok"]
+
+[node name="BindingButton" type="TextureButton" node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(0, 16)
+size_flags_horizontal = 5
+size_flags_vertical = 0
+texture_normal = ExtResource("1_do8rq")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_c7cq0")
+label = NodePath("Label")
+control_texture_kb = ExtResource("3_xjfrb")
+control_texture_gp = ExtResource("4_xdqvi")
+action_resource = ExtResource("5_drqok")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -14,5 +14,5 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(50, 8)
 layout_mode = 2
 max_value = 1.0
-step = 0.001
-value = 0.695
+step = 0.1
+value = 0.7

@@ -16,7 +16,7 @@ func _ready()->void:
 	tree_exiting.connect(pause_bool_resource.set_value.bind(false))
 
 func _input(event:InputEvent)->void:
-	if event.is_action_released(action_resource.pause_action):
+	if event.is_action_released(action_resource.pause_action) || event.is_action_released("ui_cancel"):
 		if pause_bool_resource.value == false:
 			pause_bool_resource.set_value(true)
 		elif menu_traverse_manager.directory_resource.selected_directory == NodePath("."):
