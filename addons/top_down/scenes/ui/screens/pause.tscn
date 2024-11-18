@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cdfnlxijhmk2f"]
+[gd_scene load_steps=18 format=3 uid="uid://cdfnlxijhmk2f"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_x1p1w"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuManager.gd" id="2_0jy2c"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="8_j4n7a"]
 [ext_resource type="PackedScene" uid="uid://c4jwvw17x6fwl" path="res://addons/top_down/scenes/ui/audio_slider.tscn" id="10_mm5xm"]
 [ext_resource type="Material" uid="uid://chv0fg62cs0ou" path="res://addons/top_down/resources/materials/h_split.material.tres" id="11_d24wq"]
+[ext_resource type="PackedScene" uid="uid://cs0pkiltyswgv" path="res://addons/top_down/scenes/ui/screens/control_rebinding.tscn" id="15_ophkm"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/menu_back_button.gd" id="16_k1wvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n64qj"]
 bg_color = Color(0, 0, 0, 0.443137)
@@ -41,13 +43,13 @@ menu_path = {
 ".": NodePath("../MarginContainer/Control/Body/PauseMenu"),
 "./options": NodePath("../MarginContainer/Control/Body/OptionMenu"),
 "./options/audio": NodePath("../MarginContainer/Control/Body/AudioMenu"),
-"./options/controls": NodePath("../MarginContainer/Control/Body/ControlsMenu"),
+"./options/controls": NodePath("../InputRebinding"),
 "./options/graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu")
 }
 focused_node = {
 ".": NodePath("../MarginContainer/Control/Body/PauseMenu/Resume/Button"),
 "audio": NodePath("../MarginContainer/Control/Body/AudioMenu/Master/Slider"),
-"controls": NodePath("../MarginContainer/Control/Body/ControlsMenu/Back/Button"),
+"controls": NodePath("../InputRebinding/MarginContainer/VBoxContainer/MenuButton/Button"),
 "graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu/Fullscreen/Button"),
 "options": NodePath("../MarginContainer/Control/Body/OptionMenu/Graphics/Button")
 }
@@ -86,17 +88,12 @@ theme_override_constants/margin_bottom = 5
 [node name="Control" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Header" type="Control" parent="MarginContainer/Control"]
+[node name="Header" type="CenterContainer" parent="MarginContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="MarginContainer/Control/Header"]
-layout_mode = 0
-offset_left = 150.5
-offset_top = 51.5
-offset_right = 319.5
-offset_bottom = 118.5
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Paused"
 horizontal_alignment = 1
@@ -105,12 +102,12 @@ vertical_alignment = 1
 [node name="Body" type="MarginContainer" parent="MarginContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 theme_override_constants/margin_left = 150
 theme_override_constants/margin_right = 150
 theme_override_constants/margin_bottom = 20
 
 [node name="PauseMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 0
@@ -160,6 +157,10 @@ text = "Controls"
 [node name="Back" parent="MarginContainer/Control/Body/OptionMenu" instance=ExtResource("8_j4n7a")]
 layout_mode = 2
 
+[node name="Button" parent="MarginContainer/Control/Body/OptionMenu/Back" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_k1wvn")
+menu_traverse_manager = NodePath("../../../../../../MenuTraverseManager")
+
 [node name="Label" parent="MarginContainer/Control/Body/OptionMenu/Back" index="1"]
 text = "Back"
 
@@ -181,25 +182,14 @@ text = "Fullscreen: OFF"
 [node name="Back" parent="MarginContainer/Control/Body/GraphicsMenu" instance=ExtResource("8_j4n7a")]
 layout_mode = 2
 
+[node name="Button" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_k1wvn")
+menu_traverse_manager = NodePath("../../../../../../MenuTraverseManager")
+
 [node name="Label" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="1"]
 text = "Back"
 
 [node name="ButtonAnimation" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="2"]
-pressed_sound = null
-
-[node name="ControlsMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 10
-theme_override_constants/separation = 0
-
-[node name="Back" parent="MarginContainer/Control/Body/ControlsMenu" instance=ExtResource("8_j4n7a")]
-layout_mode = 2
-
-[node name="Label" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="1"]
-text = "Back"
-
-[node name="ButtonAnimation" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="2"]
 pressed_sound = null
 
 [node name="AudioMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
@@ -241,20 +231,28 @@ layout_mode = 2
 [node name="Back" parent="MarginContainer/Control/Body/AudioMenu" instance=ExtResource("8_j4n7a")]
 layout_mode = 2
 
+[node name="Button" parent="MarginContainer/Control/Body/AudioMenu/Back" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_k1wvn")
+menu_traverse_manager = NodePath("../../../../../../MenuTraverseManager")
+
 [node name="Label" parent="MarginContainer/Control/Body/AudioMenu/Back" index="1"]
 text = "Back"
 
 [node name="ButtonAnimation" parent="MarginContainer/Control/Body/AudioMenu/Back" index="2"]
 pressed_sound = null
 
+[node name="InputRebinding" parent="." instance=ExtResource("15_ophkm")]
+visible = false
+layout_mode = 1
+
+[node name="Button" parent="InputRebinding/MarginContainer/VBoxContainer/MenuButton" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_k1wvn")
+menu_traverse_manager = NodePath("../../../../../MenuTraverseManager")
+
 [connection signal="pressed" from="MarginContainer/Control/Body/PauseMenu/Options/Button" to="MenuTraverseManager" method="open" binds= ["options"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Graphics/Button" to="MenuTraverseManager" method="open" binds= ["graphics"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Audio/Button" to="MenuTraverseManager" method="open" binds= ["audio"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Controls/Button" to="MenuTraverseManager" method="open" binds= ["controls"]]
-[connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Back/Button" to="MenuTraverseManager" method="back"]
-[connection signal="pressed" from="MarginContainer/Control/Body/GraphicsMenu/Back/Button" to="MenuTraverseManager" method="back"]
-[connection signal="pressed" from="MarginContainer/Control/Body/ControlsMenu/Back/Button" to="MenuTraverseManager" method="back"]
-[connection signal="pressed" from="MarginContainer/Control/Body/AudioMenu/Back/Button" to="MenuTraverseManager" method="back"]
 
 [editable path="MarginContainer/Control/Body/PauseMenu/Resume"]
 [editable path="MarginContainer/Control/Body/PauseMenu/Options"]
@@ -265,8 +263,9 @@ pressed_sound = null
 [editable path="MarginContainer/Control/Body/OptionMenu/Back"]
 [editable path="MarginContainer/Control/Body/GraphicsMenu/Fullscreen"]
 [editable path="MarginContainer/Control/Body/GraphicsMenu/Back"]
-[editable path="MarginContainer/Control/Body/ControlsMenu/Back"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Master"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Music"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Sounds"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Back"]
+[editable path="InputRebinding"]
+[editable path="InputRebinding/MarginContainer/VBoxContainer/MenuButton"]

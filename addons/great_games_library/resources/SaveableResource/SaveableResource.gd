@@ -78,12 +78,12 @@ func load_resource(force_load:bool = false)->void:
 		return
 	var path: = get_save_file_path()
 	if !FileAccess.file_exists(path):
-		print(resource_name, ": no savefile")
+		print("SaveableResource [INFO]: no save file, resetting - ", resource_name)
 		reset_resource()
 		return
 	var data:SaveableResource = ResourceLoader.load(path)
 	if data == null:
-		print(resource_name, ": Save file didn't load")
+		print("SaveableResource [INFO]: save file didn't load, resetting - ", resource_name)
 		reset_resource()
 		return
 	

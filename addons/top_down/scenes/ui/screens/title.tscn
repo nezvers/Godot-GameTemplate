@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dpv4epw1i5b4g"]
+[gd_scene load_steps=18 format=3 uid="uid://dpv4epw1i5b4g"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_2uqb8"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuManager.gd" id="1_q1kds"]
@@ -15,6 +15,8 @@
 [ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/global_resources/graphics_resource.tres" id="6_dusoo"]
 [ext_resource type="Material" uid="uid://chv0fg62cs0ou" path="res://addons/top_down/resources/materials/h_split.material.tres" id="11_6j0ru"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="12_dpfl3"]
+[ext_resource type="PackedScene" uid="uid://cs0pkiltyswgv" path="res://addons/top_down/scenes/ui/screens/control_rebinding.tscn" id="16_3p46i"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/menu_back_button.gd" id="16_diyr4"]
 
 [node name="Title" type="ColorRect"]
 anchors_preset = 15
@@ -36,13 +38,13 @@ menu_path = {
 ".": NodePath("../MarginContainer/Control/Body/TitleMenu"),
 "./options": NodePath("../MarginContainer/Control/Body/OptionMenu"),
 "./options/audio": NodePath("../MarginContainer/Control/Body/AudioMenu"),
-"./options/controls": NodePath("../MarginContainer/Control/Body/ControlsMenu"),
+"./options/controls": NodePath("../InputRebinding"),
 "./options/graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu")
 }
 focused_node = {
 ".": NodePath("../MarginContainer/Control/Body/TitleMenu/NewGame/Button"),
 "audio": NodePath("../MarginContainer/Control/Body/AudioMenu/Master/Slider"),
-"controls": NodePath("../MarginContainer/Control/Body/ControlsMenu/Back/Button"),
+"controls": NodePath("../InputRebinding/MarginContainer/VBoxContainer/MenuButton/Button"),
 "graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu/Fullscreen/Button"),
 "options": NodePath("../MarginContainer/Control/Body/OptionMenu/Graphics/Button")
 }
@@ -91,29 +93,27 @@ theme_override_constants/margin_bottom = 5
 [node name="Control" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Header" type="Control" parent="MarginContainer/Control"]
+[node name="Header" type="CenterContainer" parent="MarginContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="MarginContainer/Control/Header"]
-layout_mode = 0
-offset_left = 94.0
-offset_top = 51.5
-offset_right = 376.0
-offset_bottom = 118.5
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "COOL GAME"
 
 [node name="Body" type="MarginContainer" parent="MarginContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 theme_override_constants/margin_left = 150
 theme_override_constants/margin_right = 150
 theme_override_constants/margin_bottom = 20
 
 [node name="TitleMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
+visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 0
 
@@ -145,6 +145,7 @@ text = "Quit"
 [node name="OptionMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 0
 
@@ -169,6 +170,10 @@ text = "Controls"
 [node name="Back" parent="MarginContainer/Control/Body/OptionMenu" instance=ExtResource("5_kq1p3")]
 layout_mode = 2
 
+[node name="Button" parent="MarginContainer/Control/Body/OptionMenu/Back" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_diyr4")
+menu_traverse_manager = NodePath("../../../../../../MenuTraverseManager")
+
 [node name="Label" parent="MarginContainer/Control/Body/OptionMenu/Back" index="1"]
 text = "Back"
 
@@ -178,6 +183,7 @@ pressed_sound = null
 [node name="GraphicsMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 0
 
@@ -190,27 +196,19 @@ text = "Fullscreen: OFF"
 [node name="Back" parent="MarginContainer/Control/Body/GraphicsMenu" instance=ExtResource("5_kq1p3")]
 layout_mode = 2
 
+[node name="Button" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_diyr4")
+menu_traverse_manager = NodePath("../../../../../../MenuTraverseManager")
+
 [node name="Label" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="1"]
 text = "Back"
 
-[node name="ControlsMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 10
-theme_override_constants/separation = 0
-
-[node name="Back" parent="MarginContainer/Control/Body/ControlsMenu" instance=ExtResource("5_kq1p3")]
-layout_mode = 2
-
-[node name="Label" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="1"]
-text = "Back"
-
-[node name="ButtonAnimation" parent="MarginContainer/Control/Body/ControlsMenu/Back" index="2"]
+[node name="ButtonAnimation" parent="MarginContainer/Control/Body/GraphicsMenu/Back" index="2"]
 pressed_sound = null
 
 [node name="AudioMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 0
 
@@ -247,20 +245,28 @@ layout_mode = 2
 [node name="Back" parent="MarginContainer/Control/Body/AudioMenu" instance=ExtResource("5_kq1p3")]
 layout_mode = 2
 
+[node name="Button" parent="MarginContainer/Control/Body/AudioMenu/Back" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_diyr4")
+menu_traverse_manager = NodePath("../../../../../../MenuTraverseManager")
+
 [node name="Label" parent="MarginContainer/Control/Body/AudioMenu/Back" index="1"]
 text = "Back"
 
 [node name="ButtonAnimation" parent="MarginContainer/Control/Body/AudioMenu/Back" index="2"]
 pressed_sound = null
 
+[node name="InputRebinding" parent="." instance=ExtResource("16_3p46i")]
+visible = false
+layout_mode = 1
+
+[node name="Button" parent="InputRebinding/MarginContainer/VBoxContainer/MenuButton" index="0" node_paths=PackedStringArray("menu_traverse_manager")]
+script = ExtResource("16_diyr4")
+menu_traverse_manager = NodePath("../../../../../MenuTraverseManager")
+
 [connection signal="pressed" from="MarginContainer/Control/Body/TitleMenu/Options/Button" to="MenuTraverseManager" method="open" binds= ["options"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Graphics/Button" to="MenuTraverseManager" method="open" binds= ["graphics"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Audio/Button" to="MenuTraverseManager" method="open" binds= ["audio"]]
 [connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Controls/Button" to="MenuTraverseManager" method="open" binds= ["controls"]]
-[connection signal="pressed" from="MarginContainer/Control/Body/OptionMenu/Back/Button" to="MenuTraverseManager" method="back"]
-[connection signal="pressed" from="MarginContainer/Control/Body/GraphicsMenu/Back/Button" to="MenuTraverseManager" method="back"]
-[connection signal="pressed" from="MarginContainer/Control/Body/ControlsMenu/Back/Button" to="MenuTraverseManager" method="back"]
-[connection signal="pressed" from="MarginContainer/Control/Body/AudioMenu/Back/Button" to="MenuTraverseManager" method="back"]
 
 [editable path="MarginContainer/Control/Body/TitleMenu/Continue"]
 [editable path="MarginContainer/Control/Body/TitleMenu/NewGame"]
@@ -272,8 +278,9 @@ pressed_sound = null
 [editable path="MarginContainer/Control/Body/OptionMenu/Back"]
 [editable path="MarginContainer/Control/Body/GraphicsMenu/Fullscreen"]
 [editable path="MarginContainer/Control/Body/GraphicsMenu/Back"]
-[editable path="MarginContainer/Control/Body/ControlsMenu/Back"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Master"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Music"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Sounds"]
 [editable path="MarginContainer/Control/Body/AudioMenu/Back"]
+[editable path="InputRebinding"]
+[editable path="InputRebinding/MarginContainer/VBoxContainer/MenuButton"]
