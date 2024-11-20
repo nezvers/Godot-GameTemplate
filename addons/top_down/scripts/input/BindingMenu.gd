@@ -10,6 +10,7 @@ extends ColorRect
 @export var delete_button:Button
 @export var cancel_button:Button
 @export var back_button:Button
+@export var reset_button:Button
 
 var current_button:BindingButton
 enum ChoiceType{NEW, DELETE, CANCEL}
@@ -51,6 +52,7 @@ func _open()->void:
 	choice_button_group.visible = true
 	info_label.visible = false
 	back_button.focus_mode = Control.FOCUS_NONE
+	reset_button.focus_mode = Control.FOCUS_NONE
 	for _button:BindingButton in button_list:
 		_button.focus_mode = Control.FOCUS_NONE
 
@@ -61,6 +63,7 @@ func _close()->void:
 	choice_button_group.visible = true
 	info_label.visible = false
 	back_button.focus_mode = Control.FOCUS_ALL
+	reset_button.focus_mode = Control.FOCUS_ALL
 	for _button:BindingButton in button_list:
 		_button.focus_mode = Control.FOCUS_ALL
 
