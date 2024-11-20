@@ -69,15 +69,16 @@ func _initialize()->void:
 	
 	_init_action(pause_action, [pause_kb, pause_gp].filter(_filter_empty))
 	
-	_init_action(right_action, [right_kb, right_gp].filter(_filter_empty))
-	_init_action(left_action, [left_kb, left_gp].filter(_filter_empty))
-	_init_action(up_action, [up_kb, up_gp].filter(_filter_empty))
-	_init_action(down_action, [down_kb, down_gp].filter(_filter_empty))
+	_init_action(right_action, [right_kb, right_gp].filter(_filter_empty), 0.2)
+	_init_action(left_action, [left_kb, left_gp].filter(_filter_empty), 0.2)
+	_init_action(up_action, [up_kb, up_gp].filter(_filter_empty), 0.2)
+	_init_action(down_action, [down_kb, down_gp].filter(_filter_empty), 0.2)
 	
-	_init_action(aim_right_action, [aim_right_kb, aim_right_gp].filter(_filter_empty))
-	_init_action(aim_left_action, [aim_left_kb, aim_left_gp].filter(_filter_empty))
-	_init_action(aim_up_action, [aim_up_kb, aim_up_gp].filter(_filter_empty))
-	_init_action(aim_down_action, [aim_down_kb, aim_down_gp].filter(_filter_empty))
+	_init_action(aim_right_action, [aim_right_kb, aim_right_gp].filter(_filter_empty), 0.1)
+	_init_action(aim_left_action, [aim_left_kb, aim_left_gp].filter(_filter_empty), 0.1)
+	_init_action(aim_up_action, [aim_up_kb, aim_up_gp].filter(_filter_empty), 0.1)
+	_init_action(aim_down_action, [aim_down_kb, aim_down_gp].filter(_filter_empty), 0.1)
+	
 	_init_action(action_1_action, [action_1_kb, action_1_gp].filter(_filter_empty))
 	_init_action(action_2_action, [action_2_kb, action_2_gp].filter(_filter_empty))
 	_init_action(next_action, [next_kb, next_gp].filter(_filter_empty))
@@ -85,9 +86,11 @@ func _initialize()->void:
 	
 	updated.emit()
 
-func _init_action(action_name:StringName, event_list:Array)->void:
+func _init_action(action_name:StringName, event_list:Array, deadzone:float = 0.5)->void:
 	if !InputMap.has_action(action_name):
 		InputMap.add_action(action_name)
+		InputMap.action_set_deadzone(action_name, deadzone)
+	
 	for event:InputEvent in event_list:
 		if InputMap.action_has_event(action_name, event):
 			continue

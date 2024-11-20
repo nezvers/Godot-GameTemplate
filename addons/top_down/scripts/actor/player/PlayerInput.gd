@@ -49,7 +49,7 @@ func _physics_process(_delta:float)->void:
 	# Walking direction
 	var _axis:Vector2 = Vector2(Input.get_axis(action_resource.left_action, action_resource.right_action), Input.get_axis(action_resource.up_action, action_resource.down_action))
 	# Analog sticks sucks for diagonals
-	_axis = Vector2(ceil(abs(_axis.x)) * sign(_axis.x), ceil(abs(_axis.y)) * sign(_axis.y) )
+	#_axis = Vector2(ceil(abs(_axis.x)) * sign(_axis.x), ceil(abs(_axis.y)) * sign(_axis.y) )
 	
 	var _length:float = _axis.length()
 	if _length > 0.01:
