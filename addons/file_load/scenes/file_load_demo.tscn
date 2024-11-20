@@ -22,4 +22,6 @@ script = ExtResource("1_3j8ru")
 file_dialog = NodePath("../FileDialog")
 
 [node name="FileDialog" type="FileDialog" parent="."]
+size = Vector2i(400, 300)
+min_size = Vector2i(400, 300)
 script = ExtResource("2_ytta7")
