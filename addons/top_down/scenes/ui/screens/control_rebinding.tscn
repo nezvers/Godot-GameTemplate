@@ -366,7 +366,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAction2Kb")
 texture_normal = null
 action_name = &"next"
-event_variable = &"next_gpaction_2_gp"
+event_variable = &"next_gp"
 type = 1
 
 [node name="ButtonPreviousGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
