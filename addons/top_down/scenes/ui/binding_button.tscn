@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvx2xmr86fa7b"]
+[gd_scene load_steps=9 format=3 uid="uid://cvx2xmr86fa7b"]
 
-[ext_resource type="Texture2D" uid="uid://blb0repwmie0p" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_w.png" id="1_do8rq"]
+[ext_resource type="Texture2D" uid="uid://cwvfk721in6kq" path="res://addons/top_down/assets/images/kenney_input_prompt/Keyboard & Mouse/Double/keyboard_w.png" id="1_do8rq"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/BindingButton.gd" id="2_c7cq0"]
 [ext_resource type="Resource" uid="uid://xoehlofj3mru" path="res://addons/top_down/resources/ControlTextureResource/keyboard_textures.tres" id="3_xjfrb"]
 [ext_resource type="Resource" uid="uid://c2l3mopok8331" path="res://addons/top_down/resources/ControlTextureResource/gamepad_textures_xbox.tres" id="4_xdqvi"]
+[ext_resource type="Resource" uid="uid://co1epfd4a3l5r" path="res://addons/top_down/resources/ControlTextureResource/gamepad_textures_ps.tres" id="5_3vbb3"]
 [ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="5_drqok"]
+[ext_resource type="Resource" uid="uid://cryn1snloyh7f" path="res://addons/top_down/resources/ControlTextureResource/gamepad_textures_switch.tres" id="6_7hfhl"]
+[ext_resource type="Resource" uid="uid://crxpln7xah5hj" path="res://addons/top_down/resources/ControlTextureResource/gamepad_textures_generic.tres" id="7_bkuvk"]
 
 [node name="BindingButton" type="TextureButton" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(0, 16)
@@ -16,7 +19,10 @@ stretch_mode = 5
 script = ExtResource("2_c7cq0")
 label = NodePath("Label")
 control_texture_kb = ExtResource("3_xjfrb")
-control_texture_gp = ExtResource("4_xdqvi")
+control_texture_xbox = ExtResource("4_xdqvi")
+control_texture_ps = ExtResource("5_3vbb3")
+control_texture_switch = ExtResource("6_7hfhl")
+control_texture_generic = ExtResource("7_bkuvk")
 action_resource = ExtResource("5_drqok")
 
 [node name="Label" type="Label" parent="."]

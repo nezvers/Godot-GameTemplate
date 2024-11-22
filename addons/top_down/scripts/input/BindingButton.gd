@@ -4,7 +4,10 @@ extends TextureButton
 
 @export var label:Label
 @export var control_texture_kb:ControlTextureResource
-@export var control_texture_gp:ControlTextureResource
+@export var control_texture_xbox:ControlTextureResource
+@export var control_texture_ps:ControlTextureResource
+@export var control_texture_switch:ControlTextureResource
+@export var control_texture_generic:ControlTextureResource
 @export var action_resource:ActionResource
 @export var action_name:StringName
 ## Variable name in action_resource that needs to be manipulated
@@ -20,7 +23,10 @@ var current_event:InputEvent
 
 func _ready()->void:
 	control_texture_kb.initialize()
-	control_texture_gp.initialize()
+	control_texture_xbox.initialize()
+	control_texture_ps.initialize()
+	control_texture_switch.initialize()
+	control_texture_generic.initialize()
 	focus_entered.connect(_on_focus_changed.bind(true))
 	focus_exited.connect(_on_focus_changed.bind(false))
 	_set_event(action_resource.get(event_variable) as InputEvent)
@@ -42,14 +48,28 @@ func _set_event(event:InputEvent)->void:
 	if type == EventType.KEYBOARD:
 		_texture = control_texture_kb.get_texture(event)
 	else:
-		# TODO: Use correct gamepad textures (Xbox, PS, Switch)
-		_texture = control_texture_gp.get_texture(event)
+		var _control_texture:ControlTextureResource = _get_gamepad_control_texture(event)
+		_texture = _control_texture.get_texture(event)
 	
 	if _texture == null:
 		_label_fallback(event)
 		return
 	
 	texture_normal = _texture
+
+func _get_gamepad_control_texture(event:InputEvent)->ControlTextureResource:
+	var _device_name:String = Input.get_joy_name(event.device)
+	match _device_name:
+		"XInput Gamepad", "Xbox Series Controller", "Xbox 360 Controller", "Xbox Wireless Controller", \
+		"Xbox One Controller":
+			return control_texture_xbox
+		"Sony DualSense", "PS5 Controller", "PS4 Controller", \
+		"Nacon Revolution Unlimited Pro Controller":
+			return control_texture_ps
+		"Switch", "Joy-Con (L)", "Joy-Con (R)":
+			return control_texture_switch
+		_:
+			return control_texture_generic
 
 func _set_empty()->void:
 	if default_texture != null:
@@ -67,10 +87,6 @@ func _label_fallback(event:InputEvent)->void:
 	label.text = event.as_text().split(" ")[0]
 
 func _on_focus_changed(value:bool)->void:
-	#if value:
-		#modulate = Color.DIM_GRAY
-	#else:
-		#modulate = Color.WHITE
 	queue_redraw()
 
 ## TODO: Take in account which gamepad is used for each player
@@ -85,8 +101,10 @@ func change_binding(event:InputEvent)->void:
 	# Will trigger update signal and automatically update visuals
 	action_resource.set_input(action_name, event)
 
+## Visualize the focused state
 func _draw() -> void:
 	if !has_focus():
 		return
+	# Draw simple two colored border
 	draw_rect(Rect2(Vector2.ZERO, size), Color.WHITE, false, 1.0)
 	draw_rect(Rect2(Vector2.ONE, size - Vector2(2.0, 2.0)), Color.BLACK, false, 1.0)

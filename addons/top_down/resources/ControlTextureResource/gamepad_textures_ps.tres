@@ -1,29 +1,31 @@
-[gd_resource type="Resource" script_class="ControlTextureResource" load_steps=69 format=3 uid="uid://co1epfd4a3l5r"]
+[gd_resource type="Resource" script_class="ControlTextureResource" load_steps=75 format=3 uid="uid://co1epfd4a3l5r"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/ControlTextureResource.gd" id="1_bmjx6"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputTextureResource.gd" id="2_6vavo"]
-[ext_resource type="Texture2D" uid="uid://dy2q6vckpqj7q" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_circle.png" id="3_7eoj0"]
-[ext_resource type="Texture2D" uid="uid://g1c3ee2yduma" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_square.png" id="4_w6jvk"]
-[ext_resource type="Texture2D" uid="uid://b85kqtg6rsod1" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_triangle.png" id="5_27fej"]
-[ext_resource type="Texture2D" uid="uid://iuj2my4bhut6" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_cross.png" id="6_jdb16"]
-[ext_resource type="Texture2D" uid="uid://b5tvxn028mj8j" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_right_outline.png" id="7_1klia"]
-[ext_resource type="Texture2D" uid="uid://du0oedwp4886w" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_left_outline.png" id="8_ukjvt"]
-[ext_resource type="Texture2D" uid="uid://dgr0ikb7kuj78" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_up_outline.png" id="9_mcnsf"]
-[ext_resource type="Texture2D" uid="uid://cc0qttvsenk4r" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_down_outline.png" id="10_1njjh"]
-[ext_resource type="Texture2D" uid="uid://fxfj73dsiloo" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation4_button_options.png" id="11_kxfic"]
-[ext_resource type="Texture2D" uid="uid://bwn5pgayfpdyv" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation4_button_share.png" id="12_iumwt"]
-[ext_resource type="Texture2D" uid="uid://bura2wjpc2vrs" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_l2.png" id="13_m2xdf"]
-[ext_resource type="Texture2D" uid="uid://dlyrxxh2bgb3f" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_r2.png" id="14_ssipw"]
-[ext_resource type="Texture2D" uid="uid://cqrqxvax71dwj" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_l1.png" id="15_kyker"]
-[ext_resource type="Texture2D" uid="uid://dg5brpqd57rdb" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_r1.png" id="16_ti07s"]
-[ext_resource type="Texture2D" uid="uid://bjary5qeehp55" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_right.png" id="17_oa2ij"]
-[ext_resource type="Texture2D" uid="uid://cvqr4vayusy8e" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_left.png" id="18_nj1bl"]
-[ext_resource type="Texture2D" uid="uid://c5crkbta6q2q1" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_up.png" id="19_nfb5t"]
-[ext_resource type="Texture2D" uid="uid://combtngoxicoa" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_down.png" id="20_c3dwy"]
-[ext_resource type="Texture2D" uid="uid://dnj2j6flrin6x" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_right.png" id="21_cff18"]
-[ext_resource type="Texture2D" uid="uid://bqxb8qglxtyvr" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_left.png" id="22_oev4s"]
-[ext_resource type="Texture2D" uid="uid://dfqggbmkhtmth" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_up.png" id="23_7agnt"]
-[ext_resource type="Texture2D" uid="uid://ckontpeolmfmj" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_down.png" id="24_kutkt"]
+[ext_resource type="Texture2D" uid="uid://dou3j2wyycdci" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_circle.png" id="3_7eoj0"]
+[ext_resource type="Texture2D" uid="uid://evde8jylq7yb" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_square.png" id="4_w6jvk"]
+[ext_resource type="Texture2D" uid="uid://c5t5lm2huu44l" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_triangle.png" id="5_27fej"]
+[ext_resource type="Texture2D" uid="uid://m60ftlrjwx20" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_button_color_cross.png" id="6_jdb16"]
+[ext_resource type="Texture2D" uid="uid://c87u30kxcqhrp" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_right_outline.png" id="7_1klia"]
+[ext_resource type="Texture2D" uid="uid://bo45jsohg33e0" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_left_outline.png" id="8_ukjvt"]
+[ext_resource type="Texture2D" uid="uid://50qt7nson0m3" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_up_outline.png" id="9_mcnsf"]
+[ext_resource type="Texture2D" uid="uid://cpumpgb4gqsgx" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_dpad_down_outline.png" id="10_1njjh"]
+[ext_resource type="Texture2D" uid="uid://wvtyfll37h8u" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation4_button_options.png" id="11_kxfic"]
+[ext_resource type="Texture2D" uid="uid://c4ibyj66h3fd8" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation4_button_share.png" id="12_iumwt"]
+[ext_resource type="Texture2D" uid="uid://1qxlb3twjyj0" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_l2.png" id="13_m2xdf"]
+[ext_resource type="Texture2D" uid="uid://c7661nd03up1s" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_r2.png" id="14_ssipw"]
+[ext_resource type="Texture2D" uid="uid://r8frgrlrinpy" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_l1.png" id="15_kyker"]
+[ext_resource type="Texture2D" uid="uid://d1tyf3knyk3kd" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_trigger_r1.png" id="16_ti07s"]
+[ext_resource type="Texture2D" uid="uid://bqjgry041niq3" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_right.png" id="17_oa2ij"]
+[ext_resource type="Texture2D" uid="uid://del3ackdrppja" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_left.png" id="18_nj1bl"]
+[ext_resource type="Texture2D" uid="uid://rp0flhe210s7" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_up.png" id="19_nfb5t"]
+[ext_resource type="Texture2D" uid="uid://byq8vgn8tof1s" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_l_down.png" id="20_c3dwy"]
+[ext_resource type="Texture2D" uid="uid://bdu808ntp3ylv" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_right.png" id="21_cff18"]
+[ext_resource type="Texture2D" uid="uid://bq32ck0xrnrd3" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_left.png" id="22_oev4s"]
+[ext_resource type="Texture2D" uid="uid://dt8ld58mn8d4o" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_up.png" id="23_7agnt"]
+[ext_resource type="Texture2D" uid="uid://0ced0tpxheep" path="res://addons/top_down/assets/images/kenney_input_prompt/PlayStation Series/Double/playstation_stick_r_down.png" id="24_kutkt"]
+[ext_resource type="Texture2D" uid="uid://dnibjosk40jbw" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_l_press.png" id="25_5nk2h"]
+[ext_resource type="Texture2D" uid="uid://cygvisenq3gr5" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_press.png" id="26_5xux1"]
 
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ey0ct"]
 button_index = 1
@@ -230,6 +232,24 @@ script = ExtResource("2_6vavo")
 event = SubResource("InputEventJoypadMotion_y5ioe")
 texture = ExtResource("24_kutkt")
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_e3hfy"]
+button_index = 7
+
+[sub_resource type="Resource" id="Resource_o2f8n"]
+resource_name = "L-press"
+script = ExtResource("2_6vavo")
+event = SubResource("InputEventJoypadButton_e3hfy")
+texture = ExtResource("25_5nk2h")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_yldx0"]
+button_index = 8
+
+[sub_resource type="Resource" id="Resource_15nwn"]
+resource_name = "R-press"
+script = ExtResource("2_6vavo")
+event = SubResource("InputEventJoypadButton_yldx0")
+texture = ExtResource("26_5xux1")
+
 [resource]
 script = ExtResource("1_bmjx6")
-value = Array[ExtResource("2_6vavo")]([SubResource("Resource_odab3"), SubResource("Resource_3d0xs"), SubResource("Resource_4h7i4"), SubResource("Resource_0tdau"), SubResource("Resource_gx8f4"), SubResource("Resource_mpckf"), SubResource("Resource_inakd"), SubResource("Resource_a2k8a"), SubResource("Resource_7ika7"), SubResource("Resource_khnyq"), SubResource("Resource_w7lcr"), SubResource("Resource_qjr32"), SubResource("Resource_rn3ng"), SubResource("Resource_tjvlx"), SubResource("Resource_sh0ka"), SubResource("Resource_mcug2"), SubResource("Resource_a2luf"), SubResource("Resource_bxc1n"), SubResource("Resource_x1ye7"), SubResource("Resource_bsyuy"), SubResource("Resource_ewkr5"), SubResource("Resource_ismu2")])
+value = Array[ExtResource("2_6vavo")]([SubResource("Resource_odab3"), SubResource("Resource_3d0xs"), SubResource("Resource_4h7i4"), SubResource("Resource_0tdau"), SubResource("Resource_gx8f4"), SubResource("Resource_mpckf"), SubResource("Resource_inakd"), SubResource("Resource_a2k8a"), SubResource("Resource_7ika7"), SubResource("Resource_khnyq"), SubResource("Resource_w7lcr"), SubResource("Resource_qjr32"), SubResource("Resource_rn3ng"), SubResource("Resource_tjvlx"), SubResource("Resource_sh0ka"), SubResource("Resource_mcug2"), SubResource("Resource_a2luf"), SubResource("Resource_bxc1n"), SubResource("Resource_x1ye7"), SubResource("Resource_bsyuy"), SubResource("Resource_ewkr5"), SubResource("Resource_ismu2"), SubResource("Resource_o2f8n"), SubResource("Resource_15nwn")])

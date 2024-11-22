@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cdfnlxijhmk2f"]
+[gd_scene load_steps=19 format=3 uid="uid://cdfnlxijhmk2f"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_x1p1w"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/MenuManager.gd" id="2_0jy2c"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="8_j4n7a"]
 [ext_resource type="PackedScene" uid="uid://c4jwvw17x6fwl" path="res://addons/top_down/scenes/ui/audio_slider.tscn" id="10_mm5xm"]
 [ext_resource type="Material" uid="uid://chv0fg62cs0ou" path="res://addons/top_down/resources/materials/h_split.material.tres" id="11_d24wq"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/pause_screen/GamepadDisconnectPause.gd" id="12_1fkcd"]
 [ext_resource type="PackedScene" uid="uid://cs0pkiltyswgv" path="res://addons/top_down/scenes/ui/screens/control_rebinding.tscn" id="15_ophkm"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/menu_back_button.gd" id="16_k1wvn"]
 
@@ -72,6 +73,10 @@ save_button_button = NodePath("../MarginContainer/Control/Body/GraphicsMenu/Back
 script = ExtResource("7_mbpg2")
 button = NodePath("../MarginContainer/Control/Body/PauseMenu/Main Menu/Button")
 scene_path = "res://addons/top_down/scenes/ui/screens/title.tscn"
+
+[node name="GamepadDisconnectPause" type="Node" parent="."]
+script = ExtResource("12_1fkcd")
+pause_resource = ExtResource("3_f7x5r")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
