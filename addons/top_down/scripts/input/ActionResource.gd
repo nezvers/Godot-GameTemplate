@@ -3,6 +3,7 @@ extends SaveableResource
 
 signal updated
 
+@export var device_index:int = 0
 @export var pause_action:StringName
 @export_category("Actions")
 @export var left_action:StringName
@@ -60,6 +61,7 @@ var default_settings:ActionResource
 ## Utility function to filter empty events in an array
 func _filter_empty(event:InputEvent)->bool:
 	return event != null
+
 
 func _initialize()->void:
 	if is_initialized:

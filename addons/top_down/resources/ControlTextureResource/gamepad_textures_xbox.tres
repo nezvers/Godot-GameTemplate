@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ControlTextureResource" load_steps=69 format=3 uid="uid://c2l3mopok8331"]
+[gd_resource type="Resource" script_class="ControlTextureResource" load_steps=75 format=3 uid="uid://c2l3mopok8331"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/ControlTextureResource.gd" id="1_w76cf"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputTextureResource.gd" id="2_jju4t"]
@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://c6sy6tpxujqk6" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_left.png" id="21_crj21"]
 [ext_resource type="Texture2D" uid="uid://dqw144enjktpo" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_up.png" id="22_plx31"]
 [ext_resource type="Texture2D" uid="uid://iv0pt3kda5q1" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_down.png" id="23_qpaai"]
+[ext_resource type="Texture2D" uid="uid://dnibjosk40jbw" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_l_press.png" id="25_gtm5o"]
+[ext_resource type="Texture2D" uid="uid://cygvisenq3gr5" path="res://addons/top_down/assets/images/kenney_input_prompt/Xbox Series/Double/xbox_stick_r_press.png" id="26_bagoo"]
 
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ey0ct"]
 button_index = 1
@@ -230,6 +232,24 @@ script = ExtResource("2_jju4t")
 event = SubResource("InputEventJoypadMotion_y5ioe")
 texture = ExtResource("23_qpaai")
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_qgswy"]
+button_index = 7
+
+[sub_resource type="Resource" id="Resource_u6mh7"]
+resource_name = "L-press"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_qgswy")
+texture = ExtResource("25_gtm5o")
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_i7itn"]
+button_index = 8
+
+[sub_resource type="Resource" id="Resource_npya1"]
+resource_name = "R-press"
+script = ExtResource("2_jju4t")
+event = SubResource("InputEventJoypadButton_i7itn")
+texture = ExtResource("26_bagoo")
+
 [resource]
 script = ExtResource("1_w76cf")
-value = Array[ExtResource("2_jju4t")]([SubResource("Resource_odab3"), SubResource("Resource_3d0xs"), SubResource("Resource_4h7i4"), SubResource("Resource_0tdau"), SubResource("Resource_qaxjh"), SubResource("Resource_mpckf"), SubResource("Resource_inakd"), SubResource("Resource_a2k8a"), SubResource("Resource_7ika7"), SubResource("Resource_khnyq"), SubResource("Resource_w7lcr"), SubResource("Resource_qjr32"), SubResource("Resource_rn3ng"), SubResource("Resource_tjvlx"), SubResource("Resource_sh0ka"), SubResource("Resource_mcug2"), SubResource("Resource_a2luf"), SubResource("Resource_bxc1n"), SubResource("Resource_x1ye7"), SubResource("Resource_bsyuy"), SubResource("Resource_ewkr5"), SubResource("Resource_ismu2")])
+value = Array[ExtResource("2_jju4t")]([SubResource("Resource_odab3"), SubResource("Resource_3d0xs"), SubResource("Resource_4h7i4"), SubResource("Resource_0tdau"), SubResource("Resource_qaxjh"), SubResource("Resource_mpckf"), SubResource("Resource_inakd"), SubResource("Resource_a2k8a"), SubResource("Resource_7ika7"), SubResource("Resource_khnyq"), SubResource("Resource_w7lcr"), SubResource("Resource_qjr32"), SubResource("Resource_rn3ng"), SubResource("Resource_tjvlx"), SubResource("Resource_sh0ka"), SubResource("Resource_mcug2"), SubResource("Resource_a2luf"), SubResource("Resource_bxc1n"), SubResource("Resource_x1ye7"), SubResource("Resource_bsyuy"), SubResource("Resource_ewkr5"), SubResource("Resource_ismu2"), SubResource("Resource_u6mh7"), SubResource("Resource_npya1")])
