@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ghnv48d18ftl"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_xioje"]
-[ext_resource type="Texture2D" uid="uid://dob8uix80gqww" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="2_hrbvp"]
+[ext_resource type="Texture2D" uid="uid://clee3ikfa1g11" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="2_hrbvp"]
 [ext_resource type="Resource" uid="uid://dlkgtlk8nau36" path="res://addons/top_down/resources/DamageResource/shotgun_damage.tres" id="2_te3cg"]
 [ext_resource type="Resource" uid="uid://f7qtvi0nk5sx" path="res://addons/top_down/resources/InstanceResources/projectiles/shotgun_bullet_instance_resource.tres" id="5_yypu2"]
 
