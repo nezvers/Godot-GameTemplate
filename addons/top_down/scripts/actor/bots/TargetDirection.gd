@@ -25,8 +25,12 @@ var navigation_cooldown:float = 1.0
 ## Used to control navigation around corners
 var allow_straight_path:bool = false
 
+var actor_stats:ActorStatsResource
+
 func _ready()->void:
 	target_finder.target_update.connect(on_target_update)
+	var _resource_node:ResourceNode = bot_input.resource_node
+	actor_stats = _resource_node.get_resource("movement")
 
 func set_direction(direction:Vector2)->void:
 	bot_input.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
@@ -77,10 +81,14 @@ func navigation_update()->void:
 	if last_update_time + navigation_cooldown > time:
 		return
 	last_update_time = time
-	# the bigger distance overshoot, the sooner update happens
-	# TODO: Something is off with too long cooldown
-	var moved_direction:Vector2 = (last_target_position - target_finder.closest.global_position)
-	var ratio:float = (retarget_distance) / max(moved_direction.length(), 1.0)
-	navigation_cooldown = min(ratio, 5.0)
 	last_target_position = target_finder.closest.global_position
 	tile_navigation.get_target_path(last_target_position)
+	
+	# the bigger distance overshoot, the sooner update happens
+	# TODO: Something is off with too long cooldown
+	var nav_length:float = GameMath.packed_vector2_length(tile_navigation.navigation_path)
+	var _move_time:float = 0.0
+	if actor_stats.max_speed > 0.0:
+		_move_time = nav_length/actor_stats.max_speed
+	
+	navigation_cooldown = clamp(_move_time, 1.0, 5.0)
