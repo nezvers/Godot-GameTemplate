@@ -37,6 +37,10 @@ signal prepare_spawn
 ## Best for splitting from top resource
 @export var new_damage:bool = false
 
+var axis_compensation:Vector2
+
+func _ready()->void:
+	axis_compensation = Vector2.ONE / axis_multiplication_resource.value
 
 func spawn()->void:
 	assert(projectile_instance_resource != null)
@@ -54,7 +58,7 @@ func spawn()->void:
 	
 	for angle:float in projectile_angles:
 		var _config_callback:Callable = func (inst:Projectile2D)->void:
-			inst.direction = direction.normalized().rotated(deg_to_rad(angle))
+			inst.direction = (direction.rotated(deg_to_rad(angle)) * axis_multiplication_resource.value).normalized()
 			inst.damage_resource = new_damage_resource.new_split()
 			inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
 			inst.global_position = initial_distance * direction * axis_multiplication_resource.value + projectile_position
