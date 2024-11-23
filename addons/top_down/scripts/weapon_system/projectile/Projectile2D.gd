@@ -16,7 +16,7 @@ signal prepare_exit_event
 @export var damage_multiply:float = 1.0
 
 ## Force pushing a damage receiver
-@export var kickback_strength:float = 120.0
+@export var kickback_multiply:float = 1.0
 
 ## Holds information about damage stats and events
 @export var damage_resource:DamageResource

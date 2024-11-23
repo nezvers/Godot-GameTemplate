@@ -1,12 +1,17 @@
 class_name DamageResource
 extends TransmissionResource
 
+## Initial base damage value 
 @export var value:float = 1
-@export var projectile_multiply:float = 1.0
+
+## Critical damage multiplier
 @export var critical_multiply:float = 1.5
+
+## Probability of critical damage happening
 @export var critical_chance:float = 0.3
+
+## Direction of dealth damage
 @export var direction:Vector2
-@export var kickback_strength:float
 
 ## An information for a damage report
 @export var is_critical:bool = false
@@ -17,7 +22,14 @@ extends TransmissionResource
 
 ## pre-calculated value
 @export var total_damage:float
-## TODO: include information from source character
+
+## Projectile damage multiplier, manipulated in ProjectileSetup
+@export var projectile_multiply:float = 1.0
+
+## Kickback given to damage target, manipulated in ProjectileSetup
+@export var kickback_strength:float
+
+## Callback function to receive DamageResource that hit a target
 @export var report_callback:Callable
 
 
@@ -86,5 +98,5 @@ func process(resource_node:ResourceNode)->void:
 	
 	success()
 	
-	if report_callback.is_valid:
+	if report_callback.is_valid():
 		report_callback.call(self)

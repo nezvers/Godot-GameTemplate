@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="DamageResource" load_steps=2 format=3 uid="uid://dlkgtlk8nau36"]
+[gd_resource type="Resource" script_class="DamageResource" load_steps=2 format=3 uid="uid://do8gj8tk86oou"]
 
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="1_jwgv3"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="1_5exdr"]
 
 [resource]
-resource_name = "Shotgun damage"
-script = ExtResource("1_jwgv3")
-value = 2.0
+resource_name = "Asault riffle damage"
+script = ExtResource("1_5exdr")
+value = 1.0
 critical_multiply = 1.5
 critical_chance = 0.3
 direction = Vector2(0, 0)
