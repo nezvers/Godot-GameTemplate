@@ -11,7 +11,6 @@
 			"uuid": "ed797cac-3c98-43ce-bdfd-b503f3fe384b",
 			"title": "Features",
 			"tasks": [
-				"c83e05df-800b-4a07-a2dd-9baec83c3380",
 				"e0f8ddfd-5b24-46ad-9552-14eb3e22e82a",
 				"a5b31bad-1666-4183-9126-e94fe512886c",
 				"720dc01a-3934-425a-931a-a1f86298c9ca",
@@ -28,8 +27,7 @@
 			"title": "Bugs",
 			"tasks": [
 				"948e3c35-ee56-4c98-b2d9-42d69125b3bb",
-				"7a7fed89-413e-42e1-8c0e-7674e1214fcc",
-				"d3315012-90ed-43a3-ac47-3a783336761b"
+				"7a7fed89-413e-42e1-8c0e-7674e1214fcc"
 			]
 		},
 		{
@@ -63,13 +61,6 @@
 		{
 			"uuid": "7a7fed89-413e-42e1-8c0e-7674e1214fcc",
 			"title": "Weapon sprite positions",
-			"description": "",
-			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
-			"steps": []
-		},
-		{
-			"uuid": "c83e05df-800b-4a07-a2dd-9baec83c3380",
-			"title": "Key rebinding",
 			"description": "",
 			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
 			"steps": []

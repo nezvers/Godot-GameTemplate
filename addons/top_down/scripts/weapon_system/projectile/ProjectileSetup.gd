@@ -7,14 +7,14 @@ extends Node
 
 # TODO: move what's possible into it's own ResourceNode
 func _ready()->void:
-	var damage_resource:DamageResource = projectile.damage_resource
+	var _damage_resource:DamageResource = projectile.damage_resource
 	# fill last values that projectile is controlling
-	damage_resource.kickback_strength = projectile.kickback_strength
-	damage_resource.projectile_multiply = projectile.damage_multiply
-	damage_resource.initialize_generation()
+	_damage_resource.kickback_strength = projectile.kickback_strength
+	_damage_resource.projectile_multiply = projectile.damage_multiply
+	_damage_resource.initialize_generation()
 	
 	area_transmitter.collision_mask = Bitwise.append_flags(area_transmitter.collision_mask, projectile.collision_mask)
-	data_transmitter.transmission_resource = damage_resource
+	data_transmitter.transmission_resource = _damage_resource
 	if !data_transmitter.update_requested.is_connected(on_update_requested):
 		data_transmitter.update_requested.connect(on_update_requested)
 

@@ -188,7 +188,9 @@ func _get_plugin_name() -> String:
 
 
 func _get_plugin_icon() -> Texture2D:
-	return preload("./icon.svg")
+	# icon is too big
+	#return preload("./icon.svg")
+	return null
 
 
 func _notification(what: int) -> void:

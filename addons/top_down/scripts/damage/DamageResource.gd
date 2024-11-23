@@ -1,10 +1,6 @@
 class_name DamageResource
 extends TransmissionResource
 
-## receives damage_resource instance that reports damage
-signal damage_report(damage:DamageResource)
-
-
 @export var value:float = 1
 @export var projectile_multiply:float = 1.0
 @export var critical_multiply:float = 1.5
@@ -22,8 +18,16 @@ signal damage_report(damage:DamageResource)
 ## pre-calculated value
 @export var total_damage:float
 ## TODO: include information from source character
+@export var report_callback:Callable
 
-var report_callback:Callable
+
+func _init()->void:
+	pass
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		print("DamageResource [INFO]: predelete - ", resource_name)
+		pass
 
 ## final value applied in HealthResource
 ## Projectiles can influence resulting value
@@ -44,7 +48,7 @@ func initialize_generation()->void:
 ## Do it from root DamageResource
 func new_generation()->DamageResource:
 	var data:DamageResource = self.duplicate()
-	data.report_callback = on_damage_report
+	data.resource_name += "_gen"
 	data.initialize_generation()
 	# create unique array
 	data.hit_list = []
@@ -53,12 +57,16 @@ func new_generation()->DamageResource:
 ## Create new splitsh of the same generation, like shrapnels from a granade
 func new_split()->DamageResource:
 	var data:DamageResource = self.duplicate()
-	data.report_callback = report_callback
+	data.resource_name += "_split"
+	#data._print_info()
 	return data
 
-## Mainly used for receiving information from duplicates
-func on_damage_report(damage:DamageResource)->void:
-	damage_report.emit(damage)
+func _print_info()->void:
+	print("DamageResource [INFO]: self - ", resource_name)
+	print("DamageResource [INFO]: callable method - ", report_callback.get_method())
+	print("DamageResource [INFO]: callable valid - ", report_callback.is_valid())
+	print("DamageResource [INFO]: callable object - ", report_callback.get_object().resource_name)
+
 
 ## Receiving end should trigger this function
 func process(resource_node:ResourceNode)->void:
@@ -95,5 +103,8 @@ func process(resource_node:ResourceNode)->void:
 	
 	# Sends a report through resources self was duplicated from
 	# TODO: Test if still works
-	if report_callback.is_valid():
+	print("DamageResource [INFO]: self - ", resource_name)
+	#print("DamageResource [INFO]: callable object - ", report_callback.get_object().resource_name)
+	print("DamageResource [INFO]: callable object - ", report_callback.get_method())
+	if report_callback.is_valid:
 		report_callback.call(self)
