@@ -91,4 +91,4 @@ func navigation_update()->void:
 	if actor_stats.max_speed > 0.0:
 		_move_time = nav_length/actor_stats.max_speed
 	
-	navigation_cooldown = clamp(_move_time, 1.0, 5.0)
+	navigation_cooldown = clamp(_move_time, 1.0, 3.0)
