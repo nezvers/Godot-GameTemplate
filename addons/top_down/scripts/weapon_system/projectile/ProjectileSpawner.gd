@@ -37,10 +37,6 @@ signal prepare_spawn
 ## Best for splitting from top resource
 @export var new_damage:bool = false
 
-var axis_compensation:Vector2
-
-func _ready()->void:
-	axis_compensation = Vector2.ONE / axis_multiplication_resource.value
 
 func spawn()->void:
 	assert(projectile_instance_resource != null)
