@@ -56,6 +56,9 @@ sound_resource = ExtResource("3_k087s")
 [node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
 interval = 0.5
 
+[node name="AnimationTrigger" parent="WeaponTrigger" index="1"]
+animation_list = Array[StringName]([&"shoot"])
+
 [node name="ProjectileSpawner" parent="." index="4"]
 initial_distance = 8.0
 projectile_instance_resource = ExtResource("5_2qq6f")
