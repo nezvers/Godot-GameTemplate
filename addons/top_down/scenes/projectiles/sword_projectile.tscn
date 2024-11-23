@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://dmskvynh1rsk"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_3klw8"]
-[ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="2_jihd4"]
+[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="2_jihd4"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_icwgt"]
-[ext_resource type="Texture2D" uid="uid://d2deop4hqut1j" path="res://addons/top_down/assets/images/vfx/slash_1_strip4.png" id="4_7va1q"]
+[ext_resource type="Texture2D" uid="uid://co307xh0djfed" path="res://addons/top_down/assets/images/vfx/slash_1_strip4.png" id="4_7va1q"]
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -96,8 +96,8 @@ _data = {
 
 [node name="SwordProjectile" instance=ExtResource("1_3klw8")]
 speed = 150.0
-damage_multiply = 0.5
-kickback_strength = 30.0
+damage_multiply = 0.25
+kickback_multiply = 0.25
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 visible = false
@@ -128,4 +128,3 @@ time = 0.4
 ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle")]
 animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
 particle2d_list = [NodePath("../RotatedNode/TrailParticle")]
-debug = true

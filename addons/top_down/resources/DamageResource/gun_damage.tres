@@ -6,14 +6,15 @@
 resource_name = "Gun damage"
 script = ExtResource("1_g4ik4")
 value = 1.0
-projectile_multiply = 1.0
 critical_multiply = 1.5
 critical_chance = 0.3
 direction = Vector2(0, 0)
-kickback_strength = 0.0
 is_critical = false
 hit_list = []
 total_damage = 0.0
+projectile_multiply = 1.0
+kickback_strength = 60.0
+report_callback = Callable()
 transmission_name = &"damage"
 state = -1
 valid = true

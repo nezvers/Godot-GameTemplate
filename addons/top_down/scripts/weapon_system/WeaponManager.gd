@@ -5,9 +5,6 @@ extends Node2D
 signal weapon_changed
 signal damage_report(damage:DamageResource)
 
-## Relative to this manager
-## Will be modified to correct for instanced wepons
-@export var projectile_parent_path:String
 
 ## Scene files that will be instanced and added to the user in disabled state
 @export var auto_instance_weapons:Array[PackedScene]

@@ -15,7 +15,6 @@ not_saved = false
 [node name="ShotgunBullet" instance=ExtResource("1_fx1dm")]
 speed = 170.0
 damage_multiply = 0.5
-kickback_strength = 40.0
 
 [node name="DamageDataTransmitter" parent="AreaTransmitter2D" index="2"]
 transmission_resource = SubResource("Resource_ii8uo")
