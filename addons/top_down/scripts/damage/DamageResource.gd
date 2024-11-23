@@ -21,14 +21,6 @@ extends TransmissionResource
 @export var report_callback:Callable
 
 
-func _init()->void:
-	pass
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE:
-		print("DamageResource [INFO]: predelete - ", resource_name)
-		pass
-
 ## final value applied in HealthResource
 ## Projectiles can influence resulting value
 func get_total_damage()->float:
@@ -58,14 +50,7 @@ func new_generation()->DamageResource:
 func new_split()->DamageResource:
 	var data:DamageResource = self.duplicate()
 	data.resource_name += "_split"
-	#data._print_info()
 	return data
-
-func _print_info()->void:
-	print("DamageResource [INFO]: self - ", resource_name)
-	print("DamageResource [INFO]: callable method - ", report_callback.get_method())
-	print("DamageResource [INFO]: callable valid - ", report_callback.is_valid())
-	print("DamageResource [INFO]: callable object - ", report_callback.get_object().resource_name)
 
 
 ## Receiving end should trigger this function
@@ -101,10 +86,5 @@ func process(resource_node:ResourceNode)->void:
 	
 	success()
 	
-	# Sends a report through resources self was duplicated from
-	# TODO: Test if still works
-	print("DamageResource [INFO]: self - ", resource_name)
-	#print("DamageResource [INFO]: callable object - ", report_callback.get_object().resource_name)
-	print("DamageResource [INFO]: callable object - ", report_callback.get_method())
 	if report_callback.is_valid:
 		report_callback.call(self)
