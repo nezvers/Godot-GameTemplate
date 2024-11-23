@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://dc8ulx4o43ue3"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_omfnw"]
-[ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="2_gpamq"]
-[ext_resource type="Texture2D" uid="uid://bap5dsd8t7b5q" path="res://addons/top_down/assets/images/projectile/bullet_1.png" id="3_8p5j6"]
+[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="2_gpamq"]
+[ext_resource type="Texture2D" uid="uid://ca0qgrcwdsbep" path="res://addons/top_down/assets/images/projectile/bullet_1.png" id="3_8p5j6"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_f731g"]
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]

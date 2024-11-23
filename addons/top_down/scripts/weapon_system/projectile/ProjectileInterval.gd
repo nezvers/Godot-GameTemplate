@@ -20,4 +20,5 @@ func start()->void:
 func timeout()->void:
 	weapon_trigger.can_shoot = true
 	if weapon_trigger.can_retrigger():
-		weapon_trigger.on_shoot()
+		#weapon_trigger.on_shoot()
+		pass

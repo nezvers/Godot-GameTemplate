@@ -33,15 +33,6 @@ var weapon_index:int = 0
 ## Currently activated weapon
 var current_weapon:Weapon = null
 
-func _init()->void:
-	for weapon:Node in get_children():
-		if !(weapon is Weapon):
-			continue
-		if make_unique_damage:
-			weapon.damage_resource = weapon.damage_resource.duplicate()
-			weapon.damage_resource.resource_name += "dup_"
-		if !weapon.damage_resource.damage_report.is_connected(on_damage_report):
-			weapon.damage_resource.damage_report.connect(on_damage_report)
 
 func _ready()->void:
 	var _input_resource:InputResource = resource_node.get_resource("input")
@@ -57,8 +48,8 @@ func _ready()->void:
 		remove_child(weapon)
 		weapon.queue_free()
 	
-	for scene:PackedScene in auto_instance_weapons:
-		add_new_weapon_from_scene(scene)
+	for _scene:PackedScene in auto_instance_weapons:
+		add_new_weapon_from_scene(_scene)
 	
 	set_weapon_index(weapon_index)
 
@@ -71,8 +62,8 @@ func add_new_weapon_from_scene(scene:PackedScene)->void:
 	_weapon.collision_mask = collision_mask
 	if make_unique_damage:
 		_weapon.damage_resource = _weapon.damage_resource.duplicate()
-	if !_weapon.damage_resource.damage_report.is_connected(on_damage_report):
-		_weapon.damage_resource.damage_report.connect(on_damage_report)
+		_weapon.damage_resource.resource_name += "_dup"
+	_weapon.damage_resource.report_callback = on_damage_report
 	add_child(_weapon)
 	weapon_list.append(_weapon)
 
