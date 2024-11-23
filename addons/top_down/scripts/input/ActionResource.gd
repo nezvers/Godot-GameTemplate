@@ -3,7 +3,6 @@ extends SaveableResource
 
 signal updated
 
-@export var device_index:int = 0
 @export var pause_action:StringName
 @export_category("Actions")
 @export var left_action:StringName
