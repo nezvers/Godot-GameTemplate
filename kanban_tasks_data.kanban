@@ -19,15 +19,14 @@
 				"a5896df6-3b93-44d2-b2c7-a23320379a72",
 				"b3d2c00b-d634-441e-8532-5cec9d7b630e",
 				"e0c111db-26db-4dcd-b42f-0b510f08f23e",
-				"3985bd17-a40d-4eff-a3b2-7db8f7eab2e8"
+				"3985bd17-a40d-4eff-a3b2-7db8f7eab2e8",
+				"26381783-15e2-4282-a52e-08eaad4e9b27"
 			]
 		},
 		{
 			"uuid": "9134cb1d-4b69-45a3-8edc-bce770720557",
 			"title": "Bugs",
-			"tasks": [
-				"7a7fed89-413e-42e1-8c0e-7674e1214fcc"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "acaf644d-3956-4bfc-b1f1-19f822d45093",
@@ -36,13 +35,6 @@
 		}
 	],
 	"tasks": [
-		{
-			"uuid": "948e3c35-ee56-4c98-b2d9-42d69125b3bb",
-			"title": "Navigation path update timing sometimes is too long",
-			"description": "",
-			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
-			"steps": []
-		},
 		{
 			"uuid": "a979d6d9-98ac-4da8-bbda-58d4dd579fd3",
 			"title": "Movement velocity is not reduced with collision",
@@ -130,6 +122,13 @@
 		{
 			"uuid": "d3315012-90ed-43a3-ac47-3a783336761b",
 			"title": "Damage report chain is broken - weapon manager doesn't receive it",
+			"description": "",
+			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
+			"steps": []
+		},
+		{
+			"uuid": "26381783-15e2-4282-a52e-08eaad4e9b27",
+			"title": "Status effects (damage ticks)",
 			"description": "",
 			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
 			"steps": []

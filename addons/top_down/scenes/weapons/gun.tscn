@@ -30,10 +30,10 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [-0.436332, 0.0]
+"values": [-0.610865, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h0x75"]
@@ -44,6 +44,12 @@ _data = {
 
 [node name="Gun" instance=ExtResource("1_1sltl")]
 damage_resource = ExtResource("5_fyy4a")
+
+[node name="RotatedNode" parent="." index="0"]
+position = Vector2(0, -6)
+
+[node name="Sprite2D" parent="RotatedNode" index="0"]
+offset = Vector2(1, 0)
 
 [node name="AnimationPlayer" parent="RotatedNode/Sprite2D" index="0"]
 libraries = {
