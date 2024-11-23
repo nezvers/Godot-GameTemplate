@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmmx82t54wble"]
+[gd_scene load_steps=9 format=3 uid="uid://cmmx82t54wble"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_tcvta"]
-[ext_resource type="Texture2D" uid="uid://ct7i2ex1q760k" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="3_ah0df"]
+[ext_resource type="Texture2D" uid="uid://byjk7lbh3481i" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="3_ah0df"]
 [ext_resource type="Resource" uid="uid://ofq7dv7sia56" path="res://addons/top_down/resources/DamageResource/sword_damage.tres" id="3_g5tdr"]
 [ext_resource type="Resource" uid="uid://djdgiocrbvmt8" path="res://addons/top_down/resources/InstanceResources/projectiles/sword_slash_instance_resource.tres" id="5_88188"]
 
@@ -32,9 +32,9 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_k26j0"]
-resource_name = "slash"
-length = 0.4
+[sub_resource type="Animation" id="Animation_l1rlv"]
+resource_name = "slash_2"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,7 +42,35 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [3.14159, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.166667),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(5, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k26j0"]
+resource_name = "slash_1"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [0.0, 3.14159]
@@ -54,7 +82,7 @@ tracks/1/path = NodePath(".:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3),
+"times": PackedFloat32Array(0, 0.0333333, 0.166667),
 "transitions": PackedFloat32Array(0.5, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(5, 0), Vector2(0, 2)]
@@ -63,7 +91,8 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sorlh"]
 _data = {
 "RESET": SubResource("Animation_ku8ja"),
-"slash": SubResource("Animation_k26j0")
+"slash_1": SubResource("Animation_k26j0"),
+"slash_2": SubResource("Animation_l1rlv")
 }
 
 [node name="Sword" instance=ExtResource("1_tcvta")]
@@ -84,7 +113,7 @@ kickback_strength = -40.0
 interval = 0.3
 
 [node name="AnimationTrigger" parent="WeaponTrigger" index="1"]
-animation_name = &""
+animation_list = Array[StringName]([&"slash_1", &"slash_2"])
 
 [node name="ProjectileSpawner" parent="." index="4"]
 initial_distance = 10.0
