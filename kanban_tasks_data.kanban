@@ -14,7 +14,6 @@
 				"e0f8ddfd-5b24-46ad-9552-14eb3e22e82a",
 				"a5b31bad-1666-4183-9126-e94fe512886c",
 				"720dc01a-3934-425a-931a-a1f86298c9ca",
-				"d356a173-8caa-48f2-80f2-213bfec73bc3",
 				"93adc641-53c0-4d53-833e-64874674d9ec",
 				"a5896df6-3b93-44d2-b2c7-a23320379a72",
 				"b3d2c00b-d634-441e-8532-5cec9d7b630e",
@@ -45,13 +44,6 @@
 		{
 			"uuid": "a5b31bad-1666-4183-9126-e94fe512886c",
 			"title": "Continuous dash speed",
-			"description": "",
-			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
-			"steps": []
-		},
-		{
-			"uuid": "7a7fed89-413e-42e1-8c0e-7674e1214fcc",
-			"title": "Weapon sprite positions",
 			"description": "",
 			"category": "3c019f8f-7018-401f-89e7-6ddedafd24e2",
 			"steps": []
