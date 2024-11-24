@@ -66,6 +66,7 @@ func instance(config_callback:Callable = Callable())->Node:
 	var _node:Node = _create_instance()
 	if config_callback.is_valid():
 		config_callback.call(_node)
+	assert(_node.get_parent() == null)
 	parent_reference_resource.node.add_child.call_deferred(_node)
 	return _node
 
@@ -74,9 +75,14 @@ func _erase(node:Node)->void:
 	active_list.erase(node)
 	updated.emit()
 
+## Apparently, physics thread or other reason, this can be called more than once
 func _return_to_pool(node:Node)->void:
+	
+	assert(node.get_parent() == parent_reference_resource.node)
 	_handle_return.call_deferred(node)
 
 func _handle_return(node:Node)->void:
+	assert(node.get_parent() == parent_reference_resource.node)
+	
+	node.tree_exiting.connect(pool_list.append.call_deferred.bind(node), CONNECT_ONE_SHOT)
 	parent_reference_resource.node.remove_child(node)
-	pool_list.append(node)
