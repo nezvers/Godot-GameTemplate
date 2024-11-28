@@ -85,7 +85,10 @@ func process(resource_node:ResourceNode)->void:
 	update_requested.emit()
 	
 	# TODO: include more receiving end information & proper way to get an owner reference
-	hit_list.append(resource_node.owner)
+	if !hit_list.has(resource_node.owner):
+		hit_list.append(resource_node.owner)
+	success()
+	
 	_health_resource.add_hp( -get_total_damage() )
 	
 	# TODO: need a dedicated receiver data exchange
@@ -95,8 +98,6 @@ func process(resource_node:ResourceNode)->void:
 	var _push_resource:PushResource = resource_node.get_resource("push")
 	if _push_resource != null:
 		_push_resource.add_impulse(direction * kickback_strength)
-	
-	success()
 	
 	if report_callback.is_valid():
 		report_callback.call(self)

@@ -8,8 +8,8 @@ extends Node
 
 func _ready()->void:
 	assert(impact_instance_resource != null)
-	data_transmitter.success.connect(spawn)
-	solid_impact.hit.connect(spawn)
+	data_transmitter.success.connect(spawn, CONNECT_ONE_SHOT)
+	solid_impact.hit.connect(spawn, CONNECT_ONE_SHOT)
 
 func _config_callback(inst:Node2D)->void:
 	inst.global_position = projectile.global_position

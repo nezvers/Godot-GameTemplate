@@ -15,7 +15,7 @@ func _ready()->void:
 		return
 	remaining_hits = hit_limit
 	if !data_transmitter.success.is_connected(on_hit):
-		data_transmitter.success.connect(on_hit)
+		data_transmitter.success.connect(on_hit, CONNECT_ONE_SHOT)
 
 func on_hit()->void:
 	if remaining_hits < 1:

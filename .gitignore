@@ -1,5 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
+# Save file change
+version.gd
 
 # Godot-specific ignores
 .import/
