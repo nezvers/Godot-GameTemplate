@@ -103,7 +103,6 @@ func process(resource_node:ResourceNode)->void:
 	if report_callback.is_valid():
 		report_callback.call(self)
 	
-	
 	_health_resource.add_hp( -get_total_damage() )
 	# TODO: need a dedicated receiver data exchange
 	# Used for showing received damage points
