@@ -32,6 +32,10 @@ extends TransmissionResource
 ## Callback function to receive DamageResource that hit a target
 @export var report_callback:Callable
 
+## Example of status effect ticks
+@export var bleed_status_ticks:int
+@export var status_tick_interval:float = 0.5
+
 
 ## final value applied in HealthResource
 ## Projectiles can influence resulting value
@@ -86,11 +90,6 @@ func process(resource_node:ResourceNode)->void:
 	
 	# TODO: include more receiving end information & proper way to get an owner reference
 	hit_list.append(resource_node.owner)
-	_health_resource.add_hp( -get_total_damage() )
-	
-	# TODO: need a dedicated receiver data exchange
-	# Used for showing received damage points
-	_health_resource.damage_data.emit(self)
 	
 	var _push_resource:PushResource = resource_node.get_resource("push")
 	if _push_resource != null:
@@ -100,3 +99,26 @@ func process(resource_node:ResourceNode)->void:
 	
 	if report_callback.is_valid():
 		report_callback.call(self)
+	
+	
+	_health_resource.add_hp( -get_total_damage() )
+	# TODO: need a dedicated receiver data exchange
+	# Used for showing received damage points
+	_health_resource.damage_data.emit(self)
+	
+	if !critical_chance:
+		return
+	status_tick(bleed_status_ticks, resource_node, _health_resource)
+
+func status_tick(remaining_count:int, resource_node:ResourceNode, health_resource:HealthResource)->void:
+	if remaining_count < 1:
+		return
+	if health_resource.is_dead:
+		return
+	health_resource.add_hp( -get_total_damage() )
+	health_resource.damage_data.emit(self)
+	
+	if remaining_count == 1:
+		return
+	var _tween:Tween = resource_node.create_tween()
+	_tween.tween_callback(status_tick.bind(remaining_count -1, resource_node, health_resource)).set_delay(status_tick_interval)

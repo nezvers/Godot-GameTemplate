@@ -17,6 +17,9 @@ enum ErrorType {
 	## Transmission process was denied
 	FAILED}
 
+@export_group("TransmissionResource")
+
+## Used as transmission channel to match which receiver needs to process it
 @export var transmission_name:StringName
 
 ## State of transmission process

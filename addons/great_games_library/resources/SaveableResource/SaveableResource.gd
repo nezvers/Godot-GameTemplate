@@ -10,7 +10,7 @@ signal resource_loaded
 ## Allows to detect older save data information
 @export var version:int
 
-## Resets instead of loading and isn't saved
+## Isn't saved and resets instead of loading
 @export var not_saved:bool
 
 ## Keep track if loading have happened and without forcing it won't reload.
