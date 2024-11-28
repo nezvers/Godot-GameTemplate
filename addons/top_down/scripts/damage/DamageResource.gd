@@ -10,6 +10,9 @@ extends TransmissionResource
 ## Probability of critical damage happening
 @export var critical_chance:float = 0.3
 
+## Probability of status effect happening
+@export var status_chance:float = 0.3
+
 ## Direction of dealth damage
 @export var direction:Vector2
 
@@ -106,7 +109,7 @@ func process(resource_node:ResourceNode)->void:
 	# Used for showing received damage points
 	_health_resource.damage_data.emit(self)
 	
-	if !critical_chance:
+	if randf() > status_chance:
 		return
 	status_tick(bleed_status_ticks, resource_node, _health_resource)
 
