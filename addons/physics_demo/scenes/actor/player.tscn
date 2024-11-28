@@ -6,9 +6,6 @@
 [node name="CharacterBody2D" instance=ExtResource("1_pwobw")]
 
 [node name="RigidController" parent="." index="0"]
-movable = null
-mass = null
-movable_treshold = null
 color = Color(1, 0.633333, 0, 1)
 
 [node name="MouseInput" type="Node2D" parent="." index="1" node_paths=PackedStringArray("rigid_controler")]

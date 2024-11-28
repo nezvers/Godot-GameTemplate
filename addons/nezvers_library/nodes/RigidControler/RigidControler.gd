@@ -144,13 +144,16 @@ func move(vector:Vector2)-> Vector2:
 			_move_shape(vector)
 			return vector
 		var _fraction:float = shape_cast.get_closest_collision_safe_fraction()
-		var _moved:Vector2 = vector * _fraction
-		_move_shape(_moved)
-		vector = (vector - _moved)
+		var _moved_fraction:Vector2 = vector * _fraction
+		_move_shape(_moved_fraction)
+		var _remained_vector:Vector2 = (vector - _moved_fraction)
+		if _fraction == 1.0:
+			return _remained_vector
 		
 		var _other:Node = shape_cast.get_collider(0)
-		vector = _push(_other, vector)
-		vector = _bounce_and_slide(vector)
+		var _vector_push:Vector2 = _push(_other, _remained_vector)
+		var _vector_bounce:Vector2 = _bounce_and_slide(_vector_push)
+		vector = _vector_bounce
 	
 	# All steps were used
 	move_solved = false
@@ -161,8 +164,7 @@ func move(vector:Vector2)-> Vector2:
 func _step(vector:Vector2)->bool:
 	shape_cast.target_position = vector
 	shape_cast.force_shapecast_update()
-	assert(!shape_cast.is_colliding() && shape_cast.get_collision_count() > 0)
-	return shape_cast.get_collision_count() < 1
+	return !shape_cast.is_colliding()
 
 ## update the root node and physics body
 func _move_shape(vector:Vector2)->void:
@@ -177,7 +179,11 @@ func _push(other:Node2D, vector:Vector2)-> Vector2:
 
 ## Calculate bounce and slide behaviour
 func _bounce_and_slide(vector:Vector2)-> Vector2:
+	if vector.x == 0.0 && vector.y == 0.0:
+		return vector
+	assert(vector.length() != 0.0)
 	var _normal:Vector2 = shape_cast.get_collision_normal(0)
+	assert(_normal != Vector2.ZERO)
 	var _dot_product:float = _normal.dot(-vector.normalized())
 	if _dot_product < slide_treshold:
 		return vector.bounce(_normal) * bounce_multiply
