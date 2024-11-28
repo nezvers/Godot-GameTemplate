@@ -62,38 +62,54 @@ signal push_response(vector:PackedFloat32Array, other:RigidControler)
 
 ## Physical layers body is detected
 @export_flags_2d_physics var collision_layer:int
+
 ## Physical layers body is colliding against
 @export_flags_2d_physics var collision_mask:int
+
 ## Node that be moved as with physical body
 @export var move_body:Node2D
+
 ## Collision shape used as a physical representation of self
 @export var shape:Shape2D : set = set_shape
+
 ## if it's possible to push it
 @export var movable:bool = true
+
 ## Comparison value between bodies
 @export var mass:float = 1.0
+
 ## Mass ratio when other body is not movable
 @export var movable_treshold:float
+
 ## Blends between bounce and slide against a surface
 @export_range(0.0, 1.0) var bounciness:float
+
 ## Minimal dot product value to blend between bounce
 @export_range(0.01, 1.0) var slide_treshold:float
+
 ## Maximal movement itteration count from collisions
 @export var max_steps:int = 10
+
 ## Can be used to create force loss for each bounce
 @export_range(0.0, 1.0) var bounce_multiply:float = 1.0
+
 ## Can be used to create force loss for each slide
 @export_range(0.0, 1.0) var slide_multiply:float = 1.0
+
 ## Color to visualy display body created for movement
 @export var color:Color : set = set_color
 
 ## It is going to be used to calculate movement
 var shape_cast:ShapeCast2D = ShapeCast2D.new()
+
 ## A way to show state of a last move
 var move_solved:bool = true
+
 ## Reference to a physical body on PhysicsServer2D
 var body_rid:RID
 
+## Local directional energy
+var velocity:Vector2
 
 func set_shape(_shape:Shape2D)->void:
 	shape = _shape
@@ -113,24 +129,30 @@ func _draw()->void:
 		return
 	Drawer.draw_shape2d(self, shape, color)
 
+
+func _notification(what: int) -> void:
+	if Engine.is_editor_hint():
+		return
+	match what:
+		NOTIFICATION_ENTER_TREE:
+			body_rid = PhysicsServer2D.body_create()
+			PhysicsServer2D.body_set_space(body_rid, get_world_2d().space)
+			PhysicsServer2D.body_set_collision_layer(body_rid, collision_layer)
+			PhysicsServer2D.body_set_collision_mask(body_rid, collision_mask)
+			PhysicsServer2D.body_add_shape(body_rid, shape.get_rid(), move_body.global_transform)
+			PhysicsServer2D.body_set_mode(body_rid, PhysicsServer2D.BODY_MODE_KINEMATIC)
+			PhysicsServer2D.body_set_omit_force_integration(body_rid, true)
+			PhysicsServer2D.body_attach_object_instance_id(body_rid, get_instance_id())
+			shape_cast.add_exception_rid(body_rid)
+		NOTIFICATION_EXIT_TREE:
+			shape_cast.remove_exception_rid(body_rid)
+			PhysicsServer2D.free_rid(body_rid)
+
+## Initialize physical body setup
 func _ready()->void:
 	if Engine.is_editor_hint():
 		return
-	_create_body()
-
-## Initialize physical body setup
-func _create_body()->void:
-	body_rid = PhysicsServer2D.body_create()
-	PhysicsServer2D.body_set_space(body_rid, get_world_2d().space)
-	PhysicsServer2D.body_set_collision_layer(body_rid, collision_layer)
-	PhysicsServer2D.body_set_collision_mask(body_rid, collision_mask)
-	PhysicsServer2D.body_add_shape(body_rid, shape.get_rid(), move_body.global_transform)
-	PhysicsServer2D.body_set_mode(body_rid, PhysicsServer2D.BODY_MODE_KINEMATIC)
-	PhysicsServer2D.body_set_omit_force_integration(body_rid, true)
-	PhysicsServer2D.body_attach_object_instance_id(body_rid, get_instance_id())
-	
 	# don't check collisions against self
-	shape_cast.add_exception_rid(body_rid)
 	shape_cast.shape = shape
 	shape_cast.enabled = false
 	shape_cast.collision_mask = collision_mask
@@ -139,20 +161,24 @@ func _create_body()->void:
 ## Movement controllers can call this to simulate movement for a Vector
 func move(vector:Vector2)-> Vector2:
 	for i:int in max_steps:
-		if _step(vector):
+		shape_cast.target_position = vector
+		shape_cast.force_shapecast_update()
+		var _collision_count:int = shape_cast.get_collision_count()
+		if _collision_count == 0:
 			move_solved = true
 			_move_shape(vector)
 			return vector
 		var _fraction:float = shape_cast.get_closest_collision_safe_fraction()
 		var _moved_fraction:Vector2 = vector * _fraction
-		_move_shape(_moved_fraction)
-		var _remained_vector:Vector2 = (vector - _moved_fraction)
-		if _fraction == 1.0:
-			return _remained_vector
-		
+		var _normal:Vector2 = shape_cast.get_collision_normal(0)
 		var _other:Node = shape_cast.get_collider(0)
+		# After moving shape some information is lost
+		_move_shape(_moved_fraction)
+		
+		var _remained_vector:Vector2 = (vector - _moved_fraction)
 		var _vector_push:Vector2 = _push(_other, _remained_vector)
-		var _vector_bounce:Vector2 = _bounce_and_slide(_vector_push)
+		
+		var _vector_bounce:Vector2 = _bounce_and_slide(_vector_push, _normal)
 		vector = _vector_bounce
 	
 	# All steps were used
@@ -161,10 +187,9 @@ func move(vector:Vector2)-> Vector2:
 
 ## Does a step check
 ## False means collision and shape_cast has the data
-func _step(vector:Vector2)->bool:
+func _step(vector:Vector2)->void:
 	shape_cast.target_position = vector
 	shape_cast.force_shapecast_update()
-	return !shape_cast.is_colliding()
 
 ## update the root node and physics body
 func _move_shape(vector:Vector2)->void:
@@ -178,18 +203,16 @@ func _push(other:Node2D, vector:Vector2)-> Vector2:
 	return vector
 
 ## Calculate bounce and slide behaviour
-func _bounce_and_slide(vector:Vector2)-> Vector2:
+func _bounce_and_slide(vector:Vector2, normal:Vector2)-> Vector2:
 	if vector.x == 0.0 && vector.y == 0.0:
 		return vector
-	assert(vector.length() != 0.0)
-	var _normal:Vector2 = shape_cast.get_collision_normal(0)
-	assert(_normal != Vector2.ZERO)
-	var _dot_product:float = _normal.dot(-vector.normalized())
+	assert(normal != Vector2.ZERO)
+	var _dot_product:float = normal.dot(-vector.normalized())
 	if _dot_product < slide_treshold:
-		return vector.bounce(_normal) * bounce_multiply
+		return vector.bounce(normal) * bounce_multiply
 	
-	var _bounce = vector.bounce(_normal) * bounce_multiply
-	var _slide = vector.slide(_normal) * slide_multiply
+	var _bounce = vector.bounce(normal) * bounce_multiply
+	var _slide = vector.slide(normal) * slide_multiply
 	return _slide.lerp(_bounce, bounciness)
 
 ## Logic for pushing RigidControler

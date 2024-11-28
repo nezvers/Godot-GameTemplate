@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var rigid_controler:Node
+
 var velocity:Vector2
 
 func _input(event:InputEvent)->void:
