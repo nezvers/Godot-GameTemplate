@@ -23,6 +23,7 @@ Additionally, for task organization, the project includes a simple [Kanban Tasks
     - Audio (Master, Music, Sounds)
     - Button state style tweaning
 - Pausing system
+- Input Rebinding
 - Frame by frame debug pausing (`P` - pause and advance, `[ + P` to unpause)
 - Scene transition using shader on a screenshot
 - Node reference managment [ReferenceNodeResource](addons/great_games_library/resources/ReferenceNodeResource/)
