@@ -1,8 +1,8 @@
 [gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
 
-[ext_resource type="Texture2D" uid="uid://b3gj1j73p318" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
+[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
-[ext_resource type="Texture2D" uid="uid://8liwj4r4bj4m" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
+[ext_resource type="Texture2D" uid="uid://bjw3fm7p81owx" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_riryq"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://addons/top_down/resources/materials/color_flash.material" id="3_jdhuu"]
@@ -46,10 +46,10 @@ description = "ActorStatsResource probably need to be unique for each Actor type
 [sub_resource type="Resource" id="Resource_y76f1"]
 resource_name = "Health resource"
 script = ExtResource("5_07pdl")
-hp = 5.0
-max_hp = 5.0
-reset_hp = 5.0
-reset_max_hp = 5.0
+hp = 50.0
+max_hp = 50.0
+reset_hp = 50.0
+reset_max_hp = 50.0
 is_dead = false
 version = 0
 not_saved = false
@@ -124,7 +124,7 @@ description = "BoolResource if value is true, it means actor fell in a hole"
 resource_name = "Input resource"
 script = ExtResource("7_y5ipv")
 axis = Vector2(0, 0)
-action = false
+action_1 = false
 action_2 = false
 aim_direction = Vector2(0, 0)
 version = 0

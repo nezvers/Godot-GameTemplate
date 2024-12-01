@@ -107,7 +107,7 @@ libraries = {
 }
 
 [node name="WeaponKickback" parent="." index="2"]
-kickback_strength = -40.0
+kickback_strength = -60.0
 
 [node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
 interval = 0.3

@@ -10,7 +10,7 @@ func _ready()->void:
 
 ## Disables weapon's ability to spawn and plays an attack animation
 func start()->void:
-	weapon_trigger.can_shoot = false
+	weapon_trigger.set_can_shoot(false)
 	if tween != null:
 		tween.kill()
 	tween = create_tween()

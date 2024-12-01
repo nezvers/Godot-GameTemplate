@@ -22,6 +22,7 @@ func _ready()->void:
 	projectile_spawner.collision_mask = Bitwise.append_flags(projectile_spawner.collision_mask, weapon.collision_mask)
 
 ## Toggle connections to the action input and controls visibility
+## TODO: better system would be using update tick instead of signal events
 func set_enabled(value:bool)->void:
 	enabled = value
 	if enabled:
@@ -31,6 +32,7 @@ func set_enabled(value:bool)->void:
 		if input_resource.action_pressed.is_connected(on_shoot):
 			input_resource.action_pressed.disconnect(on_shoot)
 
+## Setup and trigger a projectile spawner
 func on_shoot()->void:
 	if !can_shoot || !weapon.enabled:
 		return
@@ -40,11 +42,13 @@ func on_shoot()->void:
 	projectile_spawner.spawn()
 	sound_resource.play_managed()
 
+## Toggle ability to spawn projectiles
 func set_can_shoot(value:bool)->void:
 	can_shoot = value
 
 func can_retrigger()->bool:
 	return input_resource.action_1
 
+## Return direction information
 func get_direction()->Vector2:
 	return input_resource.aim_direction
