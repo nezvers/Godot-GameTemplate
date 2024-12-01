@@ -7,7 +7,7 @@ resource_local_to_scene = true
 interpolation_mode = 2
 interpolation_color_space = 1
 offsets = PackedFloat32Array(0.5, 1)
-colors = PackedColorArray(1, 0.2, 0, 1, 1, 1, 1, 1)
+colors = PackedColorArray(1, 0.2, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ub320"]
 gradient = SubResource("Gradient_1t817")
