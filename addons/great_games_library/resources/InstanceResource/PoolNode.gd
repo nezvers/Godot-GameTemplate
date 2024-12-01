@@ -12,10 +12,17 @@ signal pool_requested()
 ## GPUParticles2D that has to be reset every time entering tree and remove previous particles from memory
 @export var particle2d_list:Array[GPUParticles2D]
 
+## use nodes signal as trigger for pool_return()
+@export var listen_node:Node
+@export var signal_name:StringName
+
 var pool_was_requested:bool
 
 func _ready()->void:
 	pool_was_requested = false
+	if listen_node != null:
+		assert(listen_node.has_signal(signal_name))
+		listen_node.connect(signal_name, pool_return, CONNECT_ONE_SHOT)
 
 func pool_return()->void:
 	if pool_was_requested:

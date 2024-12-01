@@ -3,6 +3,33 @@
 [ext_resource type="Material" uid="uid://cx7f1n1akjm1x" path="res://addons/top_down/resources/materials/spawn_ring_material.tres" id="1_ng11u"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_hyk5a"]
 
+[sub_resource type="Animation" id="Animation_vq43e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/gradient:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
 [sub_resource type="Animation" id="Animation_bcemg"]
 resource_name = "spawn_in"
 length = 2.0
@@ -45,33 +72,6 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_vq43e"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/gradient:gradient:offsets")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedFloat32Array(0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/radius")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.5]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vbmnr"]
 _data = {
 "RESET": SubResource("Animation_vq43e"),
@@ -84,7 +84,6 @@ _data = {
 modulate = Color(1, 1, 1, 0.686275)
 material = ExtResource("1_ng11u")
 custom_minimum_size = Vector2(32, 16)
-anchors_preset = -1
 offset_left = -16.0
 offset_top = -8.0
 offset_right = 16.0

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu8id4u5oip7v"]
+
+[ext_resource type="Material" uid="uid://corlu7mpg0puk" path="res://addons/top_down/resources/materials/dust_partickle_material.tres" id="1_yop27"]
+[ext_resource type="Texture2D" uid="uid://iudaffbirlf1" path="res://addons/top_down/assets/images/vfx/dust_4_strip.png" id="2_i3vp2"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/vfx/ParticleStarter.gd" id="3_ecp2f"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="3_k8uuh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1gl87"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="SpawnDust" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_1gl87")
+emitting = false
+amount = 32
+process_material = ExtResource("1_yop27")
+texture = ExtResource("2_i3vp2")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+script = ExtResource("3_ecp2f")
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "particle2d_list", "listen_node")]
+script = ExtResource("3_k8uuh")
+ready_nodes = [NodePath("..")]
+particle2d_list = [NodePath("..")]
+listen_node = NodePath("..")
+signal_name = &"finished"

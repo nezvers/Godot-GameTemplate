@@ -3,6 +3,7 @@ extends Node
 
 @export var enemy_instance_resource:InstanceResource
 @export var spawn_mark_instance_resource:InstanceResource
+@export var spawn_partickle_instance_resource:InstanceResource
 @export var enemy_count_resource:IntResource
 @export var spawn_point_resource:SpawnPointResource
 @export var fight_mode_resource:BoolResource
@@ -51,17 +52,22 @@ func _create_spawn_mark()->void:
 	allowed_count -= 1
 	var _spawn_position:Vector2 = _free_positions.pick_random()
 	
+	## after despawning creates actual enemy
 	var _config_callback:Callable = func (inst:Node2D)->void:
 		inst.global_position = _spawn_position
 		inst.tree_exiting.connect(_create_enemies.bind(_spawn_position), CONNECT_ONE_SHOT)
 	spawn_mark_instance_resource.instance(_config_callback)
 
 func _create_enemies(spawn_position:Vector2)->void:
-	var _config_callback:Callable = func (inst:Node2D)->void:
+	var _partickle_config:Callable = func(inst:Node2D)->void:
+		inst.global_position = spawn_position
+	spawn_partickle_instance_resource.instance(_partickle_config)
+	
+	var _enemy_config:Callable = func (inst:Node2D)->void:
 		inst.global_position = spawn_position
 		inst.tree_exiting.connect(_erase_enemy.bind(inst), CONNECT_ONE_SHOT)
 	
-	enemy_instance_resource.instance(_config_callback)
+	enemy_instance_resource.instance(_enemy_config)
 
 func _erase_enemy(node:Node2D)->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)

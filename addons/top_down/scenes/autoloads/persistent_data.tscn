@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://54xijlovqgs0"]
+[gd_scene load_steps=18 format=3 uid="uid://54xijlovqgs0"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PersistentData.gd" id="1_qc15f"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_1x1ql"]
@@ -16,8 +16,9 @@
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="14_fh5ou"]
 [ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="15_6hvwe"]
 [ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="15_p6f66"]
+[ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="16_lvyyk"]
 
 [node name="PersistentData" type="Node"]
 script = ExtResource("1_qc15f")
-instance_resource_list = Array[ExtResource("2_1x1ql")]([ExtResource("3_dfwur"), ExtResource("4_u1mjb"), ExtResource("5_ku40w"), ExtResource("6_f5br7"), ExtResource("7_su5dq"), ExtResource("8_psgrl"), ExtResource("9_3t2ff"), ExtResource("10_rbh6l"), ExtResource("11_gwh4d"), ExtResource("12_rdyww"), ExtResource("13_bjv31"), ExtResource("14_fh5ou"), ExtResource("15_6hvwe")])
+instance_resource_list = Array[ExtResource("2_1x1ql")]([ExtResource("3_dfwur"), ExtResource("4_u1mjb"), ExtResource("5_ku40w"), ExtResource("6_f5br7"), ExtResource("7_su5dq"), ExtResource("8_psgrl"), ExtResource("9_3t2ff"), ExtResource("10_rbh6l"), ExtResource("11_gwh4d"), ExtResource("12_rdyww"), ExtResource("13_bjv31"), ExtResource("14_fh5ou"), ExtResource("15_6hvwe"), ExtResource("16_lvyyk")])
 action_resource = ExtResource("15_p6f66")
