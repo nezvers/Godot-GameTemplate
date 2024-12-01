@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cx7f1n1akjm1x"]
+
+[ext_resource type="Shader" path="res://addons/top_down/resources/materials/spawn_ring.gdshader" id="1_pamax"]
+
+[sub_resource type="Gradient" id="Gradient_1t817"]
+resource_local_to_scene = true
+interpolation_mode = 2
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(1, 0.2, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ub320"]
+gradient = SubResource("Gradient_1t817")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_pamax")
+shader_parameter/radius = 0.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ub320")

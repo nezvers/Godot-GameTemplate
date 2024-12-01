@@ -1,0 +1,105 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2p5h6427kys"]
+
+[ext_resource type="Material" uid="uid://cx7f1n1akjm1x" path="res://addons/top_down/resources/materials/spawn_ring_material.tres" id="1_ng11u"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_hyk5a"]
+
+[sub_resource type="Animation" id="Animation_bcemg"]
+resource_name = "spawn_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/gradient:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(2, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.00772201), PackedFloat32Array(0, 1), PackedFloat32Array(0.5, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [0.0, 0.5, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../PoolNode")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"pool_return"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_vq43e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/gradient:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vbmnr"]
+_data = {
+"RESET": SubResource("Animation_vq43e"),
+"spawn_in": SubResource("Animation_bcemg")
+}
+
+[node name="SpawnMark" type="Node2D"]
+
+[node name="ProgressRing" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.686275)
+material = ExtResource("1_ng11u")
+custom_minimum_size = Vector2(32, 16)
+anchors_preset = -1
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ProgressRing")
+libraries = {
+"": SubResource("AnimationLibrary_vbmnr")
+}
+autoplay = "spawn_in"
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "animation_player_list")]
+script = ExtResource("2_hyk5a")
+ready_nodes = [NodePath("../AnimationPlayer")]
+animation_player_list = [NodePath("../AnimationPlayer")]
