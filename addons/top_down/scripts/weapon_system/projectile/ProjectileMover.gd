@@ -74,18 +74,31 @@ func _physics_process(delta:float)->void:
 					projectile.global_position += _move_vec
 					break
 				
-				_move_vec *= shape_cast.get_closest_collision_safe_fraction()
+				var _fraction:float = shape_cast.get_closest_collision_safe_fraction()
+				_move_vec *= _fraction
+				_remaining_length -= _remaining_length * _fraction
 				
-				remaining_bounces -= 1
+				var _normal:Vector2 = shape_cast.get_collision_normal(0)
+				var _dot:float = _normal.dot(move_direction.normalized())
+				if _dot < 0.0:
+					move_direction = move_direction.bounce(_normal)
+					remaining_bounces -= 1
+				# workaround for questionable collision calculations. It shouldn't have positive dot product and go into a wall.
+				if _fraction < 0.1 && _dot < 0.3:
+					var _angle_to_normal:float = move_direction.angle_to(_normal)
+					## TODO: have something that gives lerp value 
+					move_direction = move_direction.rotated(_angle_to_normal * 0.5)
 				if remaining_bounces == 0:
 					projectile.global_position += _move_vec
 					bounces_finished.emit()
+					projectile.prepare_exit()
 					set_physics_process(false)
 					break
-				move_direction = projectile.direction.bounce(shape_cast.get_collision_normal(0))
 				projectile.global_position += _move_vec
 				projectile.direction = move_direction * projectile.axis_multiplier_resource.value
 				bounce_position.emit()
+				if _fraction == 1.0:
+					break
 		MovementType.RAYCAST:
 			var _remaining_length:float = projectile.speed * delta
 			for i:int in remaining_bounces:
@@ -110,6 +123,6 @@ func _physics_process(delta:float)->void:
 					set_physics_process(false)
 					break
 				
-				move_direction = projectile.direction.bounce(_collision.normal)
+				move_direction = move_direction.bounce(_collision.normal)
 				projectile.direction = move_direction * projectile.axis_multiplier_resource.value
 				bounce_position.emit()
