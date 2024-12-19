@@ -39,9 +39,13 @@ func _input(event:InputEvent)->void:
 		action_resource.mouse_aim = false
 		return
 	if event.is_action(action_resource.aim_up_action):
+		if event is InputEventJoypadMotion && abs(event.axis_value) < action_resource.aim_deadzone:
+			return
 		action_resource.mouse_aim = false
 		return
 	if event.is_action(action_resource.aim_down_action):
+		if event is InputEventJoypadMotion && abs(event.axis_value) < action_resource.aim_deadzone:
+			return
 		action_resource.mouse_aim = false
 		return
 

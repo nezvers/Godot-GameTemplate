@@ -14,6 +14,7 @@ signal pool_requested()
 
 ## use nodes signal as trigger for pool_return()
 @export var listen_node:Node
+
 @export var signal_name:StringName
 
 var pool_was_requested:bool

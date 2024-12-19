@@ -1,24 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://cj0ewvpy5oege"]
+[gd_scene load_steps=6 format=3 uid="uid://cj0ewvpy5oege"]
 
 [ext_resource type="TileSet" uid="uid://dw40gjc4in8px" path="res://addons/top_down/resources/tilesets/tileset_isometric_holes.tres" id="1_47ocy"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/TileNavigationBlocking.gd" id="2_41umb"]
 [ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/arena_resources/obstacle_astargrid_resource.tres" id="3_futi6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/TileSpawner.gd" id="4_nmc0a"]
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="5_ion86"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/TileAstargridObstacle.gd" id="6_m1a4x"]
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_0vbbr"]
-points = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
-
-[node name="ObstacleLayer" type="TileMapLayer" node_paths=PackedStringArray("tilemap_layer")]
+[node name="ObstacleLayer" type="TileMapLayer"]
 tile_set = ExtResource("1_47ocy")
-script = ExtResource("2_41umb")
-tilemap_layer = NodePath(".")
-astargrid_resource = ExtResource("3_futi6")
-obstacle_shape = SubResource("ConvexPolygonShape2D_0vbbr")
-collision_layer = 8
 
 [node name="TileSpawner" type="Node" parent="." node_paths=PackedStringArray("tilemap_layer")]
 script = ExtResource("4_nmc0a")
 tilemap_layer = NodePath("..")
 parent_reference = ExtResource("5_ion86")
 data_layer_name = "scene_path"
+
+[node name="TileAstargridObstacle" type="Node" parent="." node_paths=PackedStringArray("tilemap_layer")]
+script = ExtResource("6_m1a4x")
+tilemap_layer = NodePath("..")
+astargrid_resource = ExtResource("3_futi6")

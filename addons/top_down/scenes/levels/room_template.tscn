@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=30 format=3 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ct82cq803r2si" path="res://addons/top_down/resources/RoomResources/obstacle_reference.tres" id="4_fabx6"]
 [ext_resource type="TileSet" uid="uid://dah24bbc4526" path="res://addons/top_down/resources/tilesets/tileset_isometric_walls.tres" id="5_iamlt"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="6_qdsw2"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/TileCollisionGenerator.gd" id="7_brx8v"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="7_e7miq"]
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://addons/top_down/scenes/main_camera.tscn" id="8_koktt"]
 [ext_resource type="PackedScene" uid="uid://bqh7iwpl0s1ha" path="res://addons/top_down/scenes/screen_effects/screen_effects.tscn" id="10_3mcmd"]
@@ -26,6 +27,9 @@
 [ext_resource type="Resource" uid="uid://df4nqpa0at8qn" path="res://addons/top_down/resources/global_resources/transition_bool_resource.tres" id="20_kwksj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
 
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pkurn"]
+points = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
 [sub_resource type="InputEventKey" id="InputEventKey_558eq"]
 device = -1
 keycode = 80
@@ -44,6 +48,15 @@ unicode = 91
 
 [node name="ObstacleLayer" parent="Background" instance=ExtResource("2_ug67p")]
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Background/ObstacleLayer" node_paths=PackedStringArray("tilemap_layer", "static_body")]
+z_index = 2
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("7_brx8v")
+tilemap_layer = NodePath("..")
+static_body = NodePath(".")
+tile_shape = SubResource("ConvexPolygonShape2D_pkurn")
+
 [node name="ReferenceObstacle" type="Node" parent="Background/ObstacleLayer" node_paths=PackedStringArray("reference_node")]
 script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
@@ -59,7 +72,15 @@ reference_resource = ExtResource("4_8dmxv")
 [node name="WallLayer_Ysorted" parent="." instance=ExtResource("2_ug67p")]
 y_sort_enabled = true
 tile_set = ExtResource("5_iamlt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WallLayer_Ysorted" node_paths=PackedStringArray("tilemap_layer", "static_body")]
+z_index = 2
 collision_layer = 9
+collision_mask = 0
+script = ExtResource("7_brx8v")
+tilemap_layer = NodePath("..")
+static_body = NodePath(".")
+tile_shape = SubResource("ConvexPolygonShape2D_pkurn")
 
 [node name="ReferenceYsort" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("reference_node")]
 script = ExtResource("3_7ky5u")

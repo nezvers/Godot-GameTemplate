@@ -2,7 +2,9 @@ class_name HoleDeath
 extends Node
 
 @export var enabled:bool = true
+
 @export var hole_trigger:HoleTrigger
+
 @export var resource_node:ResourceNode
 
 func _ready()->void:

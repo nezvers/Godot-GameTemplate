@@ -1,21 +1,13 @@
-## Collects tiles for obstacles and puts information into AStarGrid2D for navigation path calculations
-class_name TileNavigationBlocking
+class_name TileAstargridObstacle
 extends Node
 
-## TileMapLayer for creating obstacle tiles
 @export var tilemap_layer:TileMapLayer
+
 @export var astargrid_resource:AstarGridResource
-@export var obstacle_shape:Shape2D
 
 ## Custom tile data name of PackedVector2Array for collider offsets
 @export var data_name:String = "collider_offset"
-@export_flags_2d_physics var collision_layer:int
-@export_flags_2d_physics var collision_mask:int
 
-## TODO: use data in tile_set for navigation weight informtion
-
-var collider_rid_list:Array[RID]
-var tile_data_names:Array[String]
 var tiles:Array[Vector2i]
 
 func _ready()-> void:
@@ -29,14 +21,16 @@ func _ready()-> void:
 func setup_obstacles()->void:
 	if astargrid_resource.value == null:
 		return
+	cleanup()
 	var _astar:AStarGrid2D = astargrid_resource.value
 	
 	# Cache custom data names to later check if exist
 	var _tile_data_count:int = tilemap_layer.tile_set.get_custom_data_layers_count()
-	tile_data_names.resize(_tile_data_count)
+	var _tile_data_names:Array[String]
+	_tile_data_names.resize(_tile_data_count)
 	for i:int in _tile_data_count:
-		tile_data_names[i] = tilemap_layer.tile_set.get_custom_data_layer_name(i)
-	var _has_offset:bool = tile_data_names.has(data_name)
+		_tile_data_names[i] = tilemap_layer.tile_set.get_custom_data_layer_name(i)
+	var _has_offset:bool = _tile_data_names.has(data_name)
 	
 	# TileSet doesn't contain offset data
 	if _has_offset == false:
@@ -57,26 +51,17 @@ func setup_obstacles()->void:
 		
 		for _offset:Vector2 in _offset_list:
 			var _tile_pos_off:Vector2i = _tile_pos + Vector2i(_offset)
-			
 			assert(_astar.region.has_point(_tile_pos_off))
 			_astar.set_point_solid(_tile_pos_off, true)
-			var _pos:Vector2 = tilemap_layer.map_to_local(_tile_pos_off)
-			var _transform:Transform2D = Transform2D(0.0, _pos)
-			var _body_rid:RID = PhysicsHelper.body_create_2d(_space, collision_layer, collision_mask, obstacle_shape, _transform, _body_mode, _id)
-			collider_rid_list.append(_body_rid)
+	
 	_astar.update()
 
 
 ## Free obstacles from AstarGrid & PhysicsServer
 func cleanup() -> void:
-	for _body_rid:RID in collider_rid_list:
-		PhysicsServer2D.free_rid(_body_rid)
-	collider_rid_list.clear()
-	
 	if astargrid_resource.value == null:
 		return
 	
 	for i:int in tiles.size():
 		var _tile_pos:Vector2i = tiles[i]
 		astargrid_resource.value.set_point_solid(_tile_pos, false)
-	tiles.clear()

@@ -1,11 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://beifde6xst23w"]
+[gd_scene load_steps=16 format=3 uid="uid://beifde6xst23w"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="2_3gsbh"]
-[ext_resource type="Texture2D" uid="uid://csfe20i4vc2bk" path="res://addons/top_down/assets/images/projectile/bullet_0.png" id="2_7x3e8"]
+[ext_resource type="Texture2D" uid="uid://bg2yrcwuymbbh" path="res://addons/top_down/assets/images/projectile/bullet_0.png" id="2_7x3e8"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSetup.gd" id="2_yrlmb"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaTransmitter2D.gd" id="3_e2gy5"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileRotation.gd" id="3_wuoxf"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileMover.gd" id="4_85bqv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileImpact.gd" id="4_v8blt"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSolidImpact.gd" id="5_cqdyj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
@@ -29,6 +30,11 @@ projectile = NodePath("..")
 area_transmitter = NodePath("../AreaTransmitter2D")
 data_transmitter = NodePath("../AreaTransmitter2D/DamageDataTransmitter")
 
+[node name="ProjectileMover" type="Node" parent="." node_paths=PackedStringArray("projectile")]
+script = ExtResource("4_85bqv")
+projectile = NodePath("..")
+collision_mask = 1
+
 [node name="AreaTransmitter2D" type="Area2D" parent="."]
 script = ExtResource("3_e2gy5")
 
@@ -51,10 +57,11 @@ position = Vector2(0, -8)
 scale = Vector2(2, 2)
 texture = ExtResource("2_7x3e8")
 
-[node name="ProjectileRotation" type="Node" parent="." node_paths=PackedStringArray("rotated_node", "projectile")]
+[node name="ProjectileRotation" type="Node" parent="." node_paths=PackedStringArray("rotated_node", "projectile", "mover")]
 script = ExtResource("3_wuoxf")
 rotated_node = NodePath("../RotatedNode")
 projectile = NodePath("..")
+mover = NodePath("../ProjectileMover")
 
 [node name="ProjectileImpact" type="Node" parent="." node_paths=PackedStringArray("projectile", "data_transmitter", "solid_impact")]
 script = ExtResource("4_v8blt")
@@ -75,4 +82,4 @@ projectile = NodePath("..")
 
 [node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes")]
 script = ExtResource("13_40h1t")
-ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../ProjectileMover")]

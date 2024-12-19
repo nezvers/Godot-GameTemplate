@@ -9,6 +9,8 @@ extends Node
 ## Node that does the movement logic
 @export var projectile:Projectile2D
 
+@export var mover:ProjectileMover
+
 ## visuals are continuously updated in _process
 @export var is_continuous:bool = false
 
@@ -22,6 +24,8 @@ func set_enabled(value:bool)->void:
 
 func _ready()->void:
 	set_process(is_continuous && enabled)
+	if !is_continuous && !mover.bounce_position.is_connected(rotate_visuals):
+		mover.bounce_position.connect(rotate_visuals)
 	rotate_visuals()
 
 ## Calculate the rotation and sprite flipping

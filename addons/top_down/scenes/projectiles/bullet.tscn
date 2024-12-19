@@ -1,9 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc8ulx4o43ue3"]
+[gd_scene load_steps=11 format=3 uid="uid://dc8ulx4o43ue3"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_omfnw"]
-[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="2_gpamq"]
-[ext_resource type="Texture2D" uid="uid://ca0qgrcwdsbep" path="res://addons/top_down/assets/images/projectile/bullet_1.png" id="3_8p5j6"]
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_gpamq"]
+[ext_resource type="Texture2D" uid="uid://5hsmyt4m3ail" path="res://addons/top_down/assets/images/projectile/bullet_1.png" id="3_8p5j6"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_f731g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pv4mq"]
+radius = 2.0
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -38,6 +41,14 @@ modulate = Color(1, 0.983333, 0, 0.168627)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_gpamq")
 
+[node name="ProjectileMover" parent="." index="2"]
+movement_type = 1
+max_bounce = 3
+collision_shape = SubResource("CircleShape2D_pv4mq")
+
+[node name="SolidCollision" parent="AreaTransmitter2D" index="1"]
+destroy_collision_mask = 0
+
 [node name="TrailParticle" parent="RotatedNode" index="0" instance=ExtResource("3_f731g")]
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_fuyyo")
@@ -46,6 +57,6 @@ process_material = SubResource("ParticleProcessMaterial_fuyyo")
 scale = Vector2(1, 1)
 texture = ExtResource("3_8p5j6")
 
-[node name="PoolNode" parent="." index="8" node_paths=PackedStringArray("ready_nodes", "particle2d_list")]
-ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/TrailParticle")]
+[node name="PoolNode" parent="." index="9" node_paths=PackedStringArray("ready_nodes", "particle2d_list")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/TrailParticle"), NodePath("../ProjectileMover")]
 particle2d_list = [NodePath("../RotatedNode/TrailParticle")]

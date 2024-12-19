@@ -12,6 +12,118 @@ tile_map_data = PackedByteArray("AAAjAAcAAQABAAAAAAAjAAYAAQAAAAIAAAAjAAUAAQAAAAI
 [node name="ObstacleLayer" parent="Background" index="1"]
 tile_map_data = PackedByteArray("AAARAPb/AQAAAAAAAAARAAMAAQACAAAAAAAfAPb/AQAAAAEAAAAfAAMAAQABAAAAAAAfAAIAAQACAAAAAAAfAAEAAQACAAAAAAAfAAAAAQAAAAAAAAAeAAMAAQAAAAEAAAAdAAMAAQAAAAEAAAAcAAMAAQAAAAAAAAASAAMAAQABAAEAAAATAAMAAQAAAAEAAAAUAAMAAQAAAAEAAAASAPb/AQAAAAEAAAATAPb/AQAAAAEAAAAUAPb/AQAAAAEAAAARAPf/AQACAAAAAAARAPj/AQACAAAAAAARAPn/AQACAAAAAAARAAIAAQACAAAAAAARAAEAAQACAAAAAAARAAAAAQAAAAAAAAAfAPf/AQACAAEAAAAfAPj/AQACAAAAAAAfAPn/AQACAAAAAAAeAPb/AQAAAAEAAAAdAPb/AQAAAAEAAAAcAPb/AQAAAAAAAAA=")
 
+[node name="X17_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="0"]
+position = Vector2(448, 64)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="1"]
+position = Vector2(240, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="2"]
+position = Vector2(672, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="3"]
+position = Vector2(464, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y2" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="4"]
+position = Vector2(480, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y1" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="5"]
+position = Vector2(496, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y0" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="6"]
+position = Vector2(512, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="7"]
+position = Vector2(448, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="8"]
+position = Vector2(432, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="9"]
+position = Vector2(416, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X18_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="10"]
+position = Vector2(256, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X19_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="11"]
+position = Vector2(272, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X20_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="12"]
+position = Vector2(288, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X18_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="13"]
+position = Vector2(464, 72)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X19_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="14"]
+position = Vector2(480, 80)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X20_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="15"]
+position = Vector2(496, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y-9" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="16"]
+position = Vector2(432, 72)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y-8" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="17"]
+position = Vector2(416, 80)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y-7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="18"]
+position = Vector2(400, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y2" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="19"]
+position = Vector2(256, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y1" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="20"]
+position = Vector2(272, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y0" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="21"]
+position = Vector2(288, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-9" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="22"]
+position = Vector2(656, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-8" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="23"]
+position = Vector2(640, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="24"]
+position = Vector2(624, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="25"]
+position = Vector2(656, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="26"]
+position = Vector2(640, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-10" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="27"]
+position = Vector2(624, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
 [node name="Stairs" parent="Behind" index="0" instance=ExtResource("2_ajxwp")]
 position = Vector2(278, 38)
 tag = "north"
@@ -39,40 +151,512 @@ scene_path = "res://addons/top_down/scenes/levels/room_0.tscn"
 [node name="WallLayer_Ysorted" parent="." index="2"]
 tile_map_data = PackedByteArray("AAAZAPH/AAABAAEAAAAaAPH/AAABAAEAAAAbAPH/AAABAAEAAAAcAPH/AAABAAEAAAAdAPH/AAABAAEAAAAeAPH/AAABAAEAAAAfAPH/AAABAAEAAAAgAPH/AAABAAEAAAAhAPH/AAABAAEAAAAiAPH/AAABAAEAAAAWAO7/AAABAAEAAAAXAO7/AAABAAEAAAANAPH/AAABAAEAAAAOAPH/AAABAAEAAAAPAPH/AAABAAEAAAAQAPH/AAABAAEAAAARAPH/AAABAAEAAAASAPH/AAABAAEAAAATAPH/AAABAAEAAAAUAPH/AAABAAEAAAAKAPj/AAABAAEAAAALAPj/AAABAAEAAAAkAPz/AAABAAEAAAAlAPz/AAABAAEAAAAJAPn/AAAAAAEAAAAJAPr/AAAAAAEAAAAMAPL/AAAAAAEAAAAMAPP/AAAAAAEAAAAMAPT/AAAAAAEAAAAMAPX/AAAAAAEAAAAMAPb/AAAAAAEAAAAMAPf/AAAAAAEAAAAVAO//AAAAAAEAAAAVAPD/AAAAAAEAAAAMAPz/AAAAAAEAAAAMAP3/AAAAAAEAAAAMAP7/AAAAAAEAAAAMAP//AAAAAAEAAAAMAAAAAAAAAAEAAAAMAAEAAAAAAAEAAAAMAAIAAAAAAAEAAAAMAAMAAAAAAAEAAAAMAAQAAAAAAAEAAAAMAAUAAAAAAAEAAAAMAAYAAAAAAAEAAAAWAAgAAAAAAAEAAAAWAAkAAAAAAAEAAAAjAAAAAAAAAAIAAAAjAAEAAAAAAAIAAAAjAAIAAAAAAAIAAAAjAAMAAAAAAAIAAAAjAAQAAAAAAAIAAAAjAAUAAAAAAAIAAAAjAAYAAAAAAAIAAAAmAP3/AAAAAAIAAAAmAP7/AAAAAAIAAAAjAPL/AAAAAAIAAAAjAPP/AAAAAAIAAAAjAPT/AAAAAAIAAAAjAPX/AAAAAAIAAAAjAPb/AAAAAAIAAAAjAPf/AAAAAAIAAAAjAPj/AAAAAAIAAAAjAPn/AAAAAAIAAAAjAPr/AAAAAAIAAAAjAPv/AAAAAAIAAAAYAO//AAAAAAIAAAAYAPD/AAAAAAIAAAAiAAcAAAABAAIAAAAhAAcAAAABAAIAAAAgAAcAAAABAAIAAAAfAAcAAAABAAIAAAAeAAcAAAABAAIAAAAdAAcAAAABAAIAAAAcAAcAAAABAAIAAAAbAAcAAAABAAIAAAAaAAcAAAABAAIAAAAVAAcAAAABAAIAAAAUAAcAAAABAAIAAAATAAcAAAABAAIAAAASAAcAAAABAAIAAAARAAcAAAABAAIAAAAQAAcAAAABAAIAAAAPAAcAAAABAAIAAAAOAAcAAAABAAIAAAANAAcAAAABAAIAAAAlAP//AAABAAIAAAAkAP//AAABAAIAAAALAPv/AAABAAIAAAAKAPv/AAABAAIAAAAjAAcAAAABAAAAAAAmAP//AAABAAAAAAAjAP//AAADAAIAAAAMAPv/AAACAAEAAAAVAPH/AAACAAIAAAAMAPj/AAACAAIAAAAJAPv/AAADAAAAAAAMAAcAAAADAAAAAAAmAPz/AAACAAAAAAAjAPH/AAACAAAAAAAYAO7/AAACAAAAAAAVAO7/AAAAAAAAAAAMAPH/AAAAAAAAAAAJAPj/AAAAAAAAAAAWAAcAAAACAAEAAAAjAPz/AAADAAEAAAAYAPH/AAADAAEAAAAXAAoAAAABAAIAAAAYAAoAAAABAAIAAAAZAAoAAAABAAAAAAAWAAoAAAADAAAAAAAZAAkAAAAAAAIAAAAZAAgAAAAAAAIAAAAZAAcAAAADAAIAAAA=")
 
-[node name="BlockWall" parent="WallLayer_Ysorted" index="2" instance=ExtResource("3_whnod")]
+[node name="X25_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="0"]
+position = Vector2(656, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="1"]
+position = Vector2(672, 96)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="2"]
+position = Vector2(688, 104)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="3"]
+position = Vector2(704, 112)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="4"]
+position = Vector2(720, 120)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="5"]
+position = Vector2(736, 128)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="6"]
+position = Vector2(752, 136)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="7"]
+position = Vector2(768, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="8"]
+position = Vector2(784, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="9"]
+position = Vector2(800, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y-18" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="10"]
+position = Vector2(656, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X23_Y-18" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="11"]
+position = Vector2(672, 48)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X13_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="12"]
+position = Vector2(464, -8)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X14_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="13"]
+position = Vector2(480, 0)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X15_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="14"]
+position = Vector2(496, 8)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="15"]
+position = Vector2(512, 16)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="16"]
+position = Vector2(528, 24)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X18_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="17"]
+position = Vector2(544, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X19_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="18"]
+position = Vector2(560, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X20_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="19"]
+position = Vector2(576, 48)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X10_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="20"]
+position = Vector2(304, 24)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="21"]
+position = Vector2(320, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="22"]
+position = Vector2(656, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="23"]
+position = Vector2(672, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y-7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="24"]
+position = Vector2(272, 24)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="25"]
+position = Vector2(256, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-14" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="26"]
+position = Vector2(432, -8)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-13" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="27"]
+position = Vector2(416, 0)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-12" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="28"]
+position = Vector2(400, 8)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="29"]
+position = Vector2(384, 16)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="30"]
+position = Vector2(368, 24)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="31"]
+position = Vector2(352, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y-17" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="32"]
+position = Vector2(624, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y-16" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="33"]
+position = Vector2(608, 48)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="34"]
+position = Vector2(272, 72)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="35"]
+position = Vector2(256, 80)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="36"]
+position = Vector2(240, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="37"]
+position = Vector2(224, 96)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="38"]
+position = Vector2(208, 104)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="39"]
+position = Vector2(192, 112)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="40"]
+position = Vector2(176, 120)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="41"]
+position = Vector2(160, 128)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="42"]
+position = Vector2(144, 136)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="43"]
+position = Vector2(128, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="44"]
+position = Vector2(112, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="45"]
+position = Vector2(240, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="46"]
+position = Vector2(224, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="47"]
+position = Vector2(592, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="48"]
+position = Vector2(576, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="49"]
+position = Vector2(560, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="50"]
+position = Vector2(544, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="51"]
+position = Vector2(528, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="52"]
+position = Vector2(512, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="53"]
+position = Vector2(496, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="54"]
+position = Vector2(688, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y-2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="55"]
+position = Vector2(672, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-14" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="56"]
+position = Vector2(816, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-13" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="57"]
+position = Vector2(800, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-12" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="58"]
+position = Vector2(784, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="59"]
+position = Vector2(768, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="60"]
+position = Vector2(752, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="61"]
+position = Vector2(736, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="62"]
+position = Vector2(720, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="63"]
+position = Vector2(704, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="64"]
+position = Vector2(688, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="65"]
+position = Vector2(672, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-17" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="66"]
+position = Vector2(688, 72)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-16" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="67"]
+position = Vector2(672, 80)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="68"]
+position = Vector2(432, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="69"]
+position = Vector2(416, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="70"]
+position = Vector2(400, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="71"]
+position = Vector2(384, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="72"]
+position = Vector2(368, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="73"]
+position = Vector2(352, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="74"]
+position = Vector2(336, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="75"]
+position = Vector2(320, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="76"]
+position = Vector2(304, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="77"]
+position = Vector2(224, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X20_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="78"]
+position = Vector2(208, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X19_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="79"]
+position = Vector2(192, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X18_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="80"]
+position = Vector2(176, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="81"]
+position = Vector2(160, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="82"]
+position = Vector2(144, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X15_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="83"]
+position = Vector2(128, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X14_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="84"]
+position = Vector2(112, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X13_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="85"]
+position = Vector2(96, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="86"]
+position = Vector2(608, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="87"]
+position = Vector2(256, 64)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X10_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="88"]
+position = Vector2(240, 56)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="89"]
+position = Vector2(448, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="90"]
+position = Vector2(480, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="91"]
+position = Vector2(464, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X38_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="92"]
+position = Vector2(624, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="93"]
+position = Vector2(656, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="94"]
+position = Vector2(640, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="95"]
+position = Vector2(592, 56)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="96"]
+position = Vector2(336, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="97"]
+position = Vector2(240, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="98"]
+position = Vector2(224, 48)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="99"]
+position = Vector2(96, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="100"]
+position = Vector2(80, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X38_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="101"]
+position = Vector2(688, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="102"]
+position = Vector2(704, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="103"]
+position = Vector2(816, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="104"]
+position = Vector2(832, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X24_Y-18" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="105"]
+position = Vector2(688, 56)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-18" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="106"]
+position = Vector2(704, 64)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y-18" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="107"]
+position = Vector2(640, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-15" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="108"]
+position = Vector2(448, -16)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="109"]
+position = Vector2(288, 16)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X23_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="110"]
+position = Vector2(208, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X24_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="111"]
+position = Vector2(224, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="112"]
+position = Vector2(240, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="113"]
+position = Vector2(272, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="114"]
+position = Vector2(256, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="115"]
+position = Vector2(208, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="116"]
+position = Vector2(192, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="117"]
+position = Vector2(288, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="BlockWall" parent="WallLayer_Ysorted" index="4" instance=ExtResource("3_whnod")]
 position = Vector2(288, 56)
 
-[node name="BlockWall2" parent="WallLayer_Ysorted" index="3" instance=ExtResource("3_whnod")]
+[node name="BlockWall2" parent="WallLayer_Ysorted" index="5" instance=ExtResource("3_whnod")]
 position = Vector2(304, 48)
 
-[node name="BlockWall3" parent="WallLayer_Ysorted" index="4" instance=ExtResource("3_whnod")]
+[node name="BlockWall3" parent="WallLayer_Ysorted" index="6" instance=ExtResource("3_whnod")]
 position = Vector2(320, 40)
 
-[node name="BlockWall4" parent="WallLayer_Ysorted" index="5" instance=ExtResource("3_whnod")]
+[node name="BlockWall4" parent="WallLayer_Ysorted" index="7" instance=ExtResource("3_whnod")]
 position = Vector2(608, 56)
 
-[node name="BlockWall5" parent="WallLayer_Ysorted" index="6" instance=ExtResource("3_whnod")]
+[node name="BlockWall5" parent="WallLayer_Ysorted" index="8" instance=ExtResource("3_whnod")]
 position = Vector2(624, 64)
 
-[node name="BlockWall6" parent="WallLayer_Ysorted" index="7" instance=ExtResource("3_whnod")]
+[node name="BlockWall6" parent="WallLayer_Ysorted" index="9" instance=ExtResource("3_whnod")]
 position = Vector2(640, 72)
 
-[node name="BlockWall7" parent="WallLayer_Ysorted" index="8" instance=ExtResource("3_whnod")]
+[node name="BlockWall7" parent="WallLayer_Ysorted" index="10" instance=ExtResource("3_whnod")]
 position = Vector2(640, 264)
 
-[node name="BlockWall8" parent="WallLayer_Ysorted" index="9" instance=ExtResource("3_whnod")]
+[node name="BlockWall8" parent="WallLayer_Ysorted" index="11" instance=ExtResource("3_whnod")]
 position = Vector2(624, 272)
 
-[node name="BlockWall9" parent="WallLayer_Ysorted" index="10" instance=ExtResource("3_whnod")]
+[node name="BlockWall9" parent="WallLayer_Ysorted" index="12" instance=ExtResource("3_whnod")]
 position = Vector2(608, 280)
 
-[node name="BlockWall10" parent="WallLayer_Ysorted" index="11" instance=ExtResource("3_whnod")]
+[node name="BlockWall10" parent="WallLayer_Ysorted" index="13" instance=ExtResource("3_whnod")]
 position = Vector2(256, 248)
 
-[node name="BlockWall11" parent="WallLayer_Ysorted" index="12" instance=ExtResource("3_whnod")]
+[node name="BlockWall11" parent="WallLayer_Ysorted" index="14" instance=ExtResource("3_whnod")]
 position = Vector2(272, 256)
 
-[node name="BlockWall12" parent="WallLayer_Ysorted" index="13" instance=ExtResource("3_whnod")]
+[node name="BlockWall12" parent="WallLayer_Ysorted" index="15" instance=ExtResource("3_whnod")]
 position = Vector2(288, 264)
 
 [node name="PlayerSpawner" parent="." index="7"]

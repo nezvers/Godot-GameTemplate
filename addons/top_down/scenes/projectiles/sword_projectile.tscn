@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://dmskvynh1rsk"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_3klw8"]
-[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="2_jihd4"]
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_jihd4"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_icwgt"]
-[ext_resource type="Texture2D" uid="uid://co307xh0djfed" path="res://addons/top_down/assets/images/vfx/slash_1_strip4.png" id="4_7va1q"]
+[ext_resource type="Texture2D" uid="uid://buptr0c8xeij1" path="res://addons/top_down/assets/images/vfx/slash_1_strip4.png" id="4_7va1q"]
 
 [sub_resource type="Gradient" id="Gradient_vk3jb"]
 interpolation_mode = 2
@@ -121,10 +121,10 @@ libraries = {
 }
 autoplay = "slash"
 
-[node name="ProjectileLifetime" parent="." index="7"]
+[node name="ProjectileLifetime" parent="." index="8"]
 time = 0.4
 
-[node name="PoolNode" parent="." index="8" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
-ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle")]
+[node name="PoolNode" parent="." index="9" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle"), NodePath("../ProjectileMover")]
 animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
 particle2d_list = [NodePath("../RotatedNode/TrailParticle")]

@@ -2,8 +2,12 @@ class_name HoleRecovery
 extends Node
 
 @export var safe_tile_tracker:SafeTileTracker
+
 @export var resource_node:ResourceNode
+
 @export var hole_trigger:HoleTrigger
+
+## Damage applied when stepping on a hole
 @export var hole_damage:int = 10
 
 var health_resource:HealthResource

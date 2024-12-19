@@ -126,5 +126,6 @@ action_1_gp = SubResource("InputEventJoypadMotion_ugoik")
 action_2_gp = SubResource("InputEventJoypadButton_wp12u")
 next_gp = SubResource("InputEventJoypadButton_lswhf")
 previous_gp = SubResource("InputEventJoypadButton_5hipw")
+aim_deadzone = 0.1
 version = 0
 not_saved = false

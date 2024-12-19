@@ -20,23 +20,16 @@ signal prepare_exit_event
 
 ## Holds information about damage stats and events
 @export var damage_resource:DamageResource
+
 @export_flags_2d_physics var collision_mask:int
 
 ## When `prepare_exit()` is called automatically call `queue_free()`
 @export var auto_free:bool = true
+
 @export var pool_node:PoolNode
 
-var move_direction:Vector2
-
-func _ready()->void:
-	move_direction = to_local_direction(direction).normalized()
-
-func to_local_direction(dir:Vector2)->Vector2:
-	return dir * (Vector2.ONE / axis_multiplier_resource.value)
-
-func _physics_process(delta:float)->void:
-	global_position += speed * delta * move_direction * axis_multiplier_resource.value
-
+## TODO: Used to calculate initial travel when spawned late due to game frame
+var lifetime:float
 
 func prepare_exit()->void:
 	set_physics_process(false)

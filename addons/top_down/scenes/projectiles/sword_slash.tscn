@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_lwexf"]
-[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_gx0bp"]
-[ext_resource type="Texture2D" uid="uid://b66vygw6de3g7" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
+[ext_resource type="Texture2D" uid="uid://ddyug4weofr3x" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="6_gnksn"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
@@ -110,6 +110,9 @@ modulate = Color(1, 0.983333, 0, 0.168627)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pfam2")
 
+[node name="ProjectileMover" parent="." index="2"]
+collision_mask = 0
+
 [node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
 shape = SubResource("RectangleShape2D_4ssjg")
 
@@ -144,13 +147,13 @@ projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_instance_resource = ExtResource("10_5rio8")
 axis_multiplication_resource = ExtResource("6_gnksn")
 
-[node name="HitLimit" parent="." index="8"]
+[node name="HitLimit" parent="." index="9"]
 hit_limit = -1
 
-[node name="ProjectileLifetime" parent="." index="9"]
+[node name="ProjectileLifetime" parent="." index="10"]
 time = 0.27
 
-[node name="PoolNode" parent="." index="10" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
-ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../SubParticleManager"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle")]
+[node name="PoolNode" parent="." index="11" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../SubParticleManager"), NodePath("../RotatedNode/Sprite2D/AnimationPlayer"), NodePath("../RotatedNode/TrailParticle"), NodePath("../ProjectileMover")]
 animation_player_list = [NodePath("../RotatedNode/Sprite2D/AnimationPlayer")]
 particle2d_list = [NodePath("../RotatedNode/TrailParticle")]
