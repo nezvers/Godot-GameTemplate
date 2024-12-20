@@ -23,7 +23,8 @@ func _ready()->void:
 	OS.set_environment("SteamAppId", str(app_id))
 	OS.set_environment("SteamGameId", str(app_id))
 	
-	var initialize_response: Dictionary = Steam.steamInitEx( true, app_id )
+	steam_singleton = Engine.get_singleton("Steam")
+	var initialize_response: Dictionary = steam_singleton.steamInitEx( true, app_id )
 	print("SteamInit [INFO]: Steam initialize - %s " % initialize_response)
 	
 	if initialize_response["status"] > 0:
@@ -31,7 +32,6 @@ func _ready()->void:
 		printerr("Steam must be running in background")
 		get_tree().quit()
 	
-	steam_singleton = Engine.get_singleton("Steam")
 	
 	if steam_singleton == null:
 		printerr("SteamInit [ERROR]: failed to get Steam singleton")
