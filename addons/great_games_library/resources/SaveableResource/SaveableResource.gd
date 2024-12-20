@@ -16,12 +16,18 @@ signal resource_loaded
 ## Keep track if loading have happened and without forcing it won't reload.
 var is_loaded:bool = false
 
-enum SaveType {FILE, TEMP}
-var save_state: = SaveType.FILE
-var temporary_data:SaveableResource
+## Type of saving save files
+enum SaveType {FILE, STEAM}
 
-func set_save_state(new_state:SaveType)->void:
-	save_state = new_state
+## Class variable for saving behaviour
+static var save_type: = SaveType.FILE
+
+var temporary_data:SaveableResource
+var is_temporary:bool
+
+
+static func set_save_type(value:SaveType)->void:
+	save_type = value
 
 ## Override for creating data Resource that will be saved with the ResourceSaver
 func prepare_save()->Resource:
@@ -51,15 +57,18 @@ func get_save_file_path()->String:
 func save_resource()->void:
 	if not_saved:
 		return
-	if save_state == SaveType.TEMP:
+	if is_temporary:
 		save_temp()
 		return
 	
-	var path: = get_save_file_path()
-	var data:SaveableResource = prepare_save()
-	if ResourceSaver.save(data, path):
-		print(resource_name, ": failed to save")
-		return
+	if save_type == SaveType.FILE:
+		## TODO: use error codes for return values
+		if _save_resource_file() > 0:
+			return
+	elif save_type == SaveType.STEAM:
+		## TODO: use steam integration
+		if _save_resource_file() > 0:
+			return
 	resource_saved.emit()
 
 ## Loads and sets last saved state.
@@ -73,15 +82,17 @@ func load_resource(force_load:bool = false)->void:
 	if not_saved:
 		reset_resource()
 		return
-	if save_state == SaveType.TEMP:
+	if is_temporary:
 		load_temp()
 		return
-	var path: = get_save_file_path()
-	if !FileAccess.file_exists(path):
-		print("SaveableResource [INFO]: no save file, resetting - ", resource_name)
-		reset_resource()
-		return
-	var data:SaveableResource = ResourceLoader.load(path)
+	
+	var data:SaveableResource
+	if save_type == SaveType.FILE:
+		data = _load_resource_file()
+	elif save_type == SaveType.STEAM:
+		## TODO: use Steam integration
+		data = _load_resource_file()
+	
 	if data == null:
 		print("SaveableResource [INFO]: save file didn't load, resetting - ", resource_name)
 		reset_resource()
@@ -91,6 +102,28 @@ func load_resource(force_load:bool = false)->void:
 	resource_loaded.emit()
 
 func delete_resource()->void:
+	if save_type == SaveType.FILE:
+		_delete_resource_file()
+	elif save_type == SaveType.STEAM:
+		# TODO: use Steam integration
+		_delete_resource_file()
+
+func _save_resource_file()->int:
+	var data:SaveableResource = prepare_save()
+	var path: = get_save_file_path()
+	if ResourceSaver.save(data, path):
+		print("ResourceSaver [INFO]: failed to save file", resource_name)
+		return 1
+	return 0
+
+func _load_resource_file()->SaveableResource:
+	var path: = get_save_file_path()
+	if !FileAccess.file_exists(path):
+		print("SaveableResource [INFO]: no save file - ", resource_name)
+		return null
+	return ResourceLoader.load(path)
+
+func _delete_resource_file()->void:
 	var path: = get_save_file_path()
 	if !FileAccess.file_exists(path):
 		pass
