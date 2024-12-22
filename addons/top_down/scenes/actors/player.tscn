@@ -328,7 +328,7 @@ script = ExtResource("17_32qwh")
 resource_node = NodePath("../ResourceNode")
 weapon_manager = NodePath("../WeaponManager")
 enemy_damage_shake = ExtResource("18_7uk1v")
-screen_flash_command = ExtResource("18_5jtne")
+screen_flash_animation_player = ExtResource("18_5jtne")
 player_damage_shake = ExtResource("19_d25rq")
 
 [node name="ResetHealth" type="Node" parent="." index="18" node_paths=PackedStringArray("resource_node")]

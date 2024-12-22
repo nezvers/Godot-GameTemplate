@@ -50,10 +50,9 @@ func _ready()->void:
 				projectile.add_child.call_deferred(shape_cast)
 		MovementType.RAYCAST:
 			world_2d = projectile.get_world_2d()
-			if ray_query == null:
-				ray_query = PhysicsRayQueryParameters2D.new()
-				ray_query.collide_with_bodies = true
-				ray_query.collision_mask = collision_mask
+			ray_query = PhysicsRayQueryParameters2D.new()
+			ray_query.collide_with_bodies = true
+			ray_query.collision_mask = collision_mask
 
 
 func _to_local_direction(dir:Vector2)->Vector2:
@@ -80,14 +79,15 @@ func _physics_process(delta:float)->void:
 				
 				var _normal:Vector2 = shape_cast.get_collision_normal(0)
 				var _dot:float = _normal.dot(move_direction.normalized())
-				if _dot < 0.0:
-					move_direction = move_direction.bounce(_normal)
+				var _bounce:bool = _dot < 0.0
+				if _bounce:
+					move_direction = _to_local_direction(projectile.direction.bounce(_normal)).normalized()
 					remaining_bounces -= 1
 				# workaround for questionable collision calculations. It shouldn't have positive dot product and go into a wall.
 				if _fraction < 0.1 && _dot < 0.3:
 					var _angle_to_normal:float = move_direction.angle_to(_normal)
-					## TODO: have something that gives lerp value 
-					move_direction = move_direction.rotated(_angle_to_normal * 0.5)
+					## TODO: have situational value for rotation lerp
+					move_direction = move_direction.rotated(_angle_to_normal * 0.2)
 				if remaining_bounces == 0:
 					projectile.global_position += _move_vec
 					bounces_finished.emit()
@@ -96,15 +96,19 @@ func _physics_process(delta:float)->void:
 					break
 				projectile.global_position += _move_vec
 				projectile.direction = move_direction * projectile.axis_multiplier_resource.value
-				bounce_position.emit()
+				shape_cast.rotation = projectile.direction.angle()
+				if _bounce:
+					bounce_position.emit()
 				if _fraction == 1.0:
 					break
 		MovementType.RAYCAST:
+			## TODO: might be incomplete. Because of tile seams I couldn't fully develope it.
 			var _remaining_length:float = projectile.speed * delta
 			for i:int in remaining_bounces:
 				ray_query.from = projectile.global_position
 				var _move_vec:Vector2 = _remaining_length * move_direction * projectile.axis_multiplier_resource.value
 				ray_query.to = projectile.global_position + _move_vec
+				
 				var _collision:Dictionary = world_2d.direct_space_state.intersect_ray(ray_query)
 				if _collision.is_empty():
 					## completed movement
@@ -123,6 +127,7 @@ func _physics_process(delta:float)->void:
 					set_physics_process(false)
 					break
 				
-				move_direction = move_direction.bounce(_collision.normal)
+				move_direction = _to_local_direction(projectile.direction.bounce(_collision.normal)).normalized()
 				projectile.direction = move_direction * projectile.axis_multiplier_resource.value
+				shape_cast.rotation = projectile.direction.angle()
 				bounce_position.emit()

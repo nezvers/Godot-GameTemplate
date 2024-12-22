@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://beifde6xst23w"]
+[gd_scene load_steps=15 format=3 uid="uid://beifde6xst23w"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="2_3gsbh"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileRotation.gd" id="3_wuoxf"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileMover.gd" id="4_85bqv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileImpact.gd" id="4_v8blt"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSolidImpact.gd" id="5_cqdyj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataTransmitter.gd" id="6_qxuc4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
@@ -41,11 +40,6 @@ script = ExtResource("3_e2gy5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaTransmitter2D"]
 shape = SubResource("RectangleShape2D_g4a7g")
 
-[node name="SolidCollision" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("projectile", "area_transmitter")]
-script = ExtResource("5_cqdyj")
-projectile = NodePath("../..")
-area_transmitter = NodePath("..")
-
 [node name="DamageDataTransmitter" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("area_transmitter")]
 script = ExtResource("6_qxuc4")
 area_transmitter = NodePath("..")
@@ -63,11 +57,11 @@ rotated_node = NodePath("../RotatedNode")
 projectile = NodePath("..")
 mover = NodePath("../ProjectileMover")
 
-[node name="ProjectileImpact" type="Node" parent="." node_paths=PackedStringArray("projectile", "data_transmitter", "solid_impact")]
+[node name="ProjectileImpact" type="Node" parent="." node_paths=PackedStringArray("projectile", "projectile_mover", "data_transmitter")]
 script = ExtResource("4_v8blt")
 projectile = NodePath("..")
+projectile_mover = NodePath("../ProjectileMover")
 data_transmitter = NodePath("../AreaTransmitter2D/DamageDataTransmitter")
-solid_impact = NodePath("../AreaTransmitter2D/SolidCollision")
 impact_instance_resource = ExtResource("11_27w5u")
 
 [node name="HitLimit" type="Node" parent="." node_paths=PackedStringArray("projectile", "data_transmitter")]
