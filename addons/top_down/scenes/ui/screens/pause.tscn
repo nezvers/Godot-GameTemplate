@@ -49,7 +49,7 @@ menu_path = {
 }
 focused_node = {
 ".": NodePath("../MarginContainer/Control/Body/PauseMenu/Resume/Button"),
-"audio": NodePath("../MarginContainer/Control/Body/AudioMenu/Master/Slider"),
+"audio": NodePath("../MarginContainer/Control/Body/AudioMenu/Back"),
 "controls": NodePath("../InputRebinding/MarginContainer/VBoxContainer/MenuButton/Button"),
 "graphics": NodePath("../MarginContainer/Control/Body/GraphicsMenu/Fullscreen/Button"),
 "options": NodePath("../MarginContainer/Control/Body/OptionMenu/Graphics/Button")
