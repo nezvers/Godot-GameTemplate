@@ -111,7 +111,6 @@ theme_override_constants/margin_right = 150
 theme_override_constants/margin_bottom = 20
 
 [node name="TitleMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
@@ -207,6 +206,7 @@ text = "Back"
 pressed_sound = null
 
 [node name="AudioMenu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
