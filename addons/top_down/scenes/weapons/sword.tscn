@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cmmx82t54wble"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_tcvta"]
-[ext_resource type="Texture2D" uid="uid://byjk7lbh3481i" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="3_ah0df"]
+[ext_resource type="Texture2D" uid="uid://bi8g0elk5ljha" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="3_ah0df"]
 [ext_resource type="Resource" uid="uid://ofq7dv7sia56" path="res://addons/top_down/resources/DamageResource/sword_damage.tres" id="3_g5tdr"]
 [ext_resource type="Resource" uid="uid://djdgiocrbvmt8" path="res://addons/top_down/resources/InstanceResources/projectiles/sword_slash_instance_resource.tres" id="5_88188"]
 

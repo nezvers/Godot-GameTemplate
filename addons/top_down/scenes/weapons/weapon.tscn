@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://do8p6aamuv46h"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/Weapon.gd" id="1_wo85b"]
-[ext_resource type="Texture2D" uid="uid://da86k4n7x5x8o" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_i2035"]
+[ext_resource type="Texture2D" uid="uid://cmrj6rrgbfvlg" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_i2035"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="3_bmtwx"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponRotation.gd" id="3_tyiow"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponAnimationTrigger.gd" id="4_efjwn"]
@@ -32,10 +32,10 @@ script = ExtResource("3_tyiow")
 weapon = NodePath("..")
 rotate_node = NodePath("../RotatedNode")
 
-[node name="WeaponKickback" type="Node" parent="." node_paths=PackedStringArray("weapon_trigger", "weapon")]
+[node name="WeaponKickback" type="Node" parent="." node_paths=PackedStringArray("weapon", "weapon_trigger")]
 script = ExtResource("6_spkuj")
-weapon_trigger = NodePath("../WeaponTrigger")
 weapon = NodePath("..")
+weapon_trigger = NodePath("../WeaponTrigger")
 kickback_strength = 30.0
 
 [node name="WeaponTrigger" type="Node" parent="." node_paths=PackedStringArray("weapon", "projectile_spawner")]
@@ -52,7 +52,6 @@ interval = 1.0
 script = ExtResource("4_efjwn")
 weapon_trigger = NodePath("..")
 animation_player = NodePath("../../RotatedNode/Sprite2D/AnimationPlayer")
-animation_name = &"shoot"
 
 [node name="ProjectileSpawner" type="Node" parent="."]
 script = ExtResource("3_bmtwx")

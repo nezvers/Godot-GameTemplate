@@ -1,8 +1,8 @@
 [gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
 
-[ext_resource type="Texture2D" uid="uid://c87lf6ubef5eg" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
-[ext_resource type="Texture2D" uid="uid://bjw3fm7p81owx" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
+[ext_resource type="Texture2D" uid="uid://dlnar218r3sii" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="1_s6o32"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="1_vf4rt"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_riryq"]
 [ext_resource type="Material" uid="uid://b5gtwnsevpxxj" path="res://addons/top_down/resources/materials/color_flash.material" id="3_jdhuu"]

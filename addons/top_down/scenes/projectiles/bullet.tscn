@@ -46,9 +46,6 @@ movement_type = 1
 max_bounce = 3
 collision_shape = SubResource("CircleShape2D_pv4mq")
 
-[node name="SolidCollision" parent="AreaTransmitter2D" index="1"]
-destroy_collision_mask = 0
-
 [node name="TrailParticle" parent="RotatedNode" index="0" instance=ExtResource("3_f731g")]
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_fuyyo")

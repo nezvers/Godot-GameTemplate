@@ -116,9 +116,6 @@ collision_mask = 0
 [node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
 shape = SubResource("RectangleShape2D_4ssjg")
 
-[node name="SolidCollision" parent="AreaTransmitter2D" index="1"]
-destroy_collision_mask = 0
-
 [node name="TrailParticle" parent="RotatedNode" index="0" instance=ExtResource("3_gx0bp")]
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_60sk1")
