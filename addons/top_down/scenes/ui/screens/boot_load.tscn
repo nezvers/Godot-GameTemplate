@@ -1,0 +1,167 @@
+[gd_scene load_steps=8 format=3 uid="uid://wejbha6hbaog"]
+
+[ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_oii66"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/boot_screen/boot_screen_manager.gd" id="2_fyly6"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/boot_screen/BootPreloader.gd" id="3_1bpyd"]
+
+[sub_resource type="Animation" id="Animation_o2n6v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/BottomSpacer:size_flags_stretch_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.000325259, 0.000827362, 0.000775444, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/Header/PivotPoint/Label:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_p3dpw"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/Header/PivotPoint/Label:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5, 0.766667),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 2),
+"update": 0,
+"values": [0.0, -0.0523599, 0.0, 0.0523599]
+}
+
+[sub_resource type="Animation" id="Animation_6k5uc"]
+resource_name = "transition_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/BottomSpacer:size_flags_stretch_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.000325259, 0.000827362, 0.000775444, 1), Color(0.0985668, 0.17073, 0.164749, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/Header/PivotPoint/Label:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cebse"]
+_data = {
+"RESET": SubResource("Animation_o2n6v"),
+"idle": SubResource("Animation_p3dpw"),
+"transition_out": SubResource("Animation_6k5uc")
+}
+
+[node name="BootLoad" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_oii66")
+color = Color(0.000325259, 0.000827362, 0.000775444, 1)
+
+[node name="BootScreenManager" type="Node" parent="." node_paths=PackedStringArray("animation_player", "boot_preloader")]
+script = ExtResource("2_fyly6")
+next_screen = "res://addons/top_down/scenes/ui/screens/title.tscn"
+animation_player = NodePath("../AnimationPlayer")
+boot_preloader = NodePath("../BootPreloader")
+
+[node name="BootPreloader" type="Node2D" parent="."]
+script = ExtResource("3_1bpyd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="CenterContainer" parent="MarginContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PivotPoint" type="Control" parent="MarginContainer/Control/Header"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/Header/PivotPoint"]
+layout_mode = 2
+offset_left = -141.0
+offset_top = -33.0
+offset_right = 141.0
+offset_bottom = 34.0
+pivot_offset = Vector2(141, 33.5)
+theme_override_font_sizes/font_size = 48
+text = "COOL GAME"
+
+[node name="BottomSpacer" type="Control" parent="MarginContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cebse")
+}

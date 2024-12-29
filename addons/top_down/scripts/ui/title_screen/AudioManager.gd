@@ -8,7 +8,6 @@ extends Node
 
 
 func _ready()->void:
-	audio_settings_resource.load_resource()
 	save_button.pressed.connect(save)
 	update_sliders()
 	for node in slider_container:

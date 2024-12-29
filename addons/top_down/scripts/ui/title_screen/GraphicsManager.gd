@@ -11,8 +11,6 @@ func _ready()->void:
 	save_button_button.pressed.connect(save_settings)
 	graphics_resource.enable_resize_tracking(get_viewport())
 	graphics_resource.window_mode_changed.connect(update_label)
-	graphics_resource.load_resource()
-	PersistentData.data["graphics"] = graphics_resource
 
 func toggle_fullscreen()->void:
 	graphics_resource.toggle_fullscreen()

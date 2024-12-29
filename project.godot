@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Game Template"
-run/main_scene="res://addons/top_down/scenes/ui/screens/title.tscn"
+run/main_scene="res://addons/top_down/scenes/ui/screens/boot_load.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 

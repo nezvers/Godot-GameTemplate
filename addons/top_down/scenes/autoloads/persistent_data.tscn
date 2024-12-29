@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://54xijlovqgs0"]
+[gd_scene load_steps=28 format=3 uid="uid://54xijlovqgs0"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PersistentData.gd" id="1_qc15f"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_1x1ql"]
@@ -17,8 +17,19 @@
 [ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="15_6hvwe"]
 [ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="15_p6f66"]
 [ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="16_lvyyk"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SaveableResource/SaveableResource.gd" id="17_80w5b"]
+[ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/global_resources/graphics_resource.tres" id="19_n170m"]
+[ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/global_resources/audio_settings_resource.tres" id="20_kawqs"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="21_sr5ny"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/control_shader.gdshader" id="22_r0bcf"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/dust_partickle.gdshader" id="23_1usau"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/h_separator_line.gdshader" id="24_6wpro"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/progress_fill.gdshader" id="25_2yawo"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/spawn_ring.gdshader" id="26_q6msy"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/transition.gdshader" id="27_sp3vr"]
 
 [node name="PersistentData" type="Node"]
 script = ExtResource("1_qc15f")
 instance_resource_list = Array[ExtResource("2_1x1ql")]([ExtResource("3_dfwur"), ExtResource("4_u1mjb"), ExtResource("5_ku40w"), ExtResource("6_f5br7"), ExtResource("7_su5dq"), ExtResource("8_psgrl"), ExtResource("9_3t2ff"), ExtResource("10_rbh6l"), ExtResource("11_gwh4d"), ExtResource("12_rdyww"), ExtResource("13_bjv31"), ExtResource("14_fh5ou"), ExtResource("15_6hvwe"), ExtResource("16_lvyyk")])
-action_resource = ExtResource("15_p6f66")
+saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs")])
+shader_list = Array[Shader]([ExtResource("21_sr5ny"), ExtResource("22_r0bcf"), ExtResource("23_1usau"), ExtResource("24_6wpro"), ExtResource("25_2yawo"), ExtResource("26_q6msy"), ExtResource("27_sp3vr")])

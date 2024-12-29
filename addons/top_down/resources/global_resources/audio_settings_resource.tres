@@ -4,6 +4,7 @@
 [ext_resource type="AudioBusLayout" uid="uid://c0l0lqrk43p28" path="res://default_bus_layout.tres" id="1_h6oru"]
 
 [resource]
+resource_name = "Audio Resource"
 script = ExtResource("1_3m8d1")
 audio_bus_layout = ExtResource("1_h6oru")
 values = {}

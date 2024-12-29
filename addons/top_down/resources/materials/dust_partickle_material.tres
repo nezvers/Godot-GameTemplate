@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://corlu7mpg0puk"]
 
-[ext_resource type="Shader" path="res://addons/top_down/resources/materials/dust_partickle.gdshader" id="1_cb37b"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/dust_partickle.gdshader" id="1_cb37b"]
 
 [sub_resource type="Gradient" id="Gradient_ufc1h"]
 interpolation_mode = 2
