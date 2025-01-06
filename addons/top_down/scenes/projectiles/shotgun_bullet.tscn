@@ -16,8 +16,8 @@ not_saved = false
 speed = 170.0
 damage_multiply = 0.5
 
-[node name="DamageDataTransmitter" parent="AreaTransmitter2D" index="2"]
+[node name="DamageDataTransmitter" parent="AreaTransmitter2D" index="1"]
 transmission_resource = SubResource("Resource_ii8uo")
 
-[node name="ProjectileLifetime" parent="." index="7"]
+[node name="ProjectileLifetime" parent="." index="8"]
 time = 0.5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c6ys2qs8aeu8n"]
+[gd_scene load_steps=13 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_lwexf"]
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
@@ -11,34 +11,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ssjg"]
 size = Vector2(12, 6)
-
-[sub_resource type="Gradient" id="Gradient_vk3jb"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.258523, 0.582386, 1)
-colors = PackedColorArray(0.791999, 0.791999, 0.791999, 1, 0.457424, 0.457424, 0.457424, 1, 0.234897, 0.234897, 0.234897, 1, 0.138034, 0.138034, 0.138034, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_138ku"]
-gradient = SubResource("Gradient_vk3jb")
-
-[sub_resource type="Curve" id="Curve_fm2at"]
-_data = [Vector2(0, 0.501148), 0.0, -1.36151, 0, 0, Vector2(1, 0), -0.120393, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_k2ccc"]
-curve = SubResource("Curve_fm2at")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_60sk1"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 4.0
-spread = 9.1
-initial_velocity_min = 20.09
-initial_velocity_max = 20.09
-gravity = Vector3(0, 0, 0)
-damping_min = 24.92
-damping_max = 100.0
-scale_curve = SubResource("CurveTexture_k2ccc")
-color_ramp = SubResource("GradientTexture1D_138ku")
 
 [sub_resource type="Animation" id="Animation_g0v6g"]
 length = 0.001
@@ -118,7 +90,6 @@ shape = SubResource("RectangleShape2D_4ssjg")
 
 [node name="TrailParticle" parent="RotatedNode" index="0" instance=ExtResource("3_gx0bp")]
 amount = 12
-process_material = SubResource("ParticleProcessMaterial_60sk1")
 explosiveness = 0.49
 
 [node name="Sprite2D" parent="RotatedNode" index="1"]
@@ -143,9 +114,6 @@ projectile = NodePath("..")
 projectile_spawner = NodePath("../ProjectileSpawner")
 start_projectile_instance_resource = ExtResource("10_5rio8")
 axis_multiplication_resource = ExtResource("6_gnksn")
-
-[node name="HitLimit" parent="." index="9"]
-hit_limit = -1
 
 [node name="ProjectileLifetime" parent="." index="10"]
 time = 0.27

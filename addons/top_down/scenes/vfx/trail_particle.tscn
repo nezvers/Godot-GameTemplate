@@ -1,31 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://djobi3eqlcjvo"]
+[gd_scene load_steps=4 format=3 uid="uid://djobi3eqlcjvo"]
 
-[ext_resource type="Texture2D" uid="uid://b0spdmtykpu18" path="res://addons/top_down/assets/images/vfx/vfx_particle_0_strip10.png" id="1_a5878"]
-
-[sub_resource type="Gradient" id="Gradient_vk3jb"]
-colors = PackedColorArray(0.791999, 0.791999, 0.791999, 1, 0.138034, 0.138034, 0.138034, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_138ku"]
-gradient = SubResource("Gradient_vk3jb")
-
-[sub_resource type="Curve" id="Curve_fm2at"]
-_data = [Vector2(0, 0.501148), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.51279, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_k2ccc"]
-curve = SubResource("Curve_fm2at")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d6ohy"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_k2ccc")
-color_ramp = SubResource("GradientTexture1D_138ku")
+[ext_resource type="Material" uid="uid://by1613lxovtnf" path="res://addons/top_down/resources/ParticleProcessMaterial/bullet_process_material.tres" id="1_2red8"]
+[ext_resource type="Texture2D" uid="uid://6e3jnb8gri7i" path="res://addons/top_down/assets/images/vfx/vfx_particle_0_strip10.png" id="1_a5878"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nnjo6"]
 atlas = ExtResource("1_a5878")
 region = Rect2(80, 0, 16, 16)
 
 [node name="TrailParticle" type="GPUParticles2D"]
-process_material = SubResource("ParticleProcessMaterial_d6ohy")
+process_material = ExtResource("1_2red8")
 texture = SubResource("AtlasTexture_nnjo6")
 interpolate = false

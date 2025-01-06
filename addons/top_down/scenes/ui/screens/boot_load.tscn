@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://wejbha6hbaog"]
+[gd_scene load_steps=9 format=3 uid="uid://wejbha6hbaog"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_oii66"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/boot_screen/boot_screen_manager.gd" id="2_fyly6"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/boot_screen/BootPreloader.gd" id="3_1bpyd"]
+[ext_resource type="Resource" uid="uid://bk0svoela4oim" path="res://addons/top_down/resources/PreloadResource/boot_load_resource.tres" id="4_hnv15"]
 
 [sub_resource type="Animation" id="Animation_o2n6v"]
 length = 0.001
@@ -121,8 +122,11 @@ next_screen = "res://addons/top_down/scenes/ui/screens/title.tscn"
 animation_player = NodePath("../AnimationPlayer")
 boot_preloader = NodePath("../BootPreloader")
 
-[node name="BootPreloader" type="Node2D" parent="."]
+[node name="BootPreloader" type="Node2D" parent="." node_paths=PackedStringArray("material_holder_node")]
+position = Vector2(59, 43)
 script = ExtResource("3_1bpyd")
+preload_resource = ExtResource("4_hnv15")
+material_holder_node = NodePath(".")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

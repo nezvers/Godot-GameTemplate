@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_ak5yp"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="2_duvie"]
-[ext_resource type="Texture2D" uid="uid://bo2ttlqaylkm" path="res://addons/top_down/assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
+[ext_resource type="Texture2D" uid="uid://dqingf1wt6opq" path="res://addons/top_down/assets/images/characters/zombie_16x16_strip8.png" id="2_giu7j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="3_j6r3n"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="4_ryem0"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="6_360t8"]

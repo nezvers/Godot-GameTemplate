@@ -66,9 +66,6 @@ collision_mask = 0
 [node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
 shape = SubResource("RectangleShape2D_5a4j3")
 
-[node name="SolidCollision" parent="AreaTransmitter2D" index="1"]
-destroy_collision_mask = 0
-
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("2_eg08h")
 hframes = 5
@@ -82,9 +79,6 @@ speed_scale = 2.0
 
 [node name="ProjectileRotation" parent="." index="4"]
 enabled = false
-
-[node name="HitLimit" parent="." index="6"]
-hit_limit = -1
 
 [node name="ProjectileLifetime" parent="." index="7"]
 time = 0.25

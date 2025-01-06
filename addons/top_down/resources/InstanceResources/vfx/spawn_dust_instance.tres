@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_yud2w"]
 
 [resource]
-resource_name = "Enemy Spawn Mark"
+resource_name = "Spawn Dust Particles"
 script = ExtResource("2_yud2w")
 scene_path = "res://addons/top_down/scenes/vfx/dust_particle.tscn"
 parent_reference_resource = ExtResource("1_5jp2s")

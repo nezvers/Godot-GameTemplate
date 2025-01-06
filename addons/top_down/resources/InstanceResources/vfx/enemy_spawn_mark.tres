@@ -6,5 +6,5 @@
 [resource]
 resource_name = "Enemy Spawn Mark"
 script = ExtResource("2_vlo6d")
-scene_path = "res://addons/top_down/scenes/arena/spawn_mark.tscn"
+scene_path = "res://addons/top_down/scenes/vfx/spawn_mark.tscn"
 parent_reference_resource = ExtResource("1_gmiqm")
