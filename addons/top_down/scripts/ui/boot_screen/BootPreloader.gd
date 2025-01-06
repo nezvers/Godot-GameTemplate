@@ -33,7 +33,8 @@ func _check_done()->void:
 func start()->void:
 	preload_resource.preload_finished.connect(_set_preload_resource_done_done.bind(true), CONNECT_ONE_SHOT)
 	preload_resource.start(material_holder_node)
-	# Hold in memory
+	
+	# keep these resources into memory when they are needed, like for next level
 	PersistentData.data["preload_resource"] = preload_resource
 	
 	# preload savables
