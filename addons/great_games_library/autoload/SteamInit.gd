@@ -36,11 +36,11 @@ func _ready()->void:
 	if steam_singleton == null:
 		printerr("SteamInit [ERROR]: failed to get Steam singleton")
 		get_tree().quit()
-	var is_on_steam_deck = steam_singleton.isSteamRunningOnSteamDeck()
-	var is_online = steam_singleton.loggedOn()
-	var is_owned = steam_singleton.isSubscribed()
-	var steam_id = steam_singleton.getSteamID()
-	var steam_username = steam_singleton.getPersonaName()
+	is_on_steam_deck = steam_singleton.isSteamRunningOnSteamDeck()
+	is_online = steam_singleton.loggedOn()
+	is_owned = steam_singleton.isSubscribed()
+	steam_id = steam_singleton.getSteamID()
+	steam_username = steam_singleton.getPersonaName()
 	
 	if is_owned == false:
 		printerr("SteamInit [ERROR]: User does not own this game")
