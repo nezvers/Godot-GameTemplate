@@ -1,6 +1,7 @@
 # Godot Game Template
 
-[itch.io WEB DEMO](https://nezvers.itch.io/advanced-godot-template-isometric)
+[itch.io WEB DEMO](https://nezvers.itch.io/advanced-godot-template-isometric)    
+
 A starting point and reference project for creating games with the Godot Engine, particularly suited for top-down shooter games.
 Project is located in [addons/top_down](addons/top_down/) to keep project conflicts to a minimum. It showcases recommended project structure.
 
