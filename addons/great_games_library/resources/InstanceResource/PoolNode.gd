@@ -20,6 +20,12 @@ signal pool_requested()
 var pool_was_requested:bool
 
 func _ready()->void:
+	if !pool_was_requested:
+		## This is the first time
+		## Particles have a "bug" to initially appear at Vector2(0, 0)
+		for _particle:GPUParticles2D in particle2d_list:
+			get_tree().process_frame.connect(_particle.restart, CONNECT_ONE_SHOT)
+	
 	pool_was_requested = false
 	if listen_node != null:
 		assert(listen_node.has_signal(signal_name))
@@ -35,8 +41,7 @@ func pool_return()->void:
 	for _animation_player:AnimationPlayer in animation_player_list:
 		_animation_player.stop()
 	for _particle:GPUParticles2D in particle2d_list:
-		if !_particle.tree_entered.is_connected(_particle.restart):
-			_particle.tree_entered.connect(_particle.restart)
+		_particle.ready.connect(_particle.restart, CONNECT_ONE_SHOT)
 	for _node:Node in ready_nodes:
 		_node.request_ready()
 		
