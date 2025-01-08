@@ -27,6 +27,7 @@ Additionally, for task organization, the project includes a simple [Kanban Tasks
 - Input Rebinding
 - Frame by frame debug pausing (`P` - pause and advance, `[ + P` to unpause)
 - Scene transition using shader on a screenshot
+- precompile (Shader, CanvasMaterial, ParticleProcessMaterial) and preload scenes [boot_load.tscn](addons/top_down/scenes/ui/screens/)
 - Node reference managment [ReferenceNodeResource](addons/great_games_library/resources/ReferenceNodeResource/)
 - Easy instancing with configuration callbacks and dynamic instance pooling [InstanceResource](addons/great_games_library/resources/InstanceResource/)
 - Static functions for threaded loading [ThreadUtility](addons/great_games_library/static/ThreadUtility/ThreadUtility.gd)
