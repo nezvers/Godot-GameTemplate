@@ -46,3 +46,6 @@ To have easier learning experience on how project works I would suggest to start
 - Actors - addons/top_down/scenes/actors/actor.tscn
 - Weapons - addons/top_down/scenes/weapons/weapon.tscn
 - Projectiles - addons/top_down/scenes/projectiles/projectile.tscn
+
+## Project breakdown
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/2ZRxUUY6SeM/0.jpg)](https://www.youtube.com/watch?v=2ZRxUUY6SeM)
