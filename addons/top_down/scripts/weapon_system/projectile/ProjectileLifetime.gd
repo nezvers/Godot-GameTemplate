@@ -13,7 +13,7 @@ func _ready()->void:
 	if tween != null:
 		tween.kill()
 	tween = create_tween()
-	tween.tween_callback(on_timeout).set_delay(time)
+	tween.tween_callback(_on_timeout).set_delay(time)
 
-func on_timeout()->void:
+func _on_timeout()->void:
 	projectile.prepare_exit()

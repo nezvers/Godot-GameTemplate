@@ -24,6 +24,8 @@ func _ready()->void:
 	# Read input before mover
 	process_physics_priority -= 1
 	set_enabled(enabled)
+	
+	request_ready()
 
 func _input(event:InputEvent)->void:
 	if event is InputEventMouseMotion:

@@ -80,6 +80,9 @@ speed_scale = 2.0
 [node name="ProjectileRotation" parent="." index="4"]
 enabled = false
 
+[node name="HitLimit" parent="." index="6"]
+target_hit_limit = -1
+
 [node name="ProjectileLifetime" parent="." index="7"]
 time = 0.25
 

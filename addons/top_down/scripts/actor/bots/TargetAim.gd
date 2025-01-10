@@ -8,9 +8,9 @@ extends Node
 @export var aim_walking_direction:bool
 
 func _ready()->void:
-	target_finder.target_update.connect(on_target_update)
+	target_finder.target_update.connect(_on_target_update)
 
-func on_target_update()->void:
+func _on_target_update()->void:
 	if aim_walking_direction:
 		bot_input.input_resource.set_aim_direction((bot_input.input_resource.axis * bot_input.axis_compensation).normalized())
 		return

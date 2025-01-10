@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://62j3fy0o3uwl"]
+[gd_scene load_steps=36 format=3 uid="uid://62j3fy0o3uwl"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_ak5yp"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="10_3mlgp"]
 [ext_resource type="Resource" uid="uid://h86cdxneli8u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_dead_instance_resource.tres" id="12_bo37y"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="16_brvnb"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -234,14 +235,20 @@ libraries = {
 sound_resource_dead = ExtResource("7_uiw1f")
 dead_vfx_instance_resource = ExtResource("12_bo37y")
 
-[node name="ZombieInput" parent="." index="13" node_paths=PackedStringArray("resource_node") instance=ExtResource("9_4t8nd")]
+[node name="ZombieInput" parent="." index="14" node_paths=PackedStringArray("resource_node") instance=ExtResource("9_4t8nd")]
 resource_node = NodePath("../ResourceNode")
 
-[node name="SlashAttack" parent="." index="14" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
+[node name="SlashAttack" parent="." index="15" node_paths=PackedStringArray("resource_node") instance=ExtResource("7_tyqu3")]
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="AddPoint" type="Node" parent="." index="15" node_paths=PackedStringArray("resource_node")]
+[node name="AddPoint" type="Node" parent="." index="16" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_3rsmj")
 resource_node = NodePath("../ResourceNode")
 score_resource = ExtResource("10_3mlgp")
+
+[node name="PoolNode" type="Node" parent="." index="17" node_paths=PackedStringArray("animation_player_list", "listen_node")]
+script = ExtResource("16_brvnb")
+animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
+listen_node = NodePath("../ActorDamage")
+signal_name = &"actor_died"

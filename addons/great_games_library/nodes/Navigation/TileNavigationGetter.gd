@@ -21,6 +21,9 @@ func _ready()->void:
 	## To draw lines without moving them
 	top_level = true
 	global_position = Vector2.ZERO
+	
+	# in case used with PoolNode
+	request_ready()
 
 func get_target_path(to:Vector2)->PackedVector2Array:
 	var _from_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(position_node.global_position)
@@ -65,7 +68,3 @@ func get_next_path_position(from:Vector2)->Vector2:
 	index = i
 	assert(i < navigation_path.size())
 	return closest_point
-
-
-func _draw()->void:
-	pass

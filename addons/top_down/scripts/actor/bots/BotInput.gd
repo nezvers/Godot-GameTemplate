@@ -18,7 +18,11 @@ func _ready()->void:
 	process_physics_priority -= 1
 	axis_compensation = Vector2.ONE/axis_multiplier_resource.value
 	input_resource = resource_node.get_resource("input")
+	assert(input_resource != null)
 	set_enabled(enabled)
+	
+	# in case used with PoolNode
+	request_ready()
 
 ## Toggle processing for animation state machine
 func set_enabled(value:bool)->void:

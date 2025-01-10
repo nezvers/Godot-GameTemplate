@@ -15,7 +15,11 @@ var push_resource:PushResource
 
 func _ready()->void:
 	push_resource = weapon.resource_node.get_resource("push")
-	weapon_trigger.shoot_event.connect(apply_kickback)
+	if !weapon_trigger.shoot_event.is_connected(apply_kickback):
+		weapon_trigger.shoot_event.connect(apply_kickback)
+	
+	# when using with pool node
+	request_ready()
 
 ## Give kickback push to user's PushResource
 func apply_kickback()->void:

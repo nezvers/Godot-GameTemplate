@@ -36,6 +36,8 @@ func remove_reference(value:Node)->void:
 ## Bind callback on each reference change and call it as an initialization call
 ## until_exit will remove callback when listener exits a scene tree.
 func listen(inst:Node, callback:Callable, until_exit:bool = true)->void:
+	if listeners.has(callback):
+		return
 	listeners.append(callback)
 	if until_exit:
 		inst.tree_exited.connect(erase_listener.bind(callback), CONNECT_ONE_SHOT)

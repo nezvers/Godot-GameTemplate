@@ -11,9 +11,13 @@ var total_points:float
 
 func _ready()->void:
 	var _health_resource:HealthResource = resource_node.get_resource("health")
-	_health_resource.damage_data.connect(on_damage_data)
+	_health_resource.damage_data.connect(_on_damage_data)
+	
+	# in case used with PoolNode
+	request_ready()
+	tree_exiting.connect(_health_resource.damage_data.disconnect.bind(_on_damage_data), CONNECT_ONE_SHOT)
 
-func on_damage_data(damage_resource:DamageResource)->void:
+func _on_damage_data(damage_resource:DamageResource)->void:
 	var _time:float = Time.get_ticks_msec() * 0.001
 	if last_points && _time < last_time + UPDATE_INTERVAL:
 		last_time = _time

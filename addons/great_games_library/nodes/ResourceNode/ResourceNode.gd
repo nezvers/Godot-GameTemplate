@@ -10,16 +10,21 @@ signal updated
 ## Cache items to retrieve them with a key
 var dictionary:Dictionary
 
+## WARNING: should be first child, to guarantee proper setup
 func _ready()->void:
 	for item:ResourceNodeItem in list:
 		assert(!item.resource_name.is_empty(), "resource_name is used as a key for a dictionary")
 		assert(item.resource != null)
-		item = item.duplicate()
-		if item.make_unique:
-			item.value = item.resource.duplicate()
+		var _new_item:ResourceNodeItem = item.duplicate()
+		
+		if _new_item.make_unique:
+			_new_item.value = _new_item.resource.duplicate()
 		else:
-			item.value = item.resource
-		dictionary[item.resource_name] = item
+			_new_item.value = _new_item.resource
+		dictionary[_new_item.resource_name] = _new_item
+	
+	# in case used with PoolNode
+	request_ready()
 
 ## Adds a resource item and saves into a dictionary
 func add_resource(item:ResourceNodeItem)->void:

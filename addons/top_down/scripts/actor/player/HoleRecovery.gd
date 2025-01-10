@@ -16,9 +16,13 @@ func _ready()->void:
 	health_resource = resource_node.get_resource("health")
 	assert(health_resource != null)
 	# Connect one point damage to health
-	hole_trigger.hole_touched.connect(on_hole_touched)
+	hole_trigger.hole_touched.connect(_on_hole_touched)
+	
+	# in case used with PoolNode
+	request_ready()
+	tree_exiting.connect(hole_trigger.hole_touched.disconnect.bind(_on_hole_touched), CONNECT_ONE_SHOT)
 
-func on_hole_touched()->void:
+func _on_hole_touched()->void:
 	health_resource.add_hp(-hole_damage)
 	if health_resource.is_dead:
 		return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -23,7 +23,6 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTrigger.gd" id="16_f6cga"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleDeath.gd" id="18_634cs"]
 [ext_resource type="Resource" uid="uid://xbek2osd7l4w" path="res://addons/top_down/resources/InstanceResources/vfx/damage_points_instance_resource.tres" id="22_nljy0"]
-[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="22_yjx3l"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="24_qvwru"]
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="25_bssfp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_oudld"]
@@ -309,11 +308,10 @@ flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"
 sound_resource_damage = ExtResource("11_wwbua")
 
-[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("root_node", "resource_node")]
+[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("resource_node", "root_node")]
 script = ExtResource("14_b0amg")
-root_node = NodePath("..")
-drop_parent_reference = ExtResource("22_yjx3l")
 resource_node = NodePath("../ResourceNode")
+root_node = NodePath("..")
 drop_instance_resources = Array[ExtResource("24_qvwru")]([ExtResource("25_bssfp")])
 
 [node name="DamageDisplay" type="Node" parent="." node_paths=PackedStringArray("resource_node")]

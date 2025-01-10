@@ -19,18 +19,24 @@ func _ready()->void:
 	assert(!connect_tag.is_empty())
 	assert(!scene_path.is_empty())
 	
+	# NOTE: Player and entries disable_mode is set KEEP_ACTIVE, because pausing removed nodes from physics
+	disable_mode = DISABLE_MODE_KEEP_ACTIVE
+	
 	if scene_transition_resource.entry_tag == tag:
-		# This entry is marked as a scene's entry.
+		# This entry was marked as a scene's entry.
 		scene_transition_resource.entry_match = self
 		# Connect entry signal after player has exited the area
-		body_exited.connect(on_body_exited, CONNECT_ONE_SHOT)
+		body_exited.connect(_on_body_exited, CONNECT_ONE_SHOT)
 		return
 	
-	body_entered.connect(on_body_entered)
+	# Because physics could trigger multiple times before executing travel, connect one shot
+	body_entered.connect(_on_body_entered, CONNECT_ONE_SHOT)
 
-func on_body_entered(body:Node2D)->void:
-	scene_transition_resource.set_next_scene.call_deferred(scene_path, connect_tag)
 
-# NOTE: Player and entries disable_mode is set KEEP_ACTIVE, because pausing removed from physics
-func on_body_exited(body:Node2D)->void:
-	body_entered.connect(on_body_entered)
+func _on_body_entered(body:Node2D)->void:
+	scene_transition_resource.set_next_scene(scene_path, connect_tag)
+
+
+func _on_body_exited(body:Node2D)->void:
+	# Because physics could trigger multiple times before executing travel, connect one shot
+	body_entered.connect(_on_body_entered, CONNECT_ONE_SHOT)

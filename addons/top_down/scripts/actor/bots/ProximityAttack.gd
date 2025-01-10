@@ -5,9 +5,9 @@ extends Node
 @export var bot_input:BotInput
 
 func _ready()->void:
-	target_finder.target_update.connect(on_target_update)
+	target_finder.target_update.connect(_on_target_update)
 
-func on_target_update()->void:
+func _on_target_update()->void:
 	if target_finder.target_count < 1:
 		bot_input.input_resource.set_action(false)
 		return

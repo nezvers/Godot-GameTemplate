@@ -14,9 +14,9 @@ var closest:Node2D
 
 func _ready()->void:
 	target_list.resize(MAX_TARGET)
-	bot_input.input_update.connect(on_input_update)
+	bot_input.input_update.connect(_on_input_update)
 
-func on_input_update()->void:
+func _on_input_update()->void:
 	shape_cast.force_shapecast_update()
 	if shape_cast.is_colliding():
 		target_count = 0

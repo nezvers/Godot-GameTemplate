@@ -23,31 +23,33 @@ func _ready()->void:
 	assert(input_resource != null)
 	
 	set_enabled(enabled)
+	
+	request_ready()
 
 func set_enabled(value:bool)->void:
 	enabled = value
 	if enabled:
-		if !input_resource.action_2_pressed.is_connected(dash_pressed):
-			input_resource.action_2_pressed.connect(dash_pressed)
+		if !input_resource.action_2_pressed.is_connected(_dash_pressed):
+			input_resource.action_2_pressed.connect(_dash_pressed)
 	else:
-		if input_resource.action_2_pressed.is_connected(dash_pressed):
-			input_resource.action_2_pressed.disconnect(dash_pressed)
+		if input_resource.action_2_pressed.is_connected(_dash_pressed):
+			input_resource.action_2_pressed.disconnect(_dash_pressed)
 
-func dash_pressed()->void:
+func _dash_pressed()->void:
 	if is_cooldown:
 		return
 	push_resource.add_impulse(input_resource.axis * impulse_strength)
 	is_cooldown = true
 	# Timer to allow trigger ability again
 	var _tween:Tween = create_tween()
-	_tween.tween_callback(cooldown_over).set_delay(cooldown_time)
+	_tween.tween_callback(_cooldown_over).set_delay(cooldown_time)
 	
 	# Dashing state time, allows to go over a hole in ground
 	dash_bool.set_value(true)
 	var _tween2:Tween = create_tween()
 	_tween2.tween_callback(dash_bool.set_value.bind(false)).set_delay(active_time)
 
-func cooldown_over()->void:
+func _cooldown_over()->void:
 	is_cooldown = false
 	if input_resource.action_2:
-		dash_pressed()
+		_dash_pressed()

@@ -32,23 +32,41 @@ var current_weapon:Weapon = null
 
 
 func _ready()->void:
-	var _input_resource:InputResource = resource_node.get_resource("input")
-	assert(_input_resource != null)
-	_input_resource.switch_weapon.connect(on_switch_weapon)
-	
-	
+	var _child_weapons:Array[PackedScene]
 	for weapon:Node in get_children():
 		if !(weapon is Weapon):
 			continue
+		# create scene from child weapon
 		var _packed_scene:PackedScene = ScenePacker.create_package(weapon)
-		auto_instance_weapons.append(_packed_scene)
+		_child_weapons.append(_packed_scene)
 		remove_child(weapon)
 		weapon.queue_free()
+	
+	# BUG: workaround new instance gets modified array from previous instance
+	auto_instance_weapons = auto_instance_weapons.duplicate()
+	
+	# Insert child scenes in array beginning
+	for i:int in _child_weapons.size():
+		var _packed_scene:PackedScene = _child_weapons[i]
+		auto_instance_weapons.insert(i, _packed_scene)
 	
 	for _scene:PackedScene in auto_instance_weapons:
 		add_new_weapon_from_scene(_scene)
 	
 	set_weapon_index(weapon_index)
+	
+	_setup_input_connection()
+	# in case used with PoolNode
+	resource_node.ready.connect(_setup_input_connection)
+
+func _setup_input_connection()->void:
+	var _input_resource:InputResource = resource_node.get_resource("input")
+	assert(_input_resource != null)
+	
+	_input_resource.switch_weapon.connect(_on_switch_weapon)
+	
+	# in case used with PoolNode
+	tree_exiting.connect(_input_resource.switch_weapon.disconnect.bind(_on_switch_weapon), CONNECT_ONE_SHOT)
 
 func add_new_weapon_from_scene(scene:PackedScene)->void:
 	var _weapon:Weapon = scene.instantiate() as Weapon
@@ -65,7 +83,7 @@ func add_new_weapon_from_scene(scene:PackedScene)->void:
 	weapon_list.append(_weapon)
 
 
-func on_switch_weapon(dir:int)->void:
+func _on_switch_weapon(dir:int)->void:
 	if dir == 1:
 		set_weapon_index(weapon_index +1)
 	elif dir == -1:

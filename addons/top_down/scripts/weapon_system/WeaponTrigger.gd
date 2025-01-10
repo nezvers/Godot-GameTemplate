@@ -16,10 +16,14 @@ var input_resource:InputResource
 
 func _ready()->void:
 	input_resource = weapon.resource_node.get_resource("input")
-	weapon.enabled_changed.connect(set_enabled)
+	if !weapon.enabled_changed.is_connected(set_enabled):
+		weapon.enabled_changed.connect(set_enabled)
 	set_enabled(weapon.enabled)
 	projectile_spawner.damage_resource = weapon.damage_resource
 	projectile_spawner.collision_mask = Bitwise.append_flags(projectile_spawner.collision_mask, weapon.collision_mask)
+	
+	# when using with pool node
+	request_ready()
 
 ## Toggle connections to the action input and controls visibility
 ## TODO: better system would be using update tick instead of signal events

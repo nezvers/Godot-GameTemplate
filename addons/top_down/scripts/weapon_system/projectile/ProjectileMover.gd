@@ -9,7 +9,17 @@ signal bounce_position
 ## Check collision against these flags
 @export_flags_2d_physics var collision_mask:int
 
-enum MovementType {PROJECTILE, SHAPECAST, RAYCAST, LERP}
+enum MovementType {
+	## Simplest movement. Move position with static speed
+	PROJECTILE,
+	## Requires collision_shape. Bounces against solid colliders with collision_mask 
+	SHAPECAST,
+	## Bounces against solid colliders.
+	## Might be buggy.
+	RAYCAST,
+	## TODO: implement positional lerping
+	LERP}
+
 @export var movement_type:MovementType
 
 ## Allowed bounce count before destroyed

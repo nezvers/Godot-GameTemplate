@@ -18,6 +18,9 @@ var input_resource:InputResource
 func _ready()->void:
 	input_resource = resource_node.get_resource("input")
 	assert(input_resource != null)
+	
+	# in case used with PoolNode
+	request_ready()
 
 func _process(_delta:float)->void:
 	var new_dir:int

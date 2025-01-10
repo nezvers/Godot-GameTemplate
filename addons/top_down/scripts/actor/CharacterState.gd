@@ -18,7 +18,10 @@ func _ready()->void:
 	set_enabled(enabled)
 	var init_state: = state
 	state = State.NONE # force to be a different value than called
-	set_state(init_state)
+	_set_state(init_state)
+	
+	# in case used with PoolNode
+	request_ready()
 
 ## Toggle processing for animation state machine
 func set_enabled(value:bool)->void:
@@ -28,7 +31,7 @@ func set_enabled(value:bool)->void:
 
 ## Sets state variable and plays an animation
 ## Receiving the same state gets ignored
-func set_state(value:State)->void:
+func _set_state(value:State)->void:
 	if state == value:
 		return
 	state = value
@@ -39,6 +42,6 @@ func set_state(value:State)->void:
 ## Decide which state should be active every game's frame
 func _process(_delta:float)->void:
 	if input_resource.axis.length_squared() > 0.001:
-		set_state(State.WALK)
+		_set_state(State.WALK)
 	else:
-		set_state(State.IDLE)
+		_set_state(State.IDLE)

@@ -15,10 +15,10 @@ func _ready()->void:
 	on_tree_enter()
 
 func on_tree_enter()->void:
-	obstacle_tilemap_reference.listen(self, tilemap_layer_changed)
+	obstacle_tilemap_reference.listen(self, _tilemap_layer_changed)
 
 
-func tilemap_layer_changed()->void:
+func _tilemap_layer_changed()->void:
 	if !is_inside_tree():
 		return
 	if obstacle_tilemap_reference.node == null:

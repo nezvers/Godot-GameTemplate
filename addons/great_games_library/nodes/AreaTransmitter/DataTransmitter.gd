@@ -23,9 +23,9 @@ func set_enabled(value:bool)->void:
 
 func _ready()->void:
 	assert(transmission_resource != null)
-	area_transmitter.area_entered.connect(on_area_entered)
+	area_transmitter.area_entered.connect(_on_area_entered)
 
-func on_area_entered(area:Area2D)->void:
+func _on_area_entered(area:Area2D)->void:
 	if !(area is AreaReceiver2D):
 		return
 	send(area)
@@ -34,7 +34,7 @@ func send(receiver:AreaReceiver2D)->void:
 	if !enabled:
 		return
 	var _transmission_resource:TransmissionResource = transmission_resource.duplicate()
-	_transmission_resource.update_requested.connect(on_update_requested.bind(_transmission_resource))
+	_transmission_resource.update_requested.connect(_on_update_requested.bind(_transmission_resource))
 	
 	if _transmission_resource.send_transmission(receiver):
 		on_success()
@@ -78,5 +78,5 @@ func on_denied()->void:
 	denied.emit()
 
 ## Resource requests a need to be updated
-func on_update_requested(transmission_resource:TransmissionResource)->void:
+func _on_update_requested(transmission_resource:TransmissionResource)->void:
 	update_requested.emit(transmission_resource)

@@ -17,6 +17,9 @@ var input_resource:InputResource
 
 func _ready()->void:
 	input_resource = weapon.resource_node.get_resource("input")
+	
+	# when using with pool node
+	request_ready()
 
 func _process(_delta:float)->void:
 	var direction:Vector2 = input_resource.aim_direction

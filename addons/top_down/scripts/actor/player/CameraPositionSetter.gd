@@ -7,12 +7,12 @@ extends Node
 
 func _ready()->void:
 	assert(camera_reference != null)
-	camera_reference.listen(self, on_camera_reference)
+	camera_reference.listen(self, _on_camera_reference)
 	
 	# Same player will be moved between scenes
-	tree_entered.connect(on_camera_reference)
+	tree_entered.connect(_on_camera_reference)
 
-func on_camera_reference()->void:
+func _on_camera_reference()->void:
 	if !is_inside_tree():
 		return
 	if camera_reference.node == null:

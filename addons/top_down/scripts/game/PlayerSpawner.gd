@@ -31,6 +31,8 @@ func on_player_scene_entry()->void:
 	player_instance_resource.parent_reference_resource.node.add_child(_player)
 
 func on_scene_transition()->void:
-	player_instance_resource.parent_reference_resource.node.remove_child(player_reference.node)
-	
+	var _parent:Node = player_instance_resource.parent_reference_resource.node
+	var _player:Node = player_reference.node
+	_parent.remove_child.call_deferred(_player)
+	scene_transition_resource.change_scene.disconnect(on_scene_transition)
 	Transition.change_scene(scene_transition_resource.next_scene_path)

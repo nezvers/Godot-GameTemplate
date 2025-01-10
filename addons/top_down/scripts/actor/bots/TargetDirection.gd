@@ -28,30 +28,34 @@ var allow_straight_path:bool = false
 var actor_stats:ActorStatsResource
 
 func _ready()->void:
-	target_finder.target_update.connect(on_target_update)
+	if !target_finder.target_update.is_connected(_on_target_update):
+		target_finder.target_update.connect(_on_target_update)
 	var _resource_node:ResourceNode = bot_input.resource_node
 	actor_stats = _resource_node.get_resource("movement")
+	
+	# in case used with PoolNode
+	request_ready()
 
 func set_direction(direction:Vector2)->void:
 	bot_input.input_resource.set_axis((direction * bot_input.axis_compensation).normalized())
 
-func on_target_update()->void:
+func _on_target_update()->void:
 	if target_finder.target_count < 1:
 		set_direction(Vector2.ZERO)
 		return
 	target_direction = target_finder.closest.global_position - bot_input.global_position
 	
-	if test_line_of_sight():
+	if _test_line_of_sight():
 		set_direction(target_direction)
 		return
 	
-	navigation_update()
+	_navigation_update()
 	var point:Vector2 = tile_navigation.get_next_path_position(bot_input.global_position)
 	var direction:Vector2 = (point - bot_input.global_position)
 	set_direction(direction)
 
 ## Raycast checks if anything from environment is in the way
-func test_line_of_sight()->bool:
+func _test_line_of_sight()->bool:
 	raycast.target_position = target_direction
 	raycast.force_raycast_update()
 	
@@ -76,7 +80,7 @@ func test_line_of_sight()->bool:
 	
 	return allow_straight_path
 
-func navigation_update()->void:
+func _navigation_update()->void:
 	var time: = Time.get_ticks_msec() * 0.001
 	if last_update_time + navigation_cooldown > time:
 		return

@@ -14,16 +14,20 @@ func _ready()->void:
 	assert(health_resource != null)
 	receive_damage_bool = resource_node.get_resource("receive_damage")
 	assert(receive_damage_bool != null)
-	health_resource.damaged.connect(start_cooldown)
+	health_resource.damaged.connect(_start_cooldown)
+	
+	# in case used with PoolNode
+	request_ready()
+	tree_exiting.connect(health_resource.damaged.disconnect.bind(_start_cooldown), CONNECT_ONE_SHOT)
 
-func start_cooldown()->void:
+func _start_cooldown()->void:
 	if cooldown_time == 0.0:
 		return
 	receive_damage_bool.set_value(false)
 	var _tween:Tween = create_tween()
-	_tween.tween_callback(on_cooldown_finish).set_delay(cooldown_time)
+	_tween.tween_callback(_on_cooldown_finish).set_delay(cooldown_time)
 
 ## Called from tween
-func on_cooldown_finish()->void:
+func _on_cooldown_finish()->void:
 	receive_damage_bool.set_value(true)
 	cooldown_finished.emit()

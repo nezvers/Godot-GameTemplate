@@ -7,6 +7,7 @@ extends Resource
 
 ## Marks resource to be duplicated when a new ResourceNode is created
 @export var make_unique:bool
+
 @export_multiline var description:String
 
 ## Reference to actually used resource that probably is a duplicate

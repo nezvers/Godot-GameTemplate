@@ -16,3 +16,7 @@ func _ready()->void:
 	
 	# TODO: Create more pleasant hole falling death
 	hole_trigger.hole_touched.connect(_health_resource.insta_kill)
+	
+	# in case used with PoolNode
+	request_ready()
+	tree_exiting.connect(hole_trigger.hole_touched.disconnect.bind(_health_resource.insta_kill), CONNECT_ONE_SHOT)

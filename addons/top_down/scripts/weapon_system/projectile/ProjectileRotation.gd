@@ -24,12 +24,12 @@ func set_enabled(value:bool)->void:
 
 func _ready()->void:
 	set_process(is_continuous && enabled)
-	if !is_continuous && !mover.bounce_position.is_connected(rotate_visuals):
-		mover.bounce_position.connect(rotate_visuals)
-	rotate_visuals()
+	if !is_continuous && !mover.bounce_position.is_connected(_rotate_visuals):
+		mover.bounce_position.connect(_rotate_visuals)
+	_rotate_visuals()
 
 ## Calculate the rotation and sprite flipping
-func rotate_visuals()->void:
+func _rotate_visuals()->void:
 	if !enabled:
 		return
 	var direction:Vector2 = projectile.direction
@@ -39,4 +39,4 @@ func rotate_visuals()->void:
 
 ## used if is_continuous
 func _process(_delta:float)->void:
-	rotate_visuals()
+	_rotate_visuals()
