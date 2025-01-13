@@ -12,14 +12,8 @@ signal prepare_exit_event
 ## Used to fake angled perspective
 @export var axis_multiplier_resource:Vector2Resource
 
-## Each projectile contribute to the total damage value with multiply
-@export var damage_multiply:float = 1.0
-
-## Force pushing a damage receiver
-@export var kickback_multiply:float = 1.0
-
 ## Holds information about damage stats and events
-@export var damage_resource:DamageResource
+@export var damage_data_resource:DamageDataResource
 
 @export_flags_2d_physics var collision_mask:int
 

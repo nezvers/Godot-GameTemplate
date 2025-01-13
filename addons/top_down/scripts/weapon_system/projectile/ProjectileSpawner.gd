@@ -20,6 +20,7 @@ signal prepare_spawn
 
 ## offset distance in the direction
 @export var initial_distance:float
+
 @export var projectile_instance_resource:InstanceResource
 
 ## Will be set for a new projectile
@@ -31,7 +32,7 @@ signal prepare_spawn
 @export var projectile_angles:Array[float] = [0.0]
 
 ## Resource that carry damage information
-@export var damage_resource:DamageResource
+@export var damage_data_resource:DamageDataResource
 
 ## Create a new generation of damage data
 ## Best for splitting from top resource
@@ -46,11 +47,11 @@ func spawn()->void:
 		return
 	prepare_spawn.emit()
 	
-	var new_damage_resource:DamageResource
+	var new_damage_resource:DamageDataResource
 	if new_damage:
-		new_damage_resource = damage_resource.new_generation()
+		new_damage_resource = damage_data_resource.new_generation()
 	else:
-		new_damage_resource = damage_resource
+		new_damage_resource = damage_data_resource
 	
 	for angle:float in projectile_angles:
 		var _config_callback:Callable = func (inst:Projectile2D)->void:
@@ -58,7 +59,7 @@ func spawn()->void:
 			var _angle_delta:Vector2 = (direction.rotated(deg_to_rad(angle)) - direction) * axis_multiplication_resource.value
 			
 			inst.direction = (direction + _angle_delta).normalized()
-			inst.damage_resource = new_damage_resource.new_split()
+			inst.damage_data_resource = new_damage_resource.new_split()
 			inst.collision_mask = Bitwise.append_flags(inst.collision_mask, collision_mask)
 			inst.global_position = initial_distance * direction * axis_multiplication_resource.value + projectile_position
 		

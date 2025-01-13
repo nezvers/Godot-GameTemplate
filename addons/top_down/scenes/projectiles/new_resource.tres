@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HoleTransmission" load_steps=2 format=3 uid="uid://b0dbx3knmgvh7"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTransmission.gd" id="1_wdicg"]
+
+[resource]
+script = ExtResource("1_wdicg")
+transmission_name = &"hole"
+state = -1
+valid = true
+version = 0
+not_saved = false

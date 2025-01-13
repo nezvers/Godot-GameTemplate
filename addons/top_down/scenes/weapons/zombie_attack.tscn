@@ -1,12 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://baisjmcsnk3on"]
+[gd_scene load_steps=4 format=3 uid="uid://baisjmcsnk3on"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://addons/top_down/scenes/weapons/weapon.tscn" id="1_tygi1"]
 [ext_resource type="Resource" uid="uid://cmxblo8l2xfeq" path="res://addons/top_down/resources/sounds/zombie_slash.tres" id="3_4gid6"]
-[ext_resource type="Resource" uid="uid://w2o813ip2q5b" path="res://addons/top_down/resources/DamageResource/zombie_damage.tres" id="5_0dp6e"]
 [ext_resource type="Resource" uid="uid://d1e4s216ukuhw" path="res://addons/top_down/resources/InstanceResources/projectiles/zombie_slash_instance_resource.tres" id="6_3bs3g"]
 
 [node name="ZombieAttack" instance=ExtResource("1_tygi1")]
-damage_resource = ExtResource("5_0dp6e")
 
 [node name="RotatedNode" parent="." index="0"]
 visible = false

@@ -1,20 +1,38 @@
-[gd_scene load_steps=12 format=3 uid="uid://do8p6aamuv46h"]
+[gd_scene load_steps=16 format=3 uid="uid://do8p6aamuv46h"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/Weapon.gd" id="1_wo85b"]
 [ext_resource type="Texture2D" uid="uid://cmrj6rrgbfvlg" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_i2035"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_v23wb"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="3_bmtwx"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="3_kraft"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponRotation.gd" id="3_tyiow"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponAnimationTrigger.gd" id="4_efjwn"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="4_ljeda"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/SpreadShot.gd" id="5_mx0vu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponTrigger.gd" id="6_gfbfl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponKickback.gd" id="6_spkuj"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileInterval.gd" id="7_surdb"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="9_x0q43"]
 
+[sub_resource type="Resource" id="Resource_pkull"]
+script = ExtResource("3_kraft")
+base_damage = Array[ExtResource("2_v23wb")]([])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("4_ljeda")]([])
+hit_list = []
+report_callback = Callable()
+transmission_name = &""
+state = -1
+valid = true
+version = 0
+not_saved = false
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qujdc"]
 
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_wo85b")
+damage_data_resource = SubResource("Resource_pkull")
 
 [node name="RotatedNode" type="Node2D" parent="."]
 position = Vector2(0, -8)

@@ -5,7 +5,6 @@ signal damaged
 signal dead
 signal hp_changed
 signal full
-signal damage_data(damage_resource:DamageResource)
 
 @export var hp:float = 5
 @export var max_hp:float = 5

@@ -3,7 +3,7 @@ extends Node
 
 @export var projectile:Projectile2D
 @export var projectile_mover:ProjectileMover
-@export var data_transmitter:DataTransmitter
+@export var data_transmitter:DataChannelTransmitter
 @export var impact_instance_resource:InstanceResource
 
 func _ready()->void:

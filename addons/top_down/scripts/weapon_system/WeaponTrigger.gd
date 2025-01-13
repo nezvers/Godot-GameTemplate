@@ -19,7 +19,7 @@ func _ready()->void:
 	if !weapon.enabled_changed.is_connected(set_enabled):
 		weapon.enabled_changed.connect(set_enabled)
 	set_enabled(weapon.enabled)
-	projectile_spawner.damage_resource = weapon.damage_resource
+	projectile_spawner.damage_data_resource = weapon.damage_data_resource
 	projectile_spawner.collision_mask = Bitwise.append_flags(projectile_spawner.collision_mask, weapon.collision_mask)
 	
 	# when using with pool node

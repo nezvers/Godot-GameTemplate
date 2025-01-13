@@ -28,6 +28,7 @@ enum ErrorType {
 ## Receiving end might decide that transmission is invalid and processing will be cancelled.
 @export var valid:bool = true
 
+
 ## 
 func send_transmission(receiver:AreaReceiver2D)->bool:
 	assert( !transmission_name.is_empty() )

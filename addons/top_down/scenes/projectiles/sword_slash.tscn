@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6ys2qs8aeu8n"]
+[gd_scene load_steps=15 format=3 uid="uid://c6ys2qs8aeu8n"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_lwexf"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_mr7yn"]
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_pfam2"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_gx0bp"]
 [ext_resource type="Texture2D" uid="uid://ddyug4weofr3x" path="res://addons/top_down/assets/images/vfx/slash_3_strip4.png" id="4_u6vsr"]
@@ -8,6 +9,11 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSpawner.gd" id="6_whjok"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SubProjectileManager.gd" id="7_n74ie"]
 [ext_resource type="Resource" uid="uid://o8teeob07t1x" path="res://addons/top_down/resources/InstanceResources/projectiles/sword_projectile_instance_resource.tres" id="10_5rio8"]
+
+[sub_resource type="Resource" id="Resource_78e1m"]
+script = ExtResource("2_mr7yn")
+value = 20.0
+type = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ssjg"]
 size = Vector2(12, 6)
@@ -75,6 +81,10 @@ _data = {
 
 [node name="SwordSlash" instance=ExtResource("1_lwexf")]
 speed = 60.0
+
+[node name="ProjectileSetup" parent="." index="0"]
+base_damage = Array[ExtResource("2_mr7yn")]([SubResource("Resource_78e1m")])
+kickback = 100.0
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 visible = false

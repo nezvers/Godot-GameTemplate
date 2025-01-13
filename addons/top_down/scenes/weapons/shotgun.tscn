@@ -1,12 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ghnv48d18ftl"]
+[gd_scene load_steps=4 format=3 uid="uid://ghnv48d18ftl"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_xioje"]
 [ext_resource type="Texture2D" uid="uid://dowxjnhdgsmac" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="2_hrbvp"]
-[ext_resource type="Resource" uid="uid://dlkgtlk8nau36" path="res://addons/top_down/resources/DamageResource/shotgun_damage.tres" id="2_te3cg"]
 [ext_resource type="Resource" uid="uid://f7qtvi0nk5sx" path="res://addons/top_down/resources/InstanceResources/projectiles/shotgun_bullet_instance_resource.tres" id="5_yypu2"]
 
 [node name="Shotgun" instance=ExtResource("1_xioje")]
-damage_resource = ExtResource("2_te3cg")
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("2_hrbvp")

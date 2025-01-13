@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=47 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -10,9 +10,10 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/MoverTopDown2D.gd" id="5_3rf64"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="5_07pdl"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="6_k776m"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataReceiver.gd" id="7_aib52"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelReceiver.gd" id="7_aib52"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_y5ipv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="8_7uvby"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="8_dsg0c"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="11_p4kmh"]
@@ -59,22 +60,6 @@ script = ExtResource("2_riryq")
 resource = SubResource("Resource_y76f1")
 make_unique = true
 description = ""
-
-[sub_resource type="Resource" id="Resource_fwu4v"]
-resource_name = "Receive damage bool"
-script = ExtResource("4_7aaky")
-value = true
-default_value = true
-version = 0
-not_saved = false
-
-[sub_resource type="Resource" id="Resource_cri6d"]
-resource_name = "receive_damage"
-script = ExtResource("2_riryq")
-resource = SubResource("Resource_fwu4v")
-make_unique = true
-description = "Can receive a damage.
-Should be manipulated only from a single user."
 
 [sub_resource type="Resource" id="Resource_xhp0x"]
 resource_name = "Push Resource"
@@ -136,6 +121,20 @@ resource = SubResource("Resource_k8ute")
 make_unique = true
 description = "Used to control actors movement by it's input node.
 "
+
+[sub_resource type="Resource" id="Resource_1jkvc"]
+resource_name = "Damage Resource"
+script = ExtResource("8_dsg0c")
+can_receive_damage = true
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_tcmws"]
+resource_name = "damage"
+script = ExtResource("2_riryq")
+resource = SubResource("Resource_1jkvc")
+make_unique = true
+description = "Receives report from delt and received damage."
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpkoi"]
 size = Vector2(8, 4)
@@ -216,7 +215,7 @@ platform_floor_layers = 0
 
 [node name="ResourceNode" type="Node" parent="."]
 script = ExtResource("1_atd7g")
-list = Array[ExtResource("2_riryq")]([SubResource("Resource_wkut0"), SubResource("Resource_vm74s"), SubResource("Resource_cri6d"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227")])
+list = Array[ExtResource("2_riryq")]([SubResource("Resource_wkut0"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_tcmws")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qpkoi")

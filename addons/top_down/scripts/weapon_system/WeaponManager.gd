@@ -3,8 +3,6 @@ extends Node2D
 
 ## Emitted when weapon is changed
 signal weapon_changed
-signal damage_report(damage:DamageResource)
-
 
 ## Scene files that will be instanced and added to the user in disabled state
 @export var auto_instance_weapons:Array[PackedScene]
@@ -76,9 +74,9 @@ func add_new_weapon_from_scene(scene:PackedScene)->void:
 	_weapon.resource_node = resource_node
 	_weapon.collision_mask = collision_mask
 	if make_unique_damage:
-		_weapon.damage_resource = _weapon.damage_resource.duplicate()
-		_weapon.damage_resource.resource_name += "_dup"
-	_weapon.damage_resource.report_callback = on_damage_report
+		_weapon.damage_data_resource = _weapon.damage_data_resource.duplicate()
+		_weapon.damage_data_resource.resource_name += "_dup"
+	
 	add_child(_weapon)
 	weapon_list.append(_weapon)
 
@@ -106,7 +104,3 @@ func set_weapon_index(value:int)->void:
 
 func get_current_damage()->DamageResource:
 	return current_weapon.damage_resource
-
-## Collects all damage reports into one signal
-func on_damage_report(damage:DamageResource)->void:
-	damage_report.emit(damage)

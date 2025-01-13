@@ -1,15 +1,29 @@
 class_name EnemySpawner
 extends Node
 
+## Creates enemies with given configuration 
 @export var enemy_instance_resource:InstanceResource
+
+## VFX before enemy appear
 @export var spawn_mark_instance_resource:InstanceResource
+
+## VFX on moment enemy spawns
 @export var spawn_partickle_instance_resource:InstanceResource
+
+## Current wave count, must kill count
 @export var enemy_count_resource:IntResource
+
+## List of points where enemy can be spawned
 @export var spawn_point_resource:SpawnPointResource
+
+## Bool that toggles game mode
 @export var fight_mode_resource:BoolResource
 
-var max_active_count:int
-var allowed_count:int
+## Maximum simultaneous enemies
+var max_allowed_count:int
+
+## Intermediate variable to take in account spawning VFX until a kill
+var wave_remaining_count:int
 
 func _ready()->void:
 	assert(enemy_count_resource != null)
@@ -27,19 +41,25 @@ func _ready()->void:
 
 func _setup_active_count()->void:
 	# TODO: best not to limit to spawn point count, maybe sum of enemy threat value
-	max_active_count = spawn_point_resource.position_list.size()
-	allowed_count = max_active_count
+	max_allowed_count = spawn_point_resource.position_list.size()
+	wave_remaining_count = max_allowed_count
 
 func _cleanup()->void:
 	spawn_point_resource.position_list.clear()
 
-func _process(delta: float) -> void:
-	if enemy_count_resource.value < max_active_count:
-		return
-	if allowed_count < 1:
+## Decide if new enemy needs to be created.
+## Don't like idea of _process, but is continiously check when spawnpoint is safe to use
+func _process(_delta: float) -> void:
+	#if enemy_count_resource.value < max_allowed_count: # TODO: tis fukd
+		#return
+	if wave_remaining_count < 1:
 		return
 	var _active_count:int = enemy_instance_resource.active_list.size() + spawn_mark_instance_resource.active_list.size()
-	if _active_count >= max_active_count:
+	if _active_count >= max_allowed_count:
+		return
+	
+	## One more shouldn't be more than left to kill
+	if _active_count +1 > enemy_count_resource.value:
 		return
 	
 	_create_spawn_mark()
@@ -49,7 +69,7 @@ func _create_spawn_mark()->void:
 	if _free_positions.is_empty():
 		return
 	
-	allowed_count -= 1
+	wave_remaining_count -= 1
 	var _spawn_position:Vector2 = _free_positions.pick_random()
 	
 	## after despawning creates actual enemy
@@ -71,7 +91,7 @@ func _create_enemies(spawn_position:Vector2)->void:
 
 func _erase_enemy(node:Node2D)->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)
-	allowed_count += 1
+	wave_remaining_count += 1
 
 func _filter_free_position(position:Vector2)->bool:
 	# distance squared

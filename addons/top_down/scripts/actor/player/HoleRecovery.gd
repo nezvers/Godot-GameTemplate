@@ -23,7 +23,7 @@ func _ready()->void:
 	tree_exiting.connect(hole_trigger.hole_touched.disconnect.bind(_on_hole_touched), CONNECT_ONE_SHOT)
 
 func _on_hole_touched()->void:
-	health_resource.add_hp(-hole_damage)
 	if health_resource.is_dead:
 		return
+	health_resource.add_hp(-hole_damage)
 	safe_tile_tracker.move_to_safe_position()

@@ -1,9 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmskvynh1rsk"]
+[gd_scene load_steps=10 format=3 uid="uid://dmskvynh1rsk"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_3klw8"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_4v4mc"]
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_jihd4"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_icwgt"]
 [ext_resource type="Texture2D" uid="uid://buptr0c8xeij1" path="res://addons/top_down/assets/images/vfx/slash_1_strip4.png" id="4_7va1q"]
+
+[sub_resource type="Resource" id="Resource_eslri"]
+script = ExtResource("2_4v4mc")
+value = 2.0
+type = 0
 
 [sub_resource type="Animation" id="Animation_g0v6g"]
 length = 0.001
@@ -68,8 +74,10 @@ _data = {
 
 [node name="SwordProjectile" instance=ExtResource("1_3klw8")]
 speed = 150.0
-damage_multiply = 0.25
-kickback_multiply = 0.25
+
+[node name="ProjectileSetup" parent="." index="0"]
+base_damage = Array[ExtResource("2_4v4mc")]([SubResource("Resource_eslri")])
+kickback = 20.0
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 visible = false

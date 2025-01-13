@@ -27,5 +27,5 @@ func spawn(projectile_instance_resource:InstanceResource)->void:
 	projectile_spawner.projectile_instance_resource = projectile_instance_resource
 	projectile_spawner.projectile_position = projectile.global_position
 	projectile_spawner.direction = projectile.direction
-	projectile_spawner.damage_resource = projectile.damage_resource
+	projectile_spawner.damage_data_resource = projectile.damage_data_resource
 	projectile_spawner.spawn()

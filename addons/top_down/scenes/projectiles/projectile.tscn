@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileMover.gd" id="4_85bqv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileImpact.gd" id="4_v8blt"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/HitLimit.gd" id="6_pkcss"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataTransmitter.gd" id="6_qxuc4"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="6_qxuc4"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
 [ext_resource type="Resource" uid="uid://s3oxaww7qjgi" path="res://addons/top_down/resources/InstanceResources/vfx/impact_instance_resource.tres" id="11_27w5u"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="13_40h1t"]
@@ -23,11 +23,11 @@ speed = 120.0
 axis_multiplier_resource = ExtResource("2_3gsbh")
 pool_node = NodePath("PoolNode")
 
-[node name="ProjectileSetup" type="Node" parent="." node_paths=PackedStringArray("projectile", "area_transmitter", "data_transmitter")]
+[node name="ProjectileSetup" type="Node" parent="." node_paths=PackedStringArray("projectile", "area_transmitter", "data_channel_transmitter")]
 script = ExtResource("2_yrlmb")
 projectile = NodePath("..")
 area_transmitter = NodePath("../AreaTransmitter2D")
-data_transmitter = NodePath("../AreaTransmitter2D/DamageDataTransmitter")
+data_channel_transmitter = NodePath("../AreaTransmitter2D/DamageDataTransmitter")
 
 [node name="ProjectileMover" type="Node" parent="." node_paths=PackedStringArray("projectile")]
 script = ExtResource("4_85bqv")

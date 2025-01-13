@@ -7,13 +7,13 @@ signal cooldown_finished
 @export var cooldown_time:float = 0.0
 
 var health_resource:HealthResource
-var receive_damage_bool:BoolResource
+var damage_resource:DamageResource
 
 func _ready()->void:
 	health_resource = resource_node.get_resource("health")
 	assert(health_resource != null)
-	receive_damage_bool = resource_node.get_resource("receive_damage")
-	assert(receive_damage_bool != null)
+	damage_resource = resource_node.get_resource("damage")
+	assert(damage_resource != null)
 	health_resource.damaged.connect(_start_cooldown)
 	
 	# in case used with PoolNode
@@ -23,11 +23,11 @@ func _ready()->void:
 func _start_cooldown()->void:
 	if cooldown_time == 0.0:
 		return
-	receive_damage_bool.set_value(false)
+	damage_resource.set_can_receive_damage(false)
 	var _tween:Tween = create_tween()
 	_tween.tween_callback(_on_cooldown_finish).set_delay(cooldown_time)
 
 ## Called from tween
 func _on_cooldown_finish()->void:
-	receive_damage_bool.set_value(true)
+	damage_resource.set_can_receive_damage(true)
 	cooldown_finished.emit()

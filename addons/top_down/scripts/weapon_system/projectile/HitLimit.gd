@@ -2,7 +2,7 @@ class_name HitLimit
 extends Node
 
 @export var projectile:Projectile2D
-@export var data_transmitter:DataTransmitter
+@export var data_transmitter:DataChannelTransmitter
 
 ## Starting with negative has infinite count
 @export var target_hit_limit:int = 1

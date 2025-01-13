@@ -17,8 +17,6 @@ func _ready()->void:
 	_health_resource.damaged.connect(flash_animation_player.stop)
 	_health_resource.damaged.connect(flash_animation_player.play.bind(flash_animation))
 	
-	# disable moving
-		#_health_resource.dead.connect(mover.set_enabled.bind(false))
 	# remove character
 	_health_resource.dead.connect(_play_dead)
 	
@@ -36,8 +34,6 @@ func _ready()->void:
 func _remove_connections(health_resource:HealthResource)->void:
 	health_resource.damaged.disconnect(flash_animation_player.stop)
 	health_resource.damaged.disconnect(flash_animation_player.play.bind(flash_animation))
-	# disable moving
-		#health_resource.dead.disconnect(mover.set_enabled.bind(false))
 	# remove character
 	health_resource.dead.disconnect(_play_dead)
 	

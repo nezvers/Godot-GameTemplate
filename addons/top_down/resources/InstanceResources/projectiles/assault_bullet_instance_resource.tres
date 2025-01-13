@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://cw030o04i08yd"]
+
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_sfoma"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_fx4j5"]
+
+[resource]
+resource_name = "Assault bullet"
+script = ExtResource("2_fx4j5")
+scene_path = "res://addons/top_down/scenes/projectiles/assault_bullet.tscn"
+parent_reference_resource = ExtResource("1_sfoma")

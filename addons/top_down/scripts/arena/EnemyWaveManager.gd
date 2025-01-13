@@ -1,8 +1,13 @@
 extends Node
 
+## Variable that toggles gameplay mode
 @export var fight_mode_resource:BoolResource
+
 @export var wave_count_resource:IntResource
+
+## Current wave count, must kill count
 @export var enemy_count_resource:IntResource
+
 @export var enemy_manager:EnemyManager
 
 func _ready()->void:

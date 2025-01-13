@@ -1,4 +1,4 @@
-class_name DataTransmitter
+class_name DataChannelTransmitter
 extends Node
 
 signal update_requested(transmission_resource:TransmissionResource)
@@ -22,7 +22,6 @@ func set_enabled(value:bool)->void:
 	enabled = value
 
 func _ready()->void:
-	assert(transmission_resource != null)
 	area_transmitter.area_entered.connect(_on_area_entered)
 
 func _on_area_entered(area:Area2D)->void:
@@ -33,6 +32,9 @@ func _on_area_entered(area:Area2D)->void:
 func send(receiver:AreaReceiver2D)->void:
 	if !enabled:
 		return
+	
+	
+	assert(transmission_resource != null)
 	var _transmission_resource:TransmissionResource = transmission_resource.duplicate()
 	_transmission_resource.update_requested.connect(_on_update_requested.bind(_transmission_resource))
 	
@@ -58,7 +60,8 @@ func on_try_again(receiver:AreaReceiver2D)->void:
 		on_try_next_frame(receiver)
 
 func on_try_next_frame(receiver:AreaReceiver2D)->void:
-	get_tree().physics_frame.connect(test_receiver.bind(receiver), CONNECT_ONE_SHOT)
+	if !get_tree().physics_frame.is_connected(test_receiver):
+		get_tree().physics_frame.connect(test_receiver.bind(receiver), CONNECT_ONE_SHOT)
 
 func test_receiver(receiver:AreaReceiver2D)->void:
 	var overlapping_areas:Array[Area2D] = area_transmitter.get_overlapping_areas()

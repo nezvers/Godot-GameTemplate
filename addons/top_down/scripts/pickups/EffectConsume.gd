@@ -1,7 +1,7 @@
 class_name EffectConsume
 extends Node
 
-@export var data_transmitter:DataTransmitter
+@export var data_transmitter:DataChannelTransmitter
 @export var animation_player:AnimationPlayer
 @export var fade_out_animation:StringName = "fade_out"
 @export var sounds_resource:SoundResource

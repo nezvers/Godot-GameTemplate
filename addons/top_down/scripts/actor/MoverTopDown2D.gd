@@ -38,9 +38,8 @@ func _ready()->void:
 	
 	# in case used with PoolNode
 	request_ready()
+	character.velocity = Vector2.ZERO
 	tree_exiting.connect(_push_resource.impulse_event.disconnect.bind(add_impulse), CONNECT_ONE_SHOT)
-
-
 
 func _physics_process(delta:float)->void:
 	var target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis * axis_multiplier_resource.value

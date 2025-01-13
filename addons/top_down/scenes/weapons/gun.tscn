@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxf4p5yoajpdu"]
+[gd_scene load_steps=7 format=3 uid="uid://bxf4p5yoajpdu"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://addons/top_down/scenes/weapons/weapon.tscn" id="1_1sltl"]
 [ext_resource type="Resource" uid="uid://bsgm5x8805se7" path="res://addons/top_down/resources/sounds/bullet.tres" id="3_k087s"]
 [ext_resource type="Resource" uid="uid://d1ui7w7atv8wt" path="res://addons/top_down/resources/InstanceResources/projectiles/gun_bullet_instance_resource.tres" id="5_2qq6f"]
-[ext_resource type="Resource" uid="uid://b6f2dt76wgh5r" path="res://addons/top_down/resources/DamageResource/gun_damage.tres" id="5_fyy4a"]
 
 [sub_resource type="Animation" id="Animation_qbqgg"]
 length = 0.001
@@ -43,7 +42,6 @@ _data = {
 }
 
 [node name="Gun" instance=ExtResource("1_1sltl")]
-damage_resource = ExtResource("5_fyy4a")
 
 [node name="RotatedNode" parent="." index="0"]
 position = Vector2(0, -6)

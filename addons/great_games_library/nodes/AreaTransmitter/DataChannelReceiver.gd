@@ -1,5 +1,5 @@
 ## Handles received transmission preliminary processing on receivers behalf for a certain transmission channel.
-class_name DataReceiver
+class_name DataChannelReceiver
 extends Node
 
 ## Emited when transmission is granted access
