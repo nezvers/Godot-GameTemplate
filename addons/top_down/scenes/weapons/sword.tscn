@@ -1,8 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmmx82t54wble"]
+[gd_scene load_steps=12 format=3 uid="uid://cmmx82t54wble"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_tcvta"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_ky0bo"]
 [ext_resource type="Texture2D" uid="uid://bi8g0elk5ljha" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="3_ah0df"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="3_h2w8s"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="4_3xvip"]
 [ext_resource type="Resource" uid="uid://djdgiocrbvmt8" path="res://addons/top_down/resources/InstanceResources/projectiles/sword_slash_instance_resource.tres" id="5_88188"]
+
+[sub_resource type="Resource" id="Resource_h373d"]
+script = ExtResource("3_h2w8s")
+base_damage = Array[ExtResource("2_ky0bo")]([])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("4_3xvip")]([])
+hit_list = []
+report_callback = Callable()
+transmission_name = &""
+state = -1
+valid = true
+version = 0
+not_saved = false
 
 [sub_resource type="Animation" id="Animation_ku8ja"]
 length = 0.001
@@ -95,6 +112,7 @@ _data = {
 }
 
 [node name="Sword" instance=ExtResource("1_tcvta")]
+damage_data_resource = SubResource("Resource_h373d")
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("3_ah0df")

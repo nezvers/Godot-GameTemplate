@@ -1,10 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://baisjmcsnk3on"]
+[gd_scene load_steps=8 format=3 uid="uid://baisjmcsnk3on"]
 
 [ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://addons/top_down/scenes/weapons/weapon.tscn" id="1_tygi1"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_g4imc"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="3_0vfyh"]
 [ext_resource type="Resource" uid="uid://cmxblo8l2xfeq" path="res://addons/top_down/resources/sounds/zombie_slash.tres" id="3_4gid6"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="4_2px0i"]
 [ext_resource type="Resource" uid="uid://d1e4s216ukuhw" path="res://addons/top_down/resources/InstanceResources/projectiles/zombie_slash_instance_resource.tres" id="6_3bs3g"]
 
+[sub_resource type="Resource" id="Resource_jm7i8"]
+script = ExtResource("3_0vfyh")
+base_damage = Array[ExtResource("2_g4imc")]([])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("4_2px0i")]([])
+hit_list = []
+report_callback = Callable()
+transmission_name = &""
+state = -1
+valid = true
+version = 0
+not_saved = false
+
 [node name="ZombieAttack" instance=ExtResource("1_tygi1")]
+damage_data_resource = SubResource("Resource_jm7i8")
 
 [node name="RotatedNode" parent="." index="0"]
 visible = false

@@ -1,10 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbfknmfp5j4s0"]
+[gd_scene load_steps=8 format=3 uid="uid://bbfknmfp5j4s0"]
 
 [ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_fl1fv"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_20vwb"]
 [ext_resource type="Texture2D" uid="uid://b0wnk1hh6fkkd" path="res://addons/top_down/assets/images/weapon/gun_3.png" id="2_a6vce"]
 [ext_resource type="Resource" uid="uid://cw030o04i08yd" path="res://addons/top_down/resources/InstanceResources/projectiles/assault_bullet_instance_resource.tres" id="3_ddee1"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="3_qxsaj"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="4_csrr2"]
+
+[sub_resource type="Resource" id="Resource_84q31"]
+script = ExtResource("3_qxsaj")
+base_damage = Array[ExtResource("2_20vwb")]([])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("4_csrr2")]([])
+hit_list = []
+report_callback = Callable()
+transmission_name = &""
+state = -1
+valid = true
+version = 0
+not_saved = false
 
 [node name="AssaultRiffle" instance=ExtResource("1_fl1fv")]
+damage_data_resource = SubResource("Resource_84q31")
 
 [node name="Sprite2D" parent="RotatedNode" index="0"]
 texture = ExtResource("2_a6vce")

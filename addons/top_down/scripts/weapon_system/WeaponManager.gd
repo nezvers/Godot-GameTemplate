@@ -41,6 +41,7 @@ func _ready()->void:
 		weapon.queue_free()
 	
 	# BUG: workaround new instance gets modified array from previous instance
+	# https://github.com/godotengine/godot/issues/96181
 	auto_instance_weapons = auto_instance_weapons.duplicate()
 	
 	# Insert child scenes in array beginning
@@ -75,7 +76,6 @@ func add_new_weapon_from_scene(scene:PackedScene)->void:
 	_weapon.collision_mask = collision_mask
 	if make_unique_damage:
 		_weapon.damage_data_resource = _weapon.damage_data_resource.duplicate()
-		_weapon.damage_data_resource.resource_name += "_dup"
 	
 	add_child(_weapon)
 	weapon_list.append(_weapon)

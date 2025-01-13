@@ -7,6 +7,8 @@ signal can_receive_changed
 
 @export var can_receive_damage:bool = true
 
+@export var resistance_list:Array[DamageTypeResource]
+
 var owner:Node
 
 func set_can_receive_damage(value:bool)->void:

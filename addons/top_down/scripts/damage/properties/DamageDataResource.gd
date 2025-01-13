@@ -1,13 +1,13 @@
 class_name DamageDataResource
 extends TransmissionResource
 
-@export_category("Weapon or User")
+@export_group("Weapon or User")
 
 ## Initial base damage value.
 @export var base_damage:Array[DamageTypeResource]
 
 ## Probability of critical damage happening
-@export var critical_chance:float = 0.3
+@export_range(0.0, 1.0) var critical_chance:float = 0.3
 
 ## Critical damage multiplier
 @export var critical_multiply:float = 1.5
@@ -15,7 +15,7 @@ extends TransmissionResource
 ## Status effects that can be applied to target
 @export var status_list:Array[DamageStatusResource]
 
-@export_category("Report")
+@export_group("Report")
 
 ## Exploiting that array is shared reference.
 ## it will collect from same generation hits.
@@ -43,6 +43,8 @@ var is_critical:bool
 ## pre-calculated value
 ## Set by damage application process.
 var total_damage:float
+
+var damage_multiply:float = 1.0
 
 
 ## Create a new generation for a new attack action.
@@ -81,18 +83,21 @@ func process(resource_node:ResourceNode)->void:
 	# It's sure to have a hit, so pull last possible updates, like hit direction
 	update_requested.emit()
 	
-	# TODO: include more receiving end information & proper way to get an owner reference
-	hit_list.append(resource_node.owner)
+	hit_list.append(_damage_resource.owner)
 	
 	var _push_resource:PushResource = resource_node.get_resource("push")
 	if _push_resource != null:
 		_push_resource.add_impulse(direction * kickback_strength)
 	
-	success()
+	# Critical multiply
+	if randf() > critical_chance:
+		is_critical = true
+		damage_multiply = critical_multiply
 	
+	# Dealt damage
 	for _damage:DamageTypeResource in base_damage:
-		total_damage += _damage.value
-		## TODO: Process dealt damage based on type and resistance
+		total_damage += _get_damage_value(_damage_resource.resistance_list, _damage)
+	
 	
 	_health_resource.add_hp( -total_damage )
 	
@@ -100,3 +105,11 @@ func process(resource_node:ResourceNode)->void:
 	
 	if report_callback.is_valid():
 		report_callback.call(self)
+	
+	success()
+
+func _get_damage_value(resistance_list:Array[DamageTypeResource], given_damage:DamageTypeResource)->float:
+	for _item:DamageTypeResource in resistance_list:
+		if _item.type == given_damage.type:
+			return max(given_damage.value * damage_multiply - _item.value, 0.0)
+	return given_damage.value

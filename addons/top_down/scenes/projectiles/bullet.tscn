@@ -1,15 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://dc8ulx4o43ue3"]
+[gd_scene load_steps=10 format=3 uid="uid://dc8ulx4o43ue3"]
 
 [ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_omfnw"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_6qsna"]
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="2_gpamq"]
 [ext_resource type="Texture2D" uid="uid://5hsmyt4m3ail" path="res://addons/top_down/assets/images/projectile/bullet_1.png" id="3_8p5j6"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="3_a0cy3"]
 [ext_resource type="PackedScene" uid="uid://djobi3eqlcjvo" path="res://addons/top_down/scenes/vfx/trail_particle.tscn" id="3_f731g"]
 
 [sub_resource type="Resource" id="Resource_0qe4y"]
 script = ExtResource("2_6qsna")
 value = 10.0
 type = 0
+
+[sub_resource type="Resource" id="Resource_yefdn"]
+script = ExtResource("3_a0cy3")
+chance = 0.3
+tick_interval = 0.0
+tick_count = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pv4mq"]
 radius = 2.0
@@ -18,6 +25,7 @@ radius = 2.0
 
 [node name="ProjectileSetup" parent="." index="0"]
 base_damage = Array[ExtResource("2_6qsna")]([SubResource("Resource_0qe4y")])
+status_damage = Array[ExtResource("3_a0cy3")]([SubResource("Resource_yefdn")])
 kickback = 60.0
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]

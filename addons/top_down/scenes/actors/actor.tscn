@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=49 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_y5ipv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="8_7uvby"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="8_dsg0c"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="8_nc8tc"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="11_p4kmh"]
@@ -27,6 +28,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="24_qvwru"]
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="25_bssfp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_oudld"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageSetup.gd" id="28_oavm0"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -126,6 +128,7 @@ description = "Used to control actors movement by it's input node.
 resource_name = "Damage Resource"
 script = ExtResource("8_dsg0c")
 can_receive_damage = true
+resistance_list = Array[ExtResource("8_nc8tc")]([])
 version = 0
 not_saved = false
 
@@ -317,3 +320,7 @@ drop_instance_resources = Array[ExtResource("24_qvwru")]([ExtResource("25_bssfp"
 script = ExtResource("26_oudld")
 resource_node = NodePath("../ResourceNode")
 damage_points_instance_resource = ExtResource("22_nljy0")
+
+[node name="DamageSetup" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("28_oavm0")
+resource_node = NodePath("../ResourceNode")
