@@ -90,7 +90,7 @@ func process(resource_node:ResourceNode)->void:
 		_push_resource.add_impulse(direction * kickback_strength)
 	
 	# Critical multiply
-	if randf() > critical_chance:
+	if randf() < critical_chance:
 		is_critical = true
 		damage_multiply = critical_multiply
 	
@@ -112,4 +112,4 @@ func _get_damage_value(resistance_list:Array[DamageTypeResource], given_damage:D
 	for _item:DamageTypeResource in resistance_list:
 		if _item.type == given_damage.type:
 			return max(given_damage.value * damage_multiply - _item.value, 0.0)
-	return given_damage.value
+	return given_damage.value * damage_multiply

@@ -14,8 +14,8 @@ func _ready() -> void:
 	resource_node.ready.connect(_setup_resistance)
 
 func _setup_resistance()->void:
-	var _damage_data_resource:DamageDataResource = resource_node.get_resource("damage")
-	assert(_damage_data_resource != null)
-	_damage_data_resource.owner = owner
+	var _damage_resource:DamageResource = resource_node.get_resource("damage")
+	assert(_damage_resource != null)
+	_damage_resource.owner = owner
 	
 	
