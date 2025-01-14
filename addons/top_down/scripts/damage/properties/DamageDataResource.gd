@@ -96,7 +96,7 @@ func process(resource_node:ResourceNode)->void:
 	
 	# Dealt damage
 	for _damage:DamageTypeResource in base_damage:
-		total_damage += _get_damage_value(_damage_resource.resistance_list, _damage)
+		total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
 	
 	
 	_health_resource.add_hp( -total_damage )
@@ -107,9 +107,3 @@ func process(resource_node:ResourceNode)->void:
 		report_callback.call(self)
 	
 	success()
-
-func _get_damage_value(resistance_list:Array[DamageTypeResource], given_damage:DamageTypeResource)->float:
-	for _item:DamageTypeResource in resistance_list:
-		if _item.type == given_damage.type:
-			return max(given_damage.value * damage_multiply - _item.value, 0.0)
-	return given_damage.value * damage_multiply

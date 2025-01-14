@@ -7,6 +7,7 @@ extends Node
 const UPDATE_INTERVAL:float = 0.3
 var last_time:float
 var last_points:DamagePoints
+var last_critical:bool
 var total_points:float
 
 func _ready()->void:
@@ -19,17 +20,18 @@ func _ready()->void:
 
 func _on_damage_data(damage_data_resource:DamageDataResource)->void:
 	var _time:float = Time.get_ticks_msec() * 0.001
-	if last_points && _time < last_time + UPDATE_INTERVAL:
+	if last_critical == damage_data_resource.is_critical && last_points && _time < last_time + UPDATE_INTERVAL:
 		last_time = _time
 		total_points += damage_data_resource.total_damage
-		last_points.set_displayed_points(total_points, damage_data_resource.is_critical)
+		last_points.set_displayed_points(total_points, last_critical)
 		return
 	
 	last_time = _time
 	total_points = damage_data_resource.total_damage
+	last_critical = damage_data_resource.is_critical
 	var _config_callback:Callable = func (inst:Node2D)->void:
 		# give offset to appear on body position
 		inst.global_position = owner.global_position + Vector2(0.0, -8.0)
-		(inst as DamagePoints).set_displayed_points(total_points, damage_data_resource.is_critical)
+		(inst as DamagePoints).set_displayed_points(total_points, last_critical)
 	
 	last_points = damage_points_instance_resource.instance(_config_callback)

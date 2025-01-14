@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=48 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_y5ipv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="8_7uvby"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="8_dsg0c"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="8_nc8tc"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/CharacterState.gd" id="9_caq0j"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="10_tpsh5"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="11_p4kmh"]
@@ -128,7 +127,6 @@ description = "Used to control actors movement by it's input node.
 resource_name = "Damage Resource"
 script = ExtResource("8_dsg0c")
 can_receive_damage = true
-resistance_list = Array[ExtResource("8_nc8tc")]([])
 version = 0
 not_saved = false
 

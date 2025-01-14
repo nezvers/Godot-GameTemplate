@@ -21,6 +21,7 @@ offset_bottom = 4.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 6
 text = "69"

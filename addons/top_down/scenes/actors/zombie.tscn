@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://62j3fy0o3uwl"]
+[gd_scene load_steps=37 format=3 uid="uid://62j3fy0o3uwl"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_ak5yp"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="7_tyqu3"]
 [ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://addons/top_down/resources/sounds/kill_zombie.tres" id="7_uiw1f"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="8_3mtk0"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="8_ddkyy"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/AddPoint.gd" id="9_3rsmj"]
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="9_4t8nd"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="10_3mlgp"]
@@ -117,7 +116,6 @@ description = "Used to control actors movement by it's input node.
 resource_name = "Damage Resource"
 script = ExtResource("8_3mtk0")
 can_receive_damage = true
-resistance_list = Array[ExtResource("8_ddkyy")]([])
 version = 0
 not_saved = false
 

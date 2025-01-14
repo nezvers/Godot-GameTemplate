@@ -8,6 +8,10 @@ extends Node2D
 
 
 func set_displayed_points(points:int, is_critical:bool)->void:
+	if is_critical:
+		label.modulate = Color.YELLOW
+	else:
+		label.modulate = Color.WHITE
 	label.text = str(points)
 	label.set_anchors_and_offsets_preset(Control.PRESET_CENTER,Control.PRESET_MODE_MINSIZE)
 

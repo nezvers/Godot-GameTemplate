@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=58 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -12,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://addons/top_down/resources/sounds/kill_player.tres" id="6_wov6i"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_sciut"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="8_icjqh"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="9_3o3t2"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="9_y7ns5"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="10_x7xjs"]
@@ -131,7 +130,6 @@ description = ""
 resource_name = "Damage Resource"
 script = ExtResource("9_y7ns5")
 can_receive_damage = true
-resistance_list = Array[ExtResource("9_3o3t2")]([])
 version = 0
 not_saved = false
 

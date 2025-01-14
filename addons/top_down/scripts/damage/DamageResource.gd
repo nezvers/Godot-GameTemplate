@@ -7,7 +7,10 @@ signal can_receive_changed
 
 @export var can_receive_damage:bool = true
 
-@export var resistance_list:Array[DamageTypeResource]
+## Resistance value for each DamageType summed.
+## Placed in an array for optimized value fetching.
+## It is initialized and managed by DamageSetup Node.
+var resistance_value_list:Array[float]
 
 var owner:Node
 

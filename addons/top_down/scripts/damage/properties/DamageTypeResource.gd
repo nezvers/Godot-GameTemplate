@@ -13,7 +13,9 @@ enum DamageType {
 	MAGNETIC, 
 	BLOOD, 
 	DARK, 
-	ARCANE
+	ARCANE,
+	## Last one for fetching total count
+	COUNT,
 	}
 
 @export var type:DamageType
