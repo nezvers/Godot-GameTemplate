@@ -15,7 +15,7 @@ enum MovementType {
 	## Requires collision_shape. Bounces against solid colliders with collision_mask 
 	SHAPECAST,
 	## Bounces against solid colliders.
-	## Might be buggy.
+	## Bounce angles are buggy.
 	RAYCAST,
 	## TODO: implement positional lerping
 	LERP}
@@ -91,6 +91,7 @@ func _physics_process(delta:float)->void:
 				var _dot:float = _normal.dot(move_direction.normalized())
 				var _bounce:bool = _dot < 0.0
 				if _bounce:
+					# BUG: angles seems off, maybe Normal need to be manipulated
 					move_direction = _to_local_direction(projectile.direction.bounce(_normal)).normalized()
 					remaining_bounces -= 1
 				# workaround for questionable collision calculations. It shouldn't have positive dot product and go into a wall.

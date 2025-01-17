@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=49 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -28,6 +28,7 @@
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="25_bssfp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_oudld"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageSetup.gd" id="28_oavm0"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/StatusSetup.gd" id="29_t6rdw"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -321,4 +322,8 @@ damage_points_instance_resource = ExtResource("22_nljy0")
 
 [node name="DamageSetup" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("28_oavm0")
+resource_node = NodePath("../ResourceNode")
+
+[node name="StatusSetup" type="Node2D" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("29_t6rdw")
 resource_node = NodePath("../ResourceNode")

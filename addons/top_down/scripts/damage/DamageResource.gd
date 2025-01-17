@@ -1,8 +1,11 @@
 class_name DamageResource
 extends SaveableResource
 
-signal received_report(damage_data:DamageDataResource)
+signal report_damage(damage_data:DamageDataResource)
 signal received_damage(damage_data:DamageDataResource)
+signal received_damage_points(points:float, is_critical:bool)
+signal store_status(status_effect:DamageStatusResource)
+
 signal can_receive_changed
 
 @export var can_receive_damage:bool = true
@@ -19,7 +22,14 @@ func set_can_receive_damage(value:bool)->void:
 	can_receive_changed.emit()
 
 func report(damage_data:DamageDataResource)->void:
-	received_report.emit(damage_data)
+	report_damage.emit(damage_data)
 
 func receive(damage_data:DamageDataResource)->void:
 	received_damage.emit(damage_data)
+	receive_points(damage_data.total_damage, damage_data.is_critical)
+
+func receive_points(points:float, is_critical:bool = false)->void:
+	received_damage_points.emit(points, is_critical)
+
+func add_status_effect(status_effect:DamageStatusResource)->void:
+	store_status.emit(status_effect)

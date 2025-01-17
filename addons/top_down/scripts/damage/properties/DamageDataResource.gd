@@ -98,10 +98,12 @@ func process(resource_node:ResourceNode)->void:
 	for _damage:DamageTypeResource in base_damage:
 		total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
 	
-	
 	_health_resource.add_hp( -total_damage )
-	
 	_damage_resource.receive(self)
+	
+	# Status effects have their own implementations
+	for _status:DamageStatusResource in status_list:
+		_status.process(resource_node, _damage_resource)
 	
 	if report_callback.is_valid():
 		report_callback.call(self)

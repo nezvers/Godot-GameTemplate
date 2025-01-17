@@ -12,9 +12,14 @@ func _ready()->void:
 	assert(_health_resource != null)
 	_health_resource.damaged.connect(_on_damaged)
 	
+	var _damage_resource:DamageResource = resource_node.get_resource("damage")
+	assert(_damage_resource != null)
+	_damage_resource.report_damage.connect(_on_damage_report)
+	
 	#  in case used with PoolNode
 	request_ready()
 	tree_exiting.connect(_health_resource.damaged.disconnect.bind(_on_damaged), CONNECT_ONE_SHOT)
+	tree_exiting.connect(_damage_resource.report_damage.disconnect.bind(_on_damage_report), CONNECT_ONE_SHOT)
 
 
 func _on_damaged()->void:
