@@ -91,8 +91,8 @@ func _physics_process(delta:float)->void:
 				var _dot:float = _normal.dot(move_direction.normalized())
 				var _bounce:bool = _dot < 0.0
 				if _bounce:
-					# BUG: angles seems off, maybe Normal need to be manipulated
-					move_direction = _to_local_direction(projectile.direction.bounce(_normal)).normalized()
+					var _bounce_mov:Vector2 = move_direction.bounce((_normal * projectile.axis_multiplier_resource.value).normalized())
+					move_direction = _bounce_mov
 					remaining_bounces -= 1
 				# workaround for questionable collision calculations. It shouldn't have positive dot product and go into a wall.
 				if _fraction < 0.1 && _dot < 0.3:
