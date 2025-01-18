@@ -6,3 +6,4 @@
 shader = ExtResource("1_p1h5q")
 shader_parameter/progress = 0.0
 shader_parameter/meltiness = 1.0
+shader_parameter/scale = 1.0

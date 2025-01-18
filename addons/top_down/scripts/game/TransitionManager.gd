@@ -5,6 +5,9 @@ extends CanvasLayer
 @export var transition_time:float = 1.0
 @export var bool_resource:BoolResource
 
+## Resize screen texture to create same pixelation as the game
+const GAME_RESOLUTION_PIXELATION:bool = false
+
 var tween:Tween
 
 func _ready()->void:
@@ -22,7 +25,14 @@ func _post_draw(path:String)->void:
 	
 	# get texture from the screen
 	var _image:Image = get_viewport().get_texture().get_image()
-	_image.resize(int(ceil(_viewport_size.x * _multiply)), _game_resolution.y, Image.INTERPOLATE_NEAREST)
+	
+	if GAME_RESOLUTION_PIXELATION:
+		_image.resize(int(ceil(_viewport_size.x * _multiply)), _game_resolution.y, Image.INTERPOLATE_NEAREST)
+		(texture_rect.material as ShaderMaterial).set_shader_parameter("scale", 1.0)
+	else:
+		var _scale:float = float(_viewport_size.y) / _game_resolution.y
+		(texture_rect.material as ShaderMaterial).set_shader_parameter("scale", _scale)
+	
 	var _image_texture:ImageTexture = ImageTexture.create_from_image(_image)
 	texture_rect.texture = _image_texture
 	

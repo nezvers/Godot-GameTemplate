@@ -7,6 +7,8 @@ uniform float progress: hint_range(0.0, 1.0) = 0.0;
 // How jagged each band of melting pixels are
 uniform float meltiness: hint_range(0.0, 16.0) = 1.0;
 
+uniform float scale = 1.0;
+
 float psuedo_rand(float x) {
 	return mod(x * 2048103.0 + cos(x * 1912.0), 1.0);
 }
@@ -18,7 +20,7 @@ void fragment() {
 	uv.y -= progress / UV.y;
 
 	// Created jagged edges for each pixel on the x-axis
-	uv.y -= progress * meltiness * psuedo_rand(UV.x - mod(UV.x, TEXTURE_PIXEL_SIZE.x));
+	uv.y -= progress * meltiness * psuedo_rand(UV.x - mod(UV.x, TEXTURE_PIXEL_SIZE.x * scale));
 
 	COLOR = texture(TEXTURE, uv);
 
