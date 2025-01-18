@@ -34,3 +34,4 @@ instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("2_d14k6"), 
 particle_process_material_list = Array[Material]([ExtResource("16_7tl5n"), ExtResource("17_6o1hu")])
 shader2d_list = Array[Shader]([ExtResource("17_aoe6i"), ExtResource("18_xsa8j"), ExtResource("19_ul7r7"), ExtResource("20_ouhki"), ExtResource("21_4fwti"), ExtResource("22_kxkjv"), ExtResource("23_5yrx8")])
 canvas_material_list = Array[Material]([ExtResource("1_xtqay")])
+packed_scenes_list = Array[String](["res://addons/top_down/scenes/levels/room_start.tscn", "res://addons/top_down/scenes/levels/room_0.tscn"])

@@ -3,16 +3,24 @@ extends Resource
 
 signal preload_finished
 
+## TODO: move shaders and partickle list in InstanceResource
 @export var instance_resource_list:Array[InstanceResource]
+
 @export var particle_process_material_list:Array[Material]
 @export var shader2d_list:Array[Shader]
 
 ## 2D Materials without shader scripts
 @export var canvas_material_list:Array[Material]
 
+@export var packed_scenes_list:Array[String]
+
+## PackedScenes are held in memory
+var cached_packed_scenes:Array[PackedScene]
+
 var instance_resources_done:bool
 var particle_process_materials_done:bool
 var shaders_done:bool
+
 
 func _set_instance_resources_done(value:bool)->void:
 	instance_resources_done = value
@@ -43,11 +51,17 @@ func _check_done()->void:
 func start(parent_node:Node)->void:
 	
 	# preload InstanceResoource scenes
-	# Just in case use same thread for loading all scenes
+	# Just in case, use the same thread for loading all scenes, to not create conflicts with shared resources
 	var _scene_list:Array[Dictionary]
 	for _instance_resource in instance_resource_list:
 		var _data:Dictionary = {path = _instance_resource.scene_path, callback = _instance_resource.set_scene}
 		_scene_list.append(_data)
+	
+	# Resgular Scenes loaded in same thread as InstanceResource scenes
+	for _path:String in packed_scenes_list:
+		var _data:Dictionary = {path = _path, callback = cached_packed_scenes.append}
+		_scene_list.append(_data)
+	
 	ThreadUtility.load_resource_list(_scene_list, _set_instance_resources_done.bind(true))
 	
 	for _ppm:Material in particle_process_material_list:
