@@ -11,4 +11,10 @@ func _ready():
 	
 	# in case used with PoolNode
 	request_ready()
-	tree_exiting.connect(_health_resource.dead.disconnect.bind(score_resource.add_point), CONNECT_ONE_SHOT)
+	tree_exiting.connect(_remove_connection.bind(_health_resource), CONNECT_ONE_SHOT)
+
+func _remove_connection(health_resource:HealthResource)->void:
+	if health_resource.dead.is_connected(score_resource.add_point):
+		health_resource.dead.disconnect(score_resource.add_point)
+	else:
+		pass

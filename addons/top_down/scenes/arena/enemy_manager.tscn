@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cfaobhr3r5ymj"]
+[gd_scene load_steps=13 format=3 uid="uid://cfaobhr3r5ymj"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemyManager.gd" id="1_agrht"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemyWaveManager.gd" id="2_8cllb"]
@@ -8,8 +8,10 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemySpawner.gd" id="6_lu2ax"]
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_0xbol"]
 [ext_resource type="Resource" uid="uid://ct10qlb66mijl" path="res://addons/top_down/resources/arena_resources/spawn_point_resource.tres" id="7_82w7a"]
+[ext_resource type="Resource" uid="uid://ddp7qf0qghy82" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres" id="8_cjy5s"]
 [ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="8_jcw48"]
 [ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="9_lne6j"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="12_7ceo4"]
 
 [node name="EnemyManager" type="Node"]
 script = ExtResource("1_agrht")
@@ -24,8 +26,10 @@ enemy_manager = NodePath("..")
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource("6_lu2ax")
 enemy_instance_resource = ExtResource("7_0xbol")
+enemy2_instance_resource = ExtResource("8_cjy5s")
 spawn_mark_instance_resource = ExtResource("8_jcw48")
 spawn_partickle_instance_resource = ExtResource("9_lne6j")
 enemy_count_resource = ExtResource("5_o2pmf")
 spawn_point_resource = ExtResource("7_82w7a")
 fight_mode_resource = ExtResource("3_tnluv")
+score_resource = ExtResource("12_7ceo4")

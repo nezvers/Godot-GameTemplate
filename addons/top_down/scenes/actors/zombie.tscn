@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://62j3fy0o3uwl"]
+[gd_scene load_steps=40 format=3 uid="uid://62j3fy0o3uwl"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_ak5yp"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="16_brvnb"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/CriticalDamageReplace.gd" id="18_bt2ks"]
 [ext_resource type="Resource" uid="uid://ddp7qf0qghy82" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres" id="19_p8daw"]
+[ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="20_oj468"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -260,3 +261,4 @@ script = ExtResource("18_bt2ks")
 resource_node = NodePath("../ResourceNode")
 pool_node = NodePath("../PoolNode")
 replacement_instance_resource = ExtResource("19_p8daw")
+sound_effect = ExtResource("20_oj468")

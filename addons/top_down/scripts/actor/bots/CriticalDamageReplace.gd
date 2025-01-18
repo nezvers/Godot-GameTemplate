@@ -11,6 +11,8 @@ extends Node
 ## Instance resource for replacement on critical hit below health treshold
 @export var replacement_instance_resource:InstanceResource
 
+@export var sound_effect:SoundResource
+
 var health_resource:HealthResource
 
 func _ready()->void:
@@ -37,24 +39,30 @@ func _on_damage(damage:DamageDataResource)->void:
 	if health_resource.hp > health_treshold:
 		return
 	
+	# store necesary values into separate variables instead of keeping references to resources
 	var _push_vector:Vector2 = damage.kickback_strength * damage.direction
+	var _current_hp:float = health_resource.hp
 	
 	## applied to instance when its ready
-	var _ready_callback:Callable = func (inst:Node, resource_node:ResourceNode)->void:
+	var _ready_callback:Callable = func (inst:Node)->void:
+		var _resource_node:ResourceNode = inst.get_node("ResourceNode")
+		
+		# make inst hp the same + triggers damage color flash
+		var _health_resource:HealthResource = _resource_node.get_resource("health")
+		_health_resource.add_hp.call_deferred(_current_hp - _health_resource.hp)
+		
 		var _push_resource:PushResource = resource_node.get_resource("push")
 		_push_resource.add_impulse(_push_vector)
+		
+		# enable ready signal for next time
+		inst.request_ready()
 	
 	var _config_callback:Callable = func (inst:Node)->void:
 		inst.global_position = owner.global_position
-		
-		var _resource_node:ResourceNode = inst.get_node("ResourceNode")
-		for item:ResourceNodeItem in _resource_node.list:
-			if !(item.resource is HealthResource):
-				continue
-			## need to replace HealthResource before ready
-			item.resource = health_resource
-		
-		inst.ready.connect(_ready_callback.bind(inst, _resource_node), CONNECT_ONE_SHOT)
+		# WARNING: root node needs to request_ready() every time, either PoolNode or this callback
+		inst.ready.connect(_ready_callback.call_deferred.bind(inst), CONNECT_ONE_SHOT)
 	
+	
+	sound_effect.play_managed()
 	replacement_instance_resource.instance(_config_callback)
 	pool_node.pool_return()
