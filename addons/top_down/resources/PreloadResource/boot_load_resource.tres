@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PreloadResource" load_steps=28 format=3 uid="uid://bk0svoela4oim"]
+[gd_resource type="Resource" script_class="PreloadResource" load_steps=30 format=3 uid="uid://bk0svoela4oim"]
 
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_xiu2r"]
 [ext_resource type="Material" uid="uid://dh55irc80dvm7" path="res://addons/top_down/resources/materials/dust_particle_material.tres" id="1_xtqay"]
@@ -21,7 +21,9 @@
 [ext_resource type="Material" uid="uid://by1613lxovtnf" path="res://addons/top_down/resources/ParticleProcessMaterial/bullet_process_material.tres" id="16_7tl5n"]
 [ext_resource type="Material" uid="uid://corlu7mpg0puk" path="res://addons/top_down/resources/ParticleProcessMaterial/dust_process_material.tres" id="17_6o1hu"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="17_aoe6i"]
+[ext_resource type="Resource" uid="uid://ddp7qf0qghy82" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres" id="18_tqwp7"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/control_shader.gdshader" id="18_xsa8j"]
+[ext_resource type="Resource" uid="uid://bx3gvcma6vvg" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_dead_instance_resource.tres" id="19_0thmt"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/dust_partickle.gdshader" id="19_ul7r7"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/h_separator_line.gdshader" id="20_ouhki"]
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/progress_fill.gdshader" id="21_4fwti"]
@@ -30,7 +32,7 @@
 
 [resource]
 script = ExtResource("2_eldcr")
-instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("2_d14k6"), ExtResource("3_c46ji"), ExtResource("4_dwinl"), ExtResource("5_s02bn"), ExtResource("6_17eoe"), ExtResource("7_54ik3"), ExtResource("9_qoqe2"), ExtResource("8_h8dxy"), ExtResource("9_hbiam"), ExtResource("10_mdhyn"), ExtResource("11_3xtoh"), ExtResource("12_rp42c"), ExtResource("13_xo4ug"), ExtResource("14_5kw3y"), ExtResource("15_28l83")])
+instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("2_d14k6"), ExtResource("3_c46ji"), ExtResource("4_dwinl"), ExtResource("5_s02bn"), ExtResource("6_17eoe"), ExtResource("7_54ik3"), ExtResource("9_qoqe2"), ExtResource("8_h8dxy"), ExtResource("9_hbiam"), ExtResource("10_mdhyn"), ExtResource("11_3xtoh"), ExtResource("12_rp42c"), ExtResource("13_xo4ug"), ExtResource("14_5kw3y"), ExtResource("15_28l83"), ExtResource("18_tqwp7"), ExtResource("19_0thmt")])
 particle_process_material_list = Array[Material]([ExtResource("16_7tl5n"), ExtResource("17_6o1hu")])
 shader2d_list = Array[Shader]([ExtResource("17_aoe6i"), ExtResource("18_xsa8j"), ExtResource("19_ul7r7"), ExtResource("20_ouhki"), ExtResource("21_4fwti"), ExtResource("22_kxkjv"), ExtResource("23_5yrx8")])
 canvas_material_list = Array[Material]([ExtResource("1_xtqay")])

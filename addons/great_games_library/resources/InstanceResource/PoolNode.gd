@@ -29,7 +29,8 @@ func _ready()->void:
 	pool_was_requested = false
 	if listen_node != null:
 		assert(listen_node.has_signal(signal_name))
-		listen_node.connect(signal_name, pool_return, CONNECT_ONE_SHOT)
+		if !listen_node.is_connected(signal_name, pool_return):
+			listen_node.connect(signal_name, pool_return, CONNECT_ONE_SHOT)
 
 func pool_return()->void:
 	if pool_was_requested:

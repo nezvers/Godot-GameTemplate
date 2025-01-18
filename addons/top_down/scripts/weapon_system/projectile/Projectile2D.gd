@@ -22,7 +22,7 @@ signal prepare_exit_event
 
 @export var pool_node:PoolNode
 
-## TODO: Used to calculate initial travel when spawned late due to game frame
+## TODO: Use to calculate initial travel when spawned late due to game frame
 var lifetime:float
 
 func prepare_exit()->void:
