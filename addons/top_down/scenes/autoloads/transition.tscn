@@ -46,6 +46,7 @@ layer = 5
 script = ExtResource("1_b8a2a")
 texture_rect = NodePath("TextureRect")
 bool_resource = ExtResource("2_m4tfm")
+transition_material = ExtResource("2_ha7dd")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = ExtResource("2_ha7dd")

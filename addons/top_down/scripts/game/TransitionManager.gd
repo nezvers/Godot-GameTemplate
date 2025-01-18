@@ -4,6 +4,7 @@ extends CanvasLayer
 @export var texture_rect:TextureRect
 @export var transition_time:float = 1.0
 @export var bool_resource:BoolResource
+@export var transition_material:ShaderMaterial
 
 ## Resize screen texture to create same pixelation as the game
 const GAME_RESOLUTION_PIXELATION:bool = false
@@ -28,10 +29,10 @@ func _post_draw(path:String)->void:
 	
 	if GAME_RESOLUTION_PIXELATION:
 		_image.resize(int(ceil(_viewport_size.x * _multiply)), _game_resolution.y, Image.INTERPOLATE_NEAREST)
-		(texture_rect.material as ShaderMaterial).set_shader_parameter("scale", 1.0)
+		transition_material.set_shader_parameter("scale", 1.0)
 	else:
 		var _scale:float = float(_viewport_size.y) / _game_resolution.y
-		(texture_rect.material as ShaderMaterial).set_shader_parameter("scale", _scale)
+		transition_material.set_shader_parameter("scale", _scale)
 	
 	var _image_texture:ImageTexture = ImageTexture.create_from_image(_image)
 	texture_rect.texture = _image_texture
@@ -40,7 +41,7 @@ func _post_draw(path:String)->void:
 	visible = true
 	transition_progress(0.0)
 	
-	# TODO: refactor to start loading as soon as possible, but need solid workaround for race conditions
+	# TODO: scenes are preloaded using PreloadResource, but in case needed scene is not, load with thread
 	ThreadUtility.load_resource(path, scene_loaded)
 
 ## Set transition in motion
