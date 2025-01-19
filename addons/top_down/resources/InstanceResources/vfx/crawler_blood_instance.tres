@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://bvrv6nddhxgp0"]
+
+[ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="1_64rla"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_bry2x"]
+
+[resource]
+resource_name = "Crawler blood instance"
+script = ExtResource("2_bry2x")
+scene_path = "res://addons/top_down/scenes/vfx/crawler_blood.tscn"
+parent_reference_resource = ExtResource("1_64rla")

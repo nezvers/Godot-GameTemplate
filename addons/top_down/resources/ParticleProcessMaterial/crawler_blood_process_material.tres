@@ -1,0 +1,55 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://d1f5id26o7mp4"]
+
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/dust_partickle.gdshader" id="1_sp83b"]
+
+[sub_resource type="Gradient" id="Gradient_dxkvo"]
+interpolation_mode = 2
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.607843, 0.054902, 0.243137, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nf17c"]
+gradient = SubResource("Gradient_dxkvo")
+width = 1
+
+[resource]
+shader = ExtResource("1_sp83b")
+shader_parameter/direction = null
+shader_parameter/spread = 180.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 32.0
+shader_parameter/initial_linear_velocity_max = 48.0
+shader_parameter/axis_multiplier = Vector2(1, 0.5)
+shader_parameter/directional_velocity_min = 1.0
+shader_parameter/directional_velocity_max = 1.0
+shader_parameter/angular_velocity_min = null
+shader_parameter/angular_velocity_max = null
+shader_parameter/orbit_velocity_min = null
+shader_parameter/orbit_velocity_max = null
+shader_parameter/radial_velocity_min = null
+shader_parameter/radial_velocity_max = null
+shader_parameter/linear_accel_min = null
+shader_parameter/linear_accel_max = null
+shader_parameter/radial_accel_min = null
+shader_parameter/radial_accel_max = null
+shader_parameter/tangent_accel_min = null
+shader_parameter/tangent_accel_max = null
+shader_parameter/damping_min = 300.0
+shader_parameter/damping_max = 400.0
+shader_parameter/initial_angle_min = null
+shader_parameter/initial_angle_max = 360.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_min = null
+shader_parameter/hue_variation_max = null
+shader_parameter/anim_speed_min = 0.4
+shader_parameter/anim_speed_max = 1.2
+shader_parameter/anim_offset_min = null
+shader_parameter/anim_offset_max = null
+shader_parameter/lifetime_randomness = null
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/color_value = Color(1, 1, 1, 1)
+shader_parameter/gravity = null
+shader_parameter/color_ramp = SubResource("GradientTexture1D_nf17c")
