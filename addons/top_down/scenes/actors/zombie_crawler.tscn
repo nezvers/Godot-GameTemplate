@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b1gnernv8eiu5"]
+[gd_scene load_steps=38 format=3 uid="uid://b1gnernv8eiu5"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_e3uie"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_dyii5"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/AddPoint.gd" id="15_dhmpk"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="16_p50f2"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="17_4fh8m"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="18_dltdc"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -251,5 +252,10 @@ score_resource = ExtResource("16_p50f2")
 [node name="PoolNode" type="Node" parent="." index="19" node_paths=PackedStringArray("animation_player_list", "listen_node")]
 script = ExtResource("17_4fh8m")
 animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
+listen_node = NodePath("../ActorDamage")
+signal_name = &"actor_died"
+
+[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node")]
+script = ExtResource("18_dltdc")
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"

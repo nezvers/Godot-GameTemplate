@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://62j3fy0o3uwl"]
+[gd_scene load_steps=41 format=3 uid="uid://62j3fy0o3uwl"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_fkm2k"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_ak5yp"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/CriticalDamageReplace.gd" id="18_bt2ks"]
 [ext_resource type="Resource" uid="uid://ddp7qf0qghy82" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres" id="19_p8daw"]
 [ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="20_oj468"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="21_snkgf"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -256,9 +257,15 @@ animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"),
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="CriticalDamageReplace" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node", "pool_node")]
+[node name="CriticalDamageReplace" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node", "pool_node", "active_enemy")]
 script = ExtResource("18_bt2ks")
 resource_node = NodePath("../ResourceNode")
 pool_node = NodePath("../PoolNode")
+active_enemy = NodePath("../ActiveEnemy")
 replacement_instance_resource = ExtResource("19_p8daw")
 sound_effect = ExtResource("20_oj468")
+
+[node name="ActiveEnemy" type="Node" parent="." index="21" node_paths=PackedStringArray("listen_node")]
+script = ExtResource("21_snkgf")
+listen_node = NodePath("../ActorDamage")
+signal_name = &"actor_died"

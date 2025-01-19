@@ -1,7 +1,7 @@
 class_name PoolNode
 extends Node
 
-signal pool_requested()
+signal pool_requested
 
 ## Mark nodes to trigger _ready() every time scene is added to the tree
 @export var ready_nodes:Array[Node]

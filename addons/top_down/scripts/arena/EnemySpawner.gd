@@ -30,7 +30,7 @@ extends Node
 var max_allowed_count:int
 
 ## Intermediate variable to take in account spawning VFX until a kill
-var wave_active_count:int
+#var wave_active_count:int
 
 func _ready()->void:
 	assert(enemy_count_resource != null)
@@ -49,8 +49,7 @@ func _ready()->void:
 func _setup_active_count()->void:
 	# TODO: best not to limit to spawn point count, maybe sum of enemy threat value
 	max_allowed_count = spawn_point_resource.position_list.size()
-	wave_active_count = max_allowed_count
-	score_resource.points_updated.connect(_erase_enemy)
+	#wave_active_count = max_allowed_count
 
 func _cleanup()->void:
 	spawn_point_resource.position_list.clear()
@@ -60,7 +59,7 @@ func _cleanup()->void:
 func _process(_delta: float) -> void:
 	#if enemy_count_resource.value < max_allowed_count: # TODO: tis fukd
 		#return
-	if wave_active_count < 1:
+	if max_allowed_count - ActiveEnemy.root.count < 1:
 		return
 	var _active_count:int = enemy_instance_resource.active_list.size() + spawn_mark_instance_resource.active_list.size() + enemy2_instance_resource.active_list.size()
 	if _active_count >= max_allowed_count:
@@ -77,7 +76,7 @@ func _create_spawn_mark()->void:
 	if _free_positions.is_empty():
 		return
 	
-	wave_active_count -= 1
+	#wave_active_count -= 1
 	var _spawn_position:Vector2 = _free_positions.pick_random()
 	
 	## after despawning creates actual enemy
@@ -94,12 +93,14 @@ func _create_enemies(spawn_position:Vector2)->void:
 	
 	var _enemy_config:Callable = func (inst:Node2D)->void:
 		inst.global_position = spawn_position
+		ActiveEnemy.root.count += 1
+		ActiveEnemy.insert_child(inst, ActiveEnemy.root, _erase_enemy)
 	
 	enemy_instance_resource.instance(_enemy_config)
 
 func _erase_enemy()->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)
-	wave_active_count += 1
+	#wave_active_count += 1
 
 func _filter_free_position(position:Vector2)->bool:
 	# distance squared

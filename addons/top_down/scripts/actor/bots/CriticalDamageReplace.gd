@@ -5,6 +5,8 @@ extends Node
 
 @export var pool_node:PoolNode
 
+@export var active_enemy:ActiveEnemy
+
 ## Getting critical damage bellow treshold will replace with different instance
 @export var health_treshold:float = 20.0
 
@@ -42,6 +44,7 @@ func _on_damage(damage:DamageDataResource)->void:
 	# store necesary values into separate variables instead of keeping references to resources
 	var _push_vector:Vector2 = damage.kickback_strength * damage.direction
 	var _current_hp:float = health_resource.hp
+	var _active_enemy_branch:Dictionary = active_enemy.my_dictionary
 	
 	## applied to instance when its ready
 	var _ready_callback:Callable = func (inst:Node)->void:
@@ -61,6 +64,7 @@ func _on_damage(damage:DamageDataResource)->void:
 		inst.global_position = owner.global_position
 		# WARNING: root node needs to request_ready() every time, either PoolNode or this callback
 		inst.ready.connect(_ready_callback.call_deferred.bind(inst), CONNECT_ONE_SHOT)
+		ActiveEnemy.insert_child(inst, _active_enemy_branch)
 	
 	
 	sound_effect.play_managed()

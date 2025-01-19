@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2p5h6427kys"]
+[gd_scene load_steps=7 format=3 uid="uid://c2p5h6427kys"]
 
 [ext_resource type="Material" uid="uid://cx7f1n1akjm1x" path="res://addons/top_down/resources/materials/spawn_ring_material.tres" id="1_ng11u"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_hyk5a"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="3_fsvvq"]
 
 [sub_resource type="Animation" id="Animation_vq43e"]
 length = 0.001
@@ -102,3 +103,8 @@ autoplay = "spawn_in"
 script = ExtResource("2_hyk5a")
 ready_nodes = [NodePath("../AnimationPlayer")]
 animation_player_list = [NodePath("../AnimationPlayer")]
+
+[node name="ActiveEnemy" type="Node" parent="." node_paths=PackedStringArray("listen_node")]
+script = ExtResource("3_fsvvq")
+listen_node = NodePath("../PoolNode")
+signal_name = &"pool_requested"
