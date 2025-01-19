@@ -21,6 +21,8 @@ func _ready()->void:
 
 func _exit_tree() -> void:
 	fight_mode_resource.set_value(false)
+	enemy_count_resource.set_value(0)
+	wave_count_resource.set_value(0)
 
 # Setup 1
 func _on_fight_mode_true()->void:

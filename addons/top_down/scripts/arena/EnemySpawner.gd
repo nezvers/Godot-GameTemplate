@@ -47,6 +47,7 @@ func _setup_active_count()->void:
 
 func _cleanup()->void:
 	spawn_point_resource.position_list.clear()
+	ActiveEnemy.root.count = 0
 
 ## Decide if new enemy needs to be created.
 ## Don't like idea of _process, but is continiously check when spawnpoint is safe to use
