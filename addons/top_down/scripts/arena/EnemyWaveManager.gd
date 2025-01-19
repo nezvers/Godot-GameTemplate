@@ -19,6 +19,9 @@ func _ready()->void:
 	wave_count_resource.updated.connect(_on_wave_count_changed) # Setup 2
 	enemy_count_resource.updated.connect(_on_enemy_count_changed) # Setup 3
 
+func _exit_tree() -> void:
+	fight_mode_resource.set_value(false)
+
 # Setup 1
 func _on_fight_mode_true()->void:
 	wave_count_resource.set_value(enemy_manager.wave_setup.size())
