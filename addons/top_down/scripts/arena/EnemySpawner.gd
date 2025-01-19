@@ -4,9 +4,6 @@ extends Node
 ## Creates enemies with given configuration 
 @export var enemy_instance_resource:InstanceResource
 
-## TODO: have an array of possible enemies and enemies mark selves as active in specialized resource
-@export var enemy2_instance_resource:InstanceResource
-
 ## VFX before enemy appear
 @export var spawn_mark_instance_resource:InstanceResource
 
@@ -29,8 +26,6 @@ extends Node
 ## Maximum simultaneous enemies
 var max_allowed_count:int
 
-## Intermediate variable to take in account spawning VFX until a kill
-#var wave_active_count:int
 
 func _ready()->void:
 	assert(enemy_count_resource != null)
@@ -49,7 +44,6 @@ func _ready()->void:
 func _setup_active_count()->void:
 	# TODO: best not to limit to spawn point count, maybe sum of enemy threat value
 	max_allowed_count = spawn_point_resource.position_list.size()
-	#wave_active_count = max_allowed_count
 
 func _cleanup()->void:
 	spawn_point_resource.position_list.clear()
@@ -57,11 +51,10 @@ func _cleanup()->void:
 ## Decide if new enemy needs to be created.
 ## Don't like idea of _process, but is continiously check when spawnpoint is safe to use
 func _process(_delta: float) -> void:
-	#if enemy_count_resource.value < max_allowed_count: # TODO: tis fukd
-		#return
-	if max_allowed_count - ActiveEnemy.root.count < 1:
+	var _active_count:int = ActiveEnemy.root.count
+	
+	if max_allowed_count - _active_count < 1:
 		return
-	var _active_count:int = enemy_instance_resource.active_list.size() + spawn_mark_instance_resource.active_list.size() + enemy2_instance_resource.active_list.size()
 	if _active_count >= max_allowed_count:
 		return
 	
@@ -76,7 +69,6 @@ func _create_spawn_mark()->void:
 	if _free_positions.is_empty():
 		return
 	
-	#wave_active_count -= 1
 	var _spawn_position:Vector2 = _free_positions.pick_random()
 	
 	## after despawning creates actual enemy
@@ -90,7 +82,6 @@ func _create_enemies(spawn_position:Vector2)->void:
 		inst.global_position = spawn_position
 	spawn_partickle_instance_resource.instance(_partickle_config)
 	
-	
 	var _enemy_config:Callable = func (inst:Node2D)->void:
 		inst.global_position = spawn_position
 		ActiveEnemy.root.count += 1
@@ -100,7 +91,6 @@ func _create_enemies(spawn_position:Vector2)->void:
 
 func _erase_enemy()->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)
-	#wave_active_count += 1
 
 func _filter_free_position(position:Vector2)->bool:
 	# distance squared
@@ -108,21 +98,7 @@ func _filter_free_position(position:Vector2)->bool:
 	
 	var _closest_dist:float = 999999.0
 	## Actual enemy instances
-	## TODO: use a ressource with self subscribing active list
-	for inst:Node2D in enemy_instance_resource.active_list:
-		# for finding closest length_squared is great, since it is faster without using square root.
-		var _inst_dist:float = (inst.global_position - position).length_squared()
-		if _inst_dist < _closest_dist:
-			_closest_dist = _inst_dist
-	
-	for inst:Node2D in enemy2_instance_resource.active_list:
-		# for finding closest length_squared is great, since it is faster without using square root.
-		var _inst_dist:float = (inst.global_position - position).length_squared()
-		if _inst_dist < _closest_dist:
-			_closest_dist = _inst_dist
-	
-	# Spawn markers
-	for inst:Node2D in spawn_mark_instance_resource.active_list:
+	for inst:Node2D in ActiveEnemy.active_instances:
 		# for finding closest length_squared is great, since it is faster without using square root.
 		var _inst_dist:float = (inst.global_position - position).length_squared()
 		if _inst_dist < _closest_dist:

@@ -9,12 +9,14 @@ static var instance_dictionary:Dictionary = {}
 ## Replaced or split enemy has to count as the same enemy, hence the tree like structure.
 static var root:Dictionary = {parent = {}, count = int(0), callback = Callable()}
 
+static var active_instances:Array[Node2D]
+
 ## Imagine slime enemy, each split has its own branch.
 ## Need to insert new child before removing self.
 static func insert_child(node:Node, parent_branch:Dictionary, clear_callback:Callable = Callable())->void:
 	instance_dictionary[node] = {parent = parent_branch, count = 0, callback = clear_callback}
 
-
+## Handles counting active enemies with removing one from received branch
 static func remove_count(branch:Dictionary)->void:
 	branch.count -= 1
 	
@@ -31,6 +33,7 @@ static func remove_count(branch:Dictionary)->void:
 	remove_count(branch.parent)
 	# maybe not needed
 	branch.clear()
+
 
 
 ## use nodes signal as trigger for pool_return()
@@ -58,3 +61,8 @@ func _enter_tree() -> void:
 		my_dictionary = root
 	
 	my_dictionary.count += 1
+	
+	active_instances.append(owner)
+
+func _exit_tree() -> void:
+	active_instances.erase(owner)
