@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PreloadResource" load_steps=33 format=3 uid="uid://bk0svoela4oim"]
+[gd_resource type="Resource" script_class="PreloadResource" load_steps=35 format=3 uid="uid://bk0svoela4oim"]
 
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_xiu2r"]
 [ext_resource type="Material" uid="uid://dh55irc80dvm7" path="res://addons/top_down/resources/materials/dust_particle_material.tres" id="1_xtqay"]
@@ -16,6 +16,8 @@
 [ext_resource type="Resource" uid="uid://d1e4s216ukuhw" path="res://addons/top_down/resources/InstanceResources/projectiles/zombie_slash_instance_resource.tres" id="10_mdhyn"]
 [ext_resource type="Resource" uid="uid://lm63dcddpjhf" path="res://addons/top_down/resources/InstanceResources/vfx/dead/slime_dead_instance_resource.tres" id="10_tit4s"]
 [ext_resource type="Resource" uid="uid://xbek2osd7l4w" path="res://addons/top_down/resources/InstanceResources/vfx/damage_points_instance_resource.tres" id="11_3xtoh"]
+[ext_resource type="Resource" uid="uid://bwaqqrp3vlmbc" path="res://addons/top_down/resources/InstanceResources/actors/slime_small_instance_resource.tres" id="11_arokf"]
+[ext_resource type="Resource" uid="uid://weoefubhnbf" path="res://addons/top_down/resources/InstanceResources/vfx/dead/slime_small_dead_instance_resource.tres" id="12_lhi03"]
 [ext_resource type="Resource" uid="uid://s3oxaww7qjgi" path="res://addons/top_down/resources/InstanceResources/vfx/impact_instance_resource.tres" id="12_rp42c"]
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="13_xo4ug"]
 [ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="14_5kw3y"]
@@ -35,7 +37,7 @@
 
 [resource]
 script = ExtResource("2_eldcr")
-instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("3_c46ji"), ExtResource("4_8x83o"), ExtResource("5_s02bn"), ExtResource("6_jf3vk"), ExtResource("18_tqwp7"), ExtResource("8_dunqs"), ExtResource("21_072ou"), ExtResource("10_tit4s"), ExtResource("6_17eoe"), ExtResource("7_54ik3"), ExtResource("9_qoqe2"), ExtResource("8_h8dxy"), ExtResource("9_hbiam"), ExtResource("10_mdhyn"), ExtResource("11_3xtoh"), ExtResource("12_rp42c"), ExtResource("13_xo4ug"), ExtResource("14_5kw3y"), ExtResource("15_28l83"), ExtResource("20_wd5uk")])
+instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("3_c46ji"), ExtResource("4_8x83o"), ExtResource("5_s02bn"), ExtResource("6_jf3vk"), ExtResource("18_tqwp7"), ExtResource("8_dunqs"), ExtResource("21_072ou"), ExtResource("10_tit4s"), ExtResource("11_arokf"), ExtResource("12_lhi03"), ExtResource("6_17eoe"), ExtResource("7_54ik3"), ExtResource("9_qoqe2"), ExtResource("8_h8dxy"), ExtResource("9_hbiam"), ExtResource("10_mdhyn"), ExtResource("11_3xtoh"), ExtResource("12_rp42c"), ExtResource("13_xo4ug"), ExtResource("14_5kw3y"), ExtResource("15_28l83"), ExtResource("20_wd5uk")])
 particle_process_material_list = Array[Material]([ExtResource("16_7tl5n"), ExtResource("17_6o1hu")])
 shader2d_list = Array[Shader]([ExtResource("17_aoe6i"), ExtResource("18_xsa8j"), ExtResource("19_ul7r7"), ExtResource("20_ouhki"), ExtResource("21_4fwti"), ExtResource("22_kxkjv"), ExtResource("23_5yrx8")])
 canvas_material_list = Array[Material]([ExtResource("1_xtqay")])
