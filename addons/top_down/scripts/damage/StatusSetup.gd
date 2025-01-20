@@ -22,6 +22,7 @@ func _setup_status()->void:
 		return
 	damage_resource.store_status.connect(_store_status)
 	for _status:DamageStatusResource in status_list:
+		assert(_status != null)
 		_status.process(resource_node, null, true)
 
 func _store_status(status_effect:DamageStatusResource)->void:

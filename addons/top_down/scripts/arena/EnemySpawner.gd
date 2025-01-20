@@ -2,7 +2,7 @@ class_name EnemySpawner
 extends Node
 
 ## Creates enemies with given configuration 
-@export var enemy_instance_resource:InstanceResource
+@export var enemy_instance_list:Array[InstanceResource]
 
 ## VFX before enemy appear
 @export var spawn_mark_instance_resource:InstanceResource
@@ -30,7 +30,6 @@ var max_allowed_count:int
 func _ready()->void:
 	assert(enemy_count_resource != null)
 	assert(spawn_point_resource != null)
-	assert(enemy_instance_resource != null)
 	assert(spawn_mark_instance_resource != null)
 	assert(fight_mode_resource != null)
 	
@@ -88,7 +87,7 @@ func _create_enemies(spawn_position:Vector2)->void:
 		ActiveEnemy.root.count += 1
 		ActiveEnemy.insert_child(inst, ActiveEnemy.root, _erase_enemy)
 	
-	enemy_instance_resource.instance(_enemy_config)
+	enemy_instance_list.pick_random().instance(_enemy_config)
 
 func _erase_enemy()->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)

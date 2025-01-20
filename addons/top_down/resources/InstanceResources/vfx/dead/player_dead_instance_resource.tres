@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://dyfuc7bon78d"]
+
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_aqtbu"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_p63wc"]
+
+[resource]
+resource_name = "player dead vfx"
+script = ExtResource("2_p63wc")
+scene_path = "res://addons/top_down/scenes/vfx/dead/player_dead.tscn"
+parent_reference_resource = ExtResource("1_aqtbu")
