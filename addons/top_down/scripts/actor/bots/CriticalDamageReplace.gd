@@ -17,6 +17,9 @@ extends Node
 
 var health_resource:HealthResource
 
+## Due to physics having multiple collisions, this is used to trigger once
+var is_replaced:bool
+
 func _ready()->void:
 	health_resource = resource_node.get_resource("health")
 	assert(health_resource != null)
@@ -28,10 +31,14 @@ func _ready()->void:
 	
 	# When used with PoolNode
 	request_ready()
+	is_replaced = false
 	# in case it is a persistent resource
 	tree_exiting.connect(_damage_resource.received_damage.disconnect.bind(_on_damage), CONNECT_ONE_SHOT)
 
 func _on_damage(damage:DamageDataResource)->void:
+	if is_replaced:
+		return
+	
 	if !damage.is_critical:
 		return
 	
@@ -41,10 +48,14 @@ func _on_damage(damage:DamageDataResource)->void:
 	if health_resource.hp > health_treshold:
 		return
 	
+	is_replaced = true
 	# store necesary values into separate variables instead of keeping references to resources
 	var _push_vector:Vector2 = damage.kickback_strength * damage.direction
 	var _current_hp:float = health_resource.hp
 	var _active_enemy_branch:Dictionary = active_enemy.my_dictionary
+	
+	# count it self out
+	_active_enemy_branch.count -= 1
 	
 	## applied to instance when its ready
 	var _ready_callback:Callable = func (inst:Node)->void:
@@ -64,6 +75,9 @@ func _on_damage(damage:DamageDataResource)->void:
 		inst.global_position = owner.global_position
 		# WARNING: root node needs to request_ready() every time, either PoolNode or this callback
 		inst.ready.connect(_ready_callback.call_deferred.bind(inst), CONNECT_ONE_SHOT)
+		
+		# increase own count for each child branch
+		_active_enemy_branch.count += 1
 		ActiveEnemy.insert_child(inst, _active_enemy_branch)
 	
 	
