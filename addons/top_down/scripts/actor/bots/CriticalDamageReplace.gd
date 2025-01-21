@@ -15,6 +15,8 @@ extends Node
 
 @export var sound_effect:SoundResource
 
+@export var damage_data_receiver:DataChannelReceiver
+
 var health_resource:HealthResource
 
 ## Due to physics having multiple collisions, this is used to trigger once
@@ -32,6 +34,7 @@ func _ready()->void:
 	# When used with PoolNode
 	request_ready()
 	is_replaced = false
+	damage_data_receiver.enabled = true
 	# in case it is a persistent resource
 	tree_exiting.connect(_damage_resource.received_damage.disconnect.bind(_on_damage), CONNECT_ONE_SHOT)
 
@@ -49,6 +52,7 @@ func _on_damage(damage:DamageDataResource)->void:
 		return
 	
 	is_replaced = true
+	damage_data_receiver.enabled = false
 	# store necesary values into separate variables instead of keeping references to resources
 	var _push_vector:Vector2 = damage.kickback_strength * damage.direction
 	var _current_hp:float = health_resource.hp

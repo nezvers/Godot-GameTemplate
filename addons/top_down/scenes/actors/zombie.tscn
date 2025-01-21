@@ -257,13 +257,14 @@ animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"),
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="CriticalDamageReplace" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node", "pool_node", "active_enemy")]
+[node name="CriticalDamageReplace" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node", "pool_node", "active_enemy", "damage_data_receiver")]
 script = ExtResource("18_bt2ks")
 resource_node = NodePath("../ResourceNode")
 pool_node = NodePath("../PoolNode")
 active_enemy = NodePath("../ActiveEnemy")
 replacement_instance_resource = ExtResource("19_p8daw")
 sound_effect = ExtResource("20_oj468")
+damage_data_receiver = NodePath("../AreaReceiver2D/DamageDataReceiver")
 
 [node name="ActiveEnemy" type="Node" parent="." index="21" node_paths=PackedStringArray("listen_node")]
 script = ExtResource("21_snkgf")
