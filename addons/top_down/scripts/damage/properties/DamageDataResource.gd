@@ -40,6 +40,9 @@ var direction:Vector2
 ## Set by damage application process.
 var is_critical:bool
 
+## A way to read if it was a killing damage
+var is_kill:bool
+
 ## pre-calculated value
 ## Set by damage application process.
 var total_damage:float
@@ -99,6 +102,7 @@ func process(resource_node:ResourceNode)->void:
 		total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
 	
 	_health_resource.add_hp( -total_damage )
+	is_kill = _health_resource.is_dead
 	_damage_resource.receive(self)
 	
 	# Status effects have their own implementations

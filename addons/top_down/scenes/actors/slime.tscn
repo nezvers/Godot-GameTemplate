@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://oo6imbknouqo"]
+[gd_scene load_steps=45 format=3 uid="uid://oo6imbknouqo"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_0dxwo"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_kb6ya"]
@@ -18,7 +18,10 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/AddPoint.gd" id="15_eqhev"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="16_y5be2"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="17_isoya"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/SlimeSplit.gd" id="20_dofcb"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="21_7bapl"]
+[ext_resource type="Resource" uid="uid://bwaqqrp3vlmbc" path="res://addons/top_down/resources/InstanceResources/actors/slime_small_instance_resource.tres" id="21_kcmjb"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="22_oy7xg"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -225,7 +228,7 @@ script = ExtResource("13_woinq")
 value = 3.0
 type = 0
 
-[node name="Zombie" instance=ExtResource("1_0dxwo")]
+[node name="Slime" instance=ExtResource("1_0dxwo")]
 collision_layer = 4
 collision_mask = 7
 
@@ -279,7 +282,13 @@ animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"),
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="20"]
 script = ExtResource("21_7bapl")
-listen_node = NodePath("../ActorDamage")
-signal_name = &"actor_died"
+
+[node name="SlimeSplit" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node", "position_node", "active_enemy")]
+script = ExtResource("20_dofcb")
+resource_node = NodePath("../ResourceNode")
+split_instance_resource = ExtResource("21_kcmjb")
+axis_multiplication = ExtResource("22_oy7xg")
+position_node = NodePath("..")
+active_enemy = NodePath("../ActiveEnemy")
