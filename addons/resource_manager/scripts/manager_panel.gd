@@ -112,7 +112,6 @@ func _add_item(_resource:Resource)->void:
 	list_parent.add_child(_editor_resource_picker)
 	_editor_resource_picker.editable = true
 	if !resource_class.is_empty():
-		print("add base class", resource_class)
 		_editor_resource_picker.base_type = resource_class
 
 func _search_match(value:String)->void:

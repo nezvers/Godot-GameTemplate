@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://br7hb0notnma5"]
 
 [ext_resource type="Script" path="res://addons/resource_manager/scripts/manager_panel.gd" id="1_5pxac"]
-[ext_resource type="Script" path="res://addons/resource_manager/scripts/new_resource.gd" id="2_scsy8"]
+[ext_resource type="Script" path="res://addons/resource_manager/scripts/new_resource.gd" id="2_16fmu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkmfu"]
 bg_color = Color(0.129412, 0.14902, 0.180392, 1)
@@ -44,7 +44,7 @@ class_entry = NodePath("../MarginContainer1/HBoxContainer/ClassEntry")
 search_entry = NodePath("../MarginContainer2/HBoxContainer/FilterEntry")
 
 [node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "scan_files")]
-script = ExtResource("2_scsy8")
+script = ExtResource("2_16fmu")
 new_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/NewButton")
 create_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/CreateButton")
 setup_container = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer")
@@ -259,6 +259,7 @@ popup/item_8/id = 3
 popup/item_9/text = "Front"
 popup/item_9/id = 4
 popup/item_10/text = "Floor"
+popup/item_10/id = 10
 popup/item_11/text = "Obstacles"
 popup/item_11/id = 1
 popup/item_12/text = "Behind"
