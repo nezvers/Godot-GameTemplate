@@ -1,0 +1,229 @@
+[gd_scene load_steps=6 format=3 uid="uid://br7hb0notnma5"]
+
+[ext_resource type="Script" path="res://addons/instance_resource_manager/scripts/manager_panel.gd" id="1_4porh"]
+[ext_resource type="Script" path="res://addons/instance_resource_manager/scripts/new_resource.gd" id="2_5d8cs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkmfu"]
+bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.129412, 0.14902, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eof0a"]
+content_margin_left = 1.0
+content_margin_top = 10.0
+content_margin_right = 1.0
+content_margin_bottom = 3.0
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4hos"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.145098, 0.152941, 0.176471, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
+[node name="ManagerPanel" type="VBoxContainer"]
+offset_right = 200.0
+offset_bottom = 62.0
+theme_override_constants/separation = 0
+
+[node name="ScanFiles" type="Node" parent="." node_paths=PackedStringArray("list_parent", "directory_entry", "search_entry")]
+script = ExtResource("1_4porh")
+list_parent = NodePath("../PanelContainer/VSplitContainer/ScrollContainer/ResourceList")
+directory_entry = NodePath("../MarginContainer/HBoxContainer/RootDirectoryEntry")
+search_entry = NodePath("../MarginContainer2/HBoxContainer/FilterEntry")
+
+[node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "scan_files")]
+script = ExtResource("2_5d8cs")
+new_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/NewButton")
+create_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/CreateButton")
+setup_container = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer")
+parent_reference_container = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginParentReference/ParentReferenceContainer")
+previous_container = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/PreviousContainer")
+parent_reference_menu = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginParentReference/ParentReferenceContainer/MenuButton")
+directory_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer/HBoxContainer/DirectoryEntry")
+file_name_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer2/HBoxContainer/FileNameEntry")
+resource_name_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3/HBoxContainer/ResourceNameEntry")
+scan_files = NodePath("../ScanFiles")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Root Directory"
+
+[node name="RootDirectoryEntry" type="LineEdit" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://addons/top_down/resources/InstanceResources/"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "Search"
+
+[node name="FilterEntry" type="LineEdit" parent="MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tkmfu")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_constants/minimum_grab_thickness = 7
+theme_override_constants/autohide = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VSplitContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResourceList" type="VBoxContainer" parent="PanelContainer/VSplitContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eof0a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="NewButton" type="Button" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "New"
+
+[node name="SetupContainer" type="VBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Directory"
+
+[node name="DirectoryEntry" type="LineEdit" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://addons/top_down/resources/InstanceResources/actors/"
+placeholder_text = "res://addons/top_down/resources/InstanceResources/"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "File Name"
+
+[node name="FileNameEntry" type="LineEdit" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+text = "Resource Name"
+
+[node name="ResourceNameEntry" type="LineEdit" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginParentReference" type="MarginContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 0
+
+[node name="ParentReferenceContainer" type="HBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginParentReference"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginParentReference/ParentReferenceContainer"]
+visible = false
+layout_mode = 2
+text = "ParentReferenceResource"
+
+[node name="MenuButton" type="MenuButton" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginParentReference/ParentReferenceContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_v4hos")
+text = "ParentReferenceResource"
+flat = false
+
+[node name="CreateButton" type="Button" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+text = "Create"
+
+[node name="PreviousContainer" type="HBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/PreviousContainer"]
+layout_mode = 2
+text = "Previous Resource"

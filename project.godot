@@ -38,7 +38,7 @@ movie_writer/movie_file="O:/Projects/Godot/Tutorials/Zombie Shooter/bug.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
+enabled=PackedStringArray("res://addons/instance_resource_manager/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
 
 [input]
 
