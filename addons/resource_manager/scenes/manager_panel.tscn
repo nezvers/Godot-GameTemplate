@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://br7hb0notnma5"]
 
-[ext_resource type="Script" path="res://addons/instance_resource_manager/scripts/manager_panel.gd" id="1_4porh"]
-[ext_resource type="Script" path="res://addons/instance_resource_manager/scripts/new_resource.gd" id="2_5d8cs"]
+[ext_resource type="Script" path="res://addons/resource_manager/scripts/manager_panel.gd" id="1_5pxac"]
+[ext_resource type="Script" path="res://addons/resource_manager/scripts/new_resource.gd" id="2_scsy8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkmfu"]
 bg_color = Color(0.129412, 0.14902, 0.180392, 1)
@@ -32,18 +32,19 @@ expand_margin_left = 2.0
 expand_margin_right = 2.0
 
 [node name="ManagerPanel" type="VBoxContainer"]
-offset_right = 200.0
-offset_bottom = 62.0
+offset_right = 370.0
+offset_bottom = 311.0
 theme_override_constants/separation = 0
 
-[node name="ScanFiles" type="Node" parent="." node_paths=PackedStringArray("list_parent", "directory_entry", "search_entry")]
-script = ExtResource("1_4porh")
+[node name="ScanFiles" type="Node" parent="." node_paths=PackedStringArray("list_parent", "directory_entry", "class_entry", "search_entry")]
+script = ExtResource("1_5pxac")
 list_parent = NodePath("../PanelContainer/VSplitContainer/ScrollContainer/ResourceList")
 directory_entry = NodePath("../MarginContainer/HBoxContainer/RootDirectoryEntry")
+class_entry = NodePath("../MarginContainer1/HBoxContainer/ClassEntry")
 search_entry = NodePath("../MarginContainer2/HBoxContainer/FilterEntry")
 
 [node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "scan_files")]
-script = ExtResource("2_5d8cs")
+script = ExtResource("2_scsy8")
 new_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/NewButton")
 create_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/CreateButton")
 setup_container = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer")
@@ -75,6 +76,26 @@ custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "res://addons/top_down/resources/InstanceResources/"
+
+[node name="MarginContainer1" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer1"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer1/HBoxContainer"]
+layout_mode = 2
+text = "Class"
+
+[node name="ClassEntry" type="LineEdit" parent="MarginContainer1/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -130,6 +151,7 @@ layout_mode = 2
 text = "New"
 
 [node name="SetupContainer" type="VBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 2
 
@@ -216,6 +238,35 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_v4hos")
 text = "ParentReferenceResource"
 flat = false
+item_count = 15
+popup/item_0/text = "Floor"
+popup/item_1/text = "Obstacles"
+popup/item_1/id = 1
+popup/item_2/text = "Behind"
+popup/item_2/id = 2
+popup/item_3/text = "Y-Sort"
+popup/item_3/id = 3
+popup/item_4/text = "Front"
+popup/item_4/id = 4
+popup/item_5/text = "Floor"
+popup/item_5/id = 5
+popup/item_6/text = "Obstacles"
+popup/item_6/id = 1
+popup/item_7/text = "Behind"
+popup/item_7/id = 2
+popup/item_8/text = "Y-Sort"
+popup/item_8/id = 3
+popup/item_9/text = "Front"
+popup/item_9/id = 4
+popup/item_10/text = "Floor"
+popup/item_11/text = "Obstacles"
+popup/item_11/id = 1
+popup/item_12/text = "Behind"
+popup/item_12/id = 2
+popup/item_13/text = "Y-Sort"
+popup/item_13/id = 3
+popup/item_14/text = "Front"
+popup/item_14/id = 4
 
 [node name="CreateButton" type="Button" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
 layout_mode = 2

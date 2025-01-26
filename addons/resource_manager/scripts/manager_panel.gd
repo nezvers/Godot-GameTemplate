@@ -4,23 +4,31 @@
 
 @export var directory_entry:LineEdit
 
+@export var class_entry:LineEdit
+
 @export var search_entry:LineEdit
 
 var root_directory:String
 
 var search_name:String
 
-var resource_array:Array[InstanceResource]
+var resource_class:String
+
+var resource_array:Array[Resource]
 
 var resource_dictionary:Dictionary
 
 func _ready()->void:
 	directory_entry.text_submitted.connect(_set_root_directory)
 	print("Manager ready")
-	_set_root_directory(directory_entry.text)
 	
+	resource_class = class_entry.text
+	class_entry.text_submitted.connect(_set_class_filter)
+	
+	search_name = search_entry.text
 	search_entry.text_changed.connect(_search_match)
-	_search_match(search_name)
+	
+	_set_root_directory(directory_entry.text)
 
 func update_resources()->void:
 	_set_root_directory(directory_entry.text)
@@ -77,8 +85,16 @@ func _load_resource(path:String)->void:
 	var _resource:Resource = ResourceLoader.load(path)
 	if _resource == null:
 		return
-	if !(_resource is InstanceResource):
-		return
+	if !resource_class.is_empty():
+		var _script:Script = _resource.get_script()
+		if _script != null:
+			var _script_class:String = _script.get_global_name()
+			if _script_class.is_empty():
+				return
+			if _script_class != resource_class:
+				return
+		elif _resource.is_class(resource_class):
+			return
 	resource_array.append(_resource)
 	
 	resource_dictionary[_file_name] = _resource
@@ -95,10 +111,9 @@ func _add_item(_resource:Resource)->void:
 	_editor_resource_picker.edited_resource = _resource
 	list_parent.add_child(_editor_resource_picker)
 	_editor_resource_picker.editable = true
-	_editor_resource_picker.base_type = "InstanceResource"
-	#var _label: = Label.new()
-	#_label.text = _resource.resource_path.get_file().get_basename()
-	#list_parent.add_child(_label)
+	if !resource_class.is_empty():
+		print("add base class", resource_class)
+		_editor_resource_picker.base_type = resource_class
 
 func _search_match(value:String)->void:
 	search_name = value
@@ -132,3 +147,7 @@ func _search_match(value:String)->void:
 	
 	for _resource:Resource in _unique_array:
 		_add_item(_resource)
+
+func _set_class_filter(value:String)->void:
+	resource_class = value
+	update_resources()

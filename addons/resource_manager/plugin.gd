@@ -1,13 +1,13 @@
 @tool
 extends EditorPlugin
 
-const MANAGER_PANEL = preload("res://addons/instance_resource_manager/scenes/manager_panel.tscn")
+const MANAGER_PANEL = preload("res://addons/resource_manager/scenes/manager_panel.tscn")
 
 var manager_panel:Control
 
 func _enter_tree() -> void:
 	manager_panel = MANAGER_PANEL.instantiate()
-	manager_panel.name = "Instance Resources"
+	manager_panel.name = "Resource Manager"
 	
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_UR, manager_panel)
 
