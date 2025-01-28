@@ -1,4 +1,7 @@
-@tool extends Node
+@tool
+class_name ResourceManagerPanel
+extends Control
+
 
 @export var list_parent:Control
 
@@ -18,7 +21,13 @@ var resource_array:Array[Resource]
 
 var resource_dictionary:Dictionary
 
+var is_tool:bool
+
+const RESOURCE_PROPERTY = preload("res://addons/resource_manager/scenes/resource_property.tscn")
+
 func _ready()->void:
+	if !is_tool:
+		return
 	directory_entry.text_submitted.connect(_set_root_directory)
 	print("Manager ready")
 	
@@ -86,6 +95,7 @@ func _load_resource(path:String)->void:
 	if _resource == null:
 		return
 	if !resource_class.is_empty():
+		## TODO: is_class is stupidly limited to only built-in, need beter way to include all parent classes
 		var _script:Script = _resource.get_script()
 		if _script != null:
 			var _script_class:String = _script.get_global_name()
@@ -107,12 +117,13 @@ func _add_item(_resource:Resource)->void:
 	if _resource == null:
 		return
 	
-	var _editor_resource_picker: = EditorResourcePicker.new()
-	_editor_resource_picker.edited_resource = _resource
-	list_parent.add_child(_editor_resource_picker)
-	_editor_resource_picker.editable = true
+	var _property_editor:ResourcePropertyEditor = RESOURCE_PROPERTY.instantiate()
+	_property_editor.setup(null, _resource, "")
+	
+	_property_editor.editor_resource_picker.editable = true
+	list_parent.add_child(_property_editor)
 	if !resource_class.is_empty():
-		_editor_resource_picker.base_type = resource_class
+		_property_editor.editor_resource_picker.base_type = resource_class
 
 func _search_match(value:String)->void:
 	search_name = value

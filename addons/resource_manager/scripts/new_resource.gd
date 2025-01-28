@@ -16,7 +16,7 @@
 @export var file_name_line_edit:LineEdit
 @export var resource_name_line_edit:LineEdit
 
-@export var scan_files:Node
+@export var manager_panel:ResourceManagerPanel
 
 enum StateType {NEW, SETUP}
 
@@ -41,6 +41,8 @@ func _set_state(new_state:StateType)->void:
 	setup_container.visible = state == StateType.SETUP
 
 func _ready()->void:
+	if !manager_panel.is_tool:
+		return
 	_set_state(StateType.NEW)
 	new_button.pressed.connect(_set_state.bind(StateType.SETUP))
 	create_button.pressed.connect(_validate_setup)
@@ -98,5 +100,5 @@ func _validate_setup()->void:
 		return
 	previous_resource_picker.edited_resource = _new_resource
 	
-	scan_files.update_resources()
+	manager_panel.update_resources()
 	_set_state(StateType.NEW)

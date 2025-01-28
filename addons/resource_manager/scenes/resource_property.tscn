@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://ov7wns1p1tbk"]
+
+[ext_resource type="Script" path="res://addons/resource_manager/scripts/ResourcePropertyEditor.gd" id="1_71dlf"]
+
+[node name="ResourceProperty" type="VBoxContainer" node_paths=PackedStringArray("main_container")]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("1_71dlf")
+main_container = NodePath("MainContainer")
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+layout_mode = 2

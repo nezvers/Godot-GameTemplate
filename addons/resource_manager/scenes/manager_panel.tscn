@@ -31,19 +31,17 @@ corner_radius_bottom_left = 3
 expand_margin_left = 2.0
 expand_margin_right = 2.0
 
-[node name="ManagerPanel" type="VBoxContainer"]
+[node name="ManagerPanel" type="VBoxContainer" node_paths=PackedStringArray("list_parent", "directory_entry", "class_entry", "search_entry")]
 offset_right = 370.0
 offset_bottom = 311.0
 theme_override_constants/separation = 0
-
-[node name="ScanFiles" type="Node" parent="." node_paths=PackedStringArray("list_parent", "directory_entry", "class_entry", "search_entry")]
 script = ExtResource("1_5pxac")
-list_parent = NodePath("../PanelContainer/VSplitContainer/ScrollContainer/ResourceList")
-directory_entry = NodePath("../MarginContainer/HBoxContainer/RootDirectoryEntry")
-class_entry = NodePath("../MarginContainer1/HBoxContainer/ClassEntry")
-search_entry = NodePath("../MarginContainer2/HBoxContainer/FilterEntry")
+list_parent = NodePath("PanelContainer/VSplitContainer/ScrollContainer/ResourceList")
+directory_entry = NodePath("MarginContainer/HBoxContainer/RootDirectoryEntry")
+class_entry = NodePath("MarginContainer1/HBoxContainer/ClassEntry")
+search_entry = NodePath("MarginContainer2/HBoxContainer/FilterEntry")
 
-[node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "scan_files")]
+[node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "manager_panel")]
 script = ExtResource("2_16fmu")
 new_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/NewButton")
 create_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/CreateButton")
@@ -54,7 +52,7 @@ parent_reference_menu = NodePath("../PanelContainer/VSplitContainer/PanelContain
 directory_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer/HBoxContainer/DirectoryEntry")
 file_name_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer2/HBoxContainer/FileNameEntry")
 resource_name_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3/HBoxContainer/ResourceNameEntry")
-scan_files = NodePath("../ScanFiles")
+manager_panel = NodePath("..")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -238,7 +236,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_v4hos")
 text = "ParentReferenceResource"
 flat = false
-item_count = 15
+item_count = 30
 popup/item_0/text = "Floor"
 popup/item_1/text = "Obstacles"
 popup/item_1/id = 1
@@ -268,6 +266,36 @@ popup/item_13/text = "Y-Sort"
 popup/item_13/id = 3
 popup/item_14/text = "Front"
 popup/item_14/id = 4
+popup/item_15/text = "Floor"
+popup/item_15/id = 15
+popup/item_16/text = "Obstacles"
+popup/item_16/id = 1
+popup/item_17/text = "Behind"
+popup/item_17/id = 2
+popup/item_18/text = "Y-Sort"
+popup/item_18/id = 3
+popup/item_19/text = "Front"
+popup/item_19/id = 4
+popup/item_20/text = "Floor"
+popup/item_20/id = 20
+popup/item_21/text = "Obstacles"
+popup/item_21/id = 1
+popup/item_22/text = "Behind"
+popup/item_22/id = 2
+popup/item_23/text = "Y-Sort"
+popup/item_23/id = 3
+popup/item_24/text = "Front"
+popup/item_24/id = 4
+popup/item_25/text = "Floor"
+popup/item_25/id = 25
+popup/item_26/text = "Obstacles"
+popup/item_26/id = 1
+popup/item_27/text = "Behind"
+popup/item_27/id = 2
+popup/item_28/text = "Y-Sort"
+popup/item_28/id = 3
+popup/item_29/text = "Front"
+popup/item_29/id = 4
 
 [node name="CreateButton" type="Button" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
 layout_mode = 2
