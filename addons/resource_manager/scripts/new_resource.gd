@@ -15,6 +15,7 @@
 @export var directory_line_edit:LineEdit
 @export var file_name_line_edit:LineEdit
 @export var resource_name_line_edit:LineEdit
+@export var scene_path_line_edit:LineEdit
 
 @export var manager_panel:ResourceManagerPanel
 
@@ -78,13 +79,18 @@ func _validate_setup()->void:
 		return
 	if resource_name_line_edit.text.is_empty():
 		return
-	
+	if scene_path_line_edit.text.is_empty():
+		return
 	if !DirAccess.dir_exists_absolute(directory_line_edit.text):
 		printerr("Directory doesn't exist - ", directory_line_edit.text)
+		return
+	if FileAccess.file_exists(scene_path_line_edit.text):
+		printerr("Scene file doesn't exist - ", scene_path_line_edit.text)
 		return
 	
 	if !file_name_line_edit.text.ends_with(".tres"):
 		file_name_line_edit.text += ".tres"
+	
 	
 	var _path:String = directory_line_edit.text + file_name_line_edit.text
 	if FileAccess.file_exists(_path):

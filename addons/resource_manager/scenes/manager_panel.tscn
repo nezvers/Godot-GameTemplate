@@ -41,7 +41,7 @@ directory_entry = NodePath("MarginContainer/HBoxContainer/RootDirectoryEntry")
 class_entry = NodePath("MarginContainer1/HBoxContainer/ClassEntry")
 search_entry = NodePath("MarginContainer2/HBoxContainer/FilterEntry")
 
-[node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "manager_panel")]
+[node name="NewResource" type="Node" parent="." node_paths=PackedStringArray("new_button", "create_button", "setup_container", "parent_reference_container", "previous_container", "parent_reference_menu", "directory_line_edit", "file_name_line_edit", "resource_name_line_edit", "scene_path_line_edit", "manager_panel")]
 script = ExtResource("2_16fmu")
 new_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/NewButton")
 create_button = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/CreateButton")
@@ -52,6 +52,7 @@ parent_reference_menu = NodePath("../PanelContainer/VSplitContainer/PanelContain
 directory_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer/HBoxContainer/DirectoryEntry")
 file_name_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer2/HBoxContainer/FileNameEntry")
 resource_name_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3/HBoxContainer/ResourceNameEntry")
+scene_path_line_edit = NodePath("../PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer4/HBoxContainer/ScenePathEntry")
 manager_panel = NodePath("..")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -153,6 +154,11 @@ visible = false
 layout_mode = 2
 theme_override_constants/separation = 2
 
+[node name="ClassNameLabel" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+text = "InstanceResource"
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
@@ -211,6 +217,26 @@ layout_mode = 2
 text = "Resource Name"
 
 [node name="ResourceNameEntry" type="LineEdit" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer4/HBoxContainer"]
+layout_mode = 2
+text = "Scene path"
+
+[node name="ScenePathEntry" type="LineEdit" parent="PanelContainer/VSplitContainer/PanelContainer/VBoxContainer/SetupContainer/MarginContainer4/HBoxContainer"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 size_flags_horizontal = 3
