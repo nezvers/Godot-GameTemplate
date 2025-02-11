@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=22 format=3 uid="uid://ccmodw4wy0kv"]
 
-[ext_resource type="Texture2D" uid="uid://b2120iibmqrey" path="res://addons/top_down/assets/images/tilesets/tileset_dungeon_32_isometric_walls.png" id="1_myp3b"]
+[ext_resource type="Texture2D" uid="uid://3el73g2uyfnj" path="res://addons/top_down/assets/images/tilesets/tileset_dungeon_32_isometric_walls.png" id="1_myp3b"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6plyw"]
 vertices = PackedVector2Array(8, 4, 0, 8, -8, 4, 0, 0)
