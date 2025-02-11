@@ -70,8 +70,8 @@ func _create_spawn_mark()->void:
 	var _free_positions:Array[Vector2]
 	if _current_wave.is_boss:
 		_free_positions = spawn_point_resource.boss_position_list.filter(_filter_free_position)
-		_create_enemies(_free_positions.pick_random())
-		return
+		#_create_enemies(_free_positions.pick_random())
+		#return
 	else:
 		_free_positions = spawn_point_resource.position_list.filter(_filter_free_position)
 	if _free_positions.is_empty():
