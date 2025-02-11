@@ -19,6 +19,8 @@ var input_resource:InputResource
 ## Stats for movement
 var actor_stats_resource:ActorStatsResource
 
+var unstuck_tween:Tween
+
 ## Way to disable functionality during the gameplay
 func set_enabled(value:bool)->void:
 	enabled = value
@@ -38,9 +40,14 @@ func _ready()->void:
 	set_physics_process(false)
 	## Workaround for spawning overlaping instances
 	if character.test_move(character.global_transform, Vector2.ZERO):
+		character.motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 		character.global_position.x += 8.0
 		character.move_and_collide(Vector2(8.0, 0.0))
 		character.velocity = Vector2.ZERO
+		if unstuck_tween != null:
+			unstuck_tween.kill()
+		unstuck_tween = create_tween()
+		unstuck_tween.tween_callback(character.set_motion_mode.bind(CharacterBody2D.MOTION_MODE_GROUNDED)).set_delay(0.16)
 	
 	set_enabled(enabled)
 	# in case used with PoolNode
