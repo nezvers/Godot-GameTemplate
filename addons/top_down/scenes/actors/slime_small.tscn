@@ -227,7 +227,7 @@ type = 0
 
 [node name="SlimeSmall" instance=ExtResource("1_6nai7")]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="ResourceNode" parent="." index="0"]
 list = Array[ExtResource("2_lpgfe")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_gytac")])
@@ -244,11 +244,12 @@ position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_oowpq")
 
 [node name="Shadow" parent="." index="3"]
-position = Vector2(-0.425, -0.425)
+position = Vector2(-0.5, 0)
 scale = Vector2(0.75, 0.75)
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
 material = SubResource("ShaderMaterial_mtjxa")
+position = Vector2(0, -6.5)
 texture = ExtResource("10_7og58")
 hframes = 7
 
@@ -282,7 +283,8 @@ animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"),
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node", "resource_node")]
 script = ExtResource("19_sgvoa")
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
+resource_node = NodePath("../ResourceNode")

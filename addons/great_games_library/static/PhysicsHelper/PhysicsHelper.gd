@@ -12,3 +12,13 @@ static func body_create_2d(space:RID, collision_layer:int, collision_mask:int, s
 	PhysicsServer2D.body_set_omit_force_integration(body, true)
 	PhysicsServer2D.body_attach_object_instance_id(body, instance_id)
 	return body
+
+## Calculate impulse Vector2 for delta time amount
+static func get_impulse_accelerated(velocity:Vector2, target_velocity:Vector2, acceleration:float, delta:float)->Vector2:
+	var direction:Vector2 = target_velocity - velocity 
+	var distance:float = direction.length()
+	acceleration = delta * acceleration
+	var ratio:float = 0
+	if distance > 0.0:
+		ratio = min(acceleration / distance, 1.0)
+	return (direction * ratio)

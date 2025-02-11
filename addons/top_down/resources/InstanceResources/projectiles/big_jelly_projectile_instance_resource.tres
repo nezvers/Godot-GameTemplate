@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://3a6ok8ni15d1"]
+
+[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_ktu33"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_enjyo"]
+
+[resource]
+resource_name = "Big Jelly projectile"
+script = ExtResource("2_enjyo")
+scene_path = "res://addons/top_down/scenes/projectiles/big_jelly_projectile.tscn"
+parent_reference_resource = ExtResource("1_ktu33")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://2oxos6r5uams"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="1_yhh81"]
+[ext_resource type="AudioStream" uid="uid://dbeh51jgl5qnm" path="res://addons/top_down/assets/sounds/stomp_1.wav" id="2_ae3o0"]
+
+[resource]
+script = ExtResource("1_yhh81")
+pitch_min = 0.9
+pitch_max = 1.2
+volume = 0.0
+retrigger_time = 0.032
+pitch_add = 0.0
+pitch_cooldown = 0.0
+pitch_return = 0.0
+sound = ExtResource("2_ae3o0")

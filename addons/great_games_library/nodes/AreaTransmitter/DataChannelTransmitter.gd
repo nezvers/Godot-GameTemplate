@@ -7,6 +7,9 @@ signal failed
 signal denied
 signal try_again(receiver:AreaReceiver2D)
 
+## Used by transmitter Area or ShapeCast, if still exists send again
+signal check_receiver(receiver:AreaReceiver2D)
+
 @export var enabled:bool = true
 
 ## If transmission errors with state TRY_AGAIN, try sending next physics frame
@@ -15,28 +18,17 @@ signal try_again(receiver:AreaReceiver2D)
 ## Data that will be transmitted
 @export var transmission_resource:TransmissionResource
 
-## Node that creates transmission connection
-@export var area_transmitter:AreaTransmitter2D
 
 func set_enabled(value:bool)->void:
 	enabled = value
-
-func _ready()->void:
-	area_transmitter.area_entered.connect(_on_area_entered)
-
-func _on_area_entered(area:Area2D)->void:
-	if !(area is AreaReceiver2D):
-		return
-	send(area)
 
 func send(receiver:AreaReceiver2D)->void:
 	if !enabled:
 		return
 	
-	
 	assert(transmission_resource != null)
 	var _transmission_resource:TransmissionResource = transmission_resource.duplicate()
-	_transmission_resource.update_requested.connect(_on_update_requested.bind(_transmission_resource))
+	_transmission_resource.update_requested.connect(_on_update_requested.bind(_transmission_resource, receiver))
 	
 	if _transmission_resource.send_transmission(receiver):
 		on_success()
@@ -64,9 +56,7 @@ func on_try_next_frame(receiver:AreaReceiver2D)->void:
 		get_tree().physics_frame.connect(test_receiver.bind(receiver), CONNECT_ONE_SHOT)
 
 func test_receiver(receiver:AreaReceiver2D)->void:
-	var overlapping_areas:Array[Area2D] = area_transmitter.get_overlapping_areas()
-	if overlapping_areas.has(receiver):
-		send(receiver)
+	check_receiver.emit(receiver)
 
 ## Give notification to other nodes
 func on_success()->void:
@@ -81,5 +71,5 @@ func on_denied()->void:
 	denied.emit()
 
 ## Resource requests a need to be updated
-func _on_update_requested(transmission_resource:TransmissionResource)->void:
-	update_requested.emit(transmission_resource)
+func _on_update_requested(transmission_resource:TransmissionResource, receiver:AreaReceiver2D)->void:
+	update_requested.emit(transmission_resource, receiver)

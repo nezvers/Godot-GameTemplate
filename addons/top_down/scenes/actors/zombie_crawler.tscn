@@ -217,7 +217,7 @@ _data = {
 
 [node name="ZombieCrawler" instance=ExtResource("1_e3uie")]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="ResourceNode" parent="." index="0"]
 list = Array[ExtResource("2_dyii5")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_gytac")])
@@ -257,10 +257,11 @@ animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"),
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node", "resource_node")]
 script = ExtResource("18_dltdc")
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
+resource_node = NodePath("../ResourceNode")
 
 [node name="BloodTrail" type="Node" parent="." index="21" node_paths=PackedStringArray("position_node")]
 script = ExtResource("19_o65gd")

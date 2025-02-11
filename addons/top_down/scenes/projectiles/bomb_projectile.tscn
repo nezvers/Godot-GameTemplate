@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bintmgpfjtye6"]
+
+[ext_resource type="PackedScene" uid="uid://beifde6xst23w" path="res://addons/top_down/scenes/projectiles/projectile.tscn" id="1_vfmqd"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_5po58"]
+
+[sub_resource type="Resource" id="Resource_5fgyy"]
+script = ExtResource("2_5po58")
+value = 20.0
+type = 0
+
+[sub_resource type="Curve" id="Curve_5r5bi"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="BombProjectile" instance=ExtResource("1_vfmqd")]
+
+[node name="ProjectileSetup" parent="." index="0"]
+base_damage = Array[ExtResource("2_5po58")]([SubResource("Resource_5fgyy")])
+kickback = 100.0
+
+[node name="ProjectileMover" parent="." index="1"]
+movement_type = 3
+speed_curve = SubResource("Curve_5r5bi")
+
+[node name="AreaTransmitter2D" parent="." index="2"]
+enabled = false

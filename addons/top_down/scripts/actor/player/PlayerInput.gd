@@ -54,8 +54,6 @@ func _input(event:InputEvent)->void:
 func _physics_process(_delta:float)->void:
 	# Walking direction
 	var _axis:Vector2 = Vector2(Input.get_axis(action_resource.left_action, action_resource.right_action), Input.get_axis(action_resource.up_action, action_resource.down_action))
-	# Analog sticks sucks for diagonals
-	#_axis = Vector2(ceil(abs(_axis.x)) * sign(_axis.x), ceil(abs(_axis.y)) * sign(_axis.y) )
 	
 	var _length:float = _axis.length()
 	if _length > 0.01:
@@ -67,7 +65,6 @@ func _physics_process(_delta:float)->void:
 	if !action_resource.mouse_aim:
 		var _aim:Vector2 = Vector2(Input.get_axis(action_resource.aim_left_action, action_resource.aim_right_action), Input.get_axis(action_resource.aim_up_action, action_resource.aim_down_action))
 		if _aim.length() > 0.01:
-			#_aim = Vector2(ceil(abs(_aim.x)) * sign(_aim.x), ceil(abs(_aim.y)) * sign(_aim.y) )
 			input_resource.set_aim_direction(_aim.normalized())
 	
 	# Shooting

@@ -1,0 +1,149 @@
+[gd_scene load_steps=28 format=3 uid="uid://d0v4aiksdadhp"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/Projectile2D.gd" id="1_124n8"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="2_olfc0"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileSetup.gd" id="3_4xqfo"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="3_ppetm"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileMover.gd" id="4_o10bp"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="4_ydjpq"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/ShapeCastTransmitter2D.gd" id="5_aq7h1"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="5_mmy6w"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="6_ylp04"]
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="7_lqjr0"]
+[ext_resource type="Texture2D" uid="uid://b5udb538gwcb7" path="res://addons/top_down/assets/images/characters/slime_16x16_strip8.png" id="8_d4ddn"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileRotation.gd" id="9_msmb4"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileImpact.gd" id="10_3acil"]
+[ext_resource type="Resource" uid="uid://s3oxaww7qjgi" path="res://addons/top_down/resources/InstanceResources/vfx/impact_instance_resource.tres" id="11_rsty3"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/HitLimit.gd" id="12_x0fyw"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileLifetime.gd" id="13_xcyht"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="14_0ovxv"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/LerpProjectileTrajectory.gd" id="17_b78gi"]
+[ext_resource type="Resource" uid="uid://lm63dcddpjhf" path="res://addons/top_down/resources/InstanceResources/vfx/dead/slime_dead_instance_resource.tres" id="18_7elpp"]
+[ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="19_628eu"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BigJellySlimeSpawner.gd" id="21_dshqe"]
+[ext_resource type="Resource" uid="uid://bwaqqrp3vlmbc" path="res://addons/top_down/resources/InstanceResources/actors/slime_small_instance_resource.tres" id="22_cwnqt"]
+
+[sub_resource type="Resource" id="Resource_crd4l"]
+script = ExtResource("3_ppetm")
+value = 5.0
+type = 0
+
+[sub_resource type="Resource" id="Resource_51n5c"]
+script = ExtResource("4_ydjpq")
+base_damage = Array[ExtResource("3_ppetm")]([SubResource("Resource_crd4l")])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("5_mmy6w")]([])
+hit_list = []
+report_callback = Callable()
+kickback_strength = 0.0
+transmission_name = &"damage"
+state = -1
+valid = true
+version = 0
+not_saved = false
+
+[sub_resource type="Curve" id="Curve_3hbty"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y76nd"]
+radius = 9.35
+
+[sub_resource type="Curve" id="Curve_hi6mx"]
+min_value = -25.0
+_data = [Vector2(0, 0), 0.0, -60.0, 0, 0, Vector2(0.5, -15), 0.0, 0.0, 0, 0, Vector2(1, 0), 60.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="BigJellyProjectile" type="Node2D" node_paths=PackedStringArray("pool_node")]
+script = ExtResource("1_124n8")
+speed = 120.0
+time = 1.0
+axis_multiplier_resource = ExtResource("2_olfc0")
+damage_data_resource = SubResource("Resource_51n5c")
+collision_mask = 2
+pool_node = NodePath("PoolNode")
+
+[node name="ProjectileSetup" type="Node" parent="." node_paths=PackedStringArray("projectile", "shape_transmitter", "data_channel_transmitter")]
+script = ExtResource("3_4xqfo")
+kickback = 40.0
+projectile = NodePath("..")
+shape_transmitter = NodePath("../ShapeCastTransmitter2D")
+data_channel_transmitter = NodePath("../ShapeCastTransmitter2D/DamageDataTransmitter")
+
+[node name="ProjectileMover" type="Node" parent="." node_paths=PackedStringArray("projectile")]
+script = ExtResource("4_o10bp")
+projectile = NodePath("..")
+collision_mask = 1
+movement_type = 4
+speed_curve = SubResource("Curve_3hbty")
+
+[node name="ShapeCastTransmitter2D" type="ShapeCast2D" parent="."]
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("CircleShape2D_y76nd")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("5_aq7h1")
+
+[node name="DamageDataTransmitter" type="Node" parent="ShapeCastTransmitter2D"]
+script = ExtResource("6_ylp04")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 0.983333, 0, 0.168627)
+scale = Vector2(1.655, 1.655)
+texture = ExtResource("7_lqjr0")
+
+[node name="RotatedNode" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="RotatedNode"]
+position = Vector2(0, -4)
+texture = ExtResource("8_d4ddn")
+hframes = 8
+
+[node name="ProjectileRotation" type="Node" parent="." node_paths=PackedStringArray("rotated_node", "projectile", "mover")]
+script = ExtResource("9_msmb4")
+enabled = false
+rotated_node = NodePath("../RotatedNode")
+projectile = NodePath("..")
+mover = NodePath("../ProjectileMover")
+
+[node name="ProjectileImpact" type="Node" parent="." node_paths=PackedStringArray("projectile", "projectile_mover", "data_transmitter")]
+script = ExtResource("10_3acil")
+projectile = NodePath("..")
+projectile_mover = NodePath("../ProjectileMover")
+data_transmitter = NodePath("../ShapeCastTransmitter2D/DamageDataTransmitter")
+impact_instance_resource = ExtResource("11_rsty3")
+
+[node name="HitLimit" type="Node" parent="." node_paths=PackedStringArray("projectile", "data_transmitter")]
+script = ExtResource("12_x0fyw")
+projectile = NodePath("..")
+data_transmitter = NodePath("../ShapeCastTransmitter2D/DamageDataTransmitter")
+
+[node name="ProjectileLifetime" type="Node" parent="." node_paths=PackedStringArray("projectile")]
+script = ExtResource("13_xcyht")
+time = 0.0
+projectile = NodePath("..")
+
+[node name="LerpProjectileTrajectory" type="Node" parent="." node_paths=PackedStringArray("projectile", "projectile_mover", "height_node", "shape_cast_transmitter")]
+script = ExtResource("17_b78gi")
+projectile = NodePath("..")
+projectile_mover = NodePath("../ProjectileMover")
+height_node = NodePath("../RotatedNode")
+curve = SubResource("Curve_hi6mx")
+shape_cast_transmitter = NodePath("../ShapeCastTransmitter2D")
+landing_vfx = ExtResource("18_7elpp")
+landing_sound = ExtResource("19_628eu")
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes")]
+script = ExtResource("14_0ovxv")
+ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../ProjectileMover")]
+
+[node name="JellySpawner" type="Node" parent="." node_paths=PackedStringArray("projectile")]
+script = ExtResource("21_dshqe")
+projectile = NodePath("..")
+instance_resource = ExtResource("22_cwnqt")
+angles = Array[float]([-25.0, 25.0, -65.0, 65.0])
+axis_multiplication = ExtResource("2_olfc0")

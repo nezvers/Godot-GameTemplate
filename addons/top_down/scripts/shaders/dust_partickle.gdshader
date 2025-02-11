@@ -8,6 +8,7 @@ uniform float spread;
 uniform float inherit_emitter_velocity_ratio = 0.0;
 uniform float initial_linear_velocity_min;
 uniform float initial_linear_velocity_max;
+uniform float spawn_radius = 0.0;
 uniform vec2 axis_multiplier = vec2(1.0, 1.0);
 uniform float directional_velocity_min;
 uniform float directional_velocity_max;
@@ -156,7 +157,7 @@ void process_display_param(inout DisplayParameters parameters, float lifetime) {
 }
 
 vec3 calculate_initial_position(inout uint alt_seed) {
-	float pi = 3.14159;
+	//float pi = 3.14159;
 	vec3 pos = vec3(0.0);
 	{ // Emission shape.
 	 	pos = vec3(0.0);
@@ -244,12 +245,12 @@ void start() {
 		TRANSFORM[1].xyz = vec3(0.0, 1.0, 0.0);
 		TRANSFORM[2].xyz = vec3(0.0, 0.0, 1.0);
 	}
-	if (RESTART_POSITION) {
-		TRANSFORM[3].xyz = calculate_initial_position(alt_seed);
-		TRANSFORM = EMISSION_TRANSFORM * TRANSFORM;
-	}
 	if (RESTART_VELOCITY) {
 		VELOCITY = dynamic_params.initial_velocity_multiplier * get_random_direction_from_spread(alt_seed, spread);
+	}
+	if (RESTART_POSITION) {
+		TRANSFORM[3].xyz = calculate_initial_position(alt_seed) + (normalize(VELOCITY) * spawn_radius) * vec3(axis_multiplier, 1.0);
+		TRANSFORM = EMISSION_TRANSFORM * TRANSFORM;
 	}
 
 	process_display_param(params, 0.0);

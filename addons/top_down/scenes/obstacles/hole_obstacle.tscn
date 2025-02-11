@@ -22,7 +22,6 @@ script = ExtResource("1_soon6")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaTransmitter2D"]
 polygon = PackedVector2Array(0, -4, -10, 0, 0, 4, 10, 0)
 
-[node name="HoleDataTransmitter" type="Node" parent="AreaTransmitter2D" node_paths=PackedStringArray("area_transmitter")]
+[node name="HoleDataTransmitter" type="Node" parent="AreaTransmitter2D"]
 script = ExtResource("2_80ycc")
 transmission_resource = SubResource("Resource_phatf")
-area_transmitter = NodePath("..")

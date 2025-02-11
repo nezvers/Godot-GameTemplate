@@ -300,10 +300,9 @@ script = ExtResource("18_634cs")
 hole_trigger = NodePath("../HoleTrigger")
 resource_node = NodePath("../ResourceNode")
 
-[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("resource_node", "mover", "sprite_flip", "flash_animation_player")]
+[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("resource_node", "sprite_flip", "flash_animation_player")]
 script = ExtResource("10_tpsh5")
 resource_node = NodePath("../ResourceNode")
-mover = NodePath("../MoverTopDown2D")
 sprite_flip = NodePath("../SpriteFlip")
 flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"

@@ -1,9 +1,15 @@
 class_name EnemyManager
 extends Node
 
-## TODO: place enemy types and count for each wave
-@export var wave_setup:Array[int]
+
+@export var wave_queue:SpawnQueueResource
 
 func _ready()->void:
-	## BUG: Workaround for stupid bug
-	wave_setup = wave_setup.duplicate()
+	if wave_queue == null:
+		return
+	## BUG: Workaround for stupid bug. Arrays, dictionaries and resources reference from PackedScene
+	wave_queue = wave_queue.duplicate()
+	wave_queue.waves = wave_queue.waves.duplicate()
+	
+	for i:int in wave_queue.waves.size():
+		wave_queue.waves[i] = wave_queue.waves[i].duplicate()

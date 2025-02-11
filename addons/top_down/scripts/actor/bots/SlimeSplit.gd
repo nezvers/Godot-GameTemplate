@@ -27,9 +27,7 @@ func _on_damage_received(damage:DamageDataResource)->void:
 	if !damage.is_kill:
 		return
 	
-	var _active_enemy_branch:Dictionary = active_enemy.my_dictionary
-	# count itself out
-	_active_enemy_branch.count -= 1
+	var _active_enemy_branch:ActiveEnemyResource = active_enemy.enemy_resource
 	
 	var _direction:Vector2 = damage.direction
 	var _pos:Vector2 = position_node.global_position
@@ -39,8 +37,8 @@ func _on_damage_received(damage:DamageDataResource)->void:
 			var _dir:Vector2 = (_direction.rotated(deg_to_rad(_degree)) * axis_multiplication.value).normalized()
 			inst.global_position = _pos + spawn_distance * _dir
 			
-			# increase own count for each child branch
-			_active_enemy_branch.count += 1
 			ActiveEnemy.insert_child(inst, _active_enemy_branch)
 		
 		split_instance_resource.instance(_config_callback)
+	
+	active_enemy.remove_self()

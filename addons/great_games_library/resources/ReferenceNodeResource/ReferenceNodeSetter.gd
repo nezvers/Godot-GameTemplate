@@ -17,6 +17,11 @@ extends Node
 ## Reference is removed when node exits tree
 @export var until_tree_exit:bool = true
 
+## Option to remove reference 
+@export var signal_node:Node
+
+@export var signal_name:StringName
+
 func _ready()->void:
 	if process_only && !can_process():
 		return
@@ -25,5 +30,7 @@ func _ready()->void:
 		reference_resource = load(reference_resource_path)
 	
 	assert(reference_resource != null)
-	
 	reference_resource.set_reference(reference_node, until_tree_exit)
+	
+	if signal_node != null:
+		signal_node.connect(signal_name, reference_resource.remove_reference.bind(reference_node))

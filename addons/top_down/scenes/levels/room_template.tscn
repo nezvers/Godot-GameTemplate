@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=29 format=3 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
@@ -20,7 +20,6 @@
 [ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="15_j5kfh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnPoint.gd" id="17_nn6m6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/ProcessingComponent.gd" id="18_igxve"]
 [ext_resource type="PackedScene" uid="uid://crddbd0tmxp5p" path="res://addons/top_down/scenes/arena/arena_entry.tscn" id="18_k0tp1"]
@@ -111,18 +110,6 @@ scene_transition_resource = ExtResource("15_j5kfh")
 [node name="EnemyManager" parent="." instance=ExtResource("12_iiw1i")]
 
 [node name="EnemySpawnPoints" type="Node2D" parent="."]
-
-[node name="Spawn_0" type="Marker2D" parent="EnemySpawnPoints"]
-script = ExtResource("17_nn6m6")
-
-[node name="Spawn_1" type="Marker2D" parent="EnemySpawnPoints"]
-script = ExtResource("17_nn6m6")
-
-[node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints"]
-script = ExtResource("17_nn6m6")
-
-[node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints"]
-script = ExtResource("17_nn6m6")
 
 [node name="ArenaEntry" parent="." instance=ExtResource("18_k0tp1")]
 collision_layer = 0

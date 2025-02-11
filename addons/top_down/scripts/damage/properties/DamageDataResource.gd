@@ -26,11 +26,11 @@ extends TransmissionResource
 ## Using export allows to duplicate and maintain reference.
 @export var report_callback:Callable
 
-## These are set at collision time
-
 ## Kickback given to damage target, manipulated in ProjectileSetup
 ## Set by projectile uppon hitting a target.
-var kickback_strength:float
+@export var kickback_strength:float
+
+## These are set at collision time
 
 ## Direction of dealth damage
 ## Set by projectile uppon hitting a target.
@@ -92,18 +92,19 @@ func process(resource_node:ResourceNode)->void:
 	if _push_resource != null:
 		_push_resource.add_impulse(direction * kickback_strength)
 	
-	# Critical multiply
-	if randf() < critical_chance:
-		is_critical = true
-		damage_multiply = critical_multiply
+	if !base_damage.is_empty():
+		# Critical multiply
+		if randf() < critical_chance:
+			is_critical = true
+			damage_multiply = critical_multiply
+		
+		# Dealt damage
+		for _damage:DamageTypeResource in base_damage:
+			total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
 	
-	# Dealt damage
-	for _damage:DamageTypeResource in base_damage:
-		total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
-	
-	_health_resource.add_hp( -total_damage )
-	is_kill = _health_resource.is_dead
-	_damage_resource.receive(self)
+		_health_resource.add_hp( -total_damage )
+		is_kill = _health_resource.is_dead
+		_damage_resource.receive(self)
 	
 	# Status effects have their own implementations
 	for _status:DamageStatusResource in status_list:

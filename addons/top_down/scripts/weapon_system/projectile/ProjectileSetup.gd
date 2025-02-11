@@ -8,6 +8,7 @@ extends Node
 @export_category("References")
 @export var projectile:Projectile2D
 @export var area_transmitter:AreaTransmitter2D
+@export var shape_transmitter:ShapeCastTransmitter2D
 @export var data_channel_transmitter:DataChannelTransmitter
 
 
@@ -15,14 +16,17 @@ extends Node
 func _ready()->void:
 	var _damage_data_resource:DamageDataResource = projectile.damage_data_resource
 	
-	area_transmitter.collision_mask = Bitwise.append_flags(area_transmitter.collision_mask, projectile.collision_mask)
+	if area_transmitter != null:
+		area_transmitter.collision_mask = Bitwise.append_flags(area_transmitter.collision_mask, projectile.collision_mask)
+	if shape_transmitter != null:
+		shape_transmitter.collision_mask = Bitwise.append_flags(shape_transmitter.collision_mask, projectile.collision_mask)
 	
 	data_channel_transmitter.transmission_resource = _damage_data_resource
 	if !data_channel_transmitter.update_requested.is_connected(_on_update_requested):
 		data_channel_transmitter.update_requested.connect(_on_update_requested)
 
 ## Process each hit damage direction when it is applying damage to a target
-func _on_update_requested(transmission_resource:TransmissionResource)->void:
+func _on_update_requested(transmission_resource:TransmissionResource, _receiver:AreaReceiver2D)->void:
 	var _damage_data_resource:DamageDataResource = transmission_resource
 	
 	## TODO: something similar but create a new DamageDataResource only when needed

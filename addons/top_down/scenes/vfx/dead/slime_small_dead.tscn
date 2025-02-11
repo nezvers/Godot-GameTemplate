@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/vfx/ParticleStarter.gd" id="4_87s7j"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="5_qd2nb"]
 
-[node name="SlimeDead" type="GPUParticles2D"]
+[node name="SlimeSmallDead" type="GPUParticles2D"]
 material = ExtResource("1_vq0ox")
 emitting = false
 amount = 12
@@ -15,6 +15,8 @@ texture = ExtResource("3_7g1r2")
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+interpolate = false
+local_coords = true
 script = ExtResource("4_87s7j")
 
 [node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "particle2d_list", "listen_node")]

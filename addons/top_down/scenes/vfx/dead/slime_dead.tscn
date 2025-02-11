@@ -15,6 +15,8 @@ texture = ExtResource("3_5qtud")
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+interpolate = false
+local_coords = true
 script = ExtResource("4_a7iwj")
 
 [node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "particle2d_list", "listen_node")]

@@ -4,6 +4,11 @@ extends Node
 signal bounces_finished
 signal bounce_position
 
+## goes from 0.0 to 1.0 when using LERP movements
+signal interpolated_time(value:float)
+
+signal lerp_finished
+
 @export var projectile:Projectile2D
 
 ## Check collision against these flags
@@ -17,15 +22,24 @@ enum MovementType {
 	## Bounces against solid colliders.
 	## Bounce angles are buggy.
 	RAYCAST,
-	## TODO: implement positional lerping
-	LERP}
+	## Projectile direction as target position. Lerp with time relative to distance/speed.
+	LERP_SPEED,
+	## Projectile direction as target position. Lerp with constant time using speed as seconds.
+	LERP_TIME,
+	## TODO: Move with user
+	FOLLOW,
+	}
 
 @export var movement_type:MovementType
 
 ## Allowed bounce count before destroyed
 @export var max_bounce:int
 
+## Used only for ShapeCast movement
 @export var collision_shape:Shape2D
+
+## Curve required for LERP movement. 0.0 to 1.0
+@export var speed_curve:Curve
 
 ## Counter for allowed bounces before destroyed
 var remaining_bounces:int
@@ -35,6 +49,8 @@ var shape_cast:ShapeCast2D
 
 var world_2d:World2D
 var ray_query:PhysicsRayQueryParameters2D
+
+var move_tween:Tween
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var _warnings:PackedStringArray = PackedStringArray()
@@ -46,12 +62,14 @@ func _ready()->void:
 	move_direction = _to_local_direction(projectile.direction).normalized()
 	
 	remaining_bounces = max(max_bounce, 0) + 1
-	set_physics_process(true)
 	
 	match movement_type:
 		MovementType.PROJECTILE:
-			pass
+			projectile.direction = projectile.direction.normalized()
+			set_physics_process(true)
 		MovementType.SHAPECAST:
+			projectile.direction = projectile.direction.normalized()
+			set_physics_process(true)
 			if shape_cast == null:
 				shape_cast = ShapeCast2D.new()
 				shape_cast.shape = collision_shape
@@ -59,10 +77,32 @@ func _ready()->void:
 				shape_cast.enabled = false
 				projectile.add_child.call_deferred(shape_cast)
 		MovementType.RAYCAST:
+			projectile.direction = projectile.direction.normalized()
+			set_physics_process(true)
 			world_2d = projectile.get_world_2d()
 			ray_query = PhysicsRayQueryParameters2D.new()
 			ray_query.collide_with_bodies = true
 			ray_query.collision_mask = collision_mask
+		MovementType.LERP_SPEED:
+			set_physics_process(false)
+			var _distance:Vector2 = projectile.destination - projectile.global_position
+			projectile.direction = _distance.normalized()
+			var _length:float =_distance.length()
+			var _time:float = _length/projectile.speed
+			if move_tween != null:
+				move_tween.kill()
+			move_tween = create_tween()
+			move_tween.tween_method(_lerp_move.bind(projectile.global_position, projectile.direction), 0.0, 1.0, _time)
+			move_tween.finished.connect(_lerp_finished, CONNECT_ONE_SHOT)
+		MovementType.LERP_TIME:
+			set_physics_process(false)
+			var _distance:Vector2 = projectile.destination - projectile.global_position
+			projectile.direction = _distance.normalized()
+			if move_tween != null:
+				move_tween.kill()
+			move_tween = create_tween()
+			move_tween.tween_method(_lerp_move.bind(projectile.global_position, projectile.destination), 0.0, 1.0, projectile.time)
+			move_tween.finished.connect(_lerp_finished, CONNECT_ONE_SHOT)
 
 
 func _to_local_direction(dir:Vector2)->Vector2:
@@ -142,3 +182,10 @@ func _physics_process(delta:float)->void:
 				projectile.direction = move_direction * projectile.axis_multiplier_resource.value
 				shape_cast.rotation = projectile.direction.angle()
 				bounce_position.emit()
+
+func _lerp_move(t:float, from:Vector2, to:Vector2)->void:
+	projectile.global_position = from.lerp(to, speed_curve.sample(t))
+	interpolated_time.emit(t)
+
+func _lerp_finished()->void:
+	lerp_finished.emit()

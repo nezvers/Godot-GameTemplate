@@ -218,7 +218,7 @@ _data = {
 
 [node name="Zombie" instance=ExtResource("1_fkm2k")]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 
 [node name="ResourceNode" parent="." index="0"]
 list = Array[ExtResource("2_ak5yp")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_gytac")])
@@ -234,6 +234,9 @@ texture = ExtResource("2_giu7j")
 libraries = {
 "": SubResource("AnimationLibrary_esakt")
 }
+
+[node name="MoverTopDown2D" parent="." index="5"]
+debug = true
 
 [node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("7_uiw1f")
@@ -266,7 +269,8 @@ replacement_instance_resource = ExtResource("19_p8daw")
 sound_effect = ExtResource("20_oj468")
 damage_data_receiver = NodePath("../AreaReceiver2D/DamageDataReceiver")
 
-[node name="ActiveEnemy" type="Node" parent="." index="21" node_paths=PackedStringArray("listen_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="21" node_paths=PackedStringArray("listen_node", "resource_node")]
 script = ExtResource("21_snkgf")
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
+resource_node = NodePath("../ResourceNode")

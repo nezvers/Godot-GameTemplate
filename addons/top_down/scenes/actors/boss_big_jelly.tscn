@@ -1,0 +1,459 @@
+[gd_scene load_steps=71 format=3 uid="uid://dsy4mn8a4gob2"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_wcxba"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_1n2e6"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="3_8ah17"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="4_k4c3x"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="5_r2ffr"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="6_4gbsp"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_0afyh"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="8_j5uyp"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/AreaReceiver2D.gd" id="9_h7og4"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelReceiver.gd" id="10_y3fbf"]
+[ext_resource type="Texture2D" uid="uid://0m113tmce32v" path="res://addons/top_down/assets/images/shadow_big.png" id="11_8wnli"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/ShapeCastTransmitter2D.gd" id="11_t3c8m"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="12_e4ngx"]
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="12_ne4r3"]
+[ext_resource type="Texture2D" uid="uid://d3ysd0tnj6n1k" path="res://addons/top_down/assets/images/characters/big_jelly_64x64.png" id="13_bxjpi"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="14_l7ih1"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="15_b27pt"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="16_lme8q"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/SpriteFlip.gd" id="17_qsvhk"]
+[ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="18_mui2p"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/ActorDamage.gd" id="21_rucre"]
+[ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="22_cfs30"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="23_s56vy"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="24_0gijv"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/JumpMove.gd" id="25_7tekj"]
+[ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="25_fh7ve"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="26_0siiy"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_q6vry"]
+[ext_resource type="Resource" uid="uid://xbek2osd7l4w" path="res://addons/top_down/resources/InstanceResources/vfx/damage_points_instance_resource.tres" id="27_1vfag"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageSetup.gd" id="28_s1xyj"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BigJellyAi.gd" id="28_yt21u"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BigJellyChase.gd" id="29_oi13v"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/StatusSetup.gd" id="29_sqipm"]
+[ext_resource type="Resource" uid="uid://72qgb1882ssi" path="res://addons/top_down/resources/sounds/big_jelly_jump.tres" id="29_xmmjj"]
+[ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="30_72yob"]
+[ext_resource type="Resource" uid="uid://2oxos6r5uams" path="res://addons/top_down/resources/sounds/big_jelly_land.tres" id="30_p5q76"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="31_uobbx"]
+[ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="32_jbh10"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="34_da33r"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BigJellyJumpDamage.gd" id="37_1xq4r"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BigJellyShootSlime.gd" id="40_6mqnu"]
+[ext_resource type="Resource" uid="uid://3a6ok8ni15d1" path="res://addons/top_down/resources/InstanceResources/projectiles/big_jelly_projectile_instance_resource.tres" id="41_lm2bm"]
+[ext_resource type="Resource" uid="uid://htqn5bygvbq5" path="res://addons/top_down/resources/sounds/slime_throw.tres" id="43_yb7th"]
+
+[sub_resource type="Resource" id="Resource_u7p0r"]
+resource_name = "movement  properties"
+script = ExtResource("3_8ah17")
+acceleration = 200.0
+max_speed = 60.0
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_wkut0"]
+resource_name = "movement"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_u7p0r")
+make_unique = true
+description = "ActorStatsResource probably need to be unique for each Actor type."
+
+[sub_resource type="Resource" id="Resource_y76f1"]
+resource_name = "Health resource"
+script = ExtResource("4_k4c3x")
+hp = 200.0
+max_hp = 200.0
+reset_hp = 200.0
+reset_max_hp = 200.0
+is_dead = false
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_vm74s"]
+resource_name = "health"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_y76f1")
+make_unique = true
+description = ""
+
+[sub_resource type="Resource" id="Resource_xhp0x"]
+resource_name = "Push Resource"
+script = ExtResource("5_r2ffr")
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_ltyge"]
+resource_name = "push"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_xhp0x")
+make_unique = true
+description = "PushResource has only a method to pass kickback or push impulse"
+
+[sub_resource type="Resource" id="Resource_8r3vs"]
+resource_name = "Dash bool"
+script = ExtResource("6_4gbsp")
+value = false
+default_value = false
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_dsnfh"]
+resource_name = "dash"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_8r3vs")
+make_unique = true
+description = "BoolResource that shows true when dash is enabled."
+
+[sub_resource type="Resource" id="Resource_kivos"]
+resource_name = "Hole bool"
+script = ExtResource("6_4gbsp")
+value = false
+default_value = false
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_j3dss"]
+resource_name = "hole"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_kivos")
+make_unique = true
+description = "BoolResource if value is true, it means actor fell in a hole"
+
+[sub_resource type="Resource" id="Resource_k8ute"]
+resource_name = "Input resource"
+script = ExtResource("7_0afyh")
+axis = Vector2(0, 0)
+action_1 = false
+action_2 = false
+aim_direction = Vector2(0, 0)
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_ju227"]
+resource_name = "input"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_k8ute")
+make_unique = true
+description = "Used to control actors movement by it's input node.
+"
+
+[sub_resource type="Resource" id="Resource_1jkvc"]
+resource_name = "Damage Resource"
+script = ExtResource("8_j5uyp")
+can_receive_damage = true
+version = 0
+not_saved = false
+
+[sub_resource type="Resource" id="Resource_tcmws"]
+resource_name = "damage"
+script = ExtResource("2_1n2e6")
+resource = SubResource("Resource_1jkvc")
+make_unique = true
+description = "Receives report from delt and received damage."
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6ndo"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_we58e"]
+radius = 32.0
+
+[sub_resource type="Resource" id="Resource_bvgsl"]
+script = ExtResource("26_0siiy")
+value = 10.0
+type = 0
+
+[sub_resource type="Resource" id="Resource_46ak6"]
+script = ExtResource("14_l7ih1")
+base_damage = Array[ExtResource("26_0siiy")]([SubResource("Resource_bvgsl")])
+critical_chance = 0.3
+critical_multiply = 1.1
+status_list = Array[ExtResource("15_b27pt")]([])
+hit_list = []
+report_callback = Callable()
+kickback_strength = 0.0
+transmission_name = &"damage"
+state = -1
+valid = true
+version = 0
+not_saved = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bxxbe"]
+radius = 40.0
+
+[sub_resource type="Resource" id="Resource_xt1ad"]
+script = ExtResource("14_l7ih1")
+base_damage = Array[ExtResource("26_0siiy")]([])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("15_b27pt")]([])
+hit_list = []
+report_callback = Callable()
+kickback_strength = 0.0
+transmission_name = &"damage"
+state = -1
+valid = true
+version = 0
+not_saved = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_218jm"]
+resource_local_to_scene = true
+shader = ExtResource("12_ne4r3")
+shader_parameter/overlay = Color(1, 1, 1, 1)
+shader_parameter/blend = 0.0
+
+[sub_resource type="Animation" id="Animation_itq31"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tledj"]
+resource_name = "flash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.500001, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0.8, 1.279), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tbujk"]
+_data = {
+"RESET": SubResource("Animation_itq31"),
+"flash": SubResource("Animation_tledj")
+}
+
+[sub_resource type="Resource" id="Resource_7pnyr"]
+script = ExtResource("26_0siiy")
+value = 3.0
+type = 0
+
+[sub_resource type="Curve" id="Curve_51cb6"]
+min_value = -25.0
+_data = [Vector2(0, 0), 0.0, -100.0, 0, 0, Vector2(0.5, -25), 0.0, 0.0, 0, 0, Vector2(1, 0), 100.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_5pmbj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.5, 0.0, 0, 0]
+point_count = 2
+
+[node name="BossSlime" type="CharacterBody2D"]
+collision_layer = 0
+floor_stop_on_slope = false
+floor_constant_speed = true
+floor_block_on_wall = false
+platform_on_leave = 2
+platform_floor_layers = 0
+
+[node name="ResourceNode" type="Node" parent="."]
+script = ExtResource("1_wcxba")
+list = Array[ExtResource("2_1n2e6")]([SubResource("Resource_wkut0"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_tcmws")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_j6ndo")
+
+[node name="AreaReceiver2D" type="Area2D" parent="."]
+position = Vector2(0, -11)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("9_h7og4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaReceiver2D"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_we58e")
+
+[node name="DamageDataReceiver" type="Node" parent="AreaReceiver2D" node_paths=PackedStringArray("area_receiver", "resource_node")]
+script = ExtResource("10_y3fbf")
+transmission_name = &"damage"
+area_receiver = NodePath("..")
+resource_node = NodePath("../../ResourceNode")
+
+[node name="ShapeCastTransmitterDamage" type="ShapeCast2D" parent="."]
+position = Vector2(0, -11)
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("CircleShape2D_we58e")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("11_t3c8m")
+
+[node name="DamageDataTransmitter" type="Node" parent="ShapeCastTransmitterDamage"]
+script = ExtResource("12_e4ngx")
+try_next_frame = false
+transmission_resource = SubResource("Resource_46ak6")
+
+[node name="ShapeCastTransmitterPush" type="ShapeCast2D" parent="." node_paths=PackedStringArray("exclude_list")]
+position = Vector2(0, -11)
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("CircleShape2D_bxxbe")
+target_position = Vector2(0, 0)
+collision_mask = 6
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("11_t3c8m")
+exclude_list = [NodePath("../AreaReceiver2D")]
+
+[node name="DamageDataTransmitter" type="Node" parent="ShapeCastTransmitterPush"]
+script = ExtResource("12_e4ngx")
+try_next_frame = false
+transmission_resource = SubResource("Resource_xt1ad")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0.0196078, 0.0352941, 0.0784314, 0.454902)
+position = Vector2(0, -11)
+texture = ExtResource("11_8wnli")
+
+[node name="Body" type="Node2D" parent="."]
+position = Vector2(0, -11)
+
+[node name="JellyStretch" type="Node2D" parent="Body"]
+
+[node name="Stretch" type="Node2D" parent="Body/JellyStretch"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/JellyStretch/Stretch"]
+material = SubResource("ShaderMaterial_218jm")
+position = Vector2(0, -16)
+texture = ExtResource("13_bxjpi")
+
+[node name="CharacterAnimator" type="AnimationPlayer" parent="Body/JellyStretch/Stretch/Sprite2D"]
+
+[node name="ColorFlash" type="AnimationPlayer" parent="Body/JellyStretch/Stretch/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_tbujk")
+}
+
+[node name="DamageCooldown" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("16_lme8q")
+resource_node = NodePath("../ResourceNode")
+
+[node name="SpriteFlip" type="Node" parent="." node_paths=PackedStringArray("resource_node", "flip_node")]
+script = ExtResource("17_qsvhk")
+resource_node = NodePath("../ResourceNode")
+flip_node = NodePath("../Body")
+
+[node name="ActorDamage" type="Node" parent="." node_paths=PackedStringArray("resource_node", "sprite_flip", "flash_animation_player")]
+script = ExtResource("21_rucre")
+resource_node = NodePath("../ResourceNode")
+sprite_flip = NodePath("../SpriteFlip")
+flash_animation_player = NodePath("../Body/JellyStretch/Stretch/Sprite2D/ColorFlash")
+flash_animation = &"flash"
+sound_resource_damage = ExtResource("22_cfs30")
+sound_resource_dead = ExtResource("18_mui2p")
+dead_vfx_instance_resource = ExtResource("32_jbh10")
+
+[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("resource_node", "root_node")]
+script = ExtResource("23_s56vy")
+resource_node = NodePath("../ResourceNode")
+root_node = NodePath("..")
+drop_instance_resources = Array[ExtResource("24_0gijv")]([ExtResource("25_fh7ve")])
+
+[node name="DamageDisplay" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("26_q6vry")
+resource_node = NodePath("../ResourceNode")
+damage_points_instance_resource = ExtResource("27_1vfag")
+
+[node name="DamageSetup" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("28_s1xyj")
+resource_node = NodePath("../ResourceNode")
+resistance_list = Array[ExtResource("26_0siiy")]([SubResource("Resource_7pnyr")])
+
+[node name="StatusSetup" type="Node2D" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("29_sqipm")
+resource_node = NodePath("../ResourceNode")
+
+[node name="BigJellyAi" type="Node" parent="." node_paths=PackedStringArray("chase", "actor_damage", "shoot_slime")]
+script = ExtResource("28_yt21u")
+player_reference = ExtResource("30_72yob")
+chase = NodePath("ChasePlayer")
+actor_damage = NodePath("../ActorDamage")
+shoot_slime = NodePath("ShootSlime")
+
+[node name="ActiveEnemy" type="Node" parent="BigJellyAi" node_paths=PackedStringArray("listen_node", "resource_node")]
+script = ExtResource("34_da33r")
+listen_node = NodePath("../../ActorDamage")
+signal_name = &"actor_died"
+resource_node = NodePath("../../ResourceNode")
+destroy_children = true
+
+[node name="JumpMove" type="Node" parent="BigJellyAi" node_paths=PackedStringArray("character_body", "sprite", "stretch_node")]
+script = ExtResource("25_7tekj")
+character_body = NodePath("../..")
+sprite = NodePath("../../Body/JellyStretch/Stretch/Sprite2D")
+offset_curve = SubResource("Curve_51cb6")
+stretch_node = NodePath("../../Body/JellyStretch")
+jump_sound = ExtResource("29_xmmjj")
+land_sound = ExtResource("30_p5q76")
+
+[node name="JumpDamage" type="Node" parent="BigJellyAi" node_paths=PackedStringArray("jump_move", "chase_player", "area_receiver", "damage_transmitter", "push_transmitter", "push_channel_transmitter")]
+script = ExtResource("37_1xq4r")
+jump_move = NodePath("../JumpMove")
+chase_player = NodePath("../ChasePlayer")
+area_receiver = NodePath("../../AreaReceiver2D")
+damage_transmitter = NodePath("../../ShapeCastTransmitterDamage")
+push_transmitter = NodePath("../../ShapeCastTransmitterPush")
+push_channel_transmitter = NodePath("../../ShapeCastTransmitterPush/DamageDataTransmitter")
+axis_multiplication = ExtResource("31_uobbx")
+kickback_curve = SubResource("Curve_5pmbj")
+kickback_max = 150.0
+kickback_min = 40.0
+
+[node name="ChasePlayer" type="Node" parent="BigJellyAi" node_paths=PackedStringArray("jump_move")]
+script = ExtResource("29_oi13v")
+jump_move = NodePath("../JumpMove")
+target_offset = Vector2(0, 11)
+axis_multiplication = ExtResource("31_uobbx")
+landing_vfx = ExtResource("32_jbh10")
+
+[node name="ShootSlime" type="Node" parent="BigJellyAi" node_paths=PackedStringArray("origin_node", "active_enemy")]
+script = ExtResource("40_6mqnu")
+projectile_instance = ExtResource("41_lm2bm")
+origin_node = NodePath("../../ShapeCastTransmitterDamage")
+active_enemy = NodePath("../ActiveEnemy")
+axis_multiply = ExtResource("31_uobbx")
+shoot_sound = ExtResource("43_yb7th")

@@ -17,6 +17,7 @@ var resistance_value_list:Array[float]
 
 var owner:Node
 
+
 func set_can_receive_damage(value:bool)->void:
 	can_receive_damage = value
 	can_receive_changed.emit()

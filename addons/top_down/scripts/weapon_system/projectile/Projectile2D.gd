@@ -6,8 +6,14 @@ signal prepare_exit_event
 ## Travelling speed
 @export var speed:float
 
-## Direction to travel
-@export var direction: = Vector2.RIGHT
+## Lerp movement use it for arriving at target position
+@export var time:float
+
+## Direction to travel.
+@export var direction: = Vector2.ZERO
+
+## Lerp movement mode uses for targeted position
+@export var destination: = Vector2.ZERO
 
 ## Used to fake angled perspective
 @export var axis_multiplier_resource:Vector2Resource

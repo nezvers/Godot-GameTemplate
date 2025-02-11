@@ -1,8 +1,7 @@
 class_name EnemySpawner
 extends Node
 
-## Creates enemies with given configuration 
-@export var enemy_instance_list:Array[InstanceResource]
+@export var enemy_manager:EnemyManager
 
 ## VFX before enemy appear
 @export var spawn_mark_instance_resource:InstanceResource
@@ -19,9 +18,6 @@ extends Node
 ## Bool that toggles game mode
 @export var fight_mode_resource:BoolResource
 
-## kill counter used to detect when an enemy or split is killed
-## TODO: need specialized kill resource in case of multiple splits, passed down to generations
-@export var score_resource:ScoreResource
 
 ## Maximum simultaneous enemies
 var max_allowed_count:int
@@ -46,12 +42,13 @@ func _setup_active_count()->void:
 
 func _cleanup()->void:
 	spawn_point_resource.position_list.clear()
-	ActiveEnemy.root.count = 0
+	spawn_point_resource.boss_position_list.clear()
+	ActiveEnemy.root = ActiveEnemyResource.new()
 
 ## Decide if new enemy needs to be created.
 ## Don't like idea of _process, but is continiously check when spawnpoint is safe to use
 func _process(_delta: float) -> void:
-	var _active_count:int = ActiveEnemy.root.count
+	var _active_count:int = ActiveEnemy.root.nodes.size() + ActiveEnemy.root.children.size()
 	
 	if max_allowed_count - _active_count < 1:
 		return
@@ -65,7 +62,18 @@ func _process(_delta: float) -> void:
 	_create_spawn_mark()
 
 func _create_spawn_mark()->void:
-	var _free_positions:Array[Vector2] = spawn_point_resource.position_list.filter(_filter_free_position)
+	if enemy_manager.wave_queue.waves.is_empty():
+		return
+	
+	var _current_wave:SpawnWaveList = enemy_manager.wave_queue.waves.front()
+	
+	var _free_positions:Array[Vector2]
+	if _current_wave.is_boss:
+		_free_positions = spawn_point_resource.boss_position_list.filter(_filter_free_position)
+		_create_enemies(_free_positions.pick_random())
+		return
+	else:
+		_free_positions = spawn_point_resource.position_list.filter(_filter_free_position)
 	if _free_positions.is_empty():
 		return
 	
@@ -84,10 +92,9 @@ func _create_enemies(spawn_position:Vector2)->void:
 	
 	var _enemy_config:Callable = func (inst:Node2D)->void:
 		inst.global_position = spawn_position
-		ActiveEnemy.root.count += 1
 		ActiveEnemy.insert_child(inst, ActiveEnemy.root, _erase_enemy)
 	
-	enemy_instance_list.pick_random().instance(_enemy_config)
+	enemy_manager.wave_queue.waves.front().instance_list.pick_random().instance(_enemy_config)
 
 func _erase_enemy()->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)
@@ -106,3 +113,10 @@ func _filter_free_position(position:Vector2)->bool:
 	
 	# free distance was squared because it is compared againsts length_squared
 	return _closest_dist > FREE_DISTANCE
+
+func _config_spawn_mark(inst:Node2D, spawn_position:Vector2)->void:
+	inst.global_position = spawn_position
+	inst.tree_exiting.connect(_create_enemies.bind(spawn_position), CONNECT_ONE_SHOT)
+
+func _config_spawn_particles(inst:Node2D, spawn_position:Vector2)->void:
+	inst.global_position = spawn_position

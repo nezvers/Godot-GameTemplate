@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://htqn5bygvbq5"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="1_cbclt"]
+[ext_resource type="AudioStream" uid="uid://cef5ugixd3h5w" path="res://addons/top_down/assets/sounds/slime_throw_1.wav" id="2_btcjo"]
+
+[resource]
+script = ExtResource("1_cbclt")
+pitch_min = 0.9
+pitch_max = 1.2
+volume = 0.0
+retrigger_time = 0.032
+pitch_add = 0.0
+pitch_cooldown = 0.0
+pitch_return = 0.0
+sound = ExtResource("2_btcjo")

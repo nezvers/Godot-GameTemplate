@@ -1,8 +1,43 @@
-[gd_scene load_steps=4 format=4 uid="uid://dksjs6yft863n"]
+[gd_scene load_steps=16 format=4 uid="uid://dksjs6yft863n"]
 
 [ext_resource type="PackedScene" uid="uid://cpjckxc4g3s0w" path="res://addons/top_down/scenes/levels/room_template.tscn" id="1_rhar3"]
 [ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="2_ajxwp"]
 [ext_resource type="PackedScene" uid="uid://cm475mndno581" path="res://addons/top_down/scenes/obstacles/block_wall.tscn" id="3_whnod"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnPoint.gd" id="4_3up7b"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnQueueResource.gd" id="4_dd1v5"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="5_7frwm"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="6_t3b7o"]
+[ext_resource type="Resource" uid="uid://cwxx7lc1yjet4" path="res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres" id="7_8b3ag"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="8_vssl0"]
+[ext_resource type="Resource" uid="uid://bnupsvhj8s0d5" path="res://addons/top_down/resources/InstanceResources/actors/boss_slime_instance_resource.tres" id="9_j0tke"]
+
+[sub_resource type="Resource" id="Resource_avoxj"]
+script = ExtResource("5_7frwm")
+is_boss = false
+count = 10
+instance_list = Array[ExtResource("6_t3b7o")]([ExtResource("7_8b3ag"), ExtResource("8_vssl0")])
+
+[sub_resource type="Resource" id="Resource_3f22w"]
+script = ExtResource("5_7frwm")
+is_boss = false
+count = 10
+instance_list = Array[ExtResource("6_t3b7o")]([ExtResource("7_8b3ag"), ExtResource("8_vssl0")])
+
+[sub_resource type="Resource" id="Resource_iyyns"]
+script = ExtResource("5_7frwm")
+is_boss = false
+count = 10
+instance_list = Array[ExtResource("6_t3b7o")]([ExtResource("7_8b3ag"), ExtResource("8_vssl0")])
+
+[sub_resource type="Resource" id="Resource_2ifak"]
+script = ExtResource("5_7frwm")
+is_boss = true
+count = 1
+instance_list = Array[ExtResource("6_t3b7o")]([ExtResource("9_j0tke")])
+
+[sub_resource type="Resource" id="Resource_4rfok"]
+script = ExtResource("4_dd1v5")
+waves = Array[ExtResource("5_7frwm")]([SubResource("Resource_avoxj"), SubResource("Resource_3f22w"), SubResource("Resource_iyyns"), SubResource("Resource_2ifak")])
 
 [node name="Room" instance=ExtResource("1_rhar3")]
 
@@ -663,19 +698,28 @@ position = Vector2(288, 264)
 position = Vector2(460, 158)
 
 [node name="EnemyManager" parent="." index="8"]
-wave_setup = Array[int]([10, 10, 10])
+wave_queue = SubResource("Resource_4rfok")
 
-[node name="Spawn_0" parent="EnemySpawnPoints" index="0"]
-position = Vector2(448, 13)
+[node name="Spawn_1" type="Marker2D" parent="EnemySpawnPoints" index="0"]
+position = Vector2(464, 311)
+script = ExtResource("4_3up7b")
 
-[node name="Spawn_1" parent="EnemySpawnPoints" index="1"]
-position = Vector2(134, 159)
+[node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints" index="1"]
+position = Vector2(740, 169)
+script = ExtResource("4_3up7b")
 
-[node name="Spawn_2" parent="EnemySpawnPoints" index="2"]
-position = Vector2(463, 323)
+[node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints" index="2"]
+position = Vector2(447, 25)
+script = ExtResource("4_3up7b")
 
-[node name="Spawn_3" parent="EnemySpawnPoints" index="3"]
-position = Vector2(772, 170)
+[node name="Spawn_4" type="Marker2D" parent="EnemySpawnPoints" index="3"]
+position = Vector2(175, 163)
+script = ExtResource("4_3up7b")
+
+[node name="SpawnBoss" type="Marker2D" parent="EnemySpawnPoints" index="4"]
+position = Vector2(460, 158)
+script = ExtResource("4_3up7b")
+boss_position = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ArenaEntry" index="1"]
 polygon = PackedVector2Array(287, 73, 339, 47, 341, 48, 288, 75)

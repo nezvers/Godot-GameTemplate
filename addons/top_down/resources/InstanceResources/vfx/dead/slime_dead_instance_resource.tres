@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://lm63dcddpjhf"]
 
-[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_qqwnr"]
+[ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="1_uq2qt"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_emhtv"]
 
 [resource]
 resource_name = "Slime dead"
 script = ExtResource("2_emhtv")
 scene_path = "res://addons/top_down/scenes/vfx/dead/slime_dead.tscn"
-parent_reference_resource = ExtResource("1_qqwnr")
+parent_reference_resource = ExtResource("1_uq2qt")

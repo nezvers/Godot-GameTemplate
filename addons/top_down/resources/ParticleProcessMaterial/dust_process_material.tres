@@ -18,6 +18,7 @@ shader_parameter/spread = 180.0
 shader_parameter/inherit_emitter_velocity_ratio = 0.0
 shader_parameter/initial_linear_velocity_min = 120.0
 shader_parameter/initial_linear_velocity_max = 128.0
+shader_parameter/spawn_radius = 0.0
 shader_parameter/axis_multiplier = Vector2(1, 0.5)
 shader_parameter/directional_velocity_min = 1.0
 shader_parameter/directional_velocity_max = 1.0

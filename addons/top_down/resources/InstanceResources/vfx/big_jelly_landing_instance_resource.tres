@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://c07axh6oa6x54"]
+
+[ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="1_fglnj"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_5y02t"]
+
+[resource]
+resource_name = "Big Jelly landing"
+script = ExtResource("2_5y02t")
+scene_path = "res://addons/top_down/scenes/vfx/big_jelly_landing.tscn"
+parent_reference_resource = ExtResource("1_fglnj")

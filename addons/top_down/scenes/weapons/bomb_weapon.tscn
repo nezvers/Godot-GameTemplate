@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cv46qtfeg636h"]
+
+[ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://addons/top_down/scenes/weapons/weapon.tscn" id="1_7xga0"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_p0rb8"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="3_v8v2x"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="4_h4rmp"]
+
+[sub_resource type="Resource" id="Resource_4ea1h"]
+script = ExtResource("3_v8v2x")
+base_damage = Array[ExtResource("2_p0rb8")]([])
+critical_chance = 0.3
+critical_multiply = 1.5
+status_list = Array[ExtResource("4_h4rmp")]([])
+hit_list = []
+report_callback = Callable()
+kickback_strength = 0.0
+transmission_name = &""
+state = -1
+valid = true
+version = 0
+not_saved = false
+
+[node name="BombWeapon" instance=ExtResource("1_7xga0")]
+damage_data_resource = SubResource("Resource_4ea1h")

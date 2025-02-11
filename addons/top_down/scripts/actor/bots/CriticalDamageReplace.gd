@@ -56,10 +56,8 @@ func _on_damage(damage:DamageDataResource)->void:
 	# store necesary values into separate variables instead of keeping references to resources
 	var _push_vector:Vector2 = damage.kickback_strength * damage.direction
 	var _current_hp:float = health_resource.hp
-	var _active_enemy_branch:Dictionary = active_enemy.my_dictionary
+	var _active_enemy_branch:ActiveEnemyResource = active_enemy.enemy_resource
 	
-	# count it self out
-	_active_enemy_branch.count -= 1
 	
 	## applied to instance when its ready
 	var _ready_callback:Callable = func (inst:Node)->void:
@@ -81,10 +79,10 @@ func _on_damage(damage:DamageDataResource)->void:
 		inst.ready.connect(_ready_callback.call_deferred.bind(inst), CONNECT_ONE_SHOT)
 		
 		# increase own count for each child branch
-		_active_enemy_branch.count += 1
 		ActiveEnemy.insert_child(inst, _active_enemy_branch)
 	
 	
 	sound_effect.play_managed()
 	replacement_instance_resource.instance(_config_callback)
+	active_enemy.remove_self()
 	pool_node.pool_return()

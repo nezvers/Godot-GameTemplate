@@ -42,6 +42,7 @@ func on_shoot()->void:
 		return
 	shoot_event.emit()
 	projectile_spawner.projectile_position = weapon.global_position
+	## Don't normalize direction if it is used for target position
 	projectile_spawner.direction = input_resource.aim_direction
 	projectile_spawner.spawn()
 	sound_resource.play_managed()

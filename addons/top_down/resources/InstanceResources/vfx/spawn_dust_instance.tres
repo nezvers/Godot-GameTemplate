@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://way0xfgx53ix"]
 
-[ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_5jp2s"]
+[ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="1_hixmi"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_yud2w"]
 
 [resource]
 resource_name = "Spawn Dust Particles"
 script = ExtResource("2_yud2w")
 scene_path = "res://addons/top_down/scenes/vfx/dust_particle.tscn"
-parent_reference_resource = ExtResource("1_5jp2s")
+parent_reference_resource = ExtResource("1_hixmi")

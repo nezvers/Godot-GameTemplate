@@ -10,6 +10,7 @@ extends Node
 ## Used for faking angled perspective movement
 @export var axis_multiplier_resource:Vector2Resource
 @export var resource_node:ResourceNode
+@export var debug:bool
 
 
 ## Virtual buttons to react to
@@ -34,8 +35,13 @@ func _ready()->void:
 	assert(_push_resource != null)
 	_push_resource.impulse_event.connect(add_impulse)
 	
-	set_enabled(enabled)
+	set_physics_process(false)
+	## Workaround for spawning overlaping instances
+	if character.test_move(character.global_transform, Vector2.ZERO):
+		character.global_position.x += 8.0
+		character.move_and_collide(Vector2(8.0, 0.0))
 	
+	set_enabled(enabled)
 	# in case used with PoolNode
 	request_ready()
 	character.velocity = Vector2.ZERO
@@ -43,7 +49,10 @@ func _ready()->void:
 
 func _physics_process(delta:float)->void:
 	var target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis * axis_multiplier_resource.value
+	
 	character.velocity += get_impulse(character.velocity, target_velocity, actor_stats_resource.acceleration, delta)
+	character.velocity -= character.get_platform_velocity()
+	
 	var _collided:bool = character.move_and_slide()
 
 ## Adds an impulse to velocity, like a kickback

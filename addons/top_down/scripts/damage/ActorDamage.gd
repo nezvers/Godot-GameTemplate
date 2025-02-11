@@ -1,9 +1,9 @@
+class_name ActorDamage
 extends Node
 
 signal actor_died
 
 @export var resource_node:ResourceNode
-@export var mover:MoverTopDown2D
 @export var sprite_flip:SpriteFlip
 @export var flash_animation_player:AnimationPlayer
 @export var flash_animation:StringName

@@ -240,10 +240,9 @@ _data = {
 
 [node name="HealthPickup" instance=ExtResource("1_1ysqb")]
 
-[node name="HealthDataTransmitter" type="Node" parent="AreaTransmitter2D" index="1" node_paths=PackedStringArray("area_transmitter")]
+[node name="HealthDataTransmitter" type="Node" parent="AreaTransmitter2D" index="1"]
 script = ExtResource("3_srqx2")
 transmission_resource = SubResource("Resource_1euvd")
-area_transmitter = NodePath("..")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 modulate = Color(1, 0.983333, 0, 0.168627)
