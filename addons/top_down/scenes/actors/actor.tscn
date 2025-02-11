@@ -209,6 +209,7 @@ _data = {
 }
 
 [node name="Actor" type="CharacterBody2D"]
+motion_mode = 1
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_block_on_wall = false

@@ -40,6 +40,7 @@ func _ready()->void:
 	if character.test_move(character.global_transform, Vector2.ZERO):
 		character.global_position.x += 8.0
 		character.move_and_collide(Vector2(8.0, 0.0))
+		character.velocity = Vector2.ZERO
 	
 	set_enabled(enabled)
 	# in case used with PoolNode
