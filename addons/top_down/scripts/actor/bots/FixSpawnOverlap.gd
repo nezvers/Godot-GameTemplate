@@ -8,7 +8,6 @@ extends ShapeCast2D
 @export var move_distance:float = 8.0
 
 func _ready()->void:
-	request_ready()
 	position = collision_shape.position
 	shape = collision_shape.shape
 	enabled = false
