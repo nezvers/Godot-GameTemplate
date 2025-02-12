@@ -705,15 +705,15 @@ position = Vector2(464, 311)
 script = ExtResource("4_3up7b")
 
 [node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints" index="1"]
-position = Vector2(740, 169)
+position = Vector2(735, 170)
 script = ExtResource("4_3up7b")
 
 [node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints" index="2"]
-position = Vector2(447, 25)
+position = Vector2(448, 26)
 script = ExtResource("4_3up7b")
 
 [node name="Spawn_4" type="Marker2D" parent="EnemySpawnPoints" index="3"]
-position = Vector2(175, 163)
+position = Vector2(176, 163)
 script = ExtResource("4_3up7b")
 
 [node name="SpawnBoss" type="Marker2D" parent="EnemySpawnPoints" index="4"]

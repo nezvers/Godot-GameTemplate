@@ -73,7 +73,8 @@ func _create_spawn_mark()->void:
 		#_create_enemies(_free_positions.pick_random())
 		#return
 	else:
-		_free_positions = spawn_point_resource.position_list.filter(_filter_free_position)
+		#_free_positions = spawn_point_resource.position_list.filter(_filter_free_position)
+		_free_positions = spawn_point_resource.position_list#.filter(_filter_free_position)
 	if _free_positions.is_empty():
 		return
 	
