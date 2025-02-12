@@ -4,7 +4,9 @@ extends SaveableResource
 signal damaged
 signal dead
 signal hp_changed
+signal max_hp_changed
 signal full
+signal reset_update
 
 @export var hp:float = 5
 @export var max_hp:float = 5
@@ -13,11 +15,16 @@ signal full
 @export var reset_max_hp:float = 5
 @export var is_dead:bool
 
+func set_max_hp(value:float)->void:
+	max_hp = value
+	max_hp_changed.emit()
+
 func reset_resource()->void:
 	is_dead = false
-	hp = reset_hp
 	max_hp = reset_max_hp
+	hp = reset_hp
 	hp_changed.emit()
+	reset_update.emit()
 
 func prepare_load(data:Resource)->void:
 	is_dead = data.is_dead

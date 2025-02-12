@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://buxjwi6yhg10o"]
+
+[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/progress_bar.gdshader" id="1_33kht"]
+
+[resource]
+shader = ExtResource("1_33kht")
+shader_parameter/progress_foreground = 1.0
+shader_parameter/progress_middle = 1.0
+shader_parameter/background = Color(0.15967, 0.15967, 0.15967, 1)
+shader_parameter/midle = Color(0.35, 1, 0, 1)
+shader_parameter/foreground = Color(1, 0.35, 0, 1)
+shader_parameter/smoothing = 0.001

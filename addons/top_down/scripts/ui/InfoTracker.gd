@@ -3,14 +3,12 @@ class_name InfoTracker
 extends Node
 
 @export var score_resource:ScoreResource
-@export var health_resource:HealthResource
 @export var fight_mode_resource:BoolResource
 @export var wave_count_resource:IntResource
 @export var enemy_count_resource:IntResource
 @export var enemy_instance_resource:InstanceResource
 
 @export var score_label:Label
-@export var health_label:Label
 @export var fight_mode_label:Label
 @export var wave_count_label:Label
 @export var enemy_count_label:Label
@@ -20,9 +18,6 @@ extends Node
 func _ready()->void:
 	score_resource.points_updated.connect(update_score_label)
 	update_score_label()
-	
-	health_resource.hp_changed.connect(update_health_label)
-	update_health_label()
 	
 	fight_mode_resource.updated.connect(update_fight_mode_label)
 	update_fight_mode_label()
@@ -36,8 +31,6 @@ func _ready()->void:
 func update_score_label()->void:
 	score_label.text = "Score: " + str(score_resource.point_count)
 
-func update_health_label()->void:
-	health_label.text = "HP: " + str(health_resource.hp)
 
 func update_fight_mode_label()->void:
 	fight_mode_label.text = "Fight Mode: " + ("ON" if fight_mode_resource.value else "OFF")

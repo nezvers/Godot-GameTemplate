@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://deuehdcbbm5c1"]
+[gd_scene load_steps=14 format=3 uid="uid://deuehdcbbm5c1"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/InfoTracker.gd" id="1_4rtxu"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_screen/HealthPanel.gd" id="1_d7qi2"]
+[ext_resource type="Material" uid="uid://buxjwi6yhg10o" path="res://addons/top_down/resources/materials/progress_bar_material.tres" id="1_kllii"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="2_i7k27"]
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://addons/top_down/resources/health_resource/player_health.tres" id="3_mc5ua"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/global_resources/pause_resource.tres" id="4_4g1vf"]
@@ -11,6 +13,8 @@
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_i0f1q"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/VisibilityComponent.gd" id="10_lso8u"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpmqm"]
+
 [node name="GameHud" type="CanvasLayer"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -19,15 +23,31 @@ offset_right = 124.0
 offset_bottom = 115.0
 theme_override_constants/separation = 0
 
+[node name="HealthPanel" type="PanelContainer" parent="VBoxContainer" node_paths=PackedStringArray("label")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bpmqm")
+script = ExtResource("1_d7qi2")
+health_resource = ExtResource("3_mc5ua")
+label = NodePath("HealthLabel")
+progress_shader = ExtResource("1_kllii")
+
+[node name="HealthProgress" type="ColorRect" parent="VBoxContainer/HealthPanel"]
+material = ExtResource("1_kllii")
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer/HealthPanel"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 7
+text = "69/420"
+horizontal_alignment = 1
+
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 7
 text = "Score: 420"
-
-[node name="HealthLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 7
-text = "HP: 69"
 
 [node name="FightMode" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -49,16 +69,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 7
 text = "Active: 707"
 
-[node name="InfoTracker" type="Node" parent="." node_paths=PackedStringArray("score_label", "health_label", "fight_mode_label", "wave_count_label", "enemy_count_label", "active_count_label")]
+[node name="InfoTracker" type="Node" parent="." node_paths=PackedStringArray("score_label", "fight_mode_label", "wave_count_label", "enemy_count_label", "active_count_label")]
 script = ExtResource("1_4rtxu")
 score_resource = ExtResource("2_i7k27")
-health_resource = ExtResource("3_mc5ua")
 fight_mode_resource = ExtResource("4_bm84l")
 wave_count_resource = ExtResource("5_gcfem")
 enemy_count_resource = ExtResource("6_yicht")
 enemy_instance_resource = ExtResource("7_i0f1q")
 score_label = NodePath("../VBoxContainer/ScoreLabel")
-health_label = NodePath("../VBoxContainer/HealthLabel")
 fight_mode_label = NodePath("../VBoxContainer/FightMode")
 wave_count_label = NodePath("../VBoxContainer/WaveCount")
 enemy_count_label = NodePath("../VBoxContainer/EnemyCount")
@@ -68,7 +86,7 @@ active_count_label = NodePath("../VBoxContainer/ActiveCount")
 script = ExtResource("10_lso8u")
 bool_resource = ExtResource("4_4g1vf")
 show_list = [NodePath("../Pause")]
-hide_list = [NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer/HealthLabel"), NodePath("../VBoxContainer/FightMode"), NodePath("../VBoxContainer/WaveCount"), NodePath("../VBoxContainer/EnemyCount"), NodePath("../VBoxContainer/ActiveCount")]
+hide_list = [NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer/HealthPanel/HealthLabel"), NodePath("../VBoxContainer/FightMode"), NodePath("../VBoxContainer/WaveCount"), NodePath("../VBoxContainer/EnemyCount"), NodePath("../VBoxContainer/ActiveCount")]
 
 [node name="Pause" parent="." instance=ExtResource("5_iipjt")]
 visible = false
