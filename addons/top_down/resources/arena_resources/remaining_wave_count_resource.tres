@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/IntResource.gd" id="1_2uf4n"]
 
 [resource]
-resource_name = "Wave Count"
+resource_name = "Remaining Wave Count"
 script = ExtResource("1_2uf4n")
 value = 0
 default_value = 0

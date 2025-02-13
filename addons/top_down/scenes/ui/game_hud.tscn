@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://deuehdcbbm5c1"]
+[gd_scene load_steps=16 format=3 uid="uid://deuehdcbbm5c1"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/InfoTracker.gd" id="1_4rtxu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_screen/HealthPanel.gd" id="1_d7qi2"]
@@ -7,11 +7,13 @@
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://addons/top_down/resources/health_resource/player_health.tres" id="3_mc5ua"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/global_resources/pause_resource.tres" id="4_4g1vf"]
 [ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="4_bm84l"]
-[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/wave_count_resource.tres" id="5_gcfem"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="5_gcfem"]
 [ext_resource type="PackedScene" uid="uid://cdfnlxijhmk2f" path="res://addons/top_down/scenes/ui/screens/pause.tscn" id="5_iipjt"]
 [ext_resource type="Resource" uid="uid://cjmecrxyvujlx" path="res://addons/top_down/resources/arena_resources/enemy_count_resource.tres" id="6_yicht"]
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_i0f1q"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/VisibilityComponent.gd" id="10_lso8u"]
+[ext_resource type="Script" path="res://addons/top_down/scenes/ui/wave_label.gd" id="13_pcln8"]
+[ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="14_7r27p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpmqm"]
 
@@ -19,8 +21,9 @@
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_left = 3.0
+offset_top = 4.0
 offset_right = 124.0
-offset_bottom = 115.0
+offset_bottom = 119.0
 theme_override_constants/separation = 0
 
 [node name="HealthPanel" type="PanelContainer" parent="VBoxContainer" node_paths=PackedStringArray("label")]
@@ -90,3 +93,20 @@ hide_list = [NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer
 
 [node name="Pause" parent="." instance=ExtResource("5_iipjt")]
 visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+
+[node name="WaveLabel" type="Label" parent="CenterContainer" node_paths=PackedStringArray("label", "tweened_node")]
+layout_mode = 2
+text = "Boss Fight: Big Jelly"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("13_pcln8")
+label = NodePath(".")
+fight_mode_resource = ExtResource("4_bm84l")
+wave_count_resource = ExtResource("14_7r27p")
+tweened_node = NodePath("..")
