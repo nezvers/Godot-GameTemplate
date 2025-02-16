@@ -20,7 +20,12 @@ func _ready() -> void:
 	data_transmitter.transmission_resource = _transmission_resource
 	
 	data_transmitter.success.connect(_on_success, CONNECT_ONE_SHOT)
-	
+	data_transmitter.set_enabled(false)
+	get_tree().physics_frame.connect(_delay_enable, CONNECT_ONE_SHOT)
+
+## delay to avoid triggering if overlap at spawn
+func _delay_enable()->void:
+	get_tree().physics_frame.connect(data_transmitter.set_enabled.bind(true), CONNECT_ONE_SHOT)
 
 func _on_success()->void:
 	data_transmitter.set_enabled(false)

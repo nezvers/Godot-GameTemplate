@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=59 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -21,9 +21,11 @@
 [ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="13_ju15f"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DashAbility.gd" id="16_vooxc"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/PlayerJuice.gd" id="17_32qwh"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/DebugInput.gd" id="18_4qxvw"]
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://addons/top_down/resources/CommandNodeResource/color_flash.tres" id="18_5jtne"]
 [ext_resource type="Resource" uid="uid://ddpkkj7j7ync6" path="res://addons/top_down/resources/CameraResources/enemy_damage_shake.tres" id="18_7uk1v"]
 [ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://addons/top_down/resources/CameraResources/player_damage_shake.tres" id="19_d25rq"]
+[ext_resource type="Resource" uid="uid://b6mldf5iax3rj" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="19_pbauh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ResetHealth.gd" id="24_xfk7a"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/CameraPositionSetter.gd" id="25_s80ev"]
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="26_ljkqc"]
@@ -230,6 +232,11 @@ _data = {
 "walk": SubResource("Animation_wmkbr")
 }
 
+[sub_resource type="InputEventKey" id="InputEventKey_vec1p"]
+device = -1
+keycode = 84
+unicode = 116
+
 [sub_resource type="Animation" id="Animation_3p56v"]
 length = 0.001
 tracks/0/type = "value"
@@ -312,12 +319,20 @@ aim_offset = Vector2(0, 8)
 resource_node = NodePath("../ResourceNode")
 action_resource = ExtResource("13_ju15f")
 
-[node name="WeaponManager" type="Node2D" parent="." index="18" node_paths=PackedStringArray("resource_node")]
+[node name="DebugInput" type="Node" parent="." index="18" node_paths=PackedStringArray("node")]
+script = ExtResource("18_4qxvw")
+node = NodePath("../WeaponManager")
+function_name = &"test_drop"
+input_event = SubResource("InputEventKey_vec1p")
+debug_action_name = &"DebugItemDrop"
+
+[node name="WeaponManager" type="Node2D" parent="." index="19" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_hpc12")
 resource_node = NodePath("../ResourceNode")
 collision_mask = 4
+item_pickup_instance_resource = ExtResource("19_pbauh")
 
-[node name="ReferencePlayer" type="Node" parent="." index="19" node_paths=PackedStringArray("reference_node", "signal_node")]
+[node name="ReferencePlayer" type="Node" parent="." index="20" node_paths=PackedStringArray("reference_node", "signal_node")]
 script = ExtResource("11_r4axh")
 reference_node = NodePath("..")
 reference_resource = ExtResource("12_l6ujm")
@@ -325,39 +340,39 @@ until_tree_exit = false
 signal_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="DashAbility" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node")]
+[node name="DashAbility" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("16_vooxc")
 resource_node = NodePath("../ResourceNode")
 
-[node name="PlayerJuice" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node")]
+[node name="PlayerJuice" type="Node" parent="." index="22" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("17_32qwh")
 resource_node = NodePath("../ResourceNode")
 enemy_damage_shake = ExtResource("18_7uk1v")
 screen_flash_animation_player = ExtResource("18_5jtne")
 player_damage_shake = ExtResource("19_d25rq")
 
-[node name="ResetHealth" type="Node" parent="." index="22" node_paths=PackedStringArray("resource_node")]
+[node name="ResetHealth" type="Node" parent="." index="23" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("24_xfk7a")
 resource_node = NodePath("../ResourceNode")
 
-[node name="CameraPositionSetter" type="Node" parent="." index="23" node_paths=PackedStringArray("target_node")]
+[node name="CameraPositionSetter" type="Node" parent="." index="24" node_paths=PackedStringArray("target_node")]
 script = ExtResource("25_s80ev")
 camera_reference = ExtResource("26_ljkqc")
 position_resource = ExtResource("27_4bh7y")
 target_node = NodePath("..")
 
-[node name="SafeTileTracker" type="Node" parent="." index="24" node_paths=PackedStringArray("actor")]
+[node name="SafeTileTracker" type="Node" parent="." index="25" node_paths=PackedStringArray("actor")]
 script = ExtResource("28_ww0nn")
 obstacle_tilemap_reference = ExtResource("29_4dv8f")
 actor = NodePath("..")
 
-[node name="HoleRecovery" type="Node" parent="." index="25" node_paths=PackedStringArray("safe_tile_tracker", "resource_node", "hole_trigger")]
+[node name="HoleRecovery" type="Node" parent="." index="26" node_paths=PackedStringArray("safe_tile_tracker", "resource_node", "hole_trigger")]
 script = ExtResource("30_n8poo")
 safe_tile_tracker = NodePath("../SafeTileTracker")
 resource_node = NodePath("../ResourceNode")
 hole_trigger = NodePath("../HoleTrigger")
 
-[node name="VisualInvulnerability" type="Node" parent="." index="26" node_paths=PackedStringArray("resource_node", "animation_player")]
+[node name="VisualInvulnerability" type="Node" parent="." index="27" node_paths=PackedStringArray("resource_node", "animation_player")]
 script = ExtResource("32_82fau")
 resource_node = NodePath("../ResourceNode")
 animation_player = NodePath("AnimationPlayer")

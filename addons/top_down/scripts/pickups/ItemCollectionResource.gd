@@ -2,7 +2,7 @@ class_name ItemCollectionResource
 extends SaveableResource
 
 signal updated
-signal removed(value:ItemResource)
+signal removed(value:ItemResource, is_dropped:bool)
 signal selected_changed
 
 @export var list:Array[ItemResource]
@@ -26,23 +26,33 @@ func append(value:ItemResource)->void:
 	list.append(value)
 	updated.emit()
 
-func swap(value:ItemResource)->ItemResource:
+func swap(value:ItemResource, is_dropped:bool = true)->ItemResource:
 	var _item:ItemResource = list[selected]
 	list[selected] = value
 	updated.emit()
-	removed.emit(_item)
+	removed.emit(_item, is_dropped)
 	return _item
 
 func drop()->ItemResource:
 	var _item:ItemResource = list[selected]
 	list[selected] = null
-	removed.emit(_item)
 	
 	list = list.filter(filter_empty)
-	set_selected(max(selected, list.size()))
+	set_selected(min(selected, list.size() -1))
 	
 	updated.emit()
-	removed.emit(_item)
+	removed.emit(_item, true)
+	return _item
+
+func take()->ItemResource:
+	var _item:ItemResource = list[selected]
+	list[selected] = null
+	
+	list = list.filter(filter_empty)
+	set_selected(min(selected, list.size() -1))
+	
+	updated.emit()
+	removed.emit(_item, false)
 	return _item
 
 func filter_empty(value:ItemResource)->bool:
