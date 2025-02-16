@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=56 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -8,20 +8,17 @@
 [ext_resource type="Resource" uid="uid://c61lm3lfv4u6h" path="res://addons/top_down/resources/health_resource/player_health.tres" id="4_y5gff"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="5_smnd7"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="6_2ql4h"]
-[ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="6_rnlhu"]
 [ext_resource type="Resource" uid="uid://bgdeqbafv3q4r" path="res://addons/top_down/resources/sounds/kill_player.tres" id="6_wov6i"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_sciut"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="8_icjqh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="9_y7ns5"]
-[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="10_x7xjs"]
-[ext_resource type="PackedScene" uid="uid://ghnv48d18ftl" path="res://addons/top_down/scenes/weapons/shotgun.tscn" id="11_nnusp"]
+[ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="10_3846y"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelReceiver.gd" id="11_qswmv"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="11_r4axh"]
-[ext_resource type="PackedScene" uid="uid://cmmx82t54wble" path="res://addons/top_down/scenes/weapons/sword.tscn" id="12_gom0h"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_l6ujm"]
 [ext_resource type="Resource" uid="uid://dyfuc7bon78d" path="res://addons/top_down/resources/InstanceResources/vfx/dead/player_dead_instance_resource.tres" id="12_yuaod"]
 [ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="13_ju15f"]
-[ext_resource type="PackedScene" uid="uid://bbfknmfp5j4s0" path="res://addons/top_down/scenes/weapons/assault_riffle.tscn" id="16_chj10"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DashAbility.gd" id="16_vooxc"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/PlayerJuice.gd" id="17_32qwh"]
 [ext_resource type="Resource" uid="uid://diqvd4u0lbw7h" path="res://addons/top_down/resources/CommandNodeResource/color_flash.tres" id="18_5jtne"]
@@ -139,6 +136,13 @@ script = ExtResource("2_20qkb")
 resource = SubResource("Resource_1jkvc")
 make_unique = true
 description = "Receives report from delt and received damage."
+
+[sub_resource type="Resource" id="Resource_sj2w3"]
+resource_name = "weapons"
+script = ExtResource("2_20qkb")
+resource = ExtResource("10_3846y")
+make_unique = false
+description = ""
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfelk"]
 resource_local_to_scene = true
@@ -268,10 +272,16 @@ disable_mode = 2
 collision_layer = 2
 
 [node name="ResourceNode" parent="." index="0"]
-list = Array[ExtResource("2_20qkb")]([SubResource("Resource_y1d7o"), SubResource("Resource_3g443"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_or6sa"), SubResource("Resource_cna70")])
+list = Array[ExtResource("2_20qkb")]([SubResource("Resource_y1d7o"), SubResource("Resource_3g443"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_or6sa"), SubResource("Resource_cna70"), SubResource("Resource_sj2w3")])
 
 [node name="AreaReceiver2D" parent="." index="2"]
 collision_layer = 2
+
+[node name="ItemDataReceiver" type="Node" parent="AreaReceiver2D" index="4" node_paths=PackedStringArray("area_receiver", "resource_node")]
+script = ExtResource("11_qswmv")
+transmission_name = &"item"
+area_receiver = NodePath("..")
+resource_node = NodePath("../../ResourceNode")
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
 modulate = Color(0.99, 0.99, 0.99, 1)
@@ -282,37 +292,32 @@ libraries = {
 "": SubResource("AnimationLibrary_bdy4l")
 }
 
-[node name="DamageCooldown" parent="." index="6"]
+[node name="DamageCooldown" parent="." index="7"]
 cooldown_time = 0.5
 
-[node name="SpriteFlip" parent="." index="7"]
+[node name="SpriteFlip" parent="." index="8"]
 flip_type = 1
 
-[node name="HoleDeath" parent="." index="10"]
+[node name="HoleDeath" parent="." index="11"]
 enabled = false
 
-[node name="ActorDamage" parent="." index="11"]
+[node name="ActorDamage" parent="." index="12"]
 sound_resource_dead = ExtResource("6_wov6i")
 dead_vfx_instance_resource = ExtResource("12_yuaod")
 
-[node name="PlayerInput" type="Node" parent="." index="16" node_paths=PackedStringArray("position_node", "resource_node")]
+[node name="PlayerInput" type="Node" parent="." index="17" node_paths=PackedStringArray("position_node", "resource_node")]
 script = ExtResource("4_uihqc")
 position_node = NodePath("..")
 aim_offset = Vector2(0, 8)
 resource_node = NodePath("../ResourceNode")
 action_resource = ExtResource("13_ju15f")
 
-[node name="WeaponManager" type="Node2D" parent="." index="17" node_paths=PackedStringArray("resource_node")]
+[node name="WeaponManager" type="Node2D" parent="." index="18" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_hpc12")
-auto_instance_weapons = Array[PackedScene]([ExtResource("11_nnusp"), ExtResource("16_chj10"), ExtResource("12_gom0h"), ExtResource("10_x7xjs")])
 resource_node = NodePath("../ResourceNode")
 collision_mask = 4
 
-[node name="Gun" parent="WeaponManager" index="0" node_paths=PackedStringArray("resource_node") instance=ExtResource("6_rnlhu")]
-collision_mask = 5
-resource_node = NodePath("../../ResourceNode")
-
-[node name="ReferencePlayer" type="Node" parent="." index="18" node_paths=PackedStringArray("reference_node", "signal_node")]
+[node name="ReferencePlayer" type="Node" parent="." index="19" node_paths=PackedStringArray("reference_node", "signal_node")]
 script = ExtResource("11_r4axh")
 reference_node = NodePath("..")
 reference_resource = ExtResource("12_l6ujm")
@@ -320,39 +325,39 @@ until_tree_exit = false
 signal_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="DashAbility" type="Node" parent="." index="19" node_paths=PackedStringArray("resource_node")]
+[node name="DashAbility" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("16_vooxc")
 resource_node = NodePath("../ResourceNode")
 
-[node name="PlayerJuice" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node")]
+[node name="PlayerJuice" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("17_32qwh")
 resource_node = NodePath("../ResourceNode")
 enemy_damage_shake = ExtResource("18_7uk1v")
 screen_flash_animation_player = ExtResource("18_5jtne")
 player_damage_shake = ExtResource("19_d25rq")
 
-[node name="ResetHealth" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node")]
+[node name="ResetHealth" type="Node" parent="." index="22" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("24_xfk7a")
 resource_node = NodePath("../ResourceNode")
 
-[node name="CameraPositionSetter" type="Node" parent="." index="22" node_paths=PackedStringArray("target_node")]
+[node name="CameraPositionSetter" type="Node" parent="." index="23" node_paths=PackedStringArray("target_node")]
 script = ExtResource("25_s80ev")
 camera_reference = ExtResource("26_ljkqc")
 position_resource = ExtResource("27_4bh7y")
 target_node = NodePath("..")
 
-[node name="SafeTileTracker" type="Node" parent="." index="23" node_paths=PackedStringArray("actor")]
+[node name="SafeTileTracker" type="Node" parent="." index="24" node_paths=PackedStringArray("actor")]
 script = ExtResource("28_ww0nn")
 obstacle_tilemap_reference = ExtResource("29_4dv8f")
 actor = NodePath("..")
 
-[node name="HoleRecovery" type="Node" parent="." index="24" node_paths=PackedStringArray("safe_tile_tracker", "resource_node", "hole_trigger")]
+[node name="HoleRecovery" type="Node" parent="." index="25" node_paths=PackedStringArray("safe_tile_tracker", "resource_node", "hole_trigger")]
 script = ExtResource("30_n8poo")
 safe_tile_tracker = NodePath("../SafeTileTracker")
 resource_node = NodePath("../ResourceNode")
 hole_trigger = NodePath("../HoleTrigger")
 
-[node name="VisualInvulnerability" type="Node" parent="." index="25" node_paths=PackedStringArray("resource_node", "animation_player")]
+[node name="VisualInvulnerability" type="Node" parent="." index="26" node_paths=PackedStringArray("resource_node", "animation_player")]
 script = ExtResource("32_82fau")
 resource_node = NodePath("../ResourceNode")
 animation_player = NodePath("AnimationPlayer")

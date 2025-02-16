@@ -4,8 +4,6 @@ extends Node2D
 ## Emitted when weapon is changed
 signal weapon_changed
 
-## Scene files that will be instanced and added to the user in disabled state
-@export var auto_instance_weapons:Array[PackedScene]
 
 ## Reference passed to instanced weapons
 @export var resource_node:ResourceNode
@@ -14,91 +12,111 @@ signal weapon_changed
 ## TODO: Need to remove passing chain
 @export_flags_2d_physics var collision_mask:int
 
-## In case users share the same weapons it's better to make damage_resource unique
-## That removes opion to tweak values from Godot Editor while a game is running
-@export var make_unique_damage:bool = true
 
 ## List of instanced weapons available to the user
 ## Weapons that are already in the scene tree are added on _ready
 var weapon_list:Array[Weapon]
 
-## Shows weapon index that will be or is active
-var weapon_index:int = 0
+## Necessary to check if weapon is created
+var weapon_dictionary:Dictionary
 
 ## Currently activated weapon
 var current_weapon:Weapon = null
 
+var weapon_inventory:ItemCollectionResource
+
+var input_resource:InputResource
+
+## Store scene in memory to "load" faster
+var weapon_scene_cache:Array[PackedScene]
 
 func _ready()->void:
-	var _child_weapons:Array[PackedScene]
-	for weapon:Node in get_children():
-		if !(weapon is Weapon):
-			continue
-		# create scene from child weapon
-		var _packed_scene:PackedScene = ScenePacker.create_package(weapon)
-		_child_weapons.append(_packed_scene)
-		remove_child(weapon)
-		weapon.queue_free()
+	# TODO: Prepare for use with PoolNode
+	request_ready()
 	
-	# BUG: workaround new instance gets modified array from previous instance
-	# https://github.com/godotengine/godot/issues/96181
-	auto_instance_weapons = auto_instance_weapons.duplicate()
-	
-	# Insert child scenes in array beginning
-	for i:int in _child_weapons.size():
-		var _packed_scene:PackedScene = _child_weapons[i]
-		auto_instance_weapons.insert(i, _packed_scene)
-	
-	for _scene:PackedScene in auto_instance_weapons:
-		add_new_weapon_from_scene(_scene)
-	
-	set_weapon_index(weapon_index)
-	
+	_setup_weapon_inventory()
 	_setup_input_connection()
-	# in case used with PoolNode
-	resource_node.ready.connect(_setup_input_connection)
+
+func _exit_tree() -> void:
+	weapon_inventory.selected_changed.disconnect(set_weapon_index)
+	weapon_inventory.updated.disconnect(_update_weapon_inventory)
+	input_resource.switch_weapon.disconnect(_on_switch_weapon)
+
+func _setup_weapon_inventory()->void:
+	weapon_inventory = resource_node.get_resource("weapons")
+	assert(weapon_inventory != null)
+	
+	
+	for _child in get_children():
+		remove_child(_child)
+		_child.queue_free()
+	
+	## TODO: Optimize instead of recreating every time
+	weapon_dictionary.clear()
+	weapon_list.clear()
+	weapon_scene_cache.clear()
+	for _item:ItemResource in weapon_inventory.list:
+		var _path:String = _item.scene_path
+		var _scene:PackedScene = load(_path)
+		weapon_scene_cache.append(_scene)
+		var _weapon:Weapon = _add_new_weapon_from_scene(_scene)
+		weapon_list.append(_weapon)
+		weapon_dictionary[_path] = _weapon
+	
+	weapon_inventory.updated.connect(_update_weapon_inventory)
+	
+	weapon_inventory.selected_changed.connect(set_weapon_index)
+	set_weapon_index()
 
 func _setup_input_connection()->void:
-	var _input_resource:InputResource = resource_node.get_resource("input")
-	assert(_input_resource != null)
+	input_resource = resource_node.get_resource("input")
+	assert(input_resource != null)
 	
-	_input_resource.switch_weapon.connect(_on_switch_weapon)
-	
-	# in case used with PoolNode
-	tree_exiting.connect(_input_resource.switch_weapon.disconnect.bind(_on_switch_weapon), CONNECT_ONE_SHOT)
+	input_resource.switch_weapon.connect(_on_switch_weapon)
 
-func add_new_weapon_from_scene(scene:PackedScene)->void:
+func _add_new_weapon_from_scene(scene:PackedScene)->Weapon:
 	var _weapon:Weapon = scene.instantiate() as Weapon
 	assert(_weapon != null, "failed instantiation")
 	# configuration before adding to tree and calling _ready
 	_weapon.enabled = false
 	_weapon.resource_node = resource_node
 	_weapon.collision_mask = collision_mask
-	if make_unique_damage:
-		_weapon.damage_data_resource = _weapon.damage_data_resource.duplicate()
+	_weapon.damage_data_resource = _weapon.damage_data_resource.duplicate()
 	
 	add_child(_weapon)
-	weapon_list.append(_weapon)
+	return _weapon
 
+func _update_weapon_inventory()->void:
+	weapon_list.clear()
+	for _item:ItemResource in weapon_inventory.list:
+		var _path:String = _item.scene_path
+		if weapon_dictionary.has(_path):
+			var _weapon:Weapon = weapon_dictionary[_path]
+			weapon_list.append(_weapon)
+			continue
+		var _scene:PackedScene = load(_path)
+		weapon_scene_cache.append(_scene)
+		var _weapon:Weapon = _add_new_weapon_from_scene(_scene)
+		weapon_list.append(_weapon)
+		weapon_dictionary[_path] = _weapon
+	
+	set_weapon_index()
 
 func _on_switch_weapon(dir:int)->void:
 	if dir == 1:
-		set_weapon_index(weapon_index +1)
+		weapon_inventory.set_selected(weapon_inventory.selected -1)
 	elif dir == -1:
-		set_weapon_index(weapon_index -1)
+		weapon_inventory.set_selected(weapon_inventory.selected +1)
 
-func set_weapon_index(value:int)->void:
+func set_weapon_index()->void:
 	if weapon_list.is_empty():
-		weapon_index = -1
 		return
 	
 	if current_weapon != null:
 		current_weapon.set_enabled(false)
 		current_weapon = null
 	
-	weapon_index = abs(value + weapon_list.size()) % weapon_list.size()
-	
-	current_weapon = weapon_list[weapon_index]
+	current_weapon = weapon_list[weapon_inventory.selected]
 	current_weapon.set_enabled(true)
 	weapon_changed.emit()
 

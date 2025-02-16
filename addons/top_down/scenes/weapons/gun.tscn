@@ -15,6 +15,7 @@ critical_multiply = 1.5
 status_list = Array[ExtResource("4_ycuyb")]([])
 hit_list = []
 report_callback = Callable()
+kickback_strength = 0.0
 transmission_name = &""
 state = -1
 valid = true

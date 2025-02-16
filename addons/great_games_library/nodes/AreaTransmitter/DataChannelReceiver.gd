@@ -49,4 +49,6 @@ func receive(transmission_resource:TransmissionResource)->void:
 		return
 	
 	transmission_resource.process(resource_node)
+	
+	# Option to do processsing externally
 	transmission_received.emit(transmission_resource)

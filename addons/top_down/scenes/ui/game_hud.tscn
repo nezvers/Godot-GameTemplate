@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://deuehdcbbm5c1"]
+[gd_scene load_steps=20 format=3 uid="uid://deuehdcbbm5c1"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/InfoTracker.gd" id="1_4rtxu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_screen/HealthPanel.gd" id="1_d7qi2"]
@@ -14,6 +14,10 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/VisibilityComponent.gd" id="10_lso8u"]
 [ext_resource type="Script" path="res://addons/top_down/scenes/ui/wave_label.gd" id="13_pcln8"]
 [ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="14_7r27p"]
+[ext_resource type="Texture2D" uid="uid://dw8ekgue5ae2" path="res://addons/top_down/assets/images/gui/slot_frame_2.png" id="15_5kgus"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_screen/UiWeaponInventory.gd" id="15_axu6d"]
+[ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="16_kq6ag"]
+[ext_resource type="Texture2D" uid="uid://m0bemqpc6p1e" path="res://addons/top_down/assets/images/gui/slot_frame.png" id="18_mfcqm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpmqm"]
 
@@ -110,3 +114,100 @@ label = NodePath(".")
 fight_mode_resource = ExtResource("4_bm84l")
 wave_count_resource = ExtResource("14_7r27p")
 tweened_node = NodePath("..")
+
+[node name="WeaponInventory" type="HBoxContainer" parent="." node_paths=PackedStringArray("prefab_slot_node")]
+offset_left = 10.0
+offset_top = 244.0
+offset_right = 86.0
+offset_bottom = 260.0
+theme_override_constants/separation = 1
+script = ExtResource("15_axu6d")
+prefab_slot_node = NodePath("Slot1")
+inventory_resource = ExtResource("16_kq6ag")
+selected_texture = ExtResource("18_mfcqm")
+slot_texture = ExtResource("15_5kgus")
+
+[node name="Slot1" type="TextureRect" parent="WeaponInventory"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_5kgus")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Icon" type="TextureRect" parent="WeaponInventory/Slot1"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+offset_right = 16.0
+offset_bottom = 16.0
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Slot2" type="TextureRect" parent="WeaponInventory"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_5kgus")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Icon" type="TextureRect" parent="WeaponInventory/Slot2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Slot3" type="TextureRect" parent="WeaponInventory"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_5kgus")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Icon" type="TextureRect" parent="WeaponInventory/Slot3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Slot4" type="TextureRect" parent="WeaponInventory"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_5kgus")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Icon" type="TextureRect" parent="WeaponInventory/Slot4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Slot5" type="TextureRect" parent="WeaponInventory"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_5kgus")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Icon" type="TextureRect" parent="WeaponInventory/Slot5"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+expand_mode = 2
+stretch_mode = 4
+flip_h = true

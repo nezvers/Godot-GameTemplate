@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemCollectionResource" load_steps=3 format=3 uid="uid://btej3lqnjytbl"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/ItemResource.gd" id="1_wqjr1"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/ItemCollectionResource.gd" id="2_ctn56"]
+
+[resource]
+resource_name = "Player Weapon Inventory"
+script = ExtResource("2_ctn56")
+list = Array[ExtResource("1_wqjr1")]([])
+selected = 0
+max_items = 5
+version = 0
+not_saved = false

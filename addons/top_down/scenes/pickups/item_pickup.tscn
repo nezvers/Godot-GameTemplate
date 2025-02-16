@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0f2wib8tyow0"]
+
+[ext_resource type="PackedScene" uid="uid://bm0cdv63uc8am" path="res://addons/top_down/scenes/pickups/pickup.tscn" id="1_ffask"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/ItemPickup.gd" id="2_r0an6"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="3_4bbay"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="3_fay7m"]
+[ext_resource type="AudioStream" uid="uid://bo4pd7t8d2s2i" path="res://addons/top_down/assets/sounds/pickup_5.wav" id="4_25psd"]
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="4_r0lbw"]
+
+[sub_resource type="Resource" id="Resource_ig3eg"]
+resource_name = "Item Pickup"
+script = ExtResource("3_4bbay")
+pitch_min = 0.98
+pitch_max = 1.4
+volume = 0.0
+retrigger_time = 0.032
+pitch_add = 0.0
+pitch_cooldown = 0.0
+pitch_return = 0.0
+sound = ExtResource("4_25psd")
+
+[sub_resource type="Animation" id="Animation_rkij2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xlg62"]
+resource_name = "flow"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(0.5, 2, 0.2, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0), Vector2(0, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 1.13333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.174533, -0.244346]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8j3g8"]
+_data = {
+"RESET": SubResource("Animation_rkij2"),
+"flow": SubResource("Animation_xlg62")
+}
+
+[node name="ItemPickup" node_paths=PackedStringArray("icon_sprite", "data_transmitter") instance=ExtResource("1_ffask")]
+script = ExtResource("2_r0an6")
+icon_sprite = NodePath("Pivot/Icon")
+data_transmitter = NodePath("AreaTransmitter2D/DataChannelTransmitter")
+sound_resource = SubResource("Resource_ig3eg")
+
+[node name="AreaTransmitter2D" parent="." index="0"]
+visible = false
+
+[node name="DataChannelTransmitter" type="Node" parent="AreaTransmitter2D" index="1"]
+script = ExtResource("3_fay7m")
+
+[node name="Shadow" type="Sprite2D" parent="." index="2"]
+modulate = Color(0, 0.166667, 1, 0.168627)
+texture = ExtResource("4_r0lbw")
+
+[node name="Pivot" type="Node2D" parent="." index="3"]
+position = Vector2(0, -8)
+
+[node name="Icon" type="Sprite2D" parent="Pivot" index="0"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot/Icon" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_8j3g8")
+}
+autoplay = "flow"
