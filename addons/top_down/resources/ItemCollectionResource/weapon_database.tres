@@ -12,30 +12,34 @@
 [sub_resource type="Resource" id="Resource_q51dg"]
 resource_name = "Gun"
 script = ExtResource("1_bo3ff")
-scene_path = "res://addons/top_down/scenes/weapons/gun.tscn"
 icon = ExtResource("2_jrlm3")
+scene_path = "res://addons/top_down/scenes/weapons/gun.tscn"
 type = 0
+unlocked = true
 
 [sub_resource type="Resource" id="Resource_kxyw2"]
 resource_name = "Shotgun"
 script = ExtResource("1_bo3ff")
-scene_path = "res://addons/top_down/scenes/weapons/shotgun.tscn"
 icon = ExtResource("3_1j2rw")
+scene_path = "res://addons/top_down/scenes/weapons/shotgun.tscn"
 type = 0
+unlocked = true
 
 [sub_resource type="Resource" id="Resource_qyvt1"]
 resource_name = "Assault Riffle"
 script = ExtResource("1_bo3ff")
-scene_path = "res://addons/top_down/scenes/weapons/assault_riffle.tscn"
 icon = ExtResource("4_fglbe")
+scene_path = "res://addons/top_down/scenes/weapons/assault_riffle.tscn"
 type = 0
+unlocked = true
 
 [sub_resource type="Resource" id="Resource_ec5le"]
 resource_name = "Sword"
 script = ExtResource("1_bo3ff")
-scene_path = "res://addons/top_down/scenes/weapons/sword.tscn"
 icon = ExtResource("5_n1on6")
+scene_path = "res://addons/top_down/scenes/weapons/sword.tscn"
 type = 0
+unlocked = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sw7pp"]
 atlas = ExtResource("6_ot0bc")
@@ -44,9 +48,10 @@ region = Rect2(32, 0, 16, 16)
 [sub_resource type="Resource" id="Resource_wshng"]
 resource_name = "Zombie Slash"
 script = ExtResource("1_bo3ff")
-scene_path = "res://addons/top_down/scenes/weapons/zombie_attack.tscn"
 icon = SubResource("AtlasTexture_sw7pp")
+scene_path = "res://addons/top_down/scenes/weapons/zombie_attack.tscn"
 type = 0
+unlocked = false
 
 [resource]
 script = ExtResource("2_tekla")

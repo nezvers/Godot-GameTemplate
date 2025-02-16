@@ -1,53 +1,10 @@
-[gd_scene load_steps=17 format=4 uid="uid://3betq3gbp57h"]
+[gd_scene load_steps=7 format=4 uid="uid://3betq3gbp57h"]
 
 [ext_resource type="PackedScene" uid="uid://cpjckxc4g3s0w" path="res://addons/top_down/scenes/levels/room_template.tscn" id="1_y7b64"]
 [ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="2_udm57"]
-[ext_resource type="PackedScene" uid="uid://d0f2wib8tyow0" path="res://addons/top_down/scenes/pickups/item_pickup.tscn" id="3_sl16h"]
-[ext_resource type="Texture2D" uid="uid://cmrj6rrgbfvlg" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="4_kbikv"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/WeaponItemResource.gd" id="5_hva2c"]
-[ext_resource type="Texture2D" uid="uid://dowxjnhdgsmac" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="6_gd7wj"]
-[ext_resource type="Texture2D" uid="uid://b0wnk1hh6fkkd" path="res://addons/top_down/assets/images/weapon/gun_3.png" id="7_4awyi"]
-[ext_resource type="Texture2D" uid="uid://bi8g0elk5ljha" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="8_eogix"]
-[ext_resource type="Texture2D" uid="uid://b401nw0koxhnk" path="res://addons/top_down/assets/images/vfx/slash_2_strip5.png" id="9_x16ve"]
-
-[sub_resource type="Resource" id="Resource_hempi"]
-resource_name = "Gun"
-script = ExtResource("5_hva2c")
-scene_path = "res://addons/top_down/scenes/weapons/gun.tscn"
-icon = ExtResource("4_kbikv")
-type = 0
-
-[sub_resource type="Resource" id="Resource_8fwb3"]
-resource_name = "Shotgun"
-script = ExtResource("5_hva2c")
-scene_path = "res://addons/top_down/scenes/weapons/shotgun.tscn"
-icon = ExtResource("6_gd7wj")
-type = 0
-
-[sub_resource type="Resource" id="Resource_raoaq"]
-resource_name = "Assault Riffle"
-script = ExtResource("5_hva2c")
-scene_path = "res://addons/top_down/scenes/weapons/assault_riffle.tscn"
-icon = ExtResource("7_4awyi")
-type = 0
-
-[sub_resource type="Resource" id="Resource_gk3jo"]
-resource_name = "Sword"
-script = ExtResource("5_hva2c")
-scene_path = "res://addons/top_down/scenes/weapons/sword.tscn"
-icon = ExtResource("8_eogix")
-type = 0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sw7pp"]
-atlas = ExtResource("9_x16ve")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="Resource" id="Resource_luxgl"]
-resource_name = "Zombie Slash"
-script = ExtResource("5_hva2c")
-scene_path = "res://addons/top_down/scenes/weapons/zombie_attack.tscn"
-icon = SubResource("AtlasTexture_sw7pp")
-type = 0
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/StartingWeaponSpawner.gd" id="3_oaxvf"]
+[ext_resource type="Resource" uid="uid://bytbvhnnajqxd" path="res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres" id="4_8dsll"]
+[ext_resource type="Resource" uid="uid://b6mldf5iax3rj" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="4_vo3ax"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_dg6si"]
 points = PackedVector2Array(0, 8, 16, 0, 0, -8, -16, 0)
@@ -66,27 +23,7 @@ scene_path = "res://addons/top_down/scenes/levels/room_0.tscn"
 [node name="WallLayer_Ysorted" parent="." index="2"]
 tile_map_data = PackedByteArray("AAAIAPz/AAAAAAAAAAASAPz/AAACAAAAAAAIAAYAAAADAAAAAAAJAAYAAAABAAIAAAAKAAYAAAABAAIAAAALAAYAAAABAAIAAAAMAAYAAAABAAIAAAANAAYAAAABAAIAAAAOAAYAAAABAAIAAAAPAAYAAAABAAIAAAAQAAYAAAABAAIAAAARAAYAAAABAAIAAAASAAUAAAAAAAIAAAASAAQAAAAAAAIAAAASAAMAAAAAAAIAAAASAAIAAAAAAAIAAAASAAEAAAAAAAIAAAASAAAAAAAAAAIAAAASAP//AAAAAAIAAAASAP7/AAAAAAIAAAASAP3/AAAAAAIAAAASAAYAAAABAAAAAAAIAAUAAAAAAAEAAAAIAAQAAAAAAAEAAAAIAAMAAAAAAAEAAAAIAAIAAAAAAAEAAAAIAAEAAAAAAAEAAAAIAAAAAAAAAAEAAAAIAP//AAAAAAEAAAAIAP7/AAAAAAEAAAAIAP3/AAAAAAEAAAAJAPz/AAABAAEAAAAKAPz/AAABAAEAAAALAPz/AAABAAEAAAAMAPz/AAABAAEAAAANAPz/AAABAAEAAAAOAPz/AAABAAEAAAAPAPz/AAABAAEAAAAQAPz/AAABAAEAAAARAPz/AAABAAEAAAA=")
 
-[node name="ItemPickup" parent="WallLayer_Ysorted" index="0" instance=ExtResource("3_sl16h")]
-position = Vector2(163, 129)
-item_resource = SubResource("Resource_hempi")
-
-[node name="ItemPickup2" parent="WallLayer_Ysorted" index="1" instance=ExtResource("3_sl16h")]
-position = Vector2(182, 137)
-item_resource = SubResource("Resource_8fwb3")
-
-[node name="ItemPickup3" parent="WallLayer_Ysorted" index="2" instance=ExtResource("3_sl16h")]
-position = Vector2(200, 147)
-item_resource = SubResource("Resource_raoaq")
-
-[node name="ItemPickup4" parent="WallLayer_Ysorted" index="3" instance=ExtResource("3_sl16h")]
-position = Vector2(216, 155)
-item_resource = SubResource("Resource_gk3jo")
-
-[node name="ItemPickup5" parent="WallLayer_Ysorted" index="4" instance=ExtResource("3_sl16h")]
-position = Vector2(232, 163)
-item_resource = SubResource("Resource_luxgl")
-
-[node name="StaticBody2D" parent="WallLayer_Ysorted" index="7"]
+[node name="StaticBody2D" parent="WallLayer_Ysorted" index="2"]
 tile_shape = SubResource("ConvexPolygonShape2D_dg6si")
 
 [node name="X8_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="0"]
@@ -267,3 +204,19 @@ polygon = PackedVector2Array(0, 8, 16, 0, 0, -8, -16, 0)
 
 [node name="PlayerSpawner" parent="." index="7"]
 position = Vector2(120, 121)
+
+[node name="StartingWeapon" type="Node2D" parent="." index="11" node_paths=PackedStringArray("exit_nodes", "position_nodes")]
+script = ExtResource("3_oaxvf")
+exit_nodes = [NodePath("../Behind/Stairs")]
+position_nodes = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
+weapon_database = ExtResource("4_8dsll")
+weapon_pickup_instance_resource = ExtResource("4_vo3ax")
+
+[node name="Marker2D" type="Marker2D" parent="StartingWeapon" index="0"]
+position = Vector2(157, 118)
+
+[node name="Marker2D2" type="Marker2D" parent="StartingWeapon" index="1"]
+position = Vector2(181, 131)
+
+[node name="Marker2D3" type="Marker2D" parent="StartingWeapon" index="2"]
+position = Vector2(203, 141)

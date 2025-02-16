@@ -1,6 +1,8 @@
 class_name ItemPickup
 extends Node2D
 
+signal success
+
 @export var item_resource:ItemResource
 
 @export var icon_sprite:Sprite2D
@@ -19,7 +21,7 @@ func _ready() -> void:
 	_transmission_resource.item_resource = item_resource
 	data_transmitter.transmission_resource = _transmission_resource
 	
-	data_transmitter.success.connect(_on_success, CONNECT_ONE_SHOT)
+	data_transmitter.success.connect(prepare_remove, CONNECT_ONE_SHOT)
 	data_transmitter.set_enabled(false)
 	get_tree().physics_frame.connect(_delay_enable, CONNECT_ONE_SHOT)
 
@@ -27,8 +29,9 @@ func _ready() -> void:
 func _delay_enable()->void:
 	get_tree().physics_frame.connect(data_transmitter.set_enabled.bind(true), CONNECT_ONE_SHOT)
 
-func _on_success()->void:
+func prepare_remove()->void:
 	data_transmitter.set_enabled(false)
 	sound_resource.play_managed()
+	success.emit()
 	## TODO: DO proper VFX
 	queue_free()
