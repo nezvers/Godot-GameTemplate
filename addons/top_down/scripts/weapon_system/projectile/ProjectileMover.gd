@@ -59,7 +59,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return _warnings
 
 func _ready()->void:
-	move_direction = _to_local_direction(projectile.direction).normalized()
+	move_direction = _to_normalized_direction(projectile.direction).normalized()
 	
 	remaining_bounces = max(max_bounce, 0) + 1
 	
@@ -105,7 +105,7 @@ func _ready()->void:
 			move_tween.finished.connect(_lerp_finished, CONNECT_ONE_SHOT)
 
 
-func _to_local_direction(dir:Vector2)->Vector2:
+func _to_normalized_direction(dir:Vector2)->Vector2:
 	return dir * (Vector2.ONE / projectile.axis_multiplier_resource.value)
 
 
@@ -178,7 +178,7 @@ func _physics_process(delta:float)->void:
 					set_physics_process(false)
 					break
 				
-				move_direction = _to_local_direction(projectile.direction.bounce(_collision.normal)).normalized()
+				move_direction = _to_normalized_direction(projectile.direction.bounce(_collision.normal)).normalized()
 				projectile.direction = move_direction * projectile.axis_multiplier_resource.value
 				shape_cast.rotation = projectile.direction.angle()
 				bounce_position.emit()

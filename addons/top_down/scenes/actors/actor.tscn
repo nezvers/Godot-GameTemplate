@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=49 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -20,7 +20,6 @@
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="14_7u4bv"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/FixSpawnOverlap.gd" id="14_c17ey"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="14_gnke1"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTrigger.gd" id="16_f6cga"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleDeath.gd" id="18_634cs"]
@@ -213,6 +212,7 @@ _data = {
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_block_on_wall = false
+floor_max_angle = 1.40848
 platform_on_leave = 2
 platform_floor_layers = 0
 
@@ -271,15 +271,10 @@ libraries = {
 "": SubResource("AnimationLibrary_tbujk")
 }
 
-[node name="FixSpawnOverlap" type="ShapeCast2D" parent="." node_paths=PackedStringArray("character_body", "collision_shape")]
-enabled = false
-script = ExtResource("14_c17ey")
-character_body = NodePath("..")
-collision_shape = NodePath("../CollisionShape2D")
-
-[node name="MoverTopDown2D" type="Node" parent="." node_paths=PackedStringArray("character", "resource_node")]
+[node name="MoverTopDown2D" type="ShapeCast2D" parent="." node_paths=PackedStringArray("character", "collision_shape", "resource_node")]
 script = ExtResource("5_3rf64")
 character = NodePath("..")
+collision_shape = NodePath("../CollisionShape2D")
 axis_multiplier_resource = ExtResource("14_7u4bv")
 resource_node = NodePath("../ResourceNode")
 

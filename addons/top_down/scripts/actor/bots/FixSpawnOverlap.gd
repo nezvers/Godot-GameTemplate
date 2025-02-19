@@ -24,6 +24,7 @@ func _fix(remaining:int = 16)->void:
 	var average_normal:Vector2
 	for i:int in _colision_count:
 		average_normal += get_collision_normal(i)
+		
 	average_normal = average_normal.normalized()
 	character_body.global_position += average_normal * move_distance
 	if remaining < 1:
