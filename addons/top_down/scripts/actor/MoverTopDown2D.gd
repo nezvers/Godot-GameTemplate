@@ -104,6 +104,8 @@ func _remove_overlap()->void:
 			if _character_distance.length_squared() > _distance.length_squared():
 				_move_character(_collider, _rect_distance(_distance))
 			else:
+				## Both are inside each other
+				## TODO: do calculation by summing other collision shape
 				_move_character(_collider, _distance * 2)
 			continue
 		_solid_count += 1
