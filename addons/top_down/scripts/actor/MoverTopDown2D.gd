@@ -18,6 +18,7 @@ extends ShapeCast2D
 
 @export var debug:bool
 
+const MAX_SLIDES:int = 4
 
 ## Virtual buttons to react to
 var input_resource:InputResource
@@ -66,12 +67,12 @@ func _ready()->void:
 	tree_exiting.connect(_push_resource.impulse_event.disconnect.bind(add_impulse), CONNECT_ONE_SHOT)
 
 func _physics_process(delta:float)->void:
-	_remove_overlap()
+	#_remove_overlap()
 	
 	var _target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis
 	velocity += get_impulse(velocity, _target_velocity, actor_stats_resource.acceleration, delta)
 	velocity *= axis_multiplier_resource.value
-	character.global_position += velocity * delta
+	move_and_slide(delta)
 	velocity *= axis_compensation
 
 
@@ -122,3 +123,20 @@ func _rect_distance(distance:Vector2)->Vector2:
 
 func _move_character(inst:CharacterBody2D, distance:Vector2)->void:
 	inst.move_and_collide(distance)
+
+func move_and_slide(delta:float)->void:
+	var _motion:Vector2 = velocity * delta
+	
+	for _iteration:int in MAX_SLIDES:
+		var _collision:KinematicCollision2D = character.move_and_collide(_motion) #maybe recovery info too
+		if _collision == null:
+			break
+		if _collision != null:
+			var _normal:Vector2 = (_collision.get_normal() * axis_compensation).normalized()
+			
+			_motion = (_motion * axis_compensation).slide(_normal) * axis_multiplier_resource.value
+			velocity = (velocity * axis_compensation).slide(_normal) * axis_multiplier_resource.value
+			
+			var _dot = (_motion * axis_compensation).normalized().dot(-_collision.get_normal() * axis_compensation)
+			_motion *= _dot
+			velocity *= _dot
