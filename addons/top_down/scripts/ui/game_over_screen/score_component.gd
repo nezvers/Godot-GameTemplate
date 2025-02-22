@@ -7,7 +7,7 @@ extends Node
 func _ready()->void:
 	try_again_button.grab_focus.call_deferred()
 	try_again_button.pressed.connect(on_try_again_pressed)
-	score_label.text = "Score: " + str(score_resource.point_count)
+	score_label.text = "Score: " + str(score_resource.value)
 
 func on_try_again_pressed()->void:
 	score_resource.reset_resource()

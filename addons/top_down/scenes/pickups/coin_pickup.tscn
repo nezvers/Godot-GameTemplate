@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://bvfkka3li031y"]
+
+[ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_mf3v2"]
+[ext_resource type="Texture2D" uid="uid://hasnr5563xhg" path="res://addons/top_down/assets/images/items/coin_8x8_strip3.png" id="2_yn7v4"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="3_b48eg"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/CollectingPoint.gd" id="4_rl642"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="5_2nwea"]
+[ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="5_lp18v"]
+[ext_resource type="Resource" uid="uid://bjtsmmvr7yblf" path="res://addons/top_down/resources/sounds/coin_pickup.tres" id="6_87rvl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2255k"]
+radius = 32.0
+
+[sub_resource type="Animation" id="Animation_7exxp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5fcg2"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sc0pb"]
+_data = {
+"RESET": SubResource("Animation_7exxp"),
+"idle": SubResource("Animation_5fcg2")
+}
+
+[node name="CoinPickup" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1, 0.5)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2255k")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 0.983333, 0, 0.168627)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_mf3v2")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -4)
+texture = ExtResource("2_yn7v4")
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_sc0pb")
+}
+autoplay = "idle"
+
+[node name="PoolNode" type="Node" parent="."]
+script = ExtResource("3_b48eg")
+
+[node name="CollectingPoint" type="Node" parent="." node_paths=PackedStringArray("moved_node", "area", "collision_shape", "pool_node")]
+script = ExtResource("4_rl642")
+moved_node = NodePath("..")
+collision_mask = 2
+area = NodePath("../Area2D")
+collision_shape = NodePath("../Area2D/CollisionShape2D")
+point_resource = ExtResource("5_2nwea")
+pool_node = NodePath("../PoolNode")
+player_reference = ExtResource("5_lp18v")
+sound_collect = ExtResource("6_87rvl")

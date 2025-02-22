@@ -67,7 +67,7 @@ func _ready()->void:
 	tree_exiting.connect(_push_resource.impulse_event.disconnect.bind(add_impulse), CONNECT_ONE_SHOT)
 
 func _physics_process(delta:float)->void:
-	#_remove_overlap()
+	_remove_overlap()
 	
 	var _target_velocity:Vector2 = actor_stats_resource.max_speed * input_resource.axis
 	velocity += get_impulse(velocity, _target_velocity, actor_stats_resource.acceleration, delta)
@@ -132,11 +132,7 @@ func move_and_slide(delta:float)->void:
 		if _collision == null:
 			break
 		if _collision != null:
-			var _normal:Vector2 = (_collision.get_normal() * axis_compensation).normalized()
+			var _normal:Vector2 = (_collision.get_normal() * axis_multiplier_resource.value).normalized()
 			
-			_motion = (_motion * axis_compensation).slide(_normal) * axis_multiplier_resource.value
+			_motion = (_collision.get_remainder() * axis_compensation).slide(_normal) * axis_multiplier_resource.value
 			velocity = (velocity * axis_compensation).slide(_normal) * axis_multiplier_resource.value
-			
-			var _dot = (_motion * axis_compensation).normalized().dot(-_collision.get_normal() * axis_compensation)
-			_motion *= _dot
-			velocity *= _dot

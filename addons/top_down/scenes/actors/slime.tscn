@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://oo6imbknouqo"]
+[gd_scene load_steps=43 format=3 uid="uid://oo6imbknouqo"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_0dxwo"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_kb6ya"]
@@ -15,8 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="13_6l5hi"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="13_woinq"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="14_b55j1"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/AddPoint.gd" id="15_eqhev"]
-[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="16_y5be2"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="17_isoya"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/SlimeSplit.gd" id="20_dofcb"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="21_7bapl"]
@@ -261,32 +259,27 @@ libraries = {
 sound_resource_dead = ExtResource("11_upwne")
 dead_vfx_instance_resource = ExtResource("12_fht2r")
 
-[node name="DamageSetup" parent="." index="14"]
+[node name="DamageSetup" parent="." index="13"]
 resistance_list = Array[ExtResource("13_woinq")]([SubResource("Resource_7dwox")])
 
-[node name="ZombieInput" parent="." index="16" node_paths=PackedStringArray("resource_node") instance=ExtResource("13_6l5hi")]
+[node name="ZombieInput" parent="." index="15" node_paths=PackedStringArray("resource_node") instance=ExtResource("13_6l5hi")]
 resource_node = NodePath("../ResourceNode")
 
-[node name="SlashAttack" parent="." index="17" node_paths=PackedStringArray("resource_node") instance=ExtResource("14_b55j1")]
+[node name="SlashAttack" parent="." index="16" node_paths=PackedStringArray("resource_node") instance=ExtResource("14_b55j1")]
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="AddPoint" type="Node" parent="." index="18" node_paths=PackedStringArray("resource_node")]
-script = ExtResource("15_eqhev")
-resource_node = NodePath("../ResourceNode")
-score_resource = ExtResource("16_y5be2")
-
-[node name="PoolNode" type="Node" parent="." index="19" node_paths=PackedStringArray("animation_player_list", "listen_node")]
+[node name="PoolNode" type="Node" parent="." index="17" node_paths=PackedStringArray("animation_player_list", "listen_node")]
 script = ExtResource("17_isoya")
 animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="18" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("21_7bapl")
 resource_node = NodePath("../ResourceNode")
 
-[node name="SlimeSplit" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node", "position_node", "active_enemy")]
+[node name="SlimeSplit" type="Node" parent="." index="19" node_paths=PackedStringArray("resource_node", "position_node", "active_enemy")]
 script = ExtResource("20_dofcb")
 resource_node = NodePath("../ResourceNode")
 split_instance_resource = ExtResource("21_kcmjb")

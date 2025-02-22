@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -19,13 +19,10 @@
 [ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="11_p4kmh"]
 [ext_resource type="Resource" uid="uid://byppueuo3drya" path="res://addons/top_down/resources/sounds/damage.tres" id="11_wwbua"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="14_7u4bv"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="14_b0amg"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageCooldown.gd" id="14_gnke1"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleTrigger.gd" id="16_f6cga"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/HoleDeath.gd" id="18_634cs"]
 [ext_resource type="Resource" uid="uid://xbek2osd7l4w" path="res://addons/top_down/resources/InstanceResources/vfx/damage_points_instance_resource.tres" id="22_nljy0"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="24_qvwru"]
-[ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="25_bssfp"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/DamageDisplay.gd" id="26_oudld"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageSetup.gd" id="28_oavm0"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/StatusSetup.gd" id="29_t6rdw"]
@@ -309,12 +306,6 @@ sprite_flip = NodePath("../SpriteFlip")
 flash_animation_player = NodePath("../Body/Stretch/Sprite2D/ColorFlash")
 flash_animation = &"flash"
 sound_resource_damage = ExtResource("11_wwbua")
-
-[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("resource_node", "root_node")]
-script = ExtResource("14_b0amg")
-resource_node = NodePath("../ResourceNode")
-root_node = NodePath("..")
-drop_instance_resources = Array[ExtResource("24_qvwru")]([ExtResource("25_bssfp")])
 
 [node name="DamageDisplay" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("26_oudld")

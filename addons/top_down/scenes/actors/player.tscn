@@ -299,40 +299,40 @@ libraries = {
 "": SubResource("AnimationLibrary_bdy4l")
 }
 
-[node name="DamageCooldown" parent="." index="7"]
+[node name="DamageCooldown" parent="." index="6"]
 cooldown_time = 0.5
 
-[node name="SpriteFlip" parent="." index="8"]
+[node name="SpriteFlip" parent="." index="7"]
 flip_type = 1
 
-[node name="HoleDeath" parent="." index="11"]
+[node name="HoleDeath" parent="." index="10"]
 enabled = false
 
-[node name="ActorDamage" parent="." index="12"]
+[node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("6_wov6i")
 dead_vfx_instance_resource = ExtResource("12_yuaod")
 
-[node name="PlayerInput" type="Node" parent="." index="17" node_paths=PackedStringArray("position_node", "resource_node")]
+[node name="PlayerInput" type="Node" parent="." index="15" node_paths=PackedStringArray("position_node", "resource_node")]
 script = ExtResource("4_uihqc")
 position_node = NodePath("..")
 aim_offset = Vector2(0, 8)
 resource_node = NodePath("../ResourceNode")
 action_resource = ExtResource("13_ju15f")
 
-[node name="DebugInput" type="Node" parent="." index="18" node_paths=PackedStringArray("node")]
+[node name="DebugInput" type="Node" parent="." index="16" node_paths=PackedStringArray("node")]
 script = ExtResource("18_4qxvw")
 node = NodePath("../WeaponManager")
 function_name = &"test_drop"
 input_event = SubResource("InputEventKey_vec1p")
 debug_action_name = &"DebugItemDrop"
 
-[node name="WeaponManager" type="Node2D" parent="." index="19" node_paths=PackedStringArray("resource_node")]
+[node name="WeaponManager" type="Node2D" parent="." index="17" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("9_hpc12")
 resource_node = NodePath("../ResourceNode")
 collision_mask = 4
 item_pickup_instance_resource = ExtResource("19_pbauh")
 
-[node name="ReferencePlayer" type="Node" parent="." index="20" node_paths=PackedStringArray("reference_node", "signal_node")]
+[node name="ReferencePlayer" type="Node" parent="." index="18" node_paths=PackedStringArray("reference_node", "signal_node")]
 script = ExtResource("11_r4axh")
 reference_node = NodePath("..")
 reference_resource = ExtResource("12_l6ujm")
@@ -340,39 +340,39 @@ until_tree_exit = false
 signal_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="DashAbility" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node")]
+[node name="DashAbility" type="Node" parent="." index="19" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("16_vooxc")
 resource_node = NodePath("../ResourceNode")
 
-[node name="PlayerJuice" type="Node" parent="." index="22" node_paths=PackedStringArray("resource_node")]
+[node name="PlayerJuice" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("17_32qwh")
 resource_node = NodePath("../ResourceNode")
 enemy_damage_shake = ExtResource("18_7uk1v")
 screen_flash_animation_player = ExtResource("18_5jtne")
 player_damage_shake = ExtResource("19_d25rq")
 
-[node name="ResetHealth" type="Node" parent="." index="23" node_paths=PackedStringArray("resource_node")]
+[node name="ResetHealth" type="Node" parent="." index="21" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("24_xfk7a")
 resource_node = NodePath("../ResourceNode")
 
-[node name="CameraPositionSetter" type="Node" parent="." index="24" node_paths=PackedStringArray("target_node")]
+[node name="CameraPositionSetter" type="Node" parent="." index="22" node_paths=PackedStringArray("target_node")]
 script = ExtResource("25_s80ev")
 camera_reference = ExtResource("26_ljkqc")
 position_resource = ExtResource("27_4bh7y")
 target_node = NodePath("..")
 
-[node name="SafeTileTracker" type="Node" parent="." index="25" node_paths=PackedStringArray("actor")]
+[node name="SafeTileTracker" type="Node" parent="." index="23" node_paths=PackedStringArray("actor")]
 script = ExtResource("28_ww0nn")
 obstacle_tilemap_reference = ExtResource("29_4dv8f")
 actor = NodePath("..")
 
-[node name="HoleRecovery" type="Node" parent="." index="26" node_paths=PackedStringArray("safe_tile_tracker", "resource_node", "hole_trigger")]
+[node name="HoleRecovery" type="Node" parent="." index="24" node_paths=PackedStringArray("safe_tile_tracker", "resource_node", "hole_trigger")]
 script = ExtResource("30_n8poo")
 safe_tile_tracker = NodePath("../SafeTileTracker")
 resource_node = NodePath("../ResourceNode")
 hole_trigger = NodePath("../HoleTrigger")
 
-[node name="VisualInvulnerability" type="Node" parent="." index="27" node_paths=PackedStringArray("resource_node", "animation_player")]
+[node name="VisualInvulnerability" type="Node" parent="." index="25" node_paths=PackedStringArray("resource_node", "animation_player")]
 script = ExtResource("32_82fau")
 resource_node = NodePath("../ResourceNode")
 animation_player = NodePath("AnimationPlayer")

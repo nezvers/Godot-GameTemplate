@@ -1,13 +1,13 @@
 class_name ScoreResource
 extends SaveableResource
 
-signal points_updated
+signal updated
 
-@export var point_count:int = 0
+@export var value:int = 0
 
 func reset_resource()->void:
-	point_count = 0
+	value = 0
 
 func add_point()->void:
-	point_count += 1
-	points_updated.emit()
+	value += 1
+	updated.emit()

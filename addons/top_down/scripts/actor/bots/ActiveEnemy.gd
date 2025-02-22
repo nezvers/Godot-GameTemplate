@@ -24,7 +24,7 @@ static func insert_child(node:Node, parent_branch:ActiveEnemyResource, clear_cal
 	parent_branch.children.append(_active_enemy_resource)
 
 ## Handles counting active enemies with removing one from received branch
-static func remove_branch(branch:ActiveEnemyResource)->void:
+static func remove_branch(branch:ActiveEnemyResource, caller:ActiveEnemy)->void:
 	if !branch.nodes.is_empty():
 		return
 	
@@ -32,7 +32,7 @@ static func remove_branch(branch:ActiveEnemyResource)->void:
 		return
 	
 	if branch.clear_callback.is_valid():
-		branch.clear_callback.call()
+		branch.clear_callback.call(caller)
 	
 	if branch.parent == null:
 		return
@@ -43,7 +43,7 @@ static func remove_branch(branch:ActiveEnemyResource)->void:
 	if !branch.parent.children.is_empty():
 		return
 	
-	remove_branch(branch.parent)
+	remove_branch(branch.parent, caller)
 
 static func destroy_children_enemies(branch:ActiveEnemyResource)->void:
 	for _enemy:ActiveEnemy in branch.nodes:
@@ -64,17 +64,15 @@ var enemy_resource:ActiveEnemyResource
 
 ## trigger when instance counts as "killed", but not when replaces self
 func remove_self()->void:
+	if destroy_children:
+		# since elements gets removed from array, start from end
+		var _children_count:int = enemy_resource.children.size()
+		for i:int in _children_count:
+			var _child_branch:ActiveEnemyResource = enemy_resource.children[_children_count - 1 - i]
+			destroy_children_enemies(_child_branch)
+	
 	enemy_resource.nodes.erase(self)
-	remove_branch(enemy_resource)
-	
-	if !destroy_children:
-		return
-	
-	# since elements gets removed from array, start from end
-	var _children_count:int = enemy_resource.children.size()
-	for i:int in _children_count:
-		var _child_branch:ActiveEnemyResource = enemy_resource.children[_children_count - 1 - i]
-		destroy_children_enemies(_child_branch)
+	remove_branch(enemy_resource, self)
 
 
 func _ready()->void:
@@ -87,6 +85,7 @@ func _ready()->void:
 func _enter_tree() -> void:
 	if instance_dictionary.has(owner):
 		enemy_resource = instance_dictionary[owner]
+		instance_dictionary.erase(owner)
 	else:
 		enemy_resource = root
 	

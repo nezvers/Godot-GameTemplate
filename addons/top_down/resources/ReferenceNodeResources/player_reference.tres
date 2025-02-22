@@ -3,5 +3,5 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeResource.gd" id="1_n0bh7"]
 
 [resource]
+resource_name = "Player Reference"
 script = ExtResource("1_n0bh7")
-debug = true

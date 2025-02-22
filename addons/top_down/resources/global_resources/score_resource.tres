@@ -3,5 +3,8 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/ScoreResource.gd" id="1_ex8s8"]
 
 [resource]
+resource_name = "Score"
 script = ExtResource("1_ex8s8")
-point_count = 0
+value = 0
+version = 0
+not_saved = false

@@ -49,6 +49,8 @@ var total_damage:float
 
 var damage_multiply:float = 1.0
 
+func _init(_transmission_name:String = "")->void:
+	transmission_name = _transmission_name
 
 ## Create a new generation for a new attack action.
 ## Do it from root DamageDataResource to copy initial exported values.

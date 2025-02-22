@@ -1,6 +1,8 @@
 class_name EnemySpawner
 extends Node
 
+signal enemy_killed(enemy:ActiveEnemy)
+
 @export var enemy_manager:EnemyManager
 
 ## VFX before enemy appear
@@ -20,6 +22,7 @@ extends Node
 
 
 ## Maximum simultaneous enemies
+## TODO: influence with difficulity
 var max_allowed_count:int
 
 
@@ -96,8 +99,9 @@ func _create_enemies(spawn_position:Vector2)->void:
 	
 	enemy_manager.wave_queue.waves.front().instance_list.pick_random().instance(_enemy_config)
 
-func _erase_enemy()->void:
+func _erase_enemy(enemy:ActiveEnemy)->void:
 	enemy_count_resource.set_value(enemy_count_resource.value -1)
+	enemy_killed.emit(enemy)
 
 func _filter_free_position(position:Vector2)->bool:
 	# distance squared

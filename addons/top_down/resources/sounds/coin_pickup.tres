@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SoundResource" load_steps=3 format=3 uid="uid://bjtsmmvr7yblf"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="1_sp0v5"]
+[ext_resource type="AudioStream" uid="uid://ca030w2cpgcpi" path="res://addons/top_down/assets/sounds/pickup_6.wav" id="2_dhpjt"]
+
+[resource]
+resource_name = "Coin Pickup"
+script = ExtResource("1_sp0v5")
+pitch_min = 0.98
+pitch_max = 1.2
+volume = 0.0
+retrigger_time = 0.032
+pitch_add = 0.05
+pitch_cooldown = 0.5
+pitch_return = 1.0
+sound = ExtResource("2_dhpjt")

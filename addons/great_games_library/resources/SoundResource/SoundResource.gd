@@ -17,10 +17,10 @@ extends Resource
 ## Pitch increase when repeated fast
 @export var pitch_add:float = 0.0
 
-## How fast pitch cooldown drops
+## If triggered in this time again, a pitch is added
 @export var pitch_cooldown:float
 
-## TODO: forgot the meaning in the code
+## Time to return to original pitch
 @export var pitch_return:float
 
 ## Audio sample used
@@ -48,9 +48,9 @@ func get_pitch()->float:
 		pitch = pitch + pitch_add
 		return pitch
 	elif delta < pitch_cooldown + pitch_return:
-		var mid_pitch:float = lerp(pitch_min, pitch_max, 0.5)
+		var pitch_lerp:float = lerp(pitch_min, pitch_max, 0.5)
 		var t:float = (delta - pitch_cooldown) / pitch_return
-		pitch = lerp(pitch, mid_pitch, t)
+		pitch = lerp(pitch, pitch_lerp, t)
 	else:
 		pitch = randf_range(pitch_min, pitch_max)
 	return pitch

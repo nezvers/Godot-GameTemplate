@@ -16,7 +16,7 @@ extends Node
 
 
 func _ready()->void:
-	score_resource.points_updated.connect(update_score_label)
+	score_resource.updated.connect(update_score_label)
 	update_score_label()
 	
 	fight_mode_resource.updated.connect(update_fight_mode_label)
@@ -29,7 +29,7 @@ func _ready()->void:
 	update_active_count_label()
 
 func update_score_label()->void:
-	score_label.text = "Score: " + str(score_resource.point_count)
+	score_label.text = "Score: " + str(score_resource.value)
 
 
 func update_fight_mode_label()->void:

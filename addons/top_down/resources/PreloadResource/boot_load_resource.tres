@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PreloadResource" load_steps=39 format=3 uid="uid://bk0svoela4oim"]
+[gd_resource type="Resource" script_class="PreloadResource" load_steps=40 format=3 uid="uid://bk0svoela4oim"]
 
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="1_xiu2r"]
 [ext_resource type="Material" uid="uid://dh55irc80dvm7" path="res://addons/top_down/resources/materials/dust_particle_material.tres" id="1_xtqay"]
@@ -38,10 +38,11 @@
 [ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="26_pimrp"]
 [ext_resource type="Resource" uid="uid://3a6ok8ni15d1" path="res://addons/top_down/resources/InstanceResources/projectiles/big_jelly_projectile_instance_resource.tres" id="27_7ue2d"]
 [ext_resource type="Resource" uid="uid://b6mldf5iax3rj" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="28_gasbb"]
+[ext_resource type="Resource" uid="uid://btqugjrcxhbgl" path="res://addons/top_down/resources/InstanceResources/pickups/coin_instance_resource.tres" id="29_578yw"]
 
 [resource]
 script = ExtResource("2_eldcr")
-instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("3_c46ji"), ExtResource("4_8x83o"), ExtResource("5_s02bn"), ExtResource("6_jf3vk"), ExtResource("18_tqwp7"), ExtResource("8_dunqs"), ExtResource("21_072ou"), ExtResource("10_tit4s"), ExtResource("11_arokf"), ExtResource("12_lhi03"), ExtResource("6_17eoe"), ExtResource("7_54ik3"), ExtResource("9_qoqe2"), ExtResource("8_h8dxy"), ExtResource("9_hbiam"), ExtResource("10_mdhyn"), ExtResource("11_3xtoh"), ExtResource("12_rp42c"), ExtResource("13_xo4ug"), ExtResource("14_5kw3y"), ExtResource("15_28l83"), ExtResource("20_wd5uk"), ExtResource("25_we35y"), ExtResource("26_pimrp"), ExtResource("27_7ue2d"), ExtResource("28_gasbb")])
+instance_resource_list = Array[ExtResource("1_xiu2r")]([ExtResource("3_c46ji"), ExtResource("4_8x83o"), ExtResource("5_s02bn"), ExtResource("6_jf3vk"), ExtResource("18_tqwp7"), ExtResource("8_dunqs"), ExtResource("21_072ou"), ExtResource("10_tit4s"), ExtResource("11_arokf"), ExtResource("12_lhi03"), ExtResource("6_17eoe"), ExtResource("7_54ik3"), ExtResource("9_qoqe2"), ExtResource("8_h8dxy"), ExtResource("9_hbiam"), ExtResource("10_mdhyn"), ExtResource("11_3xtoh"), ExtResource("12_rp42c"), ExtResource("13_xo4ug"), ExtResource("14_5kw3y"), ExtResource("15_28l83"), ExtResource("20_wd5uk"), ExtResource("25_we35y"), ExtResource("26_pimrp"), ExtResource("27_7ue2d"), ExtResource("28_gasbb"), ExtResource("29_578yw")])
 particle_process_material_list = Array[Material]([ExtResource("16_7tl5n"), ExtResource("17_6o1hu")])
 shader2d_list = Array[Shader]([ExtResource("17_aoe6i"), ExtResource("18_xsa8j"), ExtResource("19_ul7r7"), ExtResource("20_ouhki"), ExtResource("21_4fwti"), ExtResource("22_kxkjv"), ExtResource("23_5yrx8")])
 canvas_material_list = Array[Material]([ExtResource("1_xtqay")])

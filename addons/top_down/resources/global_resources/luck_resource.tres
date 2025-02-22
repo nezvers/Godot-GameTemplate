@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FloatResource" load_steps=2 format=3 uid="uid://dcq3sgut7k6dh"]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/FloatResource.gd" id="1_nli3v"]
+
+[resource]
+resource_name = "Luck Resource"
+script = ExtResource("1_nli3v")
+value = 0.3
+default_value = 0.0
+version = 0
+not_saved = false

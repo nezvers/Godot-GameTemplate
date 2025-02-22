@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b1gnernv8eiu5"]
+[gd_scene load_steps=38 format=3 uid="uid://b1gnernv8eiu5"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_e3uie"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_dyii5"]
@@ -14,8 +14,6 @@
 [ext_resource type="Resource" uid="uid://bx3gvcma6vvg" path="res://addons/top_down/resources/InstanceResources/vfx/dead/zomby_crawler_dead_instance_resource.tres" id="12_m3r33"]
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="13_wn0lf"]
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="14_4rg71"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/AddPoint.gd" id="15_dhmpk"]
-[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="16_p50f2"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="17_4fh8m"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="18_dltdc"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/BloodTrail.gd" id="19_o65gd"]
@@ -246,24 +244,19 @@ resource_node = NodePath("../ResourceNode")
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="AddPoint" type="Node" parent="." index="18" node_paths=PackedStringArray("resource_node")]
-script = ExtResource("15_dhmpk")
-resource_node = NodePath("../ResourceNode")
-score_resource = ExtResource("16_p50f2")
-
-[node name="PoolNode" type="Node" parent="." index="19" node_paths=PackedStringArray("animation_player_list", "listen_node")]
+[node name="PoolNode" type="Node" parent="." index="18" node_paths=PackedStringArray("animation_player_list", "listen_node")]
 script = ExtResource("17_4fh8m")
 animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="ActiveEnemy" type="Node" parent="." index="20" node_paths=PackedStringArray("listen_node", "resource_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="19" node_paths=PackedStringArray("listen_node", "resource_node")]
 script = ExtResource("18_dltdc")
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 resource_node = NodePath("../ResourceNode")
 
-[node name="BloodTrail" type="Node" parent="." index="21" node_paths=PackedStringArray("position_node")]
+[node name="BloodTrail" type="Node" parent="." index="20" node_paths=PackedStringArray("position_node")]
 script = ExtResource("19_o65gd")
 position_node = NodePath("..")
 blood_particle_instance = ExtResource("20_gkgng")
