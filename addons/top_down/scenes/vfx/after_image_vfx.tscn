@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://buhogrlodgroj"]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/vfx/AfterImageVFX.gd" id="1_maexv"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_cw31y"]
+[ext_resource type="Texture2D" uid="uid://dlnar218r3sii" path="res://addons/top_down/assets/images/characters/plumber_16x16_strip8.png" id="2_f3rjh"]
+
+[sub_resource type="Animation" id="Animation_6kv1k"]
+resource_name = "fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.523333, 0.48, 1, 0.54902), Color(0.816667, 0, 1, 0.00784314)]
+}
+
+[sub_resource type="Animation" id="Animation_ikoyn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.816667, 0, 1, 0.00784314)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gk0wv"]
+_data = {
+"RESET": SubResource("Animation_ikoyn"),
+"fade": SubResource("Animation_6kv1k")
+}
+
+[node name="AfterImageVFX" type="Node2D" node_paths=PackedStringArray("sprite", "animation_player", "pool_node")]
+script = ExtResource("1_maexv")
+sprite = NodePath("Sprite2D")
+animation_player = NodePath("AnimationPlayer")
+animation = &"fade"
+pool_node = NodePath("PoolNode")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.816667, 0, 1, 0.00784314)
+texture = ExtResource("2_f3rjh")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gk0wv")
+}
+
+[node name="PoolNode" type="Node" parent="."]
+script = ExtResource("2_cw31y")

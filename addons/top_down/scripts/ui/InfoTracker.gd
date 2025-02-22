@@ -29,7 +29,7 @@ func _ready()->void:
 	update_active_count_label()
 
 func update_score_label()->void:
-	score_label.text = "Score: " + str(score_resource.value)
+	score_label.text = str(score_resource.value) + "G"
 
 
 func update_fight_mode_label()->void:

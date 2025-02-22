@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=60 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -26,6 +26,7 @@
 [ext_resource type="Resource" uid="uid://ddpkkj7j7ync6" path="res://addons/top_down/resources/CameraResources/enemy_damage_shake.tres" id="18_7uk1v"]
 [ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://addons/top_down/resources/CameraResources/player_damage_shake.tres" id="19_d25rq"]
 [ext_resource type="Resource" uid="uid://b6mldf5iax3rj" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="19_pbauh"]
+[ext_resource type="Resource" uid="uid://cirgsoc2387p2" path="res://addons/top_down/resources/InstanceResources/vfx/after_image_vfx.tres" id="23_uov37"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/ResetHealth.gd" id="24_xfk7a"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/CameraPositionSetter.gd" id="25_s80ev"]
 [ext_resource type="Resource" uid="uid://c5igju2sl4cdg" path="res://addons/top_down/resources/CameraResources/camera_reference.tres" id="26_ljkqc"]
@@ -315,7 +316,6 @@ dead_vfx_instance_resource = ExtResource("12_yuaod")
 [node name="PlayerInput" type="Node" parent="." index="15" node_paths=PackedStringArray("position_node", "resource_node")]
 script = ExtResource("4_uihqc")
 position_node = NodePath("..")
-aim_offset = Vector2(0, 8)
 resource_node = NodePath("../ResourceNode")
 action_resource = ExtResource("13_ju15f")
 
@@ -340,9 +340,11 @@ until_tree_exit = false
 signal_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="DashAbility" type="Node" parent="." index="19" node_paths=PackedStringArray("resource_node")]
+[node name="DashAbility" type="Node" parent="." index="19" node_paths=PackedStringArray("resource_node", "sprite")]
 script = ExtResource("16_vooxc")
 resource_node = NodePath("../ResourceNode")
+after_image_instance = ExtResource("23_uov37")
+sprite = NodePath("../Body/Stretch/Sprite2D")
 
 [node name="PlayerJuice" type="Node" parent="." index="20" node_paths=PackedStringArray("resource_node")]
 script = ExtResource("17_32qwh")
