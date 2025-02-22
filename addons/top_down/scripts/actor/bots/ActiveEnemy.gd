@@ -92,9 +92,17 @@ func _enter_tree() -> void:
 	enemy_resource.nodes.append(self)
 	
 	active_instances.append(owner)
+	
+	# Call with reference because when they are called owner can be null
+	tree_exiting.connect(_on_exiting_tree.bind(owner), CONNECT_ONE_SHOT)
 
-func _exit_tree() -> void:
-	active_instances.erase(owner)
+## owner could be null when _exit_tree() is called
+func _on_exiting_tree(owner_reference:Node2D) -> void:
+	assert(owner_reference != null)
+	active_instances.erase(owner_reference)
+	assert(!active_instances.has(owner_reference))
+	for inst:Node2D in active_instances:
+		assert(inst != null)
 
 func self_destruct()->void:
 	var _health_resource:HealthResource = resource_node.get_resource("health")

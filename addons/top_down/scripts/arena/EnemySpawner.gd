@@ -109,7 +109,9 @@ func _filter_free_position(position:Vector2)->bool:
 	
 	var _closest_dist:float = 999999.0
 	## Actual enemy instances
-	for inst:Node2D in ActiveEnemy.active_instances:
+	var instance_list:Array[Node2D] = ActiveEnemy.active_instances
+	for inst:Node2D in instance_list:
+		assert(inst != null)
 		# for finding closest length_squared is great, since it is faster without using square root.
 		var _inst_dist:float = (inst.global_position - position).length_squared()
 		if _inst_dist < _closest_dist:
