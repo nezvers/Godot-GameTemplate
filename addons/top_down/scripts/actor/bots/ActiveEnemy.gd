@@ -100,9 +100,6 @@ func _enter_tree() -> void:
 func _on_exiting_tree(owner_reference:Node2D) -> void:
 	assert(owner_reference != null)
 	active_instances.erase(owner_reference)
-	assert(!active_instances.has(owner_reference))
-	for inst:Node2D in active_instances:
-		assert(inst != null)
 
 func self_destruct()->void:
 	var _health_resource:HealthResource = resource_node.get_resource("health")
