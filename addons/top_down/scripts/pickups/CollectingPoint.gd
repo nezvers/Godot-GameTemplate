@@ -18,7 +18,9 @@ extends Node
 
 @export var sound_collect:SoundResource
 
-const SPAWN_RADIUS:float = 8.0
+@export var axis_multiplication:Vector2Resource
+
+@export var spawn_radius:float = 8.0
 
 const SPAWN_TIME:float = 0.3
 
@@ -32,7 +34,7 @@ func _ready() -> void:
 	if tween != null:
 		tween.kill()
 	tween = create_tween()
-	var _to:Vector2 = Vector2(SPAWN_RADIUS, 0.0).rotated(randf_range(0.0, TAU)) + moved_node.global_position
+	var _to:Vector2 = Vector2(spawn_radius, 0.0).rotated(randf_range(0.0, TAU)) * axis_multiplication.value + moved_node.global_position
 	tween.tween_method(_tween_position.bind(moved_node.global_position, _to), 0.0, 1.0, SPAWN_TIME).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.finished.connect(_init_area)
 	
@@ -55,7 +57,7 @@ func _on_body_enter(_body:Node2D)->void:
 		tween.kill()
 	tween = create_tween()
 	var _dir_away:Vector2 = (moved_node.global_position - player_reference.node.global_position).normalized()
-	var _offset:Vector2 = _dir_away * SPAWN_RADIUS + moved_node.global_position
+	var _offset:Vector2 = _dir_away * spawn_radius * axis_multiplication.value + moved_node.global_position
 	tween.tween_method(_tween_position.bind(moved_node.global_position, _offset), 0.0, 1.0, SPAWN_TIME).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_method(_tween_target_position.bind(_offset), 0.0, 1.0, SPAWN_TIME).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.finished.connect(_on_finished)

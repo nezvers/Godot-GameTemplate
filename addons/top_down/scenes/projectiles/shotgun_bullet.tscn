@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0dctopmkjml8"]
+[gd_scene load_steps=4 format=3 uid="uid://b0dctopmkjml8"]
 
 [ext_resource type="PackedScene" uid="uid://dc8ulx4o43ue3" path="res://addons/top_down/scenes/projectiles/bullet.tscn" id="1_fx1dm"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/HealthTransmision.gd" id="2_gkhe3"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_u8s62"]
 
 [sub_resource type="Resource" id="Resource_3poxh"]
@@ -9,24 +8,12 @@ script = ExtResource("2_u8s62")
 value = 5.0
 type = 0
 
-[sub_resource type="Resource" id="Resource_ii8uo"]
-script = ExtResource("2_gkhe3")
-value = 1.0
-transmission_name = &"health"
-state = -1
-valid = true
-version = 0
-not_saved = false
-
 [node name="ShotgunBullet" instance=ExtResource("1_fx1dm")]
 speed = 170.0
 
 [node name="ProjectileSetup" parent="." index="0"]
 base_damage = Array[ExtResource("2_u8s62")]([SubResource("Resource_3poxh")])
 kickback = 30.0
-
-[node name="DamageDataTransmitter" parent="AreaTransmitter2D" index="1"]
-transmission_resource = SubResource("Resource_ii8uo")
 
 [node name="ProjectileLifetime" parent="." index="8"]
 time = 0.5

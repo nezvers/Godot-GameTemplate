@@ -1,12 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvfkka3li031y"]
+[gd_scene load_steps=15 format=3 uid="uid://bvfkka3li031y"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_mf3v2"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/FixSpawnOverlap.gd" id="1_tigs2"]
 [ext_resource type="Texture2D" uid="uid://hasnr5563xhg" path="res://addons/top_down/assets/images/items/coin_8x8_strip3.png" id="2_yn7v4"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="3_b48eg"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/pickups/CollectingPoint.gd" id="4_rl642"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="5_2nwea"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="5_lp18v"]
 [ext_resource type="Resource" uid="uid://bjtsmmvr7yblf" path="res://addons/top_down/resources/sounds/coin_pickup.tres" id="6_87rvl"]
+[ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="8_q73te"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6f5a1"]
+size = Vector2(32, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2255k"]
 radius = 32.0
@@ -51,6 +56,13 @@ _data = {
 
 [node name="CoinPickup" type="Node2D"]
 
+[node name="FixOverlap" type="ShapeCast2D" parent="." node_paths=PackedStringArray("move_node")]
+enabled = false
+shape = SubResource("RectangleShape2D_6f5a1")
+target_position = Vector2(0, 0)
+script = ExtResource("1_tigs2")
+move_node = NodePath("..")
+
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1, 0.5)
 collision_layer = 0
@@ -91,3 +103,5 @@ point_resource = ExtResource("5_2nwea")
 pool_node = NodePath("../PoolNode")
 player_reference = ExtResource("5_lp18v")
 sound_collect = ExtResource("6_87rvl")
+axis_multiplication = ExtResource("8_q73te")
+spawn_radius = 16.0

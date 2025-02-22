@@ -7,7 +7,9 @@ extends Node
 @export var sounds_resource:SoundResource
 
 func _ready()->void:
+	data_transmitter.set_enabled(true)
 	data_transmitter.success.connect(_on_success, CONNECT_ONE_SHOT)
+	request_ready()
 
 func _on_success()->void:
 	data_transmitter.set_enabled(false)
