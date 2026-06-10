@@ -36,15 +36,17 @@ static func remove_branch(branch:ActiveEnemyResource, caller:ActiveEnemy)->void:
 	
 	if branch.parent == null:
 		return
-	
-	# TODO: Fix bug of alive grand child
-	assert(!branch.parent.children.is_empty())
-	assert(branch.parent.children.has(branch))
+
+	# Branch may already be detached from parent if a grandchild's removal
+	# walked up first (e.g. boss dies while a slime projectile is in flight).
+	# In that case the bookkeeping is already consistent; nothing to do.
+	if !branch.parent.children.has(branch):
+		return
 	branch.parent.children.erase(branch)
-	
+
 	if !branch.parent.children.is_empty():
 		return
-	
+
 	remove_branch(branch.parent, caller)
 
 static func destroy_children_enemies(branch:ActiveEnemyResource)->void:

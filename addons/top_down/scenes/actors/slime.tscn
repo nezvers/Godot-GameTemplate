@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://oo6imbknouqo"]
+[gd_scene load_steps=45 format=3 uid="uid://oo6imbknouqo"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_0dxwo"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_kb6ya"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="21_7bapl"]
 [ext_resource type="Resource" uid="uid://bwaqqrp3vlmbc" path="res://addons/top_down/resources/InstanceResources/actors/slime_small_instance_resource.tres" id="21_kcmjb"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="22_oy7xg"]
+[ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="23_diffh"]
+[ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="24_diff"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -233,6 +235,11 @@ collision_mask = 5
 [node name="ResourceNode" parent="." index="0"]
 list = Array[ExtResource("2_kb6ya")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_gytac")])
 
+[node name="DifficultyHealth" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("23_diffh")
+resource_node = NodePath("../ResourceNode")
+difficulty_resource = ExtResource("24_diff")
+
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_4ygf2")
 
@@ -269,8 +276,9 @@ resource_node = NodePath("../ResourceNode")
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="PoolNode" type="Node" parent="." index="17" node_paths=PackedStringArray("animation_player_list", "listen_node")]
+[node name="PoolNode" type="Node" parent="." index="17" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "listen_node")]
 script = ExtResource("17_isoya")
+ready_nodes = [NodePath("../DifficultyHealth")]
 animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"

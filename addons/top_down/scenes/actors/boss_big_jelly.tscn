@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dsy4mn8a4gob2"]
+[gd_scene load_steps=73 format=3 uid="uid://dsy4mn8a4gob2"]
 
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_wcxba"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_1n2e6"]
@@ -43,6 +43,8 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BigJellyShootSlime.gd" id="40_6mqnu"]
 [ext_resource type="Resource" uid="uid://3a6ok8ni15d1" path="res://addons/top_down/resources/InstanceResources/projectiles/big_jelly_projectile_instance_resource.tres" id="41_lm2bm"]
 [ext_resource type="Resource" uid="uid://htqn5bygvbq5" path="res://addons/top_down/resources/sounds/slime_throw.tres" id="43_yb7th"]
+[ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="44_diffh"]
+[ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="45_diff"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -288,6 +290,11 @@ platform_floor_layers = 0
 [node name="ResourceNode" type="Node" parent="."]
 script = ExtResource("1_wcxba")
 list = Array[ExtResource("2_1n2e6")]([SubResource("Resource_wkut0"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_tcmws")])
+
+[node name="DifficultyHealth" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("44_diffh")
+resource_node = NodePath("../ResourceNode")
+difficulty_resource = ExtResource("45_diff")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -11)

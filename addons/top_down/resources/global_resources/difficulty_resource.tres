@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DifficultyResource" format=3 uid="uid://st0m3unxtv15"]
+
+[ext_resource type="Script" uid="uid://d3fwdbrjeel8" path="res://addons/top_down/scripts/ui/title_screen/DifficultyResource.gd" id="1_diff"]
+
+[resource]
+resource_name = "Difficulty"
+script = ExtResource("1_diff")
+mode = 0
+version = 0
+not_saved = false

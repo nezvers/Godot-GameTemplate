@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://wx0lrqm8jjh2"]
+[gd_scene load_steps=42 format=3 uid="uid://wx0lrqm8jjh2"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_6nai7"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_lpgfe"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="15_r51fg"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="18_3fcet"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="19_sgvoa"]
+[ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="20_diffh"]
+[ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="21_diff"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -230,6 +232,11 @@ collision_mask = 5
 [node name="ResourceNode" parent="." index="0"]
 list = Array[ExtResource("2_lpgfe")]([SubResource("Resource_7jqce"), SubResource("Resource_vm74s"), SubResource("Resource_ltyge"), SubResource("Resource_dsnfh"), SubResource("Resource_j3dss"), SubResource("Resource_ju227"), SubResource("Resource_gytac")])
 
+[node name="DifficultyHealth" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("20_diffh")
+resource_node = NodePath("../ResourceNode")
+difficulty_resource = ExtResource("21_diff")
+
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_b46dv")
@@ -270,8 +277,9 @@ resource_node = NodePath("../ResourceNode")
 collision_mask = 2
 resource_node = NodePath("../ResourceNode")
 
-[node name="PoolNode" type="Node" parent="." index="17" node_paths=PackedStringArray("animation_player_list", "listen_node")]
+[node name="PoolNode" type="Node" parent="." index="17" node_paths=PackedStringArray("ready_nodes", "animation_player_list", "listen_node")]
 script = ExtResource("18_3fcet")
+ready_nodes = [NodePath("../DifficultyHealth")]
 animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"

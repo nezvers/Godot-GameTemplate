@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RoomStateResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/RoomStateResource.gd" id="1_rmstate"]
+
+[resource]
+resource_name = "Room State"
+script = ExtResource("1_rmstate")

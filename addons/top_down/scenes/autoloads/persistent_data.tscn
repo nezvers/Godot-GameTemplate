@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://54xijlovqgs0"]
+[gd_scene load_steps=8 format=3 uid="uid://54xijlovqgs0"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/game/PersistentData.gd" id="1_qc15f"]
 [ext_resource type="Resource" uid="uid://bk0svoela4oim" path="res://addons/top_down/resources/PreloadResource/boot_load_resource.tres" id="6_n3xuc"]
@@ -6,10 +6,11 @@
 [ext_resource type="Script" path="res://addons/great_games_library/resources/SaveableResource/SaveableResource.gd" id="17_80w5b"]
 [ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/global_resources/graphics_resource.tres" id="19_n170m"]
 [ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/global_resources/audio_settings_resource.tres" id="20_kawqs"]
+[ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="21_diff"]
 
 [node name="PersistentData" type="Node"]
 script = ExtResource("1_qc15f")
-saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs")])
+saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs"), ExtResource("21_diff")])
 data = {
 "preload_resource": ExtResource("6_n3xuc")
 }
