@@ -15,3 +15,6 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Local Godot engine binary (not part of the project)
+Godot_v*

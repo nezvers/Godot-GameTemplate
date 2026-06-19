@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://deuehdcbbm5c1"]
+[gd_scene load_steps=21 format=3 uid="uid://deuehdcbbm5c1"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/InfoTracker.gd" id="1_4rtxu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_screen/HealthPanel.gd" id="1_d7qi2"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/ui/game_screen/UiWeaponInventory.gd" id="15_axu6d"]
 [ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="16_kq6ag"]
 [ext_resource type="Texture2D" uid="uid://m0bemqpc6p1e" path="res://addons/top_down/assets/images/gui/slot_frame.png" id="18_mfcqm"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="19_rmstate"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpmqm"]
 
@@ -51,6 +52,11 @@ theme_override_font_sizes/font_size = 7
 text = "69/420"
 horizontal_alignment = 1
 
+[node name="RoomIdLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Room: "
+
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 7
@@ -76,24 +82,26 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 7
 text = "Active: 707"
 
-[node name="InfoTracker" type="Node" parent="." node_paths=PackedStringArray("score_label", "fight_mode_label", "wave_count_label", "enemy_count_label", "active_count_label")]
+[node name="InfoTracker" type="Node" parent="." node_paths=PackedStringArray("score_label", "fight_mode_label", "wave_count_label", "enemy_count_label", "active_count_label", "room_id_label")]
 script = ExtResource("1_4rtxu")
 score_resource = ExtResource("2_i7k27")
 fight_mode_resource = ExtResource("4_bm84l")
 wave_count_resource = ExtResource("5_gcfem")
 enemy_count_resource = ExtResource("6_yicht")
 enemy_instance_resource = ExtResource("7_i0f1q")
+room_state_resource = ExtResource("19_rmstate")
 score_label = NodePath("../VBoxContainer/ScoreLabel")
 fight_mode_label = NodePath("../VBoxContainer/FightMode")
 wave_count_label = NodePath("../VBoxContainer/WaveCount")
 enemy_count_label = NodePath("../VBoxContainer/EnemyCount")
 active_count_label = NodePath("../VBoxContainer/ActiveCount")
+room_id_label = NodePath("../VBoxContainer/RoomIdLabel")
 
 [node name="VisibilityComponent" type="Node" parent="." node_paths=PackedStringArray("show_list", "hide_list")]
 script = ExtResource("10_lso8u")
 bool_resource = ExtResource("4_4g1vf")
 show_list = [NodePath("../Pause")]
-hide_list = [NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer/HealthPanel/HealthLabel"), NodePath("../VBoxContainer/FightMode"), NodePath("../VBoxContainer/WaveCount"), NodePath("../VBoxContainer/EnemyCount"), NodePath("../VBoxContainer/ActiveCount")]
+hide_list = [NodePath("../VBoxContainer/RoomIdLabel"), NodePath("../VBoxContainer/ScoreLabel"), NodePath("../VBoxContainer/HealthPanel/HealthLabel"), NodePath("../VBoxContainer/FightMode"), NodePath("../VBoxContainer/WaveCount"), NodePath("../VBoxContainer/EnemyCount"), NodePath("../VBoxContainer/ActiveCount")]
 
 [node name="Pause" parent="." instance=ExtResource("5_iipjt")]
 visible = false

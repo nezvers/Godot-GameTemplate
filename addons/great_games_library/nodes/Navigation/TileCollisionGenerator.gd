@@ -6,6 +6,13 @@ extends Node
 ## Tool function to generate colliders in editor
 @export var generate_colliders:bool : set = set_generate_colliders
 
+@export_group("Clear")
+## Step 1: tick to arm clearing. Step 2: tick Clear to remove all generated colliders.
+@export var confirm_clear:bool = false
+## Tool function to remove generated colliders. Requires confirm_clear first.
+@export var clear:bool : set = set_clear
+
+@export_group("")
 ## TileMapLayer for creating obstacle tiles
 @export var tilemap_layer:TileMapLayer
 
@@ -24,6 +31,20 @@ func set_generate_colliders(value:bool)->void:
 		return
 	cleanup()
 	setup_colliders()
+
+
+func set_clear(value:bool)->void:
+	if !is_inside_tree():
+		return
+	if !Engine.is_editor_hint():
+		return
+	if !confirm_clear:
+		push_warning("TileCollisionGenerator: tick 'Confirm Clear' before clearing.")
+		return
+	# Disarm so a second clear needs re-confirmation
+	confirm_clear = false
+	notify_property_list_changed()
+	cleanup()
 
 ## Free obstacles from AstarGrid & PhysicsServer
 func cleanup() -> void:
