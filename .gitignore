@@ -24,3 +24,7 @@ game/scripts/RoomController.gd.uid
 addons/great_games_library/nodes/utility/TileVisualAutotiler.gd.uid
 addons/great_games_library/nodes/utility/BlockWallGenerator.gd.uid
 addons/great_games_library/nodes/utility/TileSceneGenerator.gd.uid
+addons/top_down/scripts/obstackles/BlockWall.gd.uid
+addons/top_down/scripts/arena/EnemySpawnPoints.gd.uid
+addons/top_down/scripts/arena/ArenaSectionAggregator.gd.uid
+addons/top_down/scripts/arena/ArenaSection.gd.uid

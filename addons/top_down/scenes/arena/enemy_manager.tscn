@@ -1,43 +1,51 @@
-[gd_scene load_steps=15 format=3 uid="uid://cfaobhr3r5ymj"]
+[gd_scene load_steps=11 format=3 uid="uid://cfaobhr3r5ymj"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemyManager.gd" id="1_agrht"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemyWaveManager.gd" id="2_8cllb"]
-[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="3_tnluv"]
-[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="4_w1qwr"]
-[ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="4_xyajb"]
-[ext_resource type="Resource" uid="uid://cjmecrxyvujlx" path="res://addons/top_down/resources/arena_resources/enemy_count_resource.tres" id="5_o2pmf"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemySpawner.gd" id="6_lu2ax"]
-[ext_resource type="Resource" uid="uid://ct10qlb66mijl" path="res://addons/top_down/resources/arena_resources/spawn_point_resource.tres" id="7_82w7a"]
-[ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="8_jcw48"]
-[ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="9_lne6j"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/arena/DropManager.gd" id="11_dyj0j"]
-[ext_resource type="Resource" uid="uid://btqugjrcxhbgl" path="res://addons/top_down/resources/InstanceResources/pickups/coin_instance_resource.tres" id="12_g7mjn"]
-[ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="13_78ysf"]
-[ext_resource type="Resource" uid="uid://dcq3sgut7k6dh" path="res://addons/top_down/resources/global_resources/luck_resource.tres" id="14_87rq8"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/ArenaSectionAggregator.gd" id="2_aggr"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/ArenaSection.gd" id="3_sect"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="4_fm"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="5_rw"]
+[ext_resource type="Resource" uid="uid://cjmecrxyvujlx" path="res://addons/top_down/resources/arena_resources/enemy_count_resource.tres" id="6_ec"]
+[ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="7_mark"]
+[ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="8_dust"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/DropManager.gd" id="9_drop"]
+[ext_resource type="Resource" uid="uid://btqugjrcxhbgl" path="res://addons/top_down/resources/InstanceResources/pickups/coin_instance_resource.tres" id="10_coin"]
+[ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="11_hp"]
+[ext_resource type="Resource" uid="uid://dcq3sgut7k6dh" path="res://addons/top_down/resources/global_resources/luck_resource.tres" id="12_luck"]
 
-[node name="EnemyManager" type="Node"]
+[node name="EnemyManager" type="Node" node_paths=PackedStringArray("section1", "section2", "section3")]
 script = ExtResource("1_agrht")
+section1 = NodePath("Section1")
+section2 = NodePath("Section2")
+section3 = NodePath("Section3")
 
-[node name="EnemyWaveManager" type="Node" parent="." node_paths=PackedStringArray("enemy_manager")]
-script = ExtResource("2_8cllb")
-fight_mode_resource = ExtResource("3_tnluv")
-wave_number_resource = ExtResource("4_xyajb")
-remaining_wave_count_resource = ExtResource("4_w1qwr")
-enemy_count_resource = ExtResource("5_o2pmf")
-enemy_manager = NodePath("..")
+[node name="Section1" type="Node" parent="."]
+script = ExtResource("3_sect")
+spawn_mark_instance_resource = ExtResource("7_mark")
+spawn_partickle_instance_resource = ExtResource("8_dust")
 
-[node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("enemy_manager")]
-script = ExtResource("6_lu2ax")
-enemy_manager = NodePath("..")
-spawn_mark_instance_resource = ExtResource("8_jcw48")
-spawn_partickle_instance_resource = ExtResource("9_lne6j")
-enemy_count_resource = ExtResource("5_o2pmf")
-spawn_point_resource = ExtResource("7_82w7a")
-fight_mode_resource = ExtResource("3_tnluv")
+[node name="Section2" type="Node" parent="." node_paths=PackedStringArray("requires")]
+script = ExtResource("3_sect")
+requires = NodePath("../Section1")
+spawn_mark_instance_resource = ExtResource("7_mark")
+spawn_partickle_instance_resource = ExtResource("8_dust")
 
-[node name="DropManager" type="Node" parent="." node_paths=PackedStringArray("enemy_spawner")]
-script = ExtResource("11_dyj0j")
-enemy_spawner = NodePath("../EnemySpawner")
-coin_instance = ExtResource("12_g7mjn")
-health_pickup_instance = ExtResource("13_78ysf")
-luck_resource = ExtResource("14_87rq8")
+[node name="Section3" type="Node" parent="." node_paths=PackedStringArray("requires")]
+script = ExtResource("3_sect")
+requires = NodePath("../Section2")
+spawn_mark_instance_resource = ExtResource("7_mark")
+spawn_partickle_instance_resource = ExtResource("8_dust")
+
+[node name="Aggregator" type="Node" parent="." node_paths=PackedStringArray("sections")]
+script = ExtResource("2_aggr")
+sections = [NodePath("../Section1"), NodePath("../Section2"), NodePath("../Section3")]
+fight_mode_resource = ExtResource("4_fm")
+remaining_wave_count_resource = ExtResource("5_rw")
+enemy_count_resource = ExtResource("6_ec")
+
+[node name="DropManager" type="Node" parent="." node_paths=PackedStringArray("sections")]
+script = ExtResource("9_drop")
+sections = [NodePath("../Section1"), NodePath("../Section2"), NodePath("../Section3")]
+coin_instance = ExtResource("10_coin")
+health_pickup_instance = ExtResource("11_hp")
+luck_resource = ExtResource("12_luck")

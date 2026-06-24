@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="2_ajxwp"]
 [ext_resource type="PackedScene" uid="uid://cm475mndno581" path="res://addons/top_down/scenes/obstacles/block_wall.tscn" id="3_whnod"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnPoint.gd" id="4_3up7b"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnQueueResource.gd" id="4_dd1v5"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="5_7frwm"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="6_t3b7o"]
 [ext_resource type="Resource" uid="uid://cwxx7lc1yjet4" path="res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres" id="7_8b3ag"]
@@ -35,9 +34,6 @@ is_boss = true
 count = 1
 instance_list = Array[ExtResource("6_t3b7o")]([ExtResource("9_j0tke")])
 
-[sub_resource type="Resource" id="Resource_4rfok"]
-script = ExtResource("4_dd1v5")
-waves = Array[ExtResource("5_7frwm")]([SubResource("Resource_avoxj"), SubResource("Resource_3f22w"), SubResource("Resource_iyyns"), SubResource("Resource_2ifak")])
 
 [node name="Room" instance=ExtResource("1_rhar3")]
 
@@ -658,67 +654,84 @@ polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
 position = Vector2(288, 288)
 polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
 
-[node name="BlockWall" parent="WallLayer_Ysorted" index="4" instance=ExtResource("3_whnod")]
+[node name="BlockWall" parent="WallLayer_Ysorted" index="4" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(288, 56)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall2" parent="WallLayer_Ysorted" index="5" instance=ExtResource("3_whnod")]
+[node name="BlockWall2" parent="WallLayer_Ysorted" index="5" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(304, 48)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall3" parent="WallLayer_Ysorted" index="6" instance=ExtResource("3_whnod")]
+[node name="BlockWall3" parent="WallLayer_Ysorted" index="6" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(320, 40)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall4" parent="WallLayer_Ysorted" index="7" instance=ExtResource("3_whnod")]
+[node name="BlockWall4" parent="WallLayer_Ysorted" index="7" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(608, 56)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall5" parent="WallLayer_Ysorted" index="8" instance=ExtResource("3_whnod")]
+[node name="BlockWall5" parent="WallLayer_Ysorted" index="8" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(624, 64)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall6" parent="WallLayer_Ysorted" index="9" instance=ExtResource("3_whnod")]
+[node name="BlockWall6" parent="WallLayer_Ysorted" index="9" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(640, 72)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall7" parent="WallLayer_Ysorted" index="10" instance=ExtResource("3_whnod")]
+[node name="BlockWall7" parent="WallLayer_Ysorted" index="10" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(640, 264)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall8" parent="WallLayer_Ysorted" index="11" instance=ExtResource("3_whnod")]
+[node name="BlockWall8" parent="WallLayer_Ysorted" index="11" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(624, 272)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall9" parent="WallLayer_Ysorted" index="12" instance=ExtResource("3_whnod")]
+[node name="BlockWall9" parent="WallLayer_Ysorted" index="12" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(608, 280)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall10" parent="WallLayer_Ysorted" index="13" instance=ExtResource("3_whnod")]
+[node name="BlockWall10" parent="WallLayer_Ysorted" index="13" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(256, 248)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall11" parent="WallLayer_Ysorted" index="14" instance=ExtResource("3_whnod")]
+[node name="BlockWall11" parent="WallLayer_Ysorted" index="14" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(272, 256)
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="BlockWall12" parent="WallLayer_Ysorted" index="15" instance=ExtResource("3_whnod")]
+[node name="BlockWall12" parent="WallLayer_Ysorted" index="15" instance=ExtResource("3_whnod") node_paths=PackedStringArray("section")]
 position = Vector2(288, 264)
+section = NodePath("../../EnemyManager/Section1")
 
 [node name="PlayerSpawner" parent="." index="7"]
 position = Vector2(460, 158)
 
-[node name="EnemyManager" parent="." index="8"]
-wave_queue = SubResource("Resource_4rfok")
+[node name="Section1" parent="EnemyManager" index="0"]
+waves = Array[ExtResource("5_7frwm")]([SubResource("Resource_avoxj"), SubResource("Resource_3f22w"), SubResource("Resource_iyyns"), SubResource("Resource_2ifak")])
 
-[node name="Spawn_1" type="Marker2D" parent="EnemySpawnPoints" index="0"]
+[node name="Spawn_1" type="Marker2D" parent="EnemySpawnPoints" index="0" node_paths=PackedStringArray("section")]
 position = Vector2(464, 311)
 script = ExtResource("4_3up7b")
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints" index="1"]
+[node name="Spawn_2" type="Marker2D" parent="EnemySpawnPoints" index="1" node_paths=PackedStringArray("section")]
 position = Vector2(735, 170)
 script = ExtResource("4_3up7b")
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints" index="2"]
+[node name="Spawn_3" type="Marker2D" parent="EnemySpawnPoints" index="2" node_paths=PackedStringArray("section")]
 position = Vector2(448, 26)
 script = ExtResource("4_3up7b")
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="Spawn_4" type="Marker2D" parent="EnemySpawnPoints" index="3"]
+[node name="Spawn_4" type="Marker2D" parent="EnemySpawnPoints" index="3" node_paths=PackedStringArray("section")]
 position = Vector2(176, 163)
 script = ExtResource("4_3up7b")
+section = NodePath("../../EnemyManager/Section1")
 
-[node name="SpawnBoss" type="Marker2D" parent="EnemySpawnPoints" index="4"]
+[node name="SpawnBoss" type="Marker2D" parent="EnemySpawnPoints" index="4" node_paths=PackedStringArray("section")]
 position = Vector2(460, 158)
 script = ExtResource("4_3up7b")
+section = NodePath("../../EnemyManager/Section1")
 boss_position = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ArenaEntry" index="1"]

@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="InstanceResource" load_steps=3 format=3 uid="uid://c05ys7ybsfv4u"]
+[gd_resource type="Resource" script_class="InstanceResource" format=3 uid="uid://c05ys7ybsfv4u"]
 
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="1_iku44"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_t77ta"]
+[ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_t77ta"]
 
 [resource]
 resource_name = "Zomby instance resource"

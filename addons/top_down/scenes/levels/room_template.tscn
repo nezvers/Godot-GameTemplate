@@ -26,8 +26,9 @@
 [ext_resource type="Resource" uid="uid://df4nqpa0at8qn" path="res://addons/top_down/resources/global_resources/transition_bool_resource.tres" id="20_kwksj"]
 [ext_resource type="Script" uid="uid://dbse7tjd7wax7" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
 [ext_resource type="Script" uid="uid://d4mgwop6ohvpb" path="res://addons/great_games_library/nodes/utility/DebugDraw.gd" id="26_l7fet"]
-[ext_resource type="Script" uid="uid://yyra3r4158q3" path="res://addons/great_games_library/nodes/utility/BlockWallGenerator.gd" id="27_tscng"]
+[ext_resource type="Script" uid="uid://yyra3r4158q3" path="res://addons/great_games_library/nodes/utility/TileSceneGenerator.gd" id="27_tscng"]
 [ext_resource type="Script" uid="uid://dl7rbourlvwco" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemySpawnPoints.gd" id="29_espp"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pkurn"]
 points = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
@@ -97,12 +98,9 @@ reference_resource = ExtResource("6_qdsw2")
 
 [node name="BlockWallGenerator" type="Node" parent="WallLayer_Ysorted" unique_id=957645594 node_paths=PackedStringArray("tilemap_layer", "container")]
 script = ExtResource("27_tscng")
-generate_block_wall = null
-revert_generate = null
-confirm_delete_tiles = null
-delete_tiles = null
 tilemap_layer = NodePath("..")
 container = NodePath("..")
+spawn_offset = Vector2(0, -8)
 
 [node name="TileVisualAutotiler" type="Node" parent="WallLayer_Ysorted" unique_id=488301003 node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
 script = ExtResource("28_tvaut")
@@ -134,10 +132,28 @@ scene_transition_resource = ExtResource("15_j5kfh")
 [node name="EnemyManager" parent="." unique_id=1112234375 instance=ExtResource("12_iiw1i")]
 
 [node name="EnemySpawnPoints" type="Node2D" parent="." unique_id=1628598410]
+script = ExtResource("29_espp")
 
 [node name="ArenaEntry" parent="." unique_id=971622857 instance=ExtResource("18_k0tp1")]
 collision_layer = 0
 collision_mask = 2
+
+[node name="ArenaStarter" parent="ArenaEntry" index="0" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section1")
+
+[node name="ArenaSection1Entry" parent="." instance=ExtResource("18_k0tp1")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="ArenaStarter" parent="ArenaSection1Entry" index="0" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section2")
+
+[node name="ArenaSection2Entry" parent="." instance=ExtResource("18_k0tp1")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="ArenaStarter" parent="ArenaSection2Entry" index="0" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section3")
 
 [node name="PauseProcessingComponent" type="Node" parent="." unique_id=1410348693 node_paths=PackedStringArray("paused_nodes")]
 script = ExtResource("18_igxve")

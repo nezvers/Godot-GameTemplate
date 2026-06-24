@@ -1,13 +1,14 @@
 class_name SpawnPoint
 extends Marker2D
 
-const resource_path:String = "res://addons/top_down/resources/arena_resources/spawn_point_resource.tres"
+## Which arena section this spawn point feeds (node in the same room scene).
+@export var section:ArenaSection
 
 @export var boss_position:bool
 
 func _ready()->void:
-	var _spawn_point_resource:SpawnPointResource = load(resource_path)
+	assert(section != null)
 	if !boss_position:
-		_spawn_point_resource.add_position(global_position)
+		section.register_position(global_position)
 	else:
-		_spawn_point_resource.add_boss_position(global_position)
+		section.register_boss_position(global_position)

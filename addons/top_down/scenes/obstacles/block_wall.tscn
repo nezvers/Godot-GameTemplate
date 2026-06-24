@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://35s1lk1fh1d0" path="res://addons/top_down/assets/images/misc/block_strip4.png" id="1_bk066"]
 [ext_resource type="Script" uid="uid://cljau6n1vgctu" path="res://addons/top_down/scripts/obstackles/ArenaDoorBlock.gd" id="2_ljggu"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/obstackles/BlockWall.gd" id="5_root"]
 [ext_resource type="Resource" uid="uid://dfx5wg7nqxg5b" path="res://addons/top_down/resources/arena_resources/obstacle_astargrid_resource.tres" id="3_on1cq"]
-[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="4_r1cw6"]
 
 [sub_resource type="Animation" id="Animation_xato0"]
 length = 0.001
@@ -97,7 +97,10 @@ _data = {
 &"turn_on": SubResource("Animation_dgum3")
 }
 
-[node name="BlockWall" type="Node2D" unique_id=1600526436]
+[node name="BlockWall" type="Node2D" unique_id=1600526436 node_paths=PackedStringArray("arena_door_block")]
+script = ExtResource("5_root")
+mode = 0
+arena_door_block = NodePath("ArenaDoorBlock")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1068135025]
 position = Vector2(0, -1)
@@ -116,8 +119,8 @@ libraries/ = SubResource("AnimationLibrary_dwvqo")
 
 [node name="ArenaDoorBlock" type="Node" parent="." unique_id=1594228636 node_paths=PackedStringArray("position_node", "animation_player")]
 script = ExtResource("2_ljggu")
+mode = 0
 astargrid_resource = ExtResource("3_on1cq")
-fight_bool_resource = ExtResource("4_r1cw6")
 position_node = NodePath("..")
 animation_player = NodePath("../AnimationPlayer")
 animation_on = &"turn_on"

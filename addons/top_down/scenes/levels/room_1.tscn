@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cskmr6l5slk7w"]
+
+[ext_resource type="PackedScene" uid="uid://dksjs6yft863n" path="res://addons/top_down/scenes/levels/room_0.tscn" id="1_room0"]
+
+[node name="Room" unique_id=2095075648 instance=ExtResource("1_room0")]
+
+[node name="BlockWall2" parent="WallLayer_Ysorted" parent_id_path=PackedInt32Array(976659384) index="5"]
+mode = 1
+
+[node name="BlockWall3" parent="WallLayer_Ysorted" parent_id_path=PackedInt32Array(976659384) index="6" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section2")
+mode = 1
+
+[node name="BlockWall4" parent="WallLayer_Ysorted" parent_id_path=PackedInt32Array(976659384) index="7" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section2")
+mode = 1
+
+[node name="BlockWall5" parent="WallLayer_Ysorted" parent_id_path=PackedInt32Array(976659384) index="8" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section3")
+
+[node name="Spawn_3" parent="EnemySpawnPoints" parent_id_path=PackedInt32Array(1628598410) index="2" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section2")
+
+[node name="Spawn_4" parent="EnemySpawnPoints" parent_id_path=PackedInt32Array(1628598410) index="3" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section2")
+
+[node name="SpawnBoss" parent="EnemySpawnPoints" parent_id_path=PackedInt32Array(1628598410) index="4" node_paths=PackedStringArray("section")]
+section = NodePath("../../EnemyManager/Section3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ArenaSection1Entry" index="1" unique_id=1170118532]
+position = Vector2(-204, -36)
+polygon = PackedVector2Array(589, 63, 641, 89, 639, 90, 587, 64)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ArenaSection2Entry" index="1" unique_id=608377485]
+position = Vector2(-98, -217)
+polygon = PackedVector2Array(642, 259, 587, 287, 584, 285, 638, 258)

@@ -1,7 +1,6 @@
 [gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" uid="uid://dksjs6yft863n" path="res://addons/top_down/scenes/levels/room_0.tscn" id="1_room0"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnQueueResource.gd" id="3_queue"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="4_wave"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="5_inst"]
 [ext_resource type="Resource" uid="uid://cwxx7lc1yjet4" path="res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres" id="6_slime"]
@@ -32,9 +31,6 @@ is_boss = true
 count = 1
 instance_list = Array[ExtResource("5_inst")]([ExtResource("8_boss")])
 
-[sub_resource type="Resource" id="Queue_3"]
-script = ExtResource("3_queue")
-waves = Array[ExtResource("4_wave")]([SubResource("Wave_1"), SubResource("Wave_2"), SubResource("Wave_3")])
 
 [node name="Room" instance=ExtResource("1_room0")]
 
@@ -62,8 +58,8 @@ tag = "extra_b"
 connect_tag = "from_prev"
 scene_path = "res://game/scenes/victory.tscn"
 
-[node name="EnemyManager" parent="." index="8"]
-wave_queue = SubResource("Queue_3")
+[node name="Section1" parent="EnemyManager" index="0"]
+waves = Array[ExtResource("4_wave")]([SubResource("Wave_1"), SubResource("Wave_2"), SubResource("Wave_3")])
 
 [node name="RoomController" type="Node" parent="." node_paths=PackedStringArray("arena_entry")]
 script = ExtResource("9_ctrl")

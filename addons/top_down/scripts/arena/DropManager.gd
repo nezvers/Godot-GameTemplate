@@ -1,7 +1,8 @@
 class_name DropManager
 extends Node
 
-@export var enemy_spawner:EnemySpawner
+## Arena sections whose enemy kills drop loot.
+@export var sections:Array[ArenaSection]
 
 @export var coin_instance:InstanceResource
 
@@ -12,7 +13,10 @@ extends Node
 @export var drop_chance:float = 0.3
 
 func _ready()->void:
-	enemy_spawner.enemy_killed.connect(_on_killed)
+	for _section:ArenaSection in sections:
+		if _section == null:
+			continue
+		_section.enemy_killed.connect(_on_killed)
 
 func _on_killed(enemy:ActiveEnemy)->void:
 	var _position:Vector2 = enemy.owner.global_position
