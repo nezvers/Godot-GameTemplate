@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="RoomStateResource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="RoomStateResource" format=3 uid="uid://7s3f02bpb1j8"]
 
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/RoomStateResource.gd" id="1_rmstate"]
+[ext_resource type="Script" uid="uid://w0ofdjbw5vfx" path="res://addons/top_down/scripts/game/RoomStateResource.gd" id="1_rmstate"]
 
 [resource]
 resource_name = "Room State"

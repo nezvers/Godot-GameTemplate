@@ -1,19 +1,19 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dw40gjc4in8px"]
+[gd_resource type="TileSet" format=3 uid="uid://dw40gjc4in8px"]
 
-[ext_resource type="Texture2D" uid="uid://bkpg884c7pd8j" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes.png" id="1_6gcsv"]
+[ext_resource type="Texture2D" uid="uid://bcvr4p0gnsf1p" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes.png" id="1_6gcsv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vc22r"]
 texture = ExtResource("1_6gcsv")
 texture_region_size = Vector2i(32, 32)
 use_texture_padding = false
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -7)
-0:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-0:0/0/custom_data_1 = PackedVector2Array(0, 0)
-1:0/0 = 0
-1:0/0/texture_origin = Vector2i(0, -7)
-1:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-1:0/0/custom_data_1 = PackedVector2Array(0, 0)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -7)
+0:2/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:2/0/custom_data_1 = PackedVector2Array(0, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -7)
+0:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:1/0/custom_data_1 = PackedVector2Array(0, 0)
 2:0/0 = 0
 2:0/0/texture_origin = Vector2i(0, -7)
 2:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
@@ -26,14 +26,14 @@ use_texture_padding = false
 1:1/0/texture_origin = Vector2i(0, -7)
 1:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
 1:1/0/custom_data_1 = PackedVector2Array(0, 0)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, -7)
-0:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-0:1/0/custom_data_1 = PackedVector2Array(0, 0)
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, -7)
-0:2/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
-0:2/0/custom_data_1 = PackedVector2Array(0, 0)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -7)
+0:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:0/0/custom_data_1 = PackedVector2Array(0, 0)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -7)
+1:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:0/0/custom_data_1 = PackedVector2Array(0, 0)
 
 [resource]
 resource_name = "Holes tileset"

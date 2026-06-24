@@ -1,0 +1,34 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="PackedScene" uid="uid://3betq3gbp57h" path="res://addons/top_down/scenes/levels/room_start.tscn" id="1_start"]
+[ext_resource type="Script" path="res://game/scripts/RoomController.gd" id="2_ctrl"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="3_overlay"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="4_fight"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="5_remain"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="6_state"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="7_cleared"]
+[ext_resource type="Script" path="res://game/scripts/FreshStart.gd" id="8_fresh"]
+[ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="9_playerref"]
+[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="10_trans"]
+
+[node name="Room" instance=ExtResource("1_start")]
+
+[node name="Stairs" parent="Behind" index="1"]
+tag = "from_next"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_1.tscn"
+
+[node name="RoomController" type="Node" parent="."]
+script = ExtResource("2_ctrl")
+room_id = &"room_start"
+room_state_resource = ExtResource("6_state")
+room_cleared_resource = ExtResource("7_cleared")
+fight_mode_resource = ExtResource("4_fight")
+remaining_wave_count_resource = ExtResource("5_remain")
+
+[node name="FreshStart" type="Node" parent="."]
+script = ExtResource("8_fresh")
+player_reference = ExtResource("9_playerref")
+scene_transition_resource = ExtResource("10_trans")
+
+[node name="GameHudOverlay" parent="." instance=ExtResource("3_overlay")]

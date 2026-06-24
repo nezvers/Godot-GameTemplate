@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://b8jmyt0td84pu"]
+
+[ext_resource type="PackedScene" uid="uid://dksjs6yft863n" path="res://addons/top_down/scenes/levels/room_0.tscn" id="1_room0"]
+[ext_resource type="Script" uid="uid://dljbkbweueqrv" path="res://addons/top_down/scripts/arena/SpawnQueueResource.gd" id="3_queue"]
+[ext_resource type="Script" uid="uid://b82gi6nils34f" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="4_wave"]
+[ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="5_inst"]
+[ext_resource type="Resource" uid="uid://cwxx7lc1yjet4" path="res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres" id="6_slime"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_zomby"]
+[ext_resource type="Script" uid="uid://lfus6gq2nqsa" path="res://game/scripts/RoomController.gd" id="8_ctrl"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="9_overlay"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="10_fight"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="11_remain"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="12_state"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="13_cleared"]
+
+[sub_resource type="Resource" id="Wave_1"]
+script = ExtResource("4_wave")
+count = 6
+instance_list = Array[ExtResource("5_inst")]([ExtResource("6_slime"), ExtResource("7_zomby")])
+
+[sub_resource type="Resource" id="Queue_1"]
+script = ExtResource("3_queue")
+waves = Array[ExtResource("4_wave")]([SubResource("Wave_1")])
+
+[node name="Room" unique_id=1453654075 instance=ExtResource("1_room0")]
+
+[node name="Stairs" parent="Behind" index="0"]
+visible = false
+monitoring = false
+tag = "extra_a"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_2.tscn"
+
+[node name="Stairs2" parent="Behind" index="1"]
+tag = "from_prev"
+connect_tag = "from_next"
+scene_path = "res://game/scenes/room_start.tscn"
+
+[node name="Stairs3" parent="Behind" index="2"]
+tag = "from_next"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_2_v2.tscn"
+
+[node name="Stairs4" parent="Behind" index="3"]
+visible = false
+monitoring = false
+tag = "extra_b"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_2.tscn"
+
+[node name="EnemyManager" parent="." index="8"]
+wave_queue = SubResource("Queue_1")
+
+[node name="RoomController" type="Node" parent="." index="18" unique_id=2109893654 node_paths=PackedStringArray("arena_entry")]
+script = ExtResource("8_ctrl")
+room_id = &"room_1"
+room_state_resource = ExtResource("12_state")
+room_cleared_resource = ExtResource("13_cleared")
+fight_mode_resource = ExtResource("10_fight")
+remaining_wave_count_resource = ExtResource("11_remain")
+arena_entry = NodePath("../ArenaEntry")
+
+[node name="GameHudOverlay" parent="." index="19" unique_id=1736164447 instance=ExtResource("9_overlay")]

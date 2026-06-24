@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_theme"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="2_music"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="3_change"]
+[ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="4_button"]
+
+[node name="Victory" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+color = Color(0.0784314, 0.121569, 0.0892667, 1)
+
+[node name="PlayAgainComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("3_change")
+button = NodePath("../MarginContainer/Control/Body/Menu/PlayAgain/Button")
+scene_path = "res://game/scenes/room_start.tscn"
+
+[node name="MainMenuComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("3_change")
+button = NodePath("../MarginContainer/Control/Body/Menu/MainMenu/Button")
+scene_path = "res://addons/top_down/scenes/ui/screens/title.tscn"
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("2_music")
+music_name = "game_over"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="Control" parent="MarginContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/Control/Header"]
+layout_mode = 0
+offset_left = 104.5
+offset_top = 51.5
+offset_right = 365.5
+offset_bottom = 118.5
+theme_override_font_sizes/font_size = 48
+text = "Victory!"
+horizontal_alignment = 1
+
+[node name="Body" type="MarginContainer" parent="MarginContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 20
+
+[node name="Menu" type="VBoxContainer" parent="MarginContainer/Control/Body"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 0
+
+[node name="PlayAgain" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("4_button")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/Menu/PlayAgain" index="1"]
+text = "Play Again"
+
+[node name="MainMenu" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("4_button")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/Menu/MainMenu" index="1"]
+text = "Main Menu"
+
+[editable path="MarginContainer/Control/Body/Menu/PlayAgain"]
+[editable path="MarginContainer/Control/Body/Menu/MainMenu"]

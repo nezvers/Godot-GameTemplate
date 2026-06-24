@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cpjckxc4g3s0w"]
+[gd_scene load_steps=32 format=3 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="6_qdsw2"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/TileCollisionGenerator.gd" id="7_brx8v"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/TileSceneGenerator.gd" id="27_tscng"]
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="7_e7miq"]
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://addons/top_down/scenes/main_camera.tscn" id="8_koktt"]
 [ext_resource type="PackedScene" uid="uid://bqh7iwpl0s1ha" path="res://addons/top_down/scenes/screen_effects/screen_effects.tscn" id="10_3mcmd"]
@@ -63,6 +64,13 @@ script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("4_fabx6")
 
+[node name="TileVisualAutotiler" type="Node" parent="Background/ObstacleLayer" node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
+script = ExtResource("28_tvaut")
+tilemap_layer = NodePath("..")
+floor_layer = NodePath("../FloorLayer")
+layer_kind = 1
+marker_atlas = Vector2i(0, 2)
+
 [node name="Behind" type="Node2D" parent="."]
 
 [node name="ReferenceBehind" type="Node" parent="Behind" node_paths=PackedStringArray("reference_node")]
@@ -92,6 +100,13 @@ reference_resource = ExtResource("6_qdsw2")
 script = ExtResource("27_tscng")
 tilemap_layer = NodePath("..")
 container = NodePath("..")
+
+[node name="TileVisualAutotiler" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
+script = ExtResource("28_tvaut")
+tilemap_layer = NodePath("..")
+floor_layer = NodePath("../Background/FloorLayer")
+layer_kind = 0
+marker_atlas = Vector2i(1, 2)
 
 [node name="Front" type="Node2D" parent="."]
 

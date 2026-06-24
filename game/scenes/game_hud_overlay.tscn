@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/scripts/GameHudOverlay.gd" id="1_overlay"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="2_cleared"]
+
+[node name="GameHudOverlay" type="CanvasLayer" node_paths=PackedStringArray("cleared_label")]
+layer = 2
+script = ExtResource("1_overlay")
+cleared_label = NodePath("ClearedLabel")
+room_cleared_resource = ExtResource("2_cleared")
+
+[node name="ClearedLabel" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+text = "Room cleared"
+horizontal_alignment = 1
+vertical_alignment = 1

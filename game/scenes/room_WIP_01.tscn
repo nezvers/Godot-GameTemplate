@@ -1,0 +1,587 @@
+[gd_scene format=4 uid="uid://8ndemxwaqnfl"]
+
+[ext_resource type="PackedScene" uid="uid://dksjs6yft863n" path="res://addons/top_down/scenes/levels/room_0.tscn" id="1_ut4f0"]
+[ext_resource type="PackedScene" uid="uid://cm475mndno581" path="res://addons/top_down/scenes/obstacles/block_wall.tscn" id="2_2n8dn"]
+[ext_resource type="Script" uid="uid://dljbkbweueqrv" path="res://addons/top_down/scripts/arena/SpawnQueueResource.gd" id="3_qpv8y"]
+[ext_resource type="Script" uid="uid://b82gi6nils34f" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="4_qtdgq"]
+[ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="5_we880"]
+[ext_resource type="Resource" uid="uid://cwxx7lc1yjet4" path="res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres" id="6_4cger"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_74858"]
+[ext_resource type="Script" uid="uid://lfus6gq2nqsa" path="res://game/scripts/RoomController.gd" id="8_sisjk"]
+[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="9_ea47l"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="10_ji0sn"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="11_j14tq"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="12_tp8a7"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="13_4q2jd"]
+
+[sub_resource type="Resource" id="Wave_1"]
+script = ExtResource("4_qtdgq")
+count = 6
+instance_list = Array[ExtResource("5_we880")]([ExtResource("6_4cger"), ExtResource("7_74858")])
+
+[sub_resource type="Resource" id="Wave_2"]
+script = ExtResource("4_qtdgq")
+count = 8
+instance_list = Array[ExtResource("5_we880")]([ExtResource("6_4cger"), ExtResource("7_74858")])
+
+[sub_resource type="Resource" id="Queue_2"]
+script = ExtResource("3_qpv8y")
+waves = Array[ExtResource("4_qtdgq")]([SubResource("Wave_1"), SubResource("Wave_2")])
+
+[node name="Room" unique_id=397183530 instance=ExtResource("1_ut4f0")]
+
+[node name="FloorLayer" parent="Background" index="0"]
+tile_map_data = PackedByteArray("AAAjAAYAAQADAAAAAAAjAAUAAQAAAAAAAAAjAAIAAQABAAAAAAAjAPr/AQABAAIAAAAjAPn/AQADAAEAAAAiAAIAAQABAAIAAAAiAPr/AQABAAIAAAAiAPn/AQAAAAMAAAAhAAMAAQABAAAAAAAhAAIAAQADAAIAAAAhAPr/AQABAAIAAAAhAPn/AQAAAAMAAAAgAAMAAQADAAAAAAAgAAIAAQABAAEAAAAgAPr/AQABAAIAAAAgAPn/AQAAAAMAAAAfAAIAAQACAAAAAAAfAPr/AQABAAIAAAAfAPn/AQADAAMAAAAeAAYAAQABAAAAAAAeAAUAAQACAAAAAAAeAAIAAQADAAAAAAAeAPr/AQADAAAAAAAeAPn/AQAAAAEAAAAdAAcAAQAAAAIAAAAdAAYAAQADAAIAAAAdAAUAAQADAAEAAAAdAAQAAQAAAAIAAAAdAAMAAQACAAAAAAAdAAIAAQAAAAAAAAAcAAQAAQACAAEAAAAcAAMAAQABAAEAAAAbAAYAAQABAAAAAAAbAAUAAQAAAAIAAAAbAAQAAQADAAIAAAAbAAMAAQADAAEAAAAbAAIAAQAAAAIAAAAbAAEAAQAAAAIAAAAbAAAAAQAAAAIAAAAbAP//AQAAAAIAAAAbAP7/AQAAAAIAAAAbAP3/AQAAAAIAAAAbAPz/AQAAAAIAAAAbAPv/AQACAAAAAAAaAAYAAQADAAAAAAAaAAUAAQAAAAEAAAAaAAQAAQAAAAEAAAAaAAMAAQAAAAEAAAAaAAIAAQAAAAEAAAAaAAEAAQAAAAMAAAAaAAAAAQAAAAMAAAAaAP//AQAAAAMAAAAaAP7/AQADAAMAAAAaAP3/AQAAAAMAAAAaAPz/AQABAAMAAAAaAPv/AQABAAEAAAAZAPz/AQAAAAMAAAAZAPv/AQABAAEAAAAYAPz/AQADAAMAAAAYAPv/AQABAAEAAAAXAPz/AQACAAIAAAAXAPv/AQAAAAAAAAAkAAIAAQACAAAAAAAkAAMAAQABAAAAAAAkAAQAAQAAAAIAAAAkAAUAAQADAAEAAAAkAAYAAQADAAIAAAAkAAcAAQABAAAAAAAkAAgAAQABAAAAAAAkAAkAAQABAAEAAAAjAAkAAQABAAEAAAAiAAkAAQABAAEAAAAhAAkAAQADAAEAAAAgAAkAAQACAAIAAAAfAAkAAQABAAEAAAAhAAgAAQACAAAAAAAgAAgAAQAAAAAAAAAeAAkAAQABAAEAAAAdAAkAAQADAAEAAAAdAAgAAQAAAAIAAAAlAAYAAQABAAIAAAAlAAUAAQABAAEAAAAmAAYAAQACAAEAAAAmAAUAAQAAAAMAAAAmAAQAAQAAAAMAAAAmAAMAAQAAAAMAAAAmAAIAAQADAAEAAAAnAAIAAQACAAAAAAAnAAMAAQAAAAIAAAAnAAQAAQAAAAIAAAAnAAUAAQAAAAIAAAAnAAYAAQAAAAIAAAAnAAcAAQAAAAIAAAAnAAgAAQABAAAAAAAnAAkAAQABAAEAAAAmAAkAAQAAAAAAAAAmAAgAAQAAAAEAAAAmAAcAAQAAAAEAAAAkAPn/AQACAAAAAAAkAPr/AQABAAAAAAAoAPr/AQAAAAAAAAAoAPv/AQACAAIAAAAoAPz/AQAAAAEAAAApAPv/AQAAAAIAAAApAPr/AQACAAAAAAApAPz/AQAAAAIAAAApAP3/AQABAAIAAAAoAP3/AQADAAAAAAAqAP3/AQABAAIAAAArAP3/AQABAAIAAAAsAP3/AQABAAAAAAAqAAAAAQACAAAAAAAqAAEAAQAAAAIAAAAqAAIAAQABAAAAAAAqAAMAAQAAAAEAAAArAAMAAQAAAAIAAAAsAAMAAQAAAAAAAAAtAAMAAQACAAAAAAAqAAQAAQADAAAAAAArAAQAAQABAAIAAAAsAAQAAQABAAIAAAAtAAQAAQABAAAAAAAsAAgAAQACAAAAAAAsAAkAAQABAAAAAAAsAAoAAQABAAAAAAAuAAgAAQADAAAAAAAvAAgAAQABAAIAAAAwAAgAAQABAAAAAAAyAAgAAQADAAAAAAAzAAgAAQABAAIAAAA0AAgAAQABAAAAAAAsAAwAAQACAAAAAAAsAA0AAQABAAAAAAAsAA4AAQABAAAAAAA=")
+
+[node name="ObstacleLayer" parent="Background" index="1"]
+tile_map_data = PackedByteArray("AAAfAAMAAQAAAAEAAAAeAAMAAQAAAAAAAAAeAAQAAQACAAAAAAAfAAQAAQAAAAIAAAAfAAUAAQACAAEAAAAgAAUAAQAAAAIAAAAgAAQAAQABAAEAAAAhAAQAAQAAAAEAAAAiAAQAAQABAAAAAAAjAAQAAQAAAAIAAAAjAAMAAQAAAAEAAAAiAAMAAQAAAAAAAAAiAAUAAQAAAAIAAAAhAAUAAQAAAAIAAAAfAAYAAQACAAAAAAAfAAcAAQABAAAAAAAfAAgAAQAAAAIAAAAeAAgAAQACAAAAAAAeAAcAAQAAAAAAAAAgAAcAAQAAAAIAAAAhAAcAAQAAAAIAAAAiAAcAAQAAAAIAAAAiAAgAAQACAAEAAAAjAAgAAQAAAAIAAAAjAAcAAQABAAEAAAAiAAYAAQAAAAIAAAAhAAYAAQAAAAIAAAAgAAYAAQAAAAIAAAA=")
+
+[node name="StaticBody2D" parent="Background/ObstacleLayer" index="2"]
+visible = false
+
+[node name="X30_Y4" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="2" unique_id=1476469695]
+position = Vector2(432, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y4" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="3" unique_id=520377851]
+position = Vector2(448, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y5" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="4" unique_id=1916615074]
+position = Vector2(432, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y5" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="5" unique_id=136171]
+position = Vector2(448, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y4" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="6" unique_id=1111986817]
+position = Vector2(464, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y4" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="7" unique_id=1223295380]
+position = Vector2(480, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y4" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="8" unique_id=640009968]
+position = Vector2(496, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y4" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="9" unique_id=733971833]
+position = Vector2(512, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="10" unique_id=19925457]
+position = Vector2(528, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y3" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="11" unique_id=577967594]
+position = Vector2(512, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y5" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="12" unique_id=923127851]
+position = Vector2(480, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y6" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="13" unique_id=1638829544]
+position = Vector2(464, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y6" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="14" unique_id=112856707]
+position = Vector2(448, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y5" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="15" unique_id=508001497]
+position = Vector2(464, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y6" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="16" unique_id=29390495]
+position = Vector2(432, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y6" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="17" unique_id=1087212188]
+position = Vector2(416, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="18" unique_id=1723525664]
+position = Vector2(400, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y8" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="19" unique_id=1115002501]
+position = Vector2(384, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y8" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="20" unique_id=1589861830]
+position = Vector2(368, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="21" unique_id=340197073]
+position = Vector2(384, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="22" unique_id=1935730528]
+position = Vector2(416, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="23" unique_id=406093761]
+position = Vector2(432, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="24" unique_id=805074339]
+position = Vector2(448, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y8" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="25" unique_id=837756662]
+position = Vector2(432, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y8" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="26" unique_id=1919320382]
+position = Vector2(448, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y7" type="CollisionPolygon2D" parent="Background/ObstacleLayer/StaticBody2D" index="27" unique_id=305495465]
+position = Vector2(464, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="TileVisualAutotiler" parent="Background/ObstacleLayer" index="4" node_paths=PackedStringArray("floor_layer")]
+floor_layer = NodePath("../../FloorLayer")
+
+[node name="Stairs" parent="Behind" index="0"]
+visible = false
+monitoring = false
+tag = "extra_a"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_3.tscn"
+
+[node name="Stairs2" parent="Behind" index="1"]
+tag = "from_prev"
+connect_tag = "from_next"
+scene_path = "res://game/scenes/room_1.tscn"
+
+[node name="Stairs3" parent="Behind" index="2"]
+tag = "from_next"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_3.tscn"
+
+[node name="Stairs4" parent="Behind" index="3"]
+visible = false
+monitoring = false
+tag = "extra_b"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/room_3.tscn"
+
+[node name="WallLayer_Ysorted" parent="." index="2"]
+tile_map_data = PackedByteArray("AAAjAAEAAAABAAEAAAAjAPj/AAABAAEAAAAjAPr/AAABAAIAAAAcAAcAAAAAAAEAAAAZAPr/AAABAAEAAAAdAPj/AAAAAAAAAAAcAAEAAAAAAAAAAAAlAAEAAAAAAAAAAAAZAP3/AAAAAAEAAAAZAP7/AAAAAAEAAAAZAP//AAAAAAEAAAAZAAAAAAAAAAEAAAAZAAEAAAAAAAEAAAAZAAIAAAAAAAEAAAAZAAMAAAAAAAEAAAAZAAQAAAAAAAEAAAAZAAUAAAAAAAEAAAAZAAYAAAADAAAAAAAcAAUAAAAAAAEAAAAcAAYAAAAAAAEAAAAcAAgAAAAAAAEAAAAcAAkAAAADAAAAAAAlAAcAAAAAAAEAAAAlAAgAAAAAAAEAAAAlAAkAAAADAAAAAAAlAAQAAAACAAIAAAAlAAMAAAAAAAEAAAAlAAIAAAAAAAEAAAAdAPn/AAAAAAEAAAAdAPr/AAADAAAAAAAcAAIAAAACAAIAAAAaAAYAAAABAAIAAAAbAAYAAAABAAAAAAAaAPr/AAABAAEAAAAeAPj/AAABAAEAAAAfAPj/AAABAAEAAAAgAPj/AAABAAEAAAAhAPj/AAABAAEAAAAiAPj/AAABAAEAAAAkAPj/AAACAAAAAAAmAAEAAAABAAEAAAAdAAEAAAABAAEAAAAeAAEAAAABAAEAAAAgAAEAAAABAAEAAAAhAAEAAAABAAEAAAAfAAEAAAABAAEAAAAiAAEAAAABAAEAAAAkAAEAAAACAAAAAAAnAAEAAAACAAAAAAAbAPr/AAACAAAAAAAbAPv/AAAAAAIAAAAbAPz/AAAAAAIAAAAbAP3/AAAAAAIAAAAbAP7/AAAAAAIAAAAbAP//AAAAAAIAAAAbAAAAAAAAAAIAAAAbAAUAAAAAAAIAAAAnAAkAAAABAAAAAAAkAAkAAAABAAAAAAAkAPr/AAABAAAAAAAeAPr/AAABAAIAAAAfAPr/AAABAAIAAAAgAPr/AAABAAIAAAAhAPr/AAABAAIAAAAiAPr/AAABAAIAAAAkAPn/AAAAAAIAAAAkAAIAAAAAAAIAAAAkAAMAAAAAAAIAAAAkAAQAAAADAAEAAAAlAAYAAAACAAEAAAAkAAgAAAAAAAIAAAAkAAcAAAAAAAIAAAAmAAkAAAABAAIAAAAnAAgAAAAAAAIAAAAnAAcAAAAAAAIAAAAnAAYAAAAAAAIAAAAnAAUAAAAAAAIAAAAnAAQAAAAAAAIAAAAnAAMAAAAAAAIAAAAnAAIAAAAAAAIAAAAbAAEAAAAAAAIAAAAbAAIAAAADAAEAAAAcAAQAAAACAAEAAAAdAAkAAAABAAIAAAAeAAkAAAABAAIAAAAfAAkAAAABAAIAAAAgAAkAAAABAAIAAAAhAAkAAAABAAIAAAAiAAkAAAABAAIAAAAjAAkAAAABAAIAAAAYAPr/AAABAAEAAAAXAPr/AAABAAEAAAAWAPr/AAAAAAAAAAAWAPv/AAAAAAEAAAAWAPz/AAADAAAAAAAXAPz/AAABAAIAAAAYAPz/AAABAAIAAAAZAPz/AAACAAEAAAAnAPr/AAAAAAEAAAAoAPn/AAABAAEAAAAnAPv/AAAAAAEAAAAnAPz/AAAAAAEAAAApAPv/AAAAAAIAAAApAPr/AAAAAAIAAAApAPn/AAACAAAAAAApAPz/AAADAAEAAAApAP3/AAABAAIAAAAoAP3/AAABAAIAAAAnAP3/AAADAAAAAAAqAP3/AAABAAIAAAAqAPz/AAABAAEAAAArAP3/AAABAAIAAAArAPz/AAABAAEAAAAsAP3/AAABAAAAAAAsAPz/AAACAAAAAAAnAPn/AAAAAAAAAAAqAAAAAAAAAAIAAAApAAAAAAAAAAEAAAAqAP//AAACAAAAAAAqAAEAAAAAAAIAAAApAAEAAAAAAAEAAAAqAAIAAAADAAEAAAApAAIAAAAAAAEAAAApAAMAAAAAAAEAAAArAAIAAAABAAEAAAAsAAIAAAABAAEAAAAtAAMAAAAAAAIAAAAtAAIAAAACAAAAAAAqAAQAAAABAAIAAAApAAQAAAADAAAAAAArAAQAAAABAAIAAAAsAAQAAAABAAIAAAAtAAQAAAABAAAAAAApAP//AAAAAAAAAAAsAAgAAAAAAAIAAAArAAgAAAAAAAEAAAAsAAcAAAACAAAAAAAsAAkAAAAAAAIAAAArAAkAAAAAAAEAAAAsAAoAAAABAAAAAAArAAoAAAADAAAAAAArAAsAAAAAAAAAAAAsAAwAAAAAAAIAAAArAAwAAAAAAAEAAAArAAcAAAAAAAAAAAAsAA4AAAABAAAAAAArAA4AAAADAAAAAAAsAA0AAAAAAAIAAAArAA0AAAAAAAEAAAAuAAgAAAABAAIAAAAtAAgAAAADAAAAAAAuAAcAAAABAAEAAAAvAAgAAAABAAIAAAAvAAcAAAABAAEAAAAwAAgAAAABAAAAAAAwAAcAAAACAAAAAAAyAAgAAAABAAIAAAAxAAgAAAADAAAAAAAyAAcAAAABAAEAAAAzAAgAAAABAAIAAAAzAAcAAAABAAEAAAA0AAgAAAABAAAAAAA0AAcAAAACAAAAAAAtAAcAAAAAAAAAAAAxAAcAAAAAAAAAAAAkAAYAAAADAAIAAAAbAAQAAAADAAIAAAAsAAsAAAACAAAAAAA=")
+
+[node name="StaticBody2D" parent="WallLayer_Ysorted" index="2"]
+visible = false
+
+[node name="X35_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="0" unique_id=418370481]
+position = Vector2(560, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="1" unique_id=1553674101]
+position = Vector2(704, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="2" unique_id=1539899605]
+position = Vector2(656, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="3" unique_id=606114780]
+position = Vector2(352, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="4" unique_id=1488812909]
+position = Vector2(512, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="5" unique_id=706226944]
+position = Vector2(608, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="6" unique_id=1607239781]
+position = Vector2(448, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="7" unique_id=2079333205]
+position = Vector2(592, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="8" unique_id=408885264]
+position = Vector2(464, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="9" unique_id=143966785]
+position = Vector2(448, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="10" unique_id=1720758387]
+position = Vector2(432, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="11" unique_id=1125751289]
+position = Vector2(416, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="12" unique_id=763329107]
+position = Vector2(400, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="13" unique_id=1215799300]
+position = Vector2(384, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="14" unique_id=2086093640]
+position = Vector2(368, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="15" unique_id=1662992995]
+position = Vector2(352, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="16" unique_id=1710170061]
+position = Vector2(336, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="17" unique_id=1195135035]
+position = Vector2(320, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="18" unique_id=1554716001]
+position = Vector2(304, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="19" unique_id=2020022973]
+position = Vector2(384, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="20" unique_id=1477725912]
+position = Vector2(368, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="22" unique_id=379394825]
+position = Vector2(320, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="23" unique_id=863579452]
+position = Vector2(304, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="24" unique_id=1924474599]
+position = Vector2(496, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="25" unique_id=713635745]
+position = Vector2(480, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="26" unique_id=1280566921]
+position = Vector2(464, 376)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="27" unique_id=718856446]
+position = Vector2(544, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="28" unique_id=1126758128]
+position = Vector2(560, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="29" unique_id=949883275]
+position = Vector2(576, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="30" unique_id=1213952677]
+position = Vector2(592, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="31" unique_id=511883221]
+position = Vector2(576, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="32" unique_id=1404076029]
+position = Vector2(560, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="33" unique_id=1827774086]
+position = Vector2(432, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="34" unique_id=1744020164]
+position = Vector2(320, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="35" unique_id=2068886584]
+position = Vector2(352, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="36" unique_id=70735065]
+position = Vector2(528, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="37" unique_id=1770910443]
+position = Vector2(624, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="38" unique_id=1184010831]
+position = Vector2(640, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="39" unique_id=835394328]
+position = Vector2(656, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="40" unique_id=2071106594]
+position = Vector2(672, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="41" unique_id=333309481]
+position = Vector2(688, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y-8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="43" unique_id=592134705]
+position = Vector2(736, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X38_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="44" unique_id=1119473195]
+position = Vector2(608, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="45" unique_id=866209823]
+position = Vector2(464, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="46" unique_id=2022071890]
+position = Vector2(480, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="47" unique_id=753927791]
+position = Vector2(512, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="48" unique_id=1694605991]
+position = Vector2(528, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="49" unique_id=725304656]
+position = Vector2(496, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="50" unique_id=1212322738]
+position = Vector2(544, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="52" unique_id=205834784]
+position = Vector2(624, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="53" unique_id=1607414666]
+position = Vector2(640, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="54" unique_id=2122783584]
+position = Vector2(544, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="55" unique_id=136285450]
+position = Vector2(560, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="56" unique_id=558645555]
+position = Vector2(544, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="57" unique_id=735719119]
+position = Vector2(528, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="58" unique_id=1821765995]
+position = Vector2(512, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="59" unique_id=1071392418]
+position = Vector2(496, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="60" unique_id=593398891]
+position = Vector2(480, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="61" unique_id=1695747304]
+position = Vector2(464, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="62" unique_id=1640793663]
+position = Vector2(480, 400)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="63" unique_id=1012899836]
+position = Vector2(512, 400)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="64" unique_id=1609588870]
+position = Vector2(496, 408)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="65" unique_id=1095402568]
+position = Vector2(448, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="67" unique_id=1073408840]
+position = Vector2(704, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="68" unique_id=1801485437]
+position = Vector2(688, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="69" unique_id=19669906]
+position = Vector2(576, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="70" unique_id=1207084418]
+position = Vector2(592, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="71" unique_id=291740916]
+position = Vector2(608, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="72" unique_id=1498772468]
+position = Vector2(624, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="73" unique_id=1921345058]
+position = Vector2(640, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y-7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="74" unique_id=1889031579]
+position = Vector2(720, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X38_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="75" unique_id=127513489]
+position = Vector2(464, 392)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="76" unique_id=641939140]
+position = Vector2(528, 392)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="77" unique_id=1519890650]
+position = Vector2(544, 384)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="78" unique_id=1954376471]
+position = Vector2(560, 376)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="79" unique_id=79590978]
+position = Vector2(576, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="80" unique_id=2142476019]
+position = Vector2(592, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="81" unique_id=1992749174]
+position = Vector2(608, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="82" unique_id=725124212]
+position = Vector2(624, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="83" unique_id=1504129990]
+position = Vector2(320, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="84" unique_id=1153926444]
+position = Vector2(336, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="85" unique_id=1403448952]
+position = Vector2(352, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="86" unique_id=257352006]
+position = Vector2(368, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="87" unique_id=532493268]
+position = Vector2(384, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="88" unique_id=2399606]
+position = Vector2(400, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="89" unique_id=986657609]
+position = Vector2(416, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X24_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="90" unique_id=2004043922]
+position = Vector2(496, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X23_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="91" unique_id=1769989596]
+position = Vector2(480, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y-6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="92" unique_id=898972089]
+position = Vector2(464, 136)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y-5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="93" unique_id=556215810]
+position = Vector2(448, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y-4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="94" unique_id=7445963]
+position = Vector2(432, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="95" unique_id=323929370]
+position = Vector2(416, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X23_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="96" unique_id=1864037201]
+position = Vector2(432, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X24_Y-3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D" index="97" unique_id=1629985977]
+position = Vector2(448, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="TileSceneGenerator" parent="WallLayer_Ysorted" index="16"]
+spawn_offset = Vector2(0, -8)
+
+[node name="BlockWall13" parent="WallLayer_Ysorted" index="17" unique_id=1600526436 instance=ExtResource("2_2n8dn")]
+position = Vector2(304, 144)
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(18, 0)
+metadata/source_id = 1
+metadata/source_atlas = Vector2i(3, 0)
+
+[node name="BlockWall16" parent="WallLayer_Ysorted" index="18" unique_id=989046075 instance=ExtResource("2_2n8dn")]
+position = Vector2(320, 200)
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(22, 3)
+metadata/source_id = 1
+metadata/source_atlas = Vector2i(3, 0)
+
+[node name="TileVisualAutotiler" parent="WallLayer_Ysorted" index="19" node_paths=PackedStringArray("floor_layer")]
+floor_layer = NodePath("../../Background/FloorLayer")
+
+[node name="EnemyManager" parent="." index="8"]
+wave_queue = SubResource("Queue_2")
+
+[node name="RoomController" type="Node" parent="." index="18" unique_id=820650537 node_paths=PackedStringArray("arena_entry")]
+script = ExtResource("8_sisjk")
+room_id = &"room_2"
+room_state_resource = ExtResource("9_ea47l")
+room_cleared_resource = ExtResource("10_ji0sn")
+fight_mode_resource = ExtResource("11_j14tq")
+remaining_wave_count_resource = ExtResource("12_tp8a7")
+arena_entry = NodePath("../ArenaEntry")
+
+[node name="GameHudOverlay" parent="." index="19" unique_id=483844940 instance=ExtResource("13_4q2jd")]

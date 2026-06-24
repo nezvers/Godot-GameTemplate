@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="PackedScene" uid="uid://dksjs6yft863n" path="res://addons/top_down/scenes/levels/room_0.tscn" id="1_room0"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnQueueResource.gd" id="3_queue"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="4_wave"]
+[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="5_inst"]
+[ext_resource type="Resource" uid="uid://cwxx7lc1yjet4" path="res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres" id="6_slime"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_zomby"]
+[ext_resource type="Resource" uid="uid://bnupsvhj8s0d5" path="res://addons/top_down/resources/InstanceResources/actors/boss_slime_instance_resource.tres" id="8_boss"]
+[ext_resource type="Script" path="res://game/scripts/RoomController.gd" id="9_ctrl"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="10_overlay"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="11_fight"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="12_remain"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="13_state"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="14_cleared"]
+
+[sub_resource type="Resource" id="Wave_1"]
+script = ExtResource("4_wave")
+is_boss = false
+count = 8
+instance_list = Array[ExtResource("5_inst")]([ExtResource("6_slime"), ExtResource("7_zomby")])
+
+[sub_resource type="Resource" id="Wave_2"]
+script = ExtResource("4_wave")
+is_boss = false
+count = 10
+instance_list = Array[ExtResource("5_inst")]([ExtResource("6_slime"), ExtResource("7_zomby")])
+
+[sub_resource type="Resource" id="Wave_3"]
+script = ExtResource("4_wave")
+is_boss = true
+count = 1
+instance_list = Array[ExtResource("5_inst")]([ExtResource("8_boss")])
+
+[sub_resource type="Resource" id="Queue_3"]
+script = ExtResource("3_queue")
+waves = Array[ExtResource("4_wave")]([SubResource("Wave_1"), SubResource("Wave_2"), SubResource("Wave_3")])
+
+[node name="Room" instance=ExtResource("1_room0")]
+
+[node name="Stairs" parent="Behind" index="0"]
+visible = false
+monitoring = false
+tag = "extra_a"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/victory.tscn"
+
+[node name="Stairs2" parent="Behind" index="1"]
+tag = "from_prev"
+connect_tag = "from_next"
+scene_path = "res://game/scenes/room_2.tscn"
+
+[node name="Stairs3" parent="Behind" index="2"]
+tag = "from_next"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/victory.tscn"
+
+[node name="Stairs4" parent="Behind" index="3"]
+visible = false
+monitoring = false
+tag = "extra_b"
+connect_tag = "from_prev"
+scene_path = "res://game/scenes/victory.tscn"
+
+[node name="EnemyManager" parent="." index="8"]
+wave_queue = SubResource("Queue_3")
+
+[node name="RoomController" type="Node" parent="." node_paths=PackedStringArray("arena_entry")]
+script = ExtResource("9_ctrl")
+room_id = &"room_3"
+room_state_resource = ExtResource("13_state")
+room_cleared_resource = ExtResource("14_cleared")
+fight_mode_resource = ExtResource("11_fight")
+remaining_wave_count_resource = ExtResource("12_remain")
+arena_entry = NodePath("../ArenaEntry")
+
+[node name="GameHudOverlay" parent="." instance=ExtResource("10_overlay")]

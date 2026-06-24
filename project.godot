@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Game Template"
-run/main_scene="res://addons/top_down/scenes/ui/screens/boot_load.tscn"
+run/main_scene="res://game/scenes/boot.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -35,10 +35,6 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
-
-[editor]
-
-movie_writer/movie_file="O:/Projects/Godot/Tutorials/Zombie Shooter/bug.avi"
 
 [editor_plugins]
 

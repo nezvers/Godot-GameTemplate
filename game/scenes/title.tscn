@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" uid="uid://dpv4epw1i5b4g" path="res://addons/top_down/scenes/ui/screens/title.tscn" id="1_title"]
+[ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="2_btn"]
+[ext_resource type="Script" uid="uid://6yvxabri80it" path="res://addons/top_down/scripts/ui/title_screen/DifficultyManager.gd" id="3_diffmgr"]
+[ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="4_diff"]
+
+[node name="Title" instance=ExtResource("1_title")]
+
+[node name="NewGameComponent" parent="."]
+scene_path = "res://game/scenes/room_start.tscn"
+
+[node name="Difficulty" parent="MarginContainer/Control/Body/OptionMenu" instance=ExtResource("2_btn")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/OptionMenu/Difficulty" index="1"]
+text = "Difficulty: Normal"
+
+[node name="DifficultyManager" type="Node" parent="." node_paths=PackedStringArray("button", "label")]
+script = ExtResource("3_diffmgr")
+difficulty_resource = ExtResource("4_diff")
+button = NodePath("../MarginContainer/Control/Body/OptionMenu/Difficulty/Button")
+label = NodePath("../MarginContainer/Control/Body/OptionMenu/Difficulty/Label")

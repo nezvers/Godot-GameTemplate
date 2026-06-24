@@ -18,3 +18,8 @@ mono_crash.*.json
 
 # Local Godot engine binary (not part of the project)
 Godot_v*
+game/scripts/FreshStart.gd.uid
+game/scripts/GameHudOverlay.gd.uid
+game/scripts/RoomController.gd.uid
+addons/great_games_library/nodes/utility/TileVisualAutotiler.gd.uid
+addons/great_games_library/nodes/utility/TileSceneGenerator.gd.uid
