@@ -1,33 +1,33 @@
-[gd_scene load_steps=32 format=3 uid="uid://cpjckxc4g3s0w"]
+[gd_scene format=3 uid="uid://cpjckxc4g3s0w"]
 
 [ext_resource type="PackedScene" uid="uid://b7epulhnnr8d3" path="res://addons/top_down/scenes/tile_layers/floor_layer.tscn" id="1_61pqv"]
 [ext_resource type="PackedScene" uid="uid://cj0ewvpy5oege" path="res://addons/top_down/scenes/tile_layers/obstacle_layer.tscn" id="2_ug67p"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="3_7ky5u"]
+[ext_resource type="Script" uid="uid://dq852r7lc8xbb" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeSetter.gd" id="3_7ky5u"]
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="4_8dmxv"]
 [ext_resource type="Resource" uid="uid://ct82cq803r2si" path="res://addons/top_down/resources/RoomResources/obstacle_reference.tres" id="4_fabx6"]
 [ext_resource type="TileSet" uid="uid://dah24bbc4526" path="res://addons/top_down/resources/tilesets/tileset_isometric_walls.tres" id="5_iamlt"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="6_qdsw2"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/TileCollisionGenerator.gd" id="7_brx8v"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/TileSceneGenerator.gd" id="27_tscng"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
+[ext_resource type="Script" uid="uid://dea14jycyujma" path="res://addons/great_games_library/nodes/Navigation/TileCollisionGenerator.gd" id="7_brx8v"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="7_e7miq"]
 [ext_resource type="PackedScene" uid="uid://7ixxtkmuui6p" path="res://addons/top_down/scenes/main_camera.tscn" id="8_koktt"]
 [ext_resource type="PackedScene" uid="uid://bqh7iwpl0s1ha" path="res://addons/top_down/scenes/screen_effects/screen_effects.tscn" id="10_3mcmd"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/PlayerSpawner.gd" id="11_7u3rc"]
+[ext_resource type="Script" uid="uid://tp37xypoupkc" path="res://addons/top_down/scripts/game/PlayerSpawner.gd" id="11_7u3rc"]
 [ext_resource type="PackedScene" uid="uid://deuehdcbbm5c1" path="res://addons/top_down/scenes/ui/game_hud.tscn" id="11_vvfpg"]
 [ext_resource type="PackedScene" uid="uid://cfaobhr3r5ymj" path="res://addons/top_down/scenes/arena/enemy_manager.tscn" id="12_iiw1i"]
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="12_wnxyp"]
 [ext_resource type="Resource" uid="uid://ini50pn76erv" path="res://addons/top_down/resources/global_resources/pause_resource.tres" id="14_6pg65"]
 [ext_resource type="Resource" uid="uid://ceuk0khv7rbvr" path="res://addons/top_down/resources/InstanceResources/actors/player_instance_resource.tres" id="14_bk0b2"]
 [ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="15_j5kfh"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/ProcessingComponent.gd" id="18_igxve"]
+[ext_resource type="Script" uid="uid://cuv10g46asj42" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="16_7p4gu"]
+[ext_resource type="Script" uid="uid://dq7hp63hdatoc" path="res://addons/great_games_library/nodes/DebugPausing/DebugPausing.gd" id="17_j7yji"]
+[ext_resource type="Script" uid="uid://cofh35hhwfwag" path="res://addons/great_games_library/nodes/utility/BackgroundColorSetter.gd" id="18_2cand"]
+[ext_resource type="Script" uid="uid://cp8rp6wpan64x" path="res://addons/top_down/scripts/game/ProcessingComponent.gd" id="18_igxve"]
 [ext_resource type="PackedScene" uid="uid://crddbd0tmxp5p" path="res://addons/top_down/scenes/arena/arena_entry.tscn" id="18_k0tp1"]
 [ext_resource type="Resource" uid="uid://df4nqpa0at8qn" path="res://addons/top_down/resources/global_resources/transition_bool_resource.tres" id="20_kwksj"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/utility/DebugDraw.gd" id="26_l7fet"]
+[ext_resource type="Script" uid="uid://dbse7tjd7wax7" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
+[ext_resource type="Script" uid="uid://d4mgwop6ohvpb" path="res://addons/great_games_library/nodes/utility/DebugDraw.gd" id="26_l7fet"]
+[ext_resource type="Script" uid="uid://yyra3r4158q3" path="res://addons/great_games_library/nodes/utility/BlockWallGenerator.gd" id="27_tscng"]
+[ext_resource type="Script" uid="uid://dl7rbourlvwco" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pkurn"]
 points = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
@@ -42,15 +42,15 @@ device = -1
 keycode = 91
 unicode = 91
 
-[node name="Room" type="Node2D"]
+[node name="Room" type="Node2D" unique_id=946689702]
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=1155772741]
 
-[node name="FloorLayer" parent="Background" instance=ExtResource("1_61pqv")]
+[node name="FloorLayer" parent="Background" unique_id=379468156 instance=ExtResource("1_61pqv")]
 
-[node name="ObstacleLayer" parent="Background" instance=ExtResource("2_ug67p")]
+[node name="ObstacleLayer" parent="Background" unique_id=1968394237 instance=ExtResource("2_ug67p")]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Background/ObstacleLayer" node_paths=PackedStringArray("tilemap_layer", "static_body")]
+[node name="StaticBody2D" type="StaticBody2D" parent="Background/ObstacleLayer" unique_id=1716353671 node_paths=PackedStringArray("tilemap_layer", "static_body")]
 z_index = 2
 collision_layer = 8
 collision_mask = 0
@@ -59,30 +59,29 @@ tilemap_layer = NodePath("..")
 static_body = NodePath(".")
 tile_shape = SubResource("ConvexPolygonShape2D_pkurn")
 
-[node name="ReferenceObstacle" type="Node" parent="Background/ObstacleLayer" node_paths=PackedStringArray("reference_node")]
+[node name="ReferenceObstacle" type="Node" parent="Background/ObstacleLayer" unique_id=2010571435 node_paths=PackedStringArray("reference_node")]
 script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("4_fabx6")
 
-[node name="TileVisualAutotiler" type="Node" parent="Background/ObstacleLayer" node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
+[node name="TileVisualAutotiler" type="Node" parent="Background/ObstacleLayer" unique_id=539057750 node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
 script = ExtResource("28_tvaut")
 tilemap_layer = NodePath("..")
-floor_layer = NodePath("../FloorLayer")
+floor_layer = NodePath("../../FloorLayer")
 layer_kind = 1
-marker_atlas = Vector2i(0, 2)
 
-[node name="Behind" type="Node2D" parent="."]
+[node name="Behind" type="Node2D" parent="." unique_id=309654739]
 
-[node name="ReferenceBehind" type="Node" parent="Behind" node_paths=PackedStringArray("reference_node")]
+[node name="ReferenceBehind" type="Node" parent="Behind" unique_id=1688883282 node_paths=PackedStringArray("reference_node")]
 script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("4_8dmxv")
 
-[node name="WallLayer_Ysorted" parent="." instance=ExtResource("2_ug67p")]
+[node name="WallLayer_Ysorted" parent="." unique_id=976659384 instance=ExtResource("2_ug67p")]
 y_sort_enabled = true
 tile_set = ExtResource("5_iamlt")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="WallLayer_Ysorted" node_paths=PackedStringArray("tilemap_layer", "static_body")]
+[node name="StaticBody2D" type="StaticBody2D" parent="WallLayer_Ysorted" unique_id=488814138 node_paths=PackedStringArray("tilemap_layer", "static_body")]
 z_index = 2
 collision_layer = 9
 collision_mask = 0
@@ -91,82 +90,85 @@ tilemap_layer = NodePath("..")
 static_body = NodePath(".")
 tile_shape = SubResource("ConvexPolygonShape2D_pkurn")
 
-[node name="ReferenceYsort" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("reference_node")]
+[node name="ReferenceYsort" type="Node" parent="WallLayer_Ysorted" unique_id=1912111179 node_paths=PackedStringArray("reference_node")]
 script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("6_qdsw2")
 
-[node name="TileSceneGenerator" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("tilemap_layer", "container")]
+[node name="BlockWallGenerator" type="Node" parent="WallLayer_Ysorted" unique_id=957645594 node_paths=PackedStringArray("tilemap_layer", "container")]
 script = ExtResource("27_tscng")
+generate_block_wall = null
+revert_generate = null
+confirm_delete_tiles = null
+delete_tiles = null
 tilemap_layer = NodePath("..")
 container = NodePath("..")
 
-[node name="TileVisualAutotiler" type="Node" parent="WallLayer_Ysorted" node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
+[node name="TileVisualAutotiler" type="Node" parent="WallLayer_Ysorted" unique_id=488301003 node_paths=PackedStringArray("tilemap_layer", "floor_layer")]
 script = ExtResource("28_tvaut")
 tilemap_layer = NodePath("..")
-floor_layer = NodePath("../Background/FloorLayer")
-layer_kind = 0
+floor_layer = NodePath("../../Background/FloorLayer")
 marker_atlas = Vector2i(1, 2)
 
-[node name="Front" type="Node2D" parent="."]
+[node name="Front" type="Node2D" parent="." unique_id=723038494]
 
-[node name="ReferenceFront" type="Node" parent="Front" node_paths=PackedStringArray("reference_node")]
+[node name="ReferenceFront" type="Node" parent="Front" unique_id=1570893298 node_paths=PackedStringArray("reference_node")]
 script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("7_e7miq")
 
-[node name="MainCamera" parent="." instance=ExtResource("8_koktt")]
+[node name="MainCamera" parent="." unique_id=1658281063 instance=ExtResource("8_koktt")]
 editor_draw_screen = false
 
-[node name="ScreenEffects" parent="." instance=ExtResource("10_3mcmd")]
+[node name="ScreenEffects" parent="." unique_id=1322382880 instance=ExtResource("10_3mcmd")]
 
-[node name="UI" parent="." instance=ExtResource("11_vvfpg")]
+[node name="UI" parent="." unique_id=84886015 instance=ExtResource("11_vvfpg")]
 
-[node name="PlayerSpawner" type="Marker2D" parent="."]
+[node name="PlayerSpawner" type="Marker2D" parent="." unique_id=2094675382]
 position = Vector2(195, 150)
 script = ExtResource("11_7u3rc")
 player_reference = ExtResource("12_wnxyp")
 player_instance_resource = ExtResource("14_bk0b2")
 scene_transition_resource = ExtResource("15_j5kfh")
 
-[node name="EnemyManager" parent="." instance=ExtResource("12_iiw1i")]
+[node name="EnemyManager" parent="." unique_id=1112234375 instance=ExtResource("12_iiw1i")]
 
-[node name="EnemySpawnPoints" type="Node2D" parent="."]
+[node name="EnemySpawnPoints" type="Node2D" parent="." unique_id=1628598410]
 
-[node name="ArenaEntry" parent="." instance=ExtResource("18_k0tp1")]
+[node name="ArenaEntry" parent="." unique_id=971622857 instance=ExtResource("18_k0tp1")]
 collision_layer = 0
 collision_mask = 2
 
-[node name="PauseProcessingComponent" type="Node" parent="." node_paths=PackedStringArray("paused_nodes")]
+[node name="PauseProcessingComponent" type="Node" parent="." unique_id=1410348693 node_paths=PackedStringArray("paused_nodes")]
 script = ExtResource("18_igxve")
 bool_resource = ExtResource("14_6pg65")
 paused_nodes = [NodePath("..")]
 paused_state = 4
 
-[node name="TransitionProcessingComponent" type="Node" parent="." node_paths=PackedStringArray("paused_nodes")]
+[node name="TransitionProcessingComponent" type="Node" parent="." unique_id=2114243555 node_paths=PackedStringArray("paused_nodes")]
 script = ExtResource("18_igxve")
 bool_resource = ExtResource("20_kwksj")
 paused_nodes = [NodePath("..")]
 paused_state = 4
 
-[node name="MusicSetter" type="Node" parent="."]
+[node name="MusicSetter" type="Node" parent="." unique_id=1923005013]
 script = ExtResource("16_7p4gu")
 music_name = "game"
 
-[node name="DebugPausing" type="Node" parent="." node_paths=PackedStringArray("stopped_node")]
+[node name="DebugPausing" type="Node" parent="." unique_id=1773893618 node_paths=PackedStringArray("stopped_node")]
 script = ExtResource("17_j7yji")
 frame_input = SubResource("InputEventKey_558eq")
 release_input = SubResource("InputEventKey_06obg")
 stopped_node = NodePath("..")
 
-[node name="BackgroundColor" type="Node" parent="."]
+[node name="BackgroundColor" type="Node" parent="." unique_id=386322169]
 script = ExtResource("18_2cand")
 color = Color(0.0196078, 0.0352941, 0.0784314, 1)
 
-[node name="GameOverDetect" type="Node" parent="."]
+[node name="GameOverDetect" type="Node" parent="." unique_id=1774687372]
 script = ExtResource("21_sfjnq")
 player_reference = ExtResource("12_wnxyp")
 game_over_scene_path = "res://addons/top_down/scenes/ui/screens/game_over.tscn"
 
-[node name="DebugDraw" type="Node2D" parent="."]
+[node name="DebugDraw" type="Node2D" parent="." unique_id=638060485]
 script = ExtResource("26_l7fet")

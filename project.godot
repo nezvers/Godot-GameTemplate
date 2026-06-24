@@ -19,6 +19,10 @@ run/main_scene="res://game/scenes/boot.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://c0l0lqrk43p28"
+
 [autoload]
 
 SteamInit="*res://addons/great_games_library/autoload/SteamInit.gd"

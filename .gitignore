@@ -22,4 +22,5 @@ game/scripts/FreshStart.gd.uid
 game/scripts/GameHudOverlay.gd.uid
 game/scripts/RoomController.gd.uid
 addons/great_games_library/nodes/utility/TileVisualAutotiler.gd.uid
+addons/great_games_library/nodes/utility/BlockWallGenerator.gd.uid
 addons/great_games_library/nodes/utility/TileSceneGenerator.gd.uid

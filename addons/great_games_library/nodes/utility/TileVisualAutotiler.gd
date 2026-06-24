@@ -12,35 +12,36 @@ extends Node
 
 enum LayerKind { WALL, HOLE }
 
-## Tool function: recompute every painted cell's atlas tile from neighbors + floor.
+## Recompute each painted cell's tile art from the surrounding FloorLayer + same-layer
+## neighbours. Run after painting markers or editing the floor.
 @export var fix_visual:bool : set = set_fix_visual
 
 @export_group("Generate from floor")
-## Add wall/hole marker tiles where the floor island boundary needs them, WITHOUT touching
-## existing cells, then run Fix Visual. WALL: rings every floor island's outer edge. HOLE:
-## fills floor cells that border an interior gap region.
+## Add marker tiles where the floor island boundary needs them, WITHOUT touching existing
+## cells, then run Fix Visual. WALL: rings every floor island's outer edge. HOLE: fills the
+## enclosed gap cells inside the floor.
 @export var add_missing:bool : set = set_add_missing
-## Like add_missing but first clears this layer, rebuilding the whole boundary from scratch.
+## Like Add Missing but first erases this layer, rebuilding the whole boundary from scratch.
 @export var regenerate:bool : set = set_regenerate
 
-@export_group("Clear")
-## Step 1: tick to arm. Step 2: tick Clear to reset all painted cells to the marker tile.
+@export_group("Clear tiles")
+## Step 1: tick to arm. Step 2: tick Clear to remove every painted cell from this layer.
 @export var confirm_clear:bool = false
-## Tool function: reset painted cells to marker_atlas. Requires confirm_clear first.
+## Erase all painted cells from this layer (leaves an empty layer). Requires Confirm Clear first.
 @export var clear:bool : set = set_clear
 
 @export_group("")
-## The wall/hole layer being painted and rewritten.
+## This wall/hole layer — the tiles this node paints and rewrites.
 @export var tilemap_layer:TileMapLayer
-## FloorLayer read to decide which side the floor is on (the cross-layer relationship).
+## FloorLayer used to decide which side the floor is on and where boundaries go (cross-layer input).
 @export var floor_layer:TileMapLayer
-## Which atlas table to use: walls and holes have different layouts.
+## WALL = ring floor islands' outer edge; HOLE = fill enclosed gaps inside the floor.
 @export var layer_kind:LayerKind = LayerKind.WALL
-## Atlas coord used when you paint a plain marker, and the reset target for Clear.
+## Atlas coord stamped when placing a plain marker before Fix Visual / Generate from floor.
 @export var marker_atlas:Vector2i = Vector2i(0, 2)
-## Safety: while false, WALL cells are left untouched by Fix Visual. The table is now
-## verified 97/97 against room_0_test, so this defaults true; flip off only to paint a new
-## wall sample without the autotiler overwriting it. Holes are unaffected by this flag.
+## Safety: while false, WALL cells are left untouched by Fix Visual. The table is verified
+## 200/200 against room_0_test, so this defaults true; flip off only to paint a new wall
+## sample without the autotiler overwriting it. Holes are unaffected by this flag.
 @export var wall_table_ready:bool = true
 
 # Side-neighbor map-coord deltas, named by the screen direction they point to in this
@@ -96,7 +97,7 @@ func set_clear(_value:bool)->void:
 		return
 	confirm_clear = false
 	notify_property_list_changed()
-	reset_to_marker()
+	erase_tiles()
 
 
 func set_add_missing(_value:bool)->void:
@@ -238,13 +239,10 @@ func autotile()->void:
 		tilemap_layer.set_cell(cell, _src, _atlas)
 
 
-## Reset painted cells back to the neutral marker so a clean re-paint/re-fix is possible.
-func reset_to_marker()->void:
+## Erase every painted cell from this layer so a clean re-paint/regenerate is possible.
+func erase_tiles()->void:
 	for cell:Vector2i in tilemap_layer.get_used_cells():
-		var _src:int = tilemap_layer.get_cell_source_id(cell)
-		if _src == -1:
-			continue
-		tilemap_layer.set_cell(cell, _src, marker_atlas)
+		tilemap_layer.erase_cell(cell)
 
 
 ## Choose the atlas coord for one cell. Holes use the same-layer hole mask; walls are

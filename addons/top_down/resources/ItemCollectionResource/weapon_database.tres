@@ -1,20 +1,19 @@
-[gd_resource type="Resource" script_class="ItemCollectionResource" load_steps=15 format=3 uid="uid://bytbvhnnajqxd"]
+[gd_resource type="Resource" script_class="ItemCollectionResource" format=3 uid="uid://bytbvhnnajqxd"]
 
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/WeaponItemResource.gd" id="1_bo3ff"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/ItemResource.gd" id="1_mbiyi"]
-[ext_resource type="Texture2D" uid="uid://cmrj6rrgbfvlg" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_jrlm3"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/pickups/ItemCollectionResource.gd" id="2_tekla"]
-[ext_resource type="Texture2D" uid="uid://dowxjnhdgsmac" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="3_1j2rw"]
-[ext_resource type="Texture2D" uid="uid://b0wnk1hh6fkkd" path="res://addons/top_down/assets/images/weapon/gun_3.png" id="4_fglbe"]
-[ext_resource type="Texture2D" uid="uid://bi8g0elk5ljha" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="5_n1on6"]
-[ext_resource type="Texture2D" uid="uid://b401nw0koxhnk" path="res://addons/top_down/assets/images/vfx/slash_2_strip5.png" id="6_ot0bc"]
+[ext_resource type="Script" uid="uid://pdtvos16dmcp" path="res://addons/top_down/scripts/pickups/WeaponItemResource.gd" id="1_bo3ff"]
+[ext_resource type="Script" uid="uid://d1l7717tvwgi8" path="res://addons/top_down/scripts/pickups/ItemResource.gd" id="1_mbiyi"]
+[ext_resource type="Texture2D" uid="uid://cvxn8w58uws5u" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_jrlm3"]
+[ext_resource type="Script" uid="uid://b0rh7heimm7yq" path="res://addons/top_down/scripts/pickups/ItemCollectionResource.gd" id="2_tekla"]
+[ext_resource type="Texture2D" uid="uid://w8rsfpjhyjed" path="res://addons/top_down/assets/images/weapon/gun_1.png" id="3_1j2rw"]
+[ext_resource type="Texture2D" uid="uid://com7nb0ovcbyi" path="res://addons/top_down/assets/images/weapon/gun_3.png" id="4_fglbe"]
+[ext_resource type="Texture2D" uid="uid://bexuovggtjg8n" path="res://addons/top_down/assets/images/weapon/sword_0.png" id="5_n1on6"]
+[ext_resource type="Texture2D" uid="uid://dggjjoqh2vy1d" path="res://addons/top_down/assets/images/vfx/slash_2_strip5.png" id="6_ot0bc"]
 
 [sub_resource type="Resource" id="Resource_q51dg"]
 resource_name = "Gun"
 script = ExtResource("1_bo3ff")
 icon = ExtResource("2_jrlm3")
 scene_path = "res://addons/top_down/scenes/weapons/gun.tscn"
-type = 0
 unlocked = true
 
 [sub_resource type="Resource" id="Resource_kxyw2"]
@@ -22,7 +21,6 @@ resource_name = "Shotgun"
 script = ExtResource("1_bo3ff")
 icon = ExtResource("3_1j2rw")
 scene_path = "res://addons/top_down/scenes/weapons/shotgun.tscn"
-type = 0
 unlocked = true
 
 [sub_resource type="Resource" id="Resource_qyvt1"]
@@ -30,7 +28,6 @@ resource_name = "Assault Riffle"
 script = ExtResource("1_bo3ff")
 icon = ExtResource("4_fglbe")
 scene_path = "res://addons/top_down/scenes/weapons/assault_riffle.tscn"
-type = 0
 unlocked = true
 
 [sub_resource type="Resource" id="Resource_ec5le"]
@@ -38,7 +35,6 @@ resource_name = "Sword"
 script = ExtResource("1_bo3ff")
 icon = ExtResource("5_n1on6")
 scene_path = "res://addons/top_down/scenes/weapons/sword.tscn"
-type = 0
 unlocked = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sw7pp"]
@@ -50,13 +46,7 @@ resource_name = "Zombie Slash"
 script = ExtResource("1_bo3ff")
 icon = SubResource("AtlasTexture_sw7pp")
 scene_path = "res://addons/top_down/scenes/weapons/zombie_attack.tscn"
-type = 0
-unlocked = false
 
 [resource]
 script = ExtResource("2_tekla")
 list = Array[ExtResource("1_mbiyi")]([SubResource("Resource_q51dg"), SubResource("Resource_kxyw2"), SubResource("Resource_qyvt1"), SubResource("Resource_ec5le"), SubResource("Resource_wshng")])
-selected = 0
-max_items = 0
-version = 0
-not_saved = false

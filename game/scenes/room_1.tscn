@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="9_overlay"]
 [ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="10_fight"]
 [ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="11_remain"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="12_state"]
+[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="12_state"]
 [ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="13_cleared"]
 
 [sub_resource type="Resource" id="Wave_1"]
@@ -24,31 +24,35 @@ waves = Array[ExtResource("4_wave")]([SubResource("Wave_1")])
 
 [node name="Room" unique_id=1453654075 instance=ExtResource("1_room0")]
 
-[node name="Stairs" parent="Behind" index="0"]
+[node name="Stairs" parent="Behind" parent_id_path=PackedInt32Array(309654739) index="0"]
 visible = false
 monitoring = false
 tag = "extra_a"
 connect_tag = "from_prev"
 scene_path = "res://game/scenes/room_2.tscn"
 
-[node name="Stairs2" parent="Behind" index="1"]
+[node name="Stairs2" parent="Behind" parent_id_path=PackedInt32Array(309654739) index="1"]
 tag = "from_prev"
 connect_tag = "from_next"
 scene_path = "res://game/scenes/room_start.tscn"
 
-[node name="Stairs3" parent="Behind" index="2"]
-tag = "from_next"
-connect_tag = "from_prev"
-scene_path = "res://game/scenes/room_2_v2.tscn"
+[node name="Stairs3" parent="Behind" parent_id_path=PackedInt32Array(309654739) index="2"]
+scene_path = "res://game/scenes/room_A01.tscn"
 
-[node name="Stairs4" parent="Behind" index="3"]
+[node name="Stairs4" parent="Behind" parent_id_path=PackedInt32Array(309654739) index="3"]
 visible = false
 monitoring = false
 tag = "extra_b"
 connect_tag = "from_prev"
 scene_path = "res://game/scenes/room_2.tscn"
 
-[node name="EnemyManager" parent="." index="8"]
+[node name="BlockWallGenerator" parent="WallLayer_Ysorted" parent_id_path=PackedInt32Array(976659384) index="16" unique_id=957645594]
+generate_block_wall = false
+revert_generate = false
+confirm_delete_tiles = false
+delete_tiles = false
+
+[node name="EnemyManager" parent="." index="8" unique_id=1112234375]
 wave_queue = SubResource("Queue_1")
 
 [node name="RoomController" type="Node" parent="." index="18" unique_id=2109893654 node_paths=PackedStringArray("arena_entry")]

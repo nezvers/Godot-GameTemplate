@@ -351,7 +351,7 @@ tag = "extra_b"
 connect_tag = "from_prev"
 scene_path = "res://game/scenes/room_3.tscn"
 
-[node name="TileSceneGenerator" parent="WallLayer_Ysorted" index="16"]
+[node name="BlockWallGenerator" parent="WallLayer_Ysorted" index="16"]
 spawn_offset = Vector2(0, -8)
 
 [node name="BlockWall13" parent="WallLayer_Ysorted" index="17" unique_id=1600526436 instance=ExtResource("2_p833f")]

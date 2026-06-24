@@ -3,7 +3,7 @@
 Paint tiles on a `TileMapLayer`, then trigger a generator node that reads each tile's
 custom data and bakes the result into the scene file. Two `@tool` generators handle two
 custom data layers: `TileCollisionGenerator` (physics colliders) and
-`TileSceneGenerator` (scene instances). Painting only places art; nothing collides or
+`BlockWallGenerator` (scene instances). Painting only places art; nothing collides or
 spawns until you generate.
 
 ## Floor-aware visual autotiling
@@ -71,8 +71,8 @@ offsets. Every polygon uses the diamond `tile_shape`.
 - Wiring: `tilemap_layer`, `static_body`, `tile_shape`, `data_name` (default
   `collider_offset`).
 
-## TileSceneGenerator
-`addons/great_games_library/nodes/utility/TileSceneGenerator.gd`
+## BlockWallGenerator
+`addons/great_games_library/nodes/utility/BlockWallGenerator.gd`
 
 Spawns scene instances for tiles carrying a `scene_path` — block walls, hole obstacle
 scenes. Editor-time twin of the runtime `TileSpawner`. Sits under the layer; `container`
@@ -92,7 +92,7 @@ Reads custom data `scene_path` (`String`), loads and instances the scene, names 
 ## Clearing
 Both nodes clear in two steps: tick `Confirm Clear`, then tick `Clear`. It disarms
 `confirm_clear` after each clear, so a second clear needs re-confirming.
-`TileSceneGenerator` restores the erased placeholder tiles on clear, so the layout
+`BlockWallGenerator` restores the erased placeholder tiles on clear, so the layout
 survives a clear/regenerate cycle.
 
 Re-running generate cleans up prior output first — safe to re-bake after repainting.
@@ -101,7 +101,7 @@ Re-running generate cleans up prior output first — safe to re-bake after repai
 - Static walls & holes → painted tiles with `collider_offset` → `TileCollisionGenerator`
   bakes static colliders.
 - Block walls (animated unlock doors) → painted `block_wall.tscn` marker tile
-  (`scene_path` custom data) → `TileSceneGenerator` spawns `BlockWall` instances.
+  (`scene_path` custom data) → `BlockWallGenerator` spawns `BlockWall` instances.
 - Layers: `ObstacleLayer` holds holes; `WallLayer_Ysorted` holds walls and block walls
   (y-sorted).
 
