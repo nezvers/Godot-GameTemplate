@@ -1,7 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://dah24bbc4526"]
 
 [ext_resource type="Texture2D" uid="uid://c2lnsswt0goh6" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls.png" id="1_jorl2"]
-[ext_resource type="Texture2D" uid="uid://ci86kqcpoilhr" path="res://addons/top_down/assets/images/misc/block_strip4.png" id="2_blockwall"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f5ja1"]
 texture = ExtResource("1_jorl2")
@@ -54,12 +53,6 @@ texture_region_size = Vector2i(32, 32)
 3:0/0/custom_data_0 = PackedVector2Array(0, 0, 0, 1)
 3:0/0/custom_data_1 = PackedVector2Array(18, 1, -2, 9, 0, -8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blockmarker"]
-texture = ExtResource("2_blockwall")
-texture_region_size = Vector2i(32, 32)
-3:0/0 = 0
-3:0/0/custom_data_2 = "res://addons/top_down/scenes/obstacles/block_wall.tscn"
-
 [resource]
 resource_name = "Walls Tileset"
 tile_shape = 1
@@ -70,7 +63,4 @@ custom_data_layer_0/name = "collider_offset"
 custom_data_layer_0/type = 35
 custom_data_layer_1/name = "poligon_points"
 custom_data_layer_1/type = 35
-custom_data_layer_2/name = "scene_path"
-custom_data_layer_2/type = 4
 sources/0 = SubResource("TileSetAtlasSource_f5ja1")
-sources/1 = SubResource("TileSetAtlasSource_blockmarker")

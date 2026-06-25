@@ -57,6 +57,10 @@ func _on_fight_started() -> void:
 func _on_remaining_waves_changed() -> void:
 	if not _was_fighting:
 		return
+	# A section still fighting means the room is not done, even if a transient
+	# recompute reports zero remaining waves.
+	if fight_mode_resource.value:
+		return
 	if remaining_wave_count_resource.value > 0:
 		return
 	# All waves defeated.

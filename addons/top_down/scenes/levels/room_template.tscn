@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://bnmup4gi1ft42" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="4_8dmxv"]
 [ext_resource type="Resource" uid="uid://ct82cq803r2si" path="res://addons/top_down/resources/RoomResources/obstacle_reference.tres" id="4_fabx6"]
 [ext_resource type="TileSet" uid="uid://dah24bbc4526" path="res://addons/top_down/resources/tilesets/tileset_isometric_walls.tres" id="5_iamlt"]
+[ext_resource type="TileSet" uid="uid://blockwallmarker01" path="res://addons/top_down/resources/tilesets/tileset_block_wall_marker.tres" id="5_bwmrk"]
 [ext_resource type="Resource" uid="uid://d1ck1axrd4kd4" path="res://addons/top_down/resources/RoomResources/ysort_reference.tres" id="6_qdsw2"]
 [ext_resource type="Script" uid="uid://dea14jycyujma" path="res://addons/great_games_library/nodes/Navigation/TileCollisionGenerator.gd" id="7_brx8v"]
 [ext_resource type="Resource" uid="uid://d16p36img8x6j" path="res://addons/top_down/resources/RoomResources/front_reference.tres" id="7_e7miq"]
@@ -96,9 +97,12 @@ script = ExtResource("3_7ky5u")
 reference_node = NodePath("..")
 reference_resource = ExtResource("6_qdsw2")
 
+[node name="BlockWallMarkerLayer" type="TileMapLayer" parent="WallLayer_Ysorted" unique_id=611420318]
+tile_set = ExtResource("5_bwmrk")
+
 [node name="BlockWallGenerator" type="Node" parent="WallLayer_Ysorted" unique_id=957645594 node_paths=PackedStringArray("tilemap_layer", "container")]
 script = ExtResource("27_tscng")
-tilemap_layer = NodePath("..")
+tilemap_layer = NodePath("../BlockWallMarkerLayer")
 container = NodePath("..")
 spawn_offset = Vector2(0, -8)
 

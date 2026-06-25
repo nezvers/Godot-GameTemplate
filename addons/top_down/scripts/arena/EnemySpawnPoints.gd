@@ -17,6 +17,9 @@ const SPAWN_POINT_SCRIPT:Script = preload("res://addons/top_down/scripts/arena/S
 ## Mark newly created points as boss spawn positions.
 @export var add_as_boss:bool = false
 
+## Max simultaneous enemies stamped onto newly created points.
+@export_range(1, 6) var default_max_simultaneous:int = 1
+
 
 func set_add_spawn_point(value:bool)->void:
 	if !is_inside_tree():
@@ -32,3 +35,4 @@ func set_add_spawn_point(value:bool)->void:
 	_point.owner = get_tree().edited_scene_root
 	_point.set("section", default_section)
 	_point.set("boss_position", add_as_boss)
+	_point.set("max_simultaneous", default_max_simultaneous)

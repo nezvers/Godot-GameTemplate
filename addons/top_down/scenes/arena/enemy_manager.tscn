@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cfaobhr3r5ymj"]
+[gd_scene load_steps=14 format=3 uid="uid://cfaobhr3r5ymj"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemyManager.gd" id="1_agrht"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/ArenaSectionAggregator.gd" id="2_aggr"]
@@ -12,6 +12,9 @@
 [ext_resource type="Resource" uid="uid://btqugjrcxhbgl" path="res://addons/top_down/resources/InstanceResources/pickups/coin_instance_resource.tres" id="10_coin"]
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="11_hp"]
 [ext_resource type="Resource" uid="uid://dcq3sgut7k6dh" path="res://addons/top_down/resources/global_resources/luck_resource.tres" id="12_luck"]
+[ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="13_wn"]
+[ext_resource type="Resource" uid="uid://b8k2qx7n4msr1" path="res://addons/top_down/resources/arena_resources/section_name_resource.tres" id="14_sn"]
+[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="15_state"]
 
 [node name="EnemyManager" type="Node" node_paths=PackedStringArray("section1", "section2", "section3")]
 script = ExtResource("1_agrht")
@@ -42,6 +45,9 @@ sections = [NodePath("../Section1"), NodePath("../Section2"), NodePath("../Secti
 fight_mode_resource = ExtResource("4_fm")
 remaining_wave_count_resource = ExtResource("5_rw")
 enemy_count_resource = ExtResource("6_ec")
+wave_number_resource = ExtResource("13_wn")
+section_name_resource = ExtResource("14_sn")
+room_state_resource = ExtResource("15_state")
 
 [node name="DropManager" type="Node" parent="." node_paths=PackedStringArray("sections")]
 script = ExtResource("9_drop")

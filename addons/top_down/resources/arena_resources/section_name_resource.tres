@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="StringValueResource" format=3 uid="uid://b8k2qx7n4msr1"]
+
+[ext_resource type="Script" uid="uid://ql35v85reuk2" path="res://addons/great_games_library/resources/ValueResource/StringResource.gd" id="1_snres"]
+
+[resource]
+resource_name = "Section Name"
+script = ExtResource("1_snres")

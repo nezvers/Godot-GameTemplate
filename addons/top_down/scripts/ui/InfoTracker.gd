@@ -8,6 +8,7 @@ extends Node
 @export var enemy_count_resource:IntResource
 @export var enemy_instance_resource:InstanceResource
 @export var room_state_resource:RoomStateResource
+@export var section_name_resource:StringValueResource
 
 @export var score_label:Label
 @export var fight_mode_label:Label
@@ -15,6 +16,7 @@ extends Node
 @export var enemy_count_label:Label
 @export var active_count_label:Label
 @export var room_id_label:Label
+@export var section_label:Label
 
 
 func _ready()->void:
@@ -31,6 +33,9 @@ func _ready()->void:
 	update_active_count_label()
 	room_state_resource.updated.connect(update_room_id_label)
 	update_room_id_label()
+	if section_name_resource != null:
+		section_name_resource.updated.connect(update_section_label)
+		update_section_label()
 
 func update_score_label()->void:
 	score_label.text = str(score_resource.value) + "G"
@@ -50,3 +55,7 @@ func update_active_count_label()->void:
 
 func update_room_id_label()->void:
 	room_id_label.text = "Room: " + String(room_state_resource.current_room_id)
+
+func update_section_label()->void:
+	if section_label != null:
+		section_label.text = section_name_resource.value
