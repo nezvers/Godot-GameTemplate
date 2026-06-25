@@ -176,7 +176,9 @@ func generate_from_floor()->void:
 		# Interior corner: an interior floor cell whose TR and BR neighbours both became
 		# walls (the overlap edges) closes a corner — but only when its BL and TL back
 		# sides are symmetric (both floor or both empty). When exactly one of BL/TL is
-		# floor the cell sits on the perimeter and must stay empty.
+		# floor the cell sits on the perimeter and must stay empty. Also skip cells whose
+		# BR-diagonal is floor: those are fully enclosed interior tiles, not corners, and
+		# would get a spurious wall (matches _pick_wall, where dBR is the corner selector).
 		for f:Vector2i in _floor_cells:
 			if tilemap_layer.get_cell_source_id(f) != -1:
 				continue
@@ -185,6 +187,8 @@ func generate_from_floor()->void:
 			if tilemap_layer.get_cell_source_id(_tr) == -1 or tilemap_layer.get_cell_source_id(_br) == -1:
 				continue
 			if _floor_set.has(f + _DELTAS[SIDE_BL]) != _floor_set.has(f + _DELTAS[SIDE_TL]):
+				continue
+			if _floor_set.has(f + Vector2i(1, 1)):
 				continue
 			tilemap_layer.set_cell(f, _src, marker_atlas)
 	else:
