@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://beifde6xst23w"]
+[gd_scene load_steps=16 format=3 uid="uid://beifde6xst23w"]
 
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/Projectile2D.gd" id="1_8ha7j"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="2_3gsbh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileLifetime.gd" id="8_dsjh1"]
 [ext_resource type="Resource" uid="uid://s3oxaww7qjgi" path="res://addons/top_down/resources/InstanceResources/vfx/impact_instance_resource.tres" id="11_27w5u"]
 [ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="13_40h1t"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4a7g"]
 size = Vector2(4, 2)
@@ -77,3 +78,6 @@ projectile = NodePath("..")
 [node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes")]
 script = ExtResource("13_40h1t")
 ready_nodes = [NodePath(".."), NodePath("../ProjectileSetup"), NodePath("../ProjectileLifetime"), NodePath("../HitLimit"), NodePath("../ProjectileRotation"), NodePath("../ProjectileMover")]
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

@@ -1,0 +1,1288 @@
+{
+	"version": 1,
+	"difficulty": {
+		"normal": {
+			"enemy_health_ratio": 1.0,
+			"enemy_damage_ratio": 1.0,
+			"wave_count_ratio": 1.0,
+			"max_alive_ratio": 1.0
+		},
+		"easy": {
+			"enemy_health_ratio": 0.25,
+			"enemy_damage_ratio": 1.0,
+			"wave_count_ratio": 1.0,
+			"max_alive_ratio": 1.0
+		}
+	},
+	"player": {
+		"scene": "res://addons/top_down/scenes/actors/player.tscn",
+		"max_weapons": 5,
+		"health": 50,
+		"movement": {
+			"acceleration": 200,
+			"max_speed": 60
+		},
+		"resistances": 0,
+		"hit_invulnerability": 0.5,
+		"dash": {
+			"impulse_strength": 88,
+			"cooldown_time": 0.8,
+			"active_time": 0.48
+		},
+		"hole_damage": 10,
+		"poison": {
+			"damage": 1,
+			"tick_time": 0.5,
+			"linger_time": 0.1
+		},
+		"slow": {
+			"slow_multiplier": 0.5,
+			"linger_time": 0.1
+		},
+		"stuck": {
+			"stuck_time": 2,
+			"escape_distance": 12,
+			"stuck_acceleration": 10000
+		}
+	},
+	"enemies": {
+		"zombie": {
+			"scene": "res://addons/top_down/scenes/actors/zombie.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres",
+			"health": 50,
+			"movement": {
+				"acceleration": 200,
+				"max_speed": 40
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"crit_replace": {
+				"health_treshold": 20,
+				"replacement_instance_resource": "zombie_crawler"
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"zombie_crawler": {
+			"scene": "res://addons/top_down/scenes/actors/zombie_crawler.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres",
+			"health": 50,
+			"movement": {
+				"acceleration": 150,
+				"max_speed": 30
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"slime": {
+			"scene": "res://addons/top_down/scenes/actors/slime.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres",
+			"health": 50,
+			"movement": {
+				"acceleration": 300,
+				"max_speed": 25
+			},
+			"resistances": 3.0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"split": {
+				"split_instance_resource": "slime_small",
+				"angles": [
+					-25,
+					25,
+					-65,
+					65
+				],
+				"spawn_distance": 8
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"slime_small": {
+			"scene": "res://addons/top_down/scenes/actors/slime_small.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/slime_small_instance_resource.tres",
+			"health": 30,
+			"movement": {
+				"acceleration": 300,
+				"max_speed": 40
+			},
+			"resistances": 2.0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"acid_slime": {
+			"scene": "res://addons/top_down/scenes/actors/acid_slime.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/acid_slime_instance_resource.tres",
+			"health": 50,
+			"movement": {
+				"acceleration": 300,
+				"max_speed": 25
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"drop_chance": 1,
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"bloater": {
+			"scene": "res://addons/top_down/scenes/actors/bloater.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/bloater_instance_resource.tres",
+			"health": 125,
+			"movement": {
+				"acceleration": 200,
+				"max_speed": 25
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"split": {
+				"split_instance_resource": "zombie",
+				"angles": [
+					-40,
+					40
+				],
+				"spawn_distance": 8
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"skitter_spider": {
+			"scene": "res://addons/top_down/scenes/actors/skitter_spider.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/skitter_spider_instance_resource.tres",
+			"health": 22,
+			"movement": {
+				"acceleration": 300,
+				"max_speed": 70
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		},
+		"web_spider": {
+			"scene": "res://addons/top_down/scenes/actors/web_spider.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/web_spider_instance_resource.tres",
+			"health": 30,
+			"movement": {
+				"acceleration": 300,
+				"max_speed": 50
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 10,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"keep_distance": {
+				"stop_distance": 56,
+				"back_off_distance": 32
+			},
+			"lob": {
+				"projectile_instance": "web",
+				"shoot_range": 96,
+				"cooldown": 2.5,
+				"start_delay": 1,
+				"angles": [
+					0
+				],
+				"fixed_distance": 0
+			},
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			}
+		}
+	},
+	"bosses": {
+		"big_jelly": {
+			"scene": "res://addons/top_down/scenes/actors/boss_big_jelly.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/boss_slime_instance_resource.tres",
+			"health": 200,
+			"movement": {
+				"acceleration": 200,
+				"max_speed": 60
+			},
+			"resistances": 3.0,
+			"hit_invulnerability": 0,
+			"drop_chance": 0.1,
+			"damage_areas": {
+				"ShapeCastTransmitterDamage": {
+					"damage": 10.0,
+					"critical_chance": 0.3,
+					"critical_multiply": 1.1,
+					"kickback": 0,
+					"radius": 32
+				},
+				"ShapeCastTransmitterPush": {
+					"damage": 0,
+					"critical_chance": 0.3,
+					"critical_multiply": 1.5,
+					"kickback": 0,
+					"radius": 40
+				}
+			},
+			"jelly_ai": {
+				"out_of_range_distance": 128,
+				"max_jump_distance": 96,
+				"max_jump_close_in": 128,
+				"close_in_max_jumps": 4,
+				"shot_wait": 2,
+				"JumpDamage": {
+					"kickback_radius": 40,
+					"kickback_max": 150,
+					"kickback_min": 40
+				},
+				"ChasePlayer": {
+					"target_offset": [
+						0,
+						11
+					],
+					"jump_time": 1,
+					"landing_recovery_time": 0.32
+				},
+				"ShootSlime": {
+					"projectile_instance": "big_jelly_spit",
+					"spawn_radius": 32,
+					"child_limit": 8,
+					"easy_child_limit": 4
+				}
+			}
+		},
+		"giant_zombie": {
+			"scene": "res://addons/top_down/scenes/actors/giant_zombie_boss.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/giant_zombie_instance_resource.tres",
+			"health": 450,
+			"movement": {
+				"acceleration": 250,
+				"max_speed": 32
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 20,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"drop_chance": 1,
+			"attack_loop": {
+				"start_delay": 1.5,
+				"attack_gap": 0.8,
+				"enrage_health": 0.4,
+				"enrage_speed": 1.3,
+				"enrage_time_scale": 0.7,
+				"Slam": {
+					"kickback_radius": 48,
+					"kickback_max": 160,
+					"kickback_min": 60,
+					"windup": 0.75,
+					"recovery": 0.8,
+					"cooldown": 1.5,
+					"min_distance": 0,
+					"max_distance": 40,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 3
+				},
+				"Charge": {
+					"speed": 200,
+					"acceleration": 1500,
+					"duration": 0.9,
+					"kickback": 180,
+					"wall_stun": 1.6,
+					"windup": 0.8,
+					"recovery": 0.5,
+					"cooldown": 5,
+					"min_distance": 64,
+					"max_distance": 200,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 2
+				},
+				"Roar": {
+					"instance_resource": "zombie",
+					"count": 2,
+					"child_limit": 4,
+					"easy_count": 1,
+					"easy_child_limit": 2,
+					"spawn_radius": 28,
+					"windup": 0.6,
+					"recovery": 0.6,
+					"cooldown": 12,
+					"min_distance": 0,
+					"max_distance": 9999,
+					"min_health": 0,
+					"max_health": 0.75,
+					"weight": 1.5
+				}
+			},
+			"damage_areas": {
+				"SlamDamage": {
+					"damage": 10.0,
+					"critical_chance": 0,
+					"critical_multiply": 1,
+					"kickback": 0,
+					"radius": 44
+				},
+				"SlamPush": {
+					"damage": 0,
+					"critical_chance": 0,
+					"critical_multiply": 1,
+					"kickback": 0,
+					"radius": 52
+				},
+				"ChargeDamage": {
+					"damage": 8.0,
+					"critical_chance": 0,
+					"critical_multiply": 1,
+					"kickback": 0,
+					"radius": 18
+				}
+			}
+		},
+		"broodmother": {
+			"scene": "res://addons/top_down/scenes/actors/broodmother_boss.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/broodmother_instance_resource.tres",
+			"health": 380,
+			"movement": {
+				"acceleration": 250,
+				"max_speed": 35
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 20,
+				"TileNavigationGetter": {
+					"max_thickness": 2,
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"keep_distance": {
+				"stop_distance": 100,
+				"back_off_distance": 72
+			},
+			"drop_chance": 1,
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			},
+			"attack_loop": {
+				"start_delay": 1.5,
+				"attack_gap": 0.8,
+				"enrage_health": 0.4,
+				"enrage_speed": 1.3,
+				"enrage_time_scale": 0.7,
+				"WebShot": {
+					"volleys": 1,
+					"volley_delay": 0.3,
+					"volley_rotation": 0,
+					"child_limit": -1,
+					"easy_count": -1,
+					"easy_child_limit": -1,
+					"windup": 0.5,
+					"recovery": 0.3,
+					"cooldown": 2.8,
+					"min_distance": 0,
+					"max_distance": 180,
+					"min_health": 0.5,
+					"max_health": 1,
+					"weight": 2,
+					"Lob": {
+						"projectile_instance": "web",
+						"angles": [
+							0
+						],
+						"fixed_distance": 0
+					}
+				},
+				"WebSpread": {
+					"volleys": 1,
+					"volley_delay": 0.3,
+					"volley_rotation": 0,
+					"child_limit": -1,
+					"easy_count": -1,
+					"easy_child_limit": -1,
+					"windup": 0.5,
+					"recovery": 0.3,
+					"cooldown": 3.2,
+					"min_distance": 0,
+					"max_distance": 180,
+					"min_health": 0,
+					"max_health": 0.5,
+					"weight": 2,
+					"Lob": {
+						"projectile_instance": "web",
+						"angles": [
+							-25,
+							0,
+							25
+						],
+						"fixed_distance": 0
+					}
+				},
+				"Brood": {
+					"volleys": 1,
+					"volley_delay": 0.3,
+					"volley_rotation": 0,
+					"child_limit": 4,
+					"easy_count": 2,
+					"easy_child_limit": 2,
+					"windup": 0.8,
+					"recovery": 0.9,
+					"cooldown": 9,
+					"min_distance": 0,
+					"max_distance": 9999,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 1.5,
+					"Lob": {
+						"projectile_instance": "spiderling",
+						"angles": [
+							0,
+							-35,
+							35
+						],
+						"fixed_distance": 56
+					}
+				}
+			}
+		},
+		"plague_mother": {
+			"scene": "res://addons/top_down/scenes/actors/plague_mother_boss.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/plague_mother_instance_resource.tres",
+			"health": 420,
+			"movement": {
+				"acceleration": 200,
+				"max_speed": 22
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 20,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"drop_chance": 1,
+			"melee": {
+				"damage": 10.0,
+				"critical_chance": 0.3,
+				"critical_multiply": 1.5,
+				"interval": 1,
+				"recoil": 30,
+				"projectile": "zombie_slash"
+			},
+			"attack_loop": {
+				"start_delay": 1.5,
+				"attack_gap": 0.8,
+				"enrage_health": 0.4,
+				"enrage_speed": 1.3,
+				"enrage_time_scale": 0.7,
+				"AcidVolley": {
+					"volleys": 1,
+					"volley_delay": 0.3,
+					"volley_rotation": 0,
+					"child_limit": -1,
+					"easy_count": -1,
+					"easy_child_limit": -1,
+					"windup": 0.6,
+					"recovery": 0.4,
+					"cooldown": 3.5,
+					"min_distance": 0,
+					"max_distance": 200,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 2,
+					"Lob": {
+						"projectile_instance": "acid_spit",
+						"angles": [
+							-18,
+							0,
+							18
+						],
+						"fixed_distance": 0
+					}
+				},
+				"SummonSlimes": {
+					"instance_resource": "acid_slime",
+					"count": 2,
+					"child_limit": 4,
+					"easy_count": 1,
+					"easy_child_limit": 2,
+					"spawn_radius": 28,
+					"windup": 0.8,
+					"recovery": 0.6,
+					"cooldown": 11,
+					"min_distance": 0,
+					"max_distance": 9999,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 1.5
+				},
+				"AcidRing": {
+					"volleys": 1,
+					"volley_delay": 0.3,
+					"volley_rotation": 0,
+					"child_limit": -1,
+					"easy_count": -1,
+					"easy_child_limit": -1,
+					"windup": 0.9,
+					"recovery": 1,
+					"cooldown": 10,
+					"min_distance": 0,
+					"max_distance": 9999,
+					"min_health": 0,
+					"max_health": 0.5,
+					"weight": 1.5,
+					"Lob": {
+						"projectile_instance": "acid_spit",
+						"angles": [
+							0,
+							45,
+							90,
+							135,
+							180,
+							225,
+							270,
+							315
+						],
+						"fixed_distance": 48
+					}
+				}
+			}
+		}
+	},
+	"weapons": {
+		"gun": {
+			"scene": "res://addons/top_down/scenes/weapons/gun.tscn",
+			"interval": 0.5,
+			"recoil": 30,
+			"projectile": "bullet",
+			"projectile_angles": [
+				0
+			],
+			"random_spread": 5,
+			"initial_distance": 8,
+			"damage": 0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5
+		},
+		"shotgun": {
+			"scene": "res://addons/top_down/scenes/weapons/shotgun.tscn",
+			"interval": 0.75,
+			"recoil": 60,
+			"projectile": "shotgun_bullet",
+			"projectile_angles": [
+				0,
+				-20,
+				20,
+				-10,
+				10
+			],
+			"random_spread": 2.5,
+			"initial_distance": 8,
+			"damage": 0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5
+		},
+		"assault_rifle": {
+			"scene": "res://addons/top_down/scenes/weapons/assault_riffle.tscn",
+			"interval": 0.1,
+			"recoil": 30,
+			"projectile": "assault_bullet",
+			"projectile_angles": [
+				0
+			],
+			"random_spread": 5,
+			"initial_distance": 8,
+			"damage": 0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5
+		},
+		"sword": {
+			"scene": "res://addons/top_down/scenes/weapons/sword.tscn",
+			"interval": 0.3,
+			"recoil": -30,
+			"projectile": "sword_slash",
+			"projectile_angles": [
+				0
+			],
+			"random_spread": 0,
+			"initial_distance": 10,
+			"damage": 0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5
+		}
+	},
+	"projectiles": {
+		"bullet": {
+			"scene": "res://addons/top_down/scenes/projectiles/bullet.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/gun_bullet_instance_resource.tres",
+			"damage": 10.0,
+			"kickback": 60,
+			"speed": 120,
+			"lifetime": 2,
+			"movement_type": "SHAPECAST",
+			"max_bounce": 3,
+			"hit_limit": 1
+		},
+		"assault_bullet": {
+			"scene": "res://addons/top_down/scenes/projectiles/assault_bullet.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/assault_bullet_instance_resource.tres",
+			"damage": 5.0,
+			"kickback": 30,
+			"speed": 120,
+			"lifetime": 2,
+			"movement_type": "SHAPECAST",
+			"max_bounce": 3,
+			"hit_limit": 1
+		},
+		"shotgun_bullet": {
+			"scene": "res://addons/top_down/scenes/projectiles/shotgun_bullet.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/shotgun_bullet_instance_resource.tres",
+			"damage": 5.0,
+			"kickback": 30,
+			"speed": 170,
+			"lifetime": 0.5,
+			"movement_type": "SHAPECAST",
+			"max_bounce": 3,
+			"hit_limit": 1
+		},
+		"sword_slash": {
+			"scene": "res://addons/top_down/scenes/projectiles/sword_slash.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/sword_slash_instance_resource.tres",
+			"damage": 20.0,
+			"kickback": 100,
+			"speed": 60,
+			"lifetime": 0.27,
+			"movement_type": "PROJECTILE",
+			"max_bounce": 0,
+			"hit_limit": 1,
+			"sub_projectile": "sword_projectile",
+			"sub_projectile_angles": [
+				0
+			]
+		},
+		"sword_projectile": {
+			"scene": "res://addons/top_down/scenes/projectiles/sword_projectile.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/sword_projectile_instance_resource.tres",
+			"damage": 2.0,
+			"kickback": 20,
+			"speed": 150,
+			"lifetime": 0.4,
+			"movement_type": "PROJECTILE",
+			"max_bounce": 0,
+			"hit_limit": 1
+		},
+		"zombie_slash": {
+			"scene": "res://addons/top_down/scenes/projectiles/zombie_slash.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/zombie_slash_instance_resource.tres",
+			"damage": 0,
+			"kickback": 120,
+			"speed": 40,
+			"lifetime": 0.25,
+			"movement_type": "PROJECTILE",
+			"max_bounce": 0,
+			"hit_limit": -1
+		}
+	},
+	"enemy_projectiles": {
+		"web": {
+			"scene": "res://addons/top_down/scenes/projectiles/web_projectile.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/web_projectile_instance_resource.tres",
+			"damage": 2.0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5,
+			"kickback": 40,
+			"flight_time": 1,
+			"landing_radius": 9.35,
+			"on_land": {
+				"instance_resource": "web_trap",
+				"lifetime": 6
+			}
+		},
+		"acid_spit": {
+			"scene": "res://addons/top_down/scenes/projectiles/acid_spit_projectile.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/acid_spit_projectile_instance_resource.tres",
+			"damage": 2.0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5,
+			"kickback": 40,
+			"flight_time": 1,
+			"landing_radius": 9.35,
+			"on_land": {
+				"instance_resource": "acid_puddle",
+				"lifetime": 6
+			}
+		},
+		"spiderling": {
+			"scene": "res://addons/top_down/scenes/projectiles/spiderling_projectile.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/spiderling_projectile_instance_resource.tres",
+			"damage": 2.0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5,
+			"kickback": 40,
+			"flight_time": 1,
+			"landing_radius": 9.35,
+			"on_land": {
+				"instance_resource": "skitter_spider",
+				"lifetime": 0
+			}
+		},
+		"big_jelly_spit": {
+			"scene": "res://addons/top_down/scenes/projectiles/big_jelly_projectile.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/big_jelly_projectile_instance_resource.tres",
+			"damage": 5.0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5,
+			"kickback": 40,
+			"flight_time": 1,
+			"landing_radius": 9.35,
+			"on_land_split": {
+				"instance_resource": "slime_small",
+				"angles": [
+					-25,
+					25,
+					-65,
+					65
+				],
+				"spawn_distance": 8
+			}
+		}
+	},
+	"pickups": {
+		"health": {
+			"scene": "res://addons/top_down/scenes/pickups/health_pickup.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres",
+			"heal": 10
+		}
+	},
+	"rooms": {
+		"room_0": {
+			"scene": "res://addons/top_down/scenes/levels/room_0.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 1,
+							"is_boss": true,
+							"enemies": [
+								"big_jelly"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_4": {
+					"max_simultaneous": 1
+				},
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				}
+			},
+			"health_drop_chance": 0.3
+		},
+		"room_1": {
+			"scene": "res://game/scenes/room_1.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 2,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 6,
+							"enemies": [
+								"skitter_spider",
+								"bloater",
+								"acid_slime",
+								"web_spider"
+							]
+						},
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "GIANT ZOMBIE",
+							"enemies": [
+								"giant_zombie"
+							]
+						},
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "BROODMOTHER",
+							"enemies": [
+								"broodmother"
+							]
+						},
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "PLAGUE MOTHER",
+							"enemies": [
+								"plague_mother"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_4": {
+					"max_simultaneous": 1
+				},
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				}
+			},
+			"health_drop_chance": 0.3
+		},
+		"room_3": {
+			"scene": "res://game/scenes/room_3.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "BIG JELLY",
+							"enemies": [
+								"big_jelly"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_4": {
+					"max_simultaneous": 1
+				},
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				}
+			},
+			"health_drop_chance": 0.3
+		},
+		"room_A01": {
+			"scene": "res://game/scenes/room_A01.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 6,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 6,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 14,
+							"enemies": [
+								"slime",
+								"zombie",
+								"zombie_crawler",
+								"slime_small"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_4": {
+					"max_simultaneous": 1
+				},
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"SpawnPoint": {
+					"max_simultaneous": 2
+				}
+			},
+			"health_drop_chance": 0.3
+		},
+		"room_A02": {
+			"scene": "res://game/scenes/room_A02.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "BIG JELLY",
+							"enemies": [
+								"big_jelly"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_4": {
+					"max_simultaneous": 1
+				},
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				}
+			},
+			"health_drop_chance": 0.3
+		}
+	},
+	"instances": {
+		"acid_puddle": "res://addons/top_down/resources/InstanceResources/traps/acid_puddle_instance_resource.tres",
+		"slime_puddle": "res://addons/top_down/resources/InstanceResources/traps/slime_puddle_instance_resource.tres",
+		"web_trap": "res://addons/top_down/resources/InstanceResources/traps/web_trap_instance_resource.tres"
+	}
+}

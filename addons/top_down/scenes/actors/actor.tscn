@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://botai66n8rwt3"]
+[gd_scene load_steps=47 format=3 uid="uid://botai66n8rwt3"]
 
 [ext_resource type="Texture2D" uid="uid://bevk5id3o0bei" path="res://addons/top_down/assets/images/shadow.png" id="1_1xdx7"]
 [ext_resource type="Script" uid="uid://kjvhpm5y61xb" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_atd7g"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://b2pbj40ssvyeu" path="res://addons/top_down/scripts/damage/DamageSetup.gd" id="28_oavm0"]
 [ext_resource type="Script" uid="uid://dbfo8pojgaitr" path="res://addons/top_down/scripts/damage/StatusSetup.gd" id="29_t6rdw"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SlowEffect.gd" id="30_slow"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -305,3 +306,6 @@ resource_node = NodePath("../ResourceNode")
 [node name="SlowEffect" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("30_slow")
 resource_node = NodePath("../ResourceNode")
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

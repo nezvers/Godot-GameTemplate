@@ -1,5 +1,5 @@
 ## Game difficulty setting. Saved to disk like other settings (graphics/audio).
-## Easy lowers all enemy health to a quarter of Normal.
+## Per-mode ratios (enemy health, damage, wave sizes) come from balance.json.
 class_name DifficultyResource
 extends SaveableResource
 
@@ -16,9 +16,25 @@ func set_mode(value: int) -> void:
 func toggle() -> void:
 	set_mode(Mode.NORMAL if mode == Mode.EASY else Mode.EASY)
 
-## Multiplier applied to enemy health. Normal = 1.0, Easy = 0.25 (4x lower).
+## Ratio from balance.json "difficulty.<mode>.<key>", 1.0 when not set.
+func ratio(key: String) -> float:
+	return Balance.ratio(mode_name().to_lower(), key)
+
+## Multiplier applied to enemy health.
 func health_multiplier() -> float:
-	return 0.25 if mode == Mode.EASY else 1.0
+	return ratio("enemy_health_ratio")
+
+## Multiplier applied to damage the player takes.
+func damage_multiplier() -> float:
+	return ratio("enemy_damage_ratio")
+
+## Multiplier applied to how many enemies a normal wave has.
+func wave_count_multiplier() -> float:
+	return ratio("wave_count_ratio")
+
+## Multiplier applied to a wave's max_alive cap.
+func max_alive_multiplier() -> float:
+	return ratio("max_alive_ratio")
 
 func is_easy() -> bool:
 	return mode == Mode.EASY

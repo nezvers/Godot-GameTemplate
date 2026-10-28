@@ -1,6 +1,9 @@
 class_name DamageDataResource
 extends TransmissionResource
 
+## Global setting; resources holding a reference get deep-duplicated with a stale mode.
+const DIFFICULTY:DifficultyResource = preload("res://addons/top_down/resources/global_resources/difficulty_resource.tres")
+
 @export_group("Weapon or User")
 
 ## Initial base damage value.
@@ -103,6 +106,8 @@ func process(resource_node:ResourceNode)->void:
 		# Dealt damage
 		for _damage:DamageTypeResource in base_damage:
 			total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
+		if _damage_resource.difficulty_scaled:
+			total_damage *= DIFFICULTY.damage_multiplier()
 	
 		_health_resource.add_hp( -total_damage )
 		is_kill = _health_resource.is_dead

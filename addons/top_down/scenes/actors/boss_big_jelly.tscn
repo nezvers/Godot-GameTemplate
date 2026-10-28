@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://dsy4mn8a4gob2"]
+[gd_scene load_steps=74 format=3 uid="uid://dsy4mn8a4gob2"]
 
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNode.gd" id="1_wcxba"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_1n2e6"]
@@ -45,6 +45,7 @@
 [ext_resource type="Resource" uid="uid://htqn5bygvbq5" path="res://addons/top_down/resources/sounds/slime_throw.tres" id="43_yb7th"]
 [ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="44_diffh"]
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="45_diff"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -465,3 +466,6 @@ active_enemy = NodePath("../ActiveEnemy")
 axis_multiply = ExtResource("31_uobbx")
 shoot_sound = ExtResource("43_yb7th")
 difficulty_resource = ExtResource("45_diff")
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

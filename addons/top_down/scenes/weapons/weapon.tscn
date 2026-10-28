@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://do8p6aamuv46h"]
+[gd_scene load_steps=17 format=3 uid="uid://do8p6aamuv46h"]
 
 [ext_resource type="Script" uid="uid://tn8vlsgg76x4" path="res://addons/top_down/scripts/weapon_system/Weapon.gd" id="1_wo85b"]
 [ext_resource type="Texture2D" uid="uid://cmrj6rrgbfvlg" path="res://addons/top_down/assets/images/weapon/gun_0.png" id="2_i2035"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cj47hbfynpfab" path="res://addons/top_down/scripts/weapon_system/WeaponKickback.gd" id="6_spkuj"]
 [ext_resource type="Script" uid="uid://be6amykgldp5e" path="res://addons/top_down/scripts/weapon_system/projectile/ProjectileInterval.gd" id="7_surdb"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="9_x0q43"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 
 [sub_resource type="Resource" id="Resource_pkull"]
 script = ExtResource("3_kraft")
@@ -70,3 +71,6 @@ new_damage = true
 script = ExtResource("5_mx0vu")
 projectile_spawner = NodePath("..")
 random_angle_offset = 5.0
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

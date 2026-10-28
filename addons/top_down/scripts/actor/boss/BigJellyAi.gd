@@ -20,12 +20,17 @@ extends Node
 
 var enabled:bool
 
-var CLOSE_IN_MAX_JUMPS:int = 4
+## Close-in jumps in a row before trying to shoot.
+@export var close_in_max_jumps:int = 4
+
+## Wait after shooting slimes before the next action.
+@export var shot_wait:float = 2.0
+
 var close_in_counter:int
 var tween_wait:Tween
 
 func _ready()->void:
-	close_in_counter = CLOSE_IN_MAX_JUMPS
+	close_in_counter = close_in_max_jumps
 	chase.finished.connect(_state_update.call_deferred)
 	actor_damage.actor_died.connect(owner.queue_free)
 	player_reference.listen(self, _on_player_changed)
@@ -44,13 +49,13 @@ func _state_update()->void:
 		chase.target_calculation(player_reference.node.global_position, player_reference.node.velocity, max_jump_close_in)
 		chase.jump_at_target()
 		return
-	close_in_counter = CLOSE_IN_MAX_JUMPS
+	close_in_counter = close_in_max_jumps
 	if shoot_slime.shoot(player_reference.node.global_position):
 		## TODO: has to perform something to keep loop going
 		if tween_wait != null:
 			tween_wait.kill()
 		tween_wait = create_tween()
-		tween_wait.tween_callback(_state_update.call_deferred).set_delay(2.0)
+		tween_wait.tween_callback(_state_update.call_deferred).set_delay(shot_wait)
 		return
 	
 	chase.target_calculation(player_reference.node.global_position, player_reference.node.velocity, max_jump_distance)

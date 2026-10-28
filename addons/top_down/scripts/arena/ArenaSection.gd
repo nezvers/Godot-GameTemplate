@@ -34,6 +34,9 @@ signal wave_cleared(index:int)
 ##          (capped per point by SpawnPoint.max_simultaneous).
 @export_range(0.1, 6.0, 0.1) var spawn_density:float = 1.0
 
+## Enemies don't spawn closer than this to another enemy.
+@export var free_distance:float = 116.0
+
 ## Optional prerequisite section. try_start() is ignored until it is cleared.
 @export var requires:ArenaSection
 
@@ -41,6 +44,8 @@ signal wave_cleared(index:int)
 @export var spawn_mark_instance_resource:InstanceResource
 ## VFX shown the moment an enemy spawns.
 @export var spawn_partickle_instance_resource:InstanceResource
+
+const DIFFICULTY:DifficultyResource = preload("res://addons/top_down/resources/global_resources/difficulty_resource.tres")
 
 var fight_active:bool
 var is_cleared:bool
@@ -91,7 +96,7 @@ func start_fight()->void:
 		return
 	fight_active = true
 	wave_index = 0
-	enemy_count = waves[0].count
+	enemy_count = _wave_quota(waves[0])
 	_select_active_points()
 	set_process(true)
 	fight_started.emit()
@@ -114,6 +119,18 @@ func _select_active_points()->void:
 	else:
 		per_point_cap = roundi(spawn_density)
 		active_points = _source.duplicate()
+
+## Kills needed to clear a wave; difficulty scales normal waves, not bosses.
+func _wave_quota(wave:SpawnWaveList)->int:
+	if wave.is_boss:
+		return wave.count
+	return maxi(1, ceili(wave.count * DIFFICULTY.wave_count_multiplier()))
+
+## Most of a wave alive at once, -1 when uncapped.
+func _alive_cap(wave:SpawnWaveList)->int:
+	if wave.max_alive <= 0:
+		return -1
+	return maxi(1, ceili(wave.max_alive * DIFFICULTY.max_alive_multiplier()))
 
 ## Current wave being fought, or null when none remain.
 func current_wave()->SpawnWaveList:
@@ -147,13 +164,15 @@ func _process(_delta:float)->void:
 	## Alive (incl. split children) PLUS marks still animating, so the async mark
 	## chain can never over-spawn past the wave's kill quota.
 	var _committed:int = ActiveEnemy.root.nodes.size() + ActiveEnemy.root.children.size() + pending_spawns
+	var _cap:int = _alive_cap(_wave)
 
 	for _point:SpawnPoint in active_points:
 		## One more shouldn't exceed what's left to kill this wave.
 		if _committed >= enemy_count:
 			return
-		var _cap:int = mini(per_point_cap, _point.max_simultaneous)
-		if _point.active_count >= _cap:
+		if _cap >= 0 && _committed >= _cap:
+			return
+		if _point.active_count >= mini(per_point_cap, _point.max_simultaneous):
 			continue
 		if !_filter_free_position(_point.global_position):
 			continue
@@ -205,7 +224,7 @@ func _advance_wave()->void:
 		mark_cleared()
 		wave_cleared.emit(wave_index - 1)
 		return
-	enemy_count = waves[wave_index].count
+	enemy_count = _wave_quota(waves[wave_index])
 	_select_active_points()
 	updated.emit()
 	wave_cleared.emit(wave_index - 1)
@@ -213,7 +232,7 @@ func _advance_wave()->void:
 
 func _filter_free_position(position:Vector2)->bool:
 	# distance squared
-	const FREE_DISTANCE:float = 116.0 * 116.0
+	var _free_distance_squared:float = free_distance * free_distance
 
 	var _closest_dist:float = 999999.0
 	## Actual enemy instances
@@ -226,4 +245,4 @@ func _filter_free_position(position:Vector2)->bool:
 			_closest_dist = _inst_dist
 
 	# free distance was squared because it is compared against length_squared
-	return _closest_dist > FREE_DISTANCE
+	return _closest_dist > _free_distance_squared

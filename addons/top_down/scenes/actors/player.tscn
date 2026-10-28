@@ -145,6 +145,7 @@ description = ""
 resource_name = "Damage Resource"
 script = ExtResource("9_y7ns5")
 can_receive_damage = true
+difficulty_scaled = true
 version = 0
 not_saved = false
 

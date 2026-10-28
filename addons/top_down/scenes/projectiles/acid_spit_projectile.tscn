@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="19_628eu"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/projectile/SpawnOnLand.gd" id="30_land"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/traps/acid_puddle_instance_resource.tres" id="31_spawn"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 
 [sub_resource type="Resource" id="Resource_crd4l"]
 script = ExtResource("3_ppetm")
@@ -144,3 +145,6 @@ script = ExtResource("30_land")
 projectile = NodePath("..")
 instance_resource = ExtResource("31_spawn")
 lifetime = 6.0
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

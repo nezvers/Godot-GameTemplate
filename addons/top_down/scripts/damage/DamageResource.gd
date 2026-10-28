@@ -10,6 +10,9 @@ signal can_receive_changed
 
 @export var can_receive_damage:bool = true
 
+## Scale received damage by the difficulty's enemy_damage_ratio (player only).
+@export var difficulty_scaled:bool
+
 ## Resistance value for each DamageType summed.
 ## Placed in an array for optimized value fetching.
 ## It is initialized and managed by DamageSetup Node.

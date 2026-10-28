@@ -4,6 +4,9 @@ extends Node
 @export var target_finder:TargetFinder
 @export var bot_input:BotInput
 
+## Seconds after spawning before the first attack.
+@export var start_delay:float = 1.0
+
 var enabled:bool
 
 var tween_timer:Tween
@@ -13,7 +16,7 @@ func _enter_tree() -> void:
 	if tween_timer != null:
 		tween_timer.kill()
 	tween_timer = create_tween()
-	tween_timer.tween_callback(set_enabled.bind(true)).set_delay(1.0)
+	tween_timer.tween_callback(set_enabled.bind(true)).set_delay(start_delay)
 
 func _ready()->void:
 	target_finder.target_update.connect(_on_target_update)

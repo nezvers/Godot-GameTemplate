@@ -8,4 +8,7 @@ extends Resource
 
 @export var count:int
 
+## Most enemies of this wave alive at once, 0 = only limited by spawn points.
+@export var max_alive:int
+
 @export var instance_list:Array[InstanceResource]

@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://c0l0lqrk43p28"
 
 [autoload]
 
+Balance="*res://game/scripts/balance/Balance.gd"
 SteamInit="*res://addons/great_games_library/autoload/SteamInit.gd"
 SoundManager="*res://addons/top_down/scenes/autoloads/sound_manager.tscn"
 Music="*res://addons/top_down/scenes/autoloads/music.tscn"

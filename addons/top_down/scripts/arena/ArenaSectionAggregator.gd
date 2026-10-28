@@ -93,7 +93,7 @@ func release_spawning()->void:
 
 func _on_wave_started(index:int, section:ArenaSection)->void:
 	var _wave:SpawnWaveList = section.waves[index]
-	wave_announced.emit(_base_for.get(section, 0) + index + 1, _wave.count, _wave.is_boss, _wave.display_name)
+	wave_announced.emit(_base_for.get(section, 0) + index + 1, section.enemy_count, _wave.is_boss, _wave.display_name)
 
 func _on_wave_cleared(index:int, section:ArenaSection)->void:
 	var _sections_left:int = 0
