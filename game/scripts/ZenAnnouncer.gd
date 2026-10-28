@@ -23,9 +23,10 @@ extends CanvasLayer
 var _queue:Array[Array] = []
 var _playing:bool
 var _known_weapons:Array[String]
+var _aggregator:ArenaSectionAggregator
 
 func _ready()->void:
-	var _aggregator:ArenaSectionAggregator = get_tree().get_first_node_in_group(&"arena_aggregator")
+	_aggregator = get_tree().get_first_node_in_group(&"arena_aggregator")
 	if _aggregator != null:
 		_aggregator.wave_announced.connect(_on_wave_announced)
 		_aggregator.wave_finished.connect(_on_wave_finished)
@@ -35,7 +36,12 @@ func _ready()->void:
 
 func _on_wave_announced(wave_number:int, enemies:int, is_boss:bool, boss_name:String)->void:
 	if is_boss:
-		play(boss_wave_scene, [boss_name if !boss_name.is_empty() else "BOSS"])
+		## The boss spawns only once its announcement has played.
+		if boss_wave_scene != null && _aggregator != null:
+			_aggregator.hold_spawning()
+			play(boss_wave_scene, [boss_name if !boss_name.is_empty() else "BOSS"], _aggregator.release_spawning)
+		else:
+			play(boss_wave_scene, [boss_name if !boss_name.is_empty() else "BOSS"])
 	else:
 		play(wave_start_scene, [wave_number, enemies])
 
@@ -61,10 +67,11 @@ func _weapon_paths()->Array[String]:
 	return _paths
 
 ## Queue a zen scene; args fill its %1, %2... text args (empty keeps the samples).
-func play(scene:PackedScene, args:Array)->void:
+## on_done runs once the scene has finished playing.
+func play(scene:PackedScene, args:Array, on_done:Callable = Callable())->void:
 	if scene == null:
 		return
-	_queue.append([scene, args])
+	_queue.append([scene, args, on_done])
 	if !_playing:
 		_play_next()
 
@@ -81,7 +88,7 @@ func _play_next()->void:
 	if !(_entry[1] as Array).is_empty():
 		_anim.set_text_args(_entry[1])
 	_anim.paused.connect(_on_anim_paused.bind(_anim))
-	_anim.finished.connect(_on_anim_finished.bind(_anim), CONNECT_ONE_SHOT)
+	_anim.finished.connect(_on_anim_finished.bind(_anim, _entry[2]), CONNECT_ONE_SHOT)
 	## Stretch is keep_height: centre the 480-wide canvas in a wider viewport.
 	var _width:float = get_viewport().get_visible_rect().size.x
 	_anim.position.x = roundf((_width - _anim.design_size.x) * 0.5)
@@ -91,6 +98,8 @@ func _on_anim_paused(_index:int, anim:Node2D)->void:
 	## A tween (not a SceneTree timer) so it freezes with the room on pause.
 	anim.create_tween().tween_callback(anim.resume).set_delay(hold_time)
 
-func _on_anim_finished(anim:Node2D)->void:
+func _on_anim_finished(anim:Node2D, on_done:Callable)->void:
 	anim.queue_free()
+	if on_done.is_valid():
+		on_done.call()
 	_play_next()

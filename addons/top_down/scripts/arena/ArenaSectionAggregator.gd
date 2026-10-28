@@ -80,6 +80,17 @@ func _on_section_started(section:ArenaSection)->void:
 		section_name_resource.set_value("Section%d" % (sections.find(section) + 1))
 	_recompute()
 
+## Pause every section's spawn loop until release_spawning() (calls pair up).
+func hold_spawning()->void:
+	for _section:ArenaSection in sections:
+		if _section != null:
+			_section.spawn_holds += 1
+
+func release_spawning()->void:
+	for _section:ArenaSection in sections:
+		if _section != null:
+			_section.spawn_holds = maxi(0, _section.spawn_holds - 1)
+
 func _on_wave_started(index:int, section:ArenaSection)->void:
 	var _wave:SpawnWaveList = section.waves[index]
 	wave_announced.emit(_base_for.get(section, 0) + index + 1, _wave.count, _wave.is_boss, _wave.display_name)

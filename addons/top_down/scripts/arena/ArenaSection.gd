@@ -56,6 +56,8 @@ var per_point_cap:int = 1
 ## Spawn marks in flight (mark playing, enemy not yet in tree). Counted against
 ## the wave quota so an async mark chain can't over-spawn past enemy_count.
 var pending_spawns:int = 0
+## While > 0 the spawn loop waits, e.g. until a boss announcement has played.
+var spawn_holds:int = 0
 
 func _ready()->void:
 	set_process(false)
@@ -136,6 +138,8 @@ func mark_cleared()->void:
 # --- Spawn loop (moved from EnemySpawner) ---------------------------------
 
 func _process(_delta:float)->void:
+	if spawn_holds > 0:
+		return
 	var _wave:SpawnWaveList = current_wave()
 	if _wave == null:
 		return
