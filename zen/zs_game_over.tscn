@@ -1,0 +1,511 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_canvas.gd" id="1_3re1i"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_strings.gd" id="2_bm0ww"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_shape.gd" id="3_w5xx0"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_text.gd" id="4_8lrvm"]
+[ext_resource type="Resource" path="res://zen/shapes/splat.tres" id="4_bm0ww"]
+[ext_resource type="Resource" path="res://zen/shapes/skull.tres" id="5_30nhr"]
+
+[sub_resource type="Resource" id="Resource_56fal"]
+script = ExtResource("2_bm0ww")
+entries = PackedStringArray("YOU DIED", "WAVE %1   SCORE %2")
+
+[sub_resource type="Animation" id="Animation_donnx"]
+length = 3.0
+step = 0.0166667
+markers = [{
+"color": Color(1, 1, 1, 1),
+"name": &"outro_start",
+"time": 3.0
+}, {
+"color": Color(1, 1, 1, 1),
+"name": &"pause_1",
+"time": 2.1
+}]
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"_anim_pose"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("veil:alpha")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.05, 0.111264735, 0.3252809, -0.05, -0.10279504, 0.05, 0.10279504, 0.6010408, -0.05, -0.07867689, 0.05, 0.07867689, 0.7852976, -0.05, -0.042578828, 0.05, 0.042578828, 0.85, -0.05, 2.1109978e-05, 0.6, 0, 0.85, -0.6, 0, 0.2, 0, 0, -0.2, 0.56701404, 0, 0),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 2.4, 3)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("veil:zen_ease_alpha")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 2.4, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "sineOut", "linear", "quadIn"]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("splat:zen_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.083333336, 1.5675029, 1, -0.083333336, -0.00019868214, 0, 0),
+"times": PackedFloat32Array(0.2, 0.45)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("splat:zen_ease_scale")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "backOut"]
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("splat:alpha")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.16666667, -0.3333333, 0, -0.16666667, 0.333488, 0, 0),
+"times": PackedFloat32Array(2.4, 2.9)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("splat:zen_ease_alpha")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(2.4, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("drip_0:h")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.083333336, 0, 1.3701684, -0.083333336, -0.9016134, 0.083333336, 0.9016134, 5.272078, -0.083333336, -1.6660988, 0.083333336, 1.6660988, 11.111698, -0.083333336, -2.1775067, 0.083333336, 2.1775067, 18, -0.083333336, -2.3576617, 0, 0),
+"times": PackedFloat32Array(0.5, 0.75, 1, 1.25, 1.5)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("drip_0:zen_ease_h")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "sineIn"]
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("drip_0:pos_y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.4511111, 0, 0, 0.083333336, 0, 0.45364845, -0.083333336, -0.0016696544, 0.083333336, 0.0016696544, 0.46087423, -0.083333336, -0.0030853683, 0.083333336, 0.0030853683, 0.47168833, -0.083333336, -0.00403242, 0.083333336, 0.00403242, 0.48444444, -0.083333336, -0.00436604, 0, 0),
+"times": PackedFloat32Array(0.5, 0.75, 1, 1.25, 1.5)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("drip_0:zen_ease_pos_y")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "sineIn"]
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("drip_0:alpha")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.16666667, -0.3333333, 0, -0.16666667, 0.333488, 0, 0),
+"times": PackedFloat32Array(2.4, 2.9)
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("drip_0:zen_ease_alpha")
+tracks/12/interp = 0
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(2.4, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("drip_1:h")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.083333336, 0, 2.283614, -0.083333336, -1.502689, 0.083333336, 1.502689, 8.786797, -0.083333336, -2.7768314, 0.083333336, 2.7768314, 18.519497, -0.083333336, -3.6291778, 0.083333336, 3.6291778, 30, -0.083333336, -3.9294362, 0, 0),
+"times": PackedFloat32Array(0.6, 0.85, 1.1, 1.35, 1.6)
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("drip_1:zen_ease_h")
+tracks/14/interp = 0
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.6, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "sineIn"]
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("drip_1:pos_y")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.4511111, 0, 0, 0.083333336, 0, 0.45534003, -0.083333336, -0.0027827574, 0.083333336, 0.0027827574, 0.46738297, -0.083333336, -0.0051422804, 0.083333336, 0.0051422804, 0.4854065, -0.083333336, -0.0067207, 0.083333336, 0.0067207, 0.50666666, -0.083333336, -0.007276734, 0, 0),
+"times": PackedFloat32Array(0.6, 0.85, 1.1, 1.35, 1.6)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("drip_1:zen_ease_pos_y")
+tracks/16/interp = 0
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.6, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "sineIn"]
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("drip_1:alpha")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.16666667, -0.3333333, 0, -0.16666667, 0.333488, 0, 0),
+"times": PackedFloat32Array(2.4, 2.9)
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("drip_1:zen_ease_alpha")
+tracks/18/interp = 0
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(2.4, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/19/type = "bezier"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("drip_2:h")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.083333336, 0, 0.9134456, -0.083333336, -0.6010756, 0.083333336, 0.6010756, 3.5147188, -0.083333336, -1.1107326, 0.083333336, 1.1107326, 7.407799, -0.083333336, -1.4516711, 0.083333336, 1.4516711, 12, -0.083333336, -1.5717745, 0, 0),
+"times": PackedFloat32Array(0.75, 1, 1.25, 1.5, 1.75)
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("drip_2:zen_ease_h")
+tracks/20/interp = 0
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.75, 1.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "sineIn"]
+}
+tracks/21/type = "bezier"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("drip_2:pos_y")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.4511111, 0, 0, 0.083333336, 0, 0.4528027, -0.083333336, -0.0011131029, 0.083333336, 0.0011131029, 0.45761985, -0.083333336, -0.002056912, 0.083333336, 0.002056912, 0.46482927, -0.083333336, -0.0026882798, 0.083333336, 0.0026882798, 0.47333333, -0.083333336, -0.0029106934, 0, 0),
+"times": PackedFloat32Array(0.75, 1, 1.25, 1.5, 1.75)
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("drip_2:zen_ease_pos_y")
+tracks/22/interp = 0
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.75, 1.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "sineIn"]
+}
+tracks/23/type = "bezier"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("drip_2:alpha")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.16666667, -0.3333333, 0, -0.16666667, 0.333488, 0, 0),
+"times": PackedFloat32Array(2.4, 2.9)
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("drip_2:zen_ease_alpha")
+tracks/24/interp = 0
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(2.4, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/25/type = "bezier"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("skull:alpha")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.06666667, 0.3333333, 1, -0.06666667, -0.333488, 0.55, 0, 1, -0.55, 0, 0.13333334, -0.3333333, 0, -0.13333334, 0.333488, 0, 0),
+"times": PackedFloat32Array(0.55, 0.75, 2.4, 2.8)
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("skull:zen_ease_alpha")
+tracks/26/interp = 0
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0.55, 0.75, 2.4, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear"]
+}
+tracks/27/type = "bezier"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("skull:zen_scale")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1.4, 0, 0, 0.041666668, -0.20013253, 1.05, -0.041666668, 0.050008297, 0.041666668, -0.050008297, 1, -0.041666668, 0, 0, 0),
+"times": PackedFloat32Array(0.55, 0.675, 0.8)
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("skull:zen_ease_scale")
+tracks/28/interp = 0
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0.55, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/29/type = "bezier"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("title:crumble")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.13333334, -0.50033134, 0.125, -0.13333334, 0.12502074, 0.13333334, -0.12502074, 0, -0.13333334, 0, 0.3, 0, 0, -0.3, 0, 0.2, 0, 1, -0.2, -0.66707534, 0, 0),
+"times": PackedFloat32Array(0.7, 1.1, 1.5, 2.4, 3)
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("title:zen_ease_crumble")
+tracks/30/interp = 0
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0.7, 1.5, 2.4, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "cubicOut", "linear", "quadIn"]
+}
+tracks/31/type = "bezier"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("sub:alpha")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.025, 0.1308997, 0.38268343, -0.025, -0.12093534, 0.025, 0.12093534, 0.70710677, -0.025, -0.092561044, 0.025, 0.092561044, 0.9238795, -0.025, -0.050092738, 0.025, 0.050092738, 1, -0.025, 2.4835268e-05, 0.2, 0, 1, -0.2, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(1.5, 1.575, 1.65, 1.725, 1.8, 2.4, 2.7)
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("sub:zen_ease_alpha")
+tracks/32/interp = 0
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(1.5, 1.8, 2.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "sineOut", "linear", "linear"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s6tmp"]
+_data = {
+&"zen": SubResource("Animation_donnx")
+}
+
+[node name="zs_game_over" type="Node2D" unique_id=1705832333]
+script = ExtResource("1_3re1i")
+design_size = Vector2(480, 270)
+loop_blend = 0.0
+strings = SubResource("Resource_56fal")
+text_args = PackedStringArray("7", "1250")
+text_arg_names = PackedStringArray("wave", "score")
+fit_window = true
+click_to_continue = true
+draw_background = true
+
+[node name="veil" type="Node2D" parent="." unique_id=724579704]
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(1, 1)
+color_base = Color(0.078, 0.122, 0.09, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "veil"
+
+[node name="splat" type="Node2D" parent="." unique_id=1148077089]
+z_index = 1
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(96, 96)
+color_base = Color(0.78, 0.1, 0.1, 1)
+outline_color_base = Color(0.35, 0.03, 0.03, 1)
+shape = ExtResource("4_bm0ww")
+shape_name = "splat"
+elem_name = "splat"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.34)
+
+[node name="drip_0" type="Node2D" parent="." unique_id=666875935]
+z_index = 2
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(5, 0.01)
+color_base = Color(0.78, 0.1, 0.1, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "drip_0"
+unit_abs = true
+pos_frac = Vector2(0.45416668, 0.4511111)
+
+[node name="drip_1" type="Node2D" parent="." unique_id=105351910]
+z_index = 3
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(5, 0.01)
+color_base = Color(0.78, 0.1, 0.1, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "drip_1"
+unit_abs = true
+pos_frac = Vector2(0.5125, 0.4511111)
+
+[node name="drip_2" type="Node2D" parent="." unique_id=623874412]
+z_index = 4
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(5, 0.01)
+color_base = Color(0.78, 0.1, 0.1, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "drip_2"
+unit_abs = true
+pos_frac = Vector2(0.5541667, 0.4511111)
+
+[node name="skull" type="Node2D" parent="." unique_id=596525867]
+z_index = 5
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(48, 48)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_30nhr")
+shape_name = "skull"
+elem_name = "skull"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.34)
+
+[node name="title" type="Node2D" parent="." unique_id=461202183]
+z_index = 6
+script = ExtResource("4_8lrvm")
+strings = SubResource("Resource_56fal")
+size_frac = Vector2(40, 40)
+color_base = Color(0.78, 0.1, 0.1, 1)
+elem_name = "title"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.66)
+
+[node name="sub" type="Node2D" parent="." unique_id=142990031]
+z_index = 7
+script = ExtResource("4_8lrvm")
+strings = SubResource("Resource_56fal")
+string_base = 1
+size_frac = Vector2(10, 10)
+color_base = Color(0.93, 0.89, 0.76, 1)
+elem_name = "sub"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.78)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2012168054]
+callback_mode_method = 1
+libraries/ = SubResource("AnimationLibrary_s6tmp")

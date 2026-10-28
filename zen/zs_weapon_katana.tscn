@@ -1,0 +1,315 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_canvas.gd" id="1_3re1i"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_strings.gd" id="2_bm0ww"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_shape.gd" id="3_w5xx0"]
+[ext_resource type="Resource" path="res://zen/shapes/katana.tres" id="4_3re1i"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_text.gd" id="4_8lrvm"]
+
+[sub_resource type="Resource" id="Resource_22fgw"]
+script = ExtResource("2_bm0ww")
+entries = PackedStringArray("%1", "%2")
+
+[sub_resource type="Animation" id="Animation_gsxtt"]
+length = 2.6
+step = 0.0166667
+markers = [{
+"color": Color(1, 1, 1, 1),
+"name": &"outro_start",
+"time": 2.6
+}]
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"_anim_pose"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("card:pos_x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1.3, 0, 0, 0.11666667, -1.2540022, 0.5, -0.11666667, 0.00015894572, 0.6166667, 0, 0.5, -0.6166667, 0, 0.13333334, 1.44003325e-08, -0.3, -0.13333334, 1.2540022, 0, 0),
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("card:zen_ease_pos_x")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("icon:pos_x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1.0708333, 0, 0, 0.11666667, -1.2540022, 0.27083334, -0.11666667, 0.00015894572, 0.6166667, 0, 0.27083334, -0.6166667, 0, 0.13333334, 1.44003325e-08, -0.52916664, -0.13333334, 1.2540022, 0, 0),
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("icon:zen_ease_pos_x")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("icon:rot")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(-110, 0, 0, 0.05, 60.039757, -5, -0.05, -15.002489, 0.05, 15.002489, 10, -0.05, 0, 0.010416667, -1.4802973e-11, 9.619398, -0.010416667, 0.25047144, 0.010416667, -0.25047144, 8.535534, -0.010416667, 0.4627742, 0.020833334, -0.9255484, 5, -0.020833334, 1.309067, 0.020833334, -1.309067, 1.4644659, -0.020833334, 0.9256105, 0.010416667, -0.46280524, 0.38060248, -0.010416667, 0.25058785, 0.010416667, -0.25058785, 0, -0.010416667, -0.00024835268, 0, 0),
+"times": PackedFloat32Array(0.25, 0.4, 0.55, 0.58125, 0.6125, 0.675, 0.7375, 0.76875, 0.8)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("icon:zen_ease_rot")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.25, 0.55, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "cubicOut", "sineInOut"]
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("slash:w")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.025, 0.25016567, 0.4375, -0.025, -0.06251037, 0.025, 0.06251037, 0.5, -0.025, 0, 0, 0),
+"times": PackedFloat32Array(0.45, 0.525, 0.6)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("slash:zen_ease_w")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("slash:pos_x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.3, 0, 0, 0.025, 0.10006627, 0.475, -0.025, -0.025004148, 0.025, 0.025004148, 0.5, -0.025, 0, 0, 0),
+"times": PackedFloat32Array(0.45, 0.525, 0.6)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("slash:zen_ease_pos_x")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("slash:alpha")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.11666667, 0, 0, -0.11666667, 0.66707534, 0, 0),
+"times": PackedFloat32Array(0.6, 0.95)
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("slash:zen_ease_alpha")
+tracks/12/interp = 0
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.6, 0.95),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "quadIn"]
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("weapon:pos_x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1.3541666, 0, 0, 0.11666667, -1.2540022, 0.5541667, -0.11666667, 0.00015894572, 0.6166667, 0, 0.5541667, -0.6166667, 0, 0.13333334, 1.44003325e-08, -0.24583334, -0.13333334, 1.2540022, 0, 0),
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6)
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("weapon:zen_ease_pos_x")
+tracks/14/interp = 0
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("desc:pos_x")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1.3541666, 0, 0, 0.11666667, -1.2540022, 0.5541667, -0.11666667, 0.00015894572, 0.6166667, 0, 0.5541667, -0.6166667, 0, 0.13333334, 1.44003325e-08, -0.24583334, -0.13333334, 1.2540022, 0, 0),
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("desc:zen_ease_pos_x")
+tracks/16/interp = 0
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.35, 2.2, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("desc:alpha")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.06666667, 0.3333333, 1, -0.06666667, -0.333488, 0, 0),
+"times": PackedFloat32Array(0.35, 0.55)
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("desc:zen_ease_alpha")
+tracks/18/interp = 0
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.35, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1tyrc"]
+_data = {
+&"zen": SubResource("Animation_gsxtt")
+}
+
+[node name="zs_weapon_katana" type="Node2D" unique_id=2004492907]
+script = ExtResource("1_3re1i")
+design_size = Vector2(480, 270)
+loop_blend = 0.0
+strings = SubResource("Resource_22fgw")
+text_args = PackedStringArray("KATANA", "FAST SLASHES, CLOSE RANGE")
+text_arg_names = PackedStringArray("weapon_name", "description")
+fit_window = true
+click_to_continue = true
+draw_background = true
+
+[node name="card" type="Node2D" parent="." unique_id=512623599]
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(280, 44)
+color_base = Color(0.078, 0.122, 0.09, 0.9)
+outline_color_base = Color(0.55, 0.95, 0.3, 1)
+outline_base = 1.0
+elem_name = "card"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.8)
+
+[node name="icon" type="Node2D" parent="." unique_id=317549014]
+z_index = 1
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(36, 36)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.78, 0.1, 0.1, 1)
+shape = ExtResource("4_3re1i")
+shape_name = "katana"
+elem_name = "icon"
+unit_abs = true
+pos_frac = Vector2(0.27083334, 0.8)
+
+[node name="slash" type="Node2D" parent="." unique_id=1333473298]
+z_index = 2
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(0, 0.008)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "slash"
+pos_frac = Vector2(0.5, 0.8)
+rot_base = -8.0
+
+[node name="weapon" type="Node2D" parent="." unique_id=1030969374]
+z_index = 3
+script = ExtResource("4_8lrvm")
+strings = SubResource("Resource_22fgw")
+size_frac = Vector2(20, 20)
+color_base = Color(0.55, 0.95, 0.3, 1)
+elem_name = "weapon"
+unit_abs = true
+pos_frac = Vector2(0.5541667, 0.77037036)
+
+[node name="desc" type="Node2D" parent="." unique_id=1178842559]
+z_index = 4
+script = ExtResource("4_8lrvm")
+strings = SubResource("Resource_22fgw")
+string_base = 1
+size_frac = Vector2(10, 10)
+color_base = Color(0.93, 0.89, 0.76, 1)
+elem_name = "desc"
+unit_abs = true
+pos_frac = Vector2(0.5541667, 0.84074074)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=684147168]
+callback_mode_method = 1
+libraries/ = SubResource("AnimationLibrary_1tyrc")
