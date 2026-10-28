@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_nysl2"]
 script = ExtResource("2_bm0ww")
-entries = PackedStringArray("WAVE %1", "%2 ZOMBIES INCOMING")
+entries = PackedStringArray("WAVE %1", "%2 MONSTERS INCOMING")
 
 [sub_resource type="Animation" id="Animation_x0spy"]
 length = 2.4
@@ -201,7 +201,7 @@ tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0.58, 0, 0, 0.041666668, -0.025016567, 0.53625, -0.041666668, 0.006251037, 0.041666668, -0.006251037, 0.53, -0.041666668, 0, 0, 0),
+"points": PackedFloat32Array(0.54, 0, 0, 0.041666668, -0.02251491, 0.500625, -0.041666668, 0.0056259334, 0.041666668, -0.0056259334, 0.495, -0.041666668, 0, 0, 0),
 "times": PackedFloat32Array(0.4, 0.525, 0.65)
 }
 tracks/16/type = "value"
@@ -314,7 +314,7 @@ _data = {
 &"zen": SubResource("Animation_x0spy")
 }
 
-[node name="zs_wave_start" type="Node2D" unique_id=670467561]
+[node name="zs_wave_start" type="Node2D" unique_id=2021314969]
 script = ExtResource("1_3re1i")
 design_size = Vector2(480, 270)
 loop_blend = 0.0
@@ -325,7 +325,7 @@ fit_window = true
 click_to_continue = true
 draw_background = true
 
-[node name="band" type="Node2D" parent="." unique_id=364196438]
+[node name="band" type="Node2D" parent="." unique_id=1683642177]
 script = ExtResource("3_w5xx0")
 size_frac = Vector2(1, 0.24)
 color_base = Color(0.078, 0.122, 0.09, 1)
@@ -333,7 +333,7 @@ outline_color_base = Color(0, 0, 0, 0)
 elem_name = "band"
 pos_frac = Vector2(0.5, 0.42)
 
-[node name="title" type="Node2D" parent="." unique_id=164229919]
+[node name="title" type="Node2D" parent="." unique_id=107729924]
 z_index = 1
 script = ExtResource("4_8lrvm")
 strings = SubResource("Resource_nysl2")
@@ -341,9 +341,9 @@ size_frac = Vector2(40, 40)
 color_base = Color(0.93, 0.89, 0.76, 1)
 elem_name = "title"
 unit_abs = true
-pos_frac = Vector2(0.5, 0.4)
+pos_frac = Vector2(0.5, 0.39)
 
-[node name="sub" type="Node2D" parent="." unique_id=989798807]
+[node name="sub" type="Node2D" parent="." unique_id=2045542872]
 z_index = 2
 script = ExtResource("4_8lrvm")
 strings = SubResource("Resource_nysl2")
@@ -352,9 +352,9 @@ size_frac = Vector2(10, 10)
 color_base = Color(0.55, 0.95, 0.3, 1)
 elem_name = "sub"
 unit_abs = true
-pos_frac = Vector2(0.5, 0.53)
+pos_frac = Vector2(0.5, 0.495)
 
-[node name="skull_l" type="Node2D" parent="." unique_id=1319912442]
+[node name="skull_l" type="Node2D" parent="." unique_id=1637198181]
 z_index = 3
 script = ExtResource("3_w5xx0")
 shape_kind = 6
@@ -365,9 +365,9 @@ shape = ExtResource("5_30nhr")
 shape_name = "skull"
 elem_name = "skull_l"
 unit_abs = true
-pos_frac = Vector2(0.2, 0.41)
+pos_frac = Vector2(0.2, 0.39)
 
-[node name="skull_r" type="Node2D" parent="." unique_id=2121510059]
+[node name="skull_r" type="Node2D" parent="." unique_id=1431768521]
 z_index = 4
 script = ExtResource("3_w5xx0")
 shape_kind = 6
@@ -378,8 +378,8 @@ shape = ExtResource("5_30nhr")
 shape_name = "skull"
 elem_name = "skull_r"
 unit_abs = true
-pos_frac = Vector2(0.8, 0.41)
+pos_frac = Vector2(0.8, 0.39)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1930398024]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=158360237]
 callback_mode_method = 1
 libraries/ = SubResource("AnimationLibrary_qxw7l")

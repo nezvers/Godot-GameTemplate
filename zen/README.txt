@@ -7,7 +7,7 @@ SCENES IN THIS EXPORT
       elements: band, title, sub, skull_l, skull_r
       text args (play_with([...]) / set_text_args([...]) fill them in order):
         %1 wave (sample "3") in "WAVE %1"
-        %2 enemies (sample "24") in "%2 ZOMBIES INCOMING"
+        %2 enemies (sample "24") in "%2 MONSTERS INCOMING"
       plays once, then emits finished
   res://zen/zs_wave_cleared.tscn
       elements: splat, check, title, sub
