@@ -42,6 +42,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossSummon.gd" id="40_summon"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/EnemyLob.gd" id="41_enemylob"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/KeepDistance.gd" id="42_keep"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/StraddleNavigationGetter.gd" id="43_straddle"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/web_projectile_instance_resource.tres" id="50_web"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/spiderling_projectile_instance_resource.tres" id="51_spiderling"]
 
@@ -266,6 +267,12 @@ dead_vfx_instance_resource = ExtResource("19_deadvfx")
 [node name="ZombieInput" parent="." node_paths=PackedStringArray("resource_node") instance=ExtResource("12_ai")]
 attack_distance = 20.0
 resource_node = NodePath("../ResourceNode")
+
+[node name="TileNavigationGetter" parent="ZombieInput" index="2" node_paths=PackedStringArray("body", "raycast", "mover")]
+script = ExtResource("43_straddle")
+body = NodePath("../..")
+raycast = NodePath("../RayCast2D")
+mover = NodePath("../../MoverTopDown2D")
 
 [node name="SlashAttack" parent="." node_paths=PackedStringArray("resource_node") instance=ExtResource("13_slash")]
 collision_mask = 2
