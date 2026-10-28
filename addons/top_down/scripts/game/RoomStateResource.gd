@@ -44,3 +44,10 @@ func mark_section_cleared(room_id: StringName, index: int) -> void:
 	_sections[index] = true
 	cleared_sections[room_id] = _sections
 	updated.emit()
+
+## Sections cleared across every room this session (the victory screen's "rooms").
+func cleared_section_count() -> int:
+	var _count: int = 0
+	for _sections: Dictionary in cleared_sections.values():
+		_count += _sections.size()
+	return _count

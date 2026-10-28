@@ -32,18 +32,21 @@ instance_list = Array[ExtResource("5_inst")]([ExtResource("20_skitter"), ExtReso
 [sub_resource type="Resource" id="Wave_3"]
 script = ExtResource("4_wave")
 is_boss = true
+display_name = "GIANT ZOMBIE"
 count = 1
 instance_list = Array[ExtResource("5_inst")]([ExtResource("24_giant")])
 
 [sub_resource type="Resource" id="Wave_4"]
 script = ExtResource("4_wave")
 is_boss = true
+display_name = "BROODMOTHER"
 count = 1
 instance_list = Array[ExtResource("5_inst")]([ExtResource("25_brood")])
 
 [sub_resource type="Resource" id="Wave_5"]
 script = ExtResource("4_wave")
 is_boss = true
+display_name = "PLAGUE MOTHER"
 count = 1
 instance_list = Array[ExtResource("5_inst")]([ExtResource("26_plague")])
 

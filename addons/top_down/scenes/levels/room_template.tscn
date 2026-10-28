@@ -30,6 +30,19 @@
 [ext_resource type="Script" uid="uid://yyra3r4158q3" path="res://addons/great_games_library/nodes/utility/TileSceneGenerator.gd" id="27_tscng"]
 [ext_resource type="Script" uid="uid://dl7rbourlvwco" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemySpawnPoints.gd" id="29_espp"]
+[ext_resource type="Script" path="res://game/scripts/ZenAnnouncer.gd" id="30_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_wave_start.tscn" id="31_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_wave_cleared.tscn" id="32_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_boss_wave.tscn" id="33_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_room_cleared.tscn" id="34_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_weapon_pistol.tscn" id="35_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_weapon_shotgun.tscn" id="36_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_weapon_rifle.tscn" id="37_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_weapon_katana.tscn" id="38_zen"]
+[ext_resource type="PackedScene" path="res://zen/zs_game_over.tscn" id="39_zen"]
+[ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="40_inv"]
+[ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="41_wave"]
+[ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="42_score"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pkurn"]
 points = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
@@ -189,6 +202,24 @@ color = Color(0.0196078, 0.0352941, 0.0784314, 1)
 script = ExtResource("21_sfjnq")
 player_reference = ExtResource("12_wnxyp")
 game_over_scene_path = "res://addons/top_down/scenes/ui/screens/game_over.tscn"
+overlay_scene = ExtResource("39_zen")
+wave_number_resource = ExtResource("41_wave")
+score_resource = ExtResource("42_score")
+
+[node name="ZenAnnouncer" type="CanvasLayer" parent="." unique_id=1907755301]
+layer = 3
+script = ExtResource("30_zen")
+wave_start_scene = ExtResource("31_zen")
+wave_cleared_scene = ExtResource("32_zen")
+boss_wave_scene = ExtResource("33_zen")
+room_cleared_scene = ExtResource("34_zen")
+weapon_inventory = ExtResource("40_inv")
+weapon_cards = Dictionary[String, PackedScene]({
+"res://addons/top_down/scenes/weapons/assault_riffle.tscn": ExtResource("37_zen"),
+"res://addons/top_down/scenes/weapons/gun.tscn": ExtResource("35_zen"),
+"res://addons/top_down/scenes/weapons/shotgun.tscn": ExtResource("36_zen"),
+"res://addons/top_down/scenes/weapons/sword.tscn": ExtResource("38_zen")
+})
 
 [node name="DebugDraw" type="Node2D" parent="." unique_id=638060485]
 script = ExtResource("26_l7fet")

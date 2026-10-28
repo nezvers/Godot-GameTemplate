@@ -29,6 +29,7 @@ instance_list = Array[ExtResource("6_0xgci")]([ExtResource("7_mesdt"), ExtResour
 [sub_resource type="Resource" id="Resource_2ifak"]
 script = ExtResource("5_lajqs")
 is_boss = true
+display_name = "BIG JELLY"
 count = 1
 instance_list = Array[ExtResource("6_0xgci")]([ExtResource("9_tlban")])
 

@@ -28,6 +28,7 @@ instance_list = Array[ExtResource("5_inst")]([ExtResource("6_slime"), ExtResourc
 [sub_resource type="Resource" id="Wave_3"]
 script = ExtResource("4_wave")
 is_boss = true
+display_name = "BIG JELLY"
 count = 1
 instance_list = Array[ExtResource("5_inst")]([ExtResource("8_boss")])
 

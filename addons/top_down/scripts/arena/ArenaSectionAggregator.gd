@@ -8,6 +8,12 @@
 class_name ArenaSectionAggregator
 extends Node
 
+## A wave began in some section, with what a wave banner shows.
+signal wave_announced(wave_number:int, enemies:int, is_boss:bool, boss_name:String)
+## A wave was defeated. section_cleared: it was that section's last wave;
+## sections_left counts this room's sections with waves still to fight.
+signal wave_finished(wave_number:int, waves_left:int, section_cleared:bool, sections_left:int)
+
 @export var sections:Array[ArenaSection]
 
 @export var fight_mode_resource:BoolResource
@@ -31,6 +37,7 @@ var _base_for:Dictionary = {}
 
 func _ready()->void:
 	assert(fight_mode_resource != null)
+	add_to_group(&"arena_aggregator")
 	for _section:ArenaSection in sections:
 		if _section == null:
 			continue
@@ -39,6 +46,8 @@ func _ready()->void:
 		_section.cleared.connect(_on_section_cleared.bind(_index))
 		_section.cleared.connect(_recompute)
 		_section.updated.connect(_recompute)
+		_section.wave_started.connect(_on_wave_started.bind(_section))
+		_section.wave_cleared.connect(_on_wave_cleared.bind(_section))
 	# Restore per-section state after every _ready (RoomController sets current_room_id).
 	_restore_sections.call_deferred()
 	_recompute.call_deferred()
@@ -70,6 +79,17 @@ func _on_section_started(section:ArenaSection)->void:
 	if section_name_resource != null:
 		section_name_resource.set_value("Section%d" % (sections.find(section) + 1))
 	_recompute()
+
+func _on_wave_started(index:int, section:ArenaSection)->void:
+	var _wave:SpawnWaveList = section.waves[index]
+	wave_announced.emit(_base_for.get(section, 0) + index + 1, _wave.count, _wave.is_boss, _wave.display_name)
+
+func _on_wave_cleared(index:int, section:ArenaSection)->void:
+	var _sections_left:int = 0
+	for _section:ArenaSection in sections:
+		if _section != null && !_section.is_cleared && !_section.waves.is_empty():
+			_sections_left += 1
+	wave_finished.emit(_base_for.get(section, 0) + index + 1, section.remaining_waves(), section.is_cleared, _sections_left)
 
 func _on_section_cleared(index:int)->void:
 	if room_state_resource == null:

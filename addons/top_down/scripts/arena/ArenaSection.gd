@@ -20,6 +20,10 @@ signal fight_started
 signal updated
 ## Fired per enemy death (for DropManager).
 signal enemy_killed(enemy:ActiveEnemy)
+## Fired when a wave begins (index into waves). Not fired for restored sections.
+signal wave_started(index:int)
+## Fired when a wave is defeated, after the section advanced (or cleared).
+signal wave_cleared(index:int)
 
 ## Waves for this section, authored inline in the room. Empty == cleared on entry.
 @export var waves:Array[SpawnWaveList]
@@ -90,6 +94,7 @@ func start_fight()->void:
 	set_process(true)
 	fight_started.emit()
 	updated.emit()
+	wave_started.emit(0)
 
 ## Pick which points spawn this wave and the per-point maintained count, from
 ## spawn_density. Recomputed per wave since boss waves use a different point list.
@@ -194,10 +199,13 @@ func _advance_wave()->void:
 	wave_index += 1
 	if wave_index >= waves.size():
 		mark_cleared()
+		wave_cleared.emit(wave_index - 1)
 		return
 	enemy_count = waves[wave_index].count
 	_select_active_points()
 	updated.emit()
+	wave_cleared.emit(wave_index - 1)
+	wave_started.emit(wave_index)
 
 func _filter_free_position(position:Vector2)->bool:
 	# distance squared
