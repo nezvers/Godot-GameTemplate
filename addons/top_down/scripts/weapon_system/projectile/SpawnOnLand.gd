@@ -23,7 +23,8 @@ func _on_prepare_exit()->void:
 	var _config_callback:Callable = func (inst:Node2D)->void:
 		inst.global_position = _pos
 		if lifetime > 0.0 && &"lifetime" in inst:
-			inst.lifetime = lifetime
+			# after the trap's BalanceBinding writes its own lifetime on tree_entered
+			inst.tree_entered.connect(inst.set.bind(&"lifetime", lifetime), CONNECT_ONE_SHOT)
 		if _branch != null:
 			ActiveEnemy.insert_child(inst, _branch)
 

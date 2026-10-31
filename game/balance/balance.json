@@ -1280,9 +1280,24 @@
 			"health_drop_chance": 0.3
 		}
 	},
-	"instances": {
-		"acid_puddle": "res://addons/top_down/resources/InstanceResources/traps/acid_puddle_instance_resource.tres",
-		"slime_puddle": "res://addons/top_down/resources/InstanceResources/traps/slime_puddle_instance_resource.tres",
-		"web_trap": "res://addons/top_down/resources/InstanceResources/traps/web_trap_instance_resource.tres"
+	"traps": {
+		"acid_puddle": {
+			"scene": "res://addons/top_down/scenes/obstacles/acid_puddle.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/traps/acid_puddle_instance_resource.tres",
+			"lifetime": 60.0,
+			"fade_time": 3.0
+		},
+		"slime_puddle": {
+			"scene": "res://addons/top_down/scenes/obstacles/slime_puddle.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/traps/slime_puddle_instance_resource.tres",
+			"lifetime": 60.0,
+			"fade_time": 3.0
+		},
+		"web_trap": {
+			"scene": "res://addons/top_down/scenes/obstacles/web_trap.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/traps/web_trap_instance_resource.tres",
+			"lifetime": 0.0,
+			"fade_time": 0.2
+		}
 	}
 }

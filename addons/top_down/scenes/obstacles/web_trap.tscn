@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dgd3xomk1rk27"]
 
 [ext_resource type="PackedScene" path="res://addons/top_down/scenes/pickups/trap_pickup.tscn" id="1_trap"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 [ext_resource type="Texture2D" uid="uid://yfx3pu844yt7" path="res://addons/top_down/assets/images/misc/web_trap_16x16.png" id="2_tex"]
 [ext_resource type="Script" uid="uid://clyq6iprf3wd4" path="res://addons/top_down/scripts/obstackles/TrapTransmission.gd" id="3_trap"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/obstackles/WebTrap.gd" id="4_web"]
@@ -83,3 +84,6 @@ resource_node = NodePath("../../ResourceNode")
 [node name="DamageSetup" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("11_setup")
 resource_node = NodePath("../ResourceNode")
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

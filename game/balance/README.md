@@ -5,7 +5,7 @@
 - **Typos are reported.** A misspelled key or a node that can't be found shows up as a `WARNING: balance: ...` line in the output.
 - **Removing a key is safe.** The scene's own authored value is used instead.
 - **Entries are matched by `scene`.** To balance a new scene, add an entry with its `scene` path. Scenes inheriting `actor.tscn`, `weapon.tscn` or `projectile.tscn` already carry the binding.
-- **IDs replace resource paths.** Wherever a scene or projectile is referenced (`projectile`, `enemies`, `instance_resource`, …), use an entry id such as `zombie` or `acid_spit`, or a name from `instances`. A full `res://` path also works.
+- **IDs replace resource paths.** Wherever a scene or projectile is referenced (`projectile`, `enemies`, `instance_resource`, …), use an entry id such as `zombie`, `acid_spit` or `web_trap`. A full `res://` path also works.
 
 ## Sections
 
@@ -19,6 +19,7 @@
 | `projectiles.<id>` | `damage`, `kickback`, `speed`, `lifetime` (range = speed × lifetime), `movement_type` (`PROJECTILE`, or `SHAPECAST` to bounce off walls), `max_bounce`, `hit_limit` (-1 means it pierces everything), `sub_projectile` |
 | `enemy_projectiles.<id>` | `damage`, crit, `kickback`, `flight_time`, `landing_radius`, `on_land` (what spawns where it lands, and its lifetime), `on_land_split` |
 | `pickups.health` | `heal` |
+| `traps.<id>` | `lifetime` (seconds on the map before fading; `0` on `web_trap` means it stays until it catches someone or is shot), `fade_time`. A thrown web or acid spit uses its projectile's `on_land.lifetime` instead when that is above 0. How strong the effect is lives on whoever steps in: `poison`/`slow`/`stuck` on the player and enemies |
 | `rooms.<room>` | `sections.<SectionN>` (`spawn_density`, `free_distance`, `waves`), `spawn_points.<name>.max_simultaneous`, `health_drop_chance` |
 
 **Extra boss keys:**

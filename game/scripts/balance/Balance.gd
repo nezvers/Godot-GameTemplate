@@ -28,6 +28,7 @@ const CATEGORY_TABLES:Dictionary = {
 	"projectiles": "projectile",
 	"enemy_projectiles": "lob_projectile",
 	"pickups": "pickup",
+	"traps": "trap",
 	"rooms": "room",
 }
 
@@ -112,6 +113,10 @@ const TABLES:Dictionary = {
 	},
 	"pickup": {
 		"heal": "HealthDataTransmitter:transmission_resource:value",
+	},
+	"trap": {
+		"lifetime": ".:lifetime",
+		"fade_time": ".:fade_time",
 	},
 	"room": {
 		"sections": {"$each": {
