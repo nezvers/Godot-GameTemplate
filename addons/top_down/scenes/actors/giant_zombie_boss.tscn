@@ -1,47 +1,41 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bt5n4yo1555o1"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_actor"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_item"]
-[ext_resource type="Shader" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="3_flash"]
-[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/characters/giant_zombie_64x64.png" id="4_tex"]
-[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/shadow_big.png" id="5_shadow"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="6_stats"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="7_health"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/PushResource.gd" id="8_push"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="9_input"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="10_bool"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="11_damage"]
+[ext_resource type="Script" uid="uid://chy848pcntvu2" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_item"]
+[ext_resource type="Shader" uid="uid://mswl35phaudd" path="res://addons/top_down/scripts/shaders/color_flash.gdshader" id="3_flash"]
+[ext_resource type="Texture2D" uid="uid://bwlhctvnbbke4" path="res://addons/top_down/assets/images/characters/giant_zombie_64x64.png" id="4_tex"]
+[ext_resource type="Texture2D" uid="uid://x5defor6lk5g" path="res://addons/top_down/assets/images/shadow_big.png" id="5_shadow"]
+[ext_resource type="Script" uid="uid://du71kf2skajm5" path="res://addons/top_down/scripts/actor/ActorStatsResource.gd" id="6_stats"]
+[ext_resource type="Script" uid="uid://c4mj55eumewsg" path="res://addons/top_down/scripts/damage/HealthResource.gd" id="7_health"]
+[ext_resource type="Script" uid="uid://0cwd4fq8k1sb" path="res://addons/top_down/scripts/actor/PushResource.gd" id="8_push"]
+[ext_resource type="Script" uid="uid://umnrjhg4tkx8" path="res://addons/top_down/scripts/input/InputResource.gd" id="9_input"]
+[ext_resource type="Script" uid="uid://b22fpyvusjwgn" path="res://addons/great_games_library/resources/ValueResource/BoolResource.gd" id="10_bool"]
+[ext_resource type="Script" uid="uid://drjowwxypperd" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="11_damage"]
 [ext_resource type="PackedScene" uid="uid://cenq1bawfywu8" path="res://addons/top_down/scenes/actors/ai/enemy_ai.tscn" id="12_ai"]
-[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="13_slash"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="14_pool"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="15_active"]
+[ext_resource type="Script" uid="uid://c505hy2cj5vwa" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="14_pool"]
+[ext_resource type="Script" uid="uid://d14gll06lnke3" path="res://addons/top_down/scripts/actor/bots/ActiveEnemy.gd" id="15_active"]
 [ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="16_diffh"]
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="17_diff"]
 [ext_resource type="Resource" uid="uid://bmurrqosq7bec" path="res://addons/top_down/resources/sounds/kill_zombie.tres" id="18_killsnd"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="19_deadvfx"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="20_drop"]
-[ext_resource type="Script" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="21_instres"]
+[ext_resource type="Script" uid="uid://cl1oxvv5a1qgf" path="res://addons/top_down/scripts/actor/ItemDrop.gd" id="20_drop"]
+[ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="21_instres"]
 [ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="22_healthdrop"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="23_axis"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossAttackLoop.gd" id="24_loop"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossTelegraph.gd" id="25_telegraph"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/ShapeCastTransmitter2D.gd" id="26_shapecast"]
-[ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="27_channel"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="28_dmgdata"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="29_dmgtype"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="30_dmgstatus"]
+[ext_resource type="Script" uid="uid://dol85048huvin" path="res://addons/top_down/scripts/actor/boss/BossAttackLoop.gd" id="24_loop"]
+[ext_resource type="Script" uid="uid://y2f1at1ddebl" path="res://addons/top_down/scripts/actor/boss/BossTelegraph.gd" id="25_telegraph"]
+[ext_resource type="Script" uid="uid://b32hc21y325hs" path="res://addons/great_games_library/nodes/AreaTransmitter/ShapeCastTransmitter2D.gd" id="26_shapecast"]
+[ext_resource type="Script" uid="uid://b0uw7wkj5ulcm" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="27_channel"]
+[ext_resource type="Script" uid="uid://bdbat3453sctq" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="28_dmgdata"]
+[ext_resource type="Script" uid="uid://bphd2malk5asy" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="29_dmgtype"]
+[ext_resource type="Script" uid="uid://dg5sc14fyjex4" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="30_dmgstatus"]
 [ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="31_landvfx"]
 [ext_resource type="Resource" uid="uid://2oxos6r5uams" path="res://addons/top_down/resources/sounds/big_jelly_land.tres" id="32_landsnd"]
-[ext_resource type="Resource" uid="uid://htqn5bygvbq5" path="res://addons/top_down/resources/sounds/slime_throw.tres" id="33_throwsnd"]
 [ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="34_splitsnd"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/CameraResources/player_damage_shake.tres" id="35_shake"]
+[ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://addons/top_down/resources/CameraResources/player_damage_shake.tres" id="35_shake"]
 [ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="36_dust"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossSlam.gd" id="37_slam"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossCharge.gd" id="38_charge"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossLob.gd" id="39_lob"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossSummon.gd" id="40_summon"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/EnemyLob.gd" id="41_enemylob"]
-[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/KeepDistance.gd" id="42_keep"]
+[ext_resource type="Script" uid="uid://cac4qpt2gvs4w" path="res://addons/top_down/scripts/actor/boss/BossSlam.gd" id="37_slam"]
+[ext_resource type="Script" uid="uid://qvfebap4hjjc" path="res://addons/top_down/scripts/actor/boss/BossCharge.gd" id="38_charge"]
+[ext_resource type="Script" uid="uid://bljbwfbbpib" path="res://addons/top_down/scripts/actor/boss/BossSummon.gd" id="40_summon"]
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="50_zombie"]
 
 [sub_resource type="Resource" id="Resource_stats"]
@@ -106,7 +100,6 @@ make_unique = true
 
 [sub_resource type="Resource" id="Resource_damage"]
 script = ExtResource("11_damage")
-can_receive_damage = true
 
 [sub_resource type="Resource" id="Resource_damage_item"]
 resource_name = "damage"
@@ -129,69 +122,11 @@ size = Vector2(28, 10)
 [sub_resource type="RectangleShape2D" id="Shape_hurt"]
 size = Vector2(36, 44)
 
-[sub_resource type="CircleShape2D" id="Shape_slam"]
-radius = 44.0
-
-[sub_resource type="CircleShape2D" id="Shape_push"]
-radius = 52.0
-
-[sub_resource type="CircleShape2D" id="Shape_contact"]
-radius = 18.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_flash"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jovva"]
 resource_local_to_scene = true
 shader = ExtResource("3_flash")
 shader_parameter/overlay = Color(1, 1, 1, 1)
 shader_parameter/blend = 0.0
-
-[sub_resource type="Resource" id="Damage_slam_type"]
-script = ExtResource("29_dmgtype")
-value = 10.0
-type = 0
-
-[sub_resource type="Resource" id="Damage_slam"]
-script = ExtResource("28_dmgdata")
-base_damage = Array[ExtResource("29_dmgtype")]([SubResource("Damage_slam_type")])
-critical_chance = 0.0
-critical_multiply = 1.0
-status_list = Array[ExtResource("30_dmgstatus")]([])
-hit_list = []
-report_callback = Callable()
-kickback_strength = 0.0
-transmission_name = &"damage"
-state = -1
-valid = true
-
-[sub_resource type="Resource" id="Damage_push"]
-script = ExtResource("28_dmgdata")
-base_damage = Array[ExtResource("29_dmgtype")]([])
-critical_chance = 0.0
-critical_multiply = 1.0
-status_list = Array[ExtResource("30_dmgstatus")]([])
-hit_list = []
-report_callback = Callable()
-kickback_strength = 0.0
-transmission_name = &"damage"
-state = -1
-valid = true
-
-[sub_resource type="Resource" id="Damage_charge_type"]
-script = ExtResource("29_dmgtype")
-value = 8.0
-type = 0
-
-[sub_resource type="Resource" id="Damage_charge"]
-script = ExtResource("28_dmgdata")
-base_damage = Array[ExtResource("29_dmgtype")]([SubResource("Damage_charge_type")])
-critical_chance = 0.0
-critical_multiply = 1.0
-status_list = Array[ExtResource("30_dmgstatus")]([])
-hit_list = []
-report_callback = Callable()
-kickback_strength = 0.0
-transmission_name = &"damage"
-state = -1
-valid = true
 
 [sub_resource type="Animation" id="Animation_boss_attack"]
 resource_name = "attack"
@@ -285,17 +220,49 @@ _data = {
 &"walk": SubResource("Animation_boss_walk")
 }
 
-[node name="GiantZombieBoss" instance=ExtResource("1_actor")]
+[sub_resource type="CircleShape2D" id="Shape_slam"]
+radius = 44.0
+
+[sub_resource type="Resource" id="Damage_slam_type"]
+script = ExtResource("29_dmgtype")
+value = 10.0
+
+[sub_resource type="Resource" id="Damage_slam"]
+script = ExtResource("28_dmgdata")
+base_damage = Array[ExtResource("29_dmgtype")]([SubResource("Damage_slam_type")])
+critical_chance = 0.0
+critical_multiply = 1.0
+transmission_name = &"damage"
+
+[sub_resource type="CircleShape2D" id="Shape_push"]
+radius = 52.0
+
+[sub_resource type="Resource" id="Damage_push"]
+script = ExtResource("28_dmgdata")
+critical_chance = 0.0
+critical_multiply = 1.0
+transmission_name = &"damage"
+
+[sub_resource type="CircleShape2D" id="Shape_contact"]
+radius = 18.0
+
+[sub_resource type="Resource" id="Damage_charge_type"]
+script = ExtResource("29_dmgtype")
+value = 8.0
+
+[sub_resource type="Resource" id="Damage_charge"]
+script = ExtResource("28_dmgdata")
+base_damage = Array[ExtResource("29_dmgtype")]([SubResource("Damage_charge_type")])
+critical_chance = 0.0
+critical_multiply = 1.0
+transmission_name = &"damage"
+
+[node name="GiantZombieBoss" unique_id=1820138636 instance=ExtResource("1_actor")]
 collision_layer = 4
 collision_mask = 5
 
 [node name="ResourceNode" parent="." index="0"]
 list = Array[ExtResource("2_item")]([SubResource("Resource_stats_item"), SubResource("Resource_hp_item"), SubResource("Resource_push_item"), SubResource("Resource_dash_item"), SubResource("Resource_hole_item"), SubResource("Resource_input_item"), SubResource("Resource_damage_item"), SubResource("Resource_slow_item")])
-
-[node name="DifficultyHealth" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
-script = ExtResource("16_diffh")
-resource_node = NodePath("../ResourceNode")
-difficulty_resource = ExtResource("17_diff")
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, -3)
@@ -314,7 +281,7 @@ scale = Vector2(0.75, 0.6)
 texture = ExtResource("5_shadow")
 
 [node name="Sprite2D" parent="Body/Stretch" index="0"]
-material = SubResource("ShaderMaterial_flash")
+material = SubResource("ShaderMaterial_jovva")
 position = Vector2(0, -29)
 texture = ExtResource("4_tex")
 hframes = 16
@@ -327,34 +294,39 @@ enabled = false
 
 [node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("18_killsnd")
-dead_vfx_instance_resource = ExtResource("19_deadvfx")
+dead_vfx_instance_resource = ExtResource("31_landvfx")
 
-[node name="ZombieInput" parent="." node_paths=PackedStringArray("resource_node") instance=ExtResource("12_ai")]
+[node name="DifficultyHealth" type="Node" parent="." index="17" unique_id=1894783474 node_paths=PackedStringArray("resource_node")]
+script = ExtResource("16_diffh")
+resource_node = NodePath("../ResourceNode")
+difficulty_resource = ExtResource("17_diff")
+
+[node name="ZombieInput" parent="." index="18" unique_id=319205529 node_paths=PackedStringArray("resource_node") instance=ExtResource("12_ai")]
 attack_distance = 20.0
 resource_node = NodePath("../ResourceNode")
 
-[node name="ItemDrop" type="Node" parent="." node_paths=PackedStringArray("resource_node", "root_node")]
+[node name="ItemDrop" type="Node" parent="." index="19" unique_id=627681749 node_paths=PackedStringArray("resource_node", "root_node")]
 script = ExtResource("20_drop")
 resource_node = NodePath("../ResourceNode")
 root_node = NodePath("..")
 drop_instance_resources = Array[ExtResource("21_instres")]([ExtResource("22_healthdrop")])
 drop_chance = 1.0
 
-[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "animation_player_list", "listen_node")]
+[node name="PoolNode" type="Node" parent="." index="20" unique_id=1523449363 node_paths=PackedStringArray("ready_nodes", "animation_player_list", "listen_node")]
 script = ExtResource("14_pool")
 ready_nodes = [NodePath("../DifficultyHealth")]
 animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 
-[node name="ActiveEnemy" type="Node" parent="." node_paths=PackedStringArray("listen_node", "resource_node")]
+[node name="ActiveEnemy" type="Node" parent="." index="21" unique_id=1760454617 node_paths=PackedStringArray("listen_node", "resource_node")]
 script = ExtResource("15_active")
 listen_node = NodePath("../ActorDamage")
 signal_name = &"actor_died"
 resource_node = NodePath("../ResourceNode")
 destroy_children = true
 
-[node name="BossAttackLoop" type="Node" parent="." node_paths=PackedStringArray("bot_input", "target_finder", "resource_node", "character_states", "animation_player", "tint_node")]
+[node name="BossAttackLoop" type="Node" parent="." index="22" unique_id=9553211 node_paths=PackedStringArray("bot_input", "target_finder", "resource_node", "character_states", "animation_player", "tint_node")]
 script = ExtResource("24_loop")
 bot_input = NodePath("../ZombieInput")
 target_finder = NodePath("../ZombieInput/TargetFinder")
@@ -363,74 +335,8 @@ character_states = NodePath("../CharacterStates")
 animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
 tint_node = NodePath("../Body/Stretch/Sprite2D")
 
-[node name="SlamTelegraph" type="Node2D" parent="."]
-show_behind_parent = true
-scale = Vector2(1, 0.5)
-script = ExtResource("25_telegraph")
-radius = 44.0
-
-[node name="ChargeTelegraph" type="Node2D" parent="."]
-show_behind_parent = true
-script = ExtResource("25_telegraph")
-shape = 1
-width = 20.0
-
-[node name="SlamDamage" type="ShapeCast2D" parent="."]
-scale = Vector2(1, 0.5)
-enabled = false
-shape = SubResource("Shape_slam")
-target_position = Vector2(0, 0)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-script = ExtResource("26_shapecast")
-
-[node name="DamageDataTransmitter" type="Node" parent="SlamDamage"]
-script = ExtResource("27_channel")
-try_next_frame = false
-transmission_resource = SubResource("Damage_slam")
-
-[node name="SlamPush" type="ShapeCast2D" parent="." node_paths=PackedStringArray("exclude_list")]
-scale = Vector2(1, 0.5)
-enabled = false
-shape = SubResource("Shape_push")
-target_position = Vector2(0, 0)
-collision_mask = 6
-collide_with_areas = true
-collide_with_bodies = false
-script = ExtResource("26_shapecast")
-exclude_list = [NodePath("../AreaReceiver2D")]
-
-[node name="DamageDataTransmitter" type="Node" parent="SlamPush"]
-script = ExtResource("27_channel")
-try_next_frame = false
-transmission_resource = SubResource("Damage_push")
-
-[node name="ChargeDamage" type="ShapeCast2D" parent="."]
-position = Vector2(0, -6)
-scale = Vector2(1, 0.6)
-enabled = false
-shape = SubResource("Shape_contact")
-target_position = Vector2(0, 0)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-script = ExtResource("26_shapecast")
-
-[node name="DamageDataTransmitter" type="Node" parent="ChargeDamage"]
-script = ExtResource("27_channel")
-try_next_frame = false
-transmission_resource = SubResource("Damage_charge")
-
-[node name="Slam" type="Node" parent="BossAttackLoop" node_paths=PackedStringArray("telegraph", "damage_transmitter", "push_transmitter", "push_channel_transmitter")]
+[node name="Slam" type="Node" parent="BossAttackLoop" index="0" unique_id=454528286 node_paths=PackedStringArray("damage_transmitter", "push_transmitter", "push_channel_transmitter", "telegraph")]
 script = ExtResource("37_slam")
-animation = &"attack"
-windup = 0.75
-recovery = 0.8
-cooldown = 1.5
-max_distance = 40.0
-weight = 3.0
-telegraph = NodePath("../../SlamTelegraph")
 damage_transmitter = NodePath("../../SlamDamage")
 push_transmitter = NodePath("../../SlamPush")
 push_channel_transmitter = NodePath("../../SlamPush/DamageDataTransmitter")
@@ -438,9 +344,24 @@ axis_multiplication = ExtResource("23_axis")
 vfx = ExtResource("31_landvfx")
 sound = ExtResource("32_landsnd")
 camera_shake = ExtResource("35_shake")
+animation = &"attack"
+windup = 0.75
+recovery = 0.8
+cooldown = 1.5
+max_distance = 40.0
+weight = 3.0
+telegraph = NodePath("../../SlamTelegraph")
 
-[node name="Charge" type="Node" parent="BossAttackLoop" node_paths=PackedStringArray("telegraph", "character", "resource_node", "damage_transmitter", "damage_channel_transmitter")]
+[node name="Charge" type="Node" parent="BossAttackLoop" index="1" unique_id=1611326813 node_paths=PackedStringArray("character", "resource_node", "damage_transmitter", "damage_channel_transmitter", "telegraph")]
 script = ExtResource("38_charge")
+character = NodePath("../..")
+resource_node = NodePath("../../ResourceNode")
+axis_multiplication = ExtResource("23_axis")
+damage_transmitter = NodePath("../../ChargeDamage")
+damage_channel_transmitter = NodePath("../../ChargeDamage/DamageDataTransmitter")
+wall_vfx = ExtResource("31_landvfx")
+wall_sound = ExtResource("32_landsnd")
+camera_shake = ExtResource("35_shake")
 animation = &"charge"
 windup = 0.8
 perform_animation = &"walk"
@@ -451,31 +372,76 @@ min_distance = 64.0
 max_distance = 200.0
 weight = 2.0
 telegraph = NodePath("../../ChargeTelegraph")
-character = NodePath("../..")
-resource_node = NodePath("../../ResourceNode")
-axis_multiplication = ExtResource("23_axis")
-damage_transmitter = NodePath("../../ChargeDamage")
-damage_channel_transmitter = NodePath("../../ChargeDamage/DamageDataTransmitter")
-wall_vfx = ExtResource("31_landvfx")
-wall_sound = ExtResource("32_landsnd")
-camera_shake = ExtResource("35_shake")
 
-[node name="Roar" type="Node" parent="BossAttackLoop" node_paths=PackedStringArray("active_enemy", "origin_node")]
+[node name="Roar" type="Node" parent="BossAttackLoop" index="2" unique_id=1128105283 node_paths=PackedStringArray("active_enemy", "origin_node")]
 script = ExtResource("40_summon")
-animation = &"roar"
-windup = 0.6
-recovery = 0.6
-cooldown = 12.0
-max_health = 0.75
-weight = 1.5
 instance_resource = ExtResource("50_zombie")
 active_enemy = NodePath("../../ActiveEnemy")
 origin_node = NodePath("../..")
-count = 2
-child_limit = 4
 difficulty_resource = ExtResource("17_diff")
-easy_count = 1
-easy_child_limit = 2
 axis_multiplication = ExtResource("23_axis")
 spawn_vfx = ExtResource("36_dust")
 sound = ExtResource("34_splitsnd")
+animation = &"roar"
+cooldown = 12.0
+max_health = 0.75
+weight = 1.5
+
+[node name="SlamTelegraph" type="Node2D" parent="." index="23" unique_id=786136169]
+show_behind_parent = true
+scale = Vector2(1, 0.5)
+script = ExtResource("25_telegraph")
+radius = 44.0
+
+[node name="ChargeTelegraph" type="Node2D" parent="." index="24" unique_id=162909768]
+show_behind_parent = true
+script = ExtResource("25_telegraph")
+shape = 1
+width = 20.0
+
+[node name="SlamDamage" type="ShapeCast2D" parent="." index="25" unique_id=1444913646]
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("Shape_slam")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("26_shapecast")
+
+[node name="DamageDataTransmitter" type="Node" parent="SlamDamage" index="0" unique_id=112272513]
+script = ExtResource("27_channel")
+try_next_frame = false
+transmission_resource = SubResource("Damage_slam")
+
+[node name="SlamPush" type="ShapeCast2D" parent="." index="26" unique_id=1747809526 node_paths=PackedStringArray("exclude_list")]
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("Shape_push")
+target_position = Vector2(0, 0)
+collision_mask = 6
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("26_shapecast")
+exclude_list = [NodePath("../AreaReceiver2D")]
+
+[node name="DamageDataTransmitter" type="Node" parent="SlamPush" index="0" unique_id=952194753]
+script = ExtResource("27_channel")
+try_next_frame = false
+transmission_resource = SubResource("Damage_push")
+
+[node name="ChargeDamage" type="ShapeCast2D" parent="." index="27" unique_id=1025630182]
+position = Vector2(0, -6)
+scale = Vector2(1, 0.6)
+enabled = false
+shape = SubResource("Shape_contact")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("26_shapecast")
+
+[node name="DamageDataTransmitter" type="Node" parent="ChargeDamage" index="0" unique_id=1961556448]
+script = ExtResource("27_channel")
+try_next_frame = false
+transmission_resource = SubResource("Damage_charge")
