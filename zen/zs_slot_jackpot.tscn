@@ -1,0 +1,2653 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_canvas.gd" id="1_3re1i"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_strings.gd" id="2_bm0ww"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_shape.gd" id="3_w5xx0"]
+[ext_resource type="Script" path="res://zen/zen_runtime/runtime/zen_text.gd" id="4_8lrvm"]
+[ext_resource type="Resource" path="res://zen/shapes/skull.tres" id="5_30nhr"]
+[ext_resource type="Resource" path="res://zen/shapes/meat.tres" id="5_vmuax"]
+[ext_resource type="Resource" path="res://zen/shapes/star.tres" id="5_w5xx0"]
+[ext_resource type="Resource" path="res://zen/shapes/coin.tres" id="6_l2db8"]
+[ext_resource type="Resource" path="res://zen/shapes/slime_ball.tres" id="7_wgyav"]
+
+[sub_resource type="Resource" id="Resource_fvywq"]
+script = ExtResource("2_bm0ww")
+entries = PackedStringArray("JACKPOT!", "%1 DROPPED")
+
+[sub_resource type="Animation" id="Animation_77m2f"]
+length = 3.2
+step = 0.0166667
+markers = [{
+"color": Color(1, 1, 1, 1),
+"name": &"outro_start",
+"time": 3.2
+}]
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"_anim_pose"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cabinet:pos_y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.13, 0, 0, 0.1, 0.548626, 0.22, -0.1, -6.953875e-05, 0.8666667, 0, 0.22, -0.8666667, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cabinet:zen_ease_pos_y")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("marquee:pos_y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.24111111, 0, 0, 0.1, 0.548626, 0.10888889, -0.1, -6.953875e-05, 0.8666667, 0, 0.10888889, -0.8666667, 0, 0.1, 6.3001457e-09, -0.24111111, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("marquee:zen_ease_pos_y")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("window_0:pos_y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.13, 0, 0, 0.1, 0.548626, 0.22, -0.1, -6.953875e-05, 0.8666667, 0, 0.22, -0.8666667, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("window_0:zen_ease_pos_y")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("reel_0_skull:alpha")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.033, 0, 0, -0.033, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("reel_0_skull:zen_ease_alpha")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("reel_0_skull:pos_y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.033333335, -0.016049383, 0.19037037, -0.033333335, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.65, 0, 0.22, -0.65, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.3, 0.37, 0.58, 0.65, 0.75, 0.95, 2.9, 3.2)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("reel_0_skull:zen_ease_pos_y")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.3, 0.37, 0.58, 0.65, 0.75, 0.95, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("reel_0_skull:zen_scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.016666668, 0.1, 1.15, -0.016666668, 0, 0.00625, -2.220446e-13, 1.1442909, -0.00625, 0.0037570717, 0.00625, -0.0037570717, 1.128033, -0.00625, 0.006941613, 0.0125, -0.013883226, 1.075, -0.0125, 0.019636005, 0.0125, -0.019636005, 1.0219669, -0.0125, 0.013884157, 0.00625, -0.0069420785, 1.005709, -0.00625, 0.003758818, 0.00625, -0.003758818, 1, -0.00625, -3.7252903e-06, 0, 0),
+"times": PackedFloat32Array(0.75, 0.8, 0.81875, 0.8375, 0.875, 0.9125, 0.93125, 0.95)
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("reel_0_skull:zen_ease_scale")
+tracks/12/interp = 0
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.75, 0.8, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "quadOut", "sineInOut"]
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("reel_0_skull:outline_alpha")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.033, 0, 0, -0.033, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("reel_0_skull:zen_ease_outline_alpha")
+tracks/14/interp = 0
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("reel_0_meat:alpha")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.033, 0, 1, -0.033, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("reel_0_meat:zen_ease_alpha")
+tracks/16/interp = 0
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("reel_0_meat:pos_y")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.01, -0.016049383, 0.19037037, -0.01, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.65, 0, 0.22, -0.65, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.37, 0.44, 0.65, 0.72, 0.75, 0.95, 2.9, 3.2)
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("reel_0_meat:zen_ease_pos_y")
+tracks/18/interp = 0
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.37, 0.44, 0.65, 0.72, 0.75, 0.95, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/19/type = "bezier"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("reel_0_meat:outline_alpha")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.033, 0, 1, -0.033, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("reel_0_meat:zen_ease_outline_alpha")
+tracks/20/interp = 0
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/21/type = "bezier"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("reel_0_coin:alpha")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.033, 0, 0, -0.033, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("reel_0_coin:zen_ease_alpha")
+tracks/22/interp = 0
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/23/type = "bezier"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("reel_0_coin:pos_y")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.08, -0.016049383, 0.19037037, -0.08, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.65, 0, 0.22, -0.65, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.44, 0.51, 0.75, 0.95, 2.9, 3.2)
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("reel_0_coin:zen_ease_pos_y")
+tracks/24/interp = 0
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0.44, 0.51, 0.75, 0.95, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/25/type = "bezier"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("reel_0_coin:outline_alpha")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.033, 0, 0, -0.033, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("reel_0_coin:zen_ease_outline_alpha")
+tracks/26/interp = 0
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/27/type = "bezier"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("reel_0_slime_ball:alpha")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.033, 0, 0, -0.033, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("reel_0_slime_ball:zen_ease_alpha")
+tracks/28/interp = 0
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/29/type = "bezier"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("reel_0_slime_ball:pos_y")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.05666667, -0.016049383, 0.19037037, -0.05666667, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.65, 0, 0.22, -0.65, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.51, 0.58, 0.75, 0.95, 2.9, 3.2)
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("reel_0_slime_ball:zen_ease_pos_y")
+tracks/30/interp = 0
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0.51, 0.58, 0.75, 0.95, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/31/type = "bezier"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("reel_0_slime_ball:outline_alpha")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.033, 0, 0, -0.033, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751)
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("reel_0_slime_ball:zen_ease_outline_alpha")
+tracks/32/interp = 0
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.75, 0.751),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/33/type = "bezier"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("window_1:pos_y")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.13, 0, 0, 0.1, 0.548626, 0.22, -0.1, -6.953875e-05, 0.8666667, 0, 0.22, -0.8666667, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2)
+}
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("window_1:zen_ease_pos_y")
+tracks/34/interp = 0
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/35/type = "bezier"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("reel_1_skull:alpha")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.029666666, 0, 0, -0.029666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/36/type = "value"
+tracks/36/imported = false
+tracks/36/enabled = true
+tracks/36/path = NodePath("reel_1_skull:zen_ease_alpha")
+tracks/36/interp = 0
+tracks/36/loop_wrap = true
+tracks/36/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/37/type = "bezier"
+tracks/37/imported = false
+tracks/37/enabled = true
+tracks/37/path = NodePath("reel_1_skull:pos_y")
+tracks/37/interp = 1
+tracks/37/loop_wrap = true
+tracks/37/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.053333335, -0.016049383, 0.19037037, -0.053333335, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.5833333, 0, 0.22, -0.5833333, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.44, 0.51, 0.72, 0.79, 0.95, 1.15, 2.9, 3.2)
+}
+tracks/38/type = "value"
+tracks/38/imported = false
+tracks/38/enabled = true
+tracks/38/path = NodePath("reel_1_skull:zen_ease_pos_y")
+tracks/38/interp = 0
+tracks/38/loop_wrap = true
+tracks/38/keys = {
+"times": PackedFloat32Array(0.44, 0.51, 0.72, 0.79, 0.95, 1.15, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/39/type = "bezier"
+tracks/39/imported = false
+tracks/39/enabled = true
+tracks/39/path = NodePath("reel_1_skull:zen_scale")
+tracks/39/interp = 1
+tracks/39/loop_wrap = true
+tracks/39/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.016666668, 0.1, 1.15, -0.016666668, 0, 0.00625, -2.220446e-13, 1.1442909, -0.00625, 0.0037570717, 0.00625, -0.0037570717, 1.128033, -0.00625, 0.006941613, 0.0125, -0.013883226, 1.075, -0.0125, 0.019636005, 0.0125, -0.019636005, 1.0219669, -0.0125, 0.013884157, 0.00625, -0.0069420785, 1.005709, -0.00625, 0.003758818, 0.00625, -0.003758818, 1, -0.00625, -3.7252903e-06, 0, 0),
+"times": PackedFloat32Array(0.95, 1, 1.01875, 1.0375, 1.075, 1.1125, 1.13125, 1.15)
+}
+tracks/40/type = "value"
+tracks/40/imported = false
+tracks/40/enabled = true
+tracks/40/path = NodePath("reel_1_skull:zen_ease_scale")
+tracks/40/interp = 0
+tracks/40/loop_wrap = true
+tracks/40/keys = {
+"times": PackedFloat32Array(0.95, 1, 1.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "quadOut", "sineInOut"]
+}
+tracks/41/type = "bezier"
+tracks/41/imported = false
+tracks/41/enabled = true
+tracks/41/path = NodePath("reel_1_skull:outline_alpha")
+tracks/41/interp = 1
+tracks/41/loop_wrap = true
+tracks/41/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.029666666, 0, 0, -0.029666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/42/type = "value"
+tracks/42/imported = false
+tracks/42/enabled = true
+tracks/42/path = NodePath("reel_1_skull:zen_ease_outline_alpha")
+tracks/42/interp = 0
+tracks/42/loop_wrap = true
+tracks/42/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/43/type = "bezier"
+tracks/43/imported = false
+tracks/43/enabled = true
+tracks/43/path = NodePath("reel_1_meat:alpha")
+tracks/43/interp = 1
+tracks/43/loop_wrap = true
+tracks/43/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.029666666, 0, 0, -0.029666666, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/44/type = "value"
+tracks/44/imported = false
+tracks/44/enabled = true
+tracks/44/path = NodePath("reel_1_meat:zen_ease_alpha")
+tracks/44/interp = 0
+tracks/44/loop_wrap = true
+tracks/44/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/45/type = "bezier"
+tracks/45/imported = false
+tracks/45/enabled = true
+tracks/45/path = NodePath("reel_1_meat:pos_y")
+tracks/45/interp = 1
+tracks/45/loop_wrap = true
+tracks/45/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.03, -0.016049383, 0.19037037, -0.03, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.5833333, 0, 0.22, -0.5833333, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.51, 0.58, 0.79, 0.86, 0.95, 1.15, 2.9, 3.2)
+}
+tracks/46/type = "value"
+tracks/46/imported = false
+tracks/46/enabled = true
+tracks/46/path = NodePath("reel_1_meat:zen_ease_pos_y")
+tracks/46/interp = 0
+tracks/46/loop_wrap = true
+tracks/46/keys = {
+"times": PackedFloat32Array(0.51, 0.58, 0.79, 0.86, 0.95, 1.15, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/47/type = "bezier"
+tracks/47/imported = false
+tracks/47/enabled = true
+tracks/47/path = NodePath("reel_1_meat:outline_alpha")
+tracks/47/interp = 1
+tracks/47/loop_wrap = true
+tracks/47/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.029666666, 0, 0, -0.029666666, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/48/type = "value"
+tracks/48/imported = false
+tracks/48/enabled = true
+tracks/48/path = NodePath("reel_1_meat:zen_ease_outline_alpha")
+tracks/48/interp = 0
+tracks/48/loop_wrap = true
+tracks/48/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/49/type = "bezier"
+tracks/49/imported = false
+tracks/49/enabled = true
+tracks/49/path = NodePath("reel_1_coin:alpha")
+tracks/49/interp = 1
+tracks/49/loop_wrap = true
+tracks/49/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.029666666, 0, 1, -0.029666666, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/50/type = "value"
+tracks/50/imported = false
+tracks/50/enabled = true
+tracks/50/path = NodePath("reel_1_coin:zen_ease_alpha")
+tracks/50/interp = 0
+tracks/50/loop_wrap = true
+tracks/50/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/51/type = "bezier"
+tracks/51/imported = false
+tracks/51/enabled = true
+tracks/51/path = NodePath("reel_1_coin:pos_y")
+tracks/51/interp = 1
+tracks/51/loop_wrap = true
+tracks/51/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.006666667, -0.016049383, 0.19037037, -0.006666667, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.5833333, 0, 0.22, -0.5833333, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.3, 0.37, 0.58, 0.65, 0.86, 0.93, 0.95, 1.15, 2.9, 3.2)
+}
+tracks/52/type = "value"
+tracks/52/imported = false
+tracks/52/enabled = true
+tracks/52/path = NodePath("reel_1_coin:zen_ease_pos_y")
+tracks/52/interp = 0
+tracks/52/loop_wrap = true
+tracks/52/keys = {
+"times": PackedFloat32Array(0.3, 0.37, 0.58, 0.65, 0.86, 0.93, 0.95, 1.15, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/53/type = "bezier"
+tracks/53/imported = false
+tracks/53/enabled = true
+tracks/53/path = NodePath("reel_1_coin:outline_alpha")
+tracks/53/interp = 1
+tracks/53/loop_wrap = true
+tracks/53/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.029666666, 0, 1, -0.029666666, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/54/type = "value"
+tracks/54/imported = false
+tracks/54/enabled = true
+tracks/54/path = NodePath("reel_1_coin:zen_ease_outline_alpha")
+tracks/54/interp = 0
+tracks/54/loop_wrap = true
+tracks/54/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/55/type = "bezier"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("reel_1_slime_ball:alpha")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.029666666, 0, 0, -0.029666666, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/56/type = "value"
+tracks/56/imported = false
+tracks/56/enabled = true
+tracks/56/path = NodePath("reel_1_slime_ball:zen_ease_alpha")
+tracks/56/interp = 0
+tracks/56/loop_wrap = true
+tracks/56/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/57/type = "bezier"
+tracks/57/imported = false
+tracks/57/enabled = true
+tracks/57/path = NodePath("reel_1_slime_ball:pos_y")
+tracks/57/interp = 1
+tracks/57/loop_wrap = true
+tracks/57/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07666667, -0.016049383, 0.19037037, -0.07666667, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.5833333, 0, 0.22, -0.5833333, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.37, 0.44, 0.65, 0.72, 0.95, 1.15, 2.9, 3.2)
+}
+tracks/58/type = "value"
+tracks/58/imported = false
+tracks/58/enabled = true
+tracks/58/path = NodePath("reel_1_slime_ball:zen_ease_pos_y")
+tracks/58/interp = 0
+tracks/58/loop_wrap = true
+tracks/58/keys = {
+"times": PackedFloat32Array(0.37, 0.44, 0.65, 0.72, 0.95, 1.15, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/59/type = "bezier"
+tracks/59/imported = false
+tracks/59/enabled = true
+tracks/59/path = NodePath("reel_1_slime_ball:outline_alpha")
+tracks/59/interp = 1
+tracks/59/loop_wrap = true
+tracks/59/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.029666666, 0, 0, -0.029666666, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951)
+}
+tracks/60/type = "value"
+tracks/60/imported = false
+tracks/60/enabled = true
+tracks/60/path = NodePath("reel_1_slime_ball:zen_ease_outline_alpha")
+tracks/60/interp = 0
+tracks/60/loop_wrap = true
+tracks/60/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.95, 0.951),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/61/type = "bezier"
+tracks/61/imported = false
+tracks/61/enabled = true
+tracks/61/path = NodePath("window_2:pos_y")
+tracks/61/interp = 1
+tracks/61/loop_wrap = true
+tracks/61/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-0.13, 0, 0, 0.1, 0.548626, 0.22, -0.1, -6.953875e-05, 0.8666667, 0, 0.22, -0.8666667, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2)
+}
+tracks/62/type = "value"
+tracks/62/imported = false
+tracks/62/enabled = true
+tracks/62/path = NodePath("window_2:zen_ease_pos_y")
+tracks/62/interp = 0
+tracks/62/loop_wrap = true
+tracks/62/keys = {
+"times": PackedFloat32Array(0, 0.3, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear", "backIn"]
+}
+tracks/63/type = "bezier"
+tracks/63/imported = false
+tracks/63/enabled = true
+tracks/63/path = NodePath("reel_2_skull:alpha")
+tracks/63/interp = 1
+tracks/63/loop_wrap = true
+tracks/63/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.026333334, 0, 0, -0.026333334, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/64/type = "value"
+tracks/64/imported = false
+tracks/64/enabled = true
+tracks/64/path = NodePath("reel_2_skull:zen_ease_alpha")
+tracks/64/interp = 0
+tracks/64/loop_wrap = true
+tracks/64/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/65/type = "bezier"
+tracks/65/imported = false
+tracks/65/enabled = true
+tracks/65/path = NodePath("reel_2_skull:pos_y")
+tracks/65/interp = 1
+tracks/65/loop_wrap = true
+tracks/65/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07333333, -0.016049383, 0.19037037, -0.07333333, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.51666665, 0, 0.22, -0.51666665, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.3, 0.37, 0.58, 0.65, 0.86, 0.93, 1.15, 1.35, 2.9, 3.2)
+}
+tracks/66/type = "value"
+tracks/66/imported = false
+tracks/66/enabled = true
+tracks/66/path = NodePath("reel_2_skull:zen_ease_pos_y")
+tracks/66/interp = 0
+tracks/66/loop_wrap = true
+tracks/66/keys = {
+"times": PackedFloat32Array(0.3, 0.37, 0.58, 0.65, 0.86, 0.93, 1.15, 1.35, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/67/type = "bezier"
+tracks/67/imported = false
+tracks/67/enabled = true
+tracks/67/path = NodePath("reel_2_skull:zen_scale")
+tracks/67/interp = 1
+tracks/67/loop_wrap = true
+tracks/67/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.016666668, 0.1, 1.15, -0.016666668, 0, 0.00625, -2.220446e-13, 1.1442909, -0.00625, 0.0037570717, 0.00625, -0.0037570717, 1.128033, -0.00625, 0.006941613, 0.0125, -0.013883226, 1.075, -0.0125, 0.019636005, 0.0125, -0.019636005, 1.0219669, -0.0125, 0.013884157, 0.00625, -0.0069420785, 1.005709, -0.00625, 0.003758818, 0.00625, -0.003758818, 1, -0.00625, -3.7252903e-06, 0, 0),
+"times": PackedFloat32Array(1.15, 1.2, 1.21875, 1.2375, 1.275, 1.3125, 1.33125, 1.35)
+}
+tracks/68/type = "value"
+tracks/68/imported = false
+tracks/68/enabled = true
+tracks/68/path = NodePath("reel_2_skull:zen_ease_scale")
+tracks/68/interp = 0
+tracks/68/loop_wrap = true
+tracks/68/keys = {
+"times": PackedFloat32Array(1.15, 1.2, 1.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "quadOut", "sineInOut"]
+}
+tracks/69/type = "bezier"
+tracks/69/imported = false
+tracks/69/enabled = true
+tracks/69/path = NodePath("reel_2_skull:outline_alpha")
+tracks/69/interp = 1
+tracks/69/loop_wrap = true
+tracks/69/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.026333334, 0, 0, -0.026333334, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/70/type = "value"
+tracks/70/imported = false
+tracks/70/enabled = true
+tracks/70/path = NodePath("reel_2_skull:zen_ease_outline_alpha")
+tracks/70/interp = 0
+tracks/70/loop_wrap = true
+tracks/70/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/71/type = "bezier"
+tracks/71/imported = false
+tracks/71/enabled = true
+tracks/71/path = NodePath("reel_2_meat:alpha")
+tracks/71/interp = 1
+tracks/71/loop_wrap = true
+tracks/71/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.026333334, 0, 0, -0.026333334, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/72/type = "value"
+tracks/72/imported = false
+tracks/72/enabled = true
+tracks/72/path = NodePath("reel_2_meat:zen_ease_alpha")
+tracks/72/interp = 0
+tracks/72/loop_wrap = true
+tracks/72/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/73/type = "bezier"
+tracks/73/imported = false
+tracks/73/enabled = true
+tracks/73/path = NodePath("reel_2_meat:pos_y")
+tracks/73/interp = 1
+tracks/73/loop_wrap = true
+tracks/73/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.05, -0.016049383, 0.19037037, -0.05, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.51666665, 0, 0.22, -0.51666665, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.37, 0.44, 0.65, 0.72, 0.93, 1, 1.15, 1.35, 2.9, 3.2)
+}
+tracks/74/type = "value"
+tracks/74/imported = false
+tracks/74/enabled = true
+tracks/74/path = NodePath("reel_2_meat:zen_ease_pos_y")
+tracks/74/interp = 0
+tracks/74/loop_wrap = true
+tracks/74/keys = {
+"times": PackedFloat32Array(0.37, 0.44, 0.65, 0.72, 0.93, 1, 1.15, 1.35, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/75/type = "bezier"
+tracks/75/imported = false
+tracks/75/enabled = true
+tracks/75/path = NodePath("reel_2_meat:outline_alpha")
+tracks/75/interp = 1
+tracks/75/loop_wrap = true
+tracks/75/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.026333334, 0, 0, -0.026333334, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/76/type = "value"
+tracks/76/imported = false
+tracks/76/enabled = true
+tracks/76/path = NodePath("reel_2_meat:zen_ease_outline_alpha")
+tracks/76/interp = 0
+tracks/76/loop_wrap = true
+tracks/76/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/77/type = "bezier"
+tracks/77/imported = false
+tracks/77/enabled = true
+tracks/77/path = NodePath("reel_2_coin:alpha")
+tracks/77/interp = 1
+tracks/77/loop_wrap = true
+tracks/77/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.026333334, 0, 0, -0.026333334, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/78/type = "value"
+tracks/78/imported = false
+tracks/78/enabled = true
+tracks/78/path = NodePath("reel_2_coin:zen_ease_alpha")
+tracks/78/interp = 0
+tracks/78/loop_wrap = true
+tracks/78/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/79/type = "bezier"
+tracks/79/imported = false
+tracks/79/enabled = true
+tracks/79/path = NodePath("reel_2_coin:pos_y")
+tracks/79/interp = 1
+tracks/79/loop_wrap = true
+tracks/79/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.026666667, -0.016049383, 0.19037037, -0.026666667, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.51666665, 0, 0.22, -0.51666665, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.44, 0.51, 0.72, 0.79, 1, 1.07, 1.15, 1.35, 2.9, 3.2)
+}
+tracks/80/type = "value"
+tracks/80/imported = false
+tracks/80/enabled = true
+tracks/80/path = NodePath("reel_2_coin:zen_ease_pos_y")
+tracks/80/interp = 0
+tracks/80/loop_wrap = true
+tracks/80/keys = {
+"times": PackedFloat32Array(0.44, 0.51, 0.72, 0.79, 1, 1.07, 1.15, 1.35, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/81/type = "bezier"
+tracks/81/imported = false
+tracks/81/enabled = true
+tracks/81/path = NodePath("reel_2_coin:outline_alpha")
+tracks/81/interp = 1
+tracks/81/loop_wrap = true
+tracks/81/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.026333334, 0, 0, -0.026333334, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/82/type = "value"
+tracks/82/imported = false
+tracks/82/enabled = true
+tracks/82/path = NodePath("reel_2_coin:zen_ease_outline_alpha")
+tracks/82/interp = 0
+tracks/82/loop_wrap = true
+tracks/82/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/83/type = "bezier"
+tracks/83/imported = false
+tracks/83/enabled = true
+tracks/83/path = NodePath("reel_2_slime_ball:alpha")
+tracks/83/interp = 1
+tracks/83/loop_wrap = true
+tracks/83/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.026333334, 0, 1, -0.026333334, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/84/type = "value"
+tracks/84/imported = false
+tracks/84/enabled = true
+tracks/84/path = NodePath("reel_2_slime_ball:zen_ease_alpha")
+tracks/84/interp = 0
+tracks/84/loop_wrap = true
+tracks/84/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/85/type = "bezier"
+tracks/85/imported = false
+tracks/85/enabled = true
+tracks/85/path = NodePath("reel_2_slime_ball:pos_y")
+tracks/85/interp = 1
+tracks/85/loop_wrap = true
+tracks/85/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.20148148, 0, 0, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.07, -0.012345679, 0.20148148, -0.07, 0.012351407, 0.023333333, 0.012345679, 0.23851852, -0.023333333, -0.012351407, 0.0033333334, -0.016049383, 0.19037037, -0.0033333334, 0.016056828, 0.06666667, 0.046444528, 0.22, -0.06666667, -5.8868786e-06, 0.51666665, 0, 0.22, -0.51666665, 0, 0.1, 6.3001457e-09, -0.13, -0.1, 0.548626, 0, 0),
+"times": PackedFloat32Array(0.51, 0.58, 0.79, 0.86, 1.07, 1.14, 1.15, 1.35, 2.9, 3.2)
+}
+tracks/86/type = "value"
+tracks/86/imported = false
+tracks/86/enabled = true
+tracks/86/path = NodePath("reel_2_slime_ball:zen_ease_pos_y")
+tracks/86/interp = 0
+tracks/86/loop_wrap = true
+tracks/86/keys = {
+"times": PackedFloat32Array(0.51, 0.58, 0.79, 0.86, 1.07, 1.14, 1.15, 1.35, 2.9, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "backOut", "linear", "backIn"]
+}
+tracks/87/type = "bezier"
+tracks/87/imported = false
+tracks/87/enabled = true
+tracks/87/path = NodePath("reel_2_slime_ball:outline_alpha")
+tracks/87/interp = 1
+tracks/87/loop_wrap = true
+tracks/87/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.1, 0, 0, -0.1, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.023, 0, 1, -0.023, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0, 0, -0.00033333333, 0, 0.023, 0, 0, -0.023, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.026333334, 0, 1, -0.026333334, 0, 0.00033333333, -0.3333333, 0, -0.00033333333, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151)
+}
+tracks/88/type = "value"
+tracks/88/imported = false
+tracks/88/enabled = true
+tracks/88/path = NodePath("reel_2_slime_ball:zen_ease_outline_alpha")
+tracks/88/interp = 0
+tracks/88/loop_wrap = true
+tracks/88/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.301, 0.37, 0.371, 0.44, 0.441, 0.51, 0.511, 0.58, 0.581, 0.65, 0.651, 0.72, 0.721, 0.79, 0.791, 0.86, 0.861, 0.93, 0.931, 1, 1.001, 1.07, 1.071, 1.15, 1.151),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear", "linear"]
+}
+tracks/89/type = "bezier"
+tracks/89/imported = false
+tracks/89/enabled = true
+tracks/89/path = NodePath("flash:alpha")
+tracks/89/interp = 1
+tracks/89/loop_wrap = true
+tracks/89/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.016666668, 0.23333335, 0.35, -0.016666668, 0, 0.11666667, 0, 0, -0.11666667, 0.23347636, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.3, 1.65)
+}
+tracks/90/type = "value"
+tracks/90/imported = false
+tracks/90/enabled = true
+tracks/90/path = NodePath("flash:zen_ease_alpha")
+tracks/90/interp = 0
+tracks/90/loop_wrap = true
+tracks/90/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.3, 1.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "quadOut", "quadIn"]
+}
+tracks/91/type = "bezier"
+tracks/91/imported = false
+tracks/91/enabled = true
+tracks/91/path = NodePath("burst_0:alpha")
+tracks/91/interp = 1
+tracks/91/loop_wrap = true
+tracks/91/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/92/type = "value"
+tracks/92/imported = false
+tracks/92/enabled = true
+tracks/92/path = NodePath("burst_0:zen_ease_alpha")
+tracks/92/interp = 0
+tracks/92/loop_wrap = true
+tracks/92/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/93/type = "bezier"
+tracks/93/imported = false
+tracks/93/enabled = true
+tracks/93/path = NodePath("burst_0:pos_x")
+tracks/93/interp = 1
+tracks/93/loop_wrap = true
+tracks/93/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, 0.105931334, 0.6852571, -0.1, -0.026469689, 0.1, 0.026469689, 0.7117224, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/94/type = "value"
+tracks/94/imported = false
+tracks/94/enabled = true
+tracks/94/path = NodePath("burst_0:zen_ease_pos_x")
+tracks/94/interp = 0
+tracks/94/loop_wrap = true
+tracks/94/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/95/type = "bezier"
+tracks/95/imported = false
+tracks/95/enabled = true
+tracks/95/path = NodePath("burst_0:pos_y")
+tracks/95/interp = 1
+tracks/95/loop_wrap = true
+tracks/95/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, 0.042548563, 0.29441068, -0.1, -0.010631861, 0.1, 0.010631861, 0.30504078, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/96/type = "value"
+tracks/96/imported = false
+tracks/96/enabled = true
+tracks/96/path = NodePath("burst_0:zen_ease_pos_y")
+tracks/96/interp = 0
+tracks/96/loop_wrap = true
+tracks/96/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/97/type = "bezier"
+tracks/97/imported = false
+tracks/97/enabled = true
+tracks/97/path = NodePath("burst_0:zen_scale")
+tracks/97/interp = 1
+tracks/97/loop_wrap = true
+tracks/97/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/98/type = "value"
+tracks/98/imported = false
+tracks/98/enabled = true
+tracks/98/path = NodePath("burst_0:zen_ease_scale")
+tracks/98/interp = 0
+tracks/98/loop_wrap = true
+tracks/98/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/99/type = "bezier"
+tracks/99/imported = false
+tracks/99/enabled = true
+tracks/99/path = NodePath("burst_0:rot")
+tracks/99/interp = 1
+tracks/99/loop_wrap = true
+tracks/99/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/100/type = "value"
+tracks/100/imported = false
+tracks/100/enabled = true
+tracks/100/path = NodePath("burst_0:zen_ease_rot")
+tracks/100/interp = 0
+tracks/100/loop_wrap = true
+tracks/100/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/101/type = "bezier"
+tracks/101/imported = false
+tracks/101/enabled = true
+tracks/101/path = NodePath("burst_0:outline_alpha")
+tracks/101/interp = 1
+tracks/101/loop_wrap = true
+tracks/101/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/102/type = "value"
+tracks/102/imported = false
+tracks/102/enabled = true
+tracks/102/path = NodePath("burst_0:zen_ease_outline_alpha")
+tracks/102/interp = 0
+tracks/102/loop_wrap = true
+tracks/102/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/103/type = "bezier"
+tracks/103/imported = false
+tracks/103/enabled = true
+tracks/103/path = NodePath("burst_1:alpha")
+tracks/103/interp = 1
+tracks/103/loop_wrap = true
+tracks/103/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/104/type = "value"
+tracks/104/imported = false
+tracks/104/enabled = true
+tracks/104/path = NodePath("burst_1:zen_ease_alpha")
+tracks/104/interp = 0
+tracks/104/loop_wrap = true
+tracks/104/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/105/type = "bezier"
+tracks/105/imported = false
+tracks/105/enabled = true
+tracks/105/path = NodePath("burst_1:pos_x")
+tracks/105/interp = 1
+tracks/105/loop_wrap = true
+tracks/105/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, 0.043878198, 0.576736, -0.1, -0.010964104, 0.1, 0.010964104, 0.5876983, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/106/type = "value"
+tracks/106/imported = false
+tracks/106/enabled = true
+tracks/106/path = NodePath("burst_1:zen_ease_pos_x")
+tracks/106/interp = 0
+tracks/106/loop_wrap = true
+tracks/106/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/107/type = "bezier"
+tracks/107/imported = false
+tracks/107/enabled = true
+tracks/107/path = NodePath("burst_1:pos_y")
+tracks/107/interp = 1
+tracks/107/loop_wrap = true
+tracks/107/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, 0.1027213, 0.39964324, -0.1, -0.025667578, 0.1, 0.025667578, 0.42530656, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/108/type = "value"
+tracks/108/imported = false
+tracks/108/enabled = true
+tracks/108/path = NodePath("burst_1:zen_ease_pos_y")
+tracks/108/interp = 0
+tracks/108/loop_wrap = true
+tracks/108/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/109/type = "bezier"
+tracks/109/imported = false
+tracks/109/enabled = true
+tracks/109/path = NodePath("burst_1:zen_scale")
+tracks/109/interp = 1
+tracks/109/loop_wrap = true
+tracks/109/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/110/type = "value"
+tracks/110/imported = false
+tracks/110/enabled = true
+tracks/110/path = NodePath("burst_1:zen_ease_scale")
+tracks/110/interp = 0
+tracks/110/loop_wrap = true
+tracks/110/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/111/type = "bezier"
+tracks/111/imported = false
+tracks/111/enabled = true
+tracks/111/path = NodePath("burst_1:rot")
+tracks/111/interp = 1
+tracks/111/loop_wrap = true
+tracks/111/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/112/type = "value"
+tracks/112/imported = false
+tracks/112/enabled = true
+tracks/112/path = NodePath("burst_1:zen_ease_rot")
+tracks/112/interp = 0
+tracks/112/loop_wrap = true
+tracks/112/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/113/type = "bezier"
+tracks/113/imported = false
+tracks/113/enabled = true
+tracks/113/path = NodePath("burst_1:outline_alpha")
+tracks/113/interp = 1
+tracks/113/loop_wrap = true
+tracks/113/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/114/type = "value"
+tracks/114/imported = false
+tracks/114/enabled = true
+tracks/114/path = NodePath("burst_1:zen_ease_outline_alpha")
+tracks/114/interp = 0
+tracks/114/loop_wrap = true
+tracks/114/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/115/type = "bezier"
+tracks/115/imported = false
+tracks/115/enabled = true
+tracks/115/path = NodePath("burst_2:alpha")
+tracks/115/interp = 1
+tracks/115/loop_wrap = true
+tracks/115/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/116/type = "value"
+tracks/116/imported = false
+tracks/116/enabled = true
+tracks/116/path = NodePath("burst_2:zen_ease_alpha")
+tracks/116/interp = 0
+tracks/116/loop_wrap = true
+tracks/116/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/117/type = "bezier"
+tracks/117/imported = false
+tracks/117/enabled = true
+tracks/117/path = NodePath("burst_2:pos_x")
+tracks/117/interp = 1
+tracks/117/loop_wrap = true
+tracks/117/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, -0.043878198, 0.423264, -0.1, 0.010964104, 0.1, -0.010964104, 0.41230172, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/118/type = "value"
+tracks/118/imported = false
+tracks/118/enabled = true
+tracks/118/path = NodePath("burst_2:zen_ease_pos_x")
+tracks/118/interp = 0
+tracks/118/loop_wrap = true
+tracks/118/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/119/type = "bezier"
+tracks/119/imported = false
+tracks/119/enabled = true
+tracks/119/path = NodePath("burst_2:pos_y")
+tracks/119/interp = 1
+tracks/119/loop_wrap = true
+tracks/119/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, 0.1027213, 0.39964324, -0.1, -0.025667578, 0.1, 0.025667578, 0.42530656, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/120/type = "value"
+tracks/120/imported = false
+tracks/120/enabled = true
+tracks/120/path = NodePath("burst_2:zen_ease_pos_y")
+tracks/120/interp = 0
+tracks/120/loop_wrap = true
+tracks/120/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/121/type = "bezier"
+tracks/121/imported = false
+tracks/121/enabled = true
+tracks/121/path = NodePath("burst_2:zen_scale")
+tracks/121/interp = 1
+tracks/121/loop_wrap = true
+tracks/121/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/122/type = "value"
+tracks/122/imported = false
+tracks/122/enabled = true
+tracks/122/path = NodePath("burst_2:zen_ease_scale")
+tracks/122/interp = 0
+tracks/122/loop_wrap = true
+tracks/122/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/123/type = "bezier"
+tracks/123/imported = false
+tracks/123/enabled = true
+tracks/123/path = NodePath("burst_2:rot")
+tracks/123/interp = 1
+tracks/123/loop_wrap = true
+tracks/123/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/124/type = "value"
+tracks/124/imported = false
+tracks/124/enabled = true
+tracks/124/path = NodePath("burst_2:zen_ease_rot")
+tracks/124/interp = 0
+tracks/124/loop_wrap = true
+tracks/124/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/125/type = "bezier"
+tracks/125/imported = false
+tracks/125/enabled = true
+tracks/125/path = NodePath("burst_2:outline_alpha")
+tracks/125/interp = 1
+tracks/125/loop_wrap = true
+tracks/125/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/126/type = "value"
+tracks/126/imported = false
+tracks/126/enabled = true
+tracks/126/path = NodePath("burst_2:zen_ease_outline_alpha")
+tracks/126/interp = 0
+tracks/126/loop_wrap = true
+tracks/126/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/127/type = "bezier"
+tracks/127/imported = false
+tracks/127/enabled = true
+tracks/127/path = NodePath("burst_3:alpha")
+tracks/127/interp = 1
+tracks/127/loop_wrap = true
+tracks/127/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/128/type = "value"
+tracks/128/imported = false
+tracks/128/enabled = true
+tracks/128/path = NodePath("burst_3:zen_ease_alpha")
+tracks/128/interp = 0
+tracks/128/loop_wrap = true
+tracks/128/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/129/type = "bezier"
+tracks/129/imported = false
+tracks/129/enabled = true
+tracks/129/path = NodePath("burst_3:pos_x")
+tracks/129/interp = 1
+tracks/129/loop_wrap = true
+tracks/129/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, -0.105931334, 0.31474292, -0.1, 0.026469689, 0.1, -0.026469689, 0.28827763, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/130/type = "value"
+tracks/130/imported = false
+tracks/130/enabled = true
+tracks/130/path = NodePath("burst_3:zen_ease_pos_x")
+tracks/130/interp = 0
+tracks/130/loop_wrap = true
+tracks/130/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/131/type = "bezier"
+tracks/131/imported = false
+tracks/131/enabled = true
+tracks/131/path = NodePath("burst_3:pos_y")
+tracks/131/interp = 1
+tracks/131/loop_wrap = true
+tracks/131/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, 0.042548563, 0.29441068, -0.1, -0.010631861, 0.1, 0.010631861, 0.30504078, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/132/type = "value"
+tracks/132/imported = false
+tracks/132/enabled = true
+tracks/132/path = NodePath("burst_3:zen_ease_pos_y")
+tracks/132/interp = 0
+tracks/132/loop_wrap = true
+tracks/132/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/133/type = "bezier"
+tracks/133/imported = false
+tracks/133/enabled = true
+tracks/133/path = NodePath("burst_3:zen_scale")
+tracks/133/interp = 1
+tracks/133/loop_wrap = true
+tracks/133/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/134/type = "value"
+tracks/134/imported = false
+tracks/134/enabled = true
+tracks/134/path = NodePath("burst_3:zen_ease_scale")
+tracks/134/interp = 0
+tracks/134/loop_wrap = true
+tracks/134/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/135/type = "bezier"
+tracks/135/imported = false
+tracks/135/enabled = true
+tracks/135/path = NodePath("burst_3:rot")
+tracks/135/interp = 1
+tracks/135/loop_wrap = true
+tracks/135/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/136/type = "value"
+tracks/136/imported = false
+tracks/136/enabled = true
+tracks/136/path = NodePath("burst_3:zen_ease_rot")
+tracks/136/interp = 0
+tracks/136/loop_wrap = true
+tracks/136/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/137/type = "bezier"
+tracks/137/imported = false
+tracks/137/enabled = true
+tracks/137/path = NodePath("burst_3:outline_alpha")
+tracks/137/interp = 1
+tracks/137/loop_wrap = true
+tracks/137/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/138/type = "value"
+tracks/138/imported = false
+tracks/138/enabled = true
+tracks/138/path = NodePath("burst_3:zen_ease_outline_alpha")
+tracks/138/interp = 0
+tracks/138/loop_wrap = true
+tracks/138/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/139/type = "bezier"
+tracks/139/imported = false
+tracks/139/enabled = true
+tracks/139/path = NodePath("burst_4:alpha")
+tracks/139/interp = 1
+tracks/139/loop_wrap = true
+tracks/139/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/140/type = "value"
+tracks/140/imported = false
+tracks/140/enabled = true
+tracks/140/path = NodePath("burst_4:zen_ease_alpha")
+tracks/140/interp = 0
+tracks/140/loop_wrap = true
+tracks/140/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/141/type = "bezier"
+tracks/141/imported = false
+tracks/141/enabled = true
+tracks/141/path = NodePath("burst_4:pos_x")
+tracks/141/interp = 1
+tracks/141/loop_wrap = true
+tracks/141/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, -0.105931334, 0.31474292, -0.1, 0.026469689, 0.1, -0.026469689, 0.28827763, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/142/type = "value"
+tracks/142/imported = false
+tracks/142/enabled = true
+tracks/142/path = NodePath("burst_4:zen_ease_pos_x")
+tracks/142/interp = 0
+tracks/142/loop_wrap = true
+tracks/142/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/143/type = "bezier"
+tracks/143/imported = false
+tracks/143/enabled = true
+tracks/143/path = NodePath("burst_4:pos_y")
+tracks/143/interp = 1
+tracks/143/loop_wrap = true
+tracks/143/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, -0.04254856, 0.14558934, -0.1, 0.010631859, 0.1, -0.010631859, 0.13495924, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/144/type = "value"
+tracks/144/imported = false
+tracks/144/enabled = true
+tracks/144/path = NodePath("burst_4:zen_ease_pos_y")
+tracks/144/interp = 0
+tracks/144/loop_wrap = true
+tracks/144/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/145/type = "bezier"
+tracks/145/imported = false
+tracks/145/enabled = true
+tracks/145/path = NodePath("burst_4:zen_scale")
+tracks/145/interp = 1
+tracks/145/loop_wrap = true
+tracks/145/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/146/type = "value"
+tracks/146/imported = false
+tracks/146/enabled = true
+tracks/146/path = NodePath("burst_4:zen_ease_scale")
+tracks/146/interp = 0
+tracks/146/loop_wrap = true
+tracks/146/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/147/type = "bezier"
+tracks/147/imported = false
+tracks/147/enabled = true
+tracks/147/path = NodePath("burst_4:rot")
+tracks/147/interp = 1
+tracks/147/loop_wrap = true
+tracks/147/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/148/type = "value"
+tracks/148/imported = false
+tracks/148/enabled = true
+tracks/148/path = NodePath("burst_4:zen_ease_rot")
+tracks/148/interp = 0
+tracks/148/loop_wrap = true
+tracks/148/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/149/type = "bezier"
+tracks/149/imported = false
+tracks/149/enabled = true
+tracks/149/path = NodePath("burst_4:outline_alpha")
+tracks/149/interp = 1
+tracks/149/loop_wrap = true
+tracks/149/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/150/type = "value"
+tracks/150/imported = false
+tracks/150/enabled = true
+tracks/150/path = NodePath("burst_4:zen_ease_outline_alpha")
+tracks/150/interp = 0
+tracks/150/loop_wrap = true
+tracks/150/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/151/type = "bezier"
+tracks/151/imported = false
+tracks/151/enabled = true
+tracks/151/path = NodePath("burst_5:alpha")
+tracks/151/interp = 1
+tracks/151/loop_wrap = true
+tracks/151/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/152/type = "value"
+tracks/152/imported = false
+tracks/152/enabled = true
+tracks/152/path = NodePath("burst_5:zen_ease_alpha")
+tracks/152/interp = 0
+tracks/152/loop_wrap = true
+tracks/152/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/153/type = "bezier"
+tracks/153/imported = false
+tracks/153/enabled = true
+tracks/153/path = NodePath("burst_5:pos_x")
+tracks/153/interp = 1
+tracks/153/loop_wrap = true
+tracks/153/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, -0.043878213, 0.42326397, -0.1, 0.010964108, 0.1, -0.010964108, 0.4123017, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/154/type = "value"
+tracks/154/imported = false
+tracks/154/enabled = true
+tracks/154/path = NodePath("burst_5:zen_ease_pos_x")
+tracks/154/interp = 0
+tracks/154/loop_wrap = true
+tracks/154/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/155/type = "bezier"
+tracks/155/imported = false
+tracks/155/enabled = true
+tracks/155/path = NodePath("burst_5:pos_y")
+tracks/155/interp = 1
+tracks/155/loop_wrap = true
+tracks/155/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, -0.1027213, 0.04035676, -0.1, 0.025667578, 0.1, -0.025667578, 0.014693439, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/156/type = "value"
+tracks/156/imported = false
+tracks/156/enabled = true
+tracks/156/path = NodePath("burst_5:zen_ease_pos_y")
+tracks/156/interp = 0
+tracks/156/loop_wrap = true
+tracks/156/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/157/type = "bezier"
+tracks/157/imported = false
+tracks/157/enabled = true
+tracks/157/path = NodePath("burst_5:zen_scale")
+tracks/157/interp = 1
+tracks/157/loop_wrap = true
+tracks/157/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/158/type = "value"
+tracks/158/imported = false
+tracks/158/enabled = true
+tracks/158/path = NodePath("burst_5:zen_ease_scale")
+tracks/158/interp = 0
+tracks/158/loop_wrap = true
+tracks/158/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/159/type = "bezier"
+tracks/159/imported = false
+tracks/159/enabled = true
+tracks/159/path = NodePath("burst_5:rot")
+tracks/159/interp = 1
+tracks/159/loop_wrap = true
+tracks/159/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/160/type = "value"
+tracks/160/imported = false
+tracks/160/enabled = true
+tracks/160/path = NodePath("burst_5:zen_ease_rot")
+tracks/160/interp = 0
+tracks/160/loop_wrap = true
+tracks/160/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/161/type = "bezier"
+tracks/161/imported = false
+tracks/161/enabled = true
+tracks/161/path = NodePath("burst_5:outline_alpha")
+tracks/161/interp = 1
+tracks/161/loop_wrap = true
+tracks/161/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/162/type = "value"
+tracks/162/imported = false
+tracks/162/enabled = true
+tracks/162/path = NodePath("burst_5:zen_ease_outline_alpha")
+tracks/162/interp = 0
+tracks/162/loop_wrap = true
+tracks/162/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/163/type = "bezier"
+tracks/163/imported = false
+tracks/163/enabled = true
+tracks/163/path = NodePath("burst_6:alpha")
+tracks/163/interp = 1
+tracks/163/loop_wrap = true
+tracks/163/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/164/type = "value"
+tracks/164/imported = false
+tracks/164/enabled = true
+tracks/164/path = NodePath("burst_6:zen_ease_alpha")
+tracks/164/interp = 0
+tracks/164/loop_wrap = true
+tracks/164/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/165/type = "bezier"
+tracks/165/imported = false
+tracks/165/enabled = true
+tracks/165/path = NodePath("burst_6:pos_x")
+tracks/165/interp = 1
+tracks/165/loop_wrap = true
+tracks/165/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, 0.043878227, 0.57673603, -0.1, -0.010964111, 0.1, 0.010964111, 0.58769834, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/166/type = "value"
+tracks/166/imported = false
+tracks/166/enabled = true
+tracks/166/path = NodePath("burst_6:zen_ease_pos_x")
+tracks/166/interp = 0
+tracks/166/loop_wrap = true
+tracks/166/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/167/type = "bezier"
+tracks/167/imported = false
+tracks/167/enabled = true
+tracks/167/path = NodePath("burst_6:pos_y")
+tracks/167/interp = 1
+tracks/167/loop_wrap = true
+tracks/167/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, -0.102721296, 0.040356774, -0.1, 0.025667576, 0.1, -0.025667576, 0.014693454, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/168/type = "value"
+tracks/168/imported = false
+tracks/168/enabled = true
+tracks/168/path = NodePath("burst_6:zen_ease_pos_y")
+tracks/168/interp = 0
+tracks/168/loop_wrap = true
+tracks/168/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/169/type = "bezier"
+tracks/169/imported = false
+tracks/169/enabled = true
+tracks/169/path = NodePath("burst_6:zen_scale")
+tracks/169/interp = 1
+tracks/169/loop_wrap = true
+tracks/169/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/170/type = "value"
+tracks/170/imported = false
+tracks/170/enabled = true
+tracks/170/path = NodePath("burst_6:zen_ease_scale")
+tracks/170/interp = 0
+tracks/170/loop_wrap = true
+tracks/170/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/171/type = "bezier"
+tracks/171/imported = false
+tracks/171/enabled = true
+tracks/171/path = NodePath("burst_6:rot")
+tracks/171/interp = 1
+tracks/171/loop_wrap = true
+tracks/171/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/172/type = "value"
+tracks/172/imported = false
+tracks/172/enabled = true
+tracks/172/path = NodePath("burst_6:zen_ease_rot")
+tracks/172/interp = 0
+tracks/172/loop_wrap = true
+tracks/172/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/173/type = "bezier"
+tracks/173/imported = false
+tracks/173/enabled = true
+tracks/173/path = NodePath("burst_6:outline_alpha")
+tracks/173/interp = 1
+tracks/173/loop_wrap = true
+tracks/173/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/174/type = "value"
+tracks/174/imported = false
+tracks/174/enabled = true
+tracks/174/path = NodePath("burst_6:zen_ease_outline_alpha")
+tracks/174/interp = 0
+tracks/174/loop_wrap = true
+tracks/174/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/175/type = "bezier"
+tracks/175/imported = false
+tracks/175/enabled = true
+tracks/175/path = NodePath("burst_7:alpha")
+tracks/175/interp = 1
+tracks/175/loop_wrap = true
+tracks/175/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/176/type = "value"
+tracks/176/imported = false
+tracks/176/enabled = true
+tracks/176/path = NodePath("burst_7:zen_ease_alpha")
+tracks/176/interp = 0
+tracks/176/loop_wrap = true
+tracks/176/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/177/type = "bezier"
+tracks/177/imported = false
+tracks/177/enabled = true
+tracks/177/path = NodePath("burst_7:pos_x")
+tracks/177/interp = 1
+tracks/177/loop_wrap = true
+tracks/177/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.1, 0.105931334, 0.6852571, -0.1, -0.026469689, 0.1, 0.026469689, 0.7117224, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/178/type = "value"
+tracks/178/imported = false
+tracks/178/enabled = true
+tracks/178/path = NodePath("burst_7:zen_ease_pos_x")
+tracks/178/interp = 0
+tracks/178/loop_wrap = true
+tracks/178/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/179/type = "bezier"
+tracks/179/imported = false
+tracks/179/enabled = true
+tracks/179/path = NodePath("burst_7:pos_y")
+tracks/179/interp = 1
+tracks/179/loop_wrap = true
+tracks/179/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.22, 0, 0, 0.1, -0.04254856, 0.14558934, -0.1, 0.010631859, 0.1, -0.010631859, 0.13495924, -0.1, 0, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 1.85)
+}
+tracks/180/type = "value"
+tracks/180/imported = false
+tracks/180/enabled = true
+tracks/180/path = NodePath("burst_7:zen_ease_pos_y")
+tracks/180/interp = 0
+tracks/180/loop_wrap = true
+tracks/180/keys = {
+"times": PackedFloat32Array(1.25, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "cubicOut"]
+}
+tracks/181/type = "bezier"
+tracks/181/imported = false
+tracks/181/enabled = true
+tracks/181/path = NodePath("burst_7:zen_scale")
+tracks/181/interp = 1
+tracks/181/loop_wrap = true
+tracks/181/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.4, 0, 0, 0.1, 1.2540022, 1.2, -0.1, -0.00015894572, 0.16666667, -0.19999999, 0.6, -0.16666667, 0.20009279, 0, 0),
+"times": PackedFloat32Array(1.25, 1.55, 2.05)
+}
+tracks/182/type = "value"
+tracks/182/imported = false
+tracks/182/enabled = true
+tracks/182/path = NodePath("burst_7:zen_ease_scale")
+tracks/182/interp = 0
+tracks/182/loop_wrap = true
+tracks/182/keys = {
+"times": PackedFloat32Array(1.25, 1.55, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["linear", "backOut", "linear"]
+}
+tracks/183/type = "bezier"
+tracks/183/imported = false
+tracks/183/enabled = true
+tracks/183/path = NodePath("burst_7:rot")
+tracks/183/interp = 1
+tracks/183/loop_wrap = true
+tracks/183/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.26666668, 60, 180, -0.26666668, -60.02784, 0, 0),
+"times": PackedFloat32Array(1.25, 2.05)
+}
+tracks/184/type = "value"
+tracks/184/imported = false
+tracks/184/enabled = true
+tracks/184/path = NodePath("burst_7:zen_ease_rot")
+tracks/184/interp = 0
+tracks/184/loop_wrap = true
+tracks/184/keys = {
+"times": PackedFloat32Array(1.25, 2.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "linear"]
+}
+tracks/185/type = "bezier"
+tracks/185/imported = false
+tracks/185/enabled = true
+tracks/185/path = NodePath("burst_7:outline_alpha")
+tracks/185/interp = 1
+tracks/185/loop_wrap = true
+tracks/185/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.41666666, 0, 0, -0.41666666, 0, 0.00033333333, 0.3333333, 1, -0.00033333333, -0.333488, 0.16633333, 0, 1, -0.16633333, 0, 0.1, -0.3333333, 0, -0.1, 0.333488, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05)
+}
+tracks/186/type = "value"
+tracks/186/imported = false
+tracks/186/enabled = true
+tracks/186/path = NodePath("burst_7:zen_ease_outline_alpha")
+tracks/186/interp = 0
+tracks/186/loop_wrap = true
+tracks/186/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.251, 1.75, 2.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/187/type = "bezier"
+tracks/187/imported = false
+tracks/187/enabled = true
+tracks/187/path = NodePath("title:alpha")
+tracks/187/interp = 1
+tracks/187/loop_wrap = true
+tracks/187/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.016666668, 0.3333333, 1, -0.016666668, -0.333488, 0.53333336, 0, 1, -0.53333336, 0, 0.083333336, -0.3333333, 0, -0.083333336, 0.333488, 0, 0),
+"times": PackedFloat32Array(1.25, 1.3, 2.9, 3.15)
+}
+tracks/188/type = "value"
+tracks/188/imported = false
+tracks/188/enabled = true
+tracks/188/path = NodePath("title:zen_ease_alpha")
+tracks/188/interp = 0
+tracks/188/loop_wrap = true
+tracks/188/keys = {
+"times": PackedFloat32Array(1.25, 1.3, 2.9, 3.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear"]
+}
+tracks/189/type = "bezier"
+tracks/189/imported = false
+tracks/189/enabled = true
+tracks/189/path = NodePath("title:size")
+tracks/189/interp = 1
+tracks/189/loop_wrap = true
+tracks/189/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(60, 0, 0, 0.083333336, -47.025085, 30, -0.083333336, 0.0059604645, 0, 0),
+"times": PackedFloat32Array(1.25, 1.5)
+}
+tracks/190/type = "value"
+tracks/190/imported = false
+tracks/190/enabled = true
+tracks/190/path = NodePath("title:zen_ease_size")
+tracks/190/interp = 0
+tracks/190/loop_wrap = true
+tracks/190/keys = {
+"times": PackedFloat32Array(1.25, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "backOut"]
+}
+tracks/191/type = "bezier"
+tracks/191/imported = false
+tracks/191/enabled = true
+tracks/191/path = NodePath("title:color:r")
+tracks/191/interp = 1
+tracks/191/loop_wrap = true
+tracks/191/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.033333335, -0.02333333, 0.93, -0.033333335, 0.023344157, 0.033333335, 0.02333333, 1, -0.033333335, -0.023344157, 0.033333335, -0.02333333, 0.93, -0.033333335, 0.023344157, 0.033333335, 0.02333333, 1, -0.033333335, -0.023344157, 0, 0),
+"times": PackedFloat32Array(1.5, 1.6, 1.7, 1.8, 1.9)
+}
+tracks/192/type = "bezier"
+tracks/192/imported = false
+tracks/192/enabled = true
+tracks/192/path = NodePath("title:color:g")
+tracks/192/interp = 1
+tracks/192/loop_wrap = true
+tracks/192/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.8, 0, 0, 0.033333335, 0.02999999, 0.89, -0.033333335, -0.03001391, 0.033333335, -0.02999999, 0.8, -0.033333335, 0.03001391, 0.033333335, 0.02999999, 0.89, -0.033333335, -0.03001391, 0.033333335, -0.02999999, 0.8, -0.033333335, 0.03001391, 0, 0),
+"times": PackedFloat32Array(1.5, 1.6, 1.7, 1.8, 1.9)
+}
+tracks/193/type = "bezier"
+tracks/193/imported = false
+tracks/193/enabled = true
+tracks/193/path = NodePath("title:color:b")
+tracks/193/interp = 1
+tracks/193/loop_wrap = true
+tracks/193/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0.3, 0, 0, 0.033333335, 0.15333332, 0.76, -0.033333335, -0.15340447, 0.033333335, -0.15333332, 0.3, -0.033333335, 0.15340447, 0.033333335, 0.15333332, 0.76, -0.033333335, -0.15340447, 0.033333335, -0.15333332, 0.3, -0.033333335, 0.15340447, 0, 0),
+"times": PackedFloat32Array(1.5, 1.6, 1.7, 1.8, 1.9)
+}
+tracks/194/type = "value"
+tracks/194/imported = false
+tracks/194/enabled = true
+tracks/194/path = NodePath("title:zen_ease_color")
+tracks/194/interp = 0
+tracks/194/loop_wrap = true
+tracks/194/keys = {
+"times": PackedFloat32Array(1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "linear", "linear", "linear", "linear"]
+}
+tracks/195/type = "bezier"
+tracks/195/imported = false
+tracks/195/enabled = true
+tracks/195/path = NodePath("sub:alpha")
+tracks/195/interp = 1
+tracks/195/loop_wrap = true
+tracks/195/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.016666668, 0.1308997, 0.38268343, -0.016666668, -0.12093534, 0.016666668, 0.12093534, 0.70710677, -0.016666668, -0.092561044, 0.016666668, 0.092561044, 0.9238795, -0.016666668, -0.050092738, 0.016666668, 0.050092738, 1, -0.016666668, 2.4835268e-05, 0.35, 0, 1, -0.35, 0, 0.083333336, -0.3333333, 0, -0.083333336, 0.333488, 0, 0),
+"times": PackedFloat32Array(1.65, 1.7, 1.75, 1.8, 1.85, 2.9, 3.15)
+}
+tracks/196/type = "value"
+tracks/196/imported = false
+tracks/196/enabled = true
+tracks/196/path = NodePath("sub:zen_ease_alpha")
+tracks/196/interp = 0
+tracks/196/loop_wrap = true
+tracks/196/keys = {
+"times": PackedFloat32Array(1.65, 1.85, 2.9, 3.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["linear", "sineOut", "linear", "linear"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sb4dd"]
+_data = {
+&"zen": SubResource("Animation_77m2f")
+}
+
+[node name="zs_slot_jackpot" type="Node2D" unique_id=752254057]
+script = ExtResource("1_3re1i")
+design_size = Vector2(480, 270)
+loop_blend = 0.0
+strings = SubResource("Resource_fvywq")
+text_args = PackedStringArray("SHOTGUN")
+text_arg_names = PackedStringArray("weapon_name")
+fit_window = true
+click_to_continue = true
+draw_background = true
+
+[node name="cabinet" type="Node2D" parent="." unique_id=890525983]
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(144, 52)
+color_base = Color(0.78, 0.1, 0.1, 1)
+outline_color_base = Color(1, 0.8, 0.3, 1)
+outline_base = 1.0
+elem_name = "cabinet"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="marquee" type="Node2D" parent="." unique_id=469300299]
+z_index = 1
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(120, 8)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "marquee"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.10888889)
+
+[node name="window_0" type="Node2D" parent="." unique_id=1073196088]
+z_index = 2
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(38, 38)
+color_base = Color(0.05, 0.06, 0.05, 1)
+outline_color_base = Color(0.93, 0.89, 0.76, 1)
+outline_base = 1.0
+elem_name = "window_0"
+unit_abs = true
+pos_frac = Vector2(0.40833333, 0.22)
+
+[node name="reel_0_skull" type="Node2D" parent="." unique_id=1020994038]
+z_index = 3
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_30nhr")
+shape_name = "skull"
+elem_name = "reel_0_skull"
+unit_abs = true
+pos_frac = Vector2(0.40833333, 0.22)
+
+[node name="reel_0_meat" type="Node2D" parent="." unique_id=219824532]
+z_index = 4
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.8, 0.18, 0.2, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_vmuax")
+shape_name = "meat"
+elem_name = "reel_0_meat"
+unit_abs = true
+pos_frac = Vector2(0.40833333, 0.22)
+
+[node name="reel_0_coin" type="Node2D" parent="." unique_id=271526345]
+z_index = 5
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("6_l2db8")
+shape_name = "coin"
+elem_name = "reel_0_coin"
+unit_abs = true
+pos_frac = Vector2(0.40833333, 0.22)
+
+[node name="reel_0_slime_ball" type="Node2D" parent="." unique_id=548871266]
+z_index = 6
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.36, 0.62, 0.95, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("7_wgyav")
+shape_name = "slime_ball"
+elem_name = "reel_0_slime_ball"
+unit_abs = true
+pos_frac = Vector2(0.40833333, 0.22)
+
+[node name="window_1" type="Node2D" parent="." unique_id=1223935865]
+z_index = 7
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(38, 38)
+color_base = Color(0.05, 0.06, 0.05, 1)
+outline_color_base = Color(0.93, 0.89, 0.76, 1)
+outline_base = 1.0
+elem_name = "window_1"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="reel_1_skull" type="Node2D" parent="." unique_id=308656221]
+z_index = 8
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_30nhr")
+shape_name = "skull"
+elem_name = "reel_1_skull"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="reel_1_meat" type="Node2D" parent="." unique_id=566888236]
+z_index = 9
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.8, 0.18, 0.2, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_vmuax")
+shape_name = "meat"
+elem_name = "reel_1_meat"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="reel_1_coin" type="Node2D" parent="." unique_id=1230767071]
+z_index = 10
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("6_l2db8")
+shape_name = "coin"
+elem_name = "reel_1_coin"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="reel_1_slime_ball" type="Node2D" parent="." unique_id=697834901]
+z_index = 11
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.36, 0.62, 0.95, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("7_wgyav")
+shape_name = "slime_ball"
+elem_name = "reel_1_slime_ball"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="window_2" type="Node2D" parent="." unique_id=1322832428]
+z_index = 12
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(38, 38)
+color_base = Color(0.05, 0.06, 0.05, 1)
+outline_color_base = Color(0.93, 0.89, 0.76, 1)
+outline_base = 1.0
+elem_name = "window_2"
+unit_abs = true
+pos_frac = Vector2(0.59166664, 0.22)
+
+[node name="reel_2_skull" type="Node2D" parent="." unique_id=631491684]
+z_index = 13
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_30nhr")
+shape_name = "skull"
+elem_name = "reel_2_skull"
+unit_abs = true
+pos_frac = Vector2(0.59166664, 0.22)
+
+[node name="reel_2_meat" type="Node2D" parent="." unique_id=401202045]
+z_index = 14
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.8, 0.18, 0.2, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_vmuax")
+shape_name = "meat"
+elem_name = "reel_2_meat"
+unit_abs = true
+pos_frac = Vector2(0.59166664, 0.22)
+
+[node name="reel_2_coin" type="Node2D" parent="." unique_id=1229838772]
+z_index = 15
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("6_l2db8")
+shape_name = "coin"
+elem_name = "reel_2_coin"
+unit_abs = true
+pos_frac = Vector2(0.59166664, 0.22)
+
+[node name="reel_2_slime_ball" type="Node2D" parent="." unique_id=2056903196]
+z_index = 16
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(26, 26)
+color_base = Color(0.36, 0.62, 0.95, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("7_wgyav")
+shape_name = "slime_ball"
+elem_name = "reel_2_slime_ball"
+unit_abs = true
+pos_frac = Vector2(0.59166664, 0.22)
+
+[node name="flash" type="Node2D" parent="." unique_id=244245775]
+z_index = 17
+script = ExtResource("3_w5xx0")
+size_frac = Vector2(1, 1)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0, 0, 0, 0)
+elem_name = "flash"
+
+[node name="burst_0" type="Node2D" parent="." unique_id=1543378060]
+z_index = 18
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_0"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_1" type="Node2D" parent="." unique_id=391837812]
+z_index = 19
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_1"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_2" type="Node2D" parent="." unique_id=773082323]
+z_index = 20
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_2"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_3" type="Node2D" parent="." unique_id=2062170915]
+z_index = 21
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_3"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_4" type="Node2D" parent="." unique_id=939982559]
+z_index = 22
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_4"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_5" type="Node2D" parent="." unique_id=124061241]
+z_index = 23
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_5"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_6" type="Node2D" parent="." unique_id=1633991857]
+z_index = 24
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(1, 0.8, 0.3, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_6"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="burst_7" type="Node2D" parent="." unique_id=865287584]
+z_index = 25
+script = ExtResource("3_w5xx0")
+shape_kind = 6
+size_frac = Vector2(16, 16)
+color_base = Color(0.93, 0.89, 0.76, 1)
+outline_color_base = Color(0.078, 0.122, 0.09, 1)
+shape = ExtResource("5_w5xx0")
+shape_name = "star"
+elem_name = "burst_7"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.22)
+
+[node name="title" type="Node2D" parent="." unique_id=521986961]
+z_index = 26
+script = ExtResource("4_8lrvm")
+strings = SubResource("Resource_fvywq")
+size_frac = Vector2(30, 30)
+color_base = Color(1, 0.8, 0.3, 1)
+elem_name = "title"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.37555555)
+
+[node name="sub" type="Node2D" parent="." unique_id=1066948672]
+z_index = 27
+script = ExtResource("4_8lrvm")
+strings = SubResource("Resource_fvywq")
+string_base = 1
+size_frac = Vector2(10, 10)
+color_base = Color(0.55, 0.95, 0.3, 1)
+elem_name = "sub"
+unit_abs = true
+pos_frac = Vector2(0.5, 0.44962963)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1067791893]
+callback_mode_method = 1
+libraries/ = SubResource("AnimationLibrary_sb4dd")

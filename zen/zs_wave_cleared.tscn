@@ -105,113 +105,136 @@ tracks/6/keys = {
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("check:zen_scale")
+tracks/7/path = NodePath("splat:outline_alpha")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(0, 0, 0, 0.06666667, 1.5675029, 1, -0.06666667, -0.00019868214, 0.38333333, 0, 1, -0.38333333, 0, 0.1, 1.8000415e-08, 0, -0.1, 1.5675029, 0, 0),
-"times": PackedFloat32Array(0.25, 0.45, 1.6, 1.9)
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.9, 0, 0, 0.13333334, 0, 0, -0.13333334, 0.6003678, 0, 0),
+"times": PackedFloat32Array(1.6, 2)
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("check:zen_ease_scale")
+tracks/8/path = NodePath("splat:zen_ease_outline_alpha")
 tracks/8/interp = 0
 tracks/8/loop_wrap = true
 tracks/8/keys = {
+"times": PackedFloat32Array(1.6, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["linear", "quadIn"]
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("check:zen_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.06666667, 1.5675029, 1, -0.06666667, -0.00019868214, 0.38333333, 0, 1, -0.38333333, 0, 0.1, 1.8000415e-08, 0, -0.1, 1.5675029, 0, 0),
+"times": PackedFloat32Array(0.25, 0.45, 1.6, 1.9)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("check:zen_ease_scale")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0.25, 0.45, 1.6, 1.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": ["linear", "backOut", "linear", "backIn"]
 }
-tracks/9/type = "bezier"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("title:alpha")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("title:alpha")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0.05, 0.3333333, 1, -0.05, -0.333488, 0.38333333, 0, 1, -0.38333333, 0, 0.1, 0, 0, -0.1, 0.66707534, 0, 0),
 "times": PackedFloat32Array(0.3, 0.45, 1.6, 1.9)
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("title:zen_ease_alpha")
-tracks/10/interp = 0
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("title:zen_ease_alpha")
+tracks/12/interp = 0
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(0.3, 0.45, 1.6, 1.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": ["linear", "linear", "linear", "quadIn"]
 }
-tracks/11/type = "bezier"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("title:size")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("title:size")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(30, 0, 0, 0.06666667, -15.675028, 20, -0.06666667, 0.0019868214, 0, 0),
 "times": PackedFloat32Array(0.3, 0.5)
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("title:zen_ease_size")
-tracks/12/interp = 0
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("title:zen_ease_size")
+tracks/14/interp = 0
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["linear", "backOut"]
 }
-tracks/13/type = "bezier"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("title:pos_y")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("title:pos_y")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0.62, 0, 0, 0.1, 0, 0.58, -0.1, 0.026683012, 0, 0),
 "times": PackedFloat32Array(1.6, 1.9)
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("title:zen_ease_pos_y")
-tracks/14/interp = 0
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("title:zen_ease_pos_y")
+tracks/16/interp = 0
+tracks/16/loop_wrap = true
+tracks/16/keys = {
 "times": PackedFloat32Array(1.6, 1.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["linear", "quadIn"]
 }
-tracks/15/type = "bezier"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("sub:alpha")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("sub:alpha")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0.016666668, 0.1308997, 0.38268343, -0.016666668, -0.12093534, 0.016666668, 0.12093534, 0.70710677, -0.016666668, -0.092561044, 0.016666668, 0.092561044, 0.9238795, -0.016666668, -0.050092738, 0.016666668, 0.050092738, 1, -0.016666668, 2.4835268e-05, 0.31666666, 0, 1, -0.31666666, 0, 0.083333336, -0.3333333, 0, -0.083333336, 0.333488, 0, 0),
 "times": PackedFloat32Array(0.5, 0.55, 0.6, 0.65, 0.7, 1.65, 1.9)
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("sub:zen_ease_alpha")
-tracks/16/interp = 0
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("sub:zen_ease_alpha")
+tracks/18/interp = 0
+tracks/18/loop_wrap = true
+tracks/18/keys = {
 "times": PackedFloat32Array(0.5, 0.7, 1.65, 1.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
@@ -223,7 +246,7 @@ _data = {
 &"zen": SubResource("Animation_ixfgp")
 }
 
-[node name="zs_wave_cleared" type="Node2D" unique_id=471908228]
+[node name="zs_wave_cleared" type="Node2D" unique_id=542681826]
 script = ExtResource("1_3re1i")
 design_size = Vector2(480, 270)
 loop_blend = 0.0
@@ -234,7 +257,7 @@ fit_window = true
 click_to_continue = true
 draw_background = true
 
-[node name="splat" type="Node2D" parent="." unique_id=1239360976]
+[node name="splat" type="Node2D" parent="." unique_id=2080377649]
 script = ExtResource("3_w5xx0")
 shape_kind = 6
 size_frac = Vector2(64, 64)
@@ -246,7 +269,7 @@ elem_name = "splat"
 unit_abs = true
 pos_frac = Vector2(0.5, 0.4)
 
-[node name="check" type="Node2D" parent="." unique_id=75551647]
+[node name="check" type="Node2D" parent="." unique_id=479232978]
 z_index = 1
 script = ExtResource("3_w5xx0")
 shape_kind = 6
@@ -259,7 +282,7 @@ elem_name = "check"
 unit_abs = true
 pos_frac = Vector2(0.5, 0.4)
 
-[node name="title" type="Node2D" parent="." unique_id=1001126361]
+[node name="title" type="Node2D" parent="." unique_id=2098320425]
 z_index = 2
 script = ExtResource("4_8lrvm")
 strings = SubResource("Resource_6rsxo")
@@ -269,7 +292,7 @@ elem_name = "title"
 unit_abs = true
 pos_frac = Vector2(0.5, 0.62)
 
-[node name="sub" type="Node2D" parent="." unique_id=153771346]
+[node name="sub" type="Node2D" parent="." unique_id=654282426]
 z_index = 3
 script = ExtResource("4_8lrvm")
 strings = SubResource("Resource_6rsxo")
@@ -280,6 +303,6 @@ elem_name = "sub"
 unit_abs = true
 pos_frac = Vector2(0.5, 0.71)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1028239416]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1551648619]
 callback_mode_method = 1
 libraries/ = SubResource("AnimationLibrary_8qk20")
