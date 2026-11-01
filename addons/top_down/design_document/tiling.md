@@ -16,9 +16,16 @@ art only distinguishes which of the four diagonal **sides** (TL/TR/BL/BR) carry 
 border, yet the tileset was authored with 8-bit corner+side peering, leaving most neighbour
 fingerprints undefined. Godot then substitutes a wrong nearest-match tile that flips as
 neighbours change. FLOOR kind fixes this: paint any floor tiles, tick **Fix Visual**, and
-each cell is rewritten from its 4-bit "which diagonal neighbour is also floor" side mask
-(corners ignored). Deterministic and re-runnable. The Generate-from-floor buttons do not
-apply to FLOOR (there is no boundary to ring — the floor is its own topology).
+each cell gets the tile whose edge sides (measured from the art, `_FLOOR_EDGES`) are exactly
+its non-floor sides, so an edge never points at another floor tile. The art has no tile for
+a one-tile-wide strip (edges on opposite sides); such a cell takes the edge facing the hole
+(enclosed gap) and leaves the other side open. A fully surrounded cell next to one empty
+diagonal gets the matching inner-corner notch tile. Deterministic and re-runnable. The
+Generate-from-floor buttons do not apply to FLOOR (the floor is its own topology).
+
+Note: the autotiler's `SIDE_*` names are a quarter turn off the screen; on screen +x is
+bottom-right, +y bottom-left, -x top-left, -y top-right. The floor picker uses the real
+directions (`_SCREEN_*`); the wall/hole tables were fitted to the old names and still work.
 
 Why custom: built-in terrain is single-layer and picks one tile per neighbor-fingerprint.
 Walls/holes here need the **FloorLayer relationship**. A wall tile wraps a floor cell, so

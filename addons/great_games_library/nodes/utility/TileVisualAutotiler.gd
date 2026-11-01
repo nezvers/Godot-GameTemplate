@@ -61,6 +61,9 @@ const _DELTAS := {
 	SIDE_TL: Vector2i(0, -1),
 }
 
+# Enclosed gap cells of the floor, refreshed by each FLOOR autotile() pass.
+var _floor_gaps:Dictionary = {}
+
 # --- ATLAS TABLES ----------------------------------------------------------------------
 # HOLE rule. The two back sides (BL, TL) decide the edge class; the top-left back-diagonal
 # (-1,-1) selects a "continuing" variant where the hole wraps diagonally behind. The interior
@@ -82,45 +85,49 @@ const HOLE_INTERIOR_STRIP := Vector2i(1, 0)
 # floor cell), verified 200/200 against the hand-made room_0_test layout. See _pick_wall().
 #
 # FLOOR rule. Godot's built-in terrain mis-fires here because the art only encodes which of
-# the four diagonal SIDES (TL/TR/BL/BR) carry a raised border, yet the tileset was authored
-# with 8-bit corner+side peering — most fingerprints undefined, so the brush substitutes a
-# wrong nearest-match that flips as neighbours change. This picker ignores corners entirely:
-# the tile is a pure function of the 4-bit "is this diagonal neighbour also floor" side mask.
-# A set bit = neighbour is floor (no border on that side). Only 9 of 16 masks have art; the
-# 7 unreachable-in-practice masks (isolated tile, single spur, opposite-diagonal strip) fall
-# back to the nearest covered mask so nothing breaks if the user paints one. See _pick_floor().
-# Key = 4-bit side mask, bit order TL=8 TR=4 BL=2 BR=1 (see _pick_floor). Value = atlas coord.
-# Derived empirically from the hand/terrain-authored floors in room_A01 + room_B01: for each
-# mask, the dominant authored tile (e.g. 0111 -> 1:1 was 76/76, 1011 -> 0:2 was 122/128). This
-# reproduces 89% of authored cells; the remainder are decorative interior tiles (preserved,
-# see _pick_floor) or edge cells where the old built-in terrain mis-fired (the bug being fixed).
-# The 7 masks with no art fall back to the nearest covered variant.
-const _FLOOR_ATLAS := {
-	0b0011: Vector2i(2, 0),  # BL,BR
-	0b0101: Vector2i(0, 0),  # TR,BR
-	0b0111: Vector2i(1, 1),  # TR,BL,BR
-	0b1010: Vector2i(1, 0),  # TL,BL
-	0b1011: Vector2i(0, 2),  # TL,BL,BR
-	0b1100: Vector2i(3, 0),  # TL,TR
-	0b1101: Vector2i(0, 1),  # TL,TR,BR
-	0b1110: Vector2i(1, 2),  # TL,TR,BL
-	0b1111: Vector2i(0, 3),  # all four             -> interior fill
-	# Fallbacks for masks with no art (unreachable in normal contiguous layouts):
-	0b0000: Vector2i(0, 3),  # isolated
-	0b0001: Vector2i(2, 0),  # BR only
-	0b0010: Vector2i(0, 0),  # BL only
-	0b0100: Vector2i(1, 0),  # TR only
-	0b1000: Vector2i(3, 0),  # TL only
-	0b0110: Vector2i(1, 1),  # TR,BL (opp strip)
-	0b1001: Vector2i(1, 1),  # TL,BR (opp strip)
+# the four diagonal SIDES carry a raised edge, yet the tileset was authored with 8-bit
+# corner+side peering — most fingerprints undefined, so the brush substitutes a wrong
+# nearest-match that flips as neighbours change. This picker works from the art itself: each
+# edge tile lists the screen sides it draws an edge on, and a cell gets the tile whose edges
+# are exactly its non-floor sides. See _pick_floor().
+#
+# NOTE the SIDE_* names above are legacy and rotated a quarter turn from the screen. The real
+# directions of this layout (TileMapLayer.map_to_local) are used for the floor only:
+const _SCREEN_TL := Vector2i(-1, 0)
+const _SCREEN_TR := Vector2i(0, -1)
+const _SCREEN_BL := Vector2i(0, 1)
+const _SCREEN_BR := Vector2i(1, 0)
+const _FLOOR_SIDES := {8: _SCREEN_TL, 4: _SCREEN_TR, 2: _SCREEN_BL, 1: _SCREEN_BR}
+
+# Atlas coord -> screen sides its edge is drawn on (bits TL=8 TR=4 BL=2 BR=1), measured from
+# tileset_isometric_floor.png. The art has no tile with edges on three or four sides or on two
+# opposite sides (a one-tile-wide strip); those cells get the best partial match instead.
+const _FLOOR_EDGES := {
+	Vector2i(0, 3): 0b0000,  # plain fill, no edge
+	Vector2i(0, 1): 0b1000,  # TL
+	Vector2i(1, 1): 0b0100,  # TR
+	Vector2i(1, 2): 0b0010,  # BL
+	Vector2i(0, 2): 0b0001,  # BR
+	Vector2i(0, 0): 0b1100,  # TL,TR
+	Vector2i(3, 0): 0b1010,  # TL,BL
+	Vector2i(2, 0): 0b0101,  # TR,BR
+	Vector2i(1, 0): 0b0011,  # BL,BR
 }
 
-# Interior tiles the artist may hand-place on a fully-surrounded (0b1111) cell — plain-fill
-# variants plus decorative "cracked" floors. Fix Visual leaves these untouched so decoration
-# survives a re-run; only edge cells (any mask != 0b1111) are rewritten from the rule.
+# Inner corners: all four sides are floor but one diagonal cell is empty, so the tile vertex
+# pointing at it gets a small edge notch. Key = map offset of the empty diagonal.
+const _FLOOR_CORNERS := {
+	Vector2i(-1, -1): Vector2i(2, 2),  # top vertex
+	Vector2i(1, -1): Vector2i(3, 1),   # right vertex
+	Vector2i(1, 1): Vector2i(3, 2),    # bottom vertex
+	Vector2i(-1, 1): Vector2i(2, 1),   # left vertex
+}
+
+# Interior tiles the artist may hand-place on a fully-surrounded cell — plain-fill variants
+# plus decorative "cracked" floors. Fix Visual leaves these untouched so decoration survives
+# a re-run (unless the cell needs an inner corner).
 const _FLOOR_INTERIOR_KEEP := [
-	Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3),  # fill variants
-	Vector2i(2, 1), Vector2i(2, 2), Vector2i(3, 1), Vector2i(3, 2),  # cracked decor
+	Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3),
 ]
 # ---------------------------------------------------------------------------------------
 
@@ -304,6 +311,14 @@ func _collect_gaps(floor_cells:Array[Vector2i], floor_set:Dictionary)->Dictionar
 
 ## Rewrite every painted cell on tilemap_layer to the correct atlas tile.
 func autotile()->void:
+	if layer_kind == LayerKind.FLOOR:
+		# Holes are the empty gaps enclosed by floor: edges facing them win when the art
+		# can't draw every side of a cell.
+		var _floor_cells:Array[Vector2i] = tilemap_layer.get_used_cells()
+		var _floor_set:Dictionary = {}
+		for c:Vector2i in _floor_cells:
+			_floor_set[c] = true
+		_floor_gaps = _collect_gaps(_floor_cells, _floor_set)
 	for cell:Vector2i in tilemap_layer.get_used_cells():
 		var _src:int = tilemap_layer.get_cell_source_id(cell)
 		if _src == -1:
@@ -367,27 +382,59 @@ func _floor_at(cell:Vector2i, dx:int, dy:int)->bool:
 	return floor_layer.get_cell_source_id(cell + Vector2i(dx, dy)) != -1
 
 
-## Floor atlas from the four diagonal side neighbours on THIS layer (the floor is both the
-## painted layer and its own topology source). A side bit is set when that neighbour is also
-## floor, meaning no border is drawn on that side. Corners are ignored on purpose — the art
-## only distinguishes the four sides, so an 8-bit match (Godot terrain) is what mis-fires.
+## Floor atlas from the four side neighbours on THIS layer (the floor is both the painted
+## layer and its own topology source). The edge goes on every side whose neighbour is not
+## floor, and never on a side that has floor. When the art has no tile for that exact set of
+## sides, use the tile covering the most of them, preferring sides that face a hole.
 func _pick_floor(cell:Vector2i)->Vector2i:
-	var _mask:int = 0
-	if tilemap_layer.get_cell_source_id(cell + _DELTAS[SIDE_TL]) != -1:
-		_mask |= 0b1000
-	if tilemap_layer.get_cell_source_id(cell + _DELTAS[SIDE_TR]) != -1:
-		_mask |= 0b0100
-	if tilemap_layer.get_cell_source_id(cell + _DELTAS[SIDE_BL]) != -1:
-		_mask |= 0b0010
-	if tilemap_layer.get_cell_source_id(cell + _DELTAS[SIDE_BR]) != -1:
-		_mask |= 0b0001
-	# Fully-surrounded cell already holding a hand-placed fill or decorative tile: keep it,
-	# so cracked-floor decoration survives Fix Visual. Only edge cells are rewritten.
-	if _mask == 0b1111:
-		var _cur:Vector2i = tilemap_layer.get_cell_atlas_coords(cell)
-		if _cur in _FLOOR_INTERIOR_KEEP:
-			return _cur
-	return _FLOOR_ATLAS[_mask]
+	var _open:int = 0
+	var _hole:int = 0
+	for bit:int in _FLOOR_SIDES:
+		var _n:Vector2i = cell + _FLOOR_SIDES[bit]
+		if tilemap_layer.get_cell_source_id(_n) == -1:
+			_open |= bit
+			if _floor_gaps.has(_n):
+				_hole |= bit
+	if _open == 0:
+		return _pick_floor_interior(cell)
+	var _best:Vector2i = Vector2i(0, 3)
+	var _best_score:int = -1
+	for atlas:Vector2i in _FLOOR_EDGES:
+		var _edges:int = _FLOOR_EDGES[atlas]
+		if _edges & ~_open:
+			continue  # would draw an edge against a floor neighbour
+		if _edges == _open:
+			return atlas
+		var _score:int = 2 * _bit_count(_edges & _hole) + _bit_count(_edges)
+		if _score > _best_score:
+			_best_score = _score
+			_best = atlas
+	return _best
+
+
+## Fully-surrounded cell: an inner corner where a diagonal is empty (a hole-facing one wins),
+## else keep a hand-placed fill or cracked decoration, else plain fill.
+func _pick_floor_interior(cell:Vector2i)->Vector2i:
+	var _corner:Vector2i = Vector2i(-1, -1)
+	for offset:Vector2i in _FLOOR_CORNERS:
+		if tilemap_layer.get_cell_source_id(cell + offset) != -1:
+			continue
+		if _corner == Vector2i(-1, -1) or _floor_gaps.has(cell + offset):
+			_corner = _FLOOR_CORNERS[offset]
+	if _corner != Vector2i(-1, -1):
+		return _corner
+	var _cur:Vector2i = tilemap_layer.get_cell_atlas_coords(cell)
+	if _cur in _FLOOR_INTERIOR_KEEP:
+		return _cur
+	return Vector2i(0, 3)
+
+
+func _bit_count(value:int)->int:
+	var _count:int = 0
+	while value:
+		_count += value & 1
+		value >>= 1
+	return _count
 
 
 ## Wall atlas from the surrounding FLOOR topology alone. Verified 200/200 vs room_0_test.

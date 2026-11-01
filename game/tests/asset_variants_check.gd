@@ -41,6 +41,7 @@ func _ready()->void:
 	for _path:String in TILESETS:
 		_check_tileset(load(_path))
 	_check_autotiler_keeps_look()
+	_check_floor_edges()
 	_room = (load(ROOM_START) as PackedScene).instantiate()
 	add_child(_room)
 	await _frames(10)
@@ -119,6 +120,45 @@ func _check_autotiler_keeps_look()->void:
 		_tiler.autotile()
 		check(_layer.get_cell_source_id(_cells[0]) == 20, "Fix Visual keeps a painted bloody %s cell" % _label)
 		_layer.free()
+	_floor.free()
+
+## Floor Fix Visual: an edge never points at another floor tile, every side facing a hole
+## gets an edge (even on one-tile-wide strips the art can't fully draw), and a cell whose
+## only empty neighbour is a diagonal gets the inner corner tile.
+func _check_floor_edges()->void:
+	var _floor:TileMapLayer = TileMapLayer.new()
+	_floor.tile_set = load(TILESETS[0])
+	add_child(_floor)
+	# rows y=0 and y=2 are one-tile-wide strips around the gap row y=1
+	for _x:int in 7:
+		for _y:int in 3:
+			if !(_y == 1 && _x in range(1, 6)):
+				_floor.set_cell(Vector2i(_x, _y), 10, Vector2i(0, 3))
+	# a 3x3 block missing its top cell: the centre is an inner corner
+	for _x:int in range(10, 13):
+		for _y:int in range(0, 3):
+			if Vector2i(_x, _y) != Vector2i(10, 0):
+				_floor.set_cell(Vector2i(_x, _y), 0, Vector2i(0, 3))
+	var _tiler:TileVisualAutotiler = TileVisualAutotiler.new()
+	_tiler.tilemap_layer = _floor
+	_tiler.floor_layer = _floor
+	_tiler.layer_kind = TileVisualAutotiler.LayerKind.FLOOR
+	_floor.add_child(_tiler)
+	_tiler.autotile()
+	var _gap:Array[Vector2i] = []
+	for _x:int in range(1, 6):
+		_gap.append(Vector2i(_x, 1))
+	for _cell:Vector2i in _floor.get_used_cells():
+		var _atlas:Vector2i = _floor.get_cell_atlas_coords(_cell)
+		var _edges:int = TileVisualAutotiler._FLOOR_EDGES.get(_atlas, 0)
+		for _bit:int in TileVisualAutotiler._FLOOR_SIDES:
+			var _n:Vector2i = _cell + TileVisualAutotiler._FLOOR_SIDES[_bit]
+			if _floor.get_cell_source_id(_n) != -1:
+				check(!(_edges & _bit), "floor %s %s has no edge toward floor %s" % [_cell, _atlas, _n])
+			elif _n in _gap:
+				check(_edges & _bit, "floor %s %s has an edge toward the hole %s" % [_cell, _atlas, _n])
+	check(_floor.get_cell_source_id(Vector2i(2, 0)) == 10, "Fix Visual keeps the floor look")
+	check(_floor.get_cell_atlas_coords(Vector2i(11, 1)) == Vector2i(2, 2), "inner corner gets the top vertex notch")
 	_floor.free()
 
 func _check_death(actor_file:String, dead_file:String, position:Vector2)->void:
