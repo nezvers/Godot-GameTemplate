@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="PackedScene" uid="uid://c6ys2qs8aeu8n" path="res://addons/top_down/scenes/projectiles/sword_slash.tscn" id="1_slash"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/vfx/punch_16x16_strip4.png" id="2_punch"]
 
 [node name="FistSlash" instance=ExtResource("1_slash")]
+
+[node name="Sprite2D" parent="RotatedNode" index="1"]
+texture = ExtResource("2_punch")
 
 [node name="SubParticleManager" parent="." index="6"]
 start_projectile_instance_resource = null

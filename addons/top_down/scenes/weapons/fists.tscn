@@ -1,9 +1,62 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="1_claw"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/fist_slash_instance_resource.tres" id="2_slash"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/weapon/fist_0.png" id="3_fist"]
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_punch"]
+resource_name = "punch"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.25),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(5, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fist"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"punch": SubResource("Animation_punch")
+}
 
 [node name="Fists" instance=ExtResource("1_claw")]
+
+[node name="RotatedNode" parent="." index="0"]
+visible = true
+position = Vector2(0, -6)
+
+[node name="Sprite2D" parent="RotatedNode" index="0"]
+texture = ExtResource("3_fist")
+
+[node name="AnimationPlayer" parent="RotatedNode/Sprite2D" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_fist")
+}
+
+[node name="AnimationTrigger" parent="WeaponTrigger" index="1"]
+animation_list = Array[StringName]([&"punch"])
 
 [node name="ProjectileSpawner" parent="." index="4"]
 projectile_instance_resource = ExtResource("2_slash")

@@ -54,6 +54,9 @@ PALETTE = {
 	'O': (146, 168, 116, 255),  # rotting skin light
 	'n': (68, 88, 60, 255),     # rotting skin dark
 	'W': (184, 172, 140, 255),  # bone shadow
+	'h': (232, 182, 140, 255),  # skin
+	'H': (184, 124, 96, 255),   # skin shadow
+	'i': (255, 244, 160, 255),  # impact yellow
 }
 OUTLINE = (20, 14, 26, 255)
 TRANSPARENT = (0, 0, 0, 0)
@@ -279,7 +282,145 @@ def web_projectile():
 	return add_outline(canvas)
 
 
-def giant_zombie_pose(t=0.0, moving=False, near_fist=None, far_fist=None, jaw=0.0, head_back=0.0, lean=0.0, bob=0):
+## Bandaged fist pointing right, held the same way as gun_0.png: forearm wraps on the left, knuckles on the right.
+FIST_MAP = [
+	'', '', '', '', '', '',
+	'........hhh.....',
+	'....WwWhhhhH....',
+	'....WwWhHHhH....',
+	'....WwWhhhHH....',
+	'........HHH.....',
+	'', '', '', '', '',
+]
+
+
+def fist_sprite():
+	return add_outline(from_rows(FIST_MAP))
+
+
+def punch_frames():
+	"""Four 16x16 frames of a punch impact travelling right: a small flash, a burst with speed lines
+	trailing behind it, the burst breaking into sparks, last sparks fading."""
+	frames = []
+	for frame in range(4):
+		canvas = new_canvas(16, 16)
+		radius = (2.0, 4.5, 5.5, 6.0)[frame]
+		# speed lines trail behind the knuckles
+		if frame < 3:
+			for y, length in ((5, 4), (8, 6), (11, 4)):
+				thick_line(canvas, 6 - length - frame, y, 6 - frame, y, 1.0, PALETTE['e'])
+		# star burst: long rays on the axes, short ones on the diagonals
+		for angle in range(0, 360, 45):
+			radians = math.radians(angle + 22.5 * (frame % 2))
+			reach = radius * (1.0 if angle % 90 == 0 else 0.65)
+			start = 0.0 if frame < 2 else radius * 0.6
+			thick_line(canvas, 10 + start * math.cos(radians), 8 + start * math.sin(radians),
+				10 + reach * math.cos(radians), 8 + reach * math.sin(radians), 1.2, PALETTE['i'])
+		if frame < 2:
+			ellipse(canvas, 10, 8, radius * 0.5, radius * 0.5, PALETTE['w'])
+		if frame == 3:
+			# only scattered sparks left
+			canvas = [[c if (x + y) % 3 == 0 else None for x, c in enumerate(row)] for y, row in enumerate(canvas)]
+		frames.append(canvas)
+	return frames
+
+
+def rotate_cw(canvas):
+	"""Rotates a square canvas 90 degrees clockwise, so a figure facing right falls forward onto its face."""
+	size = len(canvas)
+	return [[canvas[size - 1 - x][y] for x in range(size)] for y in range(size)]
+
+
+def flip_vertical(canvas):
+	return [row[:] for row in reversed(canvas)]
+
+
+def drop_to_ground(canvas, ground):
+	"""Moves the drawing down so its lowest pixel sits on the ground row."""
+	lowest = max(y for y, row in enumerate(canvas) if any(c is not None for c in row))
+	shift = ground - lowest
+	result = new_canvas(len(canvas[0]), len(canvas))
+	for y, row in enumerate(canvas):
+		if 0 <= y + shift < len(canvas):
+			result[y + shift] = row[:]
+	return result
+
+
+def under(pool, canvas):
+	"""Draws canvas over pool; used to put a corpse in its puddle."""
+	return [[c if c is not None else p for c, p in zip(row, pool_row)] for row, pool_row in zip(canvas, pool)]
+
+
+def pool_canvas(width, height, cx, cy, rx, ry, rim, fill, drops):
+	pool = new_canvas(width, height)
+	ellipse(pool, cx, cy, rx, ry, rim)
+	ellipse(pool, cx, cy, rx - 1.5, ry - 1.0, fill)
+	for x, y, r in drops:
+		ellipse(pool, x, y, r, r * 0.7, fill)
+	return pool
+
+
+def bloater_dead_frame():
+	"""Burst bloater lying in its own green muck: flattened body, belly torn open, X eyes."""
+	body = new_canvas(16, 16)
+	ellipse(body, 8, 10.5, 5.5, 2.6, PALETTE['g'])
+	ellipse(body, 8.5, 10, 3.2, 1.6, PALETTE['p'])
+	ellipse(body, 9, 10, 2.0, 1.0, PALETTE['m'])
+	put(body, 9, 10, PALETTE['k'])
+	# torn skin flaps curling up out of the burst
+	for x, y in ((6, 8), (10, 8), (12, 9)):
+		put(body, x, y, PALETTE['P'])
+	put(body, 5, 11, PALETTE['r'])
+	put(body, 4, 11, PALETTE['r'])
+	# head on the left with crossed out eyes
+	ellipse(body, 3.5, 9.5, 2.0, 1.8, PALETTE['g'])
+	put(body, 3, 9, PALETTE['k'])
+	put(body, 4, 10, PALETTE['k'])
+	pool = pool_canvas(16, 16, 8, 11.5, 7.5, 3.2, PALETTE['d'], PALETTE['y'], ((2, 14, 1.0), (14, 13, 0.8)))
+	return under(pool, add_outline(body))
+
+
+def acid_slime_dead_frame():
+	"""Acid slime splattered flat: a teal splash with droplets thrown out, two dead eyes floating in it.
+	No outline, it lies on the floor like the puddles."""
+	canvas = pool_canvas(16, 16, 8, 10, 6.5, 2.8, PALETTE['t'], PALETTE['a'],
+		((1.5, 8, 0.9), (14.5, 9, 0.9), (3, 14, 0.8), (13, 13.5, 1.0), (9, 6.5, 0.7), (5, 6.5, 0.6)))
+	# lumps of the body that didn't melt yet
+	ellipse(canvas, 10, 10, 2.0, 1.2, PALETTE['t'])
+	put(canvas, 5, 9, PALETTE['A'])
+	put(canvas, 6, 9, PALETTE['A'])
+	put(canvas, 12, 11, PALETTE['A'])
+	put(canvas, 6, 11, PALETTE['k'])
+	put(canvas, 10, 10, PALETTE['k'])
+	return canvas
+
+
+def giant_zombie_dead_frame():
+	"""The brute fallen forward onto its face in a pool of blood, jaw hanging, eye gone dark."""
+	figure = giant_zombie_pose(jaw=1.0, lean=0.3, dead=True)
+	figure = drop_to_ground(rotate_cw(figure), 58)
+	pool = pool_canvas(64, 64, 34, 56, 28, 6, PALETTE['m'], PALETTE['R'], ((6, 60, 2.0), (60, 59, 1.6)))
+	return under(pool, figure)
+
+
+def broodmother_dead_frame():
+	"""Spider on her back with legs curled up over the belly, lying in dark ichor."""
+	figure = broodmother_pose(curl=1.0, dead=True)
+	figure = drop_to_ground(flip_vertical(figure), 58)
+	pool = pool_canvas(64, 64, 30, 56, 26, 6, PALETTE['k'], PALETTE['v'], ((4, 60, 1.6), (58, 59, 1.4)))
+	return under(pool, figure)
+
+
+def plague_mother_dead_frame():
+	"""Collapsed onto her face, acid sacs burst and empty, leaking into an acid pool."""
+	figure = plague_mother_pose(swell=-1.6, hunch=1.0, mouth=1.0, dead=True)
+	figure = drop_to_ground(rotate_cw(figure), 58)
+	pool = pool_canvas(64, 64, 32, 56, 28, 6, PALETTE['t'], PALETTE['a'], ((5, 60, 2.0), (60, 59, 1.6)))
+	ellipse(pool, 20, 55, 3, 1.2, PALETTE['A'])
+	return under(pool, figure)
+
+
+def giant_zombie_pose(t=0.0, moving=False, near_fist=None, far_fist=None, jaw=0.0, head_back=0.0, lean=0.0, bob=0, dead=False):
 	"""64x64 hulking zombie brute facing right: bone spikes through the hunched back, ribs showing
 	through a torn belly, a stitched shoulder and a broken forearm bone.
 	near_fist / far_fist place the fists (None lets them hang by the knees), jaw opens the hanging jaw,
@@ -352,8 +493,8 @@ def giant_zombie_pose(t=0.0, moving=False, near_fist=None, far_fist=None, jaw=0.
 		put(head, x, head_y + 2 + jaw_drop, PALETTE['w'])
 	thick_line(head, head_x + 4, head_y + 5 + jaw_drop, head_x + 4, head_y + 8 + jaw_drop, 1.2, PALETTE['R'])
 	# one glowing eye, one gouged socket bleeding
-	ellipse(head, head_x + 4, head_y - 2, 1.4, 1.4, PALETTE['R'])
-	put(head, head_x + 4, head_y - 2, PALETTE['y'])
+	ellipse(head, head_x + 4, head_y - 2, 1.4, 1.4, PALETTE['k'] if dead else PALETTE['R'])
+	put(head, head_x + 4, head_y - 2, PALETTE['W'] if dead else PALETTE['y'])
 	ellipse(head, head_x, head_y - 2, 1.5, 1.5, PALETTE['k'])
 	thick_line(head, head_x, head_y - 1, head_x - 1, head_y + 3, 1, PALETTE['m'])
 	# scalp torn back to bone
@@ -442,10 +583,11 @@ BROOD_LEGS = [
 BROOD_GROUND = 62
 
 
-def broodmother_pose(t=0.0, moving=False, raise_front=0.0, crouch=0.0, rear=0.0, bob=0):
+def broodmother_pose(t=0.0, moving=False, raise_front=0.0, crouch=0.0, rear=0.0, bob=0, curl=0.0, dead=False):
 	"""64x64 side view spider facing right.
 	t is the gait phase, raise_front lifts the front leg pair (web throw), crouch lowers the body
-	and spreads the legs (brood launch), rear tilts the head up, bob lifts the whole body in pixels."""
+	and spreads the legs (brood launch), rear tilts the head up, bob lifts the whole body in pixels.
+	curl pulls the legs in under the body (dead spider), dead puts out the eyes."""
 	body_y = bob + round(4 * crouch)
 	head_lift = round(-5 * rear)
 
@@ -472,6 +614,14 @@ def broodmother_pose(t=0.0, moving=False, raise_front=0.0, crouch=0.0, rear=0.0,
 			foot_x -= 5 * outward
 			knee_x -= 3 * outward
 			knee_y += 3
+		if curl > 0:
+			# knees stick out below the body and the feet hook back in towards it
+			curled_knee = (anchor[0] + outward * (8 + 3 * (index % 2)), anchor_y + 15)
+			curled_foot = (anchor[0] + outward * 1, anchor_y + 19)
+			knee_x += (curled_knee[0] - knee_x) * curl
+			knee_y += (curled_knee[1] - knee_y) * curl
+			foot_x += (curled_foot[0] - foot_x) * curl
+			foot_y += (curled_foot[1] - foot_y) * curl
 		return [(anchor[0], anchor_y), (knee_x, knee_y), (foot_x, foot_y)]
 
 	far_legs = new_canvas(64, 64)
@@ -494,7 +644,7 @@ def broodmother_pose(t=0.0, moving=False, raise_front=0.0, crouch=0.0, rear=0.0,
 	head_y = 40 + body_y + head_lift
 	shaded_ellipse(head, 45, head_y, 10, 8, PALETTE['X'], PALETTE['Y'], PALETTE['x'])
 	for x, y, r in ((50, -4, 1.8), (53, -2, 1.8), (47, -6, 1.1), (51, -7, 1.1), (55, 1, 1.1)):
-		ellipse(head, x, head_y + y, r, r, PALETTE['R'])
+		ellipse(head, x, head_y + y, r, r, PALETTE['m'] if dead else PALETTE['R'])
 	thick_line(head, 51, head_y + 4, 54, head_y + 10, 2.6, PALETTE['x'])
 	thick_line(head, 54, head_y + 9, 53, head_y + 12, 1.4, PALETTE['w'])
 	front_legs = new_canvas(64, 64)
@@ -519,10 +669,11 @@ def broodmother_frames():
 	return frames
 
 
-def plague_mother_pose(t=0.0, moving=False, hand=None, swell=0.0, glow=False, mouth=0.0, hunch=0.0, bob=0):
+def plague_mother_pose(t=0.0, moving=False, hand=None, swell=0.0, glow=False, mouth=0.0, hunch=0.0, bob=0, dead=False):
 	"""64x64 hunched, bloated zombie matriarch facing right, acid sacs growing out of her back.
-	hand is where the near arm reaches (None hangs it down), swell grows the sacs, glow lights them,
-	mouth opens the jaw, hunch drops the head forward, bob lifts the whole body in pixels."""
+	hand is where the near arm reaches (None hangs it down), swell grows the sacs (negative empties them),
+	glow lights them, mouth opens the jaw, hunch drops the head forward, bob lifts the whole body in pixels.
+	dead puts out the eyes."""
 	stride = math.sin(2 * math.pi * t) if moving else 0.0
 	body_y = bob
 	head_x = 46 + round(3 * hunch)
@@ -566,7 +717,7 @@ def plague_mother_pose(t=0.0, moving=False, hand=None, swell=0.0, glow=False, mo
 	# sunken sockets with glowing eyes
 	for x in (head_x + 2, head_x + 5):
 		ellipse(head, x, head_y - 0.5, 1.4, 1.4, PALETTE['k'])
-		put(head, x, head_y - 1, PALETTE['y'])
+		put(head, x, head_y - 1, PALETTE['z'] if dead else PALETTE['y'])
 	jaw = 1.0 + 3.0 * mouth
 	ellipse(head, head_x + 4, head_y + 3.5 + jaw / 2, 2.6, jaw, PALETTE['k'])
 	for x in (head_x + 3, head_x + 5):
@@ -705,6 +856,15 @@ def main():
 	write_strip(os.path.join(characters, 'giant_zombie_64x64.png'), giant_zombie_frames())
 	write_strip(os.path.join(characters, 'plague_mother_64x64.png'), plague_mother_frames())
 	write_strip(os.path.join(characters, 'broodmother_64x64.png'), broodmother_frames())
+
+	write_png(os.path.join(characters, 'bloater_dead_16x16.png'), bloater_dead_frame())
+	write_png(os.path.join(characters, 'acid_slime_dead_16x16.png'), acid_slime_dead_frame())
+	write_png(os.path.join(characters, 'giant_zombie_dead_64x64.png'), giant_zombie_dead_frame())
+	write_png(os.path.join(characters, 'broodmother_dead_64x64.png'), broodmother_dead_frame())
+	write_png(os.path.join(characters, 'plague_mother_dead_64x64.png'), plague_mother_dead_frame())
+
+	write_png(os.path.join(HERE, 'weapon', 'fist_0.png'), fist_sprite())
+	write_strip(os.path.join(HERE, 'vfx', 'punch_16x16_strip4.png'), punch_frames())
 
 	write_png(os.path.join(projectile, 'acid_spit_8x8.png'), acid_spit_projectile())
 	write_png(os.path.join(projectile, 'web_8x8.png'), web_projectile())
