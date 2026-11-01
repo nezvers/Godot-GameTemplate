@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" format=3 uid="uid://dah24bbc4526"]
 
 [ext_resource type="Texture2D" uid="uid://c2lnsswt0goh6" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls.png" id="1_jorl2"]
-[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_mossy.png" id="10_mossy"]
-[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_bloody.png" id="20_bloody"]
+[ext_resource type="Texture2D" uid="uid://nflj2uiay8s0" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_mossy.png" id="10_mossy"]
+[ext_resource type="Texture2D" uid="uid://cywlfwbrmrd1e" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_bloody.png" id="20_bloody"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f5ja1"]
 texture = ExtResource("1_jorl2")

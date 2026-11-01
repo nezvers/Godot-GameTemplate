@@ -42,6 +42,13 @@ device = -1
 physical_keycode = 83
 unicode = 115
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_interact"]
+button_index = 2
+
+[sub_resource type="InputEventKey" id="InputEventKey_interact"]
+device = -1
+physical_keycode = 69
+
 [sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_58jlk"]
 axis_value = -1.0
 
@@ -87,13 +94,6 @@ axis_value = -1.0
 device = -1
 physical_keycode = 87
 unicode = 119
-
-[sub_resource type="InputEventKey" id="InputEventKey_interact"]
-device = -1
-physical_keycode = 69
-
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_interact"]
-button_index = 2
 
 [resource]
 resource_name = "Game Input Actions"
