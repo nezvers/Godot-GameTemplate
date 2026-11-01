@@ -29,6 +29,8 @@ func on_player_scene_entry()->void:
 	var _player:Node2D = player_reference.node
 	_player.global_position = scene_transition_resource.entry_match.global_position
 	player_instance_resource.parent_reference_resource.node.add_child(_player)
+	## Arrival consumed: a later menu/game over load isn't mistaken for a door entry.
+	scene_transition_resource.next_scene_path = ""
 
 func on_scene_transition()->void:
 	var _parent:Node = player_instance_resource.parent_reference_resource.node

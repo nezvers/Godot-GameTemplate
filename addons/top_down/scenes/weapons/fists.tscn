@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://baisjmcsnk3on" path="res://addons/top_down/scenes/weapons/zombie_attack.tscn" id="1_claw"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/fist_slash_instance_resource.tres" id="2_slash"]
+
+[node name="Fists" instance=ExtResource("1_claw")]
+
+[node name="ProjectileSpawner" parent="." index="4"]
+projectile_instance_resource = ExtResource("2_slash")

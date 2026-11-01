@@ -1088,6 +1088,20 @@
 					"amount": 15
 				}
 			]
+		},
+		"fists": {
+			"scene": "res://addons/top_down/scenes/weapons/fists.tscn",
+			"interval": 0.5,
+			"recoil": 0,
+			"projectile": "fist_slash",
+			"projectile_angles": [
+				0
+			],
+			"random_spread": 0,
+			"initial_distance": 10,
+			"damage": 0,
+			"critical_chance": 0.3,
+			"critical_multiply": 1.5
 		}
 	},
 	"projectiles": {
@@ -1138,6 +1152,17 @@
 			"sub_projectile_angles": [
 				0
 			]
+		},
+		"fist_slash": {
+			"scene": "res://addons/top_down/scenes/projectiles/fist_slash.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/fist_slash_instance_resource.tres",
+			"damage": 3.0,
+			"kickback": 60,
+			"speed": 60,
+			"lifetime": 0.2,
+			"movement_type": "PROJECTILE",
+			"max_bounce": 0,
+			"hit_limit": 1
 		},
 		"sword_projectile": {
 			"scene": "res://addons/top_down/scenes/projectiles/sword_projectile.tscn",

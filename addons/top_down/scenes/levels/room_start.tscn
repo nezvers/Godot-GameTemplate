@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://3betq3gbp57h"]
+[gd_scene load_steps=8 format=4 uid="uid://3betq3gbp57h"]
 
 [ext_resource type="PackedScene" uid="uid://cpjckxc4g3s0w" path="res://addons/top_down/scenes/levels/room_template.tscn" id="1_y7b64"]
 [ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="2_udm57"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/StartingWeaponSpawner.gd" id="3_oaxvf"]
 [ext_resource type="Resource" uid="uid://bytbvhnnajqxd" path="res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres" id="4_8dsll"]
 [ext_resource type="Resource" uid="uid://b6mldf5iax3rj" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="4_vo3ax"]
+[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="5_trans"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_dg6si"]
 points = PackedVector2Array(0, 8, 16, 0, 0, -8, -16, 0)
@@ -211,6 +212,7 @@ exit_nodes = [NodePath("../Behind/Stairs")]
 position_nodes = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 weapon_database = ExtResource("4_8dsll")
 weapon_pickup_instance_resource = ExtResource("4_vo3ax")
+scene_transition_resource = ExtResource("5_trans")
 
 [node name="Marker2D" type="Marker2D" parent="StartingWeapon" index="0"]
 position = Vector2(157, 118)

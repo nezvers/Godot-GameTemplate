@@ -11,6 +11,13 @@ signal selected_changed
 
 @export var max_items:int
 
+## Empties the collection for a new run; max_items is kept (set from balance.json).
+func reset_resource()->void:
+	list.clear()
+	selected = 0
+	updated.emit()
+	selected_changed.emit()
+
 func set_list(value:Array[ItemResource])->void:
 	list = value
 	updated.emit()
@@ -34,6 +41,8 @@ func swap(value:ItemResource, is_dropped:bool = true)->ItemResource:
 	return _item
 
 func drop()->ItemResource:
+	if list.is_empty():
+		return null
 	var _item:ItemResource = list[selected]
 	list[selected] = null
 	
@@ -45,6 +54,8 @@ func drop()->ItemResource:
 	return _item
 
 func take()->ItemResource:
+	if list.is_empty():
+		return null
 	var _item:ItemResource = list[selected]
 	list[selected] = null
 	

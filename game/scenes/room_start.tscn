@@ -14,6 +14,7 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/meat_resource.tres" id="91_meat"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/slime_resource.tres" id="92_slime"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/weapon_upgrade_resource.tres" id="93_upgrades"]
+[ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="94_weapons"]
 [ext_resource type="PackedScene" uid="uid://dgd3xomk1rk27" path="res://addons/top_down/scenes/obstacles/web_trap.tscn" id="11_webtrap"]
 [ext_resource type="PackedScene" path="res://addons/top_down/scenes/obstacles/acid_puddle.tscn" id="12_acid"]
 [ext_resource type="PackedScene" path="res://addons/top_down/scenes/obstacles/slime_puddle.tscn" id="13_slime"]
@@ -46,6 +47,6 @@ remaining_wave_count_resource = ExtResource("5_remain")
 script = ExtResource("8_fresh")
 player_reference = ExtResource("9_playerref")
 scene_transition_resource = ExtResource("10_trans")
-run_resources = Array[Resource]([ExtResource("90_score"), ExtResource("91_meat"), ExtResource("92_slime"), ExtResource("93_upgrades")])
+run_resources = Array[Resource]([ExtResource("90_score"), ExtResource("91_meat"), ExtResource("92_slime"), ExtResource("93_upgrades"), ExtResource("94_weapons")])
 
 [node name="GameHudOverlay" parent="." index="23" unique_id=1173246793 instance=ExtResource("3_overlay")]

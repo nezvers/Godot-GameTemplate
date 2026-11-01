@@ -1,6 +1,9 @@
-## Ensures a clean game start when entering the starting room.
-## room_start is only reached from the title or victory screen (never via a
-## door-back), so any carried player/transition state is stale and must be reset
+## Starts a new run when room_start is loaded from the title, game over or
+## victory screen. Walking back in through a door keeps the run: PlayerSpawner
+## clears next_scene_path once a door arrival is placed, so a non-empty value
+## here means the carried player is arriving right now.
+##
+## On a new run any carried player/transition state is stale and must be reset
 ## BEFORE PlayerSpawner._ready runs — otherwise PlayerSpawner sees a lingering
 ## player_reference and tries the door-entry path (which needs an entry_match
 ## that doesn't exist here), leaving the player unplaced or outside the room.
@@ -14,21 +17,24 @@ extends Node
 ## Transition state carried between rooms.
 @export var scene_transition_resource: SceneTransitionResource
 
-## Run-scoped state (score/coins, meat, slime, weapon upgrades) reset for the new run.
-## Each entry needs a reset_resource() method.
+## Run-scoped state (score/coins, meat, slime, weapon upgrades, weapon inventory)
+## reset for the new run. Each entry needs a reset_resource() method.
 @export var run_resources: Array[Resource]
 
 func _enter_tree() -> void:
 	assert(player_reference != null)
 	assert(scene_transition_resource != null)
 
+	var carried: Node = player_reference.node
+	if !scene_transition_resource.next_scene_path.is_empty() and is_instance_valid(carried):
+		return
+
 	# Free any stale, detached player from a previous run so PlayerSpawner spawns
 	# a fresh one at its marker.
-	var stale: Node = player_reference.node
-	if stale != null:
-		player_reference.remove_reference(stale)
-		if is_instance_valid(stale) and stale.get_parent() == null:
-			stale.queue_free()
+	if carried != null:
+		player_reference.remove_reference(carried)
+		if is_instance_valid(carried) and carried.get_parent() == null:
+			carried.queue_free()
 
 	# Clear transition info so PlayerSpawner takes the fresh-spawn branch.
 	scene_transition_resource.next_scene_path = ""

@@ -17,6 +17,9 @@ signal weapon_changed
 ## Run-scoped upgrade levels; optional
 @export var weapon_upgrade_resource:WeaponUpgradeResource
 
+## Used only while the inventory is empty (fists); not an inventory item
+@export var default_weapon_scene:PackedScene
+
 ## List of instanced weapons available to the user
 ## Weapons that are already in the scene tree are added on _ready
 var weapon_list:Array[Weapon]
@@ -26,6 +29,9 @@ var weapon_dictionary:Dictionary
 
 ## Currently activated weapon
 var current_weapon:Weapon = null
+
+## Instance of default_weapon_scene, kept out of weapon_list and weapon_dictionary
+var default_weapon:Weapon = null
 
 var weapon_inventory:ItemCollectionResource
 
@@ -63,6 +69,10 @@ func _setup_weapon_inventory()->void:
 	weapon_dictionary.clear()
 	weapon_list.clear()
 	weapon_scene_cache.clear()
+	current_weapon = null
+	default_weapon = null
+	if default_weapon_scene != null:
+		default_weapon = _add_new_weapon_from_scene(default_weapon_scene)
 	for _item:ItemResource in weapon_inventory.list:
 		var _path:String = _item.scene_path
 		var _scene:PackedScene = load(_path)
@@ -163,14 +173,16 @@ func _on_switch_weapon(dir:int)->void:
 		weapon_inventory.set_selected(weapon_inventory.selected +1)
 
 func set_weapon_index()->void:
-	if weapon_list.is_empty():
-		return
-	
-	if current_weapon != null:
+	if is_instance_valid(current_weapon):
 		current_weapon.set_enabled(false)
-		current_weapon = null
+	current_weapon = null
 	
-	current_weapon = weapon_list[weapon_inventory.selected]
+	if weapon_list.is_empty():
+		current_weapon = default_weapon
+	else:
+		current_weapon = weapon_list[weapon_inventory.selected]
+	if current_weapon == null:
+		return
 	current_weapon.set_enabled(true)
 	weapon_changed.emit()
 

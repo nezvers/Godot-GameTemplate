@@ -9,11 +9,16 @@ extends Node2D
 
 @export var weapon_pickup_instance_resource:InstanceResource
 
+## An entry tag means the player walked back in through a door, not a new run
+@export var scene_transition_resource:SceneTransitionResource
+
 var collision_mask_list:Dictionary
 
 var pickup_count:int
 
 func _ready()->void:
+	if scene_transition_resource != null && !scene_transition_resource.entry_tag.is_empty():
+		return
 	_disable_exits()
 	_place_pickups()
 
