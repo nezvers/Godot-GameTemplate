@@ -1,5 +1,5 @@
 ZEN ANIMATIONS - HOW TO USE THIS EXPORT
-Exported from Zen Animator 2c6c7a2, 2026-11-01.
+Exported from Zen Animator 1dcef6e, 2026-11-01.
 Runtime: standalone - a private copy in zen/zen_runtime/, no plugin needed.
 
 SCENES IN THIS EXPORT
@@ -91,10 +91,10 @@ SCENES IN THIS EXPORT
   res://zen/zs_weapon_upgrade.tscn
       elements: card, flask, slime_ball_in_0, slime_ball_in_1, spark_0, spark_1, spark_2, spark_3, spark_4, title, sub
       text args (play_with([...]) / set_text_args([...]) fill them in order):
-        %1 weapon_name (sample "PISTOL") in "%1 LV %2"
-        %2 level (sample "2") in "%1 LV %2"
-        %3 damage (sample "1.2") in "DAMAGE x%3   FIRE RATE x%4"
-        %4 fire_rate (sample "1.1") in "DAMAGE x%3   FIRE RATE x%4"
+        %1 weapon_name (sample "ASSAULT RIFFLE") in "%1 LV %2"
+        %2 level (sample "3") in "%1 LV %2"
+        %3 damage (sample "1.5") in "DAMAGE x%3   FIRE RATE x%4"
+        %4 fire_rate (sample "1.18") in "DAMAGE x%3   FIRE RATE x%4"
       plays once, then emits finished
   res://zen/zs_workbench_unlocked.tscn
       elements: card, flask, bubble_0, bubble_1, bubble_2, title, sub
