@@ -8,8 +8,6 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/interactables/SlotMachine.gd" id="script"]
 [ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/slot_machine_24x32_strip3.png" id="tex"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/sounds/slot_spin.tres" id="use"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="score"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/meat_instance_resource.tres" id="meat_inst"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="item_inst"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres" id="database"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/sounds/slot_spin.tres" id="spin"]
@@ -30,8 +28,6 @@ action_resource = ExtResource("action")
 player_reference = ExtResource("player")
 sound_use = ExtResource("use")
 sound_denied = ExtResource("denied")
-score_resource = ExtResource("score")
-meat_instance = ExtResource("meat_inst")
 item_pickup_instance = ExtResource("item_inst")
 weapon_database = ExtResource("database")
 sound_spin = ExtResource("spin")

@@ -8,8 +8,6 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/interactables/MeatGrinder.gd" id="script"]
 [ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/meat_grinder_24x32_strip4.png" id="tex"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/sounds/grinder.tres" id="use"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/meat_resource.tres" id="meat"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="health"]
 
 [sub_resource type="RectangleShape2D" id="body_shape"]
 size = Vector2(18, 6)
@@ -26,8 +24,6 @@ action_resource = ExtResource("action")
 player_reference = ExtResource("player")
 sound_use = ExtResource("use")
 sound_denied = ExtResource("denied")
-meat_resource = ExtResource("meat")
-health_pickup_instance = ExtResource("health")
 sprite = NodePath("Visuals/Sprite2D")
 output_marker = NodePath("OutputMarker")
 

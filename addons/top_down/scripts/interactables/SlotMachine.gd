@@ -1,16 +1,17 @@
-## Takes a coin and pays out nothing, a meat chunk or a weapon pickup.
+## Takes coins and pays out one weighted entry of `payouts`.
 ## Coins are the score, so every pull lowers it.
 class_name SlotMachine
 extends Interactable
 
-enum Outcome {NOTHING, MEAT, WEAPON}
-
-@export var score_resource:ScoreResource
-@export var coin_cost:int = 1
-@export var nothing_weight:float = 55.0
-@export var meat_weight:float = 30.0
-@export var weapon_weight:float = 15.0
-@export var meat_instance:InstanceResource
+## [{"item": id, "amount": n}] per pull (contraptions.slot_machine.cost).
+@export var cost:Array[Dictionary] = [{"item": "coin", "amount": 1}]
+## [{"drop": id, "amount": n, "weight": w}] (contraptions.slot_machine.payouts).
+## drop is "nothing", "weapon" (picked by weapons.<id>.jackpot_weight) or a LootItems pickup id.
+@export var payouts:Array[Dictionary] = [
+	{"drop": "nothing", "weight": 55},
+	{"drop": "meat", "amount": 1, "weight": 30},
+	{"drop": "weapon", "weight": 15},
+]
 @export var item_pickup_instance:InstanceResource
 ## Unlocked weapons from here are the prize pool.
 @export var weapon_database:ItemCollectionResource
@@ -23,25 +24,25 @@ enum Outcome {NOTHING, MEAT, WEAPON}
 const SPIN_TIME:float = 0.8
 const SPIN_FRAME_TIME:float = 0.08
 
-## Weighted pick; `value` is a random number in [0, 1).
-static func pick_outcome(weights:Array[float], value:float)->Outcome:
+## Weighted pick of an index; `value` is a random number in [0, 1). -1 when nothing has weight.
+static func pick_weighted(weights:Array[float], value:float)->int:
 	var _total:float = 0.0
 	for _weight:float in weights:
 		_total += maxf(_weight, 0.0)
 	if _total <= 0.0:
-		return Outcome.NOTHING
+		return -1
 	var _target:float = value * _total
 	for i:int in weights.size():
 		_target -= maxf(weights[i], 0.0)
 		if _target < 0.0:
-			return i as Outcome
-	return (weights.size() - 1) as Outcome
+			return i
+	return weights.size() - 1
 
 func _can_use()->bool:
-	return score_resource.can_spend(coin_cost)
+	return LootItems.can_afford(cost)
 
 func _use()->void:
-	score_resource.spend(coin_cost)
+	LootItems.pay(cost)
 	busy = true
 	var _tween:Tween = create_tween()
 	_tween.tween_callback(sprite.set_frame.bind(1))
@@ -55,33 +56,51 @@ func _use()->void:
 	_tween.tween_callback(sprite.set_frame.bind(0))
 	_tween.tween_callback(_pay_out)
 
+func roll_payout(value:float)->Dictionary:
+	var _weights:Array[float] = []
+	for _payout:Dictionary in payouts:
+		_weights.append(float(_payout.get("weight", 0.0)))
+	var _index:int = pick_weighted(_weights, value)
+	return payouts[_index] if _index >= 0 else {}
+
 func _pay_out()->void:
 	busy = false
-	var _outcome:Outcome = pick_outcome([nothing_weight, meat_weight, weapon_weight], randf())
-	var _weapon:ItemResource = _pick_weapon() if _outcome == Outcome.WEAPON else null
-	if _outcome == Outcome.WEAPON && _weapon == null:
-		_outcome = Outcome.MEAT
+	var _payout:Dictionary = roll_payout(randf())
+	var _drop:String = _payout.get("drop", "nothing")
+	var _amount:int = int(_payout.get("amount", 1))
 	var _position:Vector2 = output_marker.global_position
-	match _outcome:
-		Outcome.NOTHING:
+	if _drop == "weapon":
+		var _weapon:ItemResource = pick_weapon(randf())
+		if _weapon == null:
 			deny()
-		Outcome.MEAT:
-			meat_instance.instance(func (inst:Node2D)->void: inst.global_position = _position)
-			if sound_win != null:
-				sound_win.play_managed()
-		Outcome.WEAPON:
-			item_pickup_instance.instance(func (inst:ItemPickup)->void:
-				inst.item_resource = _weapon
-				inst.global_position = _position
-			)
-			if sound_win != null:
-				sound_win.play_managed()
+			return
+		item_pickup_instance.instance(func (inst:ItemPickup)->void:
+			inst.item_resource = _weapon
+			inst.global_position = _position
+		)
+	elif LootItems.can_spawn(_drop):
+		LootItems.spawn(_drop, _amount, _position)
+	else:
+		deny()
+		return
+	if sound_win != null:
+		sound_win.play_managed()
 
-func _pick_weapon()->ItemResource:
-	var _pool:Array[ItemResource] = weapon_database.list.filter(
-		func (item:ItemResource)->bool: return item != null && item.unlocked && item.type == ItemResource.ItemType.WEAPON
-	)
-	return _pool.pick_random() if !_pool.is_empty() else null
+## Unlocked weapon picked by its balance jackpot_weight; weapons without one never drop.
+func pick_weapon(value:float)->ItemResource:
+	var _pool:Array[ItemResource] = []
+	var _weights:Array[float] = []
+	for _item:ItemResource in weapon_database.list:
+		if _item == null || !_item.unlocked || _item.type != ItemResource.ItemType.WEAPON:
+			continue
+		var _found:Array = Balance.entry_for_scene(_item.scene_path)
+		var _weight:float = float(_found[2].get("jackpot_weight", 0.0)) if !_found.is_empty() else 0.0
+		if _weight <= 0.0:
+			continue
+		_pool.append(_item)
+		_weights.append(_weight)
+	var _index:int = pick_weighted(_weights, value)
+	return _pool[_index] if _index >= 0 else null
 
 func _prompt_text()->String:
-	return "Spin %dG" % coin_cost
+	return "Spin %s" % LootItems.describe(cost)

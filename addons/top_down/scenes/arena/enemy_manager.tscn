@@ -9,15 +9,10 @@
 [ext_resource type="Resource" uid="uid://cd4jt13gwv8bs" path="res://addons/top_down/resources/InstanceResources/vfx/enemy_spawn_mark.tres" id="7_mark"]
 [ext_resource type="Resource" uid="uid://way0xfgx53ix" path="res://addons/top_down/resources/InstanceResources/vfx/spawn_dust_instance.tres" id="8_dust"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/DropManager.gd" id="9_drop"]
-[ext_resource type="Resource" uid="uid://btqugjrcxhbgl" path="res://addons/top_down/resources/InstanceResources/pickups/coin_instance_resource.tres" id="10_coin"]
-[ext_resource type="Resource" uid="uid://bc5djwa8gc2df" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="11_hp"]
-[ext_resource type="Resource" uid="uid://dcq3sgut7k6dh" path="res://addons/top_down/resources/global_resources/luck_resource.tres" id="12_luck"]
 [ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="13_wn"]
 [ext_resource type="Resource" uid="uid://b8k2qx7n4msr1" path="res://addons/top_down/resources/arena_resources/section_name_resource.tres" id="14_sn"]
 [ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="15_state"]
 [ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/meat_instance_resource.tres" id="16_meat"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/slime_instance_resource.tres" id="17_slime"]
 
 [node name="EnemyManager" type="Node" node_paths=PackedStringArray("section1", "section2", "section3")]
 script = ExtResource("1_agrht")
@@ -55,11 +50,6 @@ room_state_resource = ExtResource("15_state")
 [node name="DropManager" type="Node" parent="." node_paths=PackedStringArray("sections")]
 script = ExtResource("9_drop")
 sections = [NodePath("../Section1"), NodePath("../Section2"), NodePath("../Section3")]
-coin_instance = ExtResource("10_coin")
-health_pickup_instance = ExtResource("11_hp")
-meat_instance = ExtResource("16_meat")
-slime_instance = ExtResource("17_slime")
-luck_resource = ExtResource("12_luck")
 
 [node name="BalanceBinding" type="Node" parent="."]
 script = ExtResource("balance_binding")

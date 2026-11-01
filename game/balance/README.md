@@ -13,18 +13,17 @@
 |---|---|
 | `difficulty.normal` / `difficulty.easy` | `enemy_health_ratio`, `enemy_damage_ratio` (damage the player takes), `wave_count_ratio` (kills per normal wave; boss waves are not scaled), `max_alive_ratio` |
 | `player` | `health`, `movement` (`max_speed`, `acceleration`; acceleration is also the friction), `dash`, `hit_invulnerability`, `hole_damage`, `poison`/`slow`/`stuck`, `max_weapons` |
-| `enemies.<id>` | `health` (the Normal value), `movement`, `resistances`, `melee` (damage, crit, interval, recoil), `ai` (attack_distance; nested AI nodes such as `ProximityAttack.start_delay`), `split`, `crit_replace`, `keep_distance`, `lob`, `drop_chance` (the health drop) |
-| `bosses.<id>` | Same keys as enemies, plus `crystal_drop_chance` (boss crystal, 1 = always) and the ones below |
-| `weapons.<id>` | `interval` (fire cooldown), `recoil`, `projectile`, `projectile_angles` (one projectile per angle), `random_spread`, `initial_distance`, `damage` (added to the projectile's damage), `critical_chance`, `critical_multiply` |
+| `enemies.<id>` | `health` (the Normal value), `movement`, `resistances`, `melee` (damage, crit, interval, recoil), `ai` (attack_distance; nested AI nodes such as `ProximityAttack.start_delay`), `split`, `crit_replace`, `keep_distance`, `lob`, `drop_chance` (the actor's own health drop on death), `drops` (see **Loot** below) |
+| `bosses.<id>` | Same keys as enemies, plus the ones below. Give bosses `"boss_crystal": 1` in `drops` |
+| `weapons.<id>` | `interval` (fire cooldown), `recoil`, `projectile`, `projectile_angles` (one projectile per angle), `random_spread`, `initial_distance`, `damage` (added to the projectile's damage), `critical_chance`, `critical_multiply`, `upgrades`, `jackpot_weight`, `price` (see **Weapon upgrades**) |
 | `projectiles.<id>` | `damage`, `kickback`, `speed`, `lifetime` (range = speed × lifetime), `movement_type` (`PROJECTILE`, or `SHAPECAST` to bounce off walls), `max_bounce`, `hit_limit` (-1 means it pierces everything), `sub_projectile` |
 | `enemy_projectiles.<id>` | `damage`, crit, `kickback`, `flight_time`, `landing_radius`, `on_land` (what spawns where it lands, and its lifetime), `on_land_split` |
 | `pickups.health` | `heal` |
 | `pickups.meat` / `slime` / `boss_crystal` | No tunables; the entries give the ids `meat`, `slime`, `boss_crystal` |
 | `traps.<id>` | `lifetime` (seconds on the map before fading; `0` on `web_trap` means it stays until it catches someone or is shot), `fade_time`. A thrown web or acid spit uses its projectile's `on_land.lifetime` instead when that is above 0. How strong the effect is lives on whoever steps in: `poison`/`slow`/`stuck` on the player and enemies |
-| `rooms.<room>` | `sections.<SectionN>` (`spawn_density`, `free_distance`, `waves`), `spawn_points.<name>.max_simultaneous`, `health_drop_chance`, `meat_drop_chance`, `slime_drop_chance` (each rolled on its own per kill; a coin always drops) |
-| `contraptions.meat_grinder` | `meat_cost` (meat per health pickup) |
-| `contraptions.slime_workbench` | `slime_cost` (slime per upgrade level), `max_level`, `damage_per_level` (+20% = 0.2), `interval_per_level` (fire cooldown −10% = 0.1) |
-| `contraptions.slot_machine` | `coin_cost`, `nothing_weight`, `meat_weight`, `weapon_weight` (relative weights; a weapon is an unlocked weapon pickup) |
+| `rooms.<room>` | `sections.<SectionN>` (`spawn_density`, `free_distance`, `waves`), `spawn_points.<name>.max_simultaneous`, `loot_multiplier` (scales every enemy `drops` chance in that room; 1 = as listed) |
+| `contraptions.meat_grinder` | `cost` (item list), `rewards` (list of `{"drop", "amount"}` spawned at the output) |
+| `contraptions.slot_machine` | `cost` (item list per pull), `payouts` (see **Slot machine**) |
 
 **Extra boss keys:**
 - `attack_loop`: timing and enrage settings, plus one object per attack node with its windup, cooldown, distance and health gates, weight, and summon counts including `easy_count` / `easy_child_limit`. Lob attacks nest a `Lob` object with `angles` and `fixed_distance`.
@@ -38,3 +37,37 @@
 - `max_alive`: most enemies spawned and alive at once. 0 or absent means only the spawn points limit it. Enemies created by splits count toward it and block new spawns, but a split can push the total above the cap.
 - `enemies`: ids picked at random for each spawn.
 - `is_boss`, `display_name`.
+
+## Loot
+
+**Item ids:** `coin` (also the score), `meat`, `slime`, `boss_crystal`. Drops can also use `health`.
+
+**Item lists** describe every cost, e.g. `[{"item": "slime", "amount": 2}, {"item": "meat", "amount": 3}]`. A cost is paid only when the player has every entry.
+
+**Enemy drops:** `enemies.<id>.drops` / `bosses.<id>.drops` map an item id to a chance, e.g. `{"coin": 1, "meat": 0.4, "slime": 0.1, "health": 0.3}`.
+- Each item rolls on its own when an arena kill clears the enemy.
+- A chance above 1 means guaranteed drops plus a roll for one more: `2.5` is 2, with 50% for a third.
+- The room's `loot_multiplier` scales every chance first.
+- A split slime's children share their parent's single roll.
+
+## Weapon upgrades
+
+`weapons.<id>.upgrades` is a list with one entry per level, bought in order at the slime workbench. Max level is the list length.
+
+```json
+"upgrades": [
+	{"cost": [{"item": "slime", "amount": 2}], "damage": 1.2, "interval": 0.9},
+	{"cost": [{"item": "slime", "amount": 2}, {"item": "meat", "amount": 3}], "damage": 1.4, "interval": 0.8},
+	{"cost": [{"item": "slime", "amount": 3}, {"item": "boss_crystal", "amount": 1}], "damage": 1.7, "interval": 0.7}
+]
+```
+
+- `damage` and `interval` are the multipliers at that level, not steps: level 2 above deals ×1.4 damage and fires with ×0.8 cooldown.
+- `jackpot_weight` is how likely the slot machine's weapon payout picks this weapon, relative to the other unlocked weapons. With 0 or no value, the weapon never comes from the slot machine.
+- `price` is an item list for buying the weapon. Nothing uses it yet; it is for a future shop.
+
+## Slot machine
+
+`contraptions.slot_machine.payouts` is a list of `{"drop", "amount", "weight"}`. One entry is picked by weight per pull.
+- `drop` is `nothing`, `weapon` (a pickup picked by the weapons' `jackpot_weight`), or a loot item id.
+- `amount` is how many pickups spawn.

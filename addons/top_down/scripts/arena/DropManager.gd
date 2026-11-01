@@ -4,21 +4,8 @@ extends Node
 ## Arena sections whose enemy kills drop loot.
 @export var sections:Array[ArenaSection]
 
-@export var coin_instance:InstanceResource
-
-@export var health_pickup_instance:InstanceResource
-
-@export var meat_instance:InstanceResource
-
-@export var slime_instance:InstanceResource
-
-@export var luck_resource:FloatResource
-
-@export var drop_chance:float = 0.3
-
-@export var meat_chance:float = 0.4
-
-@export var slime_chance:float = 0.1
+## Scales every chance from the killed enemy's balance "drops" (rooms.<id>.loot_multiplier).
+@export var loot_multiplier:float = 1.0
 
 func _ready()->void:
 	for _section:ArenaSection in sections:
@@ -28,20 +15,14 @@ func _ready()->void:
 
 func _on_killed(enemy:ActiveEnemy)->void:
 	var _position:Vector2 = enemy.owner.global_position
-	
-	var _config_callback:Callable = func (inst:Node2D)->void:
-		inst.global_position = _position
-	
-	coin_instance.instance(_config_callback)
-	
-	# Each loot type rolls on its own
-	_roll(health_pickup_instance, drop_chance, _config_callback)
-	_roll(meat_instance, meat_chance, _config_callback)
-	_roll(slime_instance, slime_chance, _config_callback)
+	var _drops:Dictionary = enemy_drops(enemy.owner.scene_file_path)
+	# Each item rolls on its own
+	for _id:String in _drops:
+		LootItems.spawn(_id, LootItems.roll_count(float(_drops[_id]) * loot_multiplier, randf()), _position)
 
-func _roll(instance_resource:InstanceResource, chance:float, config_callback:Callable)->void:
-	if instance_resource == null:
-		return
-	if randf() > chance:
-		return
-	instance_resource.instance(config_callback)
+## Item id -> chance from enemies.<id>.drops / bosses.<id>.drops.
+static func enemy_drops(scene_path:String)->Dictionary:
+	var _found:Array = Balance.entry_for_scene(scene_path)
+	if _found.is_empty():
+		return {}
+	return _found[2].get("drops", {})

@@ -61,7 +61,8 @@ const TABLES:Dictionary = {
 		"split": "SlimeSplit:*",
 		"crit_replace": "CriticalDamageReplace:*",
 		"drop_chance": "ItemDrop:drop_chance",
-		"crystal_drop_chance": "CrystalDrop:drop_chance",
+		## read by DropManager on each arena kill: item id -> chance
+		"drops": "",
 		"melee": {
 			"damage": "SlashAttack:damage_data_resource:base_damage|damage",
 			"critical_chance": "SlashAttack:damage_data_resource:critical_chance",
@@ -91,6 +92,10 @@ const TABLES:Dictionary = {
 		"damage": DAMAGE_DATA.damage,
 		"critical_chance": DAMAGE_DATA.critical_chance,
 		"critical_multiply": DAMAGE_DATA.critical_multiply,
+		## read by WeaponUpgradeResource, SlotMachine and a future shop
+		"upgrades": "",
+		"jackpot_weight": "",
+		"price": "",
 	},
 	"projectile": {
 		"damage": "ProjectileSetup:base_damage|damage",
@@ -129,20 +134,12 @@ const TABLES:Dictionary = {
 		"spawn_points": {"$each": {
 			"max_simultaneous": ".:max_simultaneous",
 		}},
-		"health_drop_chance": "DropManager:drop_chance",
-		"meat_drop_chance": "DropManager:meat_chance",
-		"slime_drop_chance": "DropManager:slime_chance",
+		"loot_multiplier": "DropManager:loot_multiplier",
 	},
 	"contraption": {
-		"meat_cost": ".:meat_cost",
-		"slime_cost": ".:slime_cost",
-		"max_level": ".:max_level",
-		"damage_per_level": ".:damage_per_level",
-		"interval_per_level": ".:interval_per_level",
-		"coin_cost": ".:coin_cost",
-		"nothing_weight": ".:nothing_weight",
-		"meat_weight": ".:meat_weight",
-		"weapon_weight": ".:weapon_weight",
+		"cost": ".:cost",
+		"rewards": ".:rewards",
+		"payouts": ".:payouts",
 	},
 }
 

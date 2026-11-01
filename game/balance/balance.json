@@ -49,6 +49,12 @@
 		"zombie": {
 			"scene": "res://addons/top_down/scenes/actors/zombie.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.4,
+				"slime": 0.1,
+				"health": 0.3
+			},
 			"health": 50,
 			"movement": {
 				"acceleration": 200,
@@ -89,6 +95,12 @@
 		"zombie_crawler": {
 			"scene": "res://addons/top_down/scenes/actors/zombie_crawler.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.4,
+				"slime": 0.1,
+				"health": 0.3
+			},
 			"health": 50,
 			"movement": {
 				"acceleration": 150,
@@ -125,6 +137,12 @@
 		"slime": {
 			"scene": "res://addons/top_down/scenes/actors/slime.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/slime_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.1,
+				"slime": 0.25,
+				"health": 0.3
+			},
 			"health": 50,
 			"movement": {
 				"acceleration": 300,
@@ -171,6 +189,12 @@
 		"slime_small": {
 			"scene": "res://addons/top_down/scenes/actors/slime_small.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/slime_small_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0,
+				"slime": 0.15,
+				"health": 0.1
+			},
 			"health": 30,
 			"movement": {
 				"acceleration": 300,
@@ -207,6 +231,12 @@
 		"acid_slime": {
 			"scene": "res://addons/top_down/scenes/actors/acid_slime.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/acid_slime_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.1,
+				"slime": 0.25,
+				"health": 0.3
+			},
 			"health": 50,
 			"movement": {
 				"acceleration": 300,
@@ -244,6 +274,12 @@
 		"bloater": {
 			"scene": "res://addons/top_down/scenes/actors/bloater.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/bloater_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.6,
+				"slime": 0.1,
+				"health": 0.3
+			},
 			"health": 125,
 			"movement": {
 				"acceleration": 200,
@@ -288,6 +324,12 @@
 		"skitter_spider": {
 			"scene": "res://addons/top_down/scenes/actors/skitter_spider.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/skitter_spider_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.2,
+				"slime": 0.1,
+				"health": 0.3
+			},
 			"health": 22,
 			"movement": {
 				"acceleration": 300,
@@ -324,6 +366,12 @@
 		"web_spider": {
 			"scene": "res://addons/top_down/scenes/actors/web_spider.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/web_spider_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.2,
+				"slime": 0.1,
+				"health": 0.3
+			},
 			"health": 30,
 			"movement": {
 				"acceleration": 300,
@@ -376,6 +424,12 @@
 		"big_jelly": {
 			"scene": "res://addons/top_down/scenes/actors/boss_big_jelly.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/boss_slime_instance_resource.tres",
+			"drops": {
+				"coin": 5,
+				"meat": 1,
+				"slime": 3,
+				"boss_crystal": 1
+			},
 			"health": 200,
 			"movement": {
 				"acceleration": 200,
@@ -384,7 +438,6 @@
 			"resistances": 3.0,
 			"hit_invulnerability": 0,
 			"drop_chance": 0.1,
-			"crystal_drop_chance": 1,
 			"damage_areas": {
 				"ShapeCastTransmitterDamage": {
 					"damage": 10.0,
@@ -431,6 +484,12 @@
 		"giant_zombie": {
 			"scene": "res://addons/top_down/scenes/actors/giant_zombie_boss.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/giant_zombie_instance_resource.tres",
+			"drops": {
+				"coin": 5,
+				"meat": 4,
+				"slime": 1,
+				"boss_crystal": 1
+			},
 			"health": 450,
 			"movement": {
 				"acceleration": 250,
@@ -456,7 +515,6 @@
 				}
 			},
 			"drop_chance": 1,
-			"crystal_drop_chance": 1,
 			"attack_loop": {
 				"start_delay": 1.5,
 				"attack_gap": 0.8,
@@ -535,6 +593,12 @@
 		"broodmother": {
 			"scene": "res://addons/top_down/scenes/actors/broodmother_boss.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/broodmother_instance_resource.tres",
+			"drops": {
+				"coin": 5,
+				"meat": 2,
+				"slime": 1,
+				"boss_crystal": 1
+			},
 			"health": 380,
 			"movement": {
 				"acceleration": 250,
@@ -565,7 +629,6 @@
 				"back_off_distance": 72
 			},
 			"drop_chance": 1,
-			"crystal_drop_chance": 1,
 			"melee": {
 				"damage": 10.0,
 				"critical_chance": 0.3,
@@ -658,6 +721,12 @@
 		"plague_mother": {
 			"scene": "res://addons/top_down/scenes/actors/plague_mother_boss.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/actors/plague_mother_instance_resource.tres",
+			"drops": {
+				"coin": 5,
+				"meat": 2,
+				"slime": 1,
+				"boss_crystal": 1
+			},
 			"health": 420,
 			"movement": {
 				"acceleration": 200,
@@ -683,7 +752,6 @@
 				}
 			},
 			"drop_chance": 1,
-			"crystal_drop_chance": 1,
 			"melee": {
 				"damage": 10.0,
 				"critical_chance": 0.3,
@@ -785,7 +853,54 @@
 			"initial_distance": 8,
 			"damage": 0,
 			"critical_chance": 0.3,
-			"critical_multiply": 1.5
+			"critical_multiply": 1.5,
+			"upgrades": [
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						}
+					],
+					"damage": 1.2,
+					"interval": 0.9
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						},
+						{
+							"item": "meat",
+							"amount": 3
+						}
+					],
+					"damage": 1.4,
+					"interval": 0.8
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 3
+						},
+						{
+							"item": "boss_crystal",
+							"amount": 1
+						}
+					],
+					"damage": 1.7,
+					"interval": 0.7
+				}
+			],
+			"jackpot_weight": 4,
+			"price": [
+				{
+					"item": "coin",
+					"amount": 10
+				}
+			]
 		},
 		"shotgun": {
 			"scene": "res://addons/top_down/scenes/weapons/shotgun.tscn",
@@ -803,7 +918,54 @@
 			"initial_distance": 8,
 			"damage": 0,
 			"critical_chance": 0.3,
-			"critical_multiply": 1.5
+			"critical_multiply": 1.5,
+			"upgrades": [
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						}
+					],
+					"damage": 1.2,
+					"interval": 0.9
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						},
+						{
+							"item": "meat",
+							"amount": 3
+						}
+					],
+					"damage": 1.4,
+					"interval": 0.85
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 3
+						},
+						{
+							"item": "boss_crystal",
+							"amount": 1
+						}
+					],
+					"damage": 1.6,
+					"interval": 0.75
+				}
+			],
+			"jackpot_weight": 2,
+			"price": [
+				{
+					"item": "coin",
+					"amount": 25
+				}
+			]
 		},
 		"assault_rifle": {
 			"scene": "res://addons/top_down/scenes/weapons/assault_riffle.tscn",
@@ -817,7 +979,54 @@
 			"initial_distance": 8,
 			"damage": 0,
 			"critical_chance": 0.3,
-			"critical_multiply": 1.5
+			"critical_multiply": 1.5,
+			"upgrades": [
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						}
+					],
+					"damage": 1.15,
+					"interval": 0.95
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						},
+						{
+							"item": "meat",
+							"amount": 3
+						}
+					],
+					"damage": 1.3,
+					"interval": 0.9
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 3
+						},
+						{
+							"item": "boss_crystal",
+							"amount": 1
+						}
+					],
+					"damage": 1.5,
+					"interval": 0.85
+				}
+			],
+			"jackpot_weight": 1,
+			"price": [
+				{
+					"item": "coin",
+					"amount": 35
+				}
+			]
 		},
 		"sword": {
 			"scene": "res://addons/top_down/scenes/weapons/sword.tscn",
@@ -831,7 +1040,54 @@
 			"initial_distance": 10,
 			"damage": 0,
 			"critical_chance": 0.3,
-			"critical_multiply": 1.5
+			"critical_multiply": 1.5,
+			"upgrades": [
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						}
+					],
+					"damage": 1.25,
+					"interval": 0.95
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 2
+						},
+						{
+							"item": "meat",
+							"amount": 3
+						}
+					],
+					"damage": 1.5,
+					"interval": 0.9
+				},
+				{
+					"cost": [
+						{
+							"item": "slime",
+							"amount": 3
+						},
+						{
+							"item": "boss_crystal",
+							"amount": 1
+						}
+					],
+					"damage": 1.8,
+					"interval": 0.85
+				}
+			],
+			"jackpot_weight": 3,
+			"price": [
+				{
+					"item": "coin",
+					"amount": 15
+				}
+			]
 		}
 	},
 	"projectiles": {
@@ -1045,9 +1301,7 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3,
-			"meat_drop_chance": 0.4,
-			"slime_drop_chance": 0.1
+			"loot_multiplier": 1.0
 		},
 		"room_1": {
 			"scene": "res://game/scenes/room_1.tscn",
@@ -1116,9 +1370,7 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3,
-			"meat_drop_chance": 0.4,
-			"slime_drop_chance": 0.1
+			"loot_multiplier": 1.0
 		},
 		"room_3": {
 			"scene": "res://game/scenes/room_3.tscn",
@@ -1169,9 +1421,7 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3,
-			"meat_drop_chance": 0.4,
-			"slime_drop_chance": 0.1
+			"loot_multiplier": 1.0
 		},
 		"room_A01": {
 			"scene": "res://game/scenes/room_A01.tscn",
@@ -1241,9 +1491,7 @@
 					"max_simultaneous": 2
 				}
 			},
-			"health_drop_chance": 0.3,
-			"meat_drop_chance": 0.4,
-			"slime_drop_chance": 0.1
+			"loot_multiplier": 1.0
 		},
 		"room_A02": {
 			"scene": "res://game/scenes/room_A02.tscn",
@@ -1301,9 +1549,7 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3,
-			"meat_drop_chance": 0.4,
-			"slime_drop_chance": 0.1
+			"loot_multiplier": 1.0
 		}
 	},
 	"traps": {
@@ -1329,21 +1575,52 @@
 	"contraptions": {
 		"meat_grinder": {
 			"scene": "res://addons/top_down/scenes/interactables/meat_grinder.tscn",
-			"meat_cost": 3
-		},
-		"slime_workbench": {
-			"scene": "res://addons/top_down/scenes/interactables/slime_workbench.tscn",
-			"slime_cost": 2,
-			"max_level": 3,
-			"damage_per_level": 0.2,
-			"interval_per_level": 0.1
+			"cost": [
+				{
+					"item": "meat",
+					"amount": 3
+				}
+			],
+			"rewards": [
+				{
+					"drop": "health",
+					"amount": 1
+				}
+			]
 		},
 		"slot_machine": {
 			"scene": "res://addons/top_down/scenes/interactables/slot_machine.tscn",
-			"coin_cost": 1,
-			"nothing_weight": 55,
-			"meat_weight": 30,
-			"weapon_weight": 15
+			"cost": [
+				{
+					"item": "coin",
+					"amount": 1
+				}
+			],
+			"payouts": [
+				{
+					"drop": "nothing",
+					"weight": 50
+				},
+				{
+					"drop": "meat",
+					"amount": 1,
+					"weight": 25
+				},
+				{
+					"drop": "meat",
+					"amount": 3,
+					"weight": 8
+				},
+				{
+					"drop": "coin",
+					"amount": 5,
+					"weight": 5
+				},
+				{
+					"drop": "weapon",
+					"weight": 12
+				}
+			]
 		}
 	}
 }
