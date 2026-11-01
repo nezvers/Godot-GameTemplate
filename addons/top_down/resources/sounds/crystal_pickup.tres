@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundResource" format=3]
+
+[ext_resource type="Script" path="res://addons/great_games_library/resources/SoundResource/SoundResource.gd" id="1_script"]
+[ext_resource type="AudioStream" path="res://addons/top_down/assets/sounds/pickup_5.wav" id="2_sound"]
+
+[resource]
+script = ExtResource("1_script")
+pitch_min = 0.95
+pitch_max = 1.05
+volume = 0.0
+sound = ExtResource("2_sound")

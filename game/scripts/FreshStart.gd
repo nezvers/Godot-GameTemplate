@@ -14,6 +14,10 @@ extends Node
 ## Transition state carried between rooms.
 @export var scene_transition_resource: SceneTransitionResource
 
+## Run-scoped state (score/coins, meat, slime, weapon upgrades) reset for the new run.
+## Each entry needs a reset_resource() method.
+@export var run_resources: Array[Resource]
+
 func _enter_tree() -> void:
 	assert(player_reference != null)
 	assert(scene_transition_resource != null)
@@ -30,3 +34,7 @@ func _enter_tree() -> void:
 	scene_transition_resource.next_scene_path = ""
 	scene_transition_resource.entry_tag = ""
 	scene_transition_resource.entry_match = null
+
+	for resource: Resource in run_resources:
+		if resource != null:
+			resource.reset_resource()

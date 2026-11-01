@@ -8,9 +8,17 @@ extends Node
 
 @export var health_pickup_instance:InstanceResource
 
+@export var meat_instance:InstanceResource
+
+@export var slime_instance:InstanceResource
+
 @export var luck_resource:FloatResource
 
 @export var drop_chance:float = 0.3
+
+@export var meat_chance:float = 0.4
+
+@export var slime_chance:float = 0.1
 
 func _ready()->void:
 	for _section:ArenaSection in sections:
@@ -26,7 +34,14 @@ func _on_killed(enemy:ActiveEnemy)->void:
 	
 	coin_instance.instance(_config_callback)
 	
-	var _rand:float = randf_range(0.0, 1.0)
-	if _rand > drop_chance:
+	# Each loot type rolls on its own
+	_roll(health_pickup_instance, drop_chance, _config_callback)
+	_roll(meat_instance, meat_chance, _config_callback)
+	_roll(slime_instance, slime_chance, _config_callback)
+
+func _roll(instance_resource:InstanceResource, chance:float, config_callback:Callable)->void:
+	if instance_resource == null:
 		return
-	health_pickup_instance.instance(_config_callback)
+	if randf() > chance:
+		return
+	instance_resource.instance(config_callback)

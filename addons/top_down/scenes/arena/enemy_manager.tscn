@@ -16,6 +16,8 @@
 [ext_resource type="Resource" uid="uid://b8k2qx7n4msr1" path="res://addons/top_down/resources/arena_resources/section_name_resource.tres" id="14_sn"]
 [ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="15_state"]
 [ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/meat_instance_resource.tres" id="16_meat"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/slime_instance_resource.tres" id="17_slime"]
 
 [node name="EnemyManager" type="Node" node_paths=PackedStringArray("section1", "section2", "section3")]
 script = ExtResource("1_agrht")
@@ -55,6 +57,8 @@ script = ExtResource("9_drop")
 sections = [NodePath("../Section1"), NodePath("../Section2"), NodePath("../Section3")]
 coin_instance = ExtResource("10_coin")
 health_pickup_instance = ExtResource("11_hp")
+meat_instance = ExtResource("16_meat")
+slime_instance = ExtResource("17_slime")
 luck_resource = ExtResource("12_luck")
 
 [node name="BalanceBinding" type="Node" parent="."]

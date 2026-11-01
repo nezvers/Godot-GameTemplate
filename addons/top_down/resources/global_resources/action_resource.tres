@@ -88,6 +88,13 @@ device = -1
 physical_keycode = 87
 unicode = 119
 
+[sub_resource type="InputEventKey" id="InputEventKey_interact"]
+device = -1
+physical_keycode = 69
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_interact"]
+button_index = 2
+
 [resource]
 resource_name = "Game Input Actions"
 script = ExtResource("2_l8ve6")
@@ -104,6 +111,7 @@ action_1_action = &"action_1"
 action_2_action = &"action_2"
 next_action = &"next"
 previous_action = &"previous"
+interact_action = &"interact"
 pause_kb = SubResource("InputEventKey_xnl1n")
 left_kb = SubResource("InputEventKey_qryje")
 right_kb = SubResource("InputEventKey_qrpov")
@@ -113,6 +121,7 @@ action_1_kb = SubResource("InputEventMouseButton_mmno7")
 action_2_kb = SubResource("InputEventKey_uef2b")
 next_kb = SubResource("InputEventMouseButton_55maa")
 previous_kb = SubResource("InputEventMouseButton_eiewg")
+interact_kb = SubResource("InputEventKey_interact")
 pause_gp = SubResource("InputEventJoypadButton_3e6vy")
 left_gp = SubResource("InputEventJoypadMotion_58jlk")
 right_gp = SubResource("InputEventJoypadMotion_xliej")
@@ -126,3 +135,4 @@ action_1_gp = SubResource("InputEventJoypadMotion_ugoik")
 action_2_gp = SubResource("InputEventJoypadButton_wp12u")
 next_gp = SubResource("InputEventJoypadButton_lswhf")
 previous_gp = SubResource("InputEventJoypadButton_5hipw")
+interact_gp = SubResource("InputEventJoypadButton_interact")

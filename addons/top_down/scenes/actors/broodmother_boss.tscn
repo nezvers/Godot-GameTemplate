@@ -45,6 +45,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/StraddleNavigationGetter.gd" id="43_straddle"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/web_projectile_instance_resource.tres" id="50_web"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/spiderling_projectile_instance_resource.tres" id="51_spiderling"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/boss_crystal_instance_resource.tres" id="90_crystal"]
 
 [sub_resource type="Resource" id="Resource_stats"]
 script = ExtResource("6_stats")
@@ -283,6 +284,13 @@ script = ExtResource("20_drop")
 resource_node = NodePath("../ResourceNode")
 root_node = NodePath("..")
 drop_instance_resources = Array[ExtResource("21_instres")]([ExtResource("22_healthdrop")])
+drop_chance = 1.0
+
+[node name="CrystalDrop" type="Node" parent="." node_paths=PackedStringArray("resource_node", "root_node")]
+script = ExtResource("20_drop")
+resource_node = NodePath("../ResourceNode")
+root_node = NodePath("..")
+drop_instance_resources = Array[ExtResource("21_instres")]([ExtResource("90_crystal")])
 drop_chance = 1.0
 
 [node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "animation_player_list", "listen_node")]

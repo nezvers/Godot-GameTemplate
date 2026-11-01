@@ -21,6 +21,9 @@
 [ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="19_rmstate"]
 [ext_resource type="Resource" uid="uid://b8k2qx7n4msr1" path="res://addons/top_down/resources/arena_resources/section_name_resource.tres" id="21_secname"]
 [ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="20_rmclr"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/meat_resource.tres" id="30_meat"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/slime_resource.tres" id="31_slime"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="32_crystal"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpmqm"]
 
@@ -68,6 +71,27 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 7
 text = "420G"
 
+[node name="MeatLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 7
+text = "Meat: 0"
+
+[node name="SlimeLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 7
+text = "Slime: 0"
+
+[node name="CrystalLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.95, 1)
+theme_override_font_sizes/font_size = 7
+text = "Crystals: 0"
+
 [node name="FightMode" type="Label" parent="VBoxContainer" unique_id=1384794349]
 layout_mode = 2
 theme_override_font_sizes/font_size = 7
@@ -88,9 +112,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 7
 text = "Active: 707"
 
-[node name="InfoTracker" type="Node" parent="." unique_id=2034831272 node_paths=PackedStringArray("score_label", "fight_mode_label", "wave_count_label", "enemy_count_label", "active_count_label", "room_id_label", "section_label")]
+[node name="InfoTracker" type="Node" parent="." unique_id=2034831272 node_paths=PackedStringArray("score_label", "meat_label", "slime_label", "boss_crystal_label", "fight_mode_label", "wave_count_label", "enemy_count_label", "active_count_label", "room_id_label", "section_label")]
 script = ExtResource("1_4rtxu")
 score_resource = ExtResource("2_i7k27")
+meat_resource = ExtResource("30_meat")
+slime_resource = ExtResource("31_slime")
+boss_crystal_resource = ExtResource("32_crystal")
 fight_mode_resource = ExtResource("4_bm84l")
 wave_count_resource = ExtResource("5_gcfem")
 enemy_count_resource = ExtResource("6_yicht")
@@ -98,6 +125,9 @@ enemy_instance_resource = ExtResource("7_i0f1q")
 room_state_resource = ExtResource("19_rmstate")
 section_name_resource = ExtResource("21_secname")
 score_label = NodePath("../VBoxContainer/ScoreLabel")
+meat_label = NodePath("../VBoxContainer/MeatLabel")
+slime_label = NodePath("../VBoxContainer/SlimeLabel")
+boss_crystal_label = NodePath("../VBoxContainer/CrystalLabel")
 fight_mode_label = NodePath("../VBoxContainer/FightMode")
 wave_count_label = NodePath("../VBoxContainer/WaveCount")
 enemy_count_label = NodePath("../VBoxContainer/EnemyCount")

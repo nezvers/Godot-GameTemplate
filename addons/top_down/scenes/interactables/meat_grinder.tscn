@@ -1,0 +1,77 @@
+[gd_scene format=3]
+
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="action"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="player"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/interact_denied.tres" id="denied"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/shadow.png" id="shadow"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="binding"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/interactables/MeatGrinder.gd" id="script"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/meat_grinder_24x32_strip4.png" id="tex"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/grinder.tres" id="use"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/meat_resource.tres" id="meat"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres" id="health"]
+
+[sub_resource type="RectangleShape2D" id="body_shape"]
+size = Vector2(18, 6)
+
+[sub_resource type="CircleShape2D" id="area_shape"]
+radius = 24.0
+
+[node name="MeatGrinder" type="Node2D" node_paths=PackedStringArray("area", "prompt_label", "shake_node", "sprite", "output_marker")]
+script = ExtResource("script")
+area = NodePath("Area2D")
+prompt_label = NodePath("PromptLabel")
+shake_node = NodePath("Visuals")
+action_resource = ExtResource("action")
+player_reference = ExtResource("player")
+sound_use = ExtResource("use")
+sound_denied = ExtResource("denied")
+meat_resource = ExtResource("meat")
+health_pickup_instance = ExtResource("health")
+sprite = NodePath("Visuals/Sprite2D")
+output_marker = NodePath("OutputMarker")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.35)
+scale = Vector2(1.50, 1)
+texture = ExtResource("shadow")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -11)
+texture = ExtResource("tex")
+hframes = 4
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -3)
+shape = SubResource("body_shape")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1, 0.5)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("area_shape")
+
+[node name="OutputMarker" type="Marker2D" parent="."]
+position = Vector2(0, 14)
+
+[node name="PromptLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -60.0
+offset_top = -36.0
+offset_right = 60.0
+offset_bottom = -27.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "[E] Use"
+horizontal_alignment = 1
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("binding")

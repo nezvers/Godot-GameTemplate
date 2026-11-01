@@ -10,6 +10,9 @@
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="8_jl0pm"]
 [ext_resource type="Resource" uid="uid://bnupsvhj8s0d5" path="res://addons/top_down/resources/InstanceResources/actors/boss_slime_instance_resource.tres" id="9_tlban"]
 [ext_resource type="Script" uid="uid://xn2mpd4i3gl2" path="res://addons/top_down/scripts/arena/SpawnPoint.gd" id="10_kn5vo"]
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/interactables/meat_grinder.tscn" id="90_grinder"]
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/interactables/slime_workbench.tscn" id="91_bench"]
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/interactables/slot_machine.tscn" id="92_slot"]
 
 [sub_resource type="Resource" id="Resource_avoxj"]
 script = ExtResource("5_lajqs")
@@ -786,3 +789,12 @@ polygon = PackedVector2Array(642, 259, 587, 287, 584, 285, 638, 258)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="ArenaEntry" parent_id_path=PackedInt32Array(971622857) index="4" unique_id=153145728]
 polygon = PackedVector2Array(251, 243, 310, 273, 313, 271, 254, 241)
+
+[node name="MeatGrinder" parent="WallLayer_Ysorted" instance=ExtResource("90_grinder")]
+position = Vector2(708, 123)
+
+[node name="SlimeWorkbench" parent="WallLayer_Ysorted" instance=ExtResource("91_bench")]
+position = Vector2(750, 144)
+
+[node name="SlotMachine" parent="WallLayer_Ysorted" instance=ExtResource("92_slot")]
+position = Vector2(183, 146)

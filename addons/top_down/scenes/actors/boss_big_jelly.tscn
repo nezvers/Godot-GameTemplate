@@ -46,6 +46,7 @@
 [ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="44_diffh"]
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="45_diff"]
 [ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/pickups/boss_crystal_instance_resource.tres" id="90_crystal"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -400,6 +401,13 @@ script = ExtResource("23_s56vy")
 resource_node = NodePath("../ResourceNode")
 root_node = NodePath("..")
 drop_instance_resources = Array[ExtResource("24_0gijv")]([ExtResource("25_fh7ve")])
+
+[node name="CrystalDrop" type="Node" parent="." node_paths=PackedStringArray("resource_node", "root_node")]
+script = ExtResource("23_s56vy")
+resource_node = NodePath("../ResourceNode")
+root_node = NodePath("..")
+drop_instance_resources = Array[ExtResource("24_0gijv")]([ExtResource("90_crystal")])
+drop_chance = 1.0
 
 [node name="DamageDisplay" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("26_q6vry")

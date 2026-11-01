@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/input/InputResource.gd" id="7_sciut"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="8_icjqh"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/weapon_system/WeaponManager.gd" id="9_hpc12"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/weapon_upgrade_resource.tres" id="90_upgrades"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/damage/DamageResource.gd" id="9_y7ns5"]
 [ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="10_3846y"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelReceiver.gd" id="11_qswmv"]
@@ -373,6 +374,7 @@ script = ExtResource("9_hpc12")
 resource_node = NodePath("../ResourceNode")
 collision_mask = 4
 item_pickup_instance_resource = ExtResource("19_pbauh")
+weapon_upgrade_resource = ExtResource("90_upgrades")
 
 [node name="ReferencePlayer" type="Node" parent="." index="18" node_paths=PackedStringArray("reference_node", "signal_node")]
 script = ExtResource("11_r4axh")

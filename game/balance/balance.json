@@ -384,6 +384,7 @@
 			"resistances": 3.0,
 			"hit_invulnerability": 0,
 			"drop_chance": 0.1,
+			"crystal_drop_chance": 1,
 			"damage_areas": {
 				"ShapeCastTransmitterDamage": {
 					"damage": 10.0,
@@ -455,6 +456,7 @@
 				}
 			},
 			"drop_chance": 1,
+			"crystal_drop_chance": 1,
 			"attack_loop": {
 				"start_delay": 1.5,
 				"attack_gap": 0.8,
@@ -563,6 +565,7 @@
 				"back_off_distance": 72
 			},
 			"drop_chance": 1,
+			"crystal_drop_chance": 1,
 			"melee": {
 				"damage": 10.0,
 				"critical_chance": 0.3,
@@ -680,6 +683,7 @@
 				}
 			},
 			"drop_chance": 1,
+			"crystal_drop_chance": 1,
 			"melee": {
 				"damage": 10.0,
 				"critical_chance": 0.3,
@@ -971,6 +975,18 @@
 			"scene": "res://addons/top_down/scenes/pickups/health_pickup.tscn",
 			"instance": "res://addons/top_down/resources/InstanceResources/pickups/health_pickup_instance_resource.tres",
 			"heal": 10
+		},
+		"meat": {
+			"scene": "res://addons/top_down/scenes/pickups/meat_pickup.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/pickups/meat_instance_resource.tres"
+		},
+		"slime": {
+			"scene": "res://addons/top_down/scenes/pickups/slime_pickup.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/pickups/slime_instance_resource.tres"
+		},
+		"boss_crystal": {
+			"scene": "res://addons/top_down/scenes/pickups/boss_crystal_pickup.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/pickups/boss_crystal_instance_resource.tres"
 		}
 	},
 	"rooms": {
@@ -1029,7 +1045,9 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3
+			"health_drop_chance": 0.3,
+			"meat_drop_chance": 0.4,
+			"slime_drop_chance": 0.1
 		},
 		"room_1": {
 			"scene": "res://game/scenes/room_1.tscn",
@@ -1098,7 +1116,9 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3
+			"health_drop_chance": 0.3,
+			"meat_drop_chance": 0.4,
+			"slime_drop_chance": 0.1
 		},
 		"room_3": {
 			"scene": "res://game/scenes/room_3.tscn",
@@ -1149,7 +1169,9 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3
+			"health_drop_chance": 0.3,
+			"meat_drop_chance": 0.4,
+			"slime_drop_chance": 0.1
 		},
 		"room_A01": {
 			"scene": "res://game/scenes/room_A01.tscn",
@@ -1219,7 +1241,9 @@
 					"max_simultaneous": 2
 				}
 			},
-			"health_drop_chance": 0.3
+			"health_drop_chance": 0.3,
+			"meat_drop_chance": 0.4,
+			"slime_drop_chance": 0.1
 		},
 		"room_A02": {
 			"scene": "res://game/scenes/room_A02.tscn",
@@ -1277,7 +1301,9 @@
 					"max_simultaneous": 1
 				}
 			},
-			"health_drop_chance": 0.3
+			"health_drop_chance": 0.3,
+			"meat_drop_chance": 0.4,
+			"slime_drop_chance": 0.1
 		}
 	},
 	"traps": {
@@ -1298,6 +1324,26 @@
 			"instance": "res://addons/top_down/resources/InstanceResources/traps/web_trap_instance_resource.tres",
 			"lifetime": 0.0,
 			"fade_time": 0.2
+		}
+	},
+	"contraptions": {
+		"meat_grinder": {
+			"scene": "res://addons/top_down/scenes/interactables/meat_grinder.tscn",
+			"meat_cost": 3
+		},
+		"slime_workbench": {
+			"scene": "res://addons/top_down/scenes/interactables/slime_workbench.tscn",
+			"slime_cost": 2,
+			"max_level": 3,
+			"damage_per_level": 0.2,
+			"interval_per_level": 0.1
+		},
+		"slot_machine": {
+			"scene": "res://addons/top_down/scenes/interactables/slot_machine.tscn",
+			"coin_cost": 1,
+			"nothing_weight": 55,
+			"meat_weight": 30,
+			"weapon_weight": 15
 		}
 	}
 }

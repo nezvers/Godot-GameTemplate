@@ -17,6 +17,7 @@ signal updated
 @export var action_2_action:StringName
 @export var next_action:StringName
 @export var previous_action:StringName
+@export var interact_action:StringName
 
 @export_category("Keyboard")
 @export var pause_kb:InputEvent
@@ -32,6 +33,7 @@ signal updated
 @export var action_2_kb:InputEvent
 @export var next_kb:InputEvent
 @export var previous_kb:InputEvent
+@export var interact_kb:InputEvent
 
 @export_category("Gamepad")
 @export var pause_gp:InputEvent
@@ -47,6 +49,7 @@ signal updated
 @export var action_2_gp:InputEvent
 @export var next_gp:InputEvent
 @export var previous_gp:InputEvent
+@export var interact_gp:InputEvent
 
 @export var aim_deadzone:float = 0.1
 ## Variable to not set it again
@@ -85,6 +88,7 @@ func _initialize()->void:
 	_init_action(action_2_action, [action_2_kb, action_2_gp].filter(_filter_empty))
 	_init_action(next_action, [next_kb, next_gp].filter(_filter_empty))
 	_init_action(previous_action, [previous_kb, previous_gp].filter(_filter_empty))
+	_init_action(interact_action, [interact_kb, interact_gp].filter(_filter_empty))
 	
 	updated.emit()
 
@@ -187,5 +191,11 @@ func prepare_load(data:Resource)->void:
 	_overwrite_action_inputs(action_2_action, [data.action_2_kb, data.action_2_gp].filter(_filter_empty))
 	_overwrite_action_inputs(next_action, [data.next_kb, data.next_gp].filter(_filter_empty))
 	_overwrite_action_inputs(previous_action, [data.previous_kb, data.previous_gp].filter(_filter_empty))
+	
+	# Saves from before the action existed have no events; keep the defaults then
+	if data.interact_kb != null || data.interact_gp != null:
+		interact_kb = data.interact_kb
+		interact_gp = data.interact_gp
+	_overwrite_action_inputs(interact_action, [interact_kb, interact_gp].filter(_filter_empty))
 	
 	updated.emit()

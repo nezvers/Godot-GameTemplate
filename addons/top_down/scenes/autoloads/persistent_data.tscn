@@ -7,10 +7,11 @@
 [ext_resource type="Resource" uid="uid://bx61rbuwillgh" path="res://addons/top_down/resources/global_resources/graphics_resource.tres" id="19_n170m"]
 [ext_resource type="Resource" uid="uid://0ghwdk05y7am" path="res://addons/top_down/resources/global_resources/audio_settings_resource.tres" id="20_kawqs"]
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="21_diff"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="22_crystal"]
 
 [node name="PersistentData" type="Node"]
 script = ExtResource("1_qc15f")
-saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs"), ExtResource("21_diff")])
+saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs"), ExtResource("21_diff"), ExtResource("22_crystal")])
 data = {
 "preload_resource": ExtResource("6_n3xuc")
 }

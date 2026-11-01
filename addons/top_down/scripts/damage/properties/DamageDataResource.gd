@@ -18,6 +18,9 @@ const DIFFICULTY:DifficultyResource = preload("res://addons/top_down/resources/g
 ## Status effects that can be applied to target
 @export var status_list:Array[DamageStatusResource]
 
+## Weapon upgrade bonus; exported so generations and splits carry it to projectiles.
+@export var upgrade_multiply:float = 1.0
+
 @export_group("Report")
 
 ## Exploiting that array is shared reference.
@@ -105,7 +108,7 @@ func process(resource_node:ResourceNode)->void:
 		
 		# Dealt damage
 		for _damage:DamageTypeResource in base_damage:
-			total_damage += max(_damage.value * damage_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
+			total_damage += max(_damage.value * damage_multiply * upgrade_multiply - _damage_resource.resistance_value_list[_damage.type], 0.0)
 		if _damage_resource.difficulty_scaled:
 			total_damage *= DIFFICULTY.damage_multiplier()
 	

@@ -151,6 +151,13 @@ theme_override_font_sizes/font_size = 8
 text = "Previous"
 vertical_alignment = 1
 
+[node name="LabelInteract" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer"]
+custom_minimum_size = Vector2(60, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Interact"
+vertical_alignment = 1
+
 [node name="LabelPause" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer" unique_id=977188758]
 custom_minimum_size = Vector2(60, 16)
 layout_mode = 2
@@ -264,6 +271,13 @@ texture_normal = null
 action_name = &"previous"
 event_variable = &"previous_kb"
 
+[node name="ButtonInteractKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonInteractGp")
+texture_normal = null
+action_name = &"interact"
+event_variable = &"interact_kb"
+
 [node name="ButtonPauseKb" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer2" unique_id=660191312 instance=ExtResource("2_lok53")]
 layout_mode = 2
 focus_neighbor_right = NodePath("../../VBoxContainer3/ButtonPauseGp")
@@ -375,6 +389,14 @@ focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonAction2Kb")
 texture_normal = null
 action_name = &"previous"
 event_variable = &"previous_gp"
+type = 1
+
+[node name="ButtonInteractGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" instance=ExtResource("2_lok53")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer2/ButtonInteractKb")
+texture_normal = null
+action_name = &"interact"
+event_variable = &"interact_gp"
 type = 1
 
 [node name="ButtonPauseGp" parent="MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Player1/VBoxContainer3" unique_id=2135493764 instance=ExtResource("2_lok53")]

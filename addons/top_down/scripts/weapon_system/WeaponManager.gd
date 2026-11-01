@@ -14,6 +14,9 @@ signal weapon_changed
 
 @export var item_pickup_instance_resource:InstanceResource
 
+## Run-scoped upgrade levels; optional
+@export var weapon_upgrade_resource:WeaponUpgradeResource
+
 ## List of instanced weapons available to the user
 ## Weapons that are already in the scene tree are added on _ready
 var weapon_list:Array[Weapon]
@@ -37,12 +40,16 @@ func _ready()->void:
 	
 	_setup_weapon_inventory()
 	_setup_input_connection()
+	if weapon_upgrade_resource != null:
+		weapon_upgrade_resource.updated.connect(_apply_all_upgrades)
 
 func _exit_tree() -> void:
 	weapon_inventory.selected_changed.disconnect(set_weapon_index)
 	weapon_inventory.updated.disconnect(_update_weapon_inventory)
 	weapon_inventory.removed.disconnect(_on_remove)
 	input_resource.switch_weapon.disconnect(_on_switch_weapon)
+	if weapon_upgrade_resource != null:
+		weapon_upgrade_resource.updated.disconnect(_apply_all_upgrades)
 
 func _setup_weapon_inventory()->void:
 	weapon_inventory = resource_node.get_resource("weapons")
@@ -83,9 +90,34 @@ func _add_new_weapon_from_scene(scene:PackedScene)->Weapon:
 	_weapon.resource_node = resource_node
 	_weapon.collision_mask = collision_mask
 	_weapon.damage_data_resource = _weapon.damage_data_resource.duplicate()
+	_apply_upgrade(_weapon, scene.resource_path)
 	
 	add_child(_weapon)
 	return _weapon
+
+## Scales damage and fire interval from the weapon's upgrade level.
+## The scene's interval is kept in meta so repeated upgrades don't compound.
+func _apply_upgrade(weapon:Weapon, scene_path:String)->void:
+	if weapon_upgrade_resource == null:
+		return
+	weapon.damage_data_resource.upgrade_multiply = weapon_upgrade_resource.damage_multiplier(scene_path)
+	var _interval_node:Node = weapon.get_node_or_null("WeaponTrigger/ProjectileInterval")
+	if _interval_node == null:
+		return
+	if !_interval_node.has_meta("base_interval"):
+		_interval_node.set_meta("base_interval", _interval_node.interval)
+	_interval_node.interval = _interval_node.get_meta("base_interval") * weapon_upgrade_resource.interval_multiplier(scene_path)
+
+func _apply_all_upgrades()->void:
+	for _path:String in weapon_dictionary:
+		_apply_upgrade(weapon_dictionary[_path], _path)
+
+## Scene path of the selected weapon, or empty without one.
+func get_current_weapon_path()->String:
+	for _path:String in weapon_dictionary:
+		if weapon_dictionary[_path] == current_weapon:
+			return _path
+	return ""
 
 func _update_weapon_inventory()->void:
 	weapon_list.clear()
