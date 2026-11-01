@@ -174,6 +174,27 @@ func _marker_source()->int:
 	return _ts.get_source_id(0)
 
 
+## Source for a marker generated from floor cell f: a painted floor look (mossy, bloody...)
+## carries over when this layer's tileset has a source with the same id, else the default.
+func _floor_look_source(f:Vector2i, default_src:int)->int:
+	var _floor_src:int = floor_layer.get_cell_source_id(f)
+	if _floor_src == -1:
+		return default_src
+	var _ts:TileSet = tilemap_layer.tile_set
+	if _ts.has_source(_floor_src) and _floor_src != floor_layer.tile_set.get_source_id(0):
+		return _floor_src
+	return default_src
+
+
+## Look for a hole gap: the first neighbouring floor cell with a painted look decides.
+func _gap_look_source(gap:Vector2i, default_src:int)->int:
+	for bit:int in _DELTAS:
+		var _src:int = _floor_look_source(gap + _DELTAS[bit], default_src)
+		if _src != default_src:
+			return _src
+	return default_src
+
+
 ## Place marker tiles along the floor boundary. Existing cells are never overwritten.
 ## WALL: rings every floor island's outer edge. Placement (measured from room_0_test):
 ## a floor edge open toward TL or BL puts the wall in the empty neighbour cell (outside);
@@ -206,7 +227,7 @@ func generate_from_floor()->void:
 				# TL/BL edge -> wall in the empty cell; TR/BR edge -> overlap the floor cell.
 				var _target:Vector2i = _np if (bit == SIDE_TL or bit == SIDE_BL) else f
 				if tilemap_layer.get_cell_source_id(_target) == -1:
-					tilemap_layer.set_cell(_target, _src, marker_atlas)
+					tilemap_layer.set_cell(_target, _floor_look_source(f, _src), marker_atlas)
 		# Corner bridge: where a floor's TL and BL neighbours both became walls, fill the
 		# up-left diagonal exterior cell so the top corner has no diagonal gap.
 		for f:Vector2i in _floor_cells:
@@ -220,7 +241,7 @@ func generate_from_floor()->void:
 			if _floor_set.has(_diag) or _gap_set.has(_diag):
 				continue
 			if tilemap_layer.get_cell_source_id(_diag) == -1:
-				tilemap_layer.set_cell(_diag, _src, marker_atlas)
+				tilemap_layer.set_cell(_diag, _floor_look_source(f, _src), marker_atlas)
 		# Interior corner: an interior floor cell whose TR and BR neighbours both became
 		# walls (the overlap edges) closes a corner — but only when its BL and TL back
 		# sides are symmetric (both floor or both empty). When exactly one of BL/TL is
@@ -238,12 +259,12 @@ func generate_from_floor()->void:
 				continue
 			if _floor_set.has(f + Vector2i(1, 1)):
 				continue
-			tilemap_layer.set_cell(f, _src, marker_atlas)
+			tilemap_layer.set_cell(f, _floor_look_source(f, _src), marker_atlas)
 	else:
 		# HOLE: fill the enclosed gap cells themselves (the empty space inside the floor).
 		for gap:Vector2i in _gap_set:
 			if tilemap_layer.get_cell_source_id(gap) == -1:
-				tilemap_layer.set_cell(gap, _src, marker_atlas)
+				tilemap_layer.set_cell(gap, _gap_look_source(gap, _src), marker_atlas)
 
 
 ## Flood-fill every empty cell reachable from the floor's adjacent empties; a connected empty

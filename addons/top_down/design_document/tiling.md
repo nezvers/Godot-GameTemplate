@@ -117,3 +117,24 @@ Re-running generate cleans up prior output first — safe to re-bake after repai
 Marker and custom data live in the tilesets:
 `resources/tilesets/tileset_isometric_walls.tres` (BlockWall marker, `collider_offset`
 and `scene_path`) and `resources/tilesets/tileset_isometric_holes.tres`.
+
+## Tile looks (mossy, bloody)
+The floors, walls and holes tilesets each have three atlas sources with the same layout
+and the same per-tile data (`texture_origin`, `y_sort_origin`, `collider_offset`,
+`poligon_points`, `scene_path`):
+
+| source id | look | atlas |
+|---|---|---|
+| base (floors/holes `1`, walls `0`) | plain | `tileset_isometric_<kind>.png` |
+| `10` | mossy / slimy | `tileset_isometric_<kind>_mossy.png` |
+| `20` | bloody | `tileset_isometric_<kind>_bloody.png` |
+
+- Paint a look by picking that source in the TileMap painter. Mixing looks cell by cell
+  is fine. Collision, hole spawning, A* and `SafeTileTracker` don't care about the source.
+- `TileVisualAutotiler` keeps each cell's source when it rewrites atlas coords. Walls and
+  holes made by Add Missing / Regenerate take the look of the floor cell they grow from,
+  so you can paint the floor mossy and regenerate to get mossy walls around it.
+- The variant atlases are generated: edit and rerun
+  `assets/images/generate_tile_variants.py` (stdlib only). It paints over the base
+  atlases without changing any alpha, so the variant footprints always match the base.
+  Rerun it after changing a base atlas.
