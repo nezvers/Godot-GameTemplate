@@ -57,15 +57,14 @@ func _ready()->void:
 	_connect_contraptions.call_deferred()
 
 func _on_wave_announced(wave_number:int, enemies:int, is_boss:bool, boss_name:String)->void:
-	if is_boss:
-		## The boss spawns only once its announcement has played.
-		if boss_wave_scene != null && _aggregator != null:
-			_aggregator.hold_spawning()
-			play(boss_wave_scene, [boss_name if !boss_name.is_empty() else "BOSS"], _aggregator.release_spawning)
-		else:
-			play(boss_wave_scene, [boss_name if !boss_name.is_empty() else "BOSS"])
+	var _scene:PackedScene = boss_wave_scene if is_boss else wave_start_scene
+	var _args:Array = [boss_name if !boss_name.is_empty() else "BOSS"] if is_boss else [wave_number, enemies]
+	## The wave spawns only once its announcement has played.
+	if _scene != null && _aggregator != null:
+		_aggregator.hold_spawning()
+		play(_scene, _args, _aggregator.release_spawning)
 	else:
-		play(wave_start_scene, [wave_number, enemies])
+		play(_scene, _args)
 
 func _on_wave_finished(wave_number:int, waves_left:int, section_cleared:bool, sections_left:int)->void:
 	if section_cleared:
