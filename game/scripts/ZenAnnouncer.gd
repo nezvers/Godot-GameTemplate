@@ -1,5 +1,6 @@
 ## Plays the Zen Animator HUD moments (res://zen/) over the room: wave start,
-## boss wave, wave cleared, section ("room") cleared and weapon pickup cards.
+## boss wave, wave cleared, section ("room") cleared, weapon pickup cards and
+## the contraptions' results (slot machine, meat grinder, slime workbench).
 ## The scenes are exported one-shots on a transparent 480x270 canvas; they are
 ## queued so back-to-back moments (wave cleared -> next wave) don't overlap.
 ## Never edit res://zen/ - a re-export replaces it; wire new scenes here.
@@ -16,6 +17,25 @@ extends CanvasLayer
 @export var weapon_inventory:ItemCollectionResource
 ## Weapon scene_path -> zen card scene.
 @export var weapon_cards:Dictionary[String, PackedScene]
+## Weapon scene_path -> name shown in zen texts, matching the cards; others use the item name.
+@export var weapon_names:Dictionary[String, String]
+
+@export_group("Contraptions")
+## "%1 DROPPED": a weapon from the slot machine.
+@export var slot_jackpot_scene:PackedScene
+## "+%1 MEAT"
+@export var slot_meat_scene:PackedScene
+## "+%1 COINS"
+@export var slot_coins_scene:PackedScene
+## "-%1 COIN": the pull paid out nothing.
+@export var slot_bust_scene:PackedScene
+## "%1 MEAT GROUND UP", "+%2 HEALTH" (hit points healed).
+@export var meat_grinder_scene:PackedScene
+## "%1 LV %2", "DAMAGE x%3   FIRE RATE x%4"
+@export var weapon_upgrade_scene:PackedScene
+## "UPGRADE YOUR %1 WITH SLIME"
+@export var workbench_unlocked_scene:PackedScene
+@export_group("")
 
 ## Seconds a scene holds at a pause marker before it continues on its own.
 @export var hold_time:float = 1.0
@@ -33,6 +53,8 @@ func _ready()->void:
 	if weapon_inventory != null:
 		_known_weapons = _weapon_paths()
 		weapon_inventory.updated.connect(_on_inventory_updated)
+	## Contraptions join their group in their own _ready, after this one runs.
+	_connect_contraptions.call_deferred()
 
 func _on_wave_announced(wave_number:int, enemies:int, is_boss:bool, boss_name:String)->void:
 	if is_boss:
@@ -58,6 +80,59 @@ func _on_inventory_updated()->void:
 			## Empty args: the card's own sample texts are the weapon name/description.
 			play(weapon_cards[_path], [])
 	_known_weapons = _paths
+
+func _connect_contraptions()->void:
+	for _node:Node in get_tree().get_nodes_in_group(Interactable.ALL_GROUP):
+		if _node is SlotMachine:
+			_node.paid_out.connect(_on_slot_paid_out.bind(_node))
+		elif _node is MeatGrinder:
+			_node.ground.connect(_on_meat_ground)
+		elif _node is SlimeWorkbench:
+			_node.unlocked.connect(_on_workbench_unlocked)
+			_node.upgraded.connect(_on_weapon_upgraded.bind(_node))
+
+func _on_slot_paid_out(drop:String, amount:int, weapon:ItemResource, machine:SlotMachine)->void:
+	match drop:
+		"nothing":
+			play(slot_bust_scene, [_cost_amount(machine.cost, "coin")])
+		"weapon":
+			play(slot_jackpot_scene, [weapon_name(weapon)])
+		"meat":
+			play(slot_meat_scene, [amount])
+		"coin":
+			play(slot_coins_scene, [amount])
+
+func _on_meat_ground(cost:Array, rewards:Array)->void:
+	var _heal:int = 0
+	for _reward:Dictionary in rewards:
+		if _reward.get("drop", "") == "health":
+			_heal += int(_reward.get("amount", 1)) * int(Balance.value("pickups.health.heal", 10))
+	play(meat_grinder_scene, [_cost_amount(cost, "meat"), _heal])
+
+func _on_workbench_unlocked(item:ItemResource)->void:
+	play(workbench_unlocked_scene, [weapon_name(item)])
+
+func _on_weapon_upgraded(item:ItemResource, level:int, bench:SlimeWorkbench)->void:
+	var _upgrade:WeaponUpgradeResource = bench.weapon_upgrade_resource
+	var _fire_rate:float = 1.0 / _upgrade.interval_multiplier(item.scene_path)
+	play(weapon_upgrade_scene, [weapon_name(item), level, _multiplier_text(_upgrade.damage_multiplier(item.scene_path)), _multiplier_text(_fire_rate)])
+
+## Display name for zen texts; "WEAPON" when there is none.
+func weapon_name(item:ItemResource)->String:
+	if item == null:
+		return "WEAPON"
+	return weapon_names.get(item.scene_path, item.resource_name.to_upper())
+
+static func _cost_amount(cost:Array, id:String)->int:
+	var _total:int = 0
+	for _entry:Dictionary in cost:
+		if _entry.get("item", "") == id:
+			_total += int(_entry.get("amount", 1))
+	return _total
+
+## 1.2 -> "1.2", 1.111 -> "1.1"
+static func _multiplier_text(value:float)->String:
+	return "%.1f" % value
 
 func _weapon_paths()->Array[String]:
 	var _paths:Array[String] = []

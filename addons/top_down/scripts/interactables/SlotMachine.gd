@@ -3,6 +3,9 @@
 class_name SlotMachine
 extends Interactable
 
+## One pull's result: drop is "nothing" on a bust, weapon is set for "weapon".
+signal paid_out(drop:String, amount:int, weapon:ItemResource)
+
 ## [{"item": id, "amount": n}] per pull (contraptions.slot_machine.cost).
 @export var cost:Array[Dictionary] = [{"item": "coin", "amount": 1}]
 ## [{"drop": id, "amount": n, "weight": w}] (contraptions.slot_machine.payouts).
@@ -69,10 +72,11 @@ func _pay_out()->void:
 	var _drop:String = _payout.get("drop", "nothing")
 	var _amount:int = int(_payout.get("amount", 1))
 	var _position:Vector2 = output_marker.global_position
+	var _weapon:ItemResource = null
 	if _drop == "weapon":
-		var _weapon:ItemResource = pick_weapon(randf())
+		_weapon = pick_weapon(randf())
 		if _weapon == null:
-			deny()
+			_bust()
 			return
 		item_pickup_instance.instance(func (inst:ItemPickup)->void:
 			inst.item_resource = _weapon
@@ -81,10 +85,15 @@ func _pay_out()->void:
 	elif LootItems.can_spawn(_drop):
 		LootItems.spawn(_drop, _amount, _position)
 	else:
-		deny()
+		_bust()
 		return
 	if sound_win != null:
 		sound_win.play_managed()
+	paid_out.emit(_drop, _amount, _weapon)
+
+func _bust()->void:
+	deny()
+	paid_out.emit("nothing", 0, null)
 
 ## Unlocked weapon picked by its balance jackpot_weight; weapons without one never drop.
 func pick_weapon(value:float)->ItemResource:

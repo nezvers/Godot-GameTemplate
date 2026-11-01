@@ -43,6 +43,13 @@
 [ext_resource type="Resource" uid="uid://btej3lqnjytbl" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="40_inv"]
 [ext_resource type="Resource" uid="uid://be8s05nqt2y5d" path="res://addons/top_down/resources/arena_resources/wave_number_resource.tres" id="41_wave"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="42_score"]
+[ext_resource type="PackedScene" path="res://zen/zs_slot_jackpot.tscn" id="zen_slot_jackpot"]
+[ext_resource type="PackedScene" path="res://zen/zs_slot_meat.tscn" id="zen_slot_meat"]
+[ext_resource type="PackedScene" path="res://zen/zs_slot_coins.tscn" id="zen_slot_coins"]
+[ext_resource type="PackedScene" path="res://zen/zs_slot_bust.tscn" id="zen_slot_bust"]
+[ext_resource type="PackedScene" path="res://zen/zs_meat_grinder.tscn" id="zen_meat_grinder"]
+[ext_resource type="PackedScene" path="res://zen/zs_weapon_upgrade.tscn" id="zen_weapon_upgrade"]
+[ext_resource type="PackedScene" path="res://zen/zs_workbench_unlocked.tscn" id="zen_workbench_unlocked"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_pkurn"]
 points = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
@@ -220,6 +227,19 @@ weapon_cards = Dictionary[String, PackedScene]({
 "res://addons/top_down/scenes/weapons/shotgun.tscn": ExtResource("36_zen"),
 "res://addons/top_down/scenes/weapons/sword.tscn": ExtResource("38_zen")
 })
+weapon_names = Dictionary[String, String]({
+"res://addons/top_down/scenes/weapons/assault_riffle.tscn": "ASSAULT RIFLE",
+"res://addons/top_down/scenes/weapons/gun.tscn": "PISTOL",
+"res://addons/top_down/scenes/weapons/shotgun.tscn": "SHOTGUN",
+"res://addons/top_down/scenes/weapons/sword.tscn": "KATANA"
+})
+slot_jackpot_scene = ExtResource("zen_slot_jackpot")
+slot_meat_scene = ExtResource("zen_slot_meat")
+slot_coins_scene = ExtResource("zen_slot_coins")
+slot_bust_scene = ExtResource("zen_slot_bust")
+meat_grinder_scene = ExtResource("zen_meat_grinder")
+weapon_upgrade_scene = ExtResource("zen_weapon_upgrade")
+workbench_unlocked_scene = ExtResource("zen_workbench_unlocked")
 
 [node name="DebugDraw" type="Node2D" parent="." unique_id=638060485]
 script = ExtResource("26_l7fet")

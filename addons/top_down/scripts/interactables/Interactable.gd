@@ -7,6 +7,8 @@ extends Node2D
 signal used
 
 const GROUP:StringName = &"interactable_in_range"
+## Every contraption in the room, for listeners such as the zen announcer.
+const ALL_GROUP:StringName = &"interactable"
 
 @export var area:Area2D
 @export_flags_2d_physics var collision_mask:int = 2
@@ -28,6 +30,7 @@ var _cooldown_left:float
 var _shake_tween:Tween
 
 func _ready()->void:
+	add_to_group(ALL_GROUP)
 	area.collision_layer = 0
 	area.collision_mask = collision_mask
 	area.body_entered.connect(_on_body_entered)

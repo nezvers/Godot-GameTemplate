@@ -4,21 +4,33 @@
 class_name SlimeWorkbench
 extends Interactable
 
+## The bench appeared because the first slime ball of the run was picked up.
+## item is the held weapon (null without one).
+signal unlocked(item:ItemResource)
+## item reached level (1 = first upgrade).
+signal upgraded(item:ItemResource, level:int)
+
 @export var slime_resource:ScoreResource
 @export var weapon_inventory:ItemCollectionResource
 @export var weapon_upgrade_resource:WeaponUpgradeResource
 ## Frame 0 idle, frame 1 bubbling.
 @export var sprite:Sprite2D
 
+var _started:bool
+
 func _ready()->void:
 	super()
 	slime_resource.updated.connect(_update_available)
 	tree_exiting.connect(slime_resource.updated.disconnect.bind(_update_available), CONNECT_ONE_SHOT)
 	_update_available()
+	_started = true
 
 ## Disabled nodes drop out of physics too, so the hidden bench doesn't block.
 func _update_available()->void:
 	var _available:bool = slime_resource.collected_total > 0
+	## Only a change during play; a bench that starts available stays quiet.
+	if _available && !visible && _started:
+		unlocked.emit.call_deferred(_selected_item())
 	visible = _available
 	process_mode = Node.PROCESS_MODE_INHERIT if _available else Node.PROCESS_MODE_DISABLED
 
@@ -40,6 +52,7 @@ func _use()->void:
 	var _item:ItemResource = _selected_item()
 	LootItems.pay(_next_cost(_item))
 	weapon_upgrade_resource.upgrade(_item.scene_path)
+	upgraded.emit(_item, weapon_upgrade_resource.get_level(_item.scene_path))
 	var _tween:Tween = create_tween()
 	for _frame:int in [1, 0, 1, 0]:
 		_tween.tween_callback(sprite.set_frame.bind(_frame))

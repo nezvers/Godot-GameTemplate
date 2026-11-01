@@ -1,4 +1,5 @@
 ## Plays room_A02 headless: walks the player to each contraption and presses interact.
+## Also checks the zen animation (and its texts) the ZenAnnouncer plays for each result.
 ##   Godot --headless --path . res://game/tests/contraption_play_check.tscn
 extends Node
 
@@ -6,6 +7,8 @@ const TD:String = "res://addons/top_down/"
 
 var failures:int = 0
 var checks:int = 0
+## [scene file, text args] of every zen scene the announcer added
+var zen_played:Array[Array] = []
 
 func check(condition:bool, label:String)->void:
 	checks += 1
@@ -37,6 +40,11 @@ func _ready()->void:
 	if _player == null:
 		_finish()
 		return
+	var _announcer:ZenAnnouncer = _room.get_node("ZenAnnouncer")
+	_announcer.add_to_group(&"zen_announcer_test")
+	_announcer.child_entered_tree.connect(func (node:Node)->void:
+		zen_played.append([node.scene_file_path.get_file(), Array(node.text_args)])
+	)
 	var _ysort:Node = _room.get_node("WallLayer_Ysorted")
 	var _grinder:MeatGrinder = _ysort.get_node("MeatGrinder")
 	var _bench:SlimeWorkbench = _ysort.get_node("SlimeWorkbench")
@@ -55,17 +63,21 @@ func _ready()->void:
 	check(_meat.value == 0 && _meat.collected_total == 3, "grinder took 3 meat")
 	await get_tree().create_timer(0.8).timeout
 	check(_count_named(_ysort, "HealthPickup") == _health_before + 1, "grinder spawned a health pickup")
+	check_zen("zs_meat_grinder.tscn", ["3", "10"], "grinder zen: 3 meat, +10 health")
 
 	# Workbench: hidden until slime, then upgrades the held gun
 	check(!_bench.visible, "bench hidden without slime")
 	_slime.add(2)
 	check(_bench.visible, "bench visible after slime")
+	await _frames(2)
+	check_zen("zs_workbench_unlocked.tscn", ["PISTOL"], "bench unlocked zen names the held gun")
 	await _stand_at(_player, _bench)
 	check(_bench.prompt_label.visible, "bench prompt shows in range")
 	await _press_interact()
 	check(_slime.value == 0 && _upgrades.get_level(_gun_path) == 1, "bench upgraded the gun")
 	var _manager:WeaponManager = _player.get_node("WeaponManager")
 	check(is_equal_approx(_manager.current_weapon.damage_data_resource.upgrade_multiply, 1.2), "held gun damage x1.2")
+	check_zen("zs_weapon_upgrade.tscn", ["PISTOL", "1", "1.2", "1.1"], "upgrade zen: level, damage, fire rate")
 
 	# Slot machine: each pull costs a coin, payout appears after the spin
 	_score.add(5)
@@ -77,7 +89,36 @@ func _ready()->void:
 	await get_tree().create_timer(1.3).timeout
 	check(!_slot.busy, "slot finished spinning")
 
+	# Each payout plays its own slot zen
+	var _cases:Array = [
+		[{"drop": "nothing", "weight": 1}, "zs_slot_bust.tscn", ["1"]],
+		[{"drop": "meat", "amount": 3, "weight": 1}, "zs_slot_meat.tscn", ["3"]],
+		[{"drop": "coin", "amount": 5, "weight": 1}, "zs_slot_coins.tscn", ["5"]],
+		[{"drop": "weapon", "weight": 1}, "zs_slot_jackpot.tscn", []],
+	]
+	var _dropped_weapons:Array[ItemResource] = []
+	_slot.paid_out.connect(func (_drop:String, _amount:int, weapon:ItemResource)->void: _dropped_weapons.append(weapon))
+	for _case:Array in _cases:
+		_slot.payouts = [_case[0]]
+		zen_played.clear()
+		await _press_interact()
+		await get_tree().create_timer(1.3).timeout
+		# the jackpot names whichever weapon the random pick dropped
+		var _args:Array = _case[2] if _case[0].drop != "weapon" else [_announcer.weapon_name(_dropped_weapons.back())]
+		check(_case[0].drop != "weapon" || _dropped_weapons.back() != null, "slot dropped a weapon")
+		check_zen(_case[1], _args, "slot %s zen" % _case[0].drop)
+
 	_finish()
+
+## The latest zen scene the announcer played or queued was `file` with these texts.
+## Back-to-back results wait in its queue until the one before has finished.
+func check_zen(file:String, args:Array, label:String)->void:
+	var _announcer:ZenAnnouncer = get_tree().get_first_node_in_group(&"zen_announcer_test")
+	var _last:Array = zen_played.back() if !zen_played.is_empty() else ["none", []]
+	if _announcer != null && !_announcer._queue.is_empty():
+		var _entry:Array = _announcer._queue.back()
+		_last = [(_entry[0] as PackedScene).resource_path.get_file(), Array(_entry[1]).map(func (v:Variant)->String: return str(v))]
+	check(_last[0] == file && _last[1] == args, "%s (got %s %s)" % [label, _last[0], _last[1]])
 
 func _finish()->void:
 	print("contraption_play_check: %d checks, %d failures" % [checks, failures])

@@ -2,6 +2,9 @@
 class_name MeatGrinder
 extends Interactable
 
+## The cost was paid and the rewards spawned.
+signal ground(cost:Array, rewards:Array)
+
 ## [{"item": id, "amount": n}], paid from the loot counters (contraptions.meat_grinder.cost).
 @export var cost:Array[Dictionary] = [{"item": "meat", "amount": 3}]
 ## [{"drop": id, "amount": n}] spawned at the output (contraptions.meat_grinder.rewards).
@@ -29,6 +32,7 @@ func _finish()->void:
 	busy = false
 	for _reward:Dictionary in rewards:
 		LootItems.spawn(_reward.get("drop", ""), int(_reward.get("amount", 1)), output_marker.global_position)
+	ground.emit(cost, rewards)
 
 func _prompt_text()->String:
 	return "Grind %s" % LootItems.describe(cost)
