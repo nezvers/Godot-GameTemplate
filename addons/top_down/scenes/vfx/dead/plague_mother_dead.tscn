@@ -1,0 +1,155 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/characters/plague_mother_dead_64x64.png" id="1_corpse"]
+[ext_resource type="Script" uid="uid://c505hy2cj5vwa" path="res://addons/great_games_library/resources/InstanceResource/PoolNode.gd" id="2_pool"]
+[ext_resource type="Material" uid="uid://dh55irc80dvm7" path="res://addons/top_down/resources/materials/dust_particle_material.tres" id="3_dust_material"]
+[ext_resource type="Material" path="res://addons/top_down/resources/ParticleProcessMaterial/big_jelly_landing.tres" id="4_process"]
+[ext_resource type="Texture2D" uid="uid://v48ccgwspkcp" path="res://addons/top_down/assets/images/vfx/dust_4_strip.png" id="5_dust"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/vfx/ParticleStarter.gd" id="6_starter"]
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_died"]
+resource_name = "died"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+}
+tracks/1/type = "animation"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorFlash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": PackedStringArray("flash"),
+"times": PackedFloat32Array(0.4)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../..:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(5, 6),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../../PoolNode")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"pool_return"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dead"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"died": SubResource("Animation_died")
+}
+
+[sub_resource type="Animation" id="Animation_flash_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_flash"]
+resource_name = "flash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.25, 0.75), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_flash"]
+_data = {
+&"RESET": SubResource("Animation_flash_reset"),
+&"flash": SubResource("Animation_flash")
+}
+
+[node name="PlagueMotherDead" type="Node2D"]
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Stretch" type="Node2D" parent="Body"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stretch"]
+position = Vector2(0, -29)
+texture = ExtResource("1_corpse")
+
+[node name="CharacterAnimator" type="AnimationPlayer" parent="Body/Stretch/Sprite2D"]
+libraries/ = SubResource("AnimationLibrary_dead")
+autoplay = &"died"
+
+[node name="ColorFlash" type="AnimationPlayer" parent="Body/Stretch/Sprite2D"]
+libraries/ = SubResource("AnimationLibrary_flash")
+
+[node name="Puff" type="GPUParticles2D" parent="."]
+modulate = Color(0.26, 0.84, 0.65, 1)
+material = ExtResource("3_dust_material")
+emitting = false
+amount = 128
+process_material = ExtResource("4_process")
+texture = ExtResource("5_dust")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+interpolate = false
+local_coords = true
+script = ExtResource("6_starter")
+
+[node name="PoolNode" type="Node" parent="." node_paths=PackedStringArray("ready_nodes", "animation_player_list", "particle2d_list")]
+script = ExtResource("2_pool")
+ready_nodes = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Puff")]
+animation_player_list = [NodePath("../Body/Stretch/Sprite2D/CharacterAnimator"), NodePath("../Body/Stretch/Sprite2D/ColorFlash")]
+particle2d_list = [NodePath("../Puff")]

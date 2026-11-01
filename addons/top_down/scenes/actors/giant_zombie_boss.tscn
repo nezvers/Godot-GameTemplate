@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://bphd2malk5asy" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="29_dmgtype"]
 [ext_resource type="Script" uid="uid://dg5sc14fyjex4" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="30_dmgstatus"]
 [ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="31_landvfx"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/vfx/dead/giant_zombie_dead_instance_resource.tres" id="31_deadvfx"]
 [ext_resource type="Resource" uid="uid://2oxos6r5uams" path="res://addons/top_down/resources/sounds/big_jelly_land.tres" id="32_landsnd"]
 [ext_resource type="Resource" uid="uid://pvw6k1ntsles" path="res://addons/top_down/resources/sounds/zombie_split.tres" id="34_splitsnd"]
 [ext_resource type="Resource" uid="uid://dkb7r2v362yj" path="res://addons/top_down/resources/CameraResources/player_damage_shake.tres" id="35_shake"]
@@ -294,7 +295,7 @@ enabled = false
 
 [node name="ActorDamage" parent="." index="11"]
 sound_resource_dead = ExtResource("18_killsnd")
-dead_vfx_instance_resource = ExtResource("31_landvfx")
+dead_vfx_instance_resource = ExtResource("31_deadvfx")
 
 [node name="DifficultyHealth" type="Node" parent="." index="17" unique_id=1894783474 node_paths=PackedStringArray("resource_node")]
 script = ExtResource("16_diffh")
