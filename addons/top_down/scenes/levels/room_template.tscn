@@ -28,7 +28,7 @@
 [ext_resource type="Script" uid="uid://dbse7tjd7wax7" path="res://addons/top_down/scripts/game/GameOverDetect.gd" id="21_sfjnq"]
 [ext_resource type="Script" uid="uid://d4mgwop6ohvpb" path="res://addons/great_games_library/nodes/utility/DebugDraw.gd" id="26_l7fet"]
 [ext_resource type="Script" uid="uid://yyra3r4158q3" path="res://addons/great_games_library/nodes/utility/TileSceneGenerator.gd" id="27_tscng"]
-[ext_resource type="Script" uid="uid://dl7rbourlvwco" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
+[ext_resource type="Script" uid="uid://c63bfa8wkjjat" path="res://addons/great_games_library/nodes/utility/TileVisualAutotiler.gd" id="28_tvaut"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/arena/EnemySpawnPoints.gd" id="29_espp"]
 [ext_resource type="Script" path="res://game/scripts/ZenAnnouncer.gd" id="30_zen"]
 [ext_resource type="PackedScene" path="res://zen/zs_wave_start.tscn" id="31_zen"]

@@ -13,7 +13,8 @@ extends Node
 enum LayerKind { WALL, HOLE, FLOOR }
 
 ## Recompute each painted cell's tile art from the surrounding FloorLayer + same-layer
-## neighbours. Run after painting markers or editing the floor.
+## neighbours. Run after painting markers or editing the floor. On a WALL/HOLE layer it first
+## fixes the FloorLayer's own edge tiles too (see fix_floor()).
 @export var fix_visual:bool : set = set_fix_visual
 
 @export_group("Generate from floor")
@@ -138,6 +139,7 @@ func set_fix_visual(_value:bool)->void:
 	if tilemap_layer == null or floor_layer == null:
 		push_warning("TileVisualAutotiler: assign tilemap_layer and floor_layer.")
 		return
+	fix_floor()
 	autotile()
 
 
@@ -158,6 +160,7 @@ func set_add_missing(_value:bool)->void:
 	if tilemap_layer == null or floor_layer == null:
 		push_warning("TileVisualAutotiler: assign tilemap_layer and floor_layer.")
 		return
+	fix_floor()
 	generate_from_floor()
 	autotile()
 
@@ -168,9 +171,24 @@ func set_regenerate(_value:bool)->void:
 	if tilemap_layer == null or floor_layer == null:
 		push_warning("TileVisualAutotiler: assign tilemap_layer and floor_layer.")
 		return
+	fix_floor()
 	tilemap_layer.clear()
 	generate_from_floor()
 	autotile()
+
+
+## WALL/HOLE: run the FLOOR rule on floor_layer first, so one Fix Visual click also fixes the
+## floor edges. The FloorLayer's own autotiler sits inside the instanced floor_layer.tscn and
+## is hidden in room scenes. Floor fixing only swaps atlas coords, so walls/holes don't change.
+func fix_floor()->void:
+	if layer_kind == LayerKind.FLOOR or floor_layer == null or floor_layer == tilemap_layer:
+		return
+	var _floor_fixer:Node = get_script().new()
+	_floor_fixer.tilemap_layer = floor_layer
+	_floor_fixer.floor_layer = floor_layer
+	_floor_fixer.layer_kind = LayerKind.FLOOR
+	_floor_fixer.autotile()
+	_floor_fixer.free()
 
 
 ## Source id used when placing new marker cells (first source on the layer's tileset).

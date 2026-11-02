@@ -23,6 +23,11 @@ a one-tile-wide strip (edges on opposite sides); such a cell takes the edge faci
 diagonal gets the matching inner-corner notch tile. Deterministic and re-runnable. The
 Generate-from-floor buttons do not apply to FLOOR (the floor is its own topology).
 
+The FloorLayer's own autotiler lives inside the instanced `floor_layer.tscn`, so it is
+hidden in room scenes. You don't need it: **Fix Visual** (and Add missing / Regenerate) on
+the `WallLayer_Ysorted` or `ObstacleLayer` autotiler runs this floor pass on its
+`floor_layer` first, then fixes its own layer.
+
 Note: the autotiler's `SIDE_*` names are a quarter turn off the screen; on screen +x is
 bottom-right, +y bottom-left, -x top-left, -y top-right. The floor picker uses the real
 directions (`_SCREEN_*`); the wall/hole tables were fitted to the old names and still work.
