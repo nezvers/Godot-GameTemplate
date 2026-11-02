@@ -1350,30 +1350,6 @@
 								"acid_slime",
 								"web_spider"
 							]
-						},
-						{
-							"count": 1,
-							"is_boss": true,
-							"display_name": "GIANT ZOMBIE",
-							"enemies": [
-								"giant_zombie"
-							]
-						},
-						{
-							"count": 1,
-							"is_boss": true,
-							"display_name": "BROODMOTHER",
-							"enemies": [
-								"broodmother"
-							]
-						},
-						{
-							"count": 1,
-							"is_boss": true,
-							"display_name": "PLAGUE MOTHER",
-							"enemies": [
-								"plague_mother"
-							]
 						}
 					]
 				}
@@ -1571,6 +1547,432 @@
 					"max_simultaneous": 1
 				},
 				"SpawnBoss": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C00": {
+			"scene": "res://game/scenes/room_C00.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 6,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"slime",
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C10": {
+			"scene": "res://game/scenes/room_C10.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"bloater"
+							]
+						},
+						{
+							"count": 12,
+							"enemies": [
+								"zombie",
+								"zombie_crawler",
+								"bloater"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C11": {
+			"scene": "res://game/scenes/room_C11.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 6,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "GIANT ZOMBIE",
+							"enemies": [
+								"giant_zombie"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C20": {
+			"scene": "res://game/scenes/room_C20.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"skitter_spider"
+							]
+						},
+						{
+							"count": 6,
+							"enemies": [
+								"skitter_spider",
+								"web_spider"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"skitter_spider",
+								"web_spider"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C21": {
+			"scene": "res://game/scenes/room_C21.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"skitter_spider"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "BROODMOTHER",
+							"enemies": [
+								"broodmother"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C30": {
+			"scene": "res://game/scenes/room_C30.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"slime",
+								"acid_slime"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"acid_slime",
+								"bloater"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"bloater",
+								"slime"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"slime",
+								"slime_small",
+								"acid_slime"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_C31": {
+			"scene": "res://game/scenes/room_C31.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"acid_slime",
+								"slime"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "PLAGUE MOTHER",
+							"enemies": [
+								"plague_mother"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
 					"max_simultaneous": 1
 				}
 			},

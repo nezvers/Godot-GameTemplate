@@ -15,9 +15,6 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/bloater_instance_resource.tres" id="21_bloater"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/acid_slime_instance_resource.tres" id="22_acidslime"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/web_spider_instance_resource.tres" id="23_webspider"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/giant_zombie_instance_resource.tres" id="24_giant"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/broodmother_instance_resource.tres" id="25_brood"]
-[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/plague_mother_instance_resource.tres" id="26_plague"]
 
 [sub_resource type="Resource" id="Wave_1"]
 script = ExtResource("4_wave")
@@ -28,27 +25,6 @@ instance_list = Array[ExtResource("5_inst")]([ExtResource("6_slime"), ExtResourc
 script = ExtResource("4_wave")
 count = 6
 instance_list = Array[ExtResource("5_inst")]([ExtResource("20_skitter"), ExtResource("21_bloater"), ExtResource("22_acidslime"), ExtResource("23_webspider")])
-
-[sub_resource type="Resource" id="Wave_3"]
-script = ExtResource("4_wave")
-is_boss = true
-display_name = "GIANT ZOMBIE"
-count = 1
-instance_list = Array[ExtResource("5_inst")]([ExtResource("24_giant")])
-
-[sub_resource type="Resource" id="Wave_4"]
-script = ExtResource("4_wave")
-is_boss = true
-display_name = "BROODMOTHER"
-count = 1
-instance_list = Array[ExtResource("5_inst")]([ExtResource("25_brood")])
-
-[sub_resource type="Resource" id="Wave_5"]
-script = ExtResource("4_wave")
-is_boss = true
-display_name = "PLAGUE MOTHER"
-count = 1
-instance_list = Array[ExtResource("5_inst")]([ExtResource("26_plague")])
 
 [node name="Room" unique_id=1453654075 instance=ExtResource("1_room0")]
 
@@ -66,14 +42,12 @@ scene_path = "res://game/scenes/room_start.tscn"
 scene_path = "res://game/scenes/room_A02.tscn"
 
 [node name="Stairs4" parent="Behind" parent_id_path=PackedInt32Array(309654739) index="3"]
-visible = false
-monitoring = false
-tag = "extra_b"
-connect_tag = "from_prev"
-scene_path = "res://game/scenes/room_2.tscn"
+tag = "boss_path"
+connect_tag = "c00_room1"
+scene_path = "res://game/scenes/room_C00.tscn"
 
 [node name="Section1" parent="EnemyManager" parent_id_path=PackedInt32Array(1112234375) index="0"]
-waves = Array[ExtResource("4_wave")]([SubResource("Wave_1"), SubResource("Wave_2"), SubResource("Wave_3"), SubResource("Wave_4"), SubResource("Wave_5")])
+waves = Array[ExtResource("4_wave")]([SubResource("Wave_1"), SubResource("Wave_2")])
 
 [node name="EnemySpawnPoints" parent="." index="9" unique_id=1628598410 node_paths=PackedStringArray("default_section")]
 default_section = NodePath("../EnemyManager/Section1")
