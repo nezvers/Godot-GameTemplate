@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://c2lnsswt0goh6" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls.png" id="1_jorl2"]
 [ext_resource type="Texture2D" uid="uid://nflj2uiay8s0" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_mossy.png" id="10_mossy"]
 [ext_resource type="Texture2D" uid="uid://cywlfwbrmrd1e" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_bloody.png" id="20_bloody"]
+[ext_resource type="Texture2D" uid="uid://loh3prpqw5uw" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_metal.png" id="30_metal"]
+[ext_resource type="Texture2D" uid="uid://dxtmnl3g7kchb" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_sandstone.png" id="40_sandstone"]
+[ext_resource type="Texture2D" uid="uid://bir6bnaqr35uc" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_walls_flesh.png" id="50_flesh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f5ja1"]
 texture = ExtResource("1_jorl2")
@@ -157,6 +160,159 @@ texture_region_size = Vector2i(32, 32)
 3:0/0/custom_data_0 = PackedVector2Array(0, 0, 0, 1)
 3:0/0/custom_data_1 = PackedVector2Array(18, 1, -2, 9, 0, -8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_metal"]
+texture = ExtResource("30_metal")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/custom_data_0 = PackedVector2Array(0, 0)
+0:0/0/custom_data_1 = PackedVector2Array(-16, 8, 16, 8, 0, -8)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/y_sort_origin = 16
+1:0/0/custom_data_0 = PackedVector2Array(0, 1, 1, 0, 1, 1)
+1:0/0/custom_data_1 = PackedVector2Array(-18, -1, 0, 8, 18, 1, 16, 16, 0, 24, -16, 16)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -8)
+1:1/0/custom_data_0 = PackedVector2Array(0, 0)
+1:1/0/custom_data_1 = PackedVector2Array(-18, -1, 2, 9, 18, 1, -2, -9)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -8)
+2:1/0/y_sort_origin = 8
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, -8)
+3:1/0/y_sort_origin = 8
+3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, -8)
+3:2/0/y_sort_origin = 16
+2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, -8)
+2:2/0/custom_data_0 = PackedVector2Array(0, 0)
+1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, -8)
+1:2/0/y_sort_origin = 16
+1:2/0/custom_data_0 = PackedVector2Array(0, 1)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -8)
+0:2/0/y_sort_origin = 16
+0:2/0/custom_data_0 = PackedVector2Array(1, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -8)
+0:1/0/custom_data_0 = PackedVector2Array(0, 0)
+0:1/0/custom_data_1 = PackedVector2Array(-2, 9, 18, -1, -2, -9, -18, 1)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/y_sort_origin = 16
+2:0/0/custom_data_0 = PackedVector2Array(0, 0, 1, 0)
+2:0/0/custom_data_1 = PackedVector2Array(-18, 1, 2, 9, 0, -8)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+3:0/0/y_sort_origin = 16
+3:0/0/custom_data_0 = PackedVector2Array(0, 0, 0, 1)
+3:0/0/custom_data_1 = PackedVector2Array(18, 1, -2, 9, 0, -8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sandstone"]
+texture = ExtResource("40_sandstone")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/custom_data_0 = PackedVector2Array(0, 0)
+0:0/0/custom_data_1 = PackedVector2Array(-16, 8, 16, 8, 0, -8)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/y_sort_origin = 16
+1:0/0/custom_data_0 = PackedVector2Array(0, 1, 1, 0, 1, 1)
+1:0/0/custom_data_1 = PackedVector2Array(-18, -1, 0, 8, 18, 1, 16, 16, 0, 24, -16, 16)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -8)
+1:1/0/custom_data_0 = PackedVector2Array(0, 0)
+1:1/0/custom_data_1 = PackedVector2Array(-18, -1, 2, 9, 18, 1, -2, -9)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -8)
+2:1/0/y_sort_origin = 8
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, -8)
+3:1/0/y_sort_origin = 8
+3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, -8)
+3:2/0/y_sort_origin = 16
+2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, -8)
+2:2/0/custom_data_0 = PackedVector2Array(0, 0)
+1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, -8)
+1:2/0/y_sort_origin = 16
+1:2/0/custom_data_0 = PackedVector2Array(0, 1)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -8)
+0:2/0/y_sort_origin = 16
+0:2/0/custom_data_0 = PackedVector2Array(1, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -8)
+0:1/0/custom_data_0 = PackedVector2Array(0, 0)
+0:1/0/custom_data_1 = PackedVector2Array(-2, 9, 18, -1, -2, -9, -18, 1)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/y_sort_origin = 16
+2:0/0/custom_data_0 = PackedVector2Array(0, 0, 1, 0)
+2:0/0/custom_data_1 = PackedVector2Array(-18, 1, 2, 9, 0, -8)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+3:0/0/y_sort_origin = 16
+3:0/0/custom_data_0 = PackedVector2Array(0, 0, 0, 1)
+3:0/0/custom_data_1 = PackedVector2Array(18, 1, -2, 9, 0, -8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_flesh"]
+texture = ExtResource("50_flesh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/custom_data_0 = PackedVector2Array(0, 0)
+0:0/0/custom_data_1 = PackedVector2Array(-16, 8, 16, 8, 0, -8)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/y_sort_origin = 16
+1:0/0/custom_data_0 = PackedVector2Array(0, 1, 1, 0, 1, 1)
+1:0/0/custom_data_1 = PackedVector2Array(-18, -1, 0, 8, 18, 1, 16, 16, 0, 24, -16, 16)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -8)
+1:1/0/custom_data_0 = PackedVector2Array(0, 0)
+1:1/0/custom_data_1 = PackedVector2Array(-18, -1, 2, 9, 18, 1, -2, -9)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -8)
+2:1/0/y_sort_origin = 8
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, -8)
+3:1/0/y_sort_origin = 8
+3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, -8)
+3:2/0/y_sort_origin = 16
+2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, -8)
+2:2/0/custom_data_0 = PackedVector2Array(0, 0)
+1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, -8)
+1:2/0/y_sort_origin = 16
+1:2/0/custom_data_0 = PackedVector2Array(0, 1)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -8)
+0:2/0/y_sort_origin = 16
+0:2/0/custom_data_0 = PackedVector2Array(1, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -8)
+0:1/0/custom_data_0 = PackedVector2Array(0, 0)
+0:1/0/custom_data_1 = PackedVector2Array(-2, 9, 18, -1, -2, -9, -18, 1)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/y_sort_origin = 16
+2:0/0/custom_data_0 = PackedVector2Array(0, 0, 1, 0)
+2:0/0/custom_data_1 = PackedVector2Array(-18, 1, 2, 9, 0, -8)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+3:0/0/y_sort_origin = 16
+3:0/0/custom_data_0 = PackedVector2Array(0, 0, 0, 1)
+3:0/0/custom_data_1 = PackedVector2Array(18, 1, -2, 9, 0, -8)
+
 [resource]
 resource_name = "Walls Tileset"
 tile_shape = 1
@@ -170,3 +326,6 @@ custom_data_layer_1/type = 35
 sources/0 = SubResource("TileSetAtlasSource_f5ja1")
 sources/10 = SubResource("TileSetAtlasSource_mossy")
 sources/20 = SubResource("TileSetAtlasSource_bloody")
+sources/30 = SubResource("TileSetAtlasSource_metal")
+sources/40 = SubResource("TileSetAtlasSource_sandstone")
+sources/50 = SubResource("TileSetAtlasSource_flesh")

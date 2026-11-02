@@ -1,6 +1,7 @@
 ## Every enemy leaves its own corpse instead of borrowing another enemy's death,
 ## the fists show a fist and throw a punch, and the floor/wall/hole tilesets carry
-## mossy (10) and bloody (20) looks that the autotiler keeps.
+## mossy (10) and bloody (20) overlay looks plus metal (30), sandstone (40) and flesh (50)
+## re-skins, all of which the autotiler keeps.
 ##   Godot --headless --path . res://game/tests/asset_variants_check.tscn
 extends Node
 
@@ -14,7 +15,9 @@ const TILESETS:Array[String] = [
 	TD + "resources/tilesets/tileset_isometric_walls.tres",
 	TD + "resources/tilesets/tileset_isometric_holes.tres",
 ]
-const LOOKS:Array[int] = [10, 20]
+const LOOKS:Array[int] = [10, 20, 30, 40, 50]
+## Full re-skins: same footprint as the base, but none of its colours.
+const RESKINS:Array[int] = [30, 40, 50]
 
 ## actor instance resource -> death scene it has to spawn
 const DEATHS:Dictionary = {
@@ -87,6 +90,27 @@ func _check_tileset(tile_set:TileSet)->void:
 			for _layer:int in tile_set.get_custom_data_layers_count():
 				_same = _same && _a.get_custom_data_by_layer_id(_layer) == _b.get_custom_data_by_layer_id(_layer)
 			check(_same, "%s look %d tile %s keeps the base tile data" % [_name, _look, _coord])
+		_check_pixels(_name, _look, _base.texture.get_image(), _source.texture.get_image())
+
+## Every look keeps the base footprint pixel for pixel; a re-skin repaints (nearly) all of it.
+func _check_pixels(tileset_name:String, look:int, base:Image, image:Image)->void:
+	if base.get_size() != image.get_size():
+		return
+	var _alpha_ok:bool = true
+	var _opaque:int = 0
+	var _same:int = 0
+	for _y:int in base.get_height():
+		for _x:int in base.get_width():
+			var _a:Color = base.get_pixel(_x, _y)
+			var _b:Color = image.get_pixel(_x, _y)
+			_alpha_ok = _alpha_ok && is_equal_approx(_a.a, _b.a)
+			if _a.a > 0.0:
+				_opaque += 1
+				if _a.r8 == _b.r8 && _a.g8 == _b.g8 && _a.b8 == _b.b8:
+					_same += 1
+	check(_alpha_ok, "%s look %d keeps the base footprint" % [tileset_name, look])
+	if look in RESKINS:
+		check(_same * 20 < _opaque, "%s look %d repaints the base (%d of %d pixels unchanged)" % [tileset_name, look, _same, _opaque])
 
 ## Painting a mossy floor and regenerating walls/holes gives mossy walls and holes;
 ## Fix Visual leaves a painted look alone.

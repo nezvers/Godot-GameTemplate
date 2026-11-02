@@ -140,6 +140,13 @@ and the same per-tile data (`texture_origin`, `y_sort_origin`, `collider_offset`
 | base (floors/holes `1`, walls `0`) | plain | `tileset_isometric_<kind>.png` |
 | `10` | mossy / slimy | `tileset_isometric_<kind>_mossy.png` |
 | `20` | bloody | `tileset_isometric_<kind>_bloody.png` |
+| `30` | industrial metal | `tileset_isometric_<kind>_metal.png` |
+| `40` | sandstone ruins | `tileset_isometric_<kind>_sandstone.png` |
+| `50` | flesh hive | `tileset_isometric_<kind>_flesh.png` |
+
+Mossy and bloody are overlays: the purple stone stays and gets moss or blood painted on.
+Metal, sandstone and flesh are full re-skins with none of the base colours left (tread plates
+with hazard-striped edges, flagstones and stone blocks, veined membrane and ribbed meat).
 
 - Paint a look by picking that source in the TileMap painter. Mixing looks cell by cell
   is fine. Collision, hole spawning, A* and `SafeTileTracker` don't care about the source.
@@ -150,3 +157,11 @@ and the same per-tile data (`texture_origin`, `y_sort_origin`, `collider_offset`
   `assets/images/generate_tile_variants.py` (stdlib only). It paints over the base
   atlases without changing any alpha, so the variant footprints always match the base.
   Rerun it after changing a base atlas.
+- The re-skins come from `assets/images/generate_tile_themes.py` (stdlib only). It reads only
+  the base's shape: alpha, the real edge lines of floors (lines the plain tile `(0,3)`
+  doesn't have), cracks, hole void and the lit/shadowed halves. It paints every pixel anew.
+  Floors use patterns that repeat every tile, so the plain tile tiles seamlessly. Wall tiles
+  stack into tall faces, so wall patterns run straight down. Rerun it after changing a base
+  atlas.
+- `game/tests/asset_variants_check` checks that every look keeps the base tiles, tile data
+  and footprint, and that the re-skins change (nearly) every pixel.

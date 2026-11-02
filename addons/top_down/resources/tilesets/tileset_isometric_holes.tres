@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bcvr4p0gnsf1p" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes.png" id="1_6gcsv"]
 [ext_resource type="Texture2D" uid="uid://m2rei61cwh3u" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes_mossy.png" id="10_mossy"]
 [ext_resource type="Texture2D" uid="uid://dk4v8kqyiggc7" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes_bloody.png" id="20_bloody"]
+[ext_resource type="Texture2D" uid="uid://cxfjapgytc82w" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes_metal.png" id="30_metal"]
+[ext_resource type="Texture2D" uid="uid://criciukv6br5n" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes_sandstone.png" id="40_sandstone"]
+[ext_resource type="Texture2D" uid="uid://cd03pr8pg40vf" path="res://addons/top_down/assets/images/tilesets/tileset_isometric_holes_flesh.png" id="50_flesh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vc22r"]
 texture = ExtResource("1_6gcsv")
@@ -103,6 +106,105 @@ use_texture_padding = false
 1:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
 1:0/0/custom_data_1 = PackedVector2Array(0, 0)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_metal"]
+texture = ExtResource("30_metal")
+texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -7)
+0:2/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:2/0/custom_data_1 = PackedVector2Array(0, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -7)
+0:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:1/0/custom_data_1 = PackedVector2Array(0, 0)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -7)
+2:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:0/0/custom_data_1 = PackedVector2Array(0, 0)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -7)
+2:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:1/0/custom_data_1 = PackedVector2Array(0, 0)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -7)
+1:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:1/0/custom_data_1 = PackedVector2Array(0, 0)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -7)
+0:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:0/0/custom_data_1 = PackedVector2Array(0, 0)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -7)
+1:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:0/0/custom_data_1 = PackedVector2Array(0, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sandstone"]
+texture = ExtResource("40_sandstone")
+texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -7)
+0:2/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:2/0/custom_data_1 = PackedVector2Array(0, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -7)
+0:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:1/0/custom_data_1 = PackedVector2Array(0, 0)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -7)
+2:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:0/0/custom_data_1 = PackedVector2Array(0, 0)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -7)
+2:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:1/0/custom_data_1 = PackedVector2Array(0, 0)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -7)
+1:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:1/0/custom_data_1 = PackedVector2Array(0, 0)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -7)
+0:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:0/0/custom_data_1 = PackedVector2Array(0, 0)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -7)
+1:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:0/0/custom_data_1 = PackedVector2Array(0, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_flesh"]
+texture = ExtResource("50_flesh")
+texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -7)
+0:2/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:2/0/custom_data_1 = PackedVector2Array(0, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -7)
+0:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:1/0/custom_data_1 = PackedVector2Array(0, 0)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -7)
+2:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:0/0/custom_data_1 = PackedVector2Array(0, 0)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -7)
+2:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+2:1/0/custom_data_1 = PackedVector2Array(0, 0)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -7)
+1:1/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:1/0/custom_data_1 = PackedVector2Array(0, 0)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -7)
+0:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+0:0/0/custom_data_1 = PackedVector2Array(0, 0)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -7)
+1:0/0/custom_data_0 = "res://addons/top_down/scenes/obstacles/hole_obstacle.tscn"
+1:0/0/custom_data_1 = PackedVector2Array(0, 0)
+
 [resource]
 resource_name = "Holes tileset"
 tile_shape = 1
@@ -116,3 +218,6 @@ custom_data_layer_1/type = 35
 sources/1 = SubResource("TileSetAtlasSource_vc22r")
 sources/10 = SubResource("TileSetAtlasSource_mossy")
 sources/20 = SubResource("TileSetAtlasSource_bloody")
+sources/30 = SubResource("TileSetAtlasSource_metal")
+sources/40 = SubResource("TileSetAtlasSource_sandstone")
+sources/50 = SubResource("TileSetAtlasSource_flesh")
