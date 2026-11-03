@@ -16,16 +16,19 @@
 [ext_resource type="Resource" uid="uid://b8o2o4evevl8k" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="14_player_refer"]
 [ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="15_scene_transi"]
 [ext_resource type="Resource" path="res://game/resources/campaign_resource.tres" id="16_campaign_res"]
-[ext_resource type="Script" uid="uid://beja08wyrf37a" path="res://game/scripts/RoomController.gd" id="17_RoomControll"]
-[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="18_room_cleared"]
-[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="19_fight_mode_r"]
-[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="20_remaining_wa"]
-[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="21_game_hud_ove"]
+[ext_resource type="Script" uid="uid://cp731snddafu0" path="res://addons/top_down/scripts/arena/StartingWeaponSpawner.gd" id="17_StartingWeap"]
+[ext_resource type="Resource" uid="uid://bytbvhnnajqxd" path="res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres" id="18_weapon_datab"]
+[ext_resource type="Resource" uid="uid://b6mldf5iax3rj" path="res://addons/top_down/resources/InstanceResources/pickups/item_pickup_instance_resource.tres" id="19_item_pickup_"]
+[ext_resource type="Script" uid="uid://beja08wyrf37a" path="res://game/scripts/RoomController.gd" id="20_RoomControll"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="21_room_cleared"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="22_fight_mode_r"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="23_remaining_wa"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="24_game_hud_ove"]
 
 [node name="Room" instance=ExtResource("1_room_templat")]
 
 [node name="FloorLayer" parent="Background"]
-tile_map_data = PackedByteArray("AAAAAAAAMgAAAAAAAAABAAAAMgABAAEAAAACAAAAMgABAAEAAAADAAAAMgABAAEAAAAEAAAAMgABAAEAAAAFAAAAMgABAAEAAAAGAAAAMgABAAEAAAAHAAAAMgABAAEAAAAIAAAAMgABAAEAAAAJAAAAMgABAAEAAAAKAAAAMgABAAEAAAALAAAAMgACAAAAAAAAAAEAMgAAAAEAAAABAAEAMgAAAAMAAAACAAEAMgAAAAMAAAADAAEAMgAAAAMAAAAEAAEAMgADAAIAAAAFAAEAMgABAAIAAAAGAAEAMgABAAIAAAAHAAEAMgACAAEAAAAIAAEAMgAAAAMAAAAJAAEAMgAAAAMAAAAKAAEAMgAAAAMAAAALAAEAMgAAAAIAAAAAAAIAMgAAAAEAAAABAAIAMgAAAAMAAAACAAIAMgAAAAMAAAADAAIAMgAAAAMAAAAEAAIAMgAAAAIAAAAHAAIAMgAAAAEAAAAIAAIAMgAAAAMAAAAJAAIAMgAAAAMAAAAKAAIAMgAAAAMAAAALAAIAMgAAAAIAAAAAAAMAMgAAAAEAAAABAAMAMgAAAAMAAAACAAMAMgAAAAMAAAADAAMAMgAAAAMAAAAEAAMAMgAAAAIAAAAHAAMAMgAAAAEAAAAIAAMAMgAAAAMAAAAJAAMAMgAAAAMAAAAKAAMAMgAAAAMAAAALAAMAMgAAAAIAAAAAAAQAMgAAAAEAAAABAAQAMgAAAAMAAAACAAQAMgAAAAMAAAADAAQAMgAAAAMAAAAEAAQAMgADAAEAAAAFAAQAMgABAAEAAAAGAAQAMgABAAEAAAAHAAQAMgACAAIAAAAIAAQAMgAAAAMAAAAJAAQAMgAAAAMAAAAKAAQAMgAAAAMAAAALAAQAMgAAAAIAAAAAAAUAMgAAAAEAAAABAAUAMgAAAAMAAAACAAUAMgAAAAMAAAADAAUAMgAAAAMAAAAEAAUAMgAAAAMAAAAFAAUAMgAAAAMAAAAGAAUAMgAAAAMAAAAHAAUAMgAAAAMAAAAIAAUAMgAAAAMAAAAJAAUAMgAAAAMAAAAKAAUAMgAAAAMAAAALAAUAMgAAAAIAAAAAAAYAMgAAAAEAAAABAAYAMgAAAAMAAAACAAYAMgAAAAMAAAADAAYAMgAAAAMAAAAEAAYAMgAAAAMAAAAFAAYAMgADAAMAAAAGAAYAMgAAAAMAAAAHAAYAMgAAAAMAAAAIAAYAMgAAAAMAAAAJAAYAMgAAAAMAAAAKAAYAMgAAAAMAAAALAAYAMgAAAAIAAAAAAAcAMgAAAAEAAAABAAcAMgAAAAMAAAACAAcAMgAAAAMAAAADAAcAMgAAAAMAAAAEAAcAMgAAAAMAAAAFAAcAMgAAAAMAAAAGAAcAMgAAAAMAAAAHAAcAMgAAAAMAAAAIAAcAMgAAAAMAAAAJAAcAMgAAAAMAAAAKAAcAMgAAAAMAAAALAAcAMgAAAAIAAAAAAAgAMgAAAAEAAAABAAgAMgADAAMAAAACAAgAMgAAAAMAAAADAAgAMgAAAAMAAAAEAAgAMgAAAAMAAAAFAAgAMgABAAMAAAAGAAgAMgACAAMAAAAHAAgAMgAAAAMAAAAIAAgAMgAAAAMAAAAJAAgAMgAAAAMAAAAKAAgAMgAAAAMAAAALAAgAMgAAAAIAAAAAAAkAMgADAAAAAAABAAkAMgABAAIAAAACAAkAMgABAAIAAAADAAkAMgABAAIAAAAEAAkAMgABAAIAAAAFAAkAMgABAAIAAAAGAAkAMgABAAIAAAAHAAkAMgABAAIAAAAIAAkAMgABAAIAAAAJAAkAMgABAAIAAAAKAAkAMgABAAIAAAALAAkAMgABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAMgAAAAAAAAABAAAAMgABAAEAAAACAAAAMgABAAEAAAADAAAAMgABAAEAAAAEAAAAMgABAAEAAAAFAAAAMgABAAEAAAAGAAAAMgABAAEAAAAHAAAAMgABAAEAAAAIAAAAMgABAAEAAAAJAAAAMgABAAEAAAAKAAAAMgABAAEAAAALAAAAMgACAAAAAAAAAAEAMgAAAAEAAAABAAEAMgAAAAMAAAACAAEAMgAAAAMAAAADAAEAMgAAAAMAAAAEAAEAMgADAAIAAAAFAAEAMgABAAIAAAAGAAEAMgABAAIAAAAHAAEAMgACAAEAAAAIAAEAMgAAAAMAAAAJAAEAMgAAAAMAAAAKAAEAMgAAAAMAAAALAAEAMgAAAAIAAAAAAAIAMgAAAAEAAAABAAIAMgAAAAMAAAACAAIAMgAAAAMAAAADAAIAMgAAAAMAAAAEAAIAMgAAAAIAAAAHAAIAMgAAAAEAAAAIAAIAMgAAAAMAAAAJAAIAMgAAAAMAAAAKAAIAMgAAAAMAAAALAAIAMgAAAAIAAAAAAAMAMgAAAAEAAAABAAMAMgAAAAMAAAACAAMAMgAAAAMAAAADAAMAMgAAAAMAAAAEAAMAMgAAAAIAAAAHAAMAMgAAAAEAAAAIAAMAMgAAAAMAAAAJAAMAMgAAAAMAAAAKAAMAMgAAAAMAAAALAAMAMgAAAAIAAAAAAAQAMgAAAAEAAAABAAQAMgAAAAMAAAACAAQAMgAAAAMAAAADAAQAMgAAAAMAAAAEAAQAMgADAAEAAAAFAAQAMgABAAEAAAAGAAQAMgABAAEAAAAHAAQAMgACAAIAAAAIAAQAMgAAAAMAAAAJAAQAMgAAAAMAAAAKAAQAMgAAAAMAAAALAAQAMgAAAAIAAAAAAAUAMgAAAAEAAAABAAUAMgAAAAMAAAACAAUAMgAAAAMAAAADAAUAMgAAAAMAAAAEAAUAMgAAAAMAAAAFAAUAMgAAAAMAAAAGAAUAMgAAAAMAAAAHAAUAMgAAAAMAAAAIAAUAMgAAAAMAAAAJAAUAMgAAAAMAAAAKAAUAMgAAAAMAAAALAAUAMgAAAAIAAAAAAAYAMgAAAAEAAAABAAYAMgAAAAMAAAACAAYAMgAAAAMAAAADAAYAMgAAAAMAAAAEAAYAMgAAAAMAAAAFAAYAMgAAAAMAAAAGAAYAMgADAAMAAAAHAAYAMgAAAAMAAAAIAAYAMgAAAAMAAAAJAAYAMgAAAAMAAAAKAAYAMgAAAAMAAAALAAYAMgAAAAIAAAAAAAcAMgAAAAEAAAABAAcAMgAAAAMAAAACAAcAMgAAAAMAAAADAAcAMgAAAAMAAAAEAAcAMgAAAAMAAAAFAAcAMgAAAAMAAAAGAAcAMgAAAAMAAAAHAAcAMgAAAAMAAAAIAAcAMgAAAAMAAAAJAAcAMgAAAAMAAAAKAAcAMgAAAAMAAAALAAcAMgAAAAIAAAAAAAgAMgAAAAEAAAABAAgAMgADAAMAAAACAAgAMgADAAMAAAADAAgAMgAAAAMAAAAEAAgAMgAAAAMAAAAFAAgAMgAAAAMAAAAGAAgAMgABAAMAAAAHAAgAMgACAAMAAAAIAAgAMgAAAAMAAAAJAAgAMgAAAAMAAAAKAAgAMgAAAAMAAAALAAgAMgAAAAIAAAAAAAkAMgADAAAAAAABAAkAMgABAAIAAAACAAkAMgABAAIAAAADAAkAMgABAAIAAAAEAAkAMgABAAIAAAAFAAkAMgABAAIAAAAGAAkAMgABAAIAAAAHAAkAMgABAAIAAAAIAAkAMgABAAIAAAAJAAkAMgABAAIAAAAKAAkAMgABAAIAAAALAAkAMgABAAAAAAA=")
 
 [node name="ObstacleLayer" parent="Background"]
 tile_map_data = PackedByteArray("AAAFAAIAMgAAAAAAAAAGAAIAMgAAAAEAAAAFAAMAMgACAAAAAAAGAAMAMgAAAAIAAAA=")
@@ -257,15 +260,26 @@ scene_transition_resource = ExtResource("15_scene_transi")
 campaign_resource = ExtResource("16_campaign_res")
 run_resources = Array[Resource]([ExtResource("7_score_resour"), ExtResource("8_meat_resourc"), ExtResource("9_slime_resour"), ExtResource("10_weapon_upgra"), ExtResource("11_weapon_inven"), ExtResource("12_room_state_r")])
 
+[node name="StartingWeapon" type="Node2D" parent="." node_paths=PackedStringArray("exit_nodes", "position_nodes")]
+script = ExtResource("17_StartingWeap")
+exit_nodes = [NodePath("../Behind/Stairs")]
+position_nodes = [NodePath("WeaponSpot1")]
+weapon_database = ExtResource("18_weapon_datab")
+weapon_pickup_instance_resource = ExtResource("19_item_pickup_")
+scene_transition_resource = ExtResource("15_scene_transi")
+
+[node name="WeaponSpot1" type="Marker2D" parent="StartingWeapon"]
+position = Vector2(0, 64)
+
 [node name="RoomController" type="Node" parent="." node_paths=PackedStringArray("arena_entry")]
-script = ExtResource("17_RoomControll")
+script = ExtResource("20_RoomControll")
 room_id = &"room_P00"
 room_state_resource = ExtResource("12_room_state_r")
-room_cleared_resource = ExtResource("18_room_cleared")
-fight_mode_resource = ExtResource("19_fight_mode_r")
-remaining_wave_count_resource = ExtResource("20_remaining_wa")
+room_cleared_resource = ExtResource("21_room_cleared")
+fight_mode_resource = ExtResource("22_fight_mode_r")
+remaining_wave_count_resource = ExtResource("23_remaining_wa")
 arena_entry = NodePath("../ArenaEntry")
 
-[node name="GameHudOverlay" parent="." instance=ExtResource("21_game_hud_ove")]
+[node name="GameHudOverlay" parent="." instance=ExtResource("24_game_hud_ove")]
 
 [editable path="EnemyManager"]

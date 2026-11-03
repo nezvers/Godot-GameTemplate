@@ -14,6 +14,9 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/sounds/slot_win.tres" id="win"]
 [ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="state"]
 
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/AstarShapeObstacle.gd" id="astar_obstacle"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/arena_resources/obstacle_astargrid_resource.tres" id="astar_grid"]
+
 [sub_resource type="RectangleShape2D" id="body_shape"]
 size = Vector2(18, 6)
 
@@ -54,6 +57,11 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -3)
 shape = SubResource("body_shape")
+
+[node name="AstarShapeObstacle" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("astar_obstacle")
+astargrid_resource = ExtResource("astar_grid")
+body = NodePath("../StaticBody2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1, 0.5)

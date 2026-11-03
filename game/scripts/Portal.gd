@@ -1,4 +1,4 @@
-## A door that stays shut until a room is cleared. Boss rooms get one back to the
+## A door that stays shut and hidden until a room is cleared. Boss rooms get one back to the
 ## campaign's first hub and a victory exit, both waiting for the boss room itself;
 ## the hub gets one per boss room, waiting for that room, so killing a boss opens a
 ## two-way shortcut for the rest of the run.
@@ -30,9 +30,10 @@ func _refresh()->void:
 	if !is_open && room_state_resource.is_cleared(open_when_cleared):
 		set_open(true)
 
-## Closed portals don't monitor, so walking over them does nothing.
+## Closed portals are hidden and don't monitor, so walking over them does nothing.
 func set_open(value:bool)->void:
 	is_open = value
+	visible = value
 	set_deferred("monitoring", value)
 	if sprite != null:
 		sprite.frame = 1 if value else 0

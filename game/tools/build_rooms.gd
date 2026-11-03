@@ -23,6 +23,8 @@
 ##   V  victory exit of a boss room, shut until the boss room is cleared
 ##   P  player spawn when the room is started directly (off the doors: a door under
 ##      the player sends them straight through it)
+##   w  starting weapon pickup (start rooms): one random unlocked weapon per cell; the
+##      doors stay shut until every one is picked up
 ##
 ## Spec keys: name, look, accent, patches, doors {char: [tag, connect_tag, room]},
 ## portals {char: [tag, connect_tag, room, room it waits for]}, sections, boss_section,
@@ -198,12 +200,16 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 	var _prop_counts:Dictionary = {}
 	var _triggers:Array[String] = []
 	var _spawns:Array[String] = []
+	var _door_names:PackedStringArray = []
+	var _weapon_spots:PackedStringArray = []
 	for _cell:Vector2i in _sorted(_cells.keys()):
 		var _c:String = _cells[_cell]
 		var _pos:String = var_to_str(_floor.map_to_local(_cell))
 		if spec.doors.has(_c):
 			_door_index += 1
-			_out.node("Stairs" if _door_index == 1 else "Stairs%d" % _door_index, "Behind", {
+			var _door_name:String = "Stairs" if _door_index == 1 else "Stairs%d" % _door_index
+			_door_names.append("NodePath(\"../Behind/%s\")" % _door_name)
+			_out.node(_door_name, "Behind", {
 				"position": _pos,
 				"tag": "\"%s\"" % spec.doors[_c][0],
 				"connect_tag": "\"%s\"" % spec.doors[_c][1],
@@ -226,6 +232,8 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 			_out.node("%s%d" % [_base, _prop_counts[_base]], "WallLayer_Ysorted", {"position": _pos}, _out.ext("PackedScene", TD + INTERACTABLES[_c]))
 		elif _c == "P":
 			_out.node("PlayerSpawner", ".", {"position": _pos})
+		elif _c == "w":
+			_weapon_spots.append(_pos)
 		elif PROPS.has(_c):
 			var _scene:PackedScene = load(TD + PROPS[_c])
 			var _base:String = _scene.get_state().get_node_name(0)
@@ -263,6 +271,22 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 			"campaign_resource": _out.ext("Resource", "res://game/resources/campaign_resource.tres"),
 			"run_resources": "Array[Resource]([%s])" % ", ".join(_run),
 		}, "", "Node")
+	if !_weapon_spots.is_empty():
+		if !spec.get("start", false):
+			_problem("%s: 'w' starting weapons only work in a start room" % key)
+		var _spot_paths:PackedStringArray = []
+		for _i:int in _weapon_spots.size():
+			_spot_paths.append("NodePath(\"WeaponSpot%d\")" % (_i + 1))
+		_out.node("StartingWeapon", ".", {
+			"script": _out.ext("Script", TD + "scripts/arena/StartingWeaponSpawner.gd"),
+			"exit_nodes": "[%s]" % ", ".join(_door_names),
+			"position_nodes": "[%s]" % ", ".join(_spot_paths),
+			"weapon_database": _out.ext("Resource", TD + "resources/ItemCollectionResource/weapon_database.tres"),
+			"weapon_pickup_instance_resource": _out.ext("Resource", TD + "resources/InstanceResources/pickups/item_pickup_instance_resource.tres"),
+			"scene_transition_resource": _out.ext("Resource", TD + "resources/global_resources/scene_transition_resource.tres"),
+		}, "", "Node2D")
+		for _i:int in _weapon_spots.size():
+			_out.node("WeaponSpot%d" % (_i + 1), "StartingWeapon", {"position": _weapon_spots[_i]}, "", "Marker2D")
 	_out.node("RoomController", ".", {
 		"script": _out.ext("Script", "res://game/scripts/RoomController.gd"),
 		"room_id": "&\"room_%s\"" % key,
@@ -520,7 +544,7 @@ class SceneText:
 			_head += " parent=\"%s\"" % parent
 		var _paths:PackedStringArray = []
 		for _key:String in props:
-			if String(props[_key]).begins_with("NodePath("):
+			if String(props[_key]).begins_with("NodePath(") || String(props[_key]).begins_with("[NodePath("):
 				_paths.append("\"%s\"" % _key)
 		if !_paths.is_empty():
 			_head += " node_paths=PackedStringArray(%s)" % ", ".join(_paths)

@@ -38,7 +38,11 @@ section. That section is written without `requires`, and no gate waits for it, s
 guard fight is optional. The alcove is closed by a gate, a `3` barrier and a `z` trigger.
 
 To add a new interactable:
-1. Put its scene in `scenes/interactables/`.
+1. Put its scene in `scenes/interactables/`. Give it an `AstarShapeObstacle` pointing at its
+   `StaticBody2D`, so enemies path around it rather than into it. The obstacle blocks every grid
+   tile its body touches, and frees them while the node is disabled, as with the hidden
+   workbench. `game/tests/obstacle_path_check` checks that the blocked tiles never cut off
+   floor and that a zombie walks around each contraption.
 2. Add a character for it to `INTERACTABLES` in `game/tools/build_rooms.gd`.
 3. Place it in a side room of each campaign. `campaign_check` fails until every
    interactable scene appears in every campaign.
@@ -50,8 +54,8 @@ balance.json. It stays open for the run: `RoomStateResource.looted` remembers it
 the next campaign start.
 
 ## Portals
-`scenes/obstacles/portal.tscn` (`game/scripts/Portal.gd`, extends `SceneEntry`) is shut,
-showing a dormant ring, until the room in `open_when_cleared` is cleared.
+`scenes/obstacles/portal.tscn` (`game/scripts/Portal.gd`, extends `SceneEntry`) is shut
+and hidden until the room in `open_when_cleared` is cleared, then appears as the open vortex.
 
 - **Boss room:** `O` goes to the campaign hub. `V` is the victory exit to
   `victory.tscn`. Both wait for the boss room itself.
@@ -68,6 +72,10 @@ target room.
   loot boxes all start over. It also records itself as `CampaignResource.start_scene`.
   Try Again (game over) and Play Again (victory) use `CampaignRestartButton` to restart
   that campaign.
+- **Starting weapon:** each `w` cell in a start room's map becomes a `StartingWeaponSpawner`
+  spot. It holds one random unlocked weapon, and the room's doors stay hidden until every
+  spot is picked up, as in `room_start`. Walking back in through a door places nothing.
+  The N00 and P00 start rooms have one `w` each.
 - **Unlocking New Game+:** walking through a boss room's victory exit opens the victory
   screen. That calls `CampaignResource.unlock_ng_plus()`, which is saved as
   `user://Campaign.tres` and loaded at boot by `PersistentData`. The title's

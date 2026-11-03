@@ -26,12 +26,16 @@ func _ready()->void:
 	request_ready()
 
 func get_target_path(to:Vector2)->PackedVector2Array:
-	var _from_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(position_node.global_position)
+	var _tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(position_node.global_position)
+	# a solid start gives no path, so standing in a blocked cell (wall overlap, next to a prop) starts from a free one
+	var _from_tile:Vector2i = _free_tile_near(_tile)
 	var _to_tile:Vector2i = astargrid_resource.tilemap_layer.local_to_map(to)
-	navigation_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile)
-	tile_path = astargrid_resource.value.get_id_path(_from_tile, _to_tile)
-	
-	if navigation_path.size() > 1:
+	# partial: a target standing in a blocked cell still gets a path to the closest free cell
+	navigation_path = astargrid_resource.value.get_point_path(_from_tile, _to_tile, true)
+	tile_path = astargrid_resource.value.get_id_path(_from_tile, _to_tile, true)
+
+	# walk to the free start cell first when it isn't the one the actor stands in
+	if navigation_path.size() > 1 && _from_tile == _tile:
 		index = 1
 	else:
 		index = 0
@@ -40,6 +44,29 @@ func get_target_path(to:Vector2)->PackedVector2Array:
 	if visible:
 		points = navigation_path
 	return navigation_path
+
+## The tile itself when free, else the free tile within 2 rings whose center is closest to the actor
+func _free_tile_near(tile:Vector2i)->Vector2i:
+	var _astar:AStarGrid2D = astargrid_resource.value
+	if !_astar.region.has_point(tile) || !_astar.is_point_solid(tile):
+		return tile
+	var _tilemap:TileMapLayer = astargrid_resource.tilemap_layer
+	var _position:Vector2 = _tilemap.to_local(position_node.global_position)
+	for _ring:int in [1, 2]:
+		var _best:Vector2i = tile
+		var _best_distance:float = INF
+		for _x:int in range(-_ring, _ring + 1):
+			for _y:int in range(-_ring, _ring + 1):
+				var _cell:Vector2i = tile + Vector2i(_x, _y)
+				if maxi(absi(_x), absi(_y)) != _ring || !_astar.region.has_point(_cell) || _astar.is_point_solid(_cell):
+					continue
+				var _distance:float = _tilemap.map_to_local(_cell).distance_squared_to(_position)
+				if _distance < _best_distance:
+					_best_distance = _distance
+					_best = _cell
+		if _best != tile:
+			return _best
+	return tile
 
 ## TODO: Don't use top_level to be able use position
 ##

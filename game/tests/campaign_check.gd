@@ -127,6 +127,12 @@ func _check_room(name:String, spec:Dictionary, room:Node, entry:Dictionary)->voi
 		var _fresh:Node = room.get_node_or_null("FreshStart")
 		check(_fresh != null && _fresh.campaign_resource != null, "%s is a campaign start (FreshStart)" % name)
 		check(_fresh != null && _fresh.run_resources.has(_state), "%s start resets the room state" % name)
+		var _weapon:StartingWeaponSpawner = room.get_node_or_null("StartingWeapon")
+		check(_weapon != null && _weapon.position_nodes.size() == 1, "%s places one starting weapon" % name)
+		if _weapon != null:
+			for _spot:Node2D in _weapon.position_nodes:
+				check(_walkable.call(_spot.position), "%s %s on walkable floor" % [name, _spot.name])
+			check(_weapon.exit_nodes.size() == _doors.size(), "%s doors open once the weapon is picked up" % name)
 
 	var _sections:Array[ArenaSection] = []
 	for _i:int in 3:
@@ -347,7 +353,7 @@ func _play_sections()->void:
 	_room.queue_free()
 	await _frames(2)
 
-## room_N12's portal and victory exit stay shut through the fight and open once the
+## room_N12's portal and victory exit stay shut and hidden through the fight and open once the
 ## Giant Zombie's section clears; the Sun Court's portal to it opens with them, the one
 ## to the Broodmother stays shut.
 func _play_portals()->void:
@@ -357,19 +363,19 @@ func _play_portals()->void:
 	await _frames(10)
 	var _portals:Array[SceneEntry] = _entries(_room).filter(func (e:SceneEntry)->bool: return e is Portal)
 	check(_portals.size() == 2, "room_N12 has a portal and a victory exit")
-	check(_portals.all(func (p:Portal)->bool: return !p.is_open && !p.monitoring), "boss room portals start shut")
+	check(_portals.all(func (p:Portal)->bool: return !p.is_open && !p.monitoring && !p.visible), "boss room portals start shut and hidden")
 	var _s1:ArenaSection = _room.get_node("EnemyManager/Section1")
 	var _s2:ArenaSection = _room.get_node("EnemyManager/Section2")
 	_s1.try_start()
 	_finish(_s1)
 	await _frames(5)
-	check(_portals.all(func (p:Portal)->bool: return !p.is_open), "portals stay shut while the boss lives")
+	check(_portals.all(func (p:Portal)->bool: return !p.is_open && !p.visible), "portals stay shut and hidden while the boss lives")
 	_s2.try_start()
 	check(_s2.fight_active, "the boss section starts")
 	_finish(_s2)
 	await _frames(5)
 	check(_state.is_cleared(&"room_N12"), "room_N12 cleared once the boss dies")
-	check(_portals.all(func (p:Portal)->bool: return p.is_open && p.monitoring), "boss room portals open once the boss dies")
+	check(_portals.all(func (p:Portal)->bool: return p.is_open && p.monitoring && p.visible), "boss room portals open and show once the boss dies")
 	_room.queue_free()
 	await _frames(2)
 
@@ -379,8 +385,8 @@ func _play_portals()->void:
 	for _portal:SceneEntry in _entries(_hub):
 		if _portal is Portal:
 			var _open:bool = _portal.open_when_cleared == &"room_N12"
-			check(_portal.is_open == _open && _portal.monitoring == _open,
-				"room_N02 %s is %s" % [_portal.name, "open" if _open else "shut"])
+			check(_portal.is_open == _open && _portal.monitoring == _open && _portal.visible == _open,
+				"room_N02 %s is %s" % [_portal.name, "open" if _open else "shut and hidden"])
 	_hub.queue_free()
 	await _frames(2)
 
@@ -457,8 +463,19 @@ func _play_campaign_start()->void:
 	await _frames(5)
 	check(!_state.is_cleared(&"room_N12"), "a campaign start resets the cleared rooms")
 	check(_campaign.restart_scene() == SCENES + "room_N00.tscn", "a campaign start becomes the restart scene")
+	check(_pickups(_room).size() == 1, "a campaign start places one starting weapon pickup")
+	check(!(_room.get_node("Behind/Stairs") as Node2D).visible, "the start room's door waits for the weapon")
 	_room.queue_free()
 	await _frames(2)
+
+func _pickups(node:Node)->Array[Node]:
+	var _list:Array[Node] = []
+	var _script:Script = node.get_script()
+	if _script != null && _script.get_global_name() == "ItemPickup" && node.is_inside_tree():
+		_list.append(node)
+	for _child:Node in node.get_children():
+		_list.append_array(_pickups(_child))
+	return _list
 
 ## What the last kill does: every wave is past, then the section clears.
 func _finish(section:ArenaSection)->void:

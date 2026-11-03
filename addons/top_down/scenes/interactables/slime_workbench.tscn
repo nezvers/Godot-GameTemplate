@@ -12,6 +12,9 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="inventory"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/weapon_upgrade_resource.tres" id="upgrades"]
 
+[ext_resource type="Script" path="res://addons/great_games_library/nodes/Navigation/AstarShapeObstacle.gd" id="astar_obstacle"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/arena_resources/obstacle_astargrid_resource.tres" id="astar_grid"]
+
 [sub_resource type="RectangleShape2D" id="body_shape"]
 size = Vector2(30, 6)
 
@@ -49,6 +52,11 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -3)
 shape = SubResource("body_shape")
+
+[node name="AstarShapeObstacle" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("astar_obstacle")
+astargrid_resource = ExtResource("astar_grid")
+body = NodePath("../StaticBody2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1, 0.5)
