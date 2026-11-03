@@ -40,6 +40,9 @@ var input_resource:InputResource
 ## Store scene in memory to "load" faster
 var weapon_scene_cache:Array[PackedScene]
 
+## Multiplies every weapon's damage on top of its upgrade level (meta-upgrades)
+var meta_damage_multiply:float = 1.0
+
 func _ready()->void:
 	# TODO: Prepare for use with PoolNode
 	request_ready()
@@ -105,12 +108,21 @@ func _add_new_weapon_from_scene(scene:PackedScene)->Weapon:
 	add_child(_weapon)
 	return _weapon
 
+## Meta-upgrade damage bonus on every weapon, set by MetaStats.
+func set_meta_damage_multiply(value:float)->void:
+	meta_damage_multiply = value
+	_apply_upgrade(default_weapon, "")
+	_apply_all_upgrades()
+
 ## Scales damage and fire interval from the weapon's upgrade level.
 ## The scene's interval is kept in meta so repeated upgrades don't compound.
 func _apply_upgrade(weapon:Weapon, scene_path:String)->void:
-	if weapon_upgrade_resource == null:
+	if weapon == null:
 		return
-	weapon.damage_data_resource.upgrade_multiply = weapon_upgrade_resource.damage_multiplier(scene_path)
+	if weapon_upgrade_resource == null:
+		weapon.damage_data_resource.upgrade_multiply = meta_damage_multiply
+		return
+	weapon.damage_data_resource.upgrade_multiply = weapon_upgrade_resource.damage_multiplier(scene_path) * meta_damage_multiply
 	var _interval_node:Node = weapon.get_node_or_null("WeaponTrigger/ProjectileInterval")
 	if _interval_node == null:
 		return

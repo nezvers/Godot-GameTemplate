@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bmp0g88dtijqw"]
+[gd_scene load_steps=63 format=3 uid="uid://bmp0g88dtijqw"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_mvls6"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_20qkb"]
@@ -39,6 +39,8 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/player/StuckEffect.gd" id="31_stuck"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/VisualInvulnerability.gd" id="32_82fau"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/PoisonEffect.gd" id="32_poison"]
+[ext_resource type="Script" path="res://game/scripts/meta/MetaStats.gd" id="33_meta"]
+[ext_resource type="Resource" path="res://game/resources/meta_upgrade_resource.tres" id="34_meta"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
 resource_name = "movement  properties"
@@ -428,6 +430,14 @@ resource_node = NodePath("../ResourceNode")
 script = ExtResource("31_stuck")
 resource_node = NodePath("../ResourceNode")
 dash_ability = NodePath("../DashAbility")
+
+[node name="MetaStats" type="Node" parent="." node_paths=PackedStringArray("resource_node", "dash_ability", "damage_cooldown", "weapon_manager")]
+script = ExtResource("33_meta")
+resource_node = NodePath("../ResourceNode")
+meta_upgrade_resource = ExtResource("34_meta")
+dash_ability = NodePath("../DashAbility")
+damage_cooldown = NodePath("../DamageCooldown")
+weapon_manager = NodePath("../WeaponManager")
 
 [node name="VisualInvulnerability" type="Node" parent="." index="25" node_paths=PackedStringArray("resource_node", "animation_player")]
 script = ExtResource("32_82fau")

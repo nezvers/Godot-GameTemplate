@@ -1,0 +1,193 @@
+[gd_scene format=3]
+
+[ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_theme"]
+[ext_resource type="Script" path="res://game/scripts/meta/MetaTreeScreen.gd" id="2_screen"]
+[ext_resource type="Script" path="res://game/scripts/meta/MetaGraphLinks.gd" id="3_links"]
+[ext_resource type="Resource" path="res://game/resources/meta_upgrade_resource.tres" id="4_meta"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="5_crystal"]
+[ext_resource type="Resource" uid="uid://dsk5usbvnbqi3" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="6_actions"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/workbench_upgrade.tres" id="7_buy"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/interact_denied.tres" id="8_denied"]
+[ext_resource type="Resource" uid="uid://b1hy8aowwa5hq" path="res://addons/top_down/resources/sounds/menu_back.tres" id="9_back"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/game/MusicSetter.gd" id="10_music"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/gui/meta_icons_12x12_strip10.png" id="11_icons"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0470588, 0.0627451, 0.0705882, 0.92)
+border_width_bottom = 1
+border_color = Color(0.333333, 0.317647, 0.431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0470588, 0.0627451, 0.0705882, 0.92)
+border_width_top = 1
+border_color = Color(0.333333, 0.317647, 0.431373, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crystal"]
+atlas = ExtResource("11_icons")
+region = Rect2(108, 0, 12, 12)
+
+[node name="MetaUpgrades" type="ColorRect" node_paths=PackedStringArray("graph_view", "graph_content", "graph_links", "crystal_label", "progress_label", "name_label", "tag_label", "text_label", "state_label", "back_button", "reset_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+color = Color(0.0985668, 0.17073, 0.164749, 1)
+script = ExtResource("2_screen")
+meta_upgrade_resource = ExtResource("4_meta")
+boss_crystal_resource = ExtResource("5_crystal")
+action_resource = ExtResource("6_actions")
+buy_sound = ExtResource("7_buy")
+denied_sound = ExtResource("8_denied")
+back_sound = ExtResource("9_back")
+graph_view = NodePath("GraphView")
+graph_content = NodePath("GraphView/GraphContent")
+graph_links = NodePath("GraphView/GraphContent/GraphLinks")
+crystal_label = NodePath("Header/Row/CrystalLabel")
+progress_label = NodePath("Header/Row/ProgressLabel")
+name_label = NodePath("Info/Rows/TitleRow/NameLabel")
+tag_label = NodePath("Info/Rows/TitleRow/TagLabel")
+text_label = NodePath("Info/Rows/TextLabel")
+state_label = NodePath("Info/Rows/StateRow/StateLabel")
+back_button = NodePath("Header/Row/Back")
+reset_button = NodePath("Header/Row/Reset")
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("10_music")
+music_name = "title"
+
+[node name="GraphView" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 22.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GraphContent" type="Control" parent="GraphView"]
+layout_mode = 1
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="GraphLinks" type="Control" parent="GraphView/GraphContent"]
+layout_mode = 1
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("3_links")
+
+[node name="Header" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 22.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar")
+
+[node name="Row" type="HBoxContainer" parent="Header"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="Header/Row"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "UPGRADES"
+
+[node name="ProgressLabel" type="Label" parent="Header/Row"]
+modulate = Color(0.6, 0.58, 0.68, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "1/16"
+
+[node name="Spacer" type="Control" parent="Header/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CrystalIcon" type="TextureRect" parent="Header/Row"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_crystal")
+stretch_mode = 3
+
+[node name="CrystalLabel" type="Label" parent="Header/Row"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="Reset" type="Button" parent="Header/Row"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+text = "Reset"
+
+[node name="Back" type="Button" parent="Header/Row"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+text = "Back"
+
+[node name="Info" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_info")
+
+[node name="Rows" type="VBoxContainer" parent="Info"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="TitleRow" type="HBoxContainer" parent="Info/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="NameLabel" type="Label" parent="Info/Rows/TitleRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Awakening"
+
+[node name="TagLabel" type="Label" parent="Info/Rows/TitleRow"]
+modulate = Color(1, 0.839216, 0.352941, 1)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
+text = "KEYSTONE"
+
+[node name="TextLabel" type="Label" parent="Info/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "The crystals stir."
+autowrap_mode = 3
+
+[node name="StateRow" type="HBoxContainer" parent="Info/Rows"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="StateLabel" type="Label" parent="Info/Rows/StateRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "Owned"
+
+[node name="HintLabel" type="Label" parent="Info/Rows/StateRow"]
+modulate = Color(0.6, 0.58, 0.68, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Arrows: move   Enter: buy   Esc: back"

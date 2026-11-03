@@ -71,3 +71,37 @@
 `contraptions.slot_machine.payouts` is a list of `{"drop", "amount", "weight"}`. One entry is picked by weight per pull.
 - `drop` is `nothing`, `weapon` (a pickup picked by the weapons' `jackpot_weight`), or a loot item id.
 - `amount` is how many pickups spawn.
+
+# upgrades.json
+
+`upgrades.json` holds the meta-upgrade graph: everything bought with boss crystals on the Upgrades screen (`game/scenes/meta_upgrades.tscn`). It is read by `MetaUpgrades` (`game/scripts/meta/MetaUpgrades.gd`). Unknown stats, icons and `requires` ids show up as `WARNING: upgrades: ...`. `game/tests/meta_upgrade_check.tscn` checks the whole file.
+
+The Upgrades button shows on the title, game over and victory menus once a boss crystal has ever been picked up. Bought nodes are saved in `user://MetaUpgrades.tres`.
+
+| Key | Contents |
+|---|---|
+| `grid` | Pixels per grid cell |
+| `labels` | Branch names drawn faintly on the graph: `{"text", "pos"}`, pos in cells (fractions allowed) |
+| `nodes.<id>` | One upgrade, see below. `root` is free and always owned |
+
+**Node keys:**
+- `pos`: `[x, y]` in grid cells; `[0, 0]` is the root, `y` grows downward.
+- `icon`: `star`, `heart`, `sword`, `boot`, `dash`, `shield`, `coin`, `meat`, `slime` or `crystal`.
+- `keystone`: `true` gives the big golden frame.
+- `title`, `text`: `{stat}` in the text is replaced by that effect's amount, e.g. `"{max_hp} max health."` reads `+10 max health.`
+- `cost`: an item list, e.g. `[{"item": "boss_crystal", "amount": 2}]`.
+- `requires`: node ids. Owning **any one** of them makes the node buyable. A link is drawn to each.
+- `effects`: stat key -> amount. Amounts add up over every owned node.
+
+**Stats:**
+
+| Stat | Effect |
+|---|---|
+| `max_hp` | Added to the player's max health |
+| `hit_invulnerability` | Seconds added to the invulnerability after a hit |
+| `damage_ratio` | `0.1` = +10% damage on every weapon, on top of workbench levels |
+| `speed_ratio` | `0.08` = +8% max speed |
+| `dash_cooldown_ratio` | `0.15` = dash cooldown 15% shorter |
+| `start_coin` / `start_meat` / `start_slime` | Items at the start of every run |
+
+The frame, cursor and icon art comes from `addons/top_down/assets/images/gui/generate_meta_frames.py`. Rerun it after changing it.

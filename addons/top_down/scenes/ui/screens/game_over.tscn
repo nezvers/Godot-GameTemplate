@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://8bb4nowy77nt"]
+[gd_scene format=3 uid="uid://8bb4nowy77nt"]
 
 [ext_resource type="Theme" uid="uid://yctjuhnen1br" path="res://addons/top_down/resources/theme/game_gui_theme.theme" id="1_134lv"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="3_qjp3e"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="10_djt0l"]
 [ext_resource type="Script" path="res://game/scripts/CampaignRestartButton.gd" id="11_restart"]
 [ext_resource type="Resource" path="res://game/resources/campaign_resource.tres" id="12_campaign"]
+[ext_resource type="Script" path="res://game/scripts/meta/MetaUpgradesEntry.gd" id="m1_entry"]
+[ext_resource type="Resource" path="res://game/resources/meta_upgrade_resource.tres" id="m2_meta"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="m3_crystal"]
 
 [node name="GameOver" type="ColorRect"]
 anchors_preset = 15
@@ -97,11 +100,30 @@ layout_mode = 2
 [node name="Label" parent="MarginContainer/Control/Body/Menu/TryAgain" index="1"]
 text = "Try Again"
 
+[node name="Upgrades" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("10_djt0l")]
+visible = false
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/Menu/Upgrades" index="1"]
+text = "Upgrades"
+
 [node name="Main Menu" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("10_djt0l")]
 layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Control/Body/Menu/Main Menu" index="1"]
 text = "Main Menu"
 
+[node name="UpgradesComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("9_ldwnv")
+button = NodePath("../MarginContainer/Control/Body/Menu/Upgrades/Button")
+scene_path = "res://game/scenes/meta_upgrades.tscn"
+
+[node name="UpgradesEntry" type="Node" parent="." node_paths=PackedStringArray("entry")]
+script = ExtResource("m1_entry")
+boss_crystal_resource = ExtResource("m3_crystal")
+meta_upgrade_resource = ExtResource("m2_meta")
+entry = NodePath("../MarginContainer/Control/Body/Menu/Upgrades")
+
 [editable path="MarginContainer/Control/Body/Menu/TryAgain"]
 [editable path="MarginContainer/Control/Body/Menu/Main Menu"]
+[editable path="MarginContainer/Control/Body/Menu/Upgrades"]

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MetaUpgradeResource" format=3]
+
+[ext_resource type="Script" path="res://game/scripts/meta/MetaUpgradeResource.gd" id="1_meta"]
+
+[resource]
+resource_name = "MetaUpgrades"
+script = ExtResource("1_meta")

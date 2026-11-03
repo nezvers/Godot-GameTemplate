@@ -30,6 +30,11 @@ func add(amount:int = 1)->void:
 	collected_total += amount
 	_changed()
 
+## Gives back spent value without counting it as collected again.
+func refund(amount:int)->void:
+	value += amount
+	_changed()
+
 func can_spend(amount:int)->bool:
 	return value >= amount
 

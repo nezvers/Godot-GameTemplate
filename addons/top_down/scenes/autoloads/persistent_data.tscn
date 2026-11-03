@@ -9,10 +9,11 @@
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="21_diff"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="22_crystal"]
 [ext_resource type="Resource" path="res://game/resources/campaign_resource.tres" id="23_campaign"]
+[ext_resource type="Resource" path="res://game/resources/meta_upgrade_resource.tres" id="24_meta"]
 
 [node name="PersistentData" type="Node"]
 script = ExtResource("1_qc15f")
-saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs"), ExtResource("21_diff"), ExtResource("22_crystal"), ExtResource("23_campaign")])
+saveable_list = Array[ExtResource("17_80w5b")]([ExtResource("15_p6f66"), ExtResource("19_n170m"), ExtResource("20_kawqs"), ExtResource("21_diff"), ExtResource("22_crystal"), ExtResource("23_campaign"), ExtResource("24_meta")])
 data = {
 "preload_resource": ExtResource("6_n3xuc")
 }

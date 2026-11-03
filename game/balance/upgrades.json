@@ -1,0 +1,111 @@
+{
+	"grid": 36,
+	"labels": [
+		{"text": "VITALITY", "pos": [0, -3.75]},
+		{"text": "OFFENSE", "pos": [3, -0.75]},
+		{"text": "MOBILITY", "pos": [-3, -0.75]},
+		{"text": "FORTUNE", "pos": [0, 3.75]}
+	],
+	"nodes": {
+		"root": {
+			"pos": [0, 0], "icon": "star", "keystone": true,
+			"title": "Awakening", "text": "The crystals stir. Every path starts here.",
+			"cost": [], "requires": []
+		},
+
+		"vitality_1": {
+			"pos": [0, -1], "icon": "heart",
+			"title": "Tough Skin I", "text": "{max_hp} max health.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["root"],
+			"effects": {"max_hp": 10}
+		},
+		"vitality_2": {
+			"pos": [0, -2], "icon": "heart",
+			"title": "Tough Skin II", "text": "{max_hp} max health.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["vitality_1"],
+			"effects": {"max_hp": 10}
+		},
+		"iron_heart": {
+			"pos": [0, -3], "icon": "heart", "keystone": true,
+			"title": "Iron Heart", "text": "{max_hp} max health, {hit_invulnerability} invulnerability after a hit.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["vitality_2"],
+			"effects": {"max_hp": 25, "hit_invulnerability": 0.2}
+		},
+
+		"sharpen_1": {
+			"pos": [1, 0], "icon": "sword",
+			"title": "Sharpen I", "text": "{damage_ratio} weapon damage.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["root"],
+			"effects": {"damage_ratio": 0.1}
+		},
+		"sharpen_2": {
+			"pos": [2, 0], "icon": "sword",
+			"title": "Sharpen II", "text": "{damage_ratio} weapon damage.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["sharpen_1"],
+			"effects": {"damage_ratio": 0.1}
+		},
+		"executioner": {
+			"pos": [3, 0], "icon": "sword", "keystone": true,
+			"title": "Executioner", "text": "{damage_ratio} weapon damage.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["sharpen_2"],
+			"effects": {"damage_ratio": 0.2}
+		},
+
+		"swift_1": {
+			"pos": [-1, 0], "icon": "boot",
+			"title": "Swift Feet", "text": "{speed_ratio} movement speed.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["root"],
+			"effects": {"speed_ratio": 0.08}
+		},
+		"quick_dash": {
+			"pos": [-2, 0], "icon": "dash",
+			"title": "Quick Dash", "text": "{dash_cooldown_ratio} dash cooldown.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["swift_1"],
+			"effects": {"dash_cooldown_ratio": 0.15}
+		},
+		"wind_walker": {
+			"pos": [-3, 0], "icon": "dash", "keystone": true,
+			"title": "Wind Walker", "text": "{speed_ratio} movement speed, {dash_cooldown_ratio} dash cooldown.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["quick_dash"],
+			"effects": {"speed_ratio": 0.12, "dash_cooldown_ratio": 0.15}
+		},
+
+		"scavenger": {
+			"pos": [0, 1], "icon": "coin",
+			"title": "Scavenger", "text": "Start each run with {start_coin} coins.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["root"],
+			"effects": {"start_coin": 10}
+		},
+		"pocket_meat": {
+			"pos": [-1, 2], "icon": "meat",
+			"title": "Pocket Meat", "text": "Start each run with {start_meat} meat.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["scavenger"],
+			"effects": {"start_meat": 3}
+		},
+		"pocket_slime": {
+			"pos": [1, 2], "icon": "slime",
+			"title": "Pocket Slime", "text": "Start each run with {start_slime} slime.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["scavenger"],
+			"effects": {"start_slime": 2}
+		},
+		"hoarder": {
+			"pos": [0, 3], "icon": "crystal", "keystone": true,
+			"title": "Hoarder", "text": "Start each run with {start_coin} coins, {start_meat} meat and {start_slime} slime.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["pocket_meat", "pocket_slime"],
+			"effects": {"start_coin": 10, "start_meat": 5, "start_slime": 3}
+		},
+
+		"survivor": {
+			"pos": [-2, -2], "icon": "shield", "keystone": true,
+			"title": "Survivor", "text": "{max_hp} max health, {hit_invulnerability} invulnerability after a hit.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["vitality_2", "quick_dash"],
+			"effects": {"max_hp": 15, "hit_invulnerability": 0.15}
+		},
+		"bloodlust": {
+			"pos": [2, -2], "icon": "sword", "keystone": true,
+			"title": "Bloodlust", "text": "{damage_ratio} weapon damage, {max_hp} max health.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["vitality_2", "sharpen_2"],
+			"effects": {"damage_ratio": 0.1, "max_hp": 10}
+		}
+	}
+}

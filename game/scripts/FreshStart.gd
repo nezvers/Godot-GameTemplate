@@ -25,6 +25,12 @@ extends Node
 ## reset for the new run. Each entry needs a reset_resource() method.
 @export var run_resources: Array[Resource]
 
+## Meta-upgrades that start the run with items (global, so the generated rooms need no export).
+const META_UPGRADES: MetaUpgradeResource = preload("res://game/resources/meta_upgrade_resource.tres")
+
+## Loot item id -> meta stat giving that many at the start of a run.
+const START_ITEMS: Dictionary = {"coin": "start_coin", "meat": "start_meat", "slime": "start_slime"}
+
 func _enter_tree() -> void:
 	assert(player_reference != null)
 	assert(scene_transition_resource != null)
@@ -51,3 +57,8 @@ func _enter_tree() -> void:
 	for resource: Resource in run_resources:
 		if resource != null:
 			resource.reset_resource()
+
+	for item: String in START_ITEMS:
+		var amount: int = int(META_UPGRADES.stat(START_ITEMS[item]))
+		if amount > 0:
+			LootItems.counter(item).add(amount)
