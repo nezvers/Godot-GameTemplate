@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://oo6imbknouqo"]
+[gd_scene load_steps=56 format=3 uid="uid://oo6imbknouqo"]
 
 [ext_resource type="PackedScene" uid="uid://botai66n8rwt3" path="res://addons/top_down/scenes/actors/actor.tscn" id="1_0dxwo"]
 [ext_resource type="Script" path="res://addons/great_games_library/nodes/ResourceNode/ResourceNodeItem.gd" id="2_kb6ya"]
@@ -22,6 +22,14 @@
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="22_oy7xg"]
 [ext_resource type="Script" uid="uid://nd4w6e5zt0o5" path="res://addons/top_down/scripts/damage/DifficultyHealth.gd" id="23_diffh"]
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="24_diff"]
+[ext_resource type="Script" uid="uid://dol85048huvin" path="res://addons/top_down/scripts/actor/boss/BossAttackLoop.gd" id="25_loop"]
+[ext_resource type="Script" uid="uid://qvfebap4hjjc" path="res://addons/top_down/scripts/actor/boss/BossCharge.gd" id="26_charge"]
+[ext_resource type="Script" uid="uid://y2f1at1ddebl" path="res://addons/top_down/scripts/actor/boss/BossTelegraph.gd" id="27_telegraph"]
+[ext_resource type="Script" uid="uid://b32hc21y325hs" path="res://addons/great_games_library/nodes/AreaTransmitter/ShapeCastTransmitter2D.gd" id="28_shapecast"]
+[ext_resource type="Script" uid="uid://b0uw7wkj5ulcm" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="29_channel"]
+[ext_resource type="Script" uid="uid://bdbat3453sctq" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="30_dmgdata"]
+[ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="31_landvfx"]
+[ext_resource type="Resource" uid="uid://2oxos6r5uams" path="res://addons/top_down/resources/sounds/big_jelly_land.tres" id="32_landsnd"]
 
 [sub_resource type="Resource" id="Resource_16400"]
 resource_name = "movement  properties"
@@ -241,6 +249,20 @@ resource = SubResource("Resource_slowb")
 make_unique = true
 description = "BoolResource set every frame while inside a slowing puddle, read by SlowEffect"
 
+[sub_resource type="CircleShape2D" id="Shape_charge"]
+radius = 8.0
+
+[sub_resource type="Resource" id="Damage_charge_type"]
+script = ExtResource("13_woinq")
+value = 8.0
+
+[sub_resource type="Resource" id="Damage_charge"]
+script = ExtResource("30_dmgdata")
+base_damage = Array[ExtResource("13_woinq")]([SubResource("Damage_charge_type")])
+critical_chance = 0.0
+critical_multiply = 1.0
+transmission_name = &"damage"
+
 [node name="Slime" instance=ExtResource("1_0dxwo")]
 collision_layer = 4
 collision_mask = 5
@@ -307,3 +329,60 @@ split_instance_resource = ExtResource("21_kcmjb")
 axis_multiplication = ExtResource("22_oy7xg")
 position_node = NodePath("..")
 active_enemy = NodePath("../ActiveEnemy")
+
+[node name="BossAttackLoop" type="Node" parent="." index="20" node_paths=PackedStringArray("bot_input", "target_finder", "resource_node", "character_states", "animation_player", "tint_node")]
+script = ExtResource("25_loop")
+bot_input = NodePath("../ZombieInput")
+target_finder = NodePath("../ZombieInput/TargetFinder")
+resource_node = NodePath("../ResourceNode")
+character_states = NodePath("../CharacterStates")
+animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
+tint_node = NodePath("../Body/Stretch/Sprite2D")
+start_delay = 3.0
+attack_gap = 1.0
+enrage_health = 0.0
+
+[node name="Charge" type="Node" parent="BossAttackLoop" index="0" node_paths=PackedStringArray("character", "resource_node", "damage_transmitter", "damage_channel_transmitter", "telegraph")]
+script = ExtResource("26_charge")
+character = NodePath("../..")
+resource_node = NodePath("../../ResourceNode")
+axis_multiplication = ExtResource("22_oy7xg")
+speed = 130.0
+acceleration = 1200.0
+duration = 0.5
+damage_transmitter = NodePath("../../ChargeDamage")
+damage_channel_transmitter = NodePath("../../ChargeDamage/DamageDataTransmitter")
+kickback = 120.0
+wall_stun = 1.0
+wall_vfx = ExtResource("31_landvfx")
+wall_sound = ExtResource("32_landsnd")
+perform_animation = &"walk"
+perform_animation_speed = 2.5
+windup = 0.7
+recovery = 0.6
+cooldown = 7.0
+min_distance = 32.0
+max_distance = 96.0
+telegraph = NodePath("../../ChargeTelegraph")
+
+[node name="ChargeTelegraph" type="Node2D" parent="." index="21"]
+show_behind_parent = true
+script = ExtResource("27_telegraph")
+shape = 1
+width = 10.0
+
+[node name="ChargeDamage" type="ShapeCast2D" parent="." index="22"]
+position = Vector2(0, -3)
+scale = Vector2(1, 0.6)
+enabled = false
+shape = SubResource("Shape_charge")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("28_shapecast")
+
+[node name="DamageDataTransmitter" type="Node" parent="ChargeDamage" index="0"]
+script = ExtResource("29_channel")
+try_next_frame = false
+transmission_resource = SubResource("Damage_charge")

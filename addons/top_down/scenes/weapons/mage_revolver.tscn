@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://bxf4p5yoajpdu" path="res://addons/top_down/scenes/weapons/gun.tscn" id="1_gun"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/mage_bullet_instance_resource.tres" id="2_bullet"]
+
+[node name="MageRevolver" instance=ExtResource("1_gun")]
+collision_mask = 2
+
+[node name="ProjectileSpawner" parent="." index="4"]
+projectile_instance_resource = ExtResource("2_bullet")

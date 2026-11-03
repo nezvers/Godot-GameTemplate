@@ -26,6 +26,8 @@ const DEATHS:Dictionary = {
 	"giant_zombie_instance_resource.tres": "giant_zombie_dead.tscn",
 	"broodmother_instance_resource.tres": "broodmother_dead.tscn",
 	"plague_mother_instance_resource.tres": "plague_mother_dead.tscn",
+	"skeleton_instance_resource.tres": "skeleton_dead.tscn",
+	"mage_instance_resource.tres": "mage_dead.tscn",
 }
 
 var failures:int = 0

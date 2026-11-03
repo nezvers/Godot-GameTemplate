@@ -53,6 +53,8 @@ func _ready()->void:
 		damage_channel_transmitter.update_requested.connect(_update_damage)
 	if !damage_channel_transmitter.success.is_connected(_on_hit):
 		damage_channel_transmitter.success.connect(_on_hit)
+	# in case used with PoolNode, ResourceNode makes new resources on every ready
+	request_ready()
 
 func prepare(new_target:Node2D)->void:
 	super.prepare(new_target)

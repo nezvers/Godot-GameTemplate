@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/vfx/dead/zombie_dead.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/characters/mage_16x16_strip8.png" id="2_tex"]
+
+[node name="MageDead" instance=ExtResource("1_base")]
+
+[node name="Sprite2D" parent="Body/Stretch" index="0"]
+texture = ExtResource("2_tex")

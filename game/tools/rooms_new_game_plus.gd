@@ -52,7 +52,7 @@ const ROOMS:Dictionary = {
 				{"count": 10, "enemies": ["acid_slime", "bloater"]},
 			]},
 			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 14, "enemies": ["zombie", "bloater", "zombie_crawler"]},
+				{"count": 14, "enemies": ["zombie", "bloater", "skeleton"]},
 			]},
 			{"waves": [
 				{"count": 12, "enemies": ["skitter_spider", "web_spider"]},
@@ -238,7 +238,7 @@ const ROOMS:Dictionary = {
 		},
 		"sections": [
 			{"waves": [
-				{"count": 10, "enemies": ["zombie", "acid_slime"]},
+				{"count": 10, "enemies": ["mage", "zombie", "acid_slime"]},
 				{"count": 10, "enemies": ["zombie_crawler", "bloater"]},
 			]},
 			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
@@ -283,7 +283,7 @@ const ROOMS:Dictionary = {
 				{"count": 10, "enemies": ["zombie", "zombie_crawler"]},
 			]},
 			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 12, "enemies": ["bloater", "zombie_crawler"]},
+				{"count": 12, "enemies": ["bloater", "zombie_crawler", "mage"]},
 			]},
 		],
 		"map": [
@@ -420,7 +420,7 @@ const ROOMS:Dictionary = {
 				{"count": 8, "enemies": ["zombie_crawler"]},
 			]},
 			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 14, "enemies": ["zombie", "zombie_crawler", "acid_slime"]},
+				{"count": 14, "enemies": ["skeleton", "mage", "zombie_crawler", "acid_slime"]},
 			]},
 			{"waves": [
 				{"count": 10, "enemies": ["bloater", "slime"]},

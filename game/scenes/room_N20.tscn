@@ -11,12 +11,13 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/acid_slime_instance_resource.tres" id="9_acid_slime_i"]
 [ext_resource type="Resource" uid="uid://ddp7qf0qghy82" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres" id="10_zomby_crawle"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/bloater_instance_resource.tres" id="11_bloater_inst"]
-[ext_resource type="Script" uid="uid://beja08wyrf37a" path="res://game/scripts/RoomController.gd" id="12_RoomControll"]
-[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="13_room_state_r"]
-[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="14_room_cleared"]
-[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="15_fight_mode_r"]
-[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="16_remaining_wa"]
-[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="17_game_hud_ove"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/actors/skeleton_instance_resource.tres" id="12_skeleton_ins"]
+[ext_resource type="Script" uid="uid://beja08wyrf37a" path="res://game/scripts/RoomController.gd" id="13_RoomControll"]
+[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="14_room_state_r"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="15_room_cleared"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="16_fight_mode_r"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="17_remaining_wa"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="18_game_hud_ove"]
 
 [sub_resource type="Resource" id="Resource_1"]
 script = ExtResource("5_SpawnWaveLis")
@@ -36,7 +37,7 @@ instance_list = Array[ExtResource("6_InstanceReso")]([ExtResource("11_bloater_in
 [sub_resource type="Resource" id="Resource_4"]
 script = ExtResource("5_SpawnWaveLis")
 count = 8
-instance_list = Array[ExtResource("6_InstanceReso")]([ExtResource("10_zomby_crawle"), ExtResource("9_acid_slime_i")])
+instance_list = Array[ExtResource("6_InstanceReso")]([ExtResource("12_skeleton_ins"), ExtResource("10_zomby_crawle"), ExtResource("9_acid_slime_i")])
 
 [node name="Room" instance=ExtResource("1_room_templat")]
 
@@ -1053,14 +1054,14 @@ waves = Array[ExtResource("5_SpawnWaveLis")]([SubResource("Resource_3"), SubReso
 requires = NodePath("../Section1")
 
 [node name="RoomController" type="Node" parent="." node_paths=PackedStringArray("arena_entry")]
-script = ExtResource("12_RoomControll")
+script = ExtResource("13_RoomControll")
 room_id = &"room_N20"
-room_state_resource = ExtResource("13_room_state_r")
-room_cleared_resource = ExtResource("14_room_cleared")
-fight_mode_resource = ExtResource("15_fight_mode_r")
-remaining_wave_count_resource = ExtResource("16_remaining_wa")
+room_state_resource = ExtResource("14_room_state_r")
+room_cleared_resource = ExtResource("15_room_cleared")
+fight_mode_resource = ExtResource("16_fight_mode_r")
+remaining_wave_count_resource = ExtResource("17_remaining_wa")
 arena_entry = NodePath("../ArenaEntry")
 
-[node name="GameHudOverlay" parent="." instance=ExtResource("17_game_hud_ove")]
+[node name="GameHudOverlay" parent="." instance=ExtResource("18_game_hud_ove")]
 
 [editable path="EnemyManager"]

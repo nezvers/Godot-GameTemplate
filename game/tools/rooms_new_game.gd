@@ -276,7 +276,7 @@ const ROOMS:Dictionary = {
 			]},
 			{"waves": [
 				{"count": 10, "enemies": ["bloater", "zombie"]},
-				{"count": 8, "enemies": ["zombie_crawler", "acid_slime"]},
+				{"count": 8, "enemies": ["skeleton", "zombie_crawler", "acid_slime"]},
 			]},
 		],
 		"map": [
@@ -314,7 +314,7 @@ const ROOMS:Dictionary = {
 		"doors": {"D": ["n21_n20", "n20_n21", "room_N20"]},
 		"sections": [
 			{"waves": [
-				{"count": 8, "enemies": ["zombie", "zombie_crawler"]},
+				{"count": 8, "enemies": ["zombie", "skeleton", "mage"]},
 			]},
 			{"waves": [
 				{"count": 10, "enemies": ["slime", "acid_slime"]},

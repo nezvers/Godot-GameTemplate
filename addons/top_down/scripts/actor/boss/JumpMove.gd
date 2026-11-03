@@ -60,7 +60,8 @@ func move_target_position(value:Vector2, time:float)->void:
 	stretch_tween = create_tween()
 	stretch_tween.tween_method(_stretch_interpolation.bind(jump_stretch), 0.0, 1.0, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
-	jump_sound.play_managed()
+	if jump_sound != null:
+		jump_sound.play_managed()
 
 func _move_body(t:float, from:Vector2, to:Vector2)->void:
 	var _new_pos:Vector2 = from.lerp(to, t)
@@ -84,7 +85,19 @@ func _jump_finished(target_pos:Vector2)->void:
 	stretch_tween = create_tween()
 	stretch_tween.tween_method(_stretch_interpolation.bind(land_stretch), 0.0, 1.0, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
-	land_sound.play_managed()
+	if land_sound != null:
+		land_sound.play_managed()
+
+## Stops a jump midway (death, pooling) without landing, jump_finished is not emitted
+func cancel()->void:
+	if move_tween != null:
+		move_tween.kill()
+	if stretch_tween != null:
+		stretch_tween.kill()
+	is_jumping = false
+	character_body.velocity = Vector2.ZERO
+	sprite.offset.y = 0.0
+	stretch_node.scale = Vector2.ONE
 
 func _stretch_interpolation(t:float, from:Vector2)->void:
 	stretch_node.scale = from.lerp(Vector2.ONE, t)

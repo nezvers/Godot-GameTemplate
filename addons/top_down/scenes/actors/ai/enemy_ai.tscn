@@ -39,10 +39,11 @@ script = ExtResource("4_y3qb6")
 shape_cast = NodePath("../CollisionShape2D")
 bot_input = NodePath("..")
 
-[node name="ProximityAttack" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input")]
+[node name="ProximityAttack" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast")]
 script = ExtResource("3_4n00q")
 target_finder = NodePath("../TargetFinder")
 bot_input = NodePath("..")
+raycast = NodePath("../RayCast2D")
 
 [node name="TargetDirection" type="Node" parent="." node_paths=PackedStringArray("target_finder", "bot_input", "raycast", "tile_navigation")]
 script = ExtResource("5_ekfo4")

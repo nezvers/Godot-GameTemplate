@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/projectiles/sword_slash.tscn" id="1_slash"]
+
+[node name="SkeletonSlash" instance=ExtResource("1_slash")]
+modulate = Color(1, 0.55, 0.5, 1)
+
+[node name="SubParticleManager" parent="." index="6"]
+start_projectile_instance_resource = null

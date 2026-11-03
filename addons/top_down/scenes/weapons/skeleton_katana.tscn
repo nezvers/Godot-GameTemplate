@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cmmx82t54wble" path="res://addons/top_down/scenes/weapons/sword.tscn" id="1_sword"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/skeleton_slash_instance_resource.tres" id="2_slash"]
+
+[node name="SkeletonKatana" instance=ExtResource("1_sword")]
+collision_mask = 2
+
+[node name="ProjectileSpawner" parent="." index="4"]
+projectile_instance_resource = ExtResource("2_slash")

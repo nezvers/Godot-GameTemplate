@@ -184,6 +184,35 @@
 				"interval": 1,
 				"recoil": 30,
 				"projectile": "zombie_slash"
+			},
+			"attack_loop": {
+				"start_delay": 3,
+				"attack_gap": 1.0,
+				"enrage_health": 0,
+				"Charge": {
+					"speed": 130,
+					"acceleration": 1200,
+					"duration": 0.5,
+					"kickback": 120,
+					"wall_stun": 1.0,
+					"windup": 0.7,
+					"recovery": 0.6,
+					"cooldown": 7,
+					"min_distance": 32,
+					"max_distance": 96,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 1
+				}
+			},
+			"damage_areas": {
+				"ChargeDamage": {
+					"damage": 8.0,
+					"critical_chance": 0,
+					"critical_multiply": 1,
+					"kickback": 0,
+					"radius": 8
+				}
 			}
 		},
 		"slime_small": {
@@ -269,6 +298,16 @@
 				"interval": 1,
 				"recoil": 30,
 				"projectile": "zombie_slash"
+			},
+			"lob": {
+				"projectile_instance": "acid_spit",
+				"shoot_range": 88,
+				"cooldown": 6,
+				"start_delay": 3,
+				"angles": [
+					0
+				],
+				"fixed_distance": 0
 			}
 		},
 		"bloater": {
@@ -307,8 +346,9 @@
 			"split": {
 				"split_instance_resource": "zombie",
 				"angles": [
-					-40,
-					40
+					-50,
+					0,
+					50
 				],
 				"spawn_distance": 8
 			},
@@ -319,6 +359,46 @@
 				"interval": 1,
 				"recoil": 30,
 				"projectile": "zombie_slash"
+			},
+			"attack_loop": {
+				"start_delay": 3,
+				"attack_gap": 1.5,
+				"enrage_health": 0,
+				"Jump": {
+					"max_jump_distance": 64,
+					"jump_time": 0.7,
+					"airborne_invulnerable": false,
+					"kickback_radius": 26,
+					"kickback_max": 140,
+					"kickback_min": 40,
+					"burst_health": 0.5,
+					"burst_chance": 0.35,
+					"burst_area_scale": 1.3,
+					"windup": 0.8,
+					"recovery": 0.8,
+					"cooldown": 8,
+					"min_distance": 24,
+					"max_distance": 80,
+					"min_health": 0,
+					"max_health": 1,
+					"weight": 1
+				}
+			},
+			"damage_areas": {
+				"JumpDamage": {
+					"damage": 10.0,
+					"critical_chance": 0,
+					"critical_multiply": 1,
+					"kickback": 0,
+					"radius": 20
+				},
+				"JumpPush": {
+					"damage": 0,
+					"critical_chance": 0,
+					"critical_multiply": 1,
+					"kickback": 0,
+					"radius": 26
+				}
 			}
 		},
 		"skitter_spider": {
@@ -417,6 +497,95 @@
 				"interval": 1,
 				"recoil": 30,
 				"projectile": "zombie_slash"
+			}
+		},
+		"skeleton": {
+			"scene": "res://addons/top_down/scenes/actors/skeleton.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/skeleton_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.2,
+				"slime": 0.1,
+				"health": 0.3
+			},
+			"health": 60,
+			"movement": {
+				"acceleration": 250,
+				"max_speed": 38
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 18,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"melee": {
+				"damage": 12.0,
+				"critical_chance": 0.2,
+				"critical_multiply": 1.5,
+				"interval": 1.2,
+				"recoil": -30,
+				"projectile": "skeleton_slash"
+			}
+		},
+		"mage": {
+			"scene": "res://addons/top_down/scenes/actors/mage.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/actors/mage_instance_resource.tres",
+			"drops": {
+				"coin": 1,
+				"meat": 0.1,
+				"slime": 0.2,
+				"health": 0.3
+			},
+			"health": 35,
+			"movement": {
+				"acceleration": 250,
+				"max_speed": 32
+			},
+			"resistances": 0,
+			"hit_invulnerability": 0,
+			"slow": {
+				"slow_multiplier": 0.5,
+				"linger_time": 0.1
+			},
+			"ai": {
+				"attack_distance": 100,
+				"TileNavigationGetter": {
+					"reached_distance": 2
+				},
+				"ProximityAttack": {
+					"start_delay": 1.5,
+					"require_line_of_sight": true
+				},
+				"TargetDirection": {
+					"retarget_distance": 16,
+					"straight_path_distance": 80
+				}
+			},
+			"melee": {
+				"damage": 6.0,
+				"critical_chance": 0.2,
+				"critical_multiply": 1.5,
+				"interval": 1.6,
+				"recoil": 20,
+				"projectile": "mage_bullet"
+			},
+			"keep_distance": {
+				"stop_distance": 72,
+				"back_off_distance": 40
 			}
 		}
 	},
@@ -1185,6 +1354,28 @@
 			"movement_type": "PROJECTILE",
 			"max_bounce": 0,
 			"hit_limit": -1
+		},
+		"skeleton_slash": {
+			"scene": "res://addons/top_down/scenes/projectiles/skeleton_slash.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/skeleton_slash_instance_resource.tres",
+			"damage": 0,
+			"kickback": 80,
+			"speed": 50,
+			"lifetime": 0.27,
+			"movement_type": "PROJECTILE",
+			"max_bounce": 0,
+			"hit_limit": 1
+		},
+		"mage_bullet": {
+			"scene": "res://addons/top_down/scenes/projectiles/mage_bullet.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/projectiles/mage_bullet_instance_resource.tres",
+			"damage": 0,
+			"kickback": 40,
+			"speed": 80,
+			"lifetime": 2,
+			"movement_type": "SHAPECAST",
+			"max_bounce": 0,
+			"hit_limit": 1
 		}
 	},
 	"enemy_projectiles": {
@@ -2336,6 +2527,7 @@
 						{
 							"count": 8,
 							"enemies": [
+								"skeleton",
 								"zombie_crawler",
 								"acid_slime"
 							]
@@ -2388,7 +2580,8 @@
 							"count": 8,
 							"enemies": [
 								"zombie",
-								"zombie_crawler"
+								"skeleton",
+								"mage"
 							]
 						}
 					]
@@ -2687,7 +2880,7 @@
 							"enemies": [
 								"zombie",
 								"bloater",
-								"zombie_crawler"
+								"skeleton"
 							]
 						}
 					]
@@ -2947,6 +3140,7 @@
 						{
 							"count": 10,
 							"enemies": [
+								"mage",
 								"zombie",
 								"acid_slime"
 							]
@@ -3033,7 +3227,8 @@
 							"count": 12,
 							"enemies": [
 								"bloater",
-								"zombie_crawler"
+								"zombie_crawler",
+								"mage"
 							]
 						}
 					]
@@ -3190,7 +3385,8 @@
 						{
 							"count": 14,
 							"enemies": [
-								"zombie",
+								"skeleton",
+								"mage",
 								"zombie_crawler",
 								"acid_slime"
 							]

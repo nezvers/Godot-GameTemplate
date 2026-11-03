@@ -21,6 +21,17 @@
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/SlimeSplit.gd" id="30_split"]
 [ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="31_zomby"]
 [ext_resource type="Resource" uid="uid://dedx0gi4fowby" path="res://addons/top_down/resources/global_resources/axis_multiplication_resource.tres" id="32_axis"]
+[ext_resource type="Script" uid="uid://dol85048huvin" path="res://addons/top_down/scripts/actor/boss/BossAttackLoop.gd" id="33_loop"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/BossJump.gd" id="34_jump"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/boss/JumpMove.gd" id="35_jumpmove"]
+[ext_resource type="Script" uid="uid://y2f1at1ddebl" path="res://addons/top_down/scripts/actor/boss/BossTelegraph.gd" id="36_telegraph"]
+[ext_resource type="Script" uid="uid://b32hc21y325hs" path="res://addons/great_games_library/nodes/AreaTransmitter/ShapeCastTransmitter2D.gd" id="37_shapecast"]
+[ext_resource type="Script" uid="uid://b0uw7wkj5ulcm" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="38_channel"]
+[ext_resource type="Script" uid="uid://bdbat3453sctq" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="39_dmgdata"]
+[ext_resource type="Script" uid="uid://bphd2malk5asy" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="40_dmgtype"]
+[ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="41_landvfx"]
+[ext_resource type="Resource" uid="uid://72qgb1882ssi" path="res://addons/top_down/resources/sounds/big_jelly_jump.tres" id="42_jumpsnd"]
+[ext_resource type="Resource" uid="uid://2oxos6r5uams" path="res://addons/top_down/resources/sounds/big_jelly_land.tres" id="43_landsnd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(8, 4)
@@ -206,6 +217,35 @@ shader = ExtResource("2_duvie")
 shader_parameter/overlay = Color(1, 1, 1, 1)
 shader_parameter/blend = 0.0
 
+[sub_resource type="Curve" id="Curve_jump"]
+min_value = -16.0
+max_value = 0.0
+_data = [Vector2(0, 0), 0.0, -64.0, 0, 0, Vector2(0.5, -16), 0.0, 0.0, 0, 0, Vector2(1, 0), 64.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="Shape_jump_damage"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="Shape_jump_push"]
+radius = 26.0
+
+[sub_resource type="Resource" id="Damage_jump_type"]
+script = ExtResource("40_dmgtype")
+value = 10.0
+
+[sub_resource type="Resource" id="Damage_jump"]
+script = ExtResource("39_dmgdata")
+base_damage = Array[ExtResource("40_dmgtype")]([SubResource("Damage_jump_type")])
+critical_chance = 0.0
+critical_multiply = 1.0
+transmission_name = &"damage"
+
+[sub_resource type="Resource" id="Damage_jump_push"]
+script = ExtResource("39_dmgdata")
+critical_chance = 0.0
+critical_multiply = 1.0
+transmission_name = &"damage"
+
 [node name="Bloater" instance=ExtResource("1_fkm2k")]
 collision_layer = 4
 collision_mask = 5
@@ -258,7 +298,86 @@ resource_node = NodePath("../ResourceNode")
 script = ExtResource("30_split")
 resource_node = NodePath("../ResourceNode")
 split_instance_resource = ExtResource("31_zomby")
-angles = Array[float]([-40.0, 40.0])
+angles = Array[float]([-50.0, 0.0, 50.0])
 axis_multiplication = ExtResource("32_axis")
 position_node = NodePath("..")
 active_enemy = NodePath("../ActiveEnemy")
+
+[node name="BossAttackLoop" type="Node" parent="." index="20" node_paths=PackedStringArray("bot_input", "target_finder", "resource_node", "character_states", "animation_player", "tint_node")]
+script = ExtResource("33_loop")
+bot_input = NodePath("../ZombieInput")
+target_finder = NodePath("../ZombieInput/TargetFinder")
+resource_node = NodePath("../ResourceNode")
+character_states = NodePath("../CharacterStates")
+animation_player = NodePath("../Body/Stretch/Sprite2D/CharacterAnimator")
+tint_node = NodePath("../Body/Stretch/Sprite2D")
+start_delay = 3.0
+attack_gap = 1.5
+enrage_health = 0.0
+
+[node name="Jump" type="Node" parent="BossAttackLoop" index="0" node_paths=PackedStringArray("character", "resource_node", "jump_move", "mover", "area_receiver", "damage_transmitter", "push_transmitter", "push_channel_transmitter", "telegraph")]
+script = ExtResource("34_jump")
+character = NodePath("../..")
+resource_node = NodePath("../../ResourceNode")
+jump_move = NodePath("../../JumpMove")
+mover = NodePath("../../MoverTopDown2D")
+area_receiver = NodePath("../../AreaReceiver2D")
+axis_multiplication = ExtResource("32_axis")
+damage_transmitter = NodePath("../../JumpDamage")
+push_transmitter = NodePath("../../JumpPush")
+push_channel_transmitter = NodePath("../../JumpPush/DamageDataTransmitter")
+max_jump_distance = 64.0
+jump_time = 0.7
+vfx = ExtResource("41_landvfx")
+windup = 0.8
+recovery = 0.8
+cooldown = 8.0
+min_distance = 24.0
+max_distance = 80.0
+telegraph = NodePath("../../JumpTelegraph")
+
+[node name="JumpMove" type="Node" parent="." index="21" node_paths=PackedStringArray("character_body", "sprite", "stretch_node")]
+script = ExtResource("35_jumpmove")
+character_body = NodePath("..")
+sprite = NodePath("../Body/Stretch/Sprite2D")
+offset_curve = SubResource("Curve_jump")
+stretch_node = NodePath("../Body/Stretch")
+jump_sound = ExtResource("42_jumpsnd")
+land_sound = ExtResource("43_landsnd")
+
+[node name="JumpTelegraph" type="Node2D" parent="." index="22"]
+show_behind_parent = true
+scale = Vector2(1, 0.5)
+script = ExtResource("36_telegraph")
+radius = 20.0
+
+[node name="JumpDamage" type="ShapeCast2D" parent="." index="23"]
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("Shape_jump_damage")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("37_shapecast")
+
+[node name="DamageDataTransmitter" type="Node" parent="JumpDamage" index="0"]
+script = ExtResource("38_channel")
+try_next_frame = false
+transmission_resource = SubResource("Damage_jump")
+
+[node name="JumpPush" type="ShapeCast2D" parent="." index="24" node_paths=PackedStringArray("exclude_list")]
+scale = Vector2(1, 0.5)
+enabled = false
+shape = SubResource("Shape_jump_push")
+target_position = Vector2(0, 0)
+collision_mask = 6
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("37_shapecast")
+exclude_list = [NodePath("../AreaReceiver2D")]
+
+[node name="DamageDataTransmitter" type="Node" parent="JumpPush" index="0"]
+script = ExtResource("38_channel")
+try_next_frame = false
+transmission_resource = SubResource("Damage_jump_push")

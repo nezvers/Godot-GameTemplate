@@ -21,6 +21,9 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/traps/acid_puddle_instance_resource.tres" id="31_acid"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/vfx/dead/acid_slime_dead_instance_resource.tres" id="32_slimedead"]
 [ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="33_instres"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/bots/EnemyLob.gd" id="34_lob"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/acid_spit_projectile_instance_resource.tres" id="35_acidspit"]
+[ext_resource type="Resource" uid="uid://htqn5bygvbq5" path="res://addons/top_down/resources/sounds/slime_throw.tres" id="36_throw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(12, 5)
@@ -262,3 +265,13 @@ resource_node = NodePath("../ResourceNode")
 root_node = NodePath("..")
 drop_instance_resources = Array[ExtResource("33_instres")]([ExtResource("31_acid")])
 drop_chance = 1.0
+
+[node name="EnemyLob" type="Node" parent="." index="20" node_paths=PackedStringArray("target_finder", "origin_node")]
+script = ExtResource("34_lob")
+target_finder = NodePath("../ZombieInput/TargetFinder")
+origin_node = NodePath("..")
+projectile_instance = ExtResource("35_acidspit")
+shoot_range = 88.0
+cooldown = 6.0
+start_delay = 3.0
+shoot_sound = ExtResource("36_throw")
