@@ -1,6 +1,0 @@
-[gd_scene format=3]
-
-[ext_resource type="Script" path="res://game/tests/boss_path_check.gd" id="1_check"]
-
-[node name="BossPathCheck" type="Node"]
-script = ExtResource("1_check")

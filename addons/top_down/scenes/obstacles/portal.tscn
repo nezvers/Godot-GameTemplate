@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/scripts/Portal.gd" id="1_portal"]
+[ext_resource type="Resource" uid="uid://c5cbxaiec2jk1" path="res://addons/top_down/resources/global_resources/scene_transition_resource.tres" id="2_trans"]
+[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="3_state"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/portal_32x32_strip6.png" id="4_tex"]
+
+[node name="Portal" type="Area2D" node_paths=PackedStringArray("sprite")]
+disable_mode = 2
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_portal")
+room_state_resource = ExtResource("3_state")
+sprite = NodePath("Sprite2D")
+scene_transition_resource = ExtResource("2_trans")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, -24)
+texture = ExtResource("4_tex")
+centered = false
+hframes = 6

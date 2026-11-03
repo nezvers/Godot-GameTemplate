@@ -1,7 +1,11 @@
-## Builds the boss path rooms (room_C00 hub and the three boss branches) from the
-## ASCII maps below and writes them as scenes inheriting room_template.tscn.
-## Re-run after editing a map; it overwrites the room scenes.
-##   Godot --headless --path . res://game/tools/build_boss_path.tscn [-- C00 C10 ...]
+## Builds the campaign rooms from the ASCII maps in the rooms_*.gd data scripts and
+## writes them as scenes inheriting room_template.tscn:
+##   rooms_new_game.gd       New Game, room_N00.. (2 bosses)
+##   rooms_new_game_plus.gd  New Game+, room_P00.. (3 bosses)
+##   rooms_boss_path.gd      the boss path from room_1, room_C00..
+## Re-run after editing a map; it overwrites the room scenes (and, for New Game and
+## New Game+, their balance.json "rooms" entries).
+##   Godot --headless --path . res://game/tools/build_rooms.tscn [-- N02 P10 ...]
 ##
 ## Map cells are TileMapLayer coords: a column is +x (screen bottom-right), a row is
 ## +y (screen bottom-left). Every map cell except space is floor. Walls are generated
@@ -14,8 +18,17 @@
 ##   x y z  trigger that starts Section1 / 2 / 3
 ##   p q r  spawn point of Section1 / 2 / 3     B  boss spawn ("boss_section")
 ##   W  web trap   A  acid puddle   S  slime puddle
+##   L  loot box   M  meat grinder   K  slime workbench   $  slot machine
+##   O U I  portal (see "portals"), shut until the room it waits for is cleared
+##   V  victory exit of a boss room, shut until the boss room is cleared
 ##   P  player spawn when the room is started directly (off the doors: a door under
 ##      the player sends them straight through it)
+##
+## Spec keys: name, look, accent, patches, doors {char: [tag, connect_tag, room]},
+## portals {char: [tag, connect_tag, room, room it waits for]}, sections, boss_section,
+## side_room (1-based section of an optional alcove: written without "requires", so
+## it never holds up the way on), start (the campaign's first room: FreshStart, no
+## sections) and map.
 extends Node
 
 const TEMPLATE:String = "res://addons/top_down/scenes/levels/room_template.tscn"
@@ -23,7 +36,7 @@ const TD:String = "res://addons/top_down/"
 const SCENES:String = "res://game/scenes/"
 
 ## Floor/hole tileset source per look; walls use 0 for base (the autotiler maps it).
-const LOOK_SOURCE:Dictionary = {"base": 1, "mossy": 10, "bloody": 20}
+const LOOK_SOURCE:Dictionary = {"base": 1, "mossy": 10, "bloody": 20, "metal": 30, "sandstone": 40, "flesh": 50}
 const CRACKED:Array[Vector2i] = [Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3)]
 const CRACKED_CHANCE:float = 0.1
 const BLOCK_WALL_MARKER:Vector2i = Vector2i(3, 0)
@@ -33,357 +46,80 @@ const PROPS:Dictionary = {
 	"A": "scenes/obstacles/acid_puddle.tscn",
 	"S": "scenes/obstacles/slime_puddle.tscn",
 }
+## Interactables stand under WallLayer_Ysorted. A new one needs a line here.
+const INTERACTABLES:Dictionary = {
+	"L": "scenes/interactables/loot_box.tscn",
+	"M": "scenes/interactables/meat_grinder.tscn",
+	"K": "scenes/interactables/slime_workbench.tscn",
+	"$": "scenes/interactables/slot_machine.tscn",
+}
+const VICTORY:String = "victory"
+const FREE_DISTANCE:int = 116
 const DIAMOND:PackedVector2Array = [Vector2(0, -8), Vector2(16, 0), Vector2(0, 8), Vector2(-16, 0)]
 
-## look: base look of every floor cell. "blotch" mixes mossy and bloody patches.
-## accent: look of noise patches sprinkled over the base look.
-## patches: [x0, y0, x1, y1, look] rectangles drawn over the rest.
-const ROOMS:Dictionary = {
-	"C00": {
-		"name": "Crossroads",
-		"look": "base",
-		"patches": [[0, 12, 9, 16, "bloody"], [20, 12, 29, 16, "mossy"], [12, 20, 16, 29, "blotch"]],
-		"doors": {
-			"D": ["c00_room1", "boss_path", "room_1"],
-			"E": ["c00_c10", "c10_c00", "room_C10"],
-			"F": ["c00_c20", "c20_c00", "room_C20"],
-			"G": ["c00_c30", "c30_c00", "room_C30"],
-		},
-		"sections": [
-			{"waves": [
-				{"count": 6, "enemies": ["slime", "zombie"]},
-				{"count": 8, "enemies": ["slime", "zombie", "zombie_crawler"]},
-			]},
-		],
-		"map": [
-			"             ...",
-			"             .D.",
-			"             ...",
-			"             ...",
-			"             111",
-			"             P..",
-			"             xxx",
-			"             ...",
-			"        ..............",
-			"        .p..........p.",
-			"        ..............",
-			"        ...  ....  ...",
-			"        ...  ....  ...",
-			"......a................a......",
-			".E....a.......p........a...F..",
-			"......a................a......",
-			"        ..............",
-			"        ...  ....  ...",
-			"        ...  ....  ...",
-			"        ..............",
-			"        .p..........p.",
-			"        ..............",
-			"             ...",
-			"             aaa",
-			"             ...",
-			"             ...",
-			"             ...",
-			"             .G.",
-			"             ...",
-			"             ...",
-		],
-	},
-	"C10": {
-		"name": "Shambles",
-		"look": "bloody",
-		"accent": "base",
-		"doors": {
-			"D": ["c10_c00", "c00_c10", "room_C00"],
-			"E": ["c10_c11", "c11_c10", "room_C11"],
-		},
-		"sections": [
-			{"waves": [
-				{"count": 8, "enemies": ["zombie", "zombie_crawler"]},
-			]},
-			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 10, "enemies": ["zombie", "bloater"]},
-				{"count": 12, "enemies": ["zombie", "zombie_crawler", "bloater"]},
-			]},
-		],
-		"map": [
-			"                        ................",
-			"                        ................",
-			"      ............      ..q..........q..",
-			"      ............      ................",
-			"      ..p......p..      ....22....22....",
-			"      ............      ....22....22....",
-			"...1.x............a.2.y..................b.....",
-			".D.1Px.....  .....a.2.y........q.........b..E..",
-			"...1.x.....  .....a.2.y..................b.....",
-			"      ............a.2.y.................",
-			"      ............      ....22....22....",
-			"      ..p......p..      ....22....22....",
-			"      ............      ................",
-			"      ............      ..q..........q..",
-			"                        ................",
-			"                        ................",
-		],
-	},
-	"C11": {
-		"name": "Giant Zombie arena",
-		"look": "bloody",
-		"accent": "base",
-		"doors": {
-			"D": ["c11_c10", "c10_c11", "room_C10"],
-		},
-		"boss_section": 2,
-		"sections": [
-			{"waves": [
-				{"count": 6, "enemies": ["zombie", "zombie_crawler"]},
-			]},
-			{"waves": [
-				{"count": 1, "is_boss": true, "display_name": "GIANT ZOMBIE", "enemies": ["giant_zombie"]},
-			]},
-		],
-		# The 2x2 BARRIER blocks in the arena are pillars that rise with the boss:
-		# his Charge stuns him on walls (holes don't stop him).
-		"map": [
-			"                   ........................",
-			"                   ........................",
-			"                   ..  ....................",
-			"                   ..  ....................",
-			"                   .....22...........22....",
-			"                   .....22...........22....",
-			"      ........     ........................",
-			"      ........     ........................",
-			"      ..p..p..     ........................",
-			"...1.x........a.2.y........................",
-			".D.1Px........a.2.y............B...........",
-			"...1.x........a.2.y........................",
-			"      ........a.2.y........................",
-			"      ..p..p..     ........................",
-			"      ........     ........................",
-			"      ........     ........................",
-			"                   .....22...........22....",
-			"                   .....22...........22  ..",
-			"                   ....................  ..",
-			"                   ........................",
-			"                   ........................",
-			"                   ........................",
-		],
-	},
-	"C20": {
-		"name": "Overgrowth",
-		"look": "mossy",
-		"accent": "base",
-		"doors": {
-			"D": ["c20_c00", "c00_c20", "room_C00"],
-			"E": ["c20_c21", "c21_c20", "room_C21"],
-		},
-		"sections": [
-			{"waves": [
-				{"count": 8, "enemies": ["skitter_spider"]},
-				{"count": 6, "enemies": ["skitter_spider", "web_spider"]},
-			]},
-			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 12, "enemies": ["skitter_spider", "web_spider"]},
-			]},
-		],
-		"map": [
-			"        ...",
-			"        .D.",
-			"        ...",
-			"        111",
-			"        P..",
-			"        xxx",
-			"  ................",
-			"  ................",
-			"  ..p..........p..",
-			"  ...  .....   ...",
-			"  ...  .....   ...",
-			"  ................",
-			"  ........p.......",
-			"  ................",
-			"  ....   ....  ...",
-			"  ....   ....  ...",
-			"  ..p..........p..",
-			"  ................",
-			"        aaa",
-			"        ...",
-			"        222",
-			"        ...",
-			"        yyy",
-			"....................",
-			"....................",
-			"..q..............q..",
-			"....W...............",
-			"...............W....",
-			"..........q..........b.....",
-			".....................b..E..",
-			".....................b.....",
-			".........W..........",
-			"....................",
-			"...W............W...",
-			"..q.........W....q..",
-			"....................",
-			"....................",
-		],
-	},
-	"C21": {
-		"name": "Broodmother nest",
-		"look": "mossy",
-		"accent": "bloody",
-		"doors": {
-			"D": ["c21_c20", "c20_c21", "room_C20"],
-		},
-		"boss_section": 2,
-		"sections": [
-			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 12, "enemies": ["skitter_spider"]},
-			]},
-			{"waves": [
-				{"count": 1, "is_boss": true, "display_name": "BROODMOTHER", "enemies": ["broodmother"]},
-			]},
-		],
-		"map": [
-			"                       ..........................",
-			"                       ..........................",
-			"                       ..........................",
-			"                       ...   ..............   ...",
-			"      ............     ...   .......W......   ...",
-			"      .p.......p..     ..........................",
-			"      ............     ..........................",
-			"      ...      ...     .......W..................",
-			"      ...      ...     ..................W.......",
-			"      ...      ...     ..........................",
-			"...1.x...      ...a.2.y..........................",
-			".D.1Px...      ...a.2.y............  ...B........",
-			"...1.x...      ...a.2.y............  ............",
-			"      ...      ...a.2.y..........................",
-			"      ...      ...     ..........................",
-			"      ...      ...     ..........................",
-			"      ...      ...     .................W........",
-			"      .p.......p..     .........W................",
-			"      ............     ..........................",
-			"      ............     ...   .......W......   ...",
-			"                       ...   ..............   ...",
-			"                       ..........................",
-			"                       ..........................",
-			"                       ..........................",
-		],
-	},
-	"C30": {
-		"name": "Sump",
-		"look": "blotch",
-		"doors": {
-			"D": ["c30_c00", "c00_c30", "room_C00"],
-			"E": ["c30_c31", "c31_c30", "room_C31"],
-		},
-		"sections": [
-			{"waves": [
-				{"count": 8, "enemies": ["slime", "acid_slime"]},
-			]},
-			{"waves": [
-				{"count": 10, "enemies": ["acid_slime", "bloater"]},
-				{"count": 8, "enemies": ["bloater", "slime"]},
-			]},
-			# Optional side vault behind its own gate.
-			{"spawn_density": 2, "max_simultaneous": 2, "waves": [
-				{"count": 12, "enemies": ["slime", "slime_small", "acid_slime"]},
-			]},
-		],
-		"map": [
-			"        ...",
-			"        .D.",
-			"        ...",
-			"        111",
-			"        P..            ................",
-			"        xxx            ................",
-			"  ................     ..q..........q..",
-			"  ................     ................",
-			"  ..p..........p..     ...........A....",
-			"  ....A...........     ......   .......",
-			"  ...........A....a.2.y......   ........b.....",
-			"  ................a.2.y.................b..E..",
-			"  ................a.2.y....A............b.....",
-			"  ................a.2.y..........q.....",
-			"  .......A........     ................",
-			"  ...A............     ................",
-			"  ..p..........p..     ................",
-			"  ................     ..q..........q..",
-			"                       ................",
-			"                       ................",
-			"                             bbb",
-			"                             ...",
-			"                             333",
-			"                             ...",
-			"                             zzz",
-			"                         ...........",
-			"                         .r......r..",
-			"                         ..S........",
-			"                         .......S...",
-			"                         ...........",
-			"                         ...........",
-			"                         ...S....S..",
-			"                         .r......r..",
-			"                         ...........",
-		],
-	},
-	"C31": {
-		"name": "Plague Mother pit",
-		"look": "blotch",
-		"doors": {
-			"D": ["c31_c30", "c30_c31", "room_C30"],
-		},
-		"boss_section": 2,
-		"sections": [
-			{"waves": [
-				{"count": 8, "enemies": ["acid_slime", "slime"]},
-			]},
-			{"waves": [
-				{"count": 1, "is_boss": true, "display_name": "PLAGUE MOTHER", "enemies": ["plague_mother"]},
-			]},
-		],
-		"map": [
-			"                    ........................",
-			"                    ........................",
-			"                    ........................",
-			"                    ........................",
-			"                    ........................",
-			"      .........     ........................",
-			"      .........     .......  .....  ........",
-			"      ..p...p..     .......  .....  ........",
-			"      .........     ........................",
-			"...1.x.........a.2.y........................",
-			".D.1Px....A....a.2.y...........B............",
-			"...1.x.........a.2.y........................",
-			"      .........a.2.y........................",
-			"      .........     ........................",
-			"      ..p...p..     .......  .....  ........",
-			"      .........     .......  .....  ........",
-			"      .........     ........................",
-			"                    ........................",
-			"                    ........................",
-			"                    ........................",
-			"                    ........................",
-			"                    ........................",
-		],
-	},
-}
+## Room specs, one data script per campaign (const ROOMS, const CAMPAIGN).
+const CAMPAIGNS:Array[Script] = [
+	preload("res://game/tools/rooms_boss_path.gd"),
+	preload("res://game/tools/rooms_new_game.gd"),
+	preload("res://game/tools/rooms_new_game_plus.gd"),
+]
 
+const BALANCE_PATH:String = "res://game/balance/balance.json"
 
 var _balance:Dictionary
 var _problems:int = 0
+## Every room spec by key, across the campaigns.
+var _rooms:Dictionary = {}
+## Room key -> balance.json "rooms" entry, for the campaigns that write them.
+var _entries:Dictionary = {}
 
 func _ready()->void:
-	_balance = JSON.parse_string(FileAccess.get_file_as_string("res://game/balance/balance.json"))
+	_balance = JSON.parse_string(FileAccess.get_file_as_string(BALANCE_PATH))
+	var _campaign_rooms:Dictionary = {}
+	for _campaign:Script in CAMPAIGNS:
+		for _key:String in _campaign.ROOMS:
+			_rooms[_key] = _campaign.ROOMS[_key]
+			_campaign_rooms[_key] = _campaign.CAMPAIGN
 	var _only:PackedStringArray = OS.get_cmdline_user_args()
-	for _key:String in ROOMS:
+	for _key:String in _rooms:
 		if !_only.is_empty() && !_only.has(_key):
 			continue
-		build_room(_key, ROOMS[_key])
-	print("build_boss_path: done, %d problems" % _problems)
+		_check_spec(_key, _rooms[_key], _campaign_rooms[_key])
+		var _entry:Dictionary = build_room(_key, _rooms[_key])
+		if _campaign_rooms[_key] && !_entry.is_empty():
+			_entries[_key] = _entry
+	_write_balance()
+	print("build_rooms: done, %d problems" % _problems)
 	get_tree().quit(1 if _problems > 0 else 0)
+
+## Rules a map can't show: boss fights last, campaign boss rooms get their portal and
+## victory exit, and every portal arrives at a portal of the room it leads to.
+func _check_spec(key:String, spec:Dictionary, campaign:bool)->void:
+	var _map:String = "".join(spec.map)
+	var _portals:Dictionary = spec.get("portals", {})
+	if spec.has("boss_section"):
+		if spec.boss_section != spec.sections.size():
+			_problem("%s: the boss section must be the last one" % key)
+		if campaign && (!_map.contains("V") || _portals.is_empty()):
+			_problem("%s: a boss room needs a portal (O) and a victory exit (V)" % key)
+	if spec.has("side_room") && spec.side_room != spec.sections.size():
+		_problem("%s: the side room must be the last section" % key)
+	for _c:String in _portals:
+		var _portal:Array = _portals[_c]
+		if !_map.contains(_c):
+			_problem("%s: portal '%s' isn't on the map" % [key, _c])
+		var _target:Dictionary = _rooms.get(String(_portal[2]).trim_prefix("room_"), {})
+		var _tags:Array = []
+		for _other:Array in _target.get("portals", {}).values():
+			_tags.append(_other[0])
+		if !_tags.has(_portal[1]):
+			_problem("%s: portal '%s' arrives at '%s', which %s doesn't have" % [key, _c, _portal[1], _portal[2]])
 
 ## Generates tiles, colliders and BlockWalls on a template instance with the editor's
 ## own generators, then writes the room as a scene inheriting the template. (A packed
 ## instance can't be saved as inherited from a script, so the overrides are written out.)
-func build_room(key:String, spec:Dictionary)->void:
+## Returns the room's balance.json entry (empty for a room without sections).
+func build_room(key:String, spec:Dictionary)->Dictionary:
 	var _root:Node2D = (load(TEMPLATE) as PackedScene).instantiate()
 	var _floor:TileMapLayer = _root.get_node("Background/FloorLayer")
 	var _holes:TileMapLayer = _root.get_node("Background/ObstacleLayer")
@@ -426,7 +162,7 @@ func build_room(key:String, spec:Dictionary)->void:
 	_out.node("Room", "", {}, _out.ext("PackedScene", TEMPLATE))
 	for _layer:TileMapLayer in [_floor, _holes, _walls]:
 		_out.node(_layer.name, _root.get_path_to(_layer.get_parent()), {
-			"tile_map_data": "PackedByteArray(\"%s\")" % Marshalls.raw_to_base64(_layer.tile_map_data),
+			"tile_map_data": "PackedByteArray(\"%s\")" % Marshalls.raw_to_base64(_layer.tile_map_data) if !_layer.tile_map_data.is_empty() else "PackedByteArray()",
 		})
 	for _body:Node in [_holes.get_node("StaticBody2D"), _walls.get_node("StaticBody2D")]:
 		for _shape:CollisionPolygon2D in _body.get_children():
@@ -453,6 +189,9 @@ func build_room(key:String, spec:Dictionary)->void:
 		_out.node(_node.name, "WallLayer_Ysorted", _props, _block_wall)
 
 	var _door_scene:String = _out.ext("PackedScene", TD + "scenes/obstacles/door.tscn")
+	var _portals:Dictionary = spec.get("portals", {}).duplicate()
+	_portals["V"] = [VICTORY, VICTORY, VICTORY, key]
+	var _portal_index:int = 0
 	var _spawn_script:String = _out.ext("Script", TD + "scripts/arena/SpawnPoint.gd")
 	var _spawn_counts:Array[int] = [0, 0, 0]
 	var _door_index:int = 0
@@ -470,6 +209,21 @@ func build_room(key:String, spec:Dictionary)->void:
 				"connect_tag": "\"%s\"" % spec.doors[_c][1],
 				"scene_path": "\"%s%s.tscn\"" % [SCENES, spec.doors[_c][2]],
 			}, _door_scene)
+		elif _portals.has(_c):
+			_portal_index += 1
+			var _portal:Array = _portals[_c]
+			_out.node("Portal" if _portal_index == 1 else "Portal%d" % _portal_index, "Behind", {
+				"position": _pos,
+				"tag": "\"%s\"" % _portal[0],
+				"connect_tag": "\"%s\"" % _portal[1],
+				"scene_path": "\"%s%s.tscn\"" % [SCENES, _portal[2]],
+				"open_when_cleared": "&\"room_%s\"" % String(_portal[3]).trim_prefix("room_"),
+			}, _out.ext("PackedScene", TD + "scenes/obstacles/portal.tscn"))
+		elif INTERACTABLES.has(_c):
+			var _scene:PackedScene = load(TD + INTERACTABLES[_c])
+			var _base:String = _scene.get_state().get_node_name(0)
+			_prop_counts[_base] = _prop_counts.get(_base, 0) + 1
+			_out.node("%s%d" % [_base, _prop_counts[_base]], "WallLayer_Ysorted", {"position": _pos}, _out.ext("PackedScene", TD + INTERACTABLES[_c]))
 		elif _c == "P":
 			_out.node("PlayerSpawner", ".", {"position": _pos})
 		elif PROPS.has(_c):
@@ -496,6 +250,19 @@ func build_room(key:String, spec:Dictionary)->void:
 			}, "", "CollisionPolygon2D")
 
 	_write_sections(_out, spec)
+	if spec.get("start", false):
+		var _run:PackedStringArray = []
+		for _resource:String in ["global_resources/score_resource.tres", "global_resources/meat_resource.tres",
+				"global_resources/slime_resource.tres", "global_resources/weapon_upgrade_resource.tres",
+				"ItemCollectionResource/weapon_inventory.tres", "global_resources/room_state_resource.tres"]:
+			_run.append(_out.ext("Resource", TD + "resources/" + _resource))
+		_out.node("FreshStart", ".", {
+			"script": _out.ext("Script", "res://game/scripts/FreshStart.gd"),
+			"player_reference": _out.ext("Resource", TD + "resources/ReferenceNodeResources/player_reference.tres"),
+			"scene_transition_resource": _out.ext("Resource", TD + "resources/global_resources/scene_transition_resource.tres"),
+			"campaign_resource": _out.ext("Resource", "res://game/resources/campaign_resource.tres"),
+			"run_resources": "Array[Resource]([%s])" % ", ".join(_run),
+		}, "", "Node")
 	_out.node("RoomController", ".", {
 		"script": _out.ext("Script", "res://game/scripts/RoomController.gd"),
 		"room_id": "&\"room_%s\"" % key,
@@ -515,6 +282,67 @@ func build_room(key:String, spec:Dictionary)->void:
 		_file.store_string(_out.text())
 		_file.close()
 	_root.free()
+	return _balance_entry(_path, spec, _spawns)
+
+## The balance.json "rooms" entry matching what was written into the scene.
+func _balance_entry(path:String, spec:Dictionary, spawns:Array[String])->Dictionary:
+	if spec.sections.is_empty():
+		return {}
+	var _sections:Dictionary = {}
+	for _i:int in spec.sections.size():
+		var _spec:Dictionary = spec.sections[_i]
+		var _waves:Array = []
+		for _wave_spec:Dictionary in _spec.waves:
+			var _wave:Dictionary = {"count": _wave_spec.count}
+			if _wave_spec.get("is_boss", false):
+				_wave.is_boss = true
+				_wave.display_name = _wave_spec.display_name
+			_wave.enemies = _wave_spec.enemies
+			if _wave_spec.has("max_alive"):
+				_wave.max_alive = _wave_spec.max_alive
+			_waves.append(_wave)
+		_sections["Section%d" % (_i + 1)] = {"spawn_density": _spec.get("spawn_density", 1), "free_distance": FREE_DISTANCE, "waves": _waves}
+	var _points:Dictionary = {}
+	var _names:Array[String] = spawns.duplicate()
+	_names.sort()
+	for _name:String in _names:
+		var _index:int = spec.get("boss_section", 1) - 1 if _name == "SpawnBoss" else int(_name.get_slice("_", 1).trim_prefix("S")) - 1
+		_points[_name] = {"max_simultaneous": 1 if _name == "SpawnBoss" else _section_spec(spec, _index).get("max_simultaneous", 1)}
+	return {"scene": path, "sections": _sections, "spawn_points": _points, "loot_multiplier": 1.0}
+
+## Replaces (or appends) only the built rooms' entries in balance.json, keeping the
+## rest of the file as it is written.
+func _write_balance()->void:
+	if _entries.is_empty():
+		return
+	var _lines:PackedStringArray = FileAccess.get_file_as_string(BALANCE_PATH).split("\n")
+	var _rooms_at:int = _lines.find("\t\"rooms\": {")
+	if _rooms_at == -1:
+		_problem("balance.json has no \"rooms\" block")
+		return
+	for _key:String in _entries:
+		var _start:int = _lines.find("\t\t\"room_%s\": {" % _key)
+		if _start != -1:
+			var _end:int = _start
+			while _lines[_end] != "\t\t}" && _lines[_end] != "\t\t},":
+				_end += 1
+			for i:int in _end - _start + 1:
+				_lines.remove_at(_start)
+		var _close:int = _block_close(_lines, _rooms_at)
+		_lines[_close - 1] = _lines[_close - 1].trim_suffix(",") + ","
+		_lines.insert(_close, "\t\t\"room_%s\": %s" % [_key, JSON.stringify(_entries[_key], "\t", false).replace("\n", "\n\t\t")])
+	var _last:int = _block_close(_lines, _rooms_at) - 1
+	_lines[_last] = _lines[_last].trim_suffix(",")
+	var _file:FileAccess = FileAccess.open(BALANCE_PATH, FileAccess.WRITE)
+	_file.store_string("\n".join(_lines))
+	_file.close()
+
+## Line of the "}" closing the top-level block that opens at `start`.
+func _block_close(lines:PackedStringArray, start:int)->int:
+	var _close:int = start + 1
+	while lines[_close] != "\t}," && lines[_close] != "\t}":
+		_close += 1
+	return _close
 
 func _write_sections(out:SceneText, spec:Dictionary)->void:
 	var _wave_script:String = out.ext("Script", TD + "scripts/arena/SpawnWaveList.gd")
@@ -538,7 +366,10 @@ func _write_sections(out:SceneText, spec:Dictionary)->void:
 		var _props:Dictionary = {"waves": "Array[%s]([%s])" % [_wave_script, ", ".join(_waves)]}
 		if _spec.has("spawn_density"):
 			_props.spawn_density = "%.1f" % _spec.spawn_density
-		if _i > 0:
+		if _i + 1 == spec.get("side_room", 0):
+			# The template chains every section to the one before; a side room opts out.
+			_props.requires = "NodePath(\"\")"
+		elif _i > 0:
 			_props.requires = "NodePath(\"../Section%d\")" % _i
 		out.node("Section%d" % (_i + 1), "EnemyManager", _props)
 

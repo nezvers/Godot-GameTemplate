@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" path="res://zen/zs_victory.tscn" id="6_zen"]
 [ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="7_state"]
 [ext_resource type="Resource" uid="uid://5emqdks7qgbm" path="res://addons/top_down/resources/global_resources/score_resource.tres" id="8_score"]
+[ext_resource type="Script" path="res://game/scripts/CampaignRestartButton.gd" id="9_restart"]
+[ext_resource type="Resource" path="res://game/resources/campaign_resource.tres" id="10_campaign"]
 
 [node name="Victory" type="ColorRect"]
 anchors_preset = 15
@@ -20,14 +22,15 @@ theme = ExtResource("1_theme")
 color = Color(0.0784314, 0.121569, 0.0892667, 1)
 
 [node name="PlayAgainComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
-script = ExtResource("3_change")
+script = ExtResource("9_restart")
 button = NodePath("../MarginContainer/Control/Body/Menu/PlayAgain/Button")
-scene_path = "res://game/scenes/room_start.tscn"
+scene_path = "res://game/scenes/room_N00.tscn"
+campaign_resource = ExtResource("10_campaign")
 
 [node name="MainMenuComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("3_change")
 button = NodePath("../MarginContainer/Control/Body/Menu/MainMenu/Button")
-scene_path = "res://addons/top_down/scenes/ui/screens/title.tscn"
+scene_path = "res://game/scenes/title.tscn"
 
 [node name="VictoryScreen" type="Node" parent="." node_paths=PackedStringArray("menu")]
 script = ExtResource("5_victory")
@@ -35,6 +38,7 @@ overlay_scene = ExtResource("6_zen")
 menu = NodePath("../MarginContainer")
 room_state_resource = ExtResource("7_state")
 score_resource = ExtResource("8_score")
+campaign_resource = ExtResource("10_campaign")
 
 [node name="MusicSetter" type="Node" parent="."]
 script = ExtResource("2_music")

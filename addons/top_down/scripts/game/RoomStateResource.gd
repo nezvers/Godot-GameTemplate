@@ -15,8 +15,25 @@ var cleared_rooms: Dictionary = {}
 ## Lets a partially-cleared room resume only its uncleared sections on return.
 var cleared_sections: Dictionary = {}
 
+## Opened one-use containers (loot boxes), keyed "<room scene>:<node name>".
+var looted: Dictionary = {}
+
 ## Id of the room the player is currently in.
 var current_room_id: StringName = &""
+
+## A new campaign run starts with every room and container fresh.
+func reset_resource() -> void:
+	cleared_rooms.clear()
+	cleared_sections.clear()
+	looted.clear()
+	current_room_id = &""
+	updated.emit()
+
+func is_looted(key: String) -> bool:
+	return looted.has(key)
+
+func mark_looted(key: String) -> void:
+	looted[key] = true
 
 func set_current(id: StringName) -> void:
 	if current_room_id == id:

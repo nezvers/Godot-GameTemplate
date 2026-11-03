@@ -6,8 +6,12 @@ extends Node
 @export var menu: Control
 @export var room_state_resource: RoomStateResource
 @export var score_resource: ScoreResource
+## Reaching a boss room's victory exit unlocks New Game+.
+@export var campaign_resource: CampaignResource
 
 func _ready() -> void:
+	if campaign_resource != null:
+		campaign_resource.unlock_ng_plus()
 	if overlay_scene == null:
 		return
 	menu.visible = false

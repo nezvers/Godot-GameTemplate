@@ -1,0 +1,859 @@
+[gd_scene format=4 uid="uid://bj66msi5kju52"]
+
+[ext_resource type="PackedScene" uid="uid://cpjckxc4g3s0w" path="res://addons/top_down/scenes/levels/room_template.tscn" id="1_room_templat"]
+[ext_resource type="PackedScene" uid="uid://cm475mndno581" path="res://addons/top_down/scenes/obstacles/block_wall.tscn" id="2_block_wall"]
+[ext_resource type="PackedScene" uid="uid://dcon4vj7ampja" path="res://addons/top_down/scenes/obstacles/door.tscn" id="3_door"]
+[ext_resource type="Script" uid="uid://xn2mpd4i3gl2" path="res://addons/top_down/scripts/arena/SpawnPoint.gd" id="4_SpawnPoint"]
+[ext_resource type="Script" uid="uid://b82gi6nils34f" path="res://addons/top_down/scripts/arena/SpawnWaveList.gd" id="5_SpawnWaveLis"]
+[ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="6_InstanceReso"]
+[ext_resource type="Resource" uid="uid://c05ys7ybsfv4u" path="res://addons/top_down/resources/InstanceResources/actors/zomby_instance_resource.tres" id="7_zomby_instan"]
+[ext_resource type="Resource" uid="uid://ddp7qf0qghy82" path="res://addons/top_down/resources/InstanceResources/actors/zomby_crawler_instance_resource.tres" id="8_zomby_crawle"]
+[ext_resource type="Script" uid="uid://beja08wyrf37a" path="res://game/scripts/RoomController.gd" id="9_RoomControll"]
+[ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="10_room_state_r"]
+[ext_resource type="Resource" path="res://game/resources/room_cleared_resource.tres" id="11_room_cleared"]
+[ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="12_fight_mode_r"]
+[ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="13_remaining_wa"]
+[ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="14_game_hud_ove"]
+
+[sub_resource type="Resource" id="Resource_1"]
+script = ExtResource("5_SpawnWaveLis")
+count = 6
+instance_list = Array[ExtResource("6_InstanceReso")]([ExtResource("7_zomby_instan")])
+
+[sub_resource type="Resource" id="Resource_2"]
+script = ExtResource("5_SpawnWaveLis")
+count = 8
+instance_list = Array[ExtResource("6_InstanceReso")]([ExtResource("7_zomby_instan"), ExtResource("8_zomby_crawle")])
+
+[node name="Room" instance=ExtResource("1_room_templat")]
+
+[node name="FloorLayer" parent="Background"]
+tile_map_data = PackedByteArray("AAAMAAAAKAAAAAAAAAANAAAAKAABAAEAAAAOAAAAKAABAAEAAAAPAAAAKAACAAAAAAAcAAAAHgAAAAAAAAAdAAAAHgABAAEAAAAeAAAAHgABAAEAAAAfAAAAKAACAAAAAAAsAAAAHgAAAAAAAAAtAAAAHgABAAEAAAAuAAAAKAABAAEAAAAvAAAAKAACAAAAAAAMAAEAKAAAAAEAAAANAAEAKAAAAAMAAAAOAAEAKAAAAAMAAAAPAAEAKAAAAAIAAAAcAAEAHgAAAAEAAAAdAAEAHgAAAAMAAAAeAAEAHgAAAAMAAAAfAAEAKAAAAAIAAAAsAAEAKAAAAAEAAAAtAAEAKAAAAAMAAAAuAAEAKAAAAAMAAAAvAAEAKAAAAAIAAAAMAAIAKAAAAAEAAAANAAIAKAAAAAMAAAAOAAIAHgAAAAMAAAAPAAIAKAAAAAIAAAAcAAIAHgAAAAEAAAAdAAIAHgAAAAMAAAAeAAIAHgAAAAMAAAAfAAIAKAAAAAIAAAAsAAIAKAAAAAEAAAAtAAIAKAAAAAMAAAAuAAIAKAAAAAMAAAAvAAIAKAAAAAIAAAAMAAMAKAAAAAEAAAANAAMAHgAAAAMAAAAOAAMAHgAAAAMAAAAPAAMAHgAAAAIAAAAcAAMAHgAAAAEAAAAdAAMAKAAAAAMAAAAeAAMAKAAAAAMAAAAfAAMAKAAAAAIAAAAsAAMAKAAAAAEAAAAtAAMAKAAAAAMAAAAuAAMAKAAAAAMAAAAvAAMAKAAAAAIAAAAAAAQAKAAAAAAAAAABAAQAKAABAAEAAAACAAQAKAABAAEAAAADAAQAKAABAAEAAAAEAAQAKAABAAEAAAAFAAQAKAABAAEAAAAGAAQAKAABAAEAAAAHAAQAKAABAAEAAAAIAAQAKAABAAEAAAAJAAQAKAABAAEAAAAKAAQAKAABAAEAAAALAAQAKAABAAEAAAAMAAQAKAACAAIAAAANAAQAKAAAAAMAAAAOAAQAHgAAAAMAAAAPAAQAHgADAAEAAAAQAAQAHgABAAEAAAARAAQAKAABAAEAAAASAAQAKAABAAEAAAATAAQAKAABAAEAAAAUAAQAKAABAAEAAAAVAAQAKAABAAEAAAAWAAQAKAABAAEAAAAXAAQAKAABAAEAAAAYAAQAKAABAAEAAAAZAAQAKAABAAEAAAAaAAQAKAABAAEA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AAAMAAcAKAAAAAEAAAANAAcAHgAAAAMAAAAOAAcAHgAAAAMAAAAPAAcAKAAAAAIAAAAcAAcAKAAAAAEAAAAdAAcAKAAAAAMAAAAeAAcAKAAAAAMAAAAfAAcAKAAAAAIAAAAsAAcAKAAAAAEAAAAtAAcAKAAAAAMAAAAuAAcAKAAAAAMAAAAvAAcAKAAAAAIAAAAMAAgAHgAAAAEAAAANAAgAHgAAAAMAAAAOAAgAHgAAAAMAAAAPAAgAKAAAAAIAAAAcAAgAKAAAAAEAAAAdAAgAKAAAAAMAAAAeAAgAKAADAAMAAAAfAAgAKAAAAAIAAAAsAAgAKAAAAAEAAAAtAAgAKAAAAAMAAAAuAAgAKAAAAAMAAAAvAAgAKAAAAAIAAAAMAAkAKAAAAAEAAAANAAkAKAAAAAMAAAAOAAkAKAAAAAMAAAAPAAkAKAAAAAIAAAAcAAkAKAAAAAEAAAAdAAkAKAAAAAMAAAAeAAkAKAACAAMAAAAfAAkAKAAAAAIAAAAsAAkAKAAAAAEAAAAtAAkAKAAAAAMAAAAuAAkAKAAAAAMAAAAvAAkAKAAAAAIAAAAMAAoAKAADAAAAAAANAAoAKAABAAIAAAAOAAoAKAABAAIAAAAPAAoAKAABAAAAAAAcAAoAKAADAAAAAAAdAAoAKAABAAIAAAAeAAoAKAABAAIAAAAfAAoAKAABAAAAAAAsAAoAKAADAAAAAAAtAAoAKAABAAIAAAAuAAoAKAABAAIAAAAvAAoAKAABAAAAAAA=")
+
+[node name="ObstacleLayer" parent="Background"]
+tile_map_data = PackedByteArray()
+
+[node name="WallLayer_Ysorted" parent="."]
+tile_map_data = PackedByteArray("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")
+
+[node name="X11_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(192, 96)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(224, 96)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X13_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(240, 104)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X14_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(256, 112)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(272, 136)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X15_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(272, 120)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(288, 128)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(448, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(480, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(496, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(512, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(528, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(528, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(544, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(704, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X44_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(736, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X45_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(752, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X46_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(768, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y0" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(784, 392)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X47_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(784, 376)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(800, 384)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(176, 104)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(256, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(432, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(512, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(688, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(768, 400)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(160, 112)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(240, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(416, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(496, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(672, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y2" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(752, 408)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(144, 120)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(400, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(656, 376)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X-1_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-64, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X0_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-32, 32)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X1_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-16, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X2_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(0, 48)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X3_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(16, 56)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X4_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(32, 64)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X5_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(48, 72)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X6_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(64, 80)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X7_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(80, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X8_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(96, 96)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(112, 104)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X10_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(128, 112)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(224, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(240, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X18_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(256, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X19_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(272, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X20_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(288, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(304, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(320, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X23_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(336, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X24_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(352, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(368, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(384, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(480, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(496, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(512, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(528, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(544, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(560, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X38_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(576, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(592, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(608, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X41_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(624, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X42_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(640, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(736, 416)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X49_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(752, 424)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X50_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(768, 432)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X51_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(784, 440)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X52_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(800, 448)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X53_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(816, 456)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X54_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(832, 464)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X55_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(848, 472)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X56_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(864, 480)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X57_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(880, 488)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X59_Y4" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(896, 512)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X58_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(896, 496)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X59_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(912, 504)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X-1_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-80, 40)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X59_Y5" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(880, 520)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X0_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-96, 64)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X-1_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-96, 48)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X-1_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-112, 56)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X1_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-80, 72)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X2_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-64, 80)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X3_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-48, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X4_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-32, 96)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X5_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-16, 104)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X6_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(0, 112)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X7_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(16, 120)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X8_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(32, 128)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X9_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(48, 136)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X10_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(64, 144)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(160, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X17_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(176, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X18_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(192, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X19_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(208, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X20_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(224, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X21_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(240, 232)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X22_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(256, 240)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X23_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(272, 248)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X24_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(288, 256)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X25_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(304, 264)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X26_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(320, 272)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(416, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X33_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(432, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X34_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(448, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X35_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(464, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X36_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(480, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X37_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(496, 360)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X38_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(512, 368)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X39_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(528, 376)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X40_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(544, 384)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X41_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(560, 392)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X42_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(576, 400)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(672, 448)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X49_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(688, 456)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X50_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(704, 464)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X51_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(720, 472)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X52_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(736, 480)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X53_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(752, 488)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X54_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(768, 496)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X55_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(784, 504)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X56_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(800, 512)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X57_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(816, 520)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X58_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(832, 528)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X59_Y6" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(864, 528)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X59_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(848, 536)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(80, 152)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(336, 280)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y7" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(592, 408)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(64, 160)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(144, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(320, 288)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(400, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(576, 416)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y8" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(656, 456)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(48, 168)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(128, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(304, 296)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(384, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(560, 424)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y9" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(640, 464)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X12_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(32, 192)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(32, 176)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(16, 184)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X13_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(48, 200)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X14_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(64, 208)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X15_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(80, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(112, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X16_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(96, 224)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X28_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(288, 320)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(288, 304)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(272, 312)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X29_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(304, 328)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X30_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(320, 336)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X31_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(336, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(368, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X32_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(352, 352)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X44_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(544, 448)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(544, 432)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(528, 440)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X45_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(560, 456)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X46_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(576, 464)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X47_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(592, 472)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y10" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(624, 472)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X48_Y11" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(608, 480)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X11_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(208, 88)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X27_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(464, 216)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X43_Y-1" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(720, 344)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="X-1_Y3" type="CollisionPolygon2D" parent="WallLayer_Ysorted/StaticBody2D"]
+position = Vector2(-48, 24)
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[node name="BlockWall1" parent="WallLayer_Ysorted" node_paths=PackedStringArray("section") instance=ExtResource("2_block_wall")]
+position = Vector2(0, 56)
+section = NodePath("../../EnemyManager/Section1")
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(3, 4)
+
+[node name="BlockWall2" parent="WallLayer_Ysorted" node_paths=PackedStringArray("section") instance=ExtResource("2_block_wall")]
+position = Vector2(816, 464)
+section = NodePath("../../EnemyManager/Section1")
+mode = 1
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(54, 4)
+
+[node name="BlockWall3" parent="WallLayer_Ysorted" node_paths=PackedStringArray("section") instance=ExtResource("2_block_wall")]
+position = Vector2(-16, 64)
+section = NodePath("../../EnemyManager/Section1")
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(3, 5)
+
+[node name="BlockWall4" parent="WallLayer_Ysorted" node_paths=PackedStringArray("section") instance=ExtResource("2_block_wall")]
+position = Vector2(800, 472)
+section = NodePath("../../EnemyManager/Section1")
+mode = 1
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(54, 5)
+
+[node name="BlockWall5" parent="WallLayer_Ysorted" node_paths=PackedStringArray("section") instance=ExtResource("2_block_wall")]
+position = Vector2(-32, 72)
+section = NodePath("../../EnemyManager/Section1")
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(3, 6)
+
+[node name="BlockWall6" parent="WallLayer_Ysorted" node_paths=PackedStringArray("section") instance=ExtResource("2_block_wall")]
+position = Vector2(784, 480)
+section = NodePath("../../EnemyManager/Section1")
+mode = 1
+metadata/generated_by_scene_tile = true
+metadata/source_cell = Vector2i(54, 6)
+
+[node name="Spawn_S1_1" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
+position = Vector2(208, 120)
+script = ExtResource("4_SpawnPoint")
+section = NodePath("../../EnemyManager/Section1")
+max_simultaneous = 1
+
+[node name="Spawn_S1_2" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
+position = Vector2(464, 248)
+script = ExtResource("4_SpawnPoint")
+section = NodePath("../../EnemyManager/Section1")
+max_simultaneous = 1
+
+[node name="Spawn_S1_3" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
+position = Vector2(720, 376)
+script = ExtResource("4_SpawnPoint")
+section = NodePath("../../EnemyManager/Section1")
+max_simultaneous = 1
+
+[node name="Trigger_X5_Y4" type="CollisionPolygon2D" parent="ArenaEntry"]
+position = Vector2(32, 80)
+polygon = PackedVector2Array(0, -8, 16, 0, 0, 8, -16, 0)
+
+[node name="Stairs" parent="Behind" instance=ExtResource("3_door")]
+position = Vector2(-48, 56)
+tag = "n01_n00"
+connect_tag = "n00_n01"
+scene_path = "res://game/scenes/room_N00.tscn"
+
+[node name="PlayerSpawner" parent="."]
+position = Vector2(0, 80)
+
+[node name="Trigger_X5_Y5" type="CollisionPolygon2D" parent="ArenaEntry"]
+position = Vector2(16, 88)
+polygon = PackedVector2Array(0, -8, 16, 0, 0, 8, -16, 0)
+
+[node name="Stairs2" parent="Behind" instance=ExtResource("3_door")]
+position = Vector2(832, 496)
+tag = "n01_n02"
+connect_tag = "n02_n01"
+scene_path = "res://game/scenes/room_N02.tscn"
+
+[node name="Trigger_X5_Y6" type="CollisionPolygon2D" parent="ArenaEntry"]
+position = Vector2(0, 96)
+polygon = PackedVector2Array(0, -8, 16, 0, 0, 8, -16, 0)
+
+[node name="Spawn_S1_4" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
+position = Vector2(80, 184)
+script = ExtResource("4_SpawnPoint")
+section = NodePath("../../EnemyManager/Section1")
+max_simultaneous = 1
+
+[node name="Spawn_S1_5" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
+position = Vector2(336, 312)
+script = ExtResource("4_SpawnPoint")
+section = NodePath("../../EnemyManager/Section1")
+max_simultaneous = 1
+
+[node name="Spawn_S1_6" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
+position = Vector2(592, 440)
+script = ExtResource("4_SpawnPoint")
+section = NodePath("../../EnemyManager/Section1")
+max_simultaneous = 1
+
+[node name="Section1" parent="EnemyManager"]
+waves = Array[ExtResource("5_SpawnWaveLis")]([SubResource("Resource_1"), SubResource("Resource_2")])
+
+[node name="RoomController" type="Node" parent="." node_paths=PackedStringArray("arena_entry")]
+script = ExtResource("9_RoomControll")
+room_id = &"room_N01"
+room_state_resource = ExtResource("10_room_state_r")
+room_cleared_resource = ExtResource("11_room_cleared")
+fight_mode_resource = ExtResource("12_fight_mode_r")
+remaining_wave_count_resource = ExtResource("13_remaining_wa")
+arena_entry = NodePath("../ArenaEntry")
+
+[node name="GameHudOverlay" parent="." instance=ExtResource("14_game_hud_ove")]
+
+[editable path="EnemyManager"]

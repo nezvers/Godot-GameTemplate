@@ -1977,6 +1977,1387 @@
 				}
 			},
 			"loot_multiplier": 1.0
+		},
+		"room_N01": {
+			"scene": "res://game/scenes/room_N01.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 6,
+							"enemies": [
+								"zombie"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_6": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N02": {
+			"scene": "res://game/scenes/room_N02.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"slime",
+								"zombie"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"bloater"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"zombie_crawler",
+								"slime"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N10": {
+			"scene": "res://game/scenes/room_N10.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						},
+						{
+							"count": 6,
+							"enemies": [
+								"bloater",
+								"zombie"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"zombie",
+								"zombie_crawler",
+								"bloater"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie_crawler"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N11": {
+			"scene": "res://game/scenes/room_N11.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"zombie_crawler",
+								"bloater"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N12": {
+			"scene": "res://game/scenes/room_N12.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 6,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "GIANT ZOMBIE",
+							"enemies": [
+								"giant_zombie"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N20": {
+			"scene": "res://game/scenes/room_N20.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"zombie",
+								"slime"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"acid_slime",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"bloater",
+								"zombie"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"zombie_crawler",
+								"acid_slime"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N21": {
+			"scene": "res://game/scenes/room_N21.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"acid_slime"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"zombie",
+								"bloater",
+								"zombie_crawler"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N22": {
+			"scene": "res://game/scenes/room_N22.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"skitter_spider"
+							]
+						},
+						{
+							"count": 6,
+							"enemies": [
+								"skitter_spider",
+								"web_spider"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"skitter_spider",
+								"web_spider"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N23": {
+			"scene": "res://game/scenes/room_N23.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"skitter_spider"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "BROODMOTHER",
+							"enemies": [
+								"broodmother"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N30": {
+			"scene": "res://game/scenes/room_N30.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 8,
+							"enemies": [
+								"slime",
+								"acid_slime"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"slime_small",
+								"acid_slime"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_N31": {
+			"scene": "res://game/scenes/room_N31.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"slime_small",
+								"acid_slime"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P01": {
+			"scene": "res://game/scenes/room_P01.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"zombie_crawler",
+								"slime"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"acid_slime",
+								"bloater"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 14,
+							"enemies": [
+								"zombie",
+								"bloater",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"skitter_spider",
+								"web_spider"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P10": {
+			"scene": "res://game/scenes/room_P10.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie_crawler",
+								"slime_small"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"bloater"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P11": {
+			"scene": "res://game/scenes/room_P11.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"bloater",
+								"acid_slime"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 14,
+							"enemies": [
+								"zombie",
+								"zombie_crawler",
+								"bloater"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"acid_slime",
+								"slime",
+								"slime_small"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P12": {
+			"scene": "res://game/scenes/room_P12.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"slime",
+								"slime_small"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "BIG JELLY",
+							"enemies": [
+								"big_jelly"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P20": {
+			"scene": "res://game/scenes/room_P20.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"acid_slime"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"zombie_crawler",
+								"bloater"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"acid_slime",
+								"slime",
+								"bloater"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P21": {
+			"scene": "res://game/scenes/room_P21.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"bloater",
+								"zombie_crawler"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P22": {
+			"scene": "res://game/scenes/room_P22.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"acid_slime",
+								"slime"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"zombie",
+								"bloater"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P23": {
+			"scene": "res://game/scenes/room_P23.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 14,
+							"enemies": [
+								"acid_slime",
+								"slime",
+								"slime_small"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "PLAGUE MOTHER",
+							"enemies": [
+								"plague_mother"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P30": {
+			"scene": "res://game/scenes/room_P30.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"slime",
+								"acid_slime"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 14,
+							"enemies": [
+								"zombie",
+								"zombie_crawler",
+								"acid_slime"
+							]
+						}
+					]
+				},
+				"Section3": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 10,
+							"enemies": [
+								"bloater",
+								"slime"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S2_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_4": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S2_5": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S3_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S3_4": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P31": {
+			"scene": "res://game/scenes/room_P31.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						},
+						{
+							"count": 10,
+							"enemies": [
+								"zombie_crawler",
+								"bloater"
+							]
+						},
+						{
+							"count": 8,
+							"enemies": [
+								"bloater"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"Spawn_S1_1": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_5": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_6": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_7": {
+					"max_simultaneous": 1
+				}
+			},
+			"loot_multiplier": 1.0
+		},
+		"room_P32": {
+			"scene": "res://game/scenes/room_P32.tscn",
+			"sections": {
+				"Section1": {
+					"spawn_density": 2,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 12,
+							"enemies": [
+								"zombie",
+								"zombie_crawler"
+							]
+						}
+					]
+				},
+				"Section2": {
+					"spawn_density": 1,
+					"free_distance": 116,
+					"waves": [
+						{
+							"count": 1,
+							"is_boss": true,
+							"display_name": "GIANT ZOMBIE",
+							"enemies": [
+								"giant_zombie"
+							]
+						}
+					]
+				}
+			},
+			"spawn_points": {
+				"SpawnBoss": {
+					"max_simultaneous": 1
+				},
+				"Spawn_S1_1": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_2": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_3": {
+					"max_simultaneous": 2
+				},
+				"Spawn_S1_4": {
+					"max_simultaneous": 2
+				}
+			},
+			"loot_multiplier": 1.0
 		}
 	},
 	"traps": {
@@ -2046,6 +3427,31 @@
 				{
 					"drop": "weapon",
 					"weight": 12
+				}
+			]
+		},
+		"loot_box": {
+			"scene": "res://addons/top_down/scenes/interactables/loot_box.tscn",
+			"cost": [],
+			"payouts": [
+				{
+					"drop": "meat",
+					"amount": 2,
+					"weight": 30
+				},
+				{
+					"drop": "coin",
+					"amount": 5,
+					"weight": 30
+				},
+				{
+					"drop": "health",
+					"amount": 1,
+					"weight": 15
+				},
+				{
+					"drop": "weapon",
+					"weight": 25
 				}
 			]
 		}

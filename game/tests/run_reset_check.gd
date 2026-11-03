@@ -34,7 +34,7 @@ func _ready()->void:
 	_player_reference = load(TD + "resources/ReferenceNodeResources/player_reference.tres")
 
 	var _game_over:String = FileAccess.get_file_as_string(TD + "scenes/ui/screens/game_over.tscn")
-	check(_game_over.contains('scene_path = "%s"' % ROOM_START), "game over Try Again loads the game room_start")
+	check(_game_over.contains("CampaignRestartButton.gd"), "game over Try Again restarts the run's campaign")
 	check(_game_over.contains('scene_path = "res://game/scenes/title.tscn"'), "game over Main Menu loads the game title")
 
 	# Weapons and coins left over from a previous run

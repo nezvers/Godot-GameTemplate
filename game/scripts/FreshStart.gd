@@ -17,6 +17,10 @@ extends Node
 ## Transition state carried between rooms.
 @export var scene_transition_resource: SceneTransitionResource
 
+## Campaign start rooms remember themselves here, so Try Again / Play Again
+## restart the same campaign. Optional.
+@export var campaign_resource: CampaignResource
+
 ## Run-scoped state (score/coins, meat, slime, weapon upgrades, weapon inventory)
 ## reset for the new run. Each entry needs a reset_resource() method.
 @export var run_resources: Array[Resource]
@@ -24,6 +28,9 @@ extends Node
 func _enter_tree() -> void:
 	assert(player_reference != null)
 	assert(scene_transition_resource != null)
+
+	if campaign_resource != null and owner != null:
+		campaign_resource.start_scene = owner.scene_file_path
 
 	var carried: Node = player_reference.node
 	if !scene_transition_resource.next_scene_path.is_empty() and is_instance_valid(carried):

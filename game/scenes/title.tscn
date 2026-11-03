@@ -1,14 +1,34 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3]
 
 [ext_resource type="PackedScene" uid="uid://dpv4epw1i5b4g" path="res://addons/top_down/scenes/ui/screens/title.tscn" id="1_title"]
 [ext_resource type="PackedScene" uid="uid://b3ww0jqqy1eq7" path="res://addons/top_down/scenes/ui/menu_button.tscn" id="2_btn"]
 [ext_resource type="Script" uid="uid://6yvxabri80it" path="res://addons/top_down/scripts/ui/title_screen/DifficultyManager.gd" id="3_diffmgr"]
 [ext_resource type="Resource" uid="uid://st0m3unxtv15" path="res://addons/top_down/resources/global_resources/difficulty_resource.tres" id="4_diff"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/ui/title_screen/ChangeSceneButton.gd" id="5_change"]
+[ext_resource type="Script" path="res://game/scripts/NewGamePlusEntry.gd" id="6_ngplus"]
+[ext_resource type="Resource" path="res://game/resources/campaign_resource.tres" id="7_campaign"]
 
 [node name="Title" instance=ExtResource("1_title")]
 
 [node name="NewGameComponent" parent="."]
-scene_path = "res://game/scenes/room_start.tscn"
+scene_path = "res://game/scenes/room_N00.tscn"
+
+[node name="NewGamePlus" parent="MarginContainer/Control/Body/TitleMenu" index="2" instance=ExtResource("2_btn")]
+visible = false
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/TitleMenu/NewGamePlus" index="1"]
+text = "New Game+"
+
+[node name="NewGamePlusComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("5_change")
+button = NodePath("../MarginContainer/Control/Body/TitleMenu/NewGamePlus/Button")
+scene_path = "res://game/scenes/room_P00.tscn"
+
+[node name="NewGamePlusEntry" type="Node" parent="." node_paths=PackedStringArray("entry")]
+script = ExtResource("6_ngplus")
+campaign_resource = ExtResource("7_campaign")
+entry = NodePath("../MarginContainer/Control/Body/TitleMenu/NewGamePlus")
 
 [node name="Difficulty" parent="MarginContainer/Control/Body/OptionMenu" instance=ExtResource("2_btn")]
 layout_mode = 2
@@ -21,3 +41,5 @@ script = ExtResource("3_diffmgr")
 difficulty_resource = ExtResource("4_diff")
 button = NodePath("../MarginContainer/Control/Body/OptionMenu/Difficulty/Button")
 label = NodePath("../MarginContainer/Control/Body/OptionMenu/Difficulty/Label")
+
+[editable path="MarginContainer/Control/Body/TitleMenu/NewGamePlus"]

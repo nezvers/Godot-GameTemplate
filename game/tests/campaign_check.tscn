@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/tests/campaign_check.gd" id="1_check"]
+
+[node name="CampaignCheck" type="Node"]
+script = ExtResource("1_check")
