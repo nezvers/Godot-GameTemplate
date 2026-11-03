@@ -111,6 +111,69 @@ func _check_pixels(tileset_name:String, look:int, base:Image, image:Image)->void
 	check(_alpha_ok, "%s look %d keeps the base footprint" % [tileset_name, look])
 	if look in RESKINS:
 		check(_same * 20 < _opaque, "%s look %d repaints the base (%d of %d pixels unchanged)" % [tileset_name, look, _same, _opaque])
+		if !tileset_name.contains("floors"):
+			_check_reskin_faces(tileset_name, look, base, image)
+
+## The autotiler picks wall/hole tiles by their two faces (left and right half of a tile): dark
+## or lit, and on walls brick (inner side) or plain (outer side). A re-skin has to keep both, or
+## wall runs turn into a patchwork of the wrong faces.
+func _check_reskin_faces(tileset_name:String, look:int, base:Image, image:Image)->void:
+	var _faces:Array[Dictionary] = []
+	for _cy:int in base.get_height() / 32:
+		for _cx:int in base.get_width() / 32:
+			for _h:int in 2:
+				var _base_face:Dictionary = _face(base, Rect2i(_cx * 32 + _h * 16, _cy * 32, 16, 32))
+				if _base_face.is_empty():
+					continue
+				var _face_now:Dictionary = _face(image, Rect2i(_cx * 32 + _h * 16, _cy * 32, 16, 32))
+				_faces.append({"base": _base_face, "look": _face_now, "label": "%d:%d %s" % [_cx, _cy, "LR"[_h]]})
+	var _wrong:Array[String] = []
+	for _a:Dictionary in _faces:
+		for _b:Dictionary in _faces:
+			if _a.base.tone + 5.0 < _b.base.tone && _a.look.mean >= _b.look.mean:
+				_wrong.append("%s/%s" % [_a.label, _b.label])
+	check(_wrong.is_empty(), "%s look %d keeps the dark/lit faces in order (%s)" % [tileset_name, look, ", ".join(_wrong.slice(0, 4))])
+	if !tileset_name.contains("walls"):
+		return
+	var _brick:Array[float] = [0.0, 0.0]
+	var _plain:Array[float] = [0.0, 0.0]
+	for _f:Dictionary in _faces:
+		var _sum:Array[float] = _brick if _f.base.brick else _plain
+		_sum[0] += _f.look.colors
+		_sum[1] += 1.0
+	check(_brick[1] > 0.0 && _plain[1] > 0.0 && _brick[0] / _brick[1] > _plain[0] / _plain[1],
+			"%s look %d patterns the brick faces more than the plain ones" % [tileset_name, look])
+
+## One tile face: mean luma of its opaque pixels, luma of its main colour, how many colours it
+## uses, and whether it is lined like brick (many pixels off its main colour).
+func _face(image:Image, rect:Rect2i)->Dictionary:
+	var _count:Dictionary = {}
+	var _sum:float = 0.0
+	var _n:int = 0
+	var _tone:float = 0.0
+	var _tone_count:int = 0
+	for _y:int in range(rect.position.y, rect.end.y):
+		for _x:int in range(rect.position.x, rect.end.x):
+			var _c:Color = image.get_pixel(_x, _y)
+			if _c.a <= 0.0:
+				continue
+			var _luma:float = (_c.r8 * 299 + _c.g8 * 587 + _c.b8 * 114) / 1000.0
+			_n += 1
+			_sum += _luma
+			var _key:int = _c.to_rgba32()
+			_count[_key] = _count.get(_key, 0) + 1
+			# tone = the face's main colour, so mortar lines don't darken brick faces; void is no tone
+			if _luma >= 14.0 && _count[_key] > _tone_count:
+				_tone_count = _count[_key]
+				_tone = _luma
+	if _n == 0:
+		return {}
+	return {
+		"mean": _sum / _n,
+		"tone": _tone,
+		"colors": _count.size(),
+		"brick": _n - (_count.values().max() as int) > 0.15 * _n,
+	}
 
 ## Painting a mossy floor and regenerating walls/holes gives mossy walls and holes;
 ## Fix Visual leaves a painted look alone.

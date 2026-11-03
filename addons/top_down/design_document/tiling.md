@@ -163,5 +163,18 @@ with hazard-striped edges, flagstones and stone blocks, veined membrane and ribb
   Floors use patterns that repeat every tile, so the plain tile tiles seamlessly. Wall tiles
   stack into tall faces, so wall patterns run straight down. Rerun it after changing a base
   atlas.
+- Wall and hole tiles are two faces each, the left and right half. Every base face is dark or
+  lit, and on walls it is brick (the inner, room-facing side) or plain (the outer side). The
+  autotiler chooses tiles by exactly these faces, so the re-skin keeps them. Brick faces get
+  the theme pattern, plain faces a smooth surface. The face tones are ranked across the atlas
+  and mapped onto two fixed ramp steps (`FACE_STEPS`), so lit faces never wash out. If this is
+  lost, every wall corner looks like the wrong tile even though Fix Visual placed the right one.
+  Hole faces also tell the pit wall plane by tone: the shadowed wall runs its courses along
+  `/`, the lit one along `\`, whichever half the face is in. A straight pit side is one plane
+  over both halves, and only a tile with one dark and one lit face is a corner. Wall faces
+  follow the same rule (the base bricks do too), so course-based wall patterns like sandstone's
+  blocks run along the wall plane, never screen-horizontal.
 - `game/tests/asset_variants_check` checks that every look keeps the base tiles, tile data
-  and footprint, and that the re-skins change (nearly) every pixel.
+  and footprint, and that the re-skins change (nearly) every pixel. For walls and holes it also
+  checks that dark faces stay darker than lit ones, and that brick faces carry more pattern
+  than plain ones.

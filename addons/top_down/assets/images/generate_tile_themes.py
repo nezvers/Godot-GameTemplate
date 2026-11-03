@@ -72,10 +72,13 @@ def iso(x, y):
 	return px / 2 + py, -px / 2 + py
 
 
-def face(x, y):
-	"""Pixel -> (along, depth) on the pit side a hole tile shows: the left half faces one way,
-	the right half the other, and depth grows down from the top edge of that half."""
-	if x < 16:
+def face(x, y, rising):
+	"""Pixel -> (along, depth) on the pit side a hole tile shows. The pit has two wall planes:
+	the shadowed one runs along '/' (rising), the lit one along '\\'. Which plane a face is
+	depends on its tone, not on which half it sits in: a straight pit side covers both halves
+	with one plane, and only a corner tile has both. Depth is measured across the courses over
+	the whole tile, so a course runs on into the next tile of the same side."""
+	if rising:
 		return x, y + (x + 0.5) / 2 - 8
 	return x, y - (x + 0.5 - 16) / 2
 
@@ -135,6 +138,30 @@ class Shape:
 			else:
 				self.role[p] = 'body'
 			self.light[p] = body
+		if kind != 'floor':
+			self._read_halves()
+
+	## A wall or hole tile is two faces: the left half (x < 16) and the right half. Each base
+	## face is brick (mortar lines: a wall's inner, room-facing side) or plain (a wall's outer
+	## side), and dark or lit. The autotiler picks tiles by exactly this, so a re-skin must keep it.
+	BRICK_LINES = 0.15
+
+	def _read_halves(self):
+		self.half = {}
+		for h in (0, 1):
+			pixels = [p for p, r in self.role.items() if (p[0] >= 16) == h and r != 'void']
+			if not pixels:
+				continue
+			lines = sum(1 for p in pixels if self.role[p] != 'body')
+			body = sorted(self.luma[p] for p in pixels if self.role[p] == 'body') or [0]
+			self.half[h] = {'brick': lines > self.BRICK_LINES * len(pixels), 'tone': body[len(body) // 2], 'step': 3}
+
+	def half_of(self, p):
+		return self.half.get(1 if p[0] >= 16 else 0)
+
+	def brick_at(self, p):
+		half = self.half_of(p)
+		return half is not None and half['brick']
 
 	def _local_median(self, p):
 		window = sorted(self.luma[(p[0] + dx, p[1] + dy)] for dx in range(-2, 3) for dy in range(-2, 3) if (p[0] + dx, p[1] + dy) in self.luma)
@@ -175,18 +202,12 @@ class Painter:
 		self.seed = seed
 		self.ramp = RAMPS[theme][shape.kind]
 		self.out = {}
-		lights = sorted(l for p, l in shape.light.items() if shape.role[p] == 'body')
-		self.mid_light = lights[len(lights) // 2] if lights else 1
-
-	## Ramp steps per unit of base brightness change between the lit and shadowed sides.
-	SHADE_GAIN = 5
 
 	def shade(self, p):
-		"""How many ramp steps the base art's lit/shadowed side moves this pixel."""
+		"""How many ramp steps the base art's lit/shadowed face moves this pixel (see face_steps)."""
 		if self.kind == 'floor':
 			return 0
-		ratio = self.shape.light[p] / max(1, self.mid_light)
-		return int(round((ratio - 1.0) * self.SHADE_GAIN))
+		return self.shape.half_of(p)['step'] - 3
 
 	def color(self, index):
 		return self.ramp[max(0, min(len(self.ramp) - 1, index))]
@@ -222,19 +243,30 @@ class Painter:
 				# base seams are not kept: they get the surface like their neighbours
 				self.put(p, self.floor(p, *iso(*p)))
 			elif self.kind == 'wall':
-				self.put(p, self.wall(p, 3 + self.shade(p), *p))
+				# inner (brick) faces get the theme's pattern, outer faces stay smooth
+				paint = self.wall if self.shape.brick_at(p) else self.plain
+				self.put(p, paint(p, 3 + self.shade(p), *p))
 			else:
-				self.put(p, self.side(p, 3 + self.shade(p), *face(*p)))
+				# the shadowed (darker) pit wall is the '/' plane, the lit one the '\' plane
+				self.put(p, self.side(p, 3 + self.shade(p), *face(*p, self.shade(p) < 0)))
 		self.extras()
 		return self.out
+
+	def plain(self, p, i, x, y):
+		# a wall's outer face: the base draws it as one flat colour, so only a faint grain
+		# that runs along the wall plane like the courses
+		along, depth = face(x, y, self.shade(p) < 0)
+		return self.color(i + 1) if noise(along, 2 * depth, 4, 13) > 0.8 else self.color(i)
+
+	def face_pixels(self):
+		"""Body pixels that may carry decoration: on walls only the inner (brick) faces."""
+		return [p for p in self.body_pixels() if self.kind != 'wall' or self.shape.brick_at(p)]
 
 	def extras(self):
 		pass
 
 
 class Metal(Painter):
-	SHADE_GAIN = 8
-
 	def floor(self, p, u, v):
 		# one tread plate per tile: lit and shadowed bevel, raised lugs, a rivet in each corner
 		if u > 7.0 or v > 7.0:
@@ -261,6 +293,10 @@ class Metal(Painter):
 		if x % 8 == 4 and y % 8 == 4:
 			return self.color(i - 2)
 		return self.color(i)
+
+	def plain(self, p, i, x, y):
+		# the outer face: smooth sheet with a faint seam between wide panels
+		return self.color(i - 1) if x % 16 == 0 else self.color(i)
 
 	def side(self, p, i, along, depth):
 		# riveted panels in courses down the shaft
@@ -291,9 +327,10 @@ class Metal(Painter):
 						self.put((p[0], p[1] - 1), self.color(5))
 					if self.rng.random() < 0.25:
 						self.blob(p[0], p[1], 1.5, 1.0, lambda x, y: RUST[self.rng.randint(1, 3)])
-		elif self.kind != 'floor' and self.rng.random() < 0.5:
+		elif self.kind != 'floor' and self.face_pixels() and self.rng.random() < 0.5:
 			# a rust streak running down a panel
-			x, y = pool[self.rng.randrange(len(pool))]
+			faces = self.face_pixels()
+			x, y = faces[self.rng.randrange(len(faces))]
 			for step in range(self.rng.randint(2, 5)):
 				if self.shape.is_role(x, y + step, 'body', 'line'):
 					self.put((x, y + step), RUST[1 if step else 2])
@@ -322,10 +359,13 @@ class Sandstone(Painter):
 		return self.color(3)
 
 	def wall(self, p, i, x, y):
-		# weathered stone: sandy grain and chisel marks running down the face
-		grain = noise(x, 2 * y, 4, 5)
-		if x % 16 in (5, 12) and y % 8 < 5:
-			return self.color(i - 1)
+		# dressed blocks laid in courses along the wall plane, like the base bricks: the shadowed
+		# face runs along '/', the lit one along '\', with upright staggered joints and sandy grain
+		along, depth = face(x, y, self.shade(p) < 0)
+		course = int(depth // 4)
+		if depth % 4 < 1.0 or (along + 4 * (course % 2)) % 8 < 1.0:
+			return self.color(i - 2)
+		grain = noise(along, 2 * depth, 4, 5)
 		if grain > 0.72:
 			return self.color(i + 1)
 		if grain < 0.28:
@@ -420,8 +460,9 @@ class Flesh(Painter):
 				x, y = pool[self.rng.randrange(len(pool))]
 				self.blob(x, y, 1.6, 0.9, lambda px, py: PUS[0])
 				self.put((x, y), PUS[1])
-		elif self.kind == 'wall' and self.rng.random() < 0.4:
-			x, y = pool[self.rng.randrange(len(pool))]
+		elif self.kind == 'wall' and self.face_pixels() and self.rng.random() < 0.4:
+			faces = self.face_pixels()
+			x, y = faces[self.rng.randrange(len(faces))]
 			self.put((x, y), PUS[1])
 			self.put((x + 1, y), PUS[0])
 		if self.kind == 'hole':
@@ -434,6 +475,20 @@ class Flesh(Painter):
 
 PAINTERS = {'metal': Metal, 'sandstone': Sandstone, 'flesh': Flesh}
 
+## Ramp steps the darkest and the lightest base face tone of an atlas map to.
+FACE_STEPS = (2, 4)
+
+
+def face_steps(shapes):
+	"""Rank the face tones of a whole atlas (the base uses one dark and one lit tone) and spread
+	them evenly over FACE_STEPS, so lit faces stay lighter without running off the ramp."""
+	halves = [half for shape in shapes if shape.alpha for half in shape.half.values()]
+	tones = sorted(set(half['tone'] for half in halves))
+	low, high = FACE_STEPS
+	for half in halves:
+		rank = tones.index(half['tone'])
+		half['step'] = low + int(round((high - low) * rank / max(1, len(tones) - 1)))
+
 
 def make_theme(rows, name, kind, theme):
 	out = [[(0, 0, 0, 0)] * len(rows[0]) for _ in rows]
@@ -444,6 +499,8 @@ def make_theme(rows, name, kind, theme):
 	if kind == 'floor':
 		for cell, shape in shapes.items():
 			shape.compare_with_plain(shapes[UNCRACKED], cell in CRACKED)
+	else:
+		face_steps(shapes.values())
 	for (cx, cy), shape in shapes.items():
 		if not shape.alpha:
 			continue
