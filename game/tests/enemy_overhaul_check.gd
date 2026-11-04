@@ -1,5 +1,5 @@
 ## Enemy special attacks and the weapon-wielding enemies: slime dashes, acid slime spits, bloater jumps
-## (and bursts into zombies at low health), skeleton and mage weapons hit the player and never enemies.
+## (and bursts into zombies at low health; warning circle, damage and landing particles share a difficulty-scaled size), skeleton and mage weapons hit the player and never enemies.
 ##   Godot --headless --path . res://game/tests/enemy_overhaul_check.tscn
 extends Node
 
@@ -39,6 +39,7 @@ func _ready()->void:
 	await _check_slime()
 	await _check_bloater()
 	await _check_bloater_out_of_range()
+	await _check_bloater_area()
 	await _check_bloater_burst()
 	await _check_wielder("skeleton", "skeleton_slash.tscn", 14.0)
 	await _check_wielder("mage", "mage_bullet.tscn", 60.0)
@@ -121,6 +122,40 @@ func _check_bloater_out_of_range()->void:
 		_keep_player()
 		_jumped = _jumped || _loop.current != null
 	check(!_jumped, "bloater does not jump while the player is out of range")
+	_kill(_bloater)
+	await _frames(3)
+	_kill_scene("zombie.tscn")
+	await _frames(3)
+
+## Normal doubles the Easy area, the warning circle and landing particles are as big as the damage area
+func _check_bloater_area()->void:
+	var _difficulty:DifficultyResource = BossJump.DIFFICULTY
+	var _saved_mode:int = _difficulty.mode
+	var _bloater:Node2D = await _spawn("bloater_instance_resource.tres", 48.0)
+	var _jump:BossJump = _bloater.get_node("BossAttackLoop/Jump")
+	_jump.burst_chance = 0.0
+	var _base_radius:float = (_jump.damage_transmitter.shape as CircleShape2D).radius
+	var _radius:Array[float] = []
+	for _mode:int in [DifficultyResource.Mode.EASY, DifficultyResource.Mode.NORMAL]:
+		_difficulty.mode = _mode
+		_jump.prepare(player)
+		_radius.append(_jump.get_damage_radius())
+		check(is_equal_approx(_jump.telegraph.radius, _jump.get_damage_radius()), "bloater warning circle is the damage area (%s)" % _difficulty.mode_name())
+		_jump.stop()
+	check(is_equal_approx(_radius[0], _base_radius) && is_equal_approx(_radius[1], _base_radius * 2.0), "bloater jump area is %.0f on Easy, twice on Normal %s" % [_base_radius, _radius])
+	check(is_equal_approx(_jump.push_transmitter.scale.x, _jump.push_scale.x * 2.0), "bloater push area doubles on Normal too")
+	# Normal is set: land and measure the particles
+	_bloater.get_node("BossAttackLoop").next_attack_time = 0.0
+	var _vfx:Array[Node] = []
+	for i:int in 150:
+		await get_tree().physics_frame
+		_keep_player()
+		_vfx = _find_scene("bloater_landing.tscn")
+		if !_vfx.is_empty():
+			break
+	var _reach:float = BossJump.get_vfx_reach(_vfx[0].process_material) if !_vfx.is_empty() else 0.0
+	check(absf(_reach - _radius[1]) < 0.5, "bloater landing particles spread to the damage radius (%.1f of %.1f)" % [_reach, _radius[1]])
+	_difficulty.mode = _saved_mode
 	_kill(_bloater)
 	await _frames(3)
 	_kill_scene("zombie.tscn")

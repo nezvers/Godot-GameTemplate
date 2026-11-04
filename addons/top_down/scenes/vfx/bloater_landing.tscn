@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://c5tupcvk81lrk" path="res://addons/top_down/scenes/vfx/big_jelly_landing.tscn" id="1_base"]
+[ext_resource type="Material" path="res://addons/top_down/resources/ParticleProcessMaterial/bloater_landing.tres" id="2_mat"]
+
+[node name="BloaterLanding" instance=ExtResource("1_base")]
+process_material = ExtResource("2_mat")

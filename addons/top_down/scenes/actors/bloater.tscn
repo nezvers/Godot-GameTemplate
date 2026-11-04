@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://b0uw7wkj5ulcm" path="res://addons/great_games_library/nodes/AreaTransmitter/DataChannelTransmitter.gd" id="38_channel"]
 [ext_resource type="Script" uid="uid://bdbat3453sctq" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="39_dmgdata"]
 [ext_resource type="Script" uid="uid://bphd2malk5asy" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="40_dmgtype"]
-[ext_resource type="Resource" uid="uid://c07axh6oa6x54" path="res://addons/top_down/resources/InstanceResources/vfx/big_jelly_landing_instance_resource.tres" id="41_landvfx"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/vfx/bloater_landing_instance_resource.tres" id="41_landvfx"]
 [ext_resource type="Resource" uid="uid://72qgb1882ssi" path="res://addons/top_down/resources/sounds/big_jelly_jump.tres" id="42_jumpsnd"]
 [ext_resource type="Resource" uid="uid://2oxos6r5uams" path="res://addons/top_down/resources/sounds/big_jelly_land.tres" id="43_landsnd"]
 

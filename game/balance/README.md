@@ -11,7 +11,7 @@
 
 | Section | Contents |
 |---|---|
-| `difficulty.normal` / `difficulty.easy` | `enemy_health_ratio`, `enemy_damage_ratio` (damage the player takes), `wave_count_ratio` (kills per normal wave; boss waves are not scaled), `max_alive_ratio` |
+| `difficulty.normal` / `difficulty.easy` | `enemy_health_ratio`, `enemy_damage_ratio` (damage the player takes), `wave_count_ratio` (kills per normal wave; boss waves are not scaled), `max_alive_ratio`, `jump_area_ratio` (size of the bloater's landing area: telegraph, damage, push and landing particles) |
 | `player` | `health`, `movement` (`max_speed`, `acceleration`; acceleration is also the friction), `dash`, `hit_invulnerability`, `hole_damage`, `poison`/`slow`/`stuck`, `max_weapons` |
 | `enemies.<id>` | `health` (the Normal value), `movement`, `resistances`, `melee` (damage, crit, interval, recoil, `projectile`: the weapon node `SlashAttack` may be any weapon, the skeleton's katana and the mage's revolver included), `ai` (attack_distance; nested AI nodes such as `ProximityAttack.start_delay`, and `ProximityAttack.require_line_of_sight` so ranged enemies don't shoot into walls), `split`, `crit_replace`, `keep_distance`, `lob`, `drop_chance` (the actor's own health drop on death), `drops` (see **Loot** below). Special attacks use the boss keys `attack_loop` and `damage_areas` (see **Enemy special attacks**) |
 | `bosses.<id>` | Same keys as enemies, plus the ones below. Give bosses `"boss_crystal": 1` in `drops` |
@@ -33,7 +33,7 @@
 **Enemy special attacks:** normal enemies reuse the boss `attack_loop` / `damage_areas` keys. Set `enrage_health: 0` so they never enrage.
 - `enemies.slime`: `attack_loop.Charge`, an occasional dash along a telegraphed line (the Giant Zombie charge, scaled down), plus `damage_areas.ChargeDamage`.
 - `enemies.acid_slime`: `lob`, which throws `acid_spit` every `cooldown` seconds while the player is within `shoot_range`.
-- `enemies.bloater`: `attack_loop.Jump`, a leap at the player within `min_distance`..`max_distance`. The landing spot is marked during the windup, then landing deals `damage_areas.JumpDamage` and pushes with `JumpPush`. `max_jump_distance` and `jump_time` shape the leap; `kickback_radius` / `kickback_max` / `kickback_min` set the push falloff.
+- `enemies.bloater`: `attack_loop.Jump`, a leap at the player within `min_distance`..`max_distance`. The landing spot is marked during the windup, then landing deals `damage_areas.JumpDamage` and pushes with `JumpPush`. The warning circle and the landing particles are drawn at the `JumpDamage` radius, and all areas are multiplied by the difficulty's `jump_area_ratio` (Normal 2, Easy 1). `max_jump_distance` and `jump_time` shape the leap; `kickback_radius` / `kickback_max` / `kickback_min` set the push falloff.
   - **Burst:** at or below `burst_health` (a health ratio), each jump has `burst_chance` to pop on landing. The bloater dies and `split` releases its zombies. A burst telegraph is redder and its areas are `burst_area_scale` larger.
 
 **Format of `damage` and `resistances`:** a number means PHYSICAL damage. An object such as `{"FIRE": 4, "PHYSICAL": 2}` mixes damage types. `0` means none.

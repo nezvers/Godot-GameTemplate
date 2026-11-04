@@ -5,13 +5,15 @@
 			"enemy_health_ratio": 1.0,
 			"enemy_damage_ratio": 1.0,
 			"wave_count_ratio": 1.0,
-			"max_alive_ratio": 1.0
+			"max_alive_ratio": 1.0,
+			"jump_area_ratio": 2.0
 		},
 		"easy": {
 			"enemy_health_ratio": 0.25,
 			"enemy_damage_ratio": 1.0,
 			"wave_count_ratio": 1.0,
-			"max_alive_ratio": 1.0
+			"max_alive_ratio": 1.0,
+			"jump_area_ratio": 1.0
 		}
 	},
 	"player": {

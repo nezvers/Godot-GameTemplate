@@ -1,7 +1,13 @@
 ## Jumps at the target: the landing spot is marked during windup (CIRCLE telegraph), landing damages and pushes around it.
+## The telegraph and landing particles match the damage area, scaled by the difficulty's jump_area_ratio.
 ## Below burst_health a jump can be a burst instead: the body pops on landing, killing itself (SlimeSplit releases children).
 class_name BossJump
 extends BossAttack
+
+const DIFFICULTY:DifficultyResource = preload("res://addons/top_down/resources/global_resources/difficulty_resource.tres")
+
+## Landing particle materials resized to a damage radius, by base material and radius
+static var vfx_materials:Dictionary
 
 @export var character:CharacterBody2D
 
@@ -40,8 +46,6 @@ extends BossAttack
 
 @export var kickback_min:float = 40.0
 
-@export var vfx:InstanceResource
-
 @export var sound:SoundResource
 
 @export var camera_shake:CameraShakeResource
@@ -51,6 +55,9 @@ extends BossAttack
 
 ## Chance of a jump being a burst while below burst_health
 @export_range(0.0, 1.0) var burst_chance:float = 0.35
+
+## Landing vfx is a GPUParticles2D with the dust particle shader, its particles spread to the damage radius
+@export var vfx:InstanceResource
 
 ## Telegraph and landing areas are scaled by this for a burst
 @export var burst_area_scale:float = 1.3
@@ -69,7 +76,8 @@ var receiver_collision_layer:int
 var saved_collision_mask:int
 var axis_compensation:Vector2
 var telegraph_color:Color
-var telegraph_radius:float
+## Difficulty and burst scale of the landing areas
+var area_scale:float = 1.0
 var damage_scale:Vector2
 var push_scale:Vector2
 var has_base_sizes:bool
@@ -85,7 +93,6 @@ func _ready()->void:
 		push_scale = push_transmitter.scale
 		if telegraph != null:
 			telegraph_color = telegraph.color
-			telegraph_radius = telegraph.radius
 	if !push_channel_transmitter.update_requested.is_connected(_update_push):
 		push_channel_transmitter.update_requested.connect(_update_push)
 	# in case used with PoolNode, ResourceNode makes new resources on every ready
@@ -102,14 +109,14 @@ func prepare(new_target:Node2D)->void:
 
 	var _health_ratio:float = health_resource.hp / maxf(health_resource.max_hp, 1.0)
 	is_burst = _health_ratio <= burst_health && randf() < burst_chance
-	var _area_scale:float = burst_area_scale if is_burst else 1.0
-	damage_transmitter.scale = damage_scale * _area_scale
-	push_transmitter.scale = push_scale * _area_scale
+	area_scale = DIFFICULTY.ratio("jump_area_ratio") * (burst_area_scale if is_burst else 1.0)
+	damage_transmitter.scale = damage_scale * area_scale
+	push_transmitter.scale = push_scale * area_scale
 	if telegraph != null:
 		telegraph.top_level = true
 		telegraph.global_position = landing_position
 		telegraph.color = burst_color if is_burst else telegraph_color
-		telegraph.radius = telegraph_radius * _area_scale
+		telegraph.radius = get_damage_radius()
 
 func perform()->void:
 	if !running:
@@ -132,8 +139,12 @@ func perform()->void:
 	damage_transmitter.check_transmission()
 	push_transmitter.check_transmission()
 	var _pos:Vector2 = character.global_position
+	var _radius:float = get_damage_radius()
 	if vfx != null:
-		vfx.instance(func (inst:Node2D)->void: inst.global_position = _pos)
+		vfx.instance(func (inst:Node2D)->void:
+			inst.global_position = _pos
+			_fit_vfx(inst, _radius)
+		)
 	if sound != null:
 		sound.play_managed()
 	if camera_shake != null:
@@ -172,6 +183,33 @@ func _burst()->void:
 func _update_push(damage_data:DamageDataResource, receiver:AreaReceiver2D)->void:
 	var _distance:Vector2 = receiver.global_position - push_transmitter.global_position
 	var _distance_length:float = (_distance * axis_compensation).length()
-	var _t:float = minf(_distance_length / kickback_radius, 1.0)
+	var _t:float = minf(_distance_length / (kickback_radius * area_scale), 1.0)
 	damage_data.kickback_strength = lerpf(kickback_max, kickback_min, _t)
 	damage_data.direction = _distance.normalized() if _distance_length > 2.0 else global_direction
+
+## Damage area radius on the x axis, y is squashed by perspective like the telegraph
+func get_damage_radius()->float:
+	return (damage_transmitter.shape as CircleShape2D).radius * damage_transmitter.scale.x
+
+## Spawn distance and speeds scaled together keep the particle travel time, the ring ends at the radius.
+## Pooled vfx keep the last material, so the authored one is remembered in meta.
+func _fit_vfx(inst:Node, radius:float)->void:
+	var _particles:GPUParticles2D = inst as GPUParticles2D
+	if _particles == null || !(_particles.process_material is ShaderMaterial):
+		return
+	var _base:ShaderMaterial = _particles.process_material.get_meta("base", _particles.process_material)
+	var _key:String = "%d:%.2f" % [_base.get_instance_id(), radius]
+	if !vfx_materials.has(_key):
+		var _material:ShaderMaterial = _base.duplicate()
+		_material.set_meta("base", _base)
+		var _ratio:float = radius / get_vfx_reach(_base)
+		for _param:StringName in [&"spawn_radius", &"initial_linear_velocity_min", &"initial_linear_velocity_max", &"damping_min", &"damping_max"]:
+			_material.set_shader_parameter(_param, float(_base.get_shader_parameter(_param)) * _ratio)
+		vfx_materials[_key] = _material
+	_particles.process_material = vfx_materials[_key]
+
+## Distance an average particle ends from the center: spawn radius plus braking distance v² / 2d
+static func get_vfx_reach(material:ShaderMaterial)->float:
+	var _speed:float = (float(material.get_shader_parameter(&"initial_linear_velocity_min")) + float(material.get_shader_parameter(&"initial_linear_velocity_max"))) * 0.5
+	var _damping:float = (float(material.get_shader_parameter(&"damping_min")) + float(material.get_shader_parameter(&"damping_max"))) * 0.5
+	return float(material.get_shader_parameter(&"spawn_radius")) + _speed * _speed / (2.0 * maxf(_damping, 0.001))
