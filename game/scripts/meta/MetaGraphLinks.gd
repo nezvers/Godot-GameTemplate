@@ -15,6 +15,8 @@ const OWNED_KEYSTONE:Color = Color8(255, 214, 90)
 const DOT_MARGIN:int = 2
 
 var meta_upgrade_resource:MetaUpgradeResource
+## Tree whose links, labels and dots are drawn.
+var tree:String = MetaUpgrades.MAIN_TREE
 
 func _draw()->void:
 	if meta_upgrade_resource == null:
@@ -22,7 +24,7 @@ func _draw()->void:
 	_draw_dots()
 	_draw_labels()
 	var _nodes:Dictionary = MetaUpgrades.nodes()
-	for _id:String in _nodes:
+	for _id:String in MetaUpgrades.nodes_in(tree):
 		for _required:String in MetaUpgrades.requires(_id):
 			if _nodes.has(_required):
 				_draw_link(_required, _id)
@@ -36,7 +38,7 @@ func _draw_link(from:String, to:String)->void:
 func link_color(from:String, to:String)->Color:
 	var _meta:MetaUpgradeResource = meta_upgrade_resource
 	if _meta.is_owned(from) && _meta.is_owned(to):
-		return OWNED_KEYSTONE if MetaUpgrades.is_keystone(to) || (MetaUpgrades.is_keystone(from) && from != MetaUpgrades.ROOT) else OWNED
+		return OWNED_KEYSTONE if MetaUpgrades.is_keystone(to) || (MetaUpgrades.is_keystone(from) && !MetaUpgrades.is_root(from)) else OWNED
 	if _meta.is_owned(from):
 		return AVAILABLE
 	return LOCKED
@@ -44,7 +46,7 @@ func link_color(from:String, to:String)->Color:
 ## Centred on their position.
 func _draw_labels()->void:
 	var _font:Font = get_theme_default_font()
-	for _label:Dictionary in MetaUpgrades.labels():
+	for _label:Dictionary in MetaUpgrades.labels(tree):
 		var _text:String = _label.get("text", "")
 		var _pos:Array = _label.get("pos", [0, 0])
 		var _size:Vector2 = _font.get_string_size(_text, HORIZONTAL_ALIGNMENT_LEFT, -1, LABEL_SIZE)
@@ -55,7 +57,7 @@ func _draw_dots()->void:
 	var _grid:float = MetaUpgrades.grid()
 	var _min:Vector2i = Vector2i.ZERO
 	var _max:Vector2i = Vector2i.ZERO
-	for _id:String in MetaUpgrades.nodes():
+	for _id:String in MetaUpgrades.nodes_in(tree):
 		var _cell:Vector2i = Vector2i((MetaUpgrades.position(_id) / _grid).round())
 		_min = _min.min(_cell)
 		_max = _max.max(_cell)

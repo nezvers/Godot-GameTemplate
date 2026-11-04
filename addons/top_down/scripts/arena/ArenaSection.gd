@@ -34,7 +34,7 @@ signal wave_cleared(index:int)
 ##          (capped per point by SpawnPoint.max_simultaneous).
 @export_range(0.1, 6.0, 0.1) var spawn_density:float = 1.0
 
-## Enemies don't spawn closer than this to another enemy.
+## Enemies don't spawn closer than this to another enemy; 0 = no check.
 @export var free_distance:float = 116.0
 
 ## Optional prerequisite section. try_start() is ignored until it is cleared.
@@ -46,6 +46,12 @@ signal wave_cleared(index:int)
 @export var spawn_partickle_instance_resource:InstanceResource
 
 const DIFFICULTY:DifficultyResource = preload("res://addons/top_down/resources/global_resources/difficulty_resource.tres")
+## Horde meta-upgrades: spawn_rate_ratio, wave_count_ratio, spawner_count.
+const META:MetaUpgradeResource = preload("res://game/resources/meta_upgrade_resource.tres")
+## Several enemies from one spawn event sit on a ring this wide around the point.
+const GROUP_RADIUS:float = 8.0
+## Most spawn points that run a spawn timer at once.
+const MAX_TIMED_POINTS:int = 6
 
 var fight_active:bool
 var is_cleared:bool
@@ -63,6 +69,14 @@ var per_point_cap:int = 1
 var pending_spawns:int = 0
 ## While > 0 the spawn loop waits, e.g. until a boss announcement has played.
 var spawn_holds:int = 0
+## Seconds between a timed point's extra spawns; 0 = no timers. Set per wave.
+var spawn_interval:float = 0.0
+## Points that also spawn every spawn_interval, whether or not their slots are
+## free: the difficulty's timed_spawners plus the meta's, at most
+## MAX_TIMED_POINTS and the active points. Picked at random per wave.
+var timed_points:Array[SpawnPoint]
+## Enemies created by one spawn event at a point. Set per wave.
+var per_spawn:int = 1
 
 func _ready()->void:
 	set_process(false)
@@ -112,6 +126,8 @@ func _select_active_points()->void:
 	var _source:Array[SpawnPoint] = boss_points if (_wave != null && _wave.is_boss) else spawn_points
 	for _p:SpawnPoint in _source:
 		_p.active_count = 0
+	spawn_interval = DIFFICULTY.spawn_interval() / maxf(1.0 + META.stat("spawn_rate_ratio"), 0.1)
+	per_spawn = maxi(1, 1 + int(META.stat("spawner_count")))
 	if spawn_density < 1.0:
 		per_point_cap = 1
 		var _n:int = clampi(roundi(spawn_density * _source.size()), 1, _source.size())
@@ -119,18 +135,33 @@ func _select_active_points()->void:
 	else:
 		per_point_cap = roundi(spawn_density)
 		active_points = _source.duplicate()
+	_select_timed_points()
 
-## Kills needed to clear a wave; difficulty scales normal waves, not bosses.
+## The wave's burst comes from the slots; each timer first fires one interval later.
+func _select_timed_points()->void:
+	timed_points.clear()
+	if spawn_interval <= 0.0:
+		return
+	var _wanted:int = DIFFICULTY.timed_spawners() + int(META.stat("timed_spawners"))
+	var _shuffled:Array[SpawnPoint] = active_points.duplicate()
+	_shuffled.shuffle()
+	timed_points = _shuffled.slice(0, clampi(_wanted, 0, mini(MAX_TIMED_POINTS, _shuffled.size())))
+	for _p:SpawnPoint in timed_points:
+		_p.cooldown_left = spawn_interval
+
+## Kills needed to clear a wave; difficulty and meta scale normal waves, not bosses.
 func _wave_quota(wave:SpawnWaveList)->int:
 	if wave.is_boss:
 		return wave.count
-	return maxi(1, ceili(wave.count * DIFFICULTY.wave_count_multiplier()))
+	var _ratio:float = DIFFICULTY.wave_count_multiplier() * (1.0 + META.stat("wave_count_ratio"))
+	return maxi(1, ceili(wave.count * _ratio))
 
-## Most of a wave alive at once, -1 when uncapped.
+## Most of a wave alive at once, -1 when uncapped (no max_alive, or a 0 difficulty ratio).
 func _alive_cap(wave:SpawnWaveList)->int:
-	if wave.max_alive <= 0:
+	var _ratio:float = DIFFICULTY.max_alive_multiplier()
+	if wave.max_alive <= 0 || _ratio <= 0.0:
 		return -1
-	return maxi(1, ceili(wave.max_alive * DIFFICULTY.max_alive_multiplier()))
+	return maxi(1, ceili(wave.max_alive * _ratio))
 
 ## Current wave being fought, or null when none remain.
 func current_wave()->SpawnWaveList:
@@ -154,7 +185,11 @@ func mark_cleared()->void:
 
 # --- Spawn loop (moved from EnemySpawner) ---------------------------------
 
-func _process(_delta:float)->void:
+## Every active point keeps its slots filled, so it refills when its enemies die
+## (the wave's opening burst is that first fill). Timed points also spawn every
+## spawn_interval seconds on their own timer, whether or not their enemies are
+## alive. Both keep the kill quota, max_alive cap and free_distance checks.
+func _process(delta:float)->void:
 	if spawn_holds > 0:
 		return
 	var _wave:SpawnWaveList = current_wave()
@@ -162,27 +197,47 @@ func _process(_delta:float)->void:
 		return
 
 	## Alive (incl. split children) PLUS marks still animating, so the async mark
-	## chain can never over-spawn past the wave's kill quota.
-	var _committed:int = ActiveEnemy.root.nodes.size() + ActiveEnemy.root.children.size() + pending_spawns
+	## chain can never over-spawn past the wave's kill quota. A mark in the tree
+	## also sits in root.nodes; it only counts once, through pending_spawns.
+	var _loose:int = maxi(0, ActiveEnemy.root.nodes.size() - pending_spawns)
+	var _committed:int = _loose + ActiveEnemy.root.children.size() + pending_spawns
 	var _cap:int = _alive_cap(_wave)
 
+	for _point:SpawnPoint in timed_points:
+		_point.cooldown_left -= delta
 	for _point:SpawnPoint in active_points:
 		## One more shouldn't exceed what's left to kill this wave.
 		if _committed >= enemy_count:
 			return
 		if _cap >= 0 && _committed >= _cap:
 			return
-		if _point.active_count >= mini(per_point_cap, _point.max_simultaneous):
+		var _slots:int = mini(per_point_cap, _point.max_simultaneous) * per_spawn
+		var _timer_due:bool = timed_points.has(_point) && _point.cooldown_left <= 0.0
+		if !_timer_due && _point.active_count >= _slots:
 			continue
 		if !_filter_free_position(_point.global_position):
 			continue
-		_point.active_count += 1
-		_committed += 1
-		pending_spawns += 1
-		_create_spawn_mark(_wave, _point)
+		var _count:int = mini(per_spawn, enemy_count - _committed)
+		if _cap >= 0:
+			_count = mini(_count, _cap - _committed)
+		if _timer_due:
+			_point.cooldown_left = spawn_interval
+		else:
+			_count = mini(_count, _slots - _point.active_count)
+		for _i:int in _count:
+			_point.active_count += 1
+			_committed += 1
+			pending_spawns += 1
+			_create_spawn_mark(_wave, _point, _group_offset(_i, _count))
 
-func _create_spawn_mark(wave:SpawnWaveList, point:SpawnPoint)->void:
-	var _spawn_position:Vector2 = point.global_position
+## Where the i-th of `count` enemies from one spawn event lands, around the point.
+func _group_offset(index:int, count:int)->Vector2:
+	if count <= 1:
+		return Vector2.ZERO
+	return Vector2.RIGHT.rotated(TAU * index / count) * GROUP_RADIUS
+
+func _create_spawn_mark(wave:SpawnWaveList, point:SpawnPoint, offset:Vector2 = Vector2.ZERO)->void:
+	var _spawn_position:Vector2 = point.global_position + offset
 
 	## after despawning creates actual enemy
 	var _config_callback:Callable = func (inst:Node2D)->void:
@@ -231,6 +286,8 @@ func _advance_wave()->void:
 	wave_started.emit(wave_index)
 
 func _filter_free_position(position:Vector2)->bool:
+	if free_distance <= 0.0:
+		return true
 	# distance squared
 	var _free_distance_squared:float = free_distance * free_distance
 

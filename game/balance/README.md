@@ -11,36 +11,17 @@
 
 | Section | Contents |
 |---|---|
-| `difficulty.normal` / `difficulty.easy` | `enemy_health_ratio`, `enemy_damage_ratio` (damage the player takes), `wave_count_ratio` (kills per normal wave; boss waves are not scaled), `max_alive_ratio`, `jump_area_ratio` (size of the bloater's landing area: telegraph, damage, push and landing particles) |
-| `player` | `health`, `movement` (`max_speed`, `acceleration`; acceleration is also the friction), `dash`, `hit_invulnerability`, `hole_damage`, `poison`/`slow`/`stuck`, `max_weapons` |
-| `enemies.<id>` | `health` (the Normal value), `movement`, `resistances`, `melee` (damage, crit, interval, recoil, `projectile`: the weapon node `SlashAttack` may be any weapon, the skeleton's katana and the mage's revolver included), `ai` (attack_distance; nested AI nodes such as `ProximityAttack.start_delay`, and `ProximityAttack.require_line_of_sight` so ranged enemies don't shoot into walls), `split`, `crit_replace`, `keep_distance`, `lob`, `drop_chance` (the actor's own health drop on death), `drops` (see **Loot** below). Special attacks use the boss keys `attack_loop` and `damage_areas` (see **Enemy special attacks**) |
-| `bosses.<id>` | Same keys as enemies, plus the ones below. Give bosses `"boss_crystal": 1` in `drops` |
-| `weapons.<id>` | `interval` (fire cooldown), `recoil`, `projectile`, `projectile_angles` (one projectile per angle), `random_spread`, `initial_distance`, `damage` (added to the projectile's damage), `critical_chance`, `critical_multiply`, `upgrades`, `jackpot_weight`, `price` (see **Weapon upgrades**). `weapons.fists` is the player's fallback while the inventory is empty (an invisible zombie-claw weapon firing `projectiles.fist_slash`, a katana slash without the flying blade; tune its damage there); it has no upgrades, jackpot weight or price |
-| `projectiles.<id>` | `damage`, `kickback`, `speed`, `lifetime` (range = speed × lifetime), `movement_type` (`PROJECTILE`, or `SHAPECAST` to bounce off walls), `max_bounce`, `hit_limit` (-1 means it pierces everything; `sword_slash` uses it so a swing cleaves a whole pack, each enemy is still hit once per swing), `sub_projectile` |
-| `enemy_projectiles.<id>` | `damage`, crit, `kickback`, `flight_time`, `landing_radius`, `on_land` (what spawns where it lands, and its lifetime), `on_land_split` |
-| `pickups.health` | `heal` |
-| `pickups.meat` / `slime` / `boss_crystal` | No tunables; the entries give the ids `meat`, `slime`, `boss_crystal` |
-| `traps.<id>` | `lifetime` (seconds on the map before fading; `0` on `web_trap` means it stays until it catches someone or is shot), `fade_time`. A thrown web or acid spit uses its projectile's `on_land.lifetime` instead when that is above 0. How strong the effect is lives on whoever steps in: `poison`/`slow`/`stuck` on the player and enemies |
-| `rooms.<room>` | `sections.<SectionN>` (`spawn_density`, `free_distance`, `waves`), `spawn_points.<name>.max_simultaneous`, `loot_multiplier` (scales every enemy `drops` chance in that room; 1 = as listed) |
-| `contraptions.meat_grinder` | `cost` (item list), `rewards` (list of `{"drop", "amount"}` spawned at the output) |
-| `contraptions.slot_machine` | `cost` (item list per pull), `payouts` (see **Slot machine**) |
-
-**Extra boss keys:**
-- `attack_loop`: timing and enrage settings, plus one object per attack node with its windup, cooldown, distance and health gates, weight, and summon counts including `easy_count` / `easy_child_limit`. Lob attacks nest a `Lob` object with `angles` and `fixed_distance`.
-- `damage_areas`: damage, crit, kickback and radius per hit area.
-- `jelly_ai`: Big Jelly's AI, with its jump, chase and shoot nodes nested inside.
-
-**Enemy special attacks:** normal enemies reuse the boss `attack_loop` / `damage_areas` keys. Set `enrage_health: 0` so they never enrage.
-- `enemies.slime`: `attack_loop.Charge`, an occasional dash along a telegraphed line (the Giant Zombie charge, scaled down), plus `damage_areas.ChargeDamage`.
-- `enemies.acid_slime`: `lob`, which throws `acid_spit` every `cooldown` seconds while the player is within `shoot_range`.
-- `enemies.bloater`: `attack_loop.Jump`, a leap at the player within `min_distance`..`max_distance`. The landing spot is marked during the windup, then landing deals `damage_areas.JumpDamage` and pushes with `JumpPush`. The warning circle and the landing particles are drawn at the `JumpDamage` radius, and all areas are multiplied by the difficulty's `jump_area_ratio` (Normal 2, Easy 1). `max_jump_distance` and `jump_time` shape the leap; `kickback_radius` / `kickback_max` / `kickback_min` set the push falloff.
-  - **Burst:** at or below `burst_health` (a health ratio), each jump has `burst_chance` to pop on landing. The bloater dies and `split` releases its zombies. A burst telegraph is redder and its areas are `burst_area_scale` larger.
+| `difficulty.normal` / `difficulty.easy` | `enemy_health_ratio`, `enemy_damage_ratio` (damage the player takes), `wave_count_ratio` (kills per normal wave; boss waves are not scaled), `max_alive_ratio` (0 = no cap), `spawn_interval` and `timed_spawners` (see **Spawn pacing** (`difficulty.<mode>.spawn_interval`, `timed_spawners`):
+- Every active spawn point keeps its slots filled (`spawn_density`, capped by `max_simultaneous`): the wave opens with that burst and a point refills when its enemies die. This is all Easy does (`timed_spawners` 0).
+- Timed points also spawn every `spawn_interval` seconds (Normal: 2) whether or not their enemies are alive, each on its own timer, first firing one interval after the burst. Normal has `timed_spawners` 1; the HORDE Nest upgrades add more, up to 6 and never more than the section's active points. They are picked at random per wave.
+- Both keep the kill quota (`count`), the `max_alive` cap and `free_distance` (0 turns that check off). A spawn mark in flight counts once toward the quota and cap.
+- Other HORDE stats: `spawn_rate_ratio` divides the interval by `1 + ratio`, `spawner_count` adds enemies to every spawn event (the slots grow to match) and `wave_count_ratio` grows normal waves.
 
 **Format of `damage` and `resistances`:** a number means PHYSICAL damage. An object such as `{"FIRE": 4, "PHYSICAL": 2}` mixes damage types. `0` means none.
 
 **Wave fields:**
 - `count`: kills needed to clear the wave.
-- `max_alive`: most enemies spawned and alive at once. 0 or absent means only the spawn points limit it. Enemies created by splits count toward it and block new spawns, but a split can push the total above the cap.
+- `max_alive`: most enemies spawned and alive at once. 0 or absent means only the spawn points limit it. Enemies created by splits count toward it and block new spawns, but a split can push the total above the cap. A difficulty `max_alive_ratio` of 0 (Normal) turns the cap off.
 - `enemies`: ids picked at random for each spawn.
 - `is_boss`, `display_name`.
 
@@ -87,11 +68,13 @@ The Upgrades button shows on the title, game over and victory menus once a boss 
 | Key | Contents |
 |---|---|
 | `grid` | Pixels per grid cell |
-| `labels` | Branch names drawn faintly on the graph: `{"text", "pos"}`, pos in cells (fractions allowed) |
-| `nodes.<id>` | One upgrade, see below. `root` is free and always owned |
+| `trees` | Separate graphs, shown one at a time and switched with the header button or Tab: `{"<tree>": {"title", "root"}}`. `main` (UPGRADES, root `root`) holds the player upgrades; its sister tree `horde` (HORDE, root `horde_root`) holds the enemy buffs, which pay back with `loot_ratio` |
+| `labels` | Branch names drawn faintly on the graph: `{"text", "pos", "tree"}`, pos in cells (fractions allowed), tree `main` when left out |
+| `nodes.<id>` | One upgrade, see below. Each tree's root is free and always owned |
 
 **Node keys:**
-- `pos`: `[x, y]` in grid cells; `[0, 0]` is the root, `y` grows downward.
+- `tree`: which tree it belongs to, `main` when left out. `requires` must stay inside the tree.
+- `pos`: `[x, y]` in grid cells of its tree; `[0, 0]` is the root, `y` grows downward.
 - `icon`: `star`, `heart`, `sword`, `boot`, `dash`, `shield`, `coin`, `meat`, `slime` or `crystal`.
 - `keystone`: `true` gives the big golden frame.
 - `title`, `text`: `{stat}` in the text is replaced by that effect's amount, e.g. `"{max_hp} max health."` reads `+10 max health.`
@@ -109,5 +92,10 @@ The Upgrades button shows on the title, game over and victory menus once a boss 
 | `speed_ratio` | `0.08` = +8% max speed |
 | `dash_cooldown_ratio` | `0.15` = dash cooldown 15% shorter |
 | `start_coin` / `start_meat` / `start_slime` | Items at the start of every run |
+| `timed_spawners` | `1` = one more spawn point on its own spawn timer (Normal only; at most 6 in all, and no more than the room's points) |
+| `spawn_rate_ratio` | `1.0` = timed points spawn twice as often (the spawn timer is divided by 1 + total). No effect on Easy |
+| `wave_count_ratio` | `1.0` = twice the kills per normal wave, on top of the difficulty's `wave_count_ratio`. Boss waves are not scaled |
+| `spawner_count` | `1` = every spawn event makes 2 enemies, on a small ring around the spawn point |
+| `loot_ratio` | `0.1` = +10% chance on every enemy drop except boss crystals, on top of the room's `loot_multiplier` |
 
 The frame, cursor and icon art comes from `addons/top_down/assets/images/gui/generate_meta_frames.py`. Rerun it after changing it.

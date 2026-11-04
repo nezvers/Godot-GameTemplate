@@ -11,10 +11,13 @@ extends Marker2D
 
 ## Live enemies currently hosted by this point (section-maintained).
 var active_count:int = 0
+## Timed points: seconds until the next timer spawn (section-maintained).
+var cooldown_left:float = 0.0
 
 func _ready()->void:
 	assert(section != null)
 	active_count = 0
+	cooldown_left = 0.0
 	if !boss_position:
 		section.register_point(self)
 	else:

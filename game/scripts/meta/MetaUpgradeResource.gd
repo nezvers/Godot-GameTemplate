@@ -7,11 +7,11 @@ signal updated
 
 enum State {LOCKED, AVAILABLE, OWNED}
 
-## Saved: bought node ids. The root is always owned and never listed.
+## Saved: bought node ids, every tree in one list. Tree roots are always owned and never listed.
 @export var owned:PackedStringArray = []
 
 func is_owned(id:String)->bool:
-	return id == MetaUpgrades.ROOT || owned.has(id)
+	return MetaUpgrades.is_root(id) || owned.has(id)
 
 ## OWNED, AVAILABLE once any required node is owned, otherwise LOCKED.
 func state(id:String)->State:
@@ -34,7 +34,7 @@ func buy(id:String)->bool:
 	updated.emit()
 	return true
 
-## Gives back everything spent and keeps only the root.
+## Gives back everything spent, in every tree, and keeps only the roots.
 func refund_all()->void:
 	for _id:String in owned:
 		for _entry:Dictionary in MetaUpgrades.cost(_id):
@@ -45,7 +45,7 @@ func refund_all()->void:
 	save_resource()
 	updated.emit()
 
-## Sum of a stat over every owned node.
+## Sum of a stat over every owned node, in every tree.
 func stat(key:String)->float:
 	var _total:float = 0.0
 	for _id:String in MetaUpgrades.nodes():

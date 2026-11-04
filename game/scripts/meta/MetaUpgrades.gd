@@ -3,13 +3,17 @@
 ## Each node has a grid `pos`, an `icon`, a `title` and `text`, a `cost` item list
 ## (LootItems format), `requires` (any one owned node unlocks it) and `effects`
 ## (stat key -> amount, summed over every owned node). `keystone` nodes get the
-## golden frame. "root" is free and always owned. `labels` are branch names
-## drawn faintly on the graph, at grid positions.
+## golden frame. `labels` are branch names drawn faintly on the graph, at grid positions.
+## `trees` are separate graphs shown one at a time (the main tree and its sister
+## HORDE tree of enemy buffs). Each has a `root` that is free and always owned;
+## nodes and labels name their tree with `tree`, "main" when left out.
 ## Unknown stats, icons and requires ids are reported with push_warning.
 class_name MetaUpgrades
 
 const PATH:String = "res://game/balance/upgrades.json"
+## Root of the main tree.
 const ROOT:String = "root"
+const MAIN_TREE:String = "main"
 
 ## Stat key -> how its amount reads in a node's text ("{max_hp}" -> "+10").
 ##   "flat" +N, "seconds" +Ns, "percent" +N%, "less_percent" -N%
@@ -22,6 +26,11 @@ const STATS:Dictionary = {
 	"start_coin": "flat",
 	"start_meat": "flat",
 	"start_slime": "flat",
+	"spawn_rate_ratio": "percent",
+	"wave_count_ratio": "percent",
+	"spawner_count": "flat",
+	"timed_spawners": "flat",
+	"loot_ratio": "percent",
 }
 
 ## Frame order of meta_icons_12x12_strip10.png (set by generate_meta_frames.py).
@@ -40,9 +49,39 @@ static func nodes()->Dictionary:
 static func node(id:String)->Dictionary:
 	return nodes().get(id, {})
 
-## [{"text", "pos"}] branch names on the graph.
-static func labels()->Array:
-	return data().get("labels", [])
+## Tree id -> {"title", "root"}, the main tree first.
+static func trees()->Dictionary:
+	return data().get("trees", {MAIN_TREE: {"title": "UPGRADES", "root": ROOT}})
+
+static func tree_ids()->Array:
+	return trees().keys()
+
+static func tree_title(tree:String)->String:
+	return trees().get(tree, {}).get("title", tree.to_upper())
+
+static func tree_root(tree:String)->String:
+	return trees().get(tree, {}).get("root", "")
+
+static func tree_of(id:String)->String:
+	return node(id).get("tree", MAIN_TREE)
+
+static func is_root(id:String)->bool:
+	for _tree:String in trees():
+		if tree_root(_tree) == id:
+			return true
+	return false
+
+## Node ids of one tree.
+static func nodes_in(tree:String)->Array[String]:
+	var _ids:Array[String] = []
+	for _id:String in nodes():
+		if tree_of(_id) == tree:
+			_ids.append(_id)
+	return _ids
+
+## [{"text", "pos"}] branch names on one tree's graph.
+static func labels(tree:String = MAIN_TREE)->Array:
+	return data().get("labels", []).filter(func (label:Dictionary)->bool: return label.get("tree", MAIN_TREE) == tree)
 
 ## Pixels per grid cell.
 static func grid()->float:
@@ -96,13 +135,22 @@ static func _load()->Dictionary:
 	var _nodes:Dictionary = _parsed.get("nodes", {})
 	if !_nodes.has(ROOT):
 		push_warning("upgrades: no '%s' node" % ROOT)
+	var _trees:Dictionary = _parsed.get("trees", {})
+	for _tree:String in _trees:
+		if !_nodes.has(_trees[_tree].get("root", "")):
+			push_warning("upgrades: tree %s has no root node" % _tree)
 	for _id:String in _nodes:
 		var _entry:Dictionary = _nodes[_id]
+		var _tree:String = _entry.get("tree", MAIN_TREE)
+		if _tree != MAIN_TREE && !_trees.has(_tree):
+			push_warning("upgrades: %s is in unknown tree '%s'" % [_id, _tree])
 		if !ICONS.has(_entry.get("icon", "")):
 			push_warning("upgrades: %s has unknown icon '%s'" % [_id, _entry.get("icon", "")])
 		for _required:String in _entry.get("requires", []):
 			if !_nodes.has(_required):
 				push_warning("upgrades: %s requires unknown node '%s'" % [_id, _required])
+			elif _nodes[_required].get("tree", MAIN_TREE) != _tree:
+				push_warning("upgrades: %s requires '%s' from another tree" % [_id, _required])
 		for _key:String in _entry.get("effects", {}):
 			if !STATS.has(_key):
 				push_warning("upgrades: %s has unknown stat '%s'" % [_id, _key])

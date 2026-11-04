@@ -3,6 +3,8 @@
 ## Nodes are walked with the ui directions (neighbours picked by where they sit on
 ## the graph) and bought with ui_accept or a click. The view pans to keep the
 ## focused node centred; dragging the background pans it by hand.
+## The header's tree button (or Tab) switches between the main tree and its
+## sister trees; only the shown tree's nodes are built into the focus walk.
 ## ui_cancel / pause goes back to the title.
 extends Control
 
@@ -37,10 +39,14 @@ const KEYSTONE_TEXT:Color = Color8(255, 214, 90)
 @export var state_label:Label
 @export var back_button:Button
 @export var reset_button:Button
+@export var title_label:Label
+## Switches to the next tree; reads that tree's title.
+@export var tree_button:Button
 
 ## id -> MetaNodeButton
 var buttons:Dictionary
 var focused_id:String = MetaUpgrades.ROOT
+var tree:String = MetaUpgrades.MAIN_TREE
 var _pan_tween:Tween
 var _dragging:bool
 ## Focus taken by hovering: show its info without panning under the mouse.
@@ -62,7 +68,6 @@ func _ready()->void:
 		_button.pressed.connect(_buy.bind(_id))
 		_button.focus_entered.connect(_on_focus.bind(_id))
 		_button.mouse_entered.connect(_on_hover.bind(_button))
-	_set_neighbours()
 	graph_links.meta_upgrade_resource = meta_upgrade_resource
 	graph_view.gui_input.connect(_on_graph_input)
 
@@ -70,7 +75,8 @@ func _ready()->void:
 	boss_crystal_resource.updated.connect(_refresh)
 	back_button.pressed.connect(_back)
 	reset_button.pressed.connect(_on_reset)
-	_refresh()
+	tree_button.pressed.connect(next_tree)
+	show_tree(tree)
 	_start.call_deferred()
 
 func _exit_tree()->void:
@@ -81,6 +87,31 @@ func _exit_tree()->void:
 func _start()->void:
 	graph_content.position = _pan_target(focused_id)
 	buttons[focused_id].grab_focus()
+
+## Shows one tree: only its buttons are visible and walkable, its root focused.
+func show_tree(id:String)->void:
+	tree = id
+	for _id:String in buttons:
+		buttons[_id].visible = MetaUpgrades.tree_of(_id) == tree
+	_set_neighbours()
+	graph_links.tree = tree
+	title_label.text = MetaUpgrades.tree_title(tree)
+	var _trees:Array = MetaUpgrades.tree_ids()
+	tree_button.visible = _trees.size() > 1
+	tree_button.text = "%s (Tab)" % MetaUpgrades.tree_title(_trees[(_trees.find(tree) + 1) % _trees.size()])
+	focused_id = MetaUpgrades.tree_root(tree)
+	_refresh()
+	if is_node_ready():
+		buttons[focused_id].grab_focus()
+
+func next_tree()->void:
+	var _trees:Array = MetaUpgrades.tree_ids()
+	show_tree(_trees[(_trees.find(tree) + 1) % _trees.size()])
+
+func _input(event:InputEvent)->void:
+	if event.is_action_pressed("ui_focus_next") && tree_button.visible:
+		get_viewport().set_input_as_handled()
+		next_tree()
 
 func _unhandled_input(event:InputEvent)->void:
 	if event.is_action_released("ui_cancel") || (action_resource != null && event.is_action_released(action_resource.pause_action)):
@@ -126,12 +157,15 @@ func _disarm_reset()->void:
 func _refresh()->void:
 	crystal_label.text = str(boss_crystal_resource.value)
 	var _owned:int = 0
+	var _shown:int = 0
 	for _id:String in buttons:
 		var _state:MetaUpgradeResource.State = meta_upgrade_resource.state(_id)
-		if _state == MetaUpgradeResource.State.OWNED:
-			_owned += 1
+		if MetaUpgrades.tree_of(_id) == tree:
+			_shown += 1
+			if _state == MetaUpgradeResource.State.OWNED:
+				_owned += 1
 		buttons[_id].refresh(_state, LootItems.can_afford(MetaUpgrades.cost(_id)))
-	progress_label.text = "%d/%d" % [_owned, buttons.size()]
+	progress_label.text = "%d/%d" % [_owned, _shown]
 	reset_button.disabled = meta_upgrade_resource.owned.is_empty()
 	graph_links.queue_redraw()
 	_show_info(focused_id)
@@ -141,7 +175,7 @@ func _show_info(id:String)->void:
 	name_label.text = _node.get("title", id)
 	var _keystone:bool = MetaUpgrades.is_keystone(id)
 	name_label.modulate = KEYSTONE_TEXT if _keystone else Color.WHITE
-	tag_label.visible = _keystone && id != MetaUpgrades.ROOT
+	tag_label.visible = _keystone && !MetaUpgrades.is_root(id)
 	text_label.text = MetaUpgrades.describe(id)
 	match meta_upgrade_resource.state(id):
 		MetaUpgradeResource.State.OWNED:
@@ -189,8 +223,8 @@ func _on_graph_input(event:InputEvent)->void:
 	elif event is InputEventMouseMotion && _dragging:
 		graph_content.position = (graph_content.position + event.relative).round()
 
-## For every node and direction: the nearest node inside a cone around that
-## direction. Without one, focus stays put instead of jumping to the buttons.
+## For every node and direction: the nearest node of the same tree inside a cone
+## around that direction. Without one, focus stays put instead of jumping to the buttons.
 func _set_neighbours()->void:
 	var _directions:Dictionary = {
 		SIDE_LEFT: Vector2.LEFT, SIDE_RIGHT: Vector2.RIGHT, SIDE_TOP: Vector2.UP, SIDE_BOTTOM: Vector2.DOWN,
@@ -202,7 +236,7 @@ func _set_neighbours()->void:
 			var _best:MetaNodeButton = _button
 			var _best_score:float = INF
 			for _other_id:String in buttons:
-				if _other_id == _id:
+				if _other_id == _id || MetaUpgrades.tree_of(_other_id) != MetaUpgrades.tree_of(_id):
 					continue
 				var _offset:Vector2 = MetaUpgrades.position(_other_id) - _from
 				var _angle:float = rad_to_deg(absf(_offset.angle_to(_directions[_side])))

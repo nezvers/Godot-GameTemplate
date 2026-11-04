@@ -1,8 +1,8 @@
-## Checks the meta-upgrades: upgrades.json (requires ids, reachability from the
-## root, costs, stats, icons), MetaUpgradeResource (states, buying, refunds, save
+## Checks the meta-upgrades: upgrades.json (requires ids, reachability from each
+## tree's root, no links between trees, costs, stats, icons), MetaUpgradeResource (states, buying, refunds, save
 ## round trip), the title's Upgrades button showing once a crystal was picked up,
-## the screen (a button per node with the right frame, focus walking every node,
-## buying through a button) and the effects on a new run's player and items.
+## the screen (a button per node with the right frame, focus walking every node
+## of the shown tree, switching to the HORDE tree, buying through a button) and the effects on a new run's player and items.
 ## Saves go to temporary files; the real crystal and upgrade saves are untouched.
 ##   Godot --headless --path . res://game/tests/meta_upgrade_check.tscn
 ## With a display, saves a screenshot of the screen instead:
@@ -63,28 +63,37 @@ func _restore_saves()->void:
 func _check_data()->void:
 	var _nodes:Dictionary = MetaUpgrades.nodes()
 	check(_nodes.has(MetaUpgrades.ROOT), "upgrades.json has a root")
-	check(MetaUpgrades.cost(MetaUpgrades.ROOT).is_empty(), "the root is free")
+	check(MetaUpgrades.tree_root(MetaUpgrades.MAIN_TREE) == MetaUpgrades.ROOT, "the main tree starts at the root")
+	check(MetaUpgrades.tree_ids().has("horde"), "the HORDE sister tree exists")
+	for _tree:String in MetaUpgrades.tree_ids():
+		var _root:String = MetaUpgrades.tree_root(_tree)
+		check(_nodes.has(_root) && MetaUpgrades.tree_of(_root) == _tree, "tree %s has its root %s" % [_tree, _root])
+		check(MetaUpgrades.cost(_root).is_empty(), "the %s root is free" % _tree)
 	var _cells:Dictionary = {}
 	for _id:String in _nodes:
 		var _node:Dictionary = _nodes[_id]
 		check(MetaUpgrades.ICONS.has(_node.get("icon", "")), "%s has a known icon" % _id)
 		check(!_node.get("title", "").is_empty() && _node.has("text"), "%s has a title and text" % _id)
-		var _cell:Vector2 = MetaUpgrades.position(_id)
+		check(MetaUpgrades.trees().has(MetaUpgrades.tree_of(_id)), "%s is in a known tree" % _id)
+		var _cell:Array = [MetaUpgrades.tree_of(_id), MetaUpgrades.position(_id)]
 		check(!_cells.has(_cell), "%s doesn't sit on %s" % [_id, _cells.get(_cell, "")])
 		_cells[_cell] = _id
 		for _required:String in MetaUpgrades.requires(_id):
 			check(_nodes.has(_required), "%s requires an existing node (%s)" % [_id, _required])
+			check(MetaUpgrades.tree_of(_required) == MetaUpgrades.tree_of(_id), "%s requires %s from its own tree" % [_id, _required])
 		for _key:String in MetaUpgrades.effects(_id):
 			check(MetaUpgrades.STATS.has(_key), "%s uses a known stat (%s)" % [_id, _key])
 		check(!MetaUpgrades.describe(_id).contains("{"), "%s text fills every placeholder" % _id)
-		if _id == MetaUpgrades.ROOT:
+		if MetaUpgrades.is_root(_id):
 			continue
 		check(!MetaUpgrades.requires(_id).is_empty(), "%s requires something" % _id)
 		check(!MetaUpgrades.cost(_id).is_empty(), "%s costs something" % _id)
 		for _entry:Dictionary in MetaUpgrades.cost(_id):
 			check(LootItems.COUNTERS.has(_entry.get("item", "")), "%s costs a known item" % _id)
-	# Every node reachable from the root through requires.
-	var _reached:Dictionary = {MetaUpgrades.ROOT: true}
+	# Every node reachable from a root through requires (links stay in one tree).
+	var _reached:Dictionary = {}
+	for _tree:String in MetaUpgrades.tree_ids():
+		_reached[MetaUpgrades.tree_root(_tree)] = true
 	var _grew:bool = true
 	while _grew:
 		_grew = false
@@ -101,12 +110,16 @@ func _check_data()->void:
 	check(MetaUpgrades.format_stat("damage_ratio", 0.1) == "+10%", "ratios read as percent")
 	check(MetaUpgrades.format_stat("dash_cooldown_ratio", 0.15) == "-15%", "cooldown cuts read as minus percent")
 	check(MetaUpgrades.format_stat("hit_invulnerability", 0.2) == "+0.2s", "seconds read with s")
+	check(MetaUpgrades.format_stat("spawn_rate_ratio", 1.0) == "+100%", "spawn rate reads as percent")
+	check(MetaUpgrades.format_stat("spawner_count", 1) == "+1", "spawner count reads flat")
 
 func _check_resource()->void:
 	_meta.reset_resource()
 	_crystals.reset_resource()
 	var _State:Dictionary = MetaUpgradeResource.State
 	check(_meta.state(MetaUpgrades.ROOT) == _State.OWNED, "the root is owned")
+	check(_meta.state("horde_root") == _State.OWNED, "the HORDE root is owned")
+	check(_meta.state("frenzy_1") == _State.AVAILABLE, "a HORDE root child is available")
 	check(_meta.state("vitality_1") == _State.AVAILABLE, "a root child is available")
 	check(_meta.state("vitality_2") == _State.LOCKED, "a grandchild is locked")
 	check(!_meta.buy("vitality_1"), "can't buy without crystals")
@@ -177,10 +190,33 @@ func _check_screen()->void:
 				_seen[_next] = true
 				_queue.append(_next)
 	for _id:String in _buttons:
-		check(_seen.has(_id), "focus reaches %s" % _id)
+		if MetaUpgrades.tree_of(_id) == MetaUpgrades.MAIN_TREE:
+			check(_seen.has(_id), "focus reaches %s" % _id)
 	check(_screen.neighbour(MetaUpgrades.ROOT, SIDE_TOP) == "vitality_1", "up from the root is Tough Skin I")
 	check(_screen.neighbour(MetaUpgrades.ROOT, SIDE_RIGHT) == "sharpen_1", "right from the root is Sharpen I")
 	check(_screen.neighbour("iron_heart", SIDE_TOP) == "iron_heart", "focus stays at the top end")
+	for _id:String in _buttons:
+		check(_buttons[_id].visible == (MetaUpgrades.tree_of(_id) == MetaUpgrades.MAIN_TREE), "the main tree shows only its own %s" % _id)
+
+	# The sister tree: its nodes only, its own focus walk, the title follows.
+	_screen.next_tree()
+	check(_screen.tree == "horde" && _screen.title_label.text == "HORDE", "the tree button switches to HORDE")
+	check(_screen.focused_id == "horde_root", "switching focuses the HORDE root")
+	for _id:String in _buttons:
+		check(_buttons[_id].visible == (MetaUpgrades.tree_of(_id) == "horde"), "HORDE shows only its own %s" % _id)
+	_seen = {"horde_root": true}
+	_queue = ["horde_root"]
+	while !_queue.is_empty():
+		var _id:String = _queue.pop_front()
+		for _side:Side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+			var _next:String = _screen.neighbour(_id, _side)
+			check(MetaUpgrades.tree_of(_next) == "horde", "focus from %s stays in HORDE" % _id)
+			if !_seen.has(_next):
+				_seen[_next] = true
+				_queue.append(_next)
+	check(_seen.size() == MetaUpgrades.nodes_in("horde").size(), "focus reaches every HORDE node")
+	_screen.next_tree()
+	check(_screen.tree == MetaUpgrades.MAIN_TREE && _screen.title_label.text == "UPGRADES", "and back to the main tree")
 
 	_crystals.add(1)
 	(_buttons["sharpen_1"] as MetaNodeButton).pressed.emit()

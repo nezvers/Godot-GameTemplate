@@ -32,9 +32,17 @@ func damage_multiplier() -> float:
 func wave_count_multiplier() -> float:
 	return ratio("wave_count_ratio")
 
-## Multiplier applied to a wave's max_alive cap.
+## Multiplier applied to a wave's max_alive cap; 0 or less means no cap.
 func max_alive_multiplier() -> float:
 	return ratio("max_alive_ratio")
+
+## Seconds between a timed spawn point's extra spawns; 0 = no spawn timers.
+func spawn_interval() -> float:
+	return float(Balance.value("difficulty.%s.spawn_interval" % mode_name().to_lower(), 0.0))
+
+## Spawn points per wave that run a spawn timer, before HORDE upgrades add more.
+func timed_spawners() -> int:
+	return int(Balance.value("difficulty.%s.timed_spawners" % mode_name().to_lower(), 0))
 
 func is_easy() -> bool:
 	return mode == Mode.EASY

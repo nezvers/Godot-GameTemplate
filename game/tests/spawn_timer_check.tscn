@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/tests/spawn_timer_check.gd" id="1_check"]
+
+[node name="SpawnTimerCheck" type="Node"]
+script = ExtResource("1_check")

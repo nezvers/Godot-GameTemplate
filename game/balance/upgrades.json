@@ -1,10 +1,17 @@
 {
 	"grid": 36,
+	"trees": {
+		"main": {"title": "UPGRADES", "root": "root"},
+		"horde": {"title": "HORDE", "root": "horde_root"}
+	},
 	"labels": [
 		{"text": "VITALITY", "pos": [0, -3.75]},
 		{"text": "OFFENSE", "pos": [3, -0.75]},
 		{"text": "MOBILITY", "pos": [-3, -0.75]},
-		{"text": "FORTUNE", "pos": [0, 3.75]}
+		{"text": "FORTUNE", "pos": [0, 3.75]},
+		{"text": "FRENZY", "pos": [2, -0.75], "tree": "horde"},
+		{"text": "TWINS", "pos": [-1, -0.75], "tree": "horde"},
+		{"text": "NESTS", "pos": [0, 5.75], "tree": "horde"}
 	],
 	"nodes": {
 		"root": {
@@ -106,6 +113,66 @@
 			"title": "Bloodlust", "text": "{damage_ratio} weapon damage, {max_hp} max health.",
 			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["vitality_2", "sharpen_2"],
 			"effects": {"damage_ratio": 0.1, "max_hp": 10}
+		},
+
+		"horde_root": {
+			"tree": "horde", "pos": [0, 0], "icon": "crystal", "keystone": true,
+			"title": "The Horde", "text": "Feed the horde and it pays you back in loot.",
+			"cost": [], "requires": []
+		},
+		"frenzy_1": {
+			"tree": "horde", "pos": [1, 0], "icon": "dash",
+			"title": "Frenzy I", "text": "{spawn_rate_ratio} enemy spawn rate on Normal, {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["horde_root"],
+			"effects": {"spawn_rate_ratio": 0.25, "loot_ratio": 0.1}
+		},
+		"frenzy_2": {
+			"tree": "horde", "pos": [2, 0], "icon": "dash",
+			"title": "Frenzy II", "text": "{spawn_rate_ratio} enemy spawn rate on Normal, {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["frenzy_1"],
+			"effects": {"spawn_rate_ratio": 0.25, "loot_ratio": 0.1}
+		},
+		"swarm": {
+			"tree": "horde", "pos": [3, 0], "icon": "star", "keystone": true,
+			"title": "Swarm", "text": "{wave_count_ratio} enemies per wave, {spawn_rate_ratio} spawn rate on Normal, {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["frenzy_2"],
+			"effects": {"wave_count_ratio": 1.0, "spawn_rate_ratio": 1.0, "loot_ratio": 0.25}
+		},
+		"twin_spawn": {
+			"tree": "horde", "pos": [-1, 0], "icon": "slime", "keystone": true,
+			"title": "Twin Spawn", "text": "{spawner_count} enemy from every spawn, {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["horde_root"],
+			"effects": {"spawner_count": 1, "loot_ratio": 0.25}
+		},
+		"nest_1": {
+			"tree": "horde", "pos": [0, 1], "icon": "slime",
+			"title": "Nest I", "text": "{timed_spawners} spawner on its own spawn timer (Normal), {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["horde_root"],
+			"effects": {"timed_spawners": 1, "loot_ratio": 0.05}
+		},
+		"nest_2": {
+			"tree": "horde", "pos": [0, 2], "icon": "slime",
+			"title": "Nest II", "text": "{timed_spawners} spawner on its own spawn timer (Normal), {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 1}], "requires": ["nest_1"],
+			"effects": {"timed_spawners": 1, "loot_ratio": 0.05}
+		},
+		"nest_3": {
+			"tree": "horde", "pos": [0, 3], "icon": "slime",
+			"title": "Nest III", "text": "{timed_spawners} spawner on its own spawn timer (Normal), {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["nest_2"],
+			"effects": {"timed_spawners": 1, "loot_ratio": 0.05}
+		},
+		"nest_4": {
+			"tree": "horde", "pos": [0, 4], "icon": "slime",
+			"title": "Nest IV", "text": "{timed_spawners} spawner on its own spawn timer (Normal), {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["nest_3"],
+			"effects": {"timed_spawners": 1, "loot_ratio": 0.05}
+		},
+		"nest_5": {
+			"tree": "horde", "pos": [0, 5], "icon": "slime", "keystone": true,
+			"title": "Nest V", "text": "{timed_spawners} spawner on its own spawn timer (Normal), {loot_ratio} loot.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["nest_4"],
+			"effects": {"timed_spawners": 1, "loot_ratio": 0.05}
 		}
 	}
 }
