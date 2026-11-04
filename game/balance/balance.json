@@ -1316,7 +1316,7 @@
 			"lifetime": 0.27,
 			"movement_type": "PROJECTILE",
 			"max_bounce": 0,
-			"hit_limit": 1,
+			"hit_limit": -1,
 			"sub_projectile": "sword_projectile",
 			"sub_projectile_angles": [
 				0
@@ -1364,7 +1364,7 @@
 			"lifetime": 0.27,
 			"movement_type": "PROJECTILE",
 			"max_bounce": 0,
-			"hit_limit": 1
+			"hit_limit": -1
 		},
 		"mage_bullet": {
 			"scene": "res://addons/top_down/scenes/projectiles/mage_bullet.tscn",

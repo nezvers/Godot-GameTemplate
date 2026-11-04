@@ -67,7 +67,7 @@ func _on_damage(damage:DamageDataResource)->void:
 		var _health_resource:HealthResource = _resource_node.get_resource("health")
 		_health_resource.add_hp.call_deferred(_current_hp - _health_resource.hp)
 		
-		var _push_resource:PushResource = resource_node.get_resource("push")
+		var _push_resource:PushResource = _resource_node.get_resource("push")
 		_push_resource.add_impulse(_push_vector)
 		
 		# enable ready signal for next time
