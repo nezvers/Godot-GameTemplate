@@ -1,7 +1,7 @@
 ## Starts a new run when room_start is loaded from the title, game over or
 ## victory screen. Walking back in through a door keeps the run: PlayerSpawner
-## clears next_scene_path once a door arrival is placed, so a non-empty value
-## here means the carried player is arriving right now.
+## clears next_scene_path once a door arrival is placed, so a value naming this
+## room means the carried player is arriving right now.
 ##
 ## On a new run any carried player/transition state is stale and must be reset
 ## BEFORE PlayerSpawner._ready runs — otherwise PlayerSpawner sees a lingering
@@ -38,8 +38,10 @@ func _enter_tree() -> void:
 	if campaign_resource != null and owner != null:
 		campaign_resource.start_scene = owner.scene_file_path
 
+	# A door arrival names this room. The victory exit is a portal too, so after it
+	# next_scene_path still holds the victory screen with the player carried along.
 	var carried: Node = player_reference.node
-	if !scene_transition_resource.next_scene_path.is_empty() and is_instance_valid(carried):
+	if _is_arrival() and is_instance_valid(carried):
 		return
 
 	# Free any stale, detached player from a previous run so PlayerSpawner spawns
@@ -62,3 +64,11 @@ func _enter_tree() -> void:
 		var amount: int = int(META_UPGRADES.stat(START_ITEMS[item]))
 		if amount > 0:
 			LootItems.counter(item).add(amount)
+
+func _is_arrival() -> bool:
+	var next: String = scene_transition_resource.next_scene_path
+	if next.is_empty():
+		return false
+	if owner == null or owner.scene_file_path.is_empty():
+		return true
+	return next == owner.scene_file_path

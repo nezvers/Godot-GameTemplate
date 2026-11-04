@@ -1185,6 +1185,7 @@ tag = "n23_n02"
 connect_tag = "n02_n23"
 scene_path = "res://game/scenes/room_N02.tscn"
 open_when_cleared = &"room_N23"
+destination_name = "Sun Court"
 
 [node name="Trigger_X5_Y10" type="CollisionPolygon2D" parent="ArenaEntry"]
 position = Vector2(-64, 128)

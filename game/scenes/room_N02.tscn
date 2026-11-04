@@ -1303,6 +1303,7 @@ tag = "n02_n12"
 connect_tag = "n12_n02"
 scene_path = "res://game/scenes/room_N12.tscn"
 open_when_cleared = &"room_N12"
+destination_name = "Colossus Pit"
 
 [node name="Spawn_S1_3" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
 position = Vector2(32, 272)
@@ -1316,6 +1317,7 @@ tag = "n02_n23"
 connect_tag = "n23_n02"
 scene_path = "res://game/scenes/room_N23.tscn"
 open_when_cleared = &"room_N23"
+destination_name = "Broodmother Hollow"
 
 [node name="Trigger_X31_Y16" type="CollisionPolygon2D" parent="ArenaSection1Entry"]
 position = Vector2(256, 384)

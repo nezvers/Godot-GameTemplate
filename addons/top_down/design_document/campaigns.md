@@ -61,6 +61,12 @@ and hidden until the room in `open_when_cleared` is cleared, then appears as the
   `victory.tscn`. Both wait for the boss room itself.
 - **Hub:** has one portal per boss room. Each waits for its boss room, so killing a boss
   opens a two-way shortcut for the rest of the run.
+- **Labels:** a portal shows the `name` of the room it leads to, which the builder writes
+  as `destination_name`. The victory exit (tag `victory`) reads EXTRACT instead and uses
+  the green `portal_extract_32x32_strip6.png`.
+- **Play Again:** the player walks through the victory exit like a door, so the transition
+  still names `victory.tscn` when Play Again loads the start room. `FreshStart` only counts
+  an arrival whose `next_scene_path` is its own room, so this starts a new run.
 
 The builder checks that every boss fight is the room's last section, that every
 campaign boss room has `O` and `V`, and that every portal arrives at a portal of its

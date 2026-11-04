@@ -229,6 +229,7 @@ func _check_room(name:String, spec:Dictionary, room:Node, entry:Dictionary)->voi
 					_victory = _door
 				else:
 					_hub = _door
+					check(!_door.destination_name.is_empty(), "%s %s names the room it leads to" % [name, _door.name])
 		check(_hub != null, "%s has a portal to the hub" % name)
 		check(_victory != null, "%s has a victory exit" % name)
 
@@ -376,6 +377,13 @@ func _play_portals()->void:
 	await _frames(5)
 	check(_state.is_cleared(&"room_N12"), "room_N12 cleared once the boss dies")
 	check(_portals.all(func (p:Portal)->bool: return p.is_open && p.monitoring && p.visible), "boss room portals open and show once the boss dies")
+	for _portal:Portal in _portals:
+		if _portal.scene_path == VICTORY:
+			check(_portal.label.text == "EXTRACT", "the victory exit reads EXTRACT (%s)" % _portal.label.text)
+			check(_portal.sprite.texture == Portal.EXTRACT_TEXTURE, "the victory exit is green")
+		else:
+			check(_portal.label.text == "SUN COURT", "the hub portal names the Sun Court (%s)" % _portal.label.text)
+			check(_portal.sprite.texture != Portal.EXTRACT_TEXTURE, "the hub portal keeps the purple vortex")
 	_room.queue_free()
 	await _frames(2)
 
@@ -387,6 +395,8 @@ func _play_portals()->void:
 			var _open:bool = _portal.open_when_cleared == &"room_N12"
 			check(_portal.is_open == _open && _portal.monitoring == _open && _portal.visible == _open,
 				"room_N02 %s is %s" % [_portal.name, "open" if _open else "shut and hidden"])
+			if _open:
+				check(_portal.label.text == "COLOSSUS PIT", "room_N02 portal names the boss room (%s)" % _portal.label.text)
 	_hub.queue_free()
 	await _frames(2)
 

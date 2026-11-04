@@ -1181,6 +1181,7 @@ tag = "p23_p01"
 connect_tag = "p01_p23"
 scene_path = "res://game/scenes/room_P01.tscn"
 open_when_cleared = &"room_P23"
+destination_name = "Heart Chamber"
 
 [node name="Trigger_X5_Y10" type="CollisionPolygon2D" parent="ArenaEntry"]
 position = Vector2(-64, 128)

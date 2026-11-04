@@ -828,6 +828,7 @@ tag = "p32_p01"
 connect_tag = "p01_p32"
 scene_path = "res://game/scenes/room_P01.tscn"
 open_when_cleared = &"room_P32"
+destination_name = "Heart Chamber"
 
 [node name="Spawn_S1_1" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
 position = Vector2(16, 136)

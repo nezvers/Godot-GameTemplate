@@ -218,13 +218,18 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 		elif _portals.has(_c):
 			_portal_index += 1
 			var _portal:Array = _portals[_c]
-			_out.node("Portal" if _portal_index == 1 else "Portal%d" % _portal_index, "Behind", {
+			var _portal_props:Dictionary = {
 				"position": _pos,
 				"tag": "\"%s\"" % _portal[0],
 				"connect_tag": "\"%s\"" % _portal[1],
 				"scene_path": "\"%s%s.tscn\"" % [SCENES, _portal[2]],
 				"open_when_cleared": "&\"room_%s\"" % String(_portal[3]).trim_prefix("room_"),
-			}, _out.ext("PackedScene", TD + "scenes/obstacles/portal.tscn"))
+			}
+			# the victory exit labels itself EXTRACT
+			var _destination:Dictionary = _rooms.get(String(_portal[2]).trim_prefix("room_"), {})
+			if _destination.has("name"):
+				_portal_props.destination_name = "\"%s\"" % _destination.name
+			_out.node("Portal" if _portal_index == 1 else "Portal%d" % _portal_index, "Behind", _portal_props, _out.ext("PackedScene", TD + "scenes/obstacles/portal.tscn"))
 		elif INTERACTABLES.has(_c):
 			var _scene:PackedScene = load(TD + INTERACTABLES[_c])
 			var _base:String = _scene.get_state().get_node_name(0)

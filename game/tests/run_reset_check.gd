@@ -91,7 +91,19 @@ func _ready()->void:
 	check(_stairs().visible && _stairs().collision_mask != 0, "door-back: exits open")
 	check(_manager.current_weapon.scene_file_path == _database.list[2].scene_path, "door-back: carried weapon in hand")
 
+	# Out through a victory exit (a portal: the player is carried), then Play Again
+	_transition.next_scene_path = "res://game/scenes/victory.tscn"
+	_transition.entry_tag = "victory"
+	_player.get_parent().remove_child(_player)
+	await _load_room()
+	var _again:Node2D = _player_reference.node
+	check(_again != null && _again != _player && _again.is_inside_tree(), "play again after victory: fresh player placed")
+	check(_inventory.list.is_empty(), "play again after victory: inventory emptied")
+	check(_score.value == 0, "play again after victory: score reset")
+	check(_transition.entry_tag.is_empty(), "play again after victory: transition cleared")
+
 	# Die there, Try Again: same room, new run
+	_player = _again
 	await _load_room()
 	check(_player_reference.node != null && _player_reference.node != _player, "try again: fresh player")
 	check(_inventory.list.is_empty(), "try again: inventory emptied")

@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://7s3f02bpb1j8" path="res://addons/top_down/resources/global_resources/room_state_resource.tres" id="3_state"]
 [ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/portal_32x32_strip6.png" id="4_tex"]
 
-[node name="Portal" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="Portal" type="Area2D" node_paths=PackedStringArray("sprite", "label")]
 disable_mode = 2
 collision_layer = 0
 collision_mask = 2
@@ -13,6 +13,7 @@ monitorable = false
 script = ExtResource("1_portal")
 room_state_resource = ExtResource("3_state")
 sprite = NodePath("Sprite2D")
+label = NodePath("Label")
 scene_transition_resource = ExtResource("2_trans")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -23,3 +24,15 @@ position = Vector2(-16, -24)
 texture = ExtResource("4_tex")
 centered = false
 hframes = 6
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+offset_left = -60.0
+offset_top = -34.0
+offset_right = 60.0
+offset_bottom = -25.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+horizontal_alignment = 1

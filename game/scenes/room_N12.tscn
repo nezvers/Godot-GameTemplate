@@ -828,6 +828,7 @@ tag = "n12_n02"
 connect_tag = "n02_n12"
 scene_path = "res://game/scenes/room_N02.tscn"
 open_when_cleared = &"room_N12"
+destination_name = "Sun Court"
 
 [node name="Spawn_S1_1" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
 position = Vector2(16, 136)

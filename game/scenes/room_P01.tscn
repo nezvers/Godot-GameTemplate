@@ -1282,6 +1282,7 @@ tag = "p01_p12"
 connect_tag = "p12_p01"
 scene_path = "res://game/scenes/room_P12.tscn"
 open_when_cleared = &"room_P12"
+destination_name = "Jelly Vat"
 
 [node name="Portal2" parent="Behind" instance=ExtResource("5_portal")]
 position = Vector2(160, 304)
@@ -1289,6 +1290,7 @@ tag = "p01_p23"
 connect_tag = "p23_p01"
 scene_path = "res://game/scenes/room_P23.tscn"
 open_when_cleared = &"room_P23"
+destination_name = "Plague Cistern"
 
 [node name="Trigger_X5_Y15" type="CollisionPolygon2D" parent="ArenaEntry"]
 position = Vector2(-144, 168)
@@ -1347,6 +1349,7 @@ tag = "p01_p32"
 connect_tag = "p32_p01"
 scene_path = "res://game/scenes/room_P32.tscn"
 open_when_cleared = &"room_P32"
+destination_name = "Titan's Gut"
 
 [node name="Spawn_S2_4" type="Marker2D" parent="EnemySpawnPoints" node_paths=PackedStringArray("section")]
 position = Vector2(240, 440)
