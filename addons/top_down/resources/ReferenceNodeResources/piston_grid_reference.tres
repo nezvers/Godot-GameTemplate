@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ReferenceNodeResource" format=3]
+
+[ext_resource type="Script" uid="uid://ctjts0ojprgeb" path="res://addons/great_games_library/resources/ReferenceNodeResource/ReferenceNodeResource.gd" id="1_n0bh7"]
+
+[resource]
+resource_name = "Piston Grid Reference"
+script = ExtResource("1_n0bh7")

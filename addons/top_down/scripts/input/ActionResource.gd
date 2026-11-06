@@ -18,6 +18,7 @@ signal updated
 @export var next_action:StringName
 @export var previous_action:StringName
 @export var interact_action:StringName
+@export var drop_action:StringName
 
 @export_category("Keyboard")
 @export var pause_kb:InputEvent
@@ -34,6 +35,7 @@ signal updated
 @export var next_kb:InputEvent
 @export var previous_kb:InputEvent
 @export var interact_kb:InputEvent
+@export var drop_kb:InputEvent
 
 @export_category("Gamepad")
 @export var pause_gp:InputEvent
@@ -50,6 +52,7 @@ signal updated
 @export var next_gp:InputEvent
 @export var previous_gp:InputEvent
 @export var interact_gp:InputEvent
+@export var drop_gp:InputEvent
 
 @export var aim_deadzone:float = 0.1
 ## Variable to not set it again
@@ -89,6 +92,7 @@ func _initialize()->void:
 	_init_action(next_action, [next_kb, next_gp].filter(_filter_empty))
 	_init_action(previous_action, [previous_kb, previous_gp].filter(_filter_empty))
 	_init_action(interact_action, [interact_kb, interact_gp].filter(_filter_empty))
+	_init_action(drop_action, [drop_kb, drop_gp].filter(_filter_empty))
 	
 	updated.emit()
 
@@ -197,5 +201,10 @@ func prepare_load(data:Resource)->void:
 		interact_kb = data.interact_kb
 		interact_gp = data.interact_gp
 	_overwrite_action_inputs(interact_action, [interact_kb, interact_gp].filter(_filter_empty))
+	
+	if data.drop_kb != null || data.drop_gp != null:
+		drop_kb = data.drop_kb
+		drop_gp = data.drop_gp
+	_overwrite_action_inputs(drop_action, [drop_kb, drop_gp].filter(_filter_empty))
 	
 	updated.emit()

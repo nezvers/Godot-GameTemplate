@@ -1,0 +1,93 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://do8p6aamuv46h" path="res://addons/top_down/scenes/weapons/weapon.tscn" id="1_1sltl"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageTypeResource.gd" id="2_yyucw"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageDataResource.gd" id="3_ibreu"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/damage/properties/DamageStatusResource.gd" id="4_ycuyb"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/projectiles/water_shot_projectile_instance_resource.tres" id="5_2qq6f"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/weapon/water_gun_0.png" id="6_tex"]
+[ext_resource type="Resource" uid="uid://htqn5bygvbq5" path="res://addons/top_down/resources/sounds/slime_throw.tres" id="7_snd"]
+
+[sub_resource type="Resource" id="Resource_gu1qv"]
+script = ExtResource("3_ibreu")
+base_damage = Array[ExtResource("2_yyucw")]([])
+critical_chance = 0.0
+critical_multiply = 1.5
+status_list = Array[ExtResource("4_ycuyb")]([])
+hit_list = []
+report_callback = Callable()
+kickback_strength = 0.0
+transmission_name = &""
+state = -1
+valid = true
+version = 0
+not_saved = false
+
+[sub_resource type="Animation" id="Animation_qbqgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4mvxk"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-0.610865, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h0x75"]
+_data = {
+"RESET": SubResource("Animation_qbqgg"),
+"shoot": SubResource("Animation_4mvxk")
+}
+
+[node name="WaterGun" instance=ExtResource("1_1sltl")]
+damage_data_resource = SubResource("Resource_gu1qv")
+
+[node name="RotatedNode" parent="." index="0"]
+position = Vector2(0, -6)
+
+[node name="Sprite2D" parent="RotatedNode" index="0"]
+texture = ExtResource("6_tex")
+offset = Vector2(1, 0)
+
+[node name="AnimationPlayer" parent="RotatedNode/Sprite2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_h0x75")
+}
+
+[node name="WeaponTrigger" parent="." index="3"]
+sound_resource = ExtResource("7_snd")
+
+[node name="ProjectileInterval" parent="WeaponTrigger" index="0"]
+interval = 0.35
+
+[node name="AnimationTrigger" parent="WeaponTrigger" index="1"]
+animation_list = Array[StringName]([&"shoot"])
+
+[node name="ProjectileSpawner" parent="." index="4"]
+initial_distance = 8.0
+projectile_instance_resource = ExtResource("5_2qq6f")
+lob_range = 120.0
+
+[node name="SpreadShot" parent="ProjectileSpawner" index="0"]
+random_angle_offset = 0.0

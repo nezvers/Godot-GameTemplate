@@ -22,6 +22,9 @@ enum WallMode {BARRIER, GATE}
 enum WallState {OFF, ON}
 var state:WallState = WallState.OFF
 
+## Emitted after set_raised changes the state (pistons save on it)
+signal state_changed(raised:bool)
+
 func _ready()->void:
 	# Pull config from the root BlockWall if present, so a room can set section/
 	# mode on the instance root without editing this inner node.
@@ -38,16 +41,18 @@ func _ready()->void:
 		return
 	match mode:
 		WallMode.BARRIER:
-			section.fight_started.connect(_set_raised.bind(true))
-			section.cleared.connect(_set_raised.bind(false))
+			section.fight_started.connect(set_raised.bind(true))
+			section.cleared.connect(set_raised.bind(false))
 			# Deferred so the AstarGrid2D value is populated before first apply.
-			_set_raised.call_deferred(section.fight_active)
+			set_raised.call_deferred(section.fight_active)
 		WallMode.GATE:
 			# Raised by default until the section is cleared.
-			section.cleared.connect(_set_raised.bind(false))
-			_set_raised.call_deferred(!section.is_cleared)
+			section.cleared.connect(set_raised.bind(false))
+			set_raised.call_deferred(!section.is_cleared)
 
-func _set_raised(raised:bool)->void:
+## Public so section-less walls (home base pistons) can be driven by code.
+## instant skips the animation (restoring saved state).
+func set_raised(raised:bool, instant:bool = false)->void:
 	if astargrid_resource.value == null:
 		return
 
@@ -60,8 +65,21 @@ func _set_raised(raised:bool)->void:
 
 	match state:
 		WallState.ON:
-			animation_player.play(animation_on)
-			astargrid_resource.value.set_point_solid(_tile_pos, true)
+			_play(animation_on, instant)
+			_set_solid(_tile_pos, true)
 		WallState.OFF:
-			animation_player.play(animation_off)
-			astargrid_resource.value.set_point_solid(_tile_pos, false)
+			_play(animation_off, instant)
+			_set_solid(_tile_pos, false)
+	state_changed.emit(raised)
+
+func is_raised()->bool:
+	return state == WallState.ON
+
+func _play(animation:StringName, instant:bool)->void:
+	animation_player.play(animation)
+	if instant:
+		animation_player.seek(animation_player.current_animation_length, true)
+
+func _set_solid(tile_pos:Vector2i, solid:bool)->void:
+	if astargrid_resource.value.is_in_boundsv(tile_pos):
+		astargrid_resource.value.set_point_solid(tile_pos, solid)

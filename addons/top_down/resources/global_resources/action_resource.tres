@@ -42,6 +42,13 @@ device = -1
 physical_keycode = 83
 unicode = 115
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_drop"]
+button_index = 3
+
+[sub_resource type="InputEventKey" id="InputEventKey_drop"]
+device = -1
+physical_keycode = 71
+
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_interact"]
 button_index = 2
 
@@ -112,6 +119,7 @@ action_2_action = &"action_2"
 next_action = &"next"
 previous_action = &"previous"
 interact_action = &"interact"
+drop_action = &"drop"
 pause_kb = SubResource("InputEventKey_xnl1n")
 left_kb = SubResource("InputEventKey_qryje")
 right_kb = SubResource("InputEventKey_qrpov")
@@ -122,6 +130,7 @@ action_2_kb = SubResource("InputEventKey_uef2b")
 next_kb = SubResource("InputEventMouseButton_55maa")
 previous_kb = SubResource("InputEventMouseButton_eiewg")
 interact_kb = SubResource("InputEventKey_interact")
+drop_kb = SubResource("InputEventKey_drop")
 pause_gp = SubResource("InputEventJoypadButton_3e6vy")
 left_gp = SubResource("InputEventJoypadMotion_58jlk")
 right_gp = SubResource("InputEventJoypadMotion_xliej")
@@ -136,3 +145,4 @@ action_2_gp = SubResource("InputEventJoypadButton_wp12u")
 next_gp = SubResource("InputEventJoypadButton_lswhf")
 previous_gp = SubResource("InputEventJoypadButton_5hipw")
 interact_gp = SubResource("InputEventJoypadButton_interact")
+drop_gp = SubResource("InputEventJoypadButton_drop")

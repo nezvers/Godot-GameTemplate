@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/action_resource.tres" id="action"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/ReferenceNodeResources/player_reference.tres" id="player"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/interact_denied.tres" id="denied"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/button_press.tres" id="use"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/shadow.png" id="shadow"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/interactables/GridLever.gd" id="script"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/lever_16x24_strip2.png" id="tex"]
+
+[sub_resource type="CircleShape2D" id="area_shape"]
+radius = 11.0
+
+[node name="GridLever" type="Node2D" node_paths=PackedStringArray("area", "prompt_label", "shake_node", "sprite", "number_label")]
+script = ExtResource("script")
+area = NodePath("Area2D")
+prompt_label = NodePath("PromptLabel")
+shake_node = NodePath("Visuals")
+action_resource = ExtResource("action")
+player_reference = ExtResource("player")
+sound_use = ExtResource("use")
+sound_denied = ExtResource("denied")
+use_cooldown = 0.2
+sprite = NodePath("Visuals/Sprite2D")
+number_label = NodePath("Visuals/NumberLabel")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.35)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("shadow")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -10)
+texture = ExtResource("tex")
+hframes = 2
+
+[node name="NumberLabel" type="Label" parent="Visuals"]
+offset_left = -10.0
+offset_top = -3.0
+offset_right = 10.0
+offset_bottom = 4.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.85)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 5
+text = "1"
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1, 0.5)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("area_shape")
+
+[node name="PromptLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -60.0
+offset_top = -38.0
+offset_right = 60.0
+offset_bottom = -29.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "[E] Use"
+horizontal_alignment = 1

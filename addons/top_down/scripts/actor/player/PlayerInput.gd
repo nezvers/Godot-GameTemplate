@@ -74,5 +74,8 @@ func _physics_process(_delta:float)->void:
 	if weapon_switch_dir != 0:
 		input_resource.set_switch_weapon(weapon_switch_dir)
 	
+	if InputMap.has_action(action_resource.drop_action) && Input.is_action_just_pressed(action_resource.drop_action):
+		input_resource.set_drop_weapon()
+	
 	# Dashing
 	input_resource.set_action_2(Input.is_action_pressed(action_resource.action_2_action))

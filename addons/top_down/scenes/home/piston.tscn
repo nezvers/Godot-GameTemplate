@@ -1,0 +1,62 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cm475mndno581" path="res://addons/top_down/scenes/obstacles/block_wall.tscn" id="1_wall"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/home/Piston.gd" id="2_script"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/piston_strip4.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/piston_wet_strip4.png" id="4_wet"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/piston_select_strip4.png" id="5_select"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/vfx/spark_32x32_strip6.png" id="6_spark"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/sounds/interact_denied.tres" id="7_sound"]
+
+[sub_resource type="Gradient" id="Gradient_spark"]
+colors = PackedColorArray(1, 1, 0.85, 1, 0.55, 0.85, 1, 0)
+
+[node name="Piston" node_paths=PackedStringArray("sprite", "wet_overlay", "select_overlay", "spark_sprite", "spark_particles", "body_shape") instance=ExtResource("1_wall")]
+y_sort_enabled = true
+script = ExtResource("2_script")
+sprite = NodePath("Sprite2D")
+wet_overlay = NodePath("Sprite2D/WetOverlay")
+select_overlay = NodePath("Sprite2D/SelectOverlay")
+spark_sprite = NodePath("Spark")
+spark_particles = NodePath("SparkParticles")
+body_shape = NodePath("StaticBody2D/CollisionPolygon2D")
+sound_short = ExtResource("7_sound")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, 0)
+texture = ExtResource("3_tex")
+offset = Vector2(0, -7)
+
+[node name="StaticBody2D" parent="." index="1"]
+position = Vector2(0, 0)
+
+[node name="WetOverlay" type="Sprite2D" parent="Sprite2D" index="0"]
+texture = ExtResource("4_wet")
+hframes = 4
+
+[node name="SelectOverlay" type="Sprite2D" parent="Sprite2D" index="1"]
+texture = ExtResource("5_select")
+hframes = 4
+
+[node name="Spark" type="Sprite2D" parent="." index="4"]
+z_index = 1
+texture = ExtResource("6_spark")
+hframes = 6
+
+[node name="SparkParticles" type="CPUParticles2D" parent="." index="5"]
+z_index = 1
+emitting = false
+amount = 14
+lifetime = 0.45
+one_shot = true
+explosiveness = 0.9
+emission_shape = 1
+emission_sphere_radius = 6.0
+direction = Vector2(0, -1)
+spread = 80.0
+gravity = Vector2(0, 160)
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+scale_amount_min = 1.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_spark")

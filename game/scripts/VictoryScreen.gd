@@ -9,9 +9,14 @@ extends Node
 ## Reaching a boss room's victory exit unlocks New Game+.
 @export var campaign_resource: CampaignResource
 
+## Weapons of a won run go home (game over loses them).
+const HOME_BASE: HomeBaseResource = preload("res://game/resources/home_base_resource.tres")
+const WEAPON_INVENTORY: ItemCollectionResource = preload("res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres")
+
 func _ready() -> void:
 	if campaign_resource != null:
 		campaign_resource.unlock_ng_plus()
+	_stash_weapons()
 	if overlay_scene == null:
 		return
 	menu.visible = false
@@ -32,3 +37,10 @@ func _ready() -> void:
 	var _button: Button = menu.find_child("Button") as Button
 	if _button != null:
 		_button.grab_focus()
+
+## The next home base visit hands them to the player.
+func _stash_weapons() -> void:
+	var inventory: ItemCollectionResource = WEAPON_INVENTORY
+	if inventory.list.is_empty():
+		return
+	HOME_BASE.stash_weapons(inventory)

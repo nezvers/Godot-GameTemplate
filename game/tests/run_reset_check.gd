@@ -18,6 +18,9 @@ var _score:ScoreResource
 var _transition:SceneTransitionResource
 var _player_reference:ReferenceNodeResource
 var _room:Node
+## The victory screen stashes the run's weapons for the home base, which saves
+var _home:HomeBaseResource
+var _home_name:String
 
 func check(condition:bool, label:String)->void:
 	checks += 1
@@ -32,6 +35,9 @@ func _ready()->void:
 	_score = load(TD + "resources/global_resources/score_resource.tres")
 	_transition = load(TD + "resources/global_resources/scene_transition_resource.tres")
 	_player_reference = load(TD + "resources/ReferenceNodeResources/player_reference.tres")
+	_home = load("res://game/resources/home_base_resource.tres")
+	_home_name = _home.resource_name
+	_home.resource_name = _home_name + "_test"
 
 	var _game_over:String = FileAccess.get_file_as_string(TD + "scenes/ui/screens/game_over.tscn")
 	check(_game_over.contains("CampaignRestartButton.gd"), "game over Try Again restarts the run's campaign")
@@ -169,6 +175,8 @@ func _count_script(node:Node, script_name:String)->int:
 	return _count
 
 func _finish()->void:
+	_home.delete_resource()
+	_home.resource_name = _home_name
 	print("run_reset_check: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 

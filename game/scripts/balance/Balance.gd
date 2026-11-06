@@ -53,6 +53,9 @@ const TABLES:Dictionary = {
 		"poison": "PoisonEffect:*",
 		"slow": "SlowEffect:*",
 		"stuck": "StuckEffect:*",
+		"acid": "AcidEffect:*",
+		"slippery": "SlipperyEffect:*",
+		"empowered": "EmpoweredEffect:*",
 		## applied once at startup to the shared weapon inventory
 		"max_weapons": "",
 		"ai": "BotInput:*",

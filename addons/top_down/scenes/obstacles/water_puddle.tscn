@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/pickups/trap_pickup.tscn" id="1_trap"]
+[ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/misc/water_puddle_24x16.png" id="2_tex"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/obstackles/TrapTransmission.gd" id="3_trap"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/obstackles/PuddleTrap.gd" id="4_puddle"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shape"]
+size = Vector2(24, 12)
+
+[sub_resource type="Resource" id="Resource_puddle"]
+script = ExtResource("3_trap")
+effect_name = &"slippery"
+repeat_while_inside = true
+transmission_name = &"trap"
+
+[node name="WaterPuddle" node_paths=PackedStringArray("data_transmitter") instance=ExtResource("1_trap")]
+script = ExtResource("4_puddle")
+data_transmitter = NodePath("AreaTransmitter2D/TrapDataTransmitter")
+
+[node name="AreaTransmitter2D" parent="." index="0"]
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="AreaTransmitter2D" index="0"]
+shape = SubResource("RectangleShape2D_shape")
+
+[node name="TrapDataTransmitter" parent="AreaTransmitter2D" index="1"]
+transmission_resource = SubResource("Resource_puddle")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_tex")
+
+[node name="BalanceBinding" type="Node" parent="."]
+script = ExtResource("balance_binding")

@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/scripts/home/HomeExitGate.gd" id="1_gate"]
+[ext_resource type="Texture2D" uid="uid://yijv8vg6os5c" path="res://addons/top_down/assets/images/misc/stairs_strip2.png" id="2_tex"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres" id="3_inv"]
+
+[node name="HomeExit" type="Area2D" node_paths=PackedStringArray("hint_label")]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_gate")
+weapon_inventory = ExtResource("3_inv")
+hint_label = NodePath("HintLabel")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, -8)
+texture = ExtResource("2_tex")
+centered = false
+hframes = 2
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+offset_left = -40.0
+offset_top = -26.0
+offset_right = 40.0
+offset_bottom = -18.0
+theme_override_colors/font_color = Color(1, 0.92, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "MISSION"
+horizontal_alignment = 1
+
+[node name="HintLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -80.0
+offset_top = -36.0
+offset_right = 80.0
+offset_bottom = -28.0
+theme_override_colors/font_color = Color(1, 0.5, 0.45, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+horizontal_alignment = 1

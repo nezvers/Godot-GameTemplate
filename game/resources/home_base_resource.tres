@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HomeBaseResource" format=3]
+
+[ext_resource type="Script" path="res://game/scripts/home/HomeBaseResource.gd" id="1_home"]
+
+[resource]
+resource_name = "HomeBase"
+script = ExtResource("1_home")

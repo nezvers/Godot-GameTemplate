@@ -64,5 +64,17 @@ boss_crystal_resource = ExtResource("m3_crystal")
 meta_upgrade_resource = ExtResource("m2_meta")
 entry = NodePath("../MarginContainer/Control/Body/TitleMenu/Upgrades")
 
+[node name="HomeBase" parent="MarginContainer/Control/Body/TitleMenu" index="4" instance=ExtResource("2_btn")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/TitleMenu/HomeBase" index="1"]
+text = "Home Base"
+
+[node name="HomeBaseComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("5_change")
+button = NodePath("../MarginContainer/Control/Body/TitleMenu/HomeBase/Button")
+scene_path = "res://game/scenes/room_H00.tscn"
+
 [editable path="MarginContainer/Control/Body/TitleMenu/NewGamePlus"]
 [editable path="MarginContainer/Control/Body/TitleMenu/Upgrades"]
+[editable path="MarginContainer/Control/Body/TitleMenu/HomeBase"]

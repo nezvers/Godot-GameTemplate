@@ -28,6 +28,11 @@ extends Node
 ## Meta-upgrades that start the run with items (global, so the generated rooms need no export).
 const META_UPGRADES: MetaUpgradeResource = preload("res://game/resources/meta_upgrade_resource.tres")
 
+## The one weapon carried out of the home base (HomeBase.depart) joins the run here.
+const HOME_BASE: HomeBaseResource = preload("res://game/resources/home_base_resource.tres")
+const WEAPON_INVENTORY: ItemCollectionResource = preload("res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres")
+const WEAPON_DATABASE: ItemCollectionResource = preload("res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres")
+
 ## Loot item id -> meta stat giving that many at the start of a run.
 const START_ITEMS: Dictionary = {"coin": "start_coin", "meat": "start_meat", "slime": "start_slime"}
 
@@ -64,6 +69,19 @@ func _enter_tree() -> void:
 		var amount: int = int(META_UPGRADES.stat(START_ITEMS[item]))
 		if amount > 0:
 			LootItems.counter(item).add(amount)
+
+	_hand_over_loadout()
+
+## Gives the gun brought from the home base; it is used up by this run.
+func _hand_over_loadout() -> void:
+	var home: HomeBaseResource = HOME_BASE
+	if home.loadout.is_empty():
+		return
+	var weapon: ItemResource = HomeBaseResource.find_item(WEAPON_DATABASE, home.loadout)
+	home.loadout = ""
+	home.save_resource()
+	if weapon != null:
+		WEAPON_INVENTORY.append(weapon)
 
 func _is_arrival() -> bool:
 	var next: String = scene_transition_resource.next_scene_path

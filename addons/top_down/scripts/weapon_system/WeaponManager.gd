@@ -57,6 +57,7 @@ func _exit_tree() -> void:
 	weapon_inventory.updated.disconnect(_update_weapon_inventory)
 	weapon_inventory.removed.disconnect(_on_remove)
 	input_resource.switch_weapon.disconnect(_on_switch_weapon)
+	input_resource.drop_weapon.disconnect(drop_weapon)
 	if weapon_upgrade_resource != null:
 		weapon_upgrade_resource.updated.disconnect(_apply_all_upgrades)
 
@@ -94,6 +95,7 @@ func _setup_input_connection()->void:
 	assert(input_resource != null)
 	
 	input_resource.switch_weapon.connect(_on_switch_weapon)
+	input_resource.drop_weapon.connect(drop_weapon)
 
 func _add_new_weapon_from_scene(scene:PackedScene)->Weapon:
 	var _weapon:Weapon = scene.instantiate() as Weapon
@@ -158,6 +160,12 @@ func _update_weapon_inventory()->void:
 	set_weapon_index()
 
 func test_drop()->void:
+	drop_weapon()
+
+## Drops the selected weapon as a pickup at the actor's feet; fists stay.
+func drop_weapon()->void:
+	if weapon_inventory.list.is_empty():
+		return
 	weapon_inventory.drop()
 
 func _on_remove(item:WeaponItemResource, is_dropped:bool)->void:

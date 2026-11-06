@@ -6,6 +6,9 @@ extends Node
 
 @export var resource_node:ResourceNode
 
+## BoolResource puddles set; "acid" (player acid puddle) is created when missing
+@export var effect_name:StringName = &"poison"
+
 ## Damage per tick
 @export var damage:float = 1.0
 
@@ -22,7 +25,7 @@ var remaining_time:float
 var tick_remaining:float
 
 func _ready()->void:
-	poison_bool = resource_node.get_resource("poison")
+	poison_bool = PulseEffect.ensure_bool(resource_node, effect_name)
 	health_resource = resource_node.get_resource("health")
 	damage_resource = resource_node.get_resource("damage")
 	if poison_bool == null || health_resource == null:

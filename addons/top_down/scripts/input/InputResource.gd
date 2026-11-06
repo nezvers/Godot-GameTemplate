@@ -7,6 +7,7 @@ extends SaveableResource
 signal action_pressed
 signal action_2_pressed
 signal switch_weapon(dir:int)
+signal drop_weapon
 
 ## Used for movement direction
 @export var axis:Vector2
@@ -52,3 +53,6 @@ func set_action_2(value:bool)->void:
 
 func set_switch_weapon(dir:int)->void:
 	switch_weapon.emit(dir)
+
+func set_drop_weapon()->void:
+	drop_weapon.emit()

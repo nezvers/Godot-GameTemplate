@@ -12,6 +12,9 @@ extends Node2D
 ## An entry tag means the player walked back in through a door, not a new run
 @export var scene_transition_resource:SceneTransitionResource
 
+## A gun brought from the home base (FreshStart put it here) leaves the exits open
+var weapon_inventory:ItemCollectionResource = preload("res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres")
+
 var collision_mask_list:Dictionary
 
 var pickup_count:int
@@ -19,7 +22,8 @@ var pickup_count:int
 func _ready()->void:
 	if scene_transition_resource != null && !scene_transition_resource.entry_tag.is_empty():
 		return
-	_disable_exits()
+	if weapon_inventory.list.is_empty():
+		_disable_exits()
 	_place_pickups()
 
 func _disable_exits()->void:
@@ -56,6 +60,6 @@ func _pickup_config(inst:ItemPickup, pickup_position:Vector2, item_resource:Weap
 
 func _finish_pickups()->void:
 	pickup_count -= 1
-	if pickup_count > 0:
+	if pickup_count > 0 || collision_mask_list.is_empty():
 		return
 	_enable_exits()

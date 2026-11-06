@@ -25,12 +25,19 @@
 ##      the player sends them straight through it)
 ##   w  starting weapon pickup (start rooms): one random unlocked weapon per cell; the
 ##      doors stay shut until every one is picked up
+## Home base ("home" rooms):
+##   H  corner piston (0, 0) of the memory grid: "grid_size" squared pistons along
+##      -x/-y, its lever column at +1 x and lever row at +1 y (keep them floor);
+##      the control room goes past that corner, where lever 1 of each lane is
+##   T  write button   R  data lever   Z  gate lever   C  lever reset button
+##   g  water gun spot   >  stairs to a mission
 ##
 ## Spec keys: name, look, accent, patches, doors {char: [tag, connect_tag, room]},
 ## portals {char: [tag, connect_tag, room, room it waits for]}, sections, boss_section,
 ## side_room (1-based section of an optional alcove: written without "requires", so
 ## it never holds up the way on), start (the campaign's first room: FreshStart, no
-## sections) and map.
+## sections), home (the home base: HomeBase instead of FreshStart, see HomeBase.gd),
+## grid_size and map.
 extends Node
 
 const TEMPLATE:String = "res://addons/top_down/scenes/levels/room_template.tscn"
@@ -54,6 +61,10 @@ const INTERACTABLES:Dictionary = {
 	"M": "scenes/interactables/meat_grinder.tscn",
 	"K": "scenes/interactables/slime_workbench.tscn",
 	"$": "scenes/interactables/slot_machine.tscn",
+	"T": "scenes/interactables/write_button.tscn",
+	"R": "scenes/interactables/data_lever.tscn",
+	"Z": "scenes/interactables/gate_lever.tscn",
+	"C": "scenes/interactables/reset_button.tscn",
 }
 const VICTORY:String = "victory"
 const FREE_DISTANCE:int = 116
@@ -64,6 +75,7 @@ const CAMPAIGNS:Array[Script] = [
 	preload("res://game/tools/rooms_boss_path.gd"),
 	preload("res://game/tools/rooms_new_game.gd"),
 	preload("res://game/tools/rooms_new_game_plus.gd"),
+	preload("res://game/tools/rooms_home.gd"),
 ]
 
 const BALANCE_PATH:String = "res://game/balance/balance.json"
@@ -239,6 +251,23 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 			_out.node("PlayerSpawner", ".", {"position": _pos})
 		elif _c == "w":
 			_weapon_spots.append(_pos)
+		elif _c == "H":
+			_out.node("PistonGrid", "WallLayer_Ysorted", {
+				"script": _out.ext("Script", TD + "scripts/home/PistonGrid.gd"),
+				"y_sort_enabled": "true",
+				"size": str(spec.get("grid_size", 30)),
+				"origin_cell": var_to_str(_cell),
+				"floor_layer": "NodePath(\"../../Background/FloorLayer\")",
+				"piston_scene": _out.ext("PackedScene", TD + "scenes/home/piston.tscn"),
+				"lever_scene": _out.ext("PackedScene", TD + "scenes/home/grid_lever.tscn"),
+			}, "", "Node2D")
+		elif _c == "g":
+			_out.node("WaterGunSpot", ".", {"position": _pos}, "", "Marker2D")
+		elif _c == ">":
+			_out.node("HomeExit", "Behind", {
+				"position": _pos,
+				"home_base": "NodePath(\"../../HomeBase\")",
+			}, _out.ext("PackedScene", TD + "scenes/home/home_exit.tscn"))
 		elif PROPS.has(_c):
 			var _scene:PackedScene = load(TD + PROPS[_c])
 			var _base:String = _scene.get_state().get_node_name(0)
@@ -264,11 +293,7 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 
 	_write_sections(_out, spec)
 	if spec.get("start", false):
-		var _run:PackedStringArray = []
-		for _resource:String in ["global_resources/score_resource.tres", "global_resources/meat_resource.tres",
-				"global_resources/slime_resource.tres", "global_resources/weapon_upgrade_resource.tres",
-				"ItemCollectionResource/weapon_inventory.tres", "global_resources/room_state_resource.tres"]:
-			_run.append(_out.ext("Resource", TD + "resources/" + _resource))
+		var _run:PackedStringArray = _run_resources(_out)
 		_out.node("FreshStart", ".", {
 			"script": _out.ext("Script", "res://game/scripts/FreshStart.gd"),
 			"player_reference": _out.ext("Resource", TD + "resources/ReferenceNodeResources/player_reference.tres"),
@@ -276,6 +301,8 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 			"campaign_resource": _out.ext("Resource", "res://game/resources/campaign_resource.tres"),
 			"run_resources": "Array[Resource]([%s])" % ", ".join(_run),
 		}, "", "Node")
+	if spec.get("home", false):
+		_write_home_base(_out)
 	if !_weapon_spots.is_empty():
 		if !spec.get("start", false):
 			_problem("%s: 'w' starting weapons only work in a start room" % key)
@@ -312,6 +339,29 @@ func build_room(key:String, spec:Dictionary)->Dictionary:
 		_file.close()
 	_root.free()
 	return _balance_entry(_path, spec, _spawns)
+
+## Run-scoped resources FreshStart and HomeBase reset.
+func _run_resources(out:SceneText)->PackedStringArray:
+	var _run:PackedStringArray = []
+	for _resource:String in ["global_resources/score_resource.tres", "global_resources/meat_resource.tres",
+			"global_resources/slime_resource.tres", "global_resources/weapon_upgrade_resource.tres",
+			"ItemCollectionResource/weapon_inventory.tres", "global_resources/room_state_resource.tres"]:
+		_run.append(out.ext("Resource", TD + "resources/" + _resource))
+	return _run
+
+func _write_home_base(out:SceneText)->void:
+	out.node("HomeBase", ".", {
+		"script": out.ext("Script", "res://game/scripts/home/HomeBase.gd"),
+		"player_reference": out.ext("Resource", TD + "resources/ReferenceNodeResources/player_reference.tres"),
+		"scene_transition_resource": out.ext("Resource", TD + "resources/global_resources/scene_transition_resource.tres"),
+		"run_resources": "Array[Resource]([%s])" % ", ".join(_run_resources(out)),
+		"home_base_resource": out.ext("Resource", "res://game/resources/home_base_resource.tres"),
+		"weapon_inventory": out.ext("Resource", TD + "resources/ItemCollectionResource/weapon_inventory.tres"),
+		"weapon_database": out.ext("Resource", TD + "resources/ItemCollectionResource/weapon_database.tres"),
+		"item_pickup_instance_resource": out.ext("Resource", TD + "resources/InstanceResources/pickups/item_pickup_instance_resource.tres"),
+		"water_gun_spot": "NodePath(\"../WaterGunSpot\")",
+		"piston_grid": "NodePath(\"../WallLayer_Ysorted/PistonGrid\")",
+	}, "", "Node")
 
 ## The balance.json "rooms" entry matching what was written into the scene.
 func _balance_entry(path:String, spec:Dictionary, spawns:Array[String])->Dictionary:

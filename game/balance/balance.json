@@ -49,6 +49,14 @@
 			"stuck_time": 2,
 			"escape_distance": 12,
 			"stuck_acceleration": 10000
+		},
+		"slippery": {
+			"acceleration_multiplier": 0.15,
+			"linger_time": 0.3
+		},
+		"empowered": {
+			"damage_multiplier": 1.5,
+			"linger_time": 0.1
 		}
 	},
 	"enemies": {
@@ -3580,6 +3588,24 @@
 			"instance": "res://addons/top_down/resources/InstanceResources/traps/web_trap_instance_resource.tres",
 			"lifetime": 0.0,
 			"fade_time": 0.2
+		},
+		"water_puddle": {
+			"scene": "res://addons/top_down/scenes/obstacles/water_puddle.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/traps/water_puddle_instance_resource.tres",
+			"lifetime": 20.0,
+			"fade_time": 2.0
+		},
+		"player_acid_puddle": {
+			"scene": "res://addons/top_down/scenes/obstacles/player_acid_puddle.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/traps/player_acid_puddle_instance_resource.tres",
+			"lifetime": 8.0,
+			"fade_time": 2.0
+		},
+		"blood_puddle": {
+			"scene": "res://addons/top_down/scenes/obstacles/blood_puddle.tscn",
+			"instance": "res://addons/top_down/resources/InstanceResources/traps/blood_puddle_instance_resource.tres",
+			"lifetime": 15.0,
+			"fade_time": 2.0
 		}
 	},
 	"contraptions": {

@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://addons/top_down/scenes/projectiles/puddle_shot_projectile.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://addons/top_down/assets/images/projectile/water_shot_8x8.png" id="2_tex"]
+[ext_resource type="Resource" path="res://addons/top_down/resources/InstanceResources/traps/water_puddle_instance_resource.tres" id="3_puddle"]
+
+[node name="WaterShotProjectile" instance=ExtResource("1_base")]
+
+[node name="Sprite2D" parent="RotatedNode" index="0"]
+texture = ExtResource("2_tex")
+
+[node name="SpawnOnLand" parent="." index="11"]
+instance_resource = ExtResource("3_puddle")

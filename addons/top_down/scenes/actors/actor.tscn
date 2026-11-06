@@ -27,6 +27,9 @@
 [ext_resource type="Script" uid="uid://b2pbj40ssvyeu" path="res://addons/top_down/scripts/damage/DamageSetup.gd" id="28_oavm0"]
 [ext_resource type="Script" uid="uid://dbfo8pojgaitr" path="res://addons/top_down/scripts/damage/StatusSetup.gd" id="29_t6rdw"]
 [ext_resource type="Script" path="res://addons/top_down/scripts/actor/SlowEffect.gd" id="30_slow"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/effects/SlipperyEffect.gd" id="40_slippery"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/effects/EmpoweredEffect.gd" id="41_empowered"]
+[ext_resource type="Script" path="res://addons/top_down/scripts/actor/PoisonEffect.gd" id="42_acid"]
 [ext_resource type="Script" path="res://game/scripts/balance/BalanceBinding.gd" id="balance_binding"]
 
 [sub_resource type="Resource" id="Resource_u7p0r"]
@@ -306,6 +309,21 @@ resource_node = NodePath("../ResourceNode")
 [node name="SlowEffect" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
 script = ExtResource("30_slow")
 resource_node = NodePath("../ResourceNode")
+
+[node name="SlipperyEffect" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("40_slippery")
+resource_node = NodePath("../ResourceNode")
+effect_name = &"slippery"
+
+[node name="EmpoweredEffect" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("41_empowered")
+resource_node = NodePath("../ResourceNode")
+effect_name = &"empowered"
+
+[node name="AcidEffect" type="Node" parent="." node_paths=PackedStringArray("resource_node")]
+script = ExtResource("42_acid")
+resource_node = NodePath("../ResourceNode")
+effect_name = &"acid"
 
 [node name="BalanceBinding" type="Node" parent="."]
 script = ExtResource("balance_binding")

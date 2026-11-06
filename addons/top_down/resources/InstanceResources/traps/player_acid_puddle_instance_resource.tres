@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstanceResource" format=3]
+
+[ext_resource type="Resource" path="res://addons/top_down/resources/RoomResources/behind_reference.tres" id="1_behind"]
+[ext_resource type="Script" uid="uid://c4vi4hfp1xokj" path="res://addons/great_games_library/resources/InstanceResource/InstanceResource.gd" id="2_t77ta"]
+
+[resource]
+resource_name = "player_acid_puddle instance resource"
+script = ExtResource("2_t77ta")
+scene_path = "res://addons/top_down/scenes/obstacles/player_acid_puddle.tscn"
+parent_reference_resource = ExtResource("1_behind")
