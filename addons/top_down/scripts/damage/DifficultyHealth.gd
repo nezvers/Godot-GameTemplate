@@ -24,7 +24,8 @@ func _ready() -> void:
 	if _base_max < 0.0:
 		_base_max = health.reset_max_hp
 		_base_hp = health.reset_hp
-	var mult: float = difficulty_resource.health_multiplier()
+	# co-op: tougher with every extra player (1x alone)
+	var mult: float = difficulty_resource.health_multiplier() * CoopScaling.health_ratio()
 	health.reset_max_hp = _base_max * mult
 	health.reset_hp = _base_hp * mult
 	health.max_hp = health.reset_max_hp

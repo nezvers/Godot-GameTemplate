@@ -11,6 +11,10 @@ signal scene_changed
 ## Reference to a node that will be used as a parent.
 @export var parent_reference_resource:ReferenceNodeResource
 
+## Called as (instance_resource, node) for every instance() once it is configured,
+## before it enters the tree. Lets the co-op layer (NetEntities) see spawns.
+static var instanced_hook:Callable
+
 ## After first instance crewation a scene file is cached
 var scene:PackedScene
 
@@ -67,6 +71,8 @@ func instance(config_callback:Callable = Callable())->Node:
 	if config_callback.is_valid():
 		config_callback.call(_node)
 	assert(_node.get_parent() == null)
+	if instanced_hook.is_valid():
+		instanced_hook.call(self, _node)
 	parent_reference_resource.node.add_child.call_deferred(_node)
 	return _node
 

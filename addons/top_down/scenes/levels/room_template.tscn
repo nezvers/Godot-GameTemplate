@@ -184,6 +184,7 @@ script = ExtResource("18_igxve")
 bool_resource = ExtResource("14_6pg65")
 paused_nodes = [NodePath("..")]
 paused_state = 4
+keep_running_online = true
 
 [node name="TransitionProcessingComponent" type="Node" parent="." unique_id=2114243555 node_paths=PackedStringArray("paused_nodes")]
 script = ExtResource("18_igxve")

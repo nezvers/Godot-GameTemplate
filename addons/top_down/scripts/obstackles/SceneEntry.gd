@@ -47,6 +47,12 @@ func _on_body_entered(body:Node2D)->void:
 	if _transition_bool != null and _transition_bool.value:
 		body_entered.connect(_on_body_entered, CONNECT_ONE_SHOT)
 		return
+	# Co-op: the host moves the party (a teammate walking in counts there too);
+	# a guest's doors wait for the host's word (NetPlayers._follow_room).
+	if Net.is_guest():
+		if !body_exited.is_connected(_on_body_exited):
+			body_exited.connect(_on_body_exited, CONNECT_ONE_SHOT)
+		return
 	scene_transition_resource.set_next_scene(scene_path, connect_tag)
 
 

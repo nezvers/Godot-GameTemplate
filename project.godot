@@ -31,6 +31,8 @@ SoundManager="*res://addons/top_down/scenes/autoloads/sound_manager.tscn"
 Music="*res://addons/top_down/scenes/autoloads/music.tscn"
 Transition="*res://addons/top_down/scenes/autoloads/transition.tscn"
 PersistentData="*res://addons/top_down/scenes/autoloads/persistent_data.tscn"
+RunSession="*res://game/scripts/run/RunSession.gd"
+Net="*res://game/scripts/net/Net.gd"
 
 [display]
 

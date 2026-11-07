@@ -23,9 +23,10 @@ func _on_input_update()->void:
 		var _collision_count:int = shape_cast.get_collision_count()
 		for i:int in _collision_count:
 			var _collider:PhysicsBody2D = shape_cast.get_collider(i)
-			if _collider is StaticBody2D:
+			if _collider is StaticBody2D || target_count >= MAX_TARGET:
 				continue
-			target_list[i] = _collider
+			# packed from the front: skipped colliders must not leave holes or stale entries
+			target_list[target_count] = _collider
 			target_count += 1
 	else:
 		target_count = 0

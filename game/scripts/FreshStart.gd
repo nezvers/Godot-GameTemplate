@@ -49,6 +49,10 @@ func _enter_tree() -> void:
 	if _is_arrival() and is_instance_valid(carried):
 		return
 
+	# Continue: RunSession already restored the saved run; the spawner places it.
+	if RunSession.is_resuming():
+		return
+
 	# Free any stale, detached player from a previous run so PlayerSpawner spawns
 	# a fresh one at its marker.
 	if carried != null:
@@ -64,6 +68,7 @@ func _enter_tree() -> void:
 	for resource: Resource in run_resources:
 		if resource != null:
 			resource.reset_resource()
+	RunSession.start_new_run()
 
 	for item: String in START_ITEMS:
 		var amount: int = int(META_UPGRADES.stat(START_ITEMS[item]))

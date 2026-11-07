@@ -14,6 +14,7 @@ const HOME_BASE: HomeBaseResource = preload("res://game/resources/home_base_reso
 const WEAPON_INVENTORY: ItemCollectionResource = preload("res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres")
 
 func _ready() -> void:
+	RunSession.end_run()
 	if campaign_resource != null:
 		campaign_resource.unlock_ng_plus()
 	_stash_weapons()

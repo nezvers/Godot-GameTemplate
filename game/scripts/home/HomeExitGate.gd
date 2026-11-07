@@ -25,6 +25,11 @@ func can_leave()->bool:
 func _on_body_entered(_body:Node2D)->void:
 	if _leaving || (_transition_bool != null && _transition_bool.value):
 		return
+	# co-op guests leave when the host does (NetPlayers)
+	if Net.is_guest():
+		hint_label.text = "The host leads the way"
+		hint_label.visible = true
+		return
 	if !can_leave():
 		hint_label.text = "Carry only 1 gun - drop the rest [%s]" % _drop_key()
 		hint_label.visible = true

@@ -10,8 +10,14 @@
 [ext_resource type="Script" path="res://game/scripts/meta/MetaUpgradesEntry.gd" id="m1_entry"]
 [ext_resource type="Resource" path="res://game/resources/meta_upgrade_resource.tres" id="m2_meta"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="m3_crystal"]
+[ext_resource type="Script" path="res://game/scripts/ui/ContinueButton.gd" id="c1_continue"]
 
 [node name="Title" instance=ExtResource("1_title")]
+
+[node name="ContinueComponent" parent="." node_paths=PackedStringArray("button", "entry")]
+script = ExtResource("c1_continue")
+button = NodePath("../MarginContainer/Control/Body/TitleMenu/Continue/Button")
+entry = NodePath("../MarginContainer/Control/Body/TitleMenu/Continue")
 
 [node name="NewGameComponent" parent="."]
 scene_path = "res://game/scenes/room_N00.tscn"

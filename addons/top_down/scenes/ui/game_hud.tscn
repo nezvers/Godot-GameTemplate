@@ -25,6 +25,8 @@
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/slime_resource.tres" id="31_slime"]
 [ext_resource type="Resource" path="res://addons/top_down/resources/global_resources/boss_crystal_resource.tres" id="32_crystal"]
 
+[ext_resource type="Script" path="res://game/scripts/ui/PartyPanel.gd" id="40_party"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpmqm"]
 
 [node name="GameHud" type="CanvasLayer" unique_id=2049231566]
@@ -143,6 +145,19 @@ hide_list = [NodePath("../VBoxContainer/RoomIdLabel"), NodePath("../VBoxContaine
 
 [node name="Pause" parent="." unique_id=1085882963 instance=ExtResource("5_iipjt")]
 visible = false
+
+[node name="PartyPanel" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -95.0
+offset_top = 4.0
+offset_right = -3.0
+offset_bottom = 4.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("40_party")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1098445657]
 anchors_preset = 10

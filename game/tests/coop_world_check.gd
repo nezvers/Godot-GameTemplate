@@ -1,0 +1,357 @@
+## Two real games playing together over ENet on 127.0.0.1: this process hosts
+## from its home base, a second headless game (net_client.tscn, mode "world")
+## joins from its own. Checks that each sees the other's character in the room,
+## with the right weapon and HP (in the world and in the party panel on the
+## right of the HUD), that the guest follows the host to the mission and through
+## a door to the same entrance, that pausing online doesn't freeze the room and
+## that a guest whose host leaves goes back to its own home base.
+## Save files get temp names (both games), the user's saves stay untouched.
+##   Godot --headless --path . res://game/tests/coop_world_check.tscn
+extends Node
+
+const PORT:int = 24598
+const TD:String = "res://addons/top_down/"
+const HOME:String = "res://game/scenes/room_H00.tscn"
+const N00:String = "res://game/scenes/room_N00.tscn"
+
+var failures:int = 0
+var checks:int = 0
+var _client:Dictionary
+var _saved_names:Dictionary = {}
+var _reference:ReferenceNodeResource
+
+func check(condition:bool, label:String)->void:
+	checks += 1
+	if !condition:
+		failures += 1
+		printerr("FAIL: ", label)
+
+func _ready()->void:
+	for _path:String in ["res://game/resources/home_base_resource.tres", "res://game/resources/campaign_resource.tres"]:
+		var _resource:SaveableResource = load(_path)
+		_saved_names[_resource] = _resource.resource_name
+		_resource.resource_name += "_test"
+		_resource.delete_resource()
+		_resource.reset_resource()
+	(load(TD + "resources/global_resources/action_resource.tres") as ActionResource).reset_resource()
+	_reference = load(TD + "resources/ReferenceNodeResources/player_reference.tres")
+	Transition.instant = true
+	# this node outlives the rooms it loads
+	get_tree().current_scene = null
+	_run.call_deferred()
+
+func _run()->void:
+	Transition.change_scene(HOME)
+	check(await _wait(func ()->bool: return _body() != null, 10.0), "host: in the home base")
+	check(Net.host(PORT) == OK, "host: open to friends")
+	_client = _spawn_client()
+
+	# --- the guest walks around in our home base
+	check(await _wait(func ()->bool: return RunSession.players.count() == 2, 15.0), "guest joined")
+	var _guest:PlayerState = RunSession.players.get_state(1)
+	check(await _wait(func ()->bool: return Net.players.puppets.has(1) && is_instance_valid(Net.players.puppets[1]), 10.0), "host: guest's character appears in the room")
+	check(_guest != null && _guest.room_scene == HOME, "host: guest reported in the home base")
+	var _puppet:Node2D = Net.players.puppets.get(1)
+	if _puppet != null:
+		check(_puppet.get_node_or_null("PlayerInput") == null && _puppet.get_node_or_null("CameraPositionSetter") == null, "puppet: no local input or camera")
+		check(_reference.node == _body() && _reference.node != _puppet, "puppet: player_reference stays ours")
+		var _receivers:Array[Node] = _puppet.get_node("AreaReceiver2D").get_children().filter(func (n:Node)->bool: return n is DataChannelReceiver)
+		check(_receivers.size() == 1 && _receivers[0].name == "DamageDataReceiver", "puppet: only takes hits, picks nothing up, ignores traps")
+		check(_puppet.get_parent() == _body().get_parent(), "puppet: y-sorted with the players")
+	check(await _wait(func ()->bool: return _last("puppet").begins_with("0 "), 10.0), "guest: host's character appears in its room")
+
+	# --- weapon in hand and HP reach the other side
+	check(await _wait(func ()->bool: return _guest.weapon_name == "Shotgun", 10.0), "host: sees the guest's shotgun")
+	_puppet = Net.players.puppets.get(1)
+	if _puppet != null:
+		var _manager:WeaponManager = _puppet.get_node("WeaponManager")
+		var _shotgun:ItemResource = _guest.active_weapon()
+		check(_shotgun != null && _manager.get_current_weapon_path() == _shotgun.scene_path, "puppet: holds the shotgun")
+	var _panel:PartyPanel = get_tree().current_scene.get_node_or_null("UI/PartyPanel")
+	check(_panel != null, "HUD: party panel present")
+	if _panel != null:
+		await _frames(3)
+		check(_panel.visible && _panel.rows.size() == 1 && _panel.rows.has(1), "HUD: one card, for the guest only")
+		if _panel.rows.has(1):
+			var _row:Dictionary = _panel.rows[1]
+			check((_row.weapon as Label).text == "Shotgun" && (_row.icon as TextureRect).texture != null, "HUD: guest's weapon name and icon")
+			check((_row.name as Label).text.begins_with(_guest.display_name), "HUD: guest's name")
+			check((_row.hp as Label).text == "%d/%d" % [ceili(_guest.health.hp), ceili(_guest.health.max_hp)], "HUD: guest's hp")
+		var _rect:Rect2 = _panel.get_global_rect()
+		var _width:float = get_viewport().get_visible_rect().size.x
+		check(_rect.end.x <= _width && _rect.end.x > _width - 8.0, "HUD: docked to the right edge")
+		# run with a window to look at it: the screenshot lands in user://
+		if DisplayServer.get_name() != "headless":
+			await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png("user://coop_world_hud.png")
+
+	var _local:PlayerState = RunSession.local_player()
+	_local.inventory.append(HomeBaseResource.find_item(load(TD + "resources/ItemCollectionResource/weapon_database.tres"), "Gun"))
+	_local.health.hp = 37.0
+	_local.health.hp_changed.emit()
+	check(await _wait(func ()->bool: return _last("seen").begins_with("0|Gun|37|"), 10.0), "guest: sees the host's gun and 37 hp (%s)" % _last("seen"))
+
+	# --- pausing online leaves the room running
+	var _pause:BoolResource = load(TD + "resources/global_resources/pause_resource.tres")
+	_pause.set_value(true)
+	await _frames(2)
+	check(get_tree().current_scene.process_mode != Node.PROCESS_MODE_DISABLED, "pause online: room keeps running")
+	check(!(_body().get_node("PlayerInput") as PlayerInput).enabled, "pause online: our player stops")
+	_pause.set_value(false)
+	await _frames(2)
+	check((_body().get_node("PlayerInput") as PlayerInput).enabled, "unpause: our player moves again")
+
+	# --- the party leaves for a mission; the guest follows
+	Transition.change_scene(N00)
+	check(await _wait(func ()->bool: return _current() == N00 && _body() != null, 10.0), "host: in the mission start")
+	check(await _wait(func ()->bool: return _last("room").begins_with(N00), 15.0), "guest: followed to the mission (%s)" % _last("room"))
+	check(await _wait(func ()->bool: return Net.players.puppets.has(1) && is_instance_valid(Net.players.puppets[1]), 10.0), "host: guest's character in the mission room")
+
+	await _check_world(_guest)
+
+	# --- through a door: the guest comes out of the same one
+	var _stairs:SceneEntry = get_tree().current_scene.get_node("Behind/Stairs")
+	var _next:String = _stairs.scene_path
+	_stairs.scene_transition_resource.set_next_scene(_next, _stairs.connect_tag)
+	check(await _wait(func ()->bool: return _current() == _next && _body() != null && !Transition.bool_resource.value, 10.0), "host: through the stairs")
+	check(await _wait(func ()->bool: return _last("room").begins_with(_next), 15.0), "guest: followed through the door")
+	await _frames(10)
+	var _guest_at:Vector2 = _vector(_last("room").get_slice(" ", 1) + " " + _last("room").get_slice(" ", 2))
+	check(_guest_at.distance_to(_body().global_position) < 48.0, "guest: arrived at the same door (%s vs %s)" % [_guest_at, _body().global_position])
+
+	# --- a fight starts on the host: the guest's copy of the section follows
+	var _sections:Array[ArenaSection] = NetEntities._sections(get_tree().current_scene)
+	if !_sections.is_empty():
+		var _section:ArenaSection = _sections[0]
+		_section.try_start()
+		var _key:String = str(get_tree().current_scene.get_path_to(_section))
+		check(await _wait(func ()->bool: return _section_line(_key).contains("true"), 10.0), "guest: fight started with the host's (%s)" % _section_line(_key))
+		_section.spawn_holds += 1
+
+	# --- everyone down: the run ends for both
+	var _guest_state:PlayerState = RunSession.players.get_state(1)
+	await _wait(func ()->bool: return Net.players.puppets.has(1) && is_instance_valid(Net.players.puppets[1]), 5.0)
+	_hurt_guest(9999.0)
+	check(await _wait(func ()->bool: return _guest_state != null && _guest_state.downed, 5.0), "wipe: guest down first")
+	var _health:HealthResource = RunSession.local_player().health
+	var _all_down:Array[bool] = [false]
+	RunSession.players.all_downed.connect(func ()->void: _all_down[0] = true, CONNECT_ONE_SHOT)
+	_health.add_hp(-99999.0)
+	check(_all_down[0], "wipe: host down too, nobody left standing")
+	check(_health.is_dead, "wipe: then everyone dies for real")
+	var _game_over:String = "res://addons/top_down/scenes/ui/screens/game_over.tscn"
+	check(await _wait(func ()->bool: return _current() == _game_over, 10.0), "wipe: host at game over (%s)" % _current())
+	check(await _wait(func ()->bool: return _last("room").begins_with(_game_over), 10.0), "wipe: guest at game over (%s)" % _last("room"))
+
+	# --- back home together, then the host leaves: the guest stays at its home base
+	RunSession.local_player().health.reset_resource()
+	Transition.change_scene(HOME)
+	check(await _wait(func ()->bool: return _last("room").begins_with(HOME), 15.0), "guest: followed home after the game over")
+	Net.leave()
+	check(await _wait(func ()->bool: return _read().contains("NETCLIENT ended The host left"), 10.0), "guest: told the host left")
+	await _frames(30)
+	check(_last("room").begins_with(HOME), "guest: still in its own home base")
+	check(Net.players.puppets.is_empty(), "host: puppets gone once offline")
+	_finish()
+
+## Enemies, hits both ways, shots and loot, with one tame zombie the host owns.
+func _check_world(guest:PlayerState)->void:
+	var _zombie_resource:InstanceResource = load(TD + "resources/InstanceResources/actors/zomby_instance_resource.tres")
+	var _at:Vector2 = _body().global_position + Vector2(120, 0)
+	# kept still and harmless: only the network part is under test
+	var _zombie:Node2D = _zombie_resource.instance(func (inst:Node2D)->void:
+		inst.global_position = _at
+		for _node:Node in inst.get_children():
+			if !NetEntities.PUPPET_KEEP.has(_node.name):
+				_node.process_mode = Node.PROCESS_MODE_DISABLED)
+	await _frames(2)
+	var _id:int = -1
+	for _key:int in Net.entities.entities:
+		if Net.entities.entities[_key] == _zombie:
+			_id = _key
+	check(_id > 0 && Net.entities.kinds[_id] == NetEntities.Kind.ENEMY, "host: zombie got a net id")
+	check(await _wait(func ()->bool: return _enemy_at(_id).is_finite(), 10.0), "guest: zombie copy appears (%s)" % _last("enemies"))
+	check(_enemy_at(_id).distance_to(_at) < 8.0, "guest: copy where the zombie is (%s vs %s)" % [_enemy_at(_id), _at])
+	_zombie.global_position += Vector2(0, 30)
+	check(await _wait(func ()->bool: return _enemy_at(_id).distance_to(_zombie.global_position) < 4.0, 5.0), "guest: copy follows the zombie")
+
+	var _health:HealthResource = (_zombie.get_node("ResourceNode") as ResourceNode).get_resource("health")
+	var _max:float = _health.max_hp
+	check(await _wait(func ()->bool: return _health.hp < _max, 5.0), "host: guest's hit lands on the zombie (%d/%d)" % [_health.hp, _max])
+	check(is_equal_approx(_max - _health.hp, 3.0), "host: hit for the 3 the guest measured (%s)" % (_max - _health.hp))
+	check(await _wait(func ()->bool: return !Net.entities.entities.has(_id), 6.0), "host: guest killed the zombie")
+	check(await _wait(func ()->bool: return !_enemy_at(_id).is_finite(), 5.0), "guest: copy gone with it")
+
+	# an enemy hit on the guest's copy here lands on the guest there
+	var _hp_before:int = int(_last("hp"))
+	var _puppet:Node2D = Net.players.puppets.get(1)
+	var _blow:DamageDataResource = DamageDataResource.new("damage")
+	var _type:DamageTypeResource = DamageTypeResource.new()
+	_type.value = 4.0
+	_blow.base_damage = [_type]
+	_blow.critical_chance = 0.0
+	if _puppet != null:
+		var _puppet_health:HealthResource = (_puppet.get_node("ResourceNode") as ResourceNode).get_resource("health")
+		var _copy_hp:float = _puppet_health.hp
+		_blow.process(_puppet.get_node("ResourceNode"))
+		check(is_equal_approx(_puppet_health.hp, _copy_hp), "host: the hit isn't applied to the copy")
+	check(await _wait(func ()->bool: return int(_last("hp")) < _hp_before, 5.0), "guest: took the host's hit (%d -> %s)" % [_hp_before, _last("hp")])
+	check(await _wait(func ()->bool: return guest.health.hp < _hp_before, 5.0), "host: guest's lower hp comes back")
+
+	# shots: ours shows up there, theirs here
+	var _copies:Array[int] = [0]
+	var _hook:Callable = InstanceResource.instanced_hook
+	InstanceResource.instanced_hook = func (resource:InstanceResource, node:Node)->void:
+		if Net.entities._replaying && Net.entities.catalogue.get(resource.resource_path) == NetEntities.Kind.SHOT:
+			_copies[0] += 1
+			check((node as Projectile2D).damage_data_resource.base_damage.is_empty() && ((node as Projectile2D).collision_mask & ~1) == 0, "shot copy: no damage, walls only")
+		_hook.call(resource, node)
+	var _shots_seen:int = int(_last("cosmetic"))
+	var _bullet:InstanceResource = load(TD + "resources/InstanceResources/projectiles/gun_bullet_instance_resource.tres")
+	var _from:Vector2 = _body().global_position
+	_bullet.instance(func (inst:Projectile2D)->void:
+		inst.global_position = _from
+		inst.direction = Vector2.UP
+		inst.damage_data_resource = DamageDataResource.new("damage"))
+	check(await _wait(func ()->bool: return int(_last("cosmetic")) > _shots_seen, 5.0), "guest: sees the host's shot")
+	check(await _wait(func ()->bool: return _copies[0] > 0, 5.0), "host: sees the guest's shot")
+	InstanceResource.instanced_hook = _hook
+
+	# loot: dropped on the guest, picked up there, gone here, credited there only
+	var _coins_here:int = LootItems.counter("coin").value
+	var _coins_there:int = int(_last("coins"))
+	var _drop_at:Vector2 = _puppet.global_position if _puppet != null else _from
+	# both players start on the same marker: step aside so only the guest is on it
+	_body().global_position = _at
+	await _frames(3)
+	LootItems.spawn("coin", 1, _drop_at)
+	await _frames(2)
+	var _coin_id:int = -1
+	for _key:int in Net.entities.kinds:
+		if Net.entities.kinds[_key] == NetEntities.Kind.PICKUP:
+			_coin_id = _key
+	check(_coin_id > 0, "host: coin got a net id")
+	check(await _wait(func ()->bool: return int(_last("coins")) == _coins_there + 1, 8.0), "guest: picked up the coin (%s)" % _last("coins"))
+	check(await _wait(func ()->bool: return !Net.entities.entities.has(_coin_id), 5.0), "host: coin gone once the guest has it")
+	check(LootItems.counter("coin").value == _coins_here, "host: the guest's coin isn't ours")
+
+	# down, not dead: a teammate standing close brings them back
+	_hurt_guest(9999.0)
+	check(await _wait(func ()->bool: return _last("downed") == "true", 5.0), "guest: down instead of dead (%s, hp %s)" % [_last("downed"), _last("hp")])
+	check(await _wait(func ()->bool: return guest.downed, 5.0), "host: sees the guest down")
+	var _panel:PartyPanel = get_tree().current_scene.get_node_or_null("UI/PartyPanel")
+	if _panel != null && _panel.rows.has(1):
+		await _frames(2)
+		check((_panel.rows[1].name as Label).text.contains("DOWN"), "HUD: guest's card says DOWN")
+	_puppet = Net.players.puppets.get(1)
+	if _puppet != null:
+		check(is_equal_approx((_puppet.get_node("Body") as Node2D).rotation, PI * 0.5), "puppet: lies on the floor")
+		_body().global_position = _puppet.global_position + Vector2(6, 0)
+	var _revive_s:float = CoopScaling.revive_time()
+	check(await _wait(func ()->bool: return _last("downed") == "false", _revive_s + 4.0), "guest: revived by the host standing by")
+	var _max_hp:float = guest.health.max_hp
+	check(abs(int(_last("hp")) - roundi(_max_hp * CoopScaling.revive_hp_ratio())) <= 1, "guest: back with %d%% hp (%s of %d)" % [roundi(CoopScaling.revive_hp_ratio() * 100), _last("hp"), _max_hp])
+	check(await _wait(func ()->bool: return !guest.downed, 5.0), "host: sees the guest up again")
+
+	# a continued co-op run: the guest's saved state goes back to it on return
+	check(await _wait(func ()->bool: return guest.guest_run_data != null, 5.0), "host: keeps the guest's own run state for the checkpoint")
+	var _saved:PlayerRunData = PlayerRunData.new()
+	_saved.max_hp = guest.health.max_hp
+	_saved.hp = 33.0
+	_saved.weapons = PackedStringArray(["Gun"])
+	_saved.wallet = {"coin": {"value": 42, "collected_total": 42}}
+	RunSession.waiting_guests[guest.profile_id] = _saved
+	Net.players._return_saved_guests()
+	check(!RunSession.waiting_guests.has(guest.profile_id), "host: saved guest handed back")
+	check(await _wait(func ()->bool: return _last("coins") == "42" && _last("hp") == "33", 5.0), "guest: got its saved coins and hp back (%s, %s)" % [_last("coins"), _last("hp")])
+	check(await _wait(func ()->bool: return guest.weapon_name == "Gun", 5.0), "guest: holds its saved gun")
+
+## An enemy hit on the guest's copy, as DamageDataResource.process does it.
+func _hurt_guest(amount:float)->void:
+	var _puppet:Node2D = Net.players.puppets.get(1)
+	if _puppet == null:
+		return
+	var _blow:DamageDataResource = DamageDataResource.new("damage")
+	var _type:DamageTypeResource = DamageTypeResource.new()
+	_type.value = amount
+	_blow.base_damage = [_type]
+	_blow.critical_chance = 0.0
+	_blow.process(_puppet.get_node("ResourceNode"))
+
+func _enemy_at(id:int)->Vector2:
+	for _entry:String in _last("enemies").split(";", false):
+		if _entry.get_slice("@", 0) == str(id):
+			var _xy:PackedStringArray = _entry.get_slice("@", 1).split(",")
+			return Vector2(float(_xy[0]), float(_xy[1]))
+	return Vector2.INF
+
+func _section_line(path:String)->String:
+	var _lines:PackedStringArray = _read().split("\n")
+	for _i:int in range(_lines.size() - 1, -1, -1):
+		if _lines[_i].begins_with("NETCLIENT section %s " % path):
+			return _lines[_i]
+	return ""
+
+func _finish()->void:
+	if OS.is_process_running(_client.get("pid", -1)):
+		await _wait(func ()->bool: return !OS.is_process_running(_client.pid), 10.0)
+		if OS.is_process_running(_client.pid):
+			OS.kill(_client.pid)
+	if failures > 0:
+		printerr(_read().right(3000))
+		# whole guest log kept for a look
+		DirAccess.copy_absolute(_client.get("log", ""), ProjectSettings.globalize_path("user://coop_world_guest_last.log"))
+	DirAccess.remove_absolute(_client.get("log", ""))
+	var _scene:Node = get_tree().current_scene
+	if _scene != null:
+		_scene.queue_free()
+	await _frames(4)
+	RunSave.delete_file()
+	for _resource:SaveableResource in _saved_names:
+		_resource.delete_resource()
+		_resource.resource_name = _saved_names[_resource]
+	print("coop_world_check: %d checks, %d failures" % [checks, failures])
+	get_tree().quit(1 if failures > 0 else 0)
+
+func _body()->Node2D:
+	return Net.players.local_body()
+
+func _current()->String:
+	var _scene:Node = get_tree().current_scene
+	return _scene.scene_file_path if _scene != null else ""
+
+func _spawn_client()->Dictionary:
+	var _log:String = ProjectSettings.globalize_path("user://net_client_world_%d.log" % Time.get_ticks_msec())
+	var _cmd:String = "'%s' --headless --path '%s' res://game/tests/net_client.tscn -- 127.0.0.1:%d world --instant-transitions > '%s' 2>&1" % [
+		OS.get_executable_path(), ProjectSettings.globalize_path("res://"), PORT, _log]
+	return {"pid": OS.create_process("/bin/sh", ["-c", _cmd]), "log": _log}
+
+func _read()->String:
+	return FileAccess.get_file_as_string(_client.log) if FileAccess.file_exists(_client.get("log", "")) else ""
+
+## Detail of the client's latest "NETCLIENT <event> ..." line.
+func _last(event:String)->String:
+	var _lines:PackedStringArray = _read().split("\n")
+	var _prefix:String = "NETCLIENT %s " % event
+	for _i:int in range(_lines.size() - 1, -1, -1):
+		if _lines[_i].begins_with(_prefix):
+			return _lines[_i].substr(_prefix.length())
+	return ""
+
+static func _vector(text:String)->Vector2:
+	var _parts:PackedStringArray = text.strip_edges().trim_prefix("(").trim_suffix(")").split(",")
+	if _parts.size() != 2:
+		return Vector2.INF
+	return Vector2(float(_parts[0]), float(_parts[1]))
+
+func _wait(condition:Callable, seconds:float)->bool:
+	var _end:int = Time.get_ticks_msec() + int(seconds * 1000.0)
+	while Time.get_ticks_msec() < _end:
+		if condition.call():
+			return true
+		await get_tree().process_frame
+	return condition.call()
+
+func _frames(count:int)->void:
+	for _i:int in count:
+		await get_tree().physics_frame

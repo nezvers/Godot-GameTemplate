@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="NetSettings" format=3]
+
+[ext_resource type="Script" path="res://game/scripts/net/NetSettings.gd" id="1_net"]
+
+[resource]
+script = ExtResource("1_net")
+resource_name = "NetSettings"

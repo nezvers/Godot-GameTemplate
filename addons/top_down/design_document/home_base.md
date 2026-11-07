@@ -58,3 +58,7 @@ Each puddle sets a BoolResource that an effect node in `actor.tscn` reacts to. A
 | `blood_puddle` | `EmpoweredEffect`: outgoing damage multiplier (`ActorStatsResource.get_damage_multiply`, applied by `ProjectileSpawner`) | everyone | `player.empowered` |
 
 An acid gun or a blood gun only needs a projectile inheriting `puddle_shot_projectile.tscn` with `wets_pistons = false`, plus a weapon scene modelled on `water_gun.tscn`.
+
+## Co-op terminal
+
+The **Comms Terminal** (`N` on the map, next to the spawn) opens the co-op dialog. There you can host a session for friends or join one by address. See `multiplayer.md`.

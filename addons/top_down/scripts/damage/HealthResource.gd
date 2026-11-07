@@ -15,6 +15,10 @@ signal reset_update
 @export var reset_max_hp:float = 5
 @export var is_dead:bool
 
+## Co-op: asked when hp reaches 0; returning true means the player went down
+## (Downed) instead of dying, so `dead` isn't emitted.
+var down_instead:Callable
+
 func set_max_hp(value:float)->void:
 	max_hp = value
 	max_hp_changed.emit()
@@ -41,6 +45,8 @@ func add_hp(value:float)->void:
 	if value < 0.0:
 		damaged.emit()
 	if hp == 0.0:
+		if down_instead.is_valid() && down_instead.call():
+			return
 		is_dead = true
 		dead.emit()
 		return

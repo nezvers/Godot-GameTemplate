@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/tests/net_client.gd" id="1_client"]
+
+[node name="NetClient" type="Node"]
+script = ExtResource("1_client")

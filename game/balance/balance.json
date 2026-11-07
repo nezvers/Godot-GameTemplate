@@ -3683,5 +3683,12 @@
 				}
 			]
 		}
+	},
+	"coop": {
+		"enemy_health_per_player": 0.5,
+		"wave_count_per_player": 0.35,
+		"revive_time": 3.0,
+		"revive_radius": 20.0,
+		"revive_hp_ratio": 0.3
 	}
 }

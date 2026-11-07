@@ -97,6 +97,9 @@ func register_boss_point(point:SpawnPoint)->void:
 
 ## Called by the section's entry trigger. Honors prerequisite and cleared state.
 func try_start()->void:
+	# co-op guests fight the host's waves (NetEntities applies them)
+	if Net.is_guest():
+		return
 	if is_cleared || fight_active:
 		return
 	if requires != null && !requires.is_cleared:
@@ -153,7 +156,7 @@ func _select_timed_points()->void:
 func _wave_quota(wave:SpawnWaveList)->int:
 	if wave.is_boss:
 		return wave.count
-	var _ratio:float = DIFFICULTY.wave_count_multiplier() * (1.0 + META.stat("wave_count_ratio"))
+	var _ratio:float = DIFFICULTY.wave_count_multiplier() * (1.0 + META.stat("wave_count_ratio")) * CoopScaling.wave_ratio()
 	return maxi(1, ceili(wave.count * _ratio))
 
 ## Most of a wave alive at once, -1 when uncapped (no max_alive, or a 0 difficulty ratio).
@@ -190,7 +193,7 @@ func mark_cleared()->void:
 ## spawn_interval seconds on their own timer, whether or not their enemies are
 ## alive. Both keep the kill quota, max_alive cap and free_distance checks.
 func _process(delta:float)->void:
-	if spawn_holds > 0:
+	if spawn_holds > 0 || Net.is_guest():
 		return
 	var _wave:SpawnWaveList = current_wave()
 	if _wave == null:
@@ -284,6 +287,25 @@ func _advance_wave()->void:
 	updated.emit()
 	wave_cleared.emit(wave_index - 1)
 	wave_started.emit(wave_index)
+
+## Co-op guest: mirror the host's state of this section.
+func apply_net_state(active:bool, cleared_now:bool, index:int, count:int)->void:
+	if is_cleared:
+		return
+	if cleared_now:
+		var _last:int = wave_index
+		mark_cleared()
+		wave_cleared.emit(_last)
+		return
+	if active && !fight_active:
+		start_fight()
+	if active:
+		while wave_index < index && wave_index < waves.size() - 1:
+			wave_index += 1
+			wave_cleared.emit(wave_index - 1)
+			wave_started.emit(wave_index)
+	enemy_count = count
+	updated.emit()
 
 func _filter_free_position(position:Vector2)->bool:
 	if free_distance <= 0.0:

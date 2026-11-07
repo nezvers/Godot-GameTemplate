@@ -27,6 +27,8 @@ func on_reference_changed()->void:
 	_health_resource.dead.connect(on_player_dead)
 
 func on_player_dead()->void:
+	# Lost runs can't be continued (their weapons are gone too).
+	RunSession.end_run()
 	var _tween:Tween = create_tween()
 	_tween.tween_callback(on_delay).set_delay(wait_time)
 

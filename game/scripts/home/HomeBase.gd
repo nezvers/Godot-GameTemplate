@@ -27,6 +27,8 @@ var _departed:bool
 var _save_queued:bool
 
 func _enter_tree()->void:
+	# A saved run stays saved for Continue, it just isn't played from here.
+	RunSession.suspend()
 	var _carried:Node = player_reference.node
 	if _carried != null:
 		player_reference.remove_reference(_carried)

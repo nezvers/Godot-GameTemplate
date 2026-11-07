@@ -96,6 +96,10 @@ func process(resource_node:ResourceNode)->void:
 	
 	hit_list.append(_damage_resource.owner)
 	
+	if _damage_resource.forward_hit.is_valid():
+		_forward(_damage_resource)
+		return
+	
 	var _push_resource:PushResource = resource_node.get_resource("push")
 	if _push_resource != null:
 		_push_resource.add_impulse(direction * kickback_strength)
@@ -123,4 +127,22 @@ func process(resource_node:ResourceNode)->void:
 	if report_callback.is_valid():
 		report_callback.call(self)
 	
+	success()
+
+## A copy of an actor another machine owns: work out the damage, let the owner apply it.
+func _forward(damage_resource:DamageResource)->void:
+	if !base_damage.is_empty():
+		if randf() < critical_chance:
+			is_critical = true
+			damage_multiply = critical_multiply
+		for _damage:DamageTypeResource in base_damage:
+			total_damage += max(_damage.value * damage_multiply * upgrade_multiply - damage_resource.resistance_value_list[_damage.type], 0.0)
+		if damage_resource.difficulty_scaled:
+			total_damage *= DIFFICULTY.damage_multiplier()
+	if total_damage > 0.0 || kickback_strength > 0.0:
+		damage_resource.forward_hit.call(self)
+	if total_damage > 0.0:
+		damage_resource.receive_points(total_damage, is_critical)
+	if report_callback.is_valid():
+		report_callback.call(self)
 	success()

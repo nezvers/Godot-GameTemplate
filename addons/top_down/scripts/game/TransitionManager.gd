@@ -11,11 +11,20 @@ const GAME_RESOLUTION_PIXELATION:bool = false
 
 var tween:Tween
 
+## Load scenes straight away, without the screen grab and fade: for windowless
+## runs that really change scenes (a dedicated server, the co-op tests). Opt-in,
+## so other headless tests that wander into a door don't swap their own scene.
+## Also set by the user argument `--instant-transitions`.
+var instant:bool = OS.get_cmdline_user_args().has("--instant-transitions")
+
 func _ready()->void:
 	visible = false
 
 func change_scene(path:String)->void:
 	bool_resource.set_value(true)
+	if instant:
+		ThreadUtility.load_resource(path, _instant_loaded)
+		return
 	# wait for rendering everything on a screen
 	RenderingServer.frame_post_draw.connect(_post_draw.bind(path), CONNECT_ONE_SHOT)
 
@@ -43,6 +52,15 @@ func _post_draw(path:String)->void:
 	
 	# TODO: scenes are preloaded using PreloadResource, but in case needed scene is not, load with thread
 	ThreadUtility.load_resource(path, scene_loaded)
+
+func _instant_loaded(scene:PackedScene)->void:
+	assert(scene != null)
+	get_tree().change_scene_to_packed(scene)
+	_instant_finished.call_deferred()
+
+func _instant_finished()->void:
+	await get_tree().process_frame
+	bool_resource.set_value(false)
 
 ## Set transition in motion
 func scene_loaded(scene:PackedScene)->void:

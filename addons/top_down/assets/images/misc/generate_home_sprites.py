@@ -15,6 +15,7 @@ Output layout:
 - misc/write_button_24x24_strip2.png  idle / pressed
 - misc/reset_button_24x24_strip2.png  idle / pressed (blue)
 - misc/gate_lever_16x24_strip6.png  dial pointing at AND, OR, XOR, NAND, NOR, XNOR
+- misc/comms_terminal_24x32_strip2.png  offline / online (co-op terminal)
 - misc/water_puddle_24x16.png, player_acid_puddle_24x16.png, blood_puddle_24x16.png
 - projectile/water_shot_8x8.png
 - weapon/water_gun_0.png
@@ -62,6 +63,10 @@ COLORS = {
 	'dial': (40, 44, 56, 255),
 	'dial_rim': (150, 156, 170, 255),
 	'needle': (255, 210, 70, 255),
+	'screen_off': (24, 40, 36, 255),
+	'screen_on': (70, 210, 140, 255),
+	'screen_line': (190, 255, 210, 255),
+	'antenna_on': (255, 120, 90, 255),
 }
 
 FRAME = 32
@@ -242,6 +247,38 @@ def water_gun():
 	return canvas
 
 
+def comms_terminal_frame(online):
+	"""A console on a stand with a screen and an antenna; the screen lights up while a session is open."""
+	canvas = new_canvas(24, 32)
+	# Antenna with a tip lamp.
+	thick_line(canvas, 17, 12, 20, 3, 0.6, COLORS['metal_dark'])
+	ellipse(canvas, 20, 3, 1.4, 1.4, COLORS['antenna_on'] if online else COLORS['lamp_off'])
+	# Cabinet.
+	for y in range(10, 30):
+		for x in range(4, 20):
+			if y > 26:
+				canvas[y][x] = COLORS['metal_dark']
+			elif x in (4, 19) or y == 10:
+				canvas[y][x] = COLORS['rim']
+			else:
+				canvas[y][x] = COLORS['metal']
+	# Screen.
+	for y in range(12, 20):
+		for x in range(6, 18):
+			edge = x in (6, 17) or y in (12, 19)
+			canvas[y][x] = COLORS['rim'] if edge else (COLORS['screen_on'] if online else COLORS['screen_off'])
+	if online:
+		for y, length in ((14, 7), (16, 9), (18, 4)):
+			for x in range(8, 8 + length):
+				canvas[y - 0][x] = COLORS['screen_line'] if (x + y) % 3 else COLORS['screen_on']
+	# Keyboard strip with hazard stripes.
+	for x in range(6, 18):
+		canvas[22][x] = COLORS['knob']
+		canvas[24][x] = COLORS['stripe'] if x % 4 < 2 else COLORS['metal_dark']
+	ellipse(canvas, 16, 22, 0.8, 0.8, COLORS['lamp_on'] if online else COLORS['lamp_off'])
+	return canvas
+
+
 def main():
 	misc = HERE
 	write_strip(os.path.join(misc, 'piston_strip4.png'), [piston_frame(h) for h in HEIGHTS])
@@ -261,6 +298,7 @@ def main():
 		[write_button_frame(p, 'reset', 'reset_hi', 'reset_dark') for p in (False, True)],
 	)
 	write_strip(os.path.join(misc, 'gate_lever_16x24_strip6.png'), [gate_lever_frame(i) for i in range(6)])
+	write_strip(os.path.join(misc, 'comms_terminal_24x32_strip2.png'), [comms_terminal_frame(False), comms_terminal_frame(True)])
 
 	write_png(os.path.join(misc, 'water_puddle_24x16.png'), puddle_frame((70, 150, 220, 170), (130, 205, 250, 140), (230, 248, 255, 220)))
 	write_png(os.path.join(misc, 'player_acid_puddle_24x16.png'), puddle_frame((70, 130, 20, 255), (150, 220, 50, 255), (220, 255, 140, 255)))

@@ -20,6 +20,11 @@ var resistance_value_list:Array[float]
 
 var owner:Node
 
+## Co-op: set on copies of actors owned by another machine. A hit on them is
+## measured as usual (crits, resistances) and handed to this callable with the
+## DamageDataResource instead of being applied here (NetEntities sends it on).
+var forward_hit:Callable
+
 
 func set_can_receive_damage(value:bool)->void:
 	can_receive_damage = value

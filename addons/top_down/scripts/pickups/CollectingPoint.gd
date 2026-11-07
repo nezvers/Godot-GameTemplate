@@ -43,6 +43,27 @@ func _ready() -> void:
 func _init_area()->void:
 	area.collision_mask = collision_mask
 	area.body_entered.connect(_on_body_enter, CONNECT_ONE_SHOT)
+	_collect_if_standing_on.call_deferred()
+
+## body_entered doesn't fire for a player already standing where it landed
+## (a new collision mask doesn't recheck overlaps), so ask the physics directly.
+func _collect_if_standing_on()->void:
+	await get_tree().physics_frame
+	if !is_inside_tree() || !area.body_entered.is_connected(_on_body_enter) || collision_shape == null:
+		return
+	var _player:Node2D = player_reference.node as Node2D if is_instance_valid(player_reference.node) else null
+	if _player == null:
+		return
+	var _query:PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+	_query.shape = collision_shape.shape
+	_query.transform = collision_shape.global_transform
+	_query.collision_mask = collision_mask
+	_query.collide_with_areas = false
+	for _hit:Dictionary in area.get_world_2d().direct_space_state.intersect_shape(_query, 16):
+		if _hit.get("collider") == _player:
+			area.body_entered.disconnect(_on_body_enter)
+			_on_body_enter(_player)
+			return
 
 func _on_reference_update()->void:
 	if player_reference.node != null:
@@ -52,6 +73,10 @@ func _on_reference_update()->void:
 		tween.kill()
 
 func _on_body_enter(_body:Node2D)->void:
+	# only this machine's player collects here (co-op teammates collect on their own machine)
+	if _body != player_reference.node:
+		area.body_entered.connect(_on_body_enter, CONNECT_ONE_SHOT)
+		return
 	area.collision_mask = 0
 	if tween != null:
 		tween.kill()
