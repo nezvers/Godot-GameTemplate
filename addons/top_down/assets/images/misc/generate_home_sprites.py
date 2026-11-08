@@ -16,6 +16,7 @@ Output layout:
 - misc/reset_button_24x24_strip2.png  idle / pressed (blue)
 - misc/gate_lever_16x24_strip6.png  dial pointing at AND, OR, XOR, NAND, NOR, XNOR
 - misc/comms_terminal_24x32_strip2.png  offline / online (co-op terminal)
+- misc/robot_printer_32x32_strip5.png  idle, printing x3 (the shell builds up layer by layer), shell ready
 - misc/water_puddle_24x16.png, player_acid_puddle_24x16.png, blood_puddle_24x16.png
 - projectile/water_shot_8x8.png
 - weapon/water_gun_0.png
@@ -23,7 +24,9 @@ Output layout:
 import math
 import os
 import random
+import struct
 import sys
+import zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMAGES = os.path.dirname(HERE)
@@ -279,6 +282,112 @@ def comms_terminal_frame(online):
 	return canvas
 
 
+def read_png(path):
+	"""8-bit RGBA, non-interlaced PNG -> rows of RGBA tuples (standard library only)."""
+	with open(path, 'rb') as handle:
+		data = handle.read()
+	pos = 8
+	width = height = 0
+	chunks = b''
+	while pos < len(data):
+		length, kind = struct.unpack('>I4s', data[pos:pos + 8])
+		body = data[pos + 8:pos + 8 + length]
+		if kind == b'IHDR':
+			width, height, depth, color = struct.unpack('>IIBB', body[:10])
+			assert depth == 8 and color == 6, 'only 8-bit RGBA'
+		elif kind == b'IDAT':
+			chunks += body
+		pos += 12 + length
+	raw = zlib.decompress(chunks)
+	stride = width * 4
+	rows = []
+	previous = bytearray(stride)
+	offset = 0
+	for _ in range(height):
+		kind = raw[offset]
+		line = bytearray(raw[offset + 1:offset + 1 + stride])
+		offset += 1 + stride
+		for i in range(stride):
+			left = line[i - 4] if i >= 4 else 0
+			up = previous[i]
+			corner = previous[i - 4] if i >= 4 else 0
+			if kind == 1:
+				line[i] = (line[i] + left) & 255
+			elif kind == 2:
+				line[i] = (line[i] + up) & 255
+			elif kind == 3:
+				line[i] = (line[i] + (left + up) // 2) & 255
+			elif kind == 4:
+				guess = left + up - corner
+				pa, pb, pc = abs(guess - left), abs(guess - up), abs(guess - corner)
+				line[i] = (line[i] + (left if pa <= pb and pa <= pc else up if pb <= pc else corner)) & 255
+		rows.append([tuple(line[x * 4:x * 4 + 4]) for x in range(width)])
+		previous = line
+	return rows
+
+
+PRINTER = {
+	'frame': (88, 94, 108, 255),
+	'frame_hi': (140, 148, 162, 255),
+	'frame_dark': (52, 56, 68, 255),
+	'bed': (40, 44, 54, 255),
+	'glass': (120, 200, 255, 60),
+	'beam': (120, 230, 255, 255),
+	'holo': (110, 210, 255, 150),
+	'ready': (120, 255, 150, 255),
+}
+
+
+def robot_printer_frame(stage, shell):
+	"""Gantry printer: a bed, two posts and a print head on a crossbar. stage 0 idle,
+	1-3 printing (the electrician shell appears from the feet up, still a blue
+	hologram above the print line), 4 ready (the finished shell stands on the bed)."""
+	canvas = new_canvas(32, 32)
+	# Bed (an iso slab) and posts.
+	for y in range(25, 31):
+		for x in range(3, 29):
+			if in_diamond(x, y, 16, 27, 13, 4):
+				canvas[y][x] = PRINTER['frame_dark'] if y >= 29 else PRINTER['bed']
+	for x0 in (4, 26):
+		for y in range(5, 28):
+			for x in range(x0, x0 + 2):
+				canvas[y][x] = PRINTER['frame_hi'] if x == x0 else PRINTER['frame']
+	# Crossbar.
+	for x in range(4, 28):
+		canvas[5][x] = PRINTER['frame_hi']
+		canvas[6][x] = PRINTER['frame']
+	# The shell: the electrician's first frame, centred on the bed.
+	top, bottom = 9, 25
+	print_line = {0: bottom + 1, 1: 21, 2: 16, 3: 11, 4: top - 1}[stage]
+	if stage > 0:
+		for sy in range(16):
+			for sx in range(16):
+				pixel = shell[sy][sx]
+				if pixel[3] == 0:
+					continue
+				y = top + sy
+				x = 8 + sx
+				if stage == 4 or y >= print_line:
+					canvas[y][x] = pixel
+				else:
+					canvas[y][x] = PRINTER['holo'] if (x + y) % 2 == 0 else (0, 0, 0, 0)
+	# Print head on the crossbar, its beam down to the print line.
+	head_x = {0: 15, 1: 11, 2: 19, 3: 13, 4: 15}[stage]
+	for y in range(6, 9):
+		for x in range(head_x - 2, head_x + 3):
+			canvas[y][x] = PRINTER['frame_dark']
+	if 1 <= stage <= 3:
+		for y in range(9, print_line + 1):
+			put(canvas, head_x, y, PRINTER['beam'])
+		for x in range(8, 24):
+			if canvas[print_line][x] is not None and canvas[print_line][x] != PRINTER['bed']:
+				canvas[print_line][x] = PRINTER['beam']
+	# Status lamp on the left post.
+	lamp = PRINTER['ready'] if stage == 4 else (COLORS['lamp_on'] if stage else COLORS['lamp_off'])
+	ellipse(canvas, 5, 12, 1.0, 1.0, lamp)
+	return canvas
+
+
 def main():
 	misc = HERE
 	write_strip(os.path.join(misc, 'piston_strip4.png'), [piston_frame(h) for h in HEIGHTS])
@@ -299,6 +408,9 @@ def main():
 	)
 	write_strip(os.path.join(misc, 'gate_lever_16x24_strip6.png'), [gate_lever_frame(i) for i in range(6)])
 	write_strip(os.path.join(misc, 'comms_terminal_24x32_strip2.png'), [comms_terminal_frame(False), comms_terminal_frame(True)])
+	shell = read_png(os.path.join(IMAGES, 'characters', 'electrician_16x16_strip8.png'))
+	shell = [row[:16] for row in shell]
+	write_strip(os.path.join(misc, 'robot_printer_32x32_strip5.png'), [robot_printer_frame(s, shell) for s in range(5)])
 
 	write_png(os.path.join(misc, 'water_puddle_24x16.png'), puddle_frame((70, 150, 220, 170), (130, 205, 250, 140), (230, 248, 255, 220)))
 	write_png(os.path.join(misc, 'player_acid_puddle_24x16.png'), puddle_frame((70, 130, 20, 255), (150, 220, 50, 255), (220, 255, 140, 255)))

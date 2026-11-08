@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/tests/coop_home_check.gd" id="1"]
+
+[node name="CoopHomeCheck" type="Node"]
+script = ExtResource("1")

@@ -18,6 +18,6 @@ func _ready()->void:
 	section.cleared.connect(owner.queue_free.call_deferred)
 	area.body_entered.connect(_on_body_entered)
 
-func _on_body_entered(_body:Node2D)->void:
+func _on_body_entered(body:Node2D)->void:
 	# deferred is thread safe, since this is called on physics thread
-	section.try_start.call_deferred()
+	section.try_start.call_deferred(body)

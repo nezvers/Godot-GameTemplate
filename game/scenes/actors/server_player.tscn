@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://bmp0g88dtijqw" path="res://addons/top_down/scenes/actors/player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://dvs8hoiavcdvv" path="res://game/scripts/coop/ServerAnchor.gd" id="2_anchor"]
+
+[node name="Player" instance=ExtResource("1_player")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="AreaReceiver2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+process_mode = 4
+
+[node name="Shadow" parent="."]
+visible = false
+
+[node name="Body" parent="."]
+visible = false
+
+[node name="MoverTopDown2D" parent="."]
+enabled = false
+collision_mask = 0
+process_mode = 4
+
+[node name="HoleDeath" parent="."]
+process_mode = 4
+
+[node name="PlayerInput" parent="."]
+process_mode = 4
+
+[node name="DebugInput" parent="."]
+process_mode = 4
+
+[node name="WeaponManager" parent="."]
+visible = false
+process_mode = 4
+
+[node name="DashAbility" parent="."]
+process_mode = 4
+
+[node name="PlayerJuice" parent="."]
+process_mode = 4
+
+[node name="CameraPositionSetter" parent="."]
+process_mode = 4
+
+[node name="SafeTileTracker" parent="."]
+process_mode = 4
+
+[node name="HoleRecovery" parent="."]
+process_mode = 4
+
+[node name="PoisonEffect" parent="."]
+process_mode = 4
+
+[node name="StuckEffect" parent="."]
+process_mode = 4
+
+[node name="VisualInvulnerability" parent="."]
+process_mode = 4
+
+[node name="ServerAnchor" type="Node" parent="."]
+script = ExtResource("2_anchor")

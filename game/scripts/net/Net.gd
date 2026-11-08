@@ -15,13 +15,16 @@ extends Node
 const MAX_PLAYERS:int = PlayerRegistry.MAX_PLAYERS
 const DEFAULT_PORT:int = 24565
 ## Bump whenever an RPC or message layout changes.
-const PROTOCOL_VERSION:int = 1
+const PROTOCOL_VERSION:int = 2
 const CONNECT_TIMEOUT:float = 8.0
 const HELLO_TIMEOUT:float = 5.0
 const MAX_NAME_LENGTH:int = 24
 const REJECT_GRACE:float = 1.0
 
-enum State {OFFLINE, HOSTING, CONNECTING, JOINED}
+## GHOST: a guest gone to its own home base with "I will return". The link stays
+## open (a faint copy of it walks the host's home base, the rejoin portal waits
+## for the host), but this machine plays offline: its own world, its own saves.
+enum State {OFFLINE, HOSTING, CONNECTING, JOINED, GHOST}
 
 signal state_changed
 ## Host and guests: someone joined or left (RunSession.players already updated).
@@ -31,6 +34,8 @@ signal connection_failed(reason:String)
 signal session_ended(reason:String)
 ## Host: addresses to share ([{"label", "address"}]), once UPnP/LAN lookup is done.
 signal share_addresses_ready(addresses:Array)
+## Ghost: the host moved to another room (ghost_host_room).
+signal ghost_status_changed
 
 var state:State = State.OFFLINE
 var transport:NetTransport = ENetTransport.new()
@@ -38,10 +43,24 @@ var port:int = DEFAULT_PORT
 ## Host: guests may join right now (the home base lobby opens it).
 var accepting:bool = true
 var share_addresses:Array = []
+## Seats in the session, this machine's included (--max-players on a server).
+var max_players:int = MAX_PLAYERS
+## Set when started with --server (DedicatedServer).
+var server:DedicatedServer
+## Guest: the session runs on a dedicated server (its hidden player is slot 0).
+var host_is_server:bool
+## Ghost: the room the host is in ("" = unknown).
+var ghost_host_room:String
+## Guest: the host's home base has Electrician Bay (its robot printer shows).
+var host_bay:bool
+## Guest: our tier hasn't been applied yet this session.
+var _tier_unset:bool = true
 ## Player sync and room following (/root/Net/Players on every peer).
 var players:NetPlayers
 ## Enemies, loot, shots and fights (/root/Net/Entities).
 var entities:NetEntities
+## The host's home base contraptions as guests see them (/root/Net/Home).
+var home:NetHome
 
 ## Host: peer_id -> seconds left to say hello before being dropped.
 var _pending_hello:Dictionary = {}
@@ -61,6 +80,26 @@ func _ready()->void:
 	entities = NetEntities.new()
 	entities.name = "Entities"
 	add_child(entities)
+	home = NetHome.new()
+	home.name = "Home"
+	add_child(home)
+	if DedicatedServer.enabled():
+		_start_server()
+
+const SERVER_PLAYER_SCENE:String = "res://game/scenes/actors/server_player.tscn"
+const PLAYER_INSTANCE_PATH:String = "res://addons/top_down/resources/InstanceResources/actors/player_instance_resource.tres"
+
+## --server: the hidden server player replaces the regular one in every room.
+func _start_server()->void:
+	var _player_instance:InstanceResource = load(PLAYER_INSTANCE_PATH)
+	_player_instance.scene_path = SERVER_PLAYER_SCENE
+	_player_instance.scene = null
+	server = DedicatedServer.new()
+	server.name = "Server"
+	add_child(server)
+
+func is_server()->bool:
+	return server != null
 
 func _secure(api:MultiplayerAPI)->void:
 	if api is SceneMultiplayer:
@@ -79,6 +118,13 @@ func is_host()->bool:
 func is_guest()->bool:
 	return state == State.JOINED
 
+func is_ghost()->bool:
+	return state == State.GHOST
+
+## A connection is open (hosting, joined or a ghost).
+func is_linked()->bool:
+	return state == State.HOSTING || state == State.JOINED || state == State.GHOST
+
 func local_peer_id()->int:
 	return multiplayer.get_unique_id() if multiplayer.has_multiplayer_peer() else 1
 
@@ -87,7 +133,7 @@ func local_peer_id()->int:
 func host(at_port:int = DEFAULT_PORT)->Error:
 	if state != State.OFFLINE:
 		return ERR_ALREADY_IN_USE
-	var _peer:MultiplayerPeer = transport.create_host(at_port, MAX_PLAYERS - 1)
+	var _peer:MultiplayerPeer = transport.create_host(at_port, max_players - 1)
 	if _peer == null:
 		return ERR_CANT_CREATE
 	port = at_port
@@ -166,17 +212,33 @@ func _hello(info:Dictionary)->void:
 	var _slot:int = RunSession.players.free_slot()
 	var _profile:String = str(info.profile_id)
 	var _name:String = _clean_name(str(info.name))
-	# Two games on one machine (or a copied save) share a profile: still welcome,
-	# keyed apart so the run save can tell them back apart.
-	if RunSession.players.find_profile(_profile) != null:
+	# A second copy of the game on this very computer: a blank guest that keeps
+	# nothing (GuestSandbox). A copied save from elsewhere keeps its progress but
+	# is keyed apart so the run save can tell the two back apart.
+	var _fresh:bool = GuestSandbox.is_same_install(peer_address(_peer), str(info.get("machine", "")), str(info.get("data_dir", "")))
+	if _fresh:
+		# by slot, so a continued co-op run still hands the same seat back
+		_profile = "guest-local-%d" % _slot
+		_name = "Guest %d" % (_slot + 1)
+	elif RunSession.players.find_profile(_profile) != null:
 		_profile = "%s#%d" % [_profile, _slot]
 		_name = "%s %d" % [_name, _slot + 1]
 	var _guest:PlayerState = PlayerState.create_remote(_profile, _name, _slot)
 	_guest.peer_id = _peer
+	# a blank copy of our own install has no shell of its own
+	_guest.electrician = GuestTier.decide(bool(info.get("shell", false)) && !_fresh)
 	RunSession.players.add(_guest)
-	_welcome.rpc_id(_peer, _slot, _roster())
+	_welcome.rpc_id(_peer, _slot, _roster(), _fresh)
 	_broadcast_roster()
 	roster_changed.emit()
+
+## Host: the guest's IP as ENet sees it ("" when unknown).
+func peer_address(peer_id:int)->String:
+	if multiplayer.multiplayer_peer is ENetMultiplayerPeer:
+		var _packet:ENetPacketPeer = (multiplayer.multiplayer_peer as ENetMultiplayerPeer).get_peer(peer_id)
+		if _packet != null:
+			return _packet.get_remote_address()
+	return ""
 
 func _check_hello(info:Dictionary)->String:
 	if int(info.get("protocol", -1)) != PROTOCOL_VERSION || str(info.get("game_version", "")) != _game_version():
@@ -186,14 +248,14 @@ func _check_hello(info:Dictionary)->String:
 	var _id:String = str(info.get("profile_id", ""))
 	if _id.length() < 8 || _id.length() > 64:
 		return "Bad profile"
-	if RunSession.players.free_slot() < 0:
-		return "Session is full (%d players)" % MAX_PLAYERS
+	if RunSession.players.free_slot() < 0 || RunSession.players.count() >= max_players:
+		return "Session is full (%d players)" % (max_players - (1 if is_server() else 0))
 	return ""
 
 func _roster()->Array:
 	var _list:Array = []
 	for _state:PlayerState in RunSession.players.all():
-		_list.append({"slot": _state.slot, "peer_id": _state.peer_id, "profile_id": _state.profile_id, "name": _state.display_name})
+		_list.append({"slot": _state.slot, "peer_id": _state.peer_id, "profile_id": _state.profile_id, "name": _state.display_name, "hidden": _state.hidden, "electrician": _state.electrician, "bay": _state.is_local && GuestTier.host_grants_electricians()})
 	return _list
 
 func _broadcast_roster()->void:
@@ -244,13 +306,20 @@ func _on_connected_to_server()->void:
 		"game_version": _game_version(),
 		"profile_id": RunSession.profile.profile_id,
 		"name": RunSession.profile.display_name,
+		"shell": GuestTier.has_shell() && GuestTier.can_print_shell(),
+		"machine": GuestSandbox.machine_id(),
+		"data_dir": GuestSandbox.data_dir_id(),
 	})
 
 @rpc("authority", "call_remote", "reliable")
-func _welcome(slot:int, roster:Array)->void:
+func _welcome(slot:int, roster:Array, fresh:bool)->void:
 	if state != State.CONNECTING:
 		return
 	var _local:PlayerState = RunSession.local_player()
+	if fresh:
+		for _entry:Variant in roster:
+			if _entry is Dictionary && int(_entry.get("slot", -1)) == slot:
+				GuestSandbox.enter(str(_entry.get("profile_id", "")), _clean_name(str(_entry.get("name", ""))))
 	RunSession.players.states.erase(RunSession.players.local_slot)
 	_local.slot = slot
 	_local.peer_id = local_peer_id()
@@ -270,14 +339,25 @@ func _roster_update(roster:Array)->void:
 		var _slot:int = int(_entry.get("slot", -1))
 		if _slot < 0 || _slot >= MAX_PLAYERS:
 			continue
+		if int(_entry.get("slot", -1)) == 0:
+			host_bay = bool(_entry.get("bay", false))
+		if bool(_entry.get("hidden", false)):
+			# the dedicated server's own player: nobody to show
+			host_is_server = true
+			continue
 		_seen[_slot] = true
+		var _electrician:bool = bool(_entry.get("electrician", false))
 		if _slot == RunSession.players.local_slot:
+			if RunSession.local_player().electrician != _electrician || _tier_unset:
+				_tier_unset = false
+				GuestTier.enter(_electrician)
 			continue
 		var _state:PlayerState = RunSession.players.get_state(_slot)
 		if _state == null:
 			_state = PlayerState.create_remote(str(_entry.get("profile_id", "")), _clean_name(str(_entry.get("name", ""))), _slot)
 			_state.peer_id = int(_entry.get("peer_id", 0))
 			RunSession.players.add(_state)
+		_state.electrician = _electrician
 	for _state:PlayerState in RunSession.players.all():
 		if !_state.is_local && !_seen.has(_state.slot):
 			RunSession.players.remove(_state.slot)
@@ -306,6 +386,30 @@ func _on_server_disconnected()->void:
 
 # --- Both -------------------------------------------------------------------
 
+# --- Ghost --------------------------------------------------------------------
+
+## Guest: off to our own home base, keeping the seat ("I will return"). With
+## `parked` (left mid-run) the host keeps our run state for when we're back.
+func go_ghost(parked:bool)->void:
+	if !is_guest():
+		return
+	players.send_going_ghost(parked)
+	for _state:PlayerState in RunSession.players.all():
+		if !_state.is_local:
+			RunSession.players.remove(_state.slot)
+	ghost_host_room = players.host_room()
+	GuestTier.leave()
+	_set_state(State.GHOST)
+	roster_changed.emit()
+
+## Ghost: back into the host's game, wherever it is now (the rejoin portal).
+func return_from_ghost()->void:
+	if !is_ghost():
+		return
+	_set_state(State.JOINED)
+	GuestTier.enter(RunSession.local_player().electrician)
+	players.request_return()
+
 func leave()->void:
 	if state == State.OFFLINE:
 		return
@@ -319,6 +423,12 @@ func _close(_reason:String)->void:
 	transport.close()
 	_pending_hello.clear()
 	share_addresses = []
+	host_is_server = false
+	ghost_host_room = ""
+	_tier_unset = true
+	host_bay = false
+	GuestTier.leave()
+	RunSession.local_player().electrician = false
 	# back to a lone local player in slot 0
 	var _local:PlayerState = RunSession.local_player()
 	for _state:PlayerState in RunSession.players.all():

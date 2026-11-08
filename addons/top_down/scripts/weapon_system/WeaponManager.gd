@@ -183,6 +183,8 @@ func _on_remove(item:WeaponItemResource, is_dropped:bool)->void:
 	var _config_callback:Callable = func (inst:ItemPickup):
 		inst.item_resource = item
 		inst.global_position = global_position
+		# co-op: a guest's drop goes to the host, who owns what lies on the floor
+		inst.set_meta(&"player_drop", true)
 	
 	item_pickup_instance_resource.instance(_config_callback)
 

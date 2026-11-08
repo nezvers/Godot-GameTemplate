@@ -5,7 +5,7 @@
 ## Done so far
 
 ### Session: the `Net` autoload (`game/scripts/net/Net.gd`)
-- **States:** `OFFLINE`, `HOSTING`, `CONNECTING`, `JOINED`.
+- **States:** `OFFLINE`, `HOSTING`, `CONNECTING`, `JOINED`, `GHOST`. `GHOST` is a guest at its own home base with "I will return"; see "Leaving and rejoining" below.
   - Offline uses Godot's `OfflineMultiplayerPeer`, so `Net.is_authority()` is true in single player and gameplay code needs no special cases.
 - **Transport:** `NetTransport`, currently `ENetTransport` (direct IP, default port 24565).
   - Hosting tries a UPnP port mapping and lists the LAN and public addresses to share.
@@ -40,13 +40,15 @@
 
 ## Next
 
-8. **Dedicated server (not built yet):**
-   - Launched with `--server --port --max-players --save-dir`, using a headless export preset.
-   - The server has no local player of its own. `TransitionManager.instant` already covers windowless scene changes.
+- Players going to different rooms at once. The dedicated server's hidden player follows one party room.
+- A Steam transport, with lobbies and invites.
 
 ## Tests
 - `game/tests/net_loopback_check.tscn` runs a real ENet session on 127.0.0.1 with a second headless game (`net_client.tscn`) and covers joining, rejection, the lobby gate and kicking.
 - `game/tests/coop_terminal_check.tscn` covers the terminal, the dialog, the input freeze and Escape.
+- `game/tests/coop_home_check.tscn` covers a guest in the host's home base: tiers, shared floor weapons, levers and Write, weapons coming back, and crystals taken back.
+- `game/tests/dedicated_server_check.tscn` starts a real `--server` process and joins it.
+- `net_loopback_check` also covers a second copy of the same install joining as a blank guest that writes no file.
 - `game/tests/coop_world_check.tscn` plays two real games together (the guest is `net_client.tscn` "world" mode). It covers:
   - characters, weapons, HP and the party panel
   - following through rooms and doors, and pausing online
@@ -123,3 +125,79 @@
   - Guests never write a run save of their own.
 
 Test: `game/tests/coop_world_check.tscn` uses two real games, with the guest in `net_client.tscn` "world" mode.
+
+## Same computer: a blank guest (`GuestSandbox`)
+
+- `_hello` carries a hash of the machine id (`OS.get_unique_id`) and of the save folder (`OS.get_user_data_dir`).
+- When both match the host's and the guest's address is local, the guest is a second copy of the host's install. It joins as "Guest N" with a `guest-local-<slot>` profile.
+- `_welcome(..., fresh = true)` makes that copy call `GuestSandbox.enter()`:
+  - `SaveableResource.persist_locked` blocks every save, load and delete, and so do `RunSave` and the checkpoint.
+  - Meta progress (upgrades, crystals, home base, campaign) is reset in memory.
+- The lock lasts until the game quits, so the two copies never write the same files.
+
+## Skins (`PlayerSkin`)
+
+- Slot 0 (the host or single player) wears the plumber, and every guest wears the electrician (`characters/electrician_16x16_strip8.png`, the same layout).
+- The skin is applied to puppets (`RemotePlayer`), to the local body (`NetPlayers._dress_local`) and to the player's corpse effect.
+- On a dedicated server slot 0 is the hidden player, so everyone visible is an electrician.
+
+## Join tiers (`GuestTier`)
+
+- **Ghost**, the default:
+  - Faint (`GuestTier.GHOST_ALPHA`) in the host's home base, on every machine. Normal on missions.
+  - Takes nothing home. Victory weapons don't join its stash, and boss crystals picked up in the session are `not_saved` and set back when it ends.
+- **Electrician:** brings its loot home like the host does. A guest is one when either:
+  - the host owns **Electrician Bay** (CO-OP tree, effect `guest_electricians`), or
+  - the guest printed a shell: **Robot Printer** (effect `shell_printer`) unlocks the home base `ShellPrinter` (map character `Q`, `robot_printer.tscn`). Printing takes `coop.shell_print_time` seconds, and `HomeBaseResource.electrician_shell` is saved and kept.
+- The host decides at the handshake (`_hello.shell`). The tier travels in the roster, and the host's Electrician Bay travels as `bay`, so the guest's view of the host's printer matches.
+
+## The host's home base, shared
+
+- A guest's own stash stays at home: it enters the host's base empty-handed. Its `HomeBase` runs in `guest_mode`, with no stash, no floor weapons of its own and no saving.
+- **Floor weapons** are `NetEntities.Kind.ITEM`, sent with the item's name:
+  - The host owns them, and one picked up by anyone is gone for everyone.
+  - A weapon a guest drops (`WeaponManager` tags it `player_drop`) is sent to the host, which puts the real one down.
+  - When a guest leaves, goes away or disconnects in the host's base, the host puts back what it last held (`NetPlayers.reclaim_weapons`).
+  - When the host leaves for a mission, guests take the weapon in hand, and the rest goes to the host's floor (`guest_spare_weapons`).
+- **Piston grid and levers** (`NetHome`, `/root/Net/Home`):
+  - A guest's press on a shared contraption (`Interactable.is_shared_online`: grid controls and lane levers) becomes `_use_request(node path)`. The host checks it and presses it, with a token-bucket flood guard.
+  - `_grid_state` keeps guests in step, and `_grid_write` comes first so the ripple plays there too.
+  - Grid levers and pistons have fixed names so their paths match on every machine.
+- A guest reloading the same room path (its own home base becoming the host's) sends `_resync` and gets everything again.
+- Interactables react only to the local player's body, not to teammates' copies.
+
+## Leaving and rejoining
+
+- **Victory, as a guest** (`GuestLeaveMenu`):
+  - **Follow host:** stay connected.
+  - **Go to my home base**, with **"I will return (show my ghost)"**:
+    - Unchecked, it's a plain leave.
+    - Checked, it's `Net.go_ghost()`, state `GHOST`: the guest plays offline at home, a faint copy of it walks the host's home base (`_ghost_update`, one way, 10 Hz), and the host sends back only the room it's in (`_ghost_status`).
+- **Rejoin portal** (`RejoinPortal`): in a ghost's own home base. It is open while the host is in a room (`NetPlayers.can_rejoin`), and walking in rejoins wherever the host is.
+- **Arriving mid-fight** (`WaitingAtDoor`): the returning guest waits faint and untouchable, can't shoot, and is held within 40 px of the door until no section is fighting. Stepping back into the door brings up the leave choice.
+- **Leaving mid-run** with the box checked parks the guest's run state on the host, and it is handed back on return (`_restore_run`). At victory, a parked guest gets its weapons (`_ghost_rewards`).
+- Ghosts, waiting players and the server's hidden player are left out of scaling, revives and the wipe (`PlayerRegistry.count_active`).
+
+## Fights
+
+- **Gate rally:** the player whose step starts a section (`ArenaSection.try_start(by)`) pulls every other active player in the room to them (`NetEntities._rally_party`). Each machine moves its own body.
+- **Downed:** a downed player, one waiting at a door or the server's hidden player is protected by `DamageResource.immune`, which the hit cooldown never switches back on. A hit on 0 hp is refused.
+
+## Loot mode
+
+`balance.json` `coop.loot_per_player`:
+- `false` (default): shared, the first to touch it takes it.
+- `true`: every guest gets its own copy of each drop (`_spawn_private`), which only it sees and collects.
+
+It will become a meta upgrade later.
+
+## Dedicated server (`DedicatedServer`, hidden player)
+
+- **Start:** `Godot --headless --path . -- --server [--port N] [--max-players 2..8] [--save-dir PATH] [--name NAME] [--status SECONDS]`, or `tools/run_server.sh`.
+  - The server skips the title and hosts from its home base.
+  - Its saves go to `--save-dir` (`SaveableResource.save_dir`), by default `user://server`.
+- **Hidden player:** `game/scenes/actors/server_player.tscn`, the player scene with everything seen or used switched off (no layers, invisible, input, weapons and camera disabled). `Net` swaps it into the player instance resource.
+  - `ServerAnchor` keeps it on the party leader and never lets it die, except on a party wipe.
+  - It is `hidden` in the roster, so guests show no copy or panel row.
+- Guests' copies trigger its doors and exit gate the way a host's teammates do.
+- Victory, game over, and the last player leaving mid-run all take it back to its home base.

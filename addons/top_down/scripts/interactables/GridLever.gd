@@ -26,5 +26,8 @@ func _use()->void:
 func _can_use()->bool:
 	return grid != null && !grid.writing
 
+func is_shared_online()->bool:
+	return true
+
 func _prompt_text()->String:
 	return "%s %d: %s" % ["Row" if axis == PistonGrid.Axis.ROW else "Column", index + 1, "ON" if on else "OFF"]

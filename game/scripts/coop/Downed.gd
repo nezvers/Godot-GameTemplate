@@ -52,7 +52,8 @@ func _on_zero_hp()->bool:
 	if is_down:
 		return true
 	# alone (offline or by ourselves in the session): the usual death
-	if _wiped || !Net.is_online() || RunSession.players.count() < 2:
+	# (a dedicated server's guest always goes down: the server ends the run)
+	if _wiped || !Net.is_online() || (RunSession.players.count_active() < 2 && !Net.host_is_server):
 		return false
 	go_down()
 	return true
@@ -63,7 +64,7 @@ func go_down()->void:
 	var _state:PlayerState = RunSession.local_player()
 	_state.revive_progress = 0.0
 	_set_controls(false)
-	_damage.set_can_receive_damage(false)
+	_damage.immune = true
 	_set_look(true)
 	_show_label(true)
 	RunSession.players.set_downed(RunSession.players.local_slot, true)
@@ -76,7 +77,7 @@ func revive(hp_ratio:float)->void:
 	RunSession.local_player().revive_progress = 0.0
 	_health.hp = maxf(1.0, roundf(_health.max_hp * hp_ratio))
 	_health.hp_changed.emit()
-	_damage.set_can_receive_damage(true)
+	_damage.immune = false
 	_set_controls(true)
 	_set_look(false)
 	_show_label(false)

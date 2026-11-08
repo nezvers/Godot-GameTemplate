@@ -29,6 +29,7 @@ var axis:Vector2
 var aim:Vector2 = Vector2.RIGHT
 
 var _input:InputResource
+var _damage:DamageResource
 var _has_target:bool
 
 ## The puppet for `state`, at `at`. Add it under the room's y-sort node.
@@ -48,6 +49,7 @@ static func create(for_state:PlayerState, at:Vector2)->Node2D:
 				_receiver.remove_child(_child)
 				_child.free()
 	_use_state_resources(_player.get_node("ResourceNode"), for_state)
+	PlayerSkin.apply(_player, for_state.slot)
 	var _driver:RemotePlayer = RemotePlayer.new()
 	_driver.name = "RemotePlayer"
 	_driver.state = for_state
@@ -74,7 +76,7 @@ static func _use_state_resources(resource_node:ResourceNode, for_state:PlayerSta
 func _ready()->void:
 	var _resources:ResourceNode = owner_node().get_node("ResourceNode")
 	_input = _resources.get_resource("input")
-	var _damage:DamageResource = _resources.get_resource("damage")
+	_damage = _resources.get_resource("damage")
 	if _damage != null:
 		_damage.forward_hit = _on_hit
 	# after the mover has moved the body this frame
@@ -97,6 +99,47 @@ func push(at:Vector2, move_axis:Vector2, aim_direction:Vector2)->void:
 	_has_target = true
 
 var _shown_down:bool
+var _shown_faint:bool
+## Body / receiver layers to give back when it stops being faint.
+var _layers:Vector2i = Vector2i(-1, -1)
+
+## How see-through a teammate is drawn: a ghost from its own home base, or one
+## waiting at the door for a fight to end.
+const GHOST_ALPHA:float = 0.35
+const WAITING_ALPHA:float = 0.5
+
+## Untouchable teammates (away at home, waiting at a door): enemies don't find
+## them (no body layer) and nothing hits them (receiver off).
+func _set_untouchable(untouchable:bool)->void:
+	_shown_faint = untouchable
+	var _body:CollisionObject2D = owner_node() as CollisionObject2D
+	var _receiver:Area2D = owner_node().get_node_or_null("AreaReceiver2D")
+	if untouchable:
+		if _layers.x < 0 && _body != null:
+			_layers = Vector2i(_body.collision_layer, _receiver.collision_layer if _receiver != null else 0)
+		if _body != null:
+			_body.collision_layer = 0
+		if _receiver != null:
+			_receiver.collision_layer = 0
+			_receiver.set_deferred("monitoring", false)
+	elif _layers.x >= 0:
+		if _body != null:
+			_body.collision_layer = _layers.x
+		if _receiver != null:
+			_receiver.collision_layer = _layers.y
+			_receiver.set_deferred("monitoring", true)
+		_layers = Vector2i(-1, -1)
+
+func _faint_now()->bool:
+	return state.ghost || state.waiting
+
+## How see-through this teammate is drawn right now (1 = solid).
+func _alpha_now()->float:
+	if state.ghost:
+		return GHOST_ALPHA
+	if state.waiting:
+		return WAITING_ALPHA
+	return GuestTier.alpha(state)
 
 func _physics_process(_delta:float)->void:
 	if _input == null:
@@ -104,6 +147,14 @@ func _physics_process(_delta:float)->void:
 	if state.downed != _shown_down:
 		_shown_down = state.downed
 		Downed.set_down_look(owner_node(), _shown_down)
+	# a downed or waiting teammate's copy takes no hits here either
+	if _damage != null:
+		_damage.immune = state.downed || state.waiting || state.ghost
+	if _faint_now() != _shown_faint:
+		_set_untouchable(_faint_now())
+	var _visual:Node2D = owner_node().get_node_or_null("Body")
+	if _visual != null && !state.downed:
+		_visual.modulate.a = _alpha_now()
 	_input.set_axis(Vector2.ZERO if state.downed else axis)
 	_input.set_aim_direction(aim)
 	if !_has_target:

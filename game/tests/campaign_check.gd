@@ -22,7 +22,7 @@ const BOSS_COUNT:Dictionary = {"new_game": 2, "new_game_plus": 3, "boss_path": 3
 const LOOK_SOURCE:Dictionary = {"base": 1, "mossy": 10, "bloody": 20, "metal": 30, "sandstone": 40, "flesh": 50}
 const INTERACTABLES_DIR:String = TD + "scenes/interactables/"
 ## Contraptions of the home base memory grid, never in a campaign room
-const HOME_ONLY:Array[String] = ["data_lever.tscn", "gate_lever.tscn", "reset_button.tscn", "write_button.tscn", "comms_terminal.tscn"]
+const HOME_ONLY:Array[String] = ["data_lever.tscn", "gate_lever.tscn", "reset_button.tscn", "write_button.tscn", "comms_terminal.tscn", "robot_printer.tscn"]
 const VICTORY:String = SCENES + "victory.tscn"
 const TRIGGERS:Array[String] = ["ArenaEntry", "ArenaSection1Entry", "ArenaSection2Entry"]
 const GATE:int = 1 # ArenaDoorBlock.WallMode.GATE

@@ -48,6 +48,8 @@ func _ready()->void:
 	# touch the player's checkpoint from them.
 	if DisplayServer.get_name() == "headless":
 		RunSave.file_name = "RunSave_headless"
+	# a dedicated server keeps its saves in its own folder (--save-dir)
+	DedicatedServer.configure_early()
 	profile = PlayerProfile.new()
 	profile.load_resource()
 	profile.ensure_id()
@@ -79,6 +81,7 @@ func start_new_run()->void:
 ## Game over / victory: nothing left to continue.
 func end_run()->void:
 	var _was_guest:bool = Net.is_guest()
+	Net.players.on_run_ended()
 	active = false
 	_resume_data = null
 	_room = null
@@ -178,7 +181,7 @@ func _deferred_checkpoint()->void:
 
 ## Writes the checkpoint if a run is active and its room is loaded.
 func checkpoint()->bool:
-	if !active || Net.is_guest() || !is_instance_valid(_room) || !_room.is_inside_tree():
+	if !active || Net.is_guest() || SaveableResource.persist_locked || !is_instance_valid(_room) || !_room.is_inside_tree():
 		return false
 	var _save:RunSave = capture()
 	var _err:int = ResourceSaver.save(_save, RunSave.file_path())
@@ -198,6 +201,10 @@ func capture()->RunSave:
 	_save.room_scene = _room_scene
 	_save.entry_tag = _entry_tag
 	for _state:PlayerState in players.all():
+		# a ghost that left at victory has no part in this run; the hidden
+		# server player isn't one of the party
+		if _state.hidden || (_state.ghost && !_state.parked):
+			continue
 		_save.players.append(_state.capture())
 	# guests of a continued co-op run who haven't rejoined keep their place
 	for _profile:String in waiting_guests:

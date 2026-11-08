@@ -81,15 +81,15 @@ func process(resource_node:ResourceNode)->void:
 	if _damage_resource == null:
 		failed()
 		return
-	if _damage_resource.can_receive_damage == false:
+	if _damage_resource.can_receive_damage == false || _damage_resource.immune:
 		try_again()
 		return
 	
 	var _health_resource:HealthResource = resource_node.get_resource("health")
-	if _health_resource.is_dead:
+	# (0 hp without being dead: a co-op player lying downed, or a copy of one)
+	if _health_resource.is_dead || _health_resource.hp <= 0.0:
 		denied()
 		return
-	assert(_health_resource.hp > 0)
 	
 	# It's sure to have a hit, so pull last possible updates, like hit direction
 	update_requested.emit()

@@ -54,6 +54,8 @@ const GROUP_RADIUS:float = 8.0
 const MAX_TIMED_POINTS:int = 6
 
 var fight_active:bool
+## The player whose step started the fight (null when started otherwise).
+var started_by:Node2D
 var is_cleared:bool
 var wave_index:int
 var enemy_count:int
@@ -96,7 +98,8 @@ func register_boss_point(point:SpawnPoint)->void:
 	boss_points.append(point)
 
 ## Called by the section's entry trigger. Honors prerequisite and cleared state.
-func try_start()->void:
+## `by`: the player who walked in (co-op pulls the rest of the party to it).
+func try_start(by:Node2D = null)->void:
 	# co-op guests fight the host's waves (NetEntities applies them)
 	if Net.is_guest():
 		return
@@ -104,6 +107,7 @@ func try_start()->void:
 		return
 	if requires != null && !requires.is_cleared:
 		return
+	started_by = by if is_instance_valid(by) else null
 	start_fight()
 
 func start_fight()->void:

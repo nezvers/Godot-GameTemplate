@@ -37,6 +37,24 @@ var room_scene:String
 var weapon_name:String
 ## 0..1 while a teammate stands by this downed player.
 var revive_progress:float
+## A guest who went to its own home base with "I will return": the seat is
+## kept, a faint copy walks the host's home base (ghost_room is where it is).
+var ghost:bool
+var ghost_room:String
+## Host: that ghost left mid-run; its guest_run_data waits for it to come back.
+var parked:bool
+## Back from a ghost into a fight: standing at the door until the walls drop.
+var waiting:bool
+## The dedicated server's own player: invisible, never hurt, never counted.
+var hidden:bool
+## Co-op guest tier (GuestTier): an electrician brings its loot home, a ghost
+## (the default) is faint in the host's home base and keeps nothing.
+var electrician:bool
+
+## Takes part in the fight: counted for scaling, revives and the wipe.
+func is_active()->bool:
+	return !ghost && !waiting && !hidden
+
 ## Host: a guest's own run state as it last sent it (NetPlayers), saved in the
 ## co-op checkpoint in place of this copy's partial view.
 var guest_run_data:PlayerRunData

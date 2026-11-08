@@ -19,13 +19,18 @@
 class_name NetEntities
 extends Node
 
-enum Kind {ENEMY, PICKUP, SHOT, EFFECT}
+## ITEM: a weapon lying on the floor (item_pickup), sent with its item's name.
+enum Kind {ENEMY, PICKUP, SHOT, EFFECT, ITEM}
 
 const SNAPSHOT_INTERVAL:float = 0.05
 const IR:String = "res://addons/top_down/resources/InstanceResources/"
 const FOLDERS:Dictionary = {"actors/": Kind.ENEMY, "pickups/": Kind.PICKUP, "projectiles/": Kind.SHOT}
 ## Each machine handles these on its own.
-const LOCAL_ONLY:PackedStringArray = [IR + "actors/player_instance_resource.tres", IR + "pickups/item_pickup_instance_resource.tres"]
+const LOCAL_ONLY:PackedStringArray = [IR + "actors/player_instance_resource.tres"]
+const ITEM_PATH:String = IR + "pickups/item_pickup_instance_resource.tres"
+const DATABASE_PATH:String = "res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres"
+## How far from where a guest stands its dropped weapon may land.
+const MAX_DROP_REACH:float = 64.0
 const EFFECTS:PackedStringArray = [IR + "vfx/enemy_spawn_mark.tres", IR + "vfx/spawn_dust_instance.tres"]
 ## Children of an enemy kept running on a puppet; everything else (AI, attacks,
 ## movement, splitting, drops) is switched off.
@@ -73,6 +78,7 @@ func _build_catalogue()->void:
 				catalogue[_path] = FOLDERS[_folder]
 	for _path:String in EFFECTS:
 		catalogue[_path] = Kind.EFFECT
+	catalogue[ITEM_PATH] = Kind.ITEM
 
 static func _list(folder:String)->PackedStringArray:
 	var _files:PackedStringArray = []
@@ -134,12 +140,21 @@ func _on_room_changed()->void:
 	_removing.clear()
 	_synced.clear()
 	_paths.clear()
+	synced_room = ""
 	if net().is_host() && _scene != null:
 		_watch_sections.call_deferred(_scene)
+	elif net().is_guest() && _scene != null:
+		# a reload of the same room path (our home base -> the host's) needs it all again
+		_resync.rpc_id(1)
 
 # --- Host: spawns ------------------------------------------------------------------
 
+const PLAYER_DEAD_PATH:String = "res://addons/top_down/resources/InstanceResources/vfx/dead/player_dead_instance_resource.tres"
+
 func _on_instanced(resource:InstanceResource, node:Node)->void:
+	if resource.resource_path == PLAYER_DEAD_PATH:
+		# the corpse wears the local player's skin
+		PlayerSkin.apply_to_sprites(node, RunSession.players.local_slot)
 	if _replaying || !net().is_online():
 		return
 	var _kind:Variant = catalogue.get(resource.resource_path)
@@ -148,22 +163,70 @@ func _on_instanced(resource:InstanceResource, node:Node)->void:
 	if _kind == Kind.SHOT:
 		_send_shot(resource.resource_path, node)
 		return
+	if _kind == Kind.ITEM && net().is_guest():
+		# our own drop belongs on the host's floor; anything else (a prize) stays ours
+		if node.has_meta(&"player_drop") && node is ItemPickup && (node as ItemPickup).item_resource != null:
+			_drop_item.rpc_id(1, current_room(), (node as ItemPickup).item_resource.resource_name, (node as Node2D).global_position)
+			node.ready.connect(node.queue_free, CONNECT_ONE_SHOT)
+		return
 	if !net().is_host() || !(node is Node2D):
 		return
 	if _kind == Kind.EFFECT:
 		for _state:PlayerState in _guests_here():
 			_effect.rpc_id(_state.peer_id, current_room(), resource.resource_path, (node as Node2D).global_position)
 		return
+	if _kind == Kind.PICKUP && CoopScaling.loot_per_player():
+		# every player gets a copy of its own: ours stays untracked, each guest
+		# here makes one that only it sees and collects
+		var _at:Vector2 = (node as Node2D).global_position
+		var _guests:Array[PlayerState] = _guests_here()
+		for _i:int in _guests.size():
+			if _synced.get(_guests[_i].peer_id, "") == current_room():
+				_spawn_private.rpc_id(_guests[_i].peer_id, current_room(), resource.resource_path, _at + _private_offset(_i))
+		return
+	var _id:int = _register(node, _kind, resource.resource_path)
+	for _state:PlayerState in _guests_here():
+		if _synced.get(_state.peer_id, "") == current_room():
+			_spawn.rpc_id(_state.peer_id, current_room(), _id, resource.resource_path, (node as Node2D).global_position, _item_name(node))
+
+## Guest: the room the host has sent us everything of (enemies, loot, fights).
+var synced_room:String
+
+## Host -> guest: that was all of this room.
+@rpc("authority", "call_remote", "reliable")
+func _sync_done(room:String)->void:
+	if _from_host() && room == current_room():
+		synced_room = room
+
+## Guest -> host: we (re)loaded our room; send everything in it again.
+@rpc("any_peer", "call_remote", "reliable")
+func _resync()->void:
+	if !net().is_host():
+		return
+	var _peer:int = multiplayer.get_remote_sender_id()
+	_synced.erase(_peer)
+	Net.home.forget(_peer)
+
+## Host: gives a node a net id and watches it leave.
+func _register(node:Node, kind:Kind, path:String)->int:
 	var _id:int = _next_id
 	_next_id += 1
 	entities[_id] = node
-	kinds[_id] = _kind
-	_paths[_id] = resource.resource_path
+	kinds[_id] = kind
+	_paths[_id] = path
 	_ids[node.get_instance_id()] = _id
 	node.tree_exiting.connect(_on_host_entity_exiting.bind(_id, node), CONNECT_ONE_SHOT)
-	for _state:PlayerState in _guests_here():
-		if _synced.get(_state.peer_id, "") == current_room():
-			_spawn.rpc_id(_state.peer_id, current_room(), _id, resource.resource_path, (node as Node2D).global_position)
+	return _id
+
+## Host: weapons that were lying here before we went online (the home base puts
+## its own down on arrival) get an id too.
+func _register_floor_items()->void:
+	var _parent:Node = (load(ITEM_PATH) as InstanceResource).parent_reference_resource.node
+	if _parent == null || !is_instance_valid(_parent):
+		return
+	for _child:Node in _parent.get_children():
+		if _child is ItemPickup && !_child.is_queued_for_deletion() && (_child as ItemPickup).item_resource != null && !_ids.has(_child.get_instance_id()):
+			_register(_child, Kind.ITEM, ITEM_PATH)
 
 func _on_host_entity_exiting(id:int, node:Node)->void:
 	if entities.get(id) != node:
@@ -185,12 +248,14 @@ func _on_host_entity_exiting(id:int, node:Node)->void:
 ## A guest just arrived in our room: everything alive and every fight.
 func _full_sync(peer:int)->void:
 	_synced[peer] = current_room()
+	_register_floor_items()
 	for _id:int in entities:
 		var _node:Node2D = entities[_id]
 		if is_instance_valid(_node) && _node.is_inside_tree():
-			_spawn.rpc_id(peer, current_room(), _id, _resource_path_of(_id), _node.global_position)
+			_spawn.rpc_id(peer, current_room(), _id, _resource_path_of(_id), _node.global_position, _item_name(_node))
 	for _section:ArenaSection in _sections(get_tree().current_scene):
 		_send_section(_section, peer)
+	_sync_done.rpc_id(peer, current_room())
 
 func _resource_path_of(id:int)->String:
 	return _paths.get(id, "")
@@ -228,6 +293,38 @@ func _watch_sections(room:Node)->void:
 		for _signal:Signal in [_section.fight_started, _section.cleared, _section.updated]:
 			if !_signal.is_connected(_send):
 				_signal.connect(_send)
+		var _rally_call:Callable = _rally_party.bind(_section)
+		if !_section.fight_started.is_connected(_rally_call):
+			_section.fight_started.connect(_rally_call)
+
+## The gates just closed behind whoever walked in: everyone else in the room is
+## pulled to that player, so nobody is shut outside the fight. Each machine
+## moves its own player (positions are the owner's); our own body moves here.
+func _rally_party(section:ArenaSection)->void:
+	var _by:Node2D = section.started_by
+	if !net().is_host() || _by == null || !is_instance_valid(_by) || !_by.is_inside_tree():
+		return
+	var _at:Vector2 = _by.global_position
+	var _local:Node2D = Net.players.local_body()
+	if _local != null && _local != _by && !RunSession.local_player().hidden:
+		rally_to(_local, _at, RunSession.players.local_slot)
+	for _state:PlayerState in _guests_here():
+		if _state.ghost || _state.waiting || Net.players.puppets.get(_state.slot) == _by:
+			continue
+		if _synced.get(_state.peer_id, "") == current_room():
+			_rally.rpc_id(_state.peer_id, current_room(), _at)
+
+@rpc("authority", "call_remote", "reliable")
+func _rally(room:String, at:Vector2)->void:
+	if !_from_host() || room != current_room() || !at.is_finite() || RunSession.local_player().waiting:
+		return
+	var _local:Node2D = Net.players.local_body()
+	if _local != null:
+		rally_to(_local, at, RunSession.players.local_slot)
+
+## Next to `at`, a little apart per seat so the party doesn't stack up.
+static func rally_to(body:Node2D, at:Vector2, slot:int)->void:
+	body.global_position = at + Vector2.RIGHT.rotated(TAU * float(slot) / 8.0) * 6.0
 
 func _on_section_changed(section:ArenaSection)->void:
 	if !net().is_host() || !is_instance_valid(section):
@@ -258,18 +355,25 @@ func _from_host()->bool:
 	return net().is_guest() && multiplayer.get_remote_sender_id() == 1
 
 @rpc("authority", "call_remote", "reliable")
-func _spawn(room:String, id:int, path:String, at:Vector2)->void:
-	if !_from_host() || room != current_room() || entities.has(id) || !at.is_finite():
+func _spawn(room:String, id:int, path:String, at:Vector2, item:String)->void:
+	if !_from_host() || room != current_room() || entities.has(id) || !at.is_finite() || item.length() > MAX_PATH:
 		return
 	var _kind:Variant = catalogue.get(path)
-	if _kind != Kind.ENEMY && _kind != Kind.PICKUP:
+	if _kind != Kind.ENEMY && _kind != Kind.PICKUP && _kind != Kind.ITEM:
 		return
+	var _item:ItemResource = null
+	if _kind == Kind.ITEM:
+		_item = HomeBaseResource.find_item(load(DATABASE_PATH), item)
+		if _item == null:
+			return
 	var _resource:InstanceResource = load(path)
 	if _resource.parent_reference_resource == null || _resource.parent_reference_resource.node == null:
 		return
 	_replaying = true
 	var _node:Node = _resource.instance(func (inst:Node)->void:
 		(inst as Node2D).global_position = at
+		if _kind == Kind.ITEM:
+			(inst as ItemPickup).item_resource = _item
 		if _kind == Kind.ENEMY:
 			_make_puppet(inst))
 	_replaying = false
@@ -277,6 +381,23 @@ func _spawn(room:String, id:int, path:String, at:Vector2)->void:
 	kinds[id] = _kind
 	_paths[id] = path
 	_node.tree_exiting.connect(_on_copy_exiting.bind(id, _node, _resource), CONNECT_ONE_SHOT)
+
+## Per-player loot: a pickup only this guest sees; collected locally, the host
+## never hears of it.
+@rpc("authority", "call_remote", "reliable")
+func _spawn_private(room:String, path:String, at:Vector2)->void:
+	if !_from_host() || room != current_room() || catalogue.get(path) != Kind.PICKUP || !at.is_finite():
+		return
+	var _resource:InstanceResource = load(path)
+	if _resource.parent_reference_resource == null || _resource.parent_reference_resource.node == null:
+		return
+	_replaying = true
+	_resource.instance(func (inst:Node)->void: (inst as Node2D).global_position = at)
+	_replaying = false
+
+## Copies for different guests land a little apart.
+static func _private_offset(index:int)->Vector2:
+	return Vector2.RIGHT.rotated(TAU * 0.37 * float(index + 1)) * 3.0
 
 ## AI, attacks and movement off; the snapshots move it, the host decides its hp.
 func _make_puppet(enemy:Node)->void:
@@ -306,21 +427,30 @@ func _on_puppet_hit(data:DamageDataResource, enemy:Node)->void:
 ## A copy left our tree: picked up here (tell the host) or removed on its word.
 ## Copies never go back to the pool: they'd come out as puppets in a solo game.
 func _on_copy_exiting(id:int, node:Node, resource:InstanceResource)->void:
-	var _collected:bool = !_removing.has(id) && kinds.get(id) == Kind.PICKUP && entities.get(id) == node
+	var _collected:bool = !_removing.has(id) && (kinds.get(id) == Kind.PICKUP || kinds.get(id) == Kind.ITEM) && entities.get(id) == node
 	_removing.erase(id)
 	if entities.get(id) == node:
 		entities.erase(id)
 		kinds.erase(id)
 		_paths.erase(id)
 	if _collected && net().is_guest():
-		_collected_here.rpc_id(1, id)
-	_unpool.call_deferred(node, resource)
+		# a room unloading frees its copies too: only a pick-up leaves the room standing
+		_report_collected.call_deferred(id, _scene.get_instance_id() if _scene != null else 0)
+	_unpool.call_deferred(node.get_instance_id(), resource)
 
-func _unpool(node:Node, resource:InstanceResource)->void:
+## (by instance id: the room may be freed by the time this runs)
+func _report_collected(id:int, room_id:int)->void:
+	var _room:Node = instance_from_id(room_id) as Node if room_id != 0 && is_instance_id_valid(room_id) else null
+	if net().is_guest() && _room != null && !_room.is_queued_for_deletion() && _room.is_inside_tree() && get_tree().current_scene == _room:
+		_collected_here.rpc_id(1, id)
+
+func _unpool(node_id:int, resource:InstanceResource)->void:
 	await get_tree().process_frame
-	resource.pool_list.erase(node)
-	if is_instance_valid(node) && !node.is_inside_tree():
-		node.queue_free()
+	# freed nodes can't be looked up in the typed pool list: drop every dead entry
+	resource.pool_list = resource.pool_list.filter(func (n:Node)->bool: return is_instance_valid(n) && n.get_instance_id() != node_id)
+	var _node:Node = instance_from_id(node_id) as Node if is_instance_id_valid(node_id) else null
+	if _node != null && !_node.is_inside_tree():
+		_node.queue_free()
 
 @rpc("authority", "call_remote", "reliable")
 func _despawn(id:int, died:bool)->void:
@@ -420,7 +550,7 @@ func _hit(id:int, amount:float, impulse:Vector2, critical:bool)->void:
 ## A guest picked up loot `id`: gone for everyone.
 @rpc("any_peer", "call_remote", "reliable")
 func _collected_here(id:int)->void:
-	if !net().is_host() || _sender_state() == null || kinds.get(id) != Kind.PICKUP:
+	if !net().is_host() || _sender_state() == null || (kinds.get(id) != Kind.PICKUP && kinds.get(id) != Kind.ITEM):
 		return
 	var _node:Node = entities[id]
 	if !is_instance_valid(_node) || !_node.is_inside_tree():
@@ -430,6 +560,37 @@ func _collected_here(id:int)->void:
 		_pool.pool_return()
 	else:
 		_node.queue_free()
+
+## The weapon an item pickup carries ("" for anything else).
+static func _item_name(node:Node)->String:
+	if node is ItemPickup && (node as ItemPickup).item_resource != null:
+		return (node as ItemPickup).item_resource.resource_name
+	return ""
+
+## Guest -> host: we dropped this weapon here; the host puts the real one down.
+@rpc("any_peer", "call_remote", "reliable")
+func _drop_item(room:String, item:String, at:Vector2)->void:
+	if !net().is_host() || room != current_room() || !at.is_finite() || item.length() > MAX_PATH:
+		return
+	var _state:PlayerState = _sender_state()
+	if _state == null || _state.room_scene != room:
+		return
+	var _puppet:Node2D = Net.players.puppets.get(_state.slot)
+	if _puppet != null && is_instance_valid(_puppet) && _puppet.global_position.distance_to(at) > MAX_DROP_REACH:
+		at = _puppet.global_position
+	var _item:ItemResource = HomeBaseResource.find_item(load(DATABASE_PATH), item)
+	if _item == null:
+		return
+	drop_item(_item, at)
+
+## Host: puts a weapon on the floor here (every guest in the room sees it).
+func drop_item(item:ItemResource, at:Vector2)->void:
+	var _resource:InstanceResource = load(ITEM_PATH)
+	if _resource.parent_reference_resource == null || _resource.parent_reference_resource.node == null:
+		return
+	_resource.instance(func (inst:ItemPickup)->void:
+		inst.item_resource = item
+		inst.global_position = at)
 
 ## Host, from a teammate's copy (RemotePlayer): that teammate takes the hit.
 func send_hurt(state:PlayerState, data:DamageDataResource)->void:
@@ -445,7 +606,7 @@ static func apply_hit(actor:Node, amount:float, impulse:Vector2, critical:bool)-
 		return
 	var _damage:DamageResource = _resources.get_resource("damage")
 	var _health:HealthResource = _resources.get_resource("health")
-	if _damage == null || _health == null || !_damage.can_receive_damage || _health.is_dead:
+	if _damage == null || _health == null || !_damage.can_receive_damage || _damage.immune || _health.is_dead || _health.hp <= 0.0:
 		return
 	var _push:PushResource = _resources.get_resource("push")
 	if _push != null:

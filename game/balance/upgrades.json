@@ -2,7 +2,8 @@
 	"grid": 36,
 	"trees": {
 		"main": {"title": "UPGRADES", "root": "root"},
-		"horde": {"title": "HORDE", "root": "horde_root"}
+		"horde": {"title": "HORDE", "root": "horde_root"},
+		"coop": {"title": "CO-OP", "root": "coop_root"}
 	},
 	"labels": [
 		{"text": "VITALITY", "pos": [0, -3.75]},
@@ -11,7 +12,8 @@
 		{"text": "FORTUNE", "pos": [0, 3.75]},
 		{"text": "FRENZY", "pos": [2, -0.75], "tree": "horde"},
 		{"text": "TWINS", "pos": [-1, -0.75], "tree": "horde"},
-		{"text": "NESTS", "pos": [0, 5.75], "tree": "horde"}
+		{"text": "NESTS", "pos": [0, 5.75], "tree": "horde"},
+		{"text": "ELECTRICIANS", "pos": [0, -2.75], "tree": "coop"}
 	],
 	"nodes": {
 		"root": {
@@ -173,6 +175,24 @@
 			"title": "Nest V", "text": "{timed_spawners} spawner on its own spawn timer (Normal), {loot_ratio} loot.",
 			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["nest_4"],
 			"effects": {"timed_spawners": 1, "loot_ratio": 0.05}
+		},
+
+		"coop_root": {
+			"tree": "coop", "pos": [0, 0], "icon": "star", "keystone": true,
+			"title": "Comms Link", "text": "Play together. Guests join as ghosts: they keep nothing they find.",
+			"cost": [], "requires": []
+		},
+		"shell_printer": {
+			"tree": "coop", "pos": [0, -1], "icon": "shield",
+			"title": "Robot Printer", "text": "A printer in your home base builds an electrician shell. With it you join any host as an electrician and bring your loot home.",
+			"cost": [{"item": "boss_crystal", "amount": 2}], "requires": ["coop_root"],
+			"effects": {"shell_printer": 1}
+		},
+		"electrician_bay": {
+			"tree": "coop", "pos": [0, -2], "icon": "shield", "keystone": true,
+			"title": "Electrician Bay", "text": "Everyone who joins you comes as an electrician and brings their loot home.",
+			"cost": [{"item": "boss_crystal", "amount": 3}], "requires": ["shell_printer"],
+			"effects": {"guest_electricians": 1}
 		}
 	}
 }

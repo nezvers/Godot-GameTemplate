@@ -23,6 +23,8 @@ signal updated
 @export var stash_inventory:PackedStringArray
 ## The one weapon carried out to the mission, handed over by FreshStart.
 @export var loadout:String
+## Printed by the robot printer (CO-OP tree): joining a host as an electrician.
+@export var electrician_shell:bool
 
 func reset_resource()->void:
 	grid_size = 0
@@ -34,6 +36,7 @@ func reset_resource()->void:
 	dropped = []
 	stash_inventory = PackedStringArray()
 	loadout = ""
+	electrician_shell = false
 	updated.emit()
 
 func prepare_save()->Resource:
@@ -47,6 +50,7 @@ func prepare_save()->Resource:
 	_data.dropped = dropped.duplicate(true)
 	_data.stash_inventory = stash_inventory
 	_data.loadout = loadout
+	_data.electrician_shell = electrician_shell
 	return _data
 
 func prepare_load(data:Resource)->void:
@@ -59,6 +63,7 @@ func prepare_load(data:Resource)->void:
 	dropped = data.dropped.duplicate(true)
 	stash_inventory = data.stash_inventory
 	loadout = data.loadout
+	electrician_shell = data.electrician_shell if "electrician_shell" in data else false
 	updated.emit()
 
 ## Weapons of the finished run join the stash (victory / extract only).

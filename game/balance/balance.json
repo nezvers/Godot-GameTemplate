@@ -3689,6 +3689,8 @@
 		"wave_count_per_player": 0.35,
 		"revive_time": 3.0,
 		"revive_radius": 20.0,
-		"revive_hp_ratio": 0.3
+		"revive_hp_ratio": 0.3,
+		"loot_per_player": false,
+		"shell_print_time": 6.0
 	}
 }

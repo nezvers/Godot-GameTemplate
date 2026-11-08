@@ -47,9 +47,9 @@ func _rebuild()->void:
 	if !is_inside_tree():
 		return
 	var _wanted:Dictionary = {}
-	if Net.is_online():
+	if Net.is_online() && !Net.is_ghost():
 		for _state:PlayerState in RunSession.players.all():
-			if !_state.is_local:
+			if !_state.is_local && !_state.hidden:
 				_wanted[_state.slot] = _state
 	for _slot:int in rows.keys():
 		if !_wanted.has(_slot) || rows[_slot].state != _wanted[_slot]:
@@ -155,9 +155,13 @@ func _refresh(slot:int)->void:
 		return
 	var _row:Dictionary = rows[slot]
 	var _state:PlayerState = _row.state
-	var _away:bool = _state.room_scene.is_empty() || _state.room_scene != _current_room()
+	var _away:bool = _state.ghost || _state.room_scene.is_empty() || _state.room_scene != _current_room()
 	var _name:String = _state.display_name
-	if _state.downed:
+	if _state.ghost:
+		_name += "  (at home)"
+	elif _state.waiting:
+		_name += "  WAITING"
+	elif _state.downed:
 		_name += "  REVIVING %d%%" % roundi(_state.revive_progress * 100.0) if _state.revive_progress > 0.0 else "  DOWN"
 	elif _away:
 		_name += "  (away)"
@@ -173,7 +177,7 @@ func _refresh(slot:int)->void:
 	(_row.icon as TextureRect).texture = _item.icon if _item != null else null
 	(_row.icon as TextureRect).visible = _item != null
 	(_row.weapon as Label).text = _item.resource_name if _item != null else "Fists"
-	(_row.root as Control).modulate.a = AWAY_ALPHA if _away || _state.downed else 1.0
+	(_row.root as Control).modulate.a = AWAY_ALPHA if _away || _state.downed || _state.waiting else 1.0
 
 func _current_room()->String:
 	var _scene:Node = get_tree().current_scene

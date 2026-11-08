@@ -31,6 +31,8 @@ const STATS:Dictionary = {
 	"spawner_count": "flat",
 	"timed_spawners": "flat",
 	"loot_ratio": "percent",
+	"shell_printer": "flag",
+	"guest_electricians": "flag",
 }
 
 ## Frame order of meta_icons_12x12_strip10.png (set by generate_meta_frames.py).
@@ -122,6 +124,8 @@ static func format_stat(key:String, amount:float)->String:
 			return "+%s%%" % _number(amount * 100.0)
 		"less_percent":
 			return "-%s%%" % _number(amount * 100.0)
+		"flag":
+			return ""
 	return "+%s" % _number(amount)
 
 static func _number(value:float)->String:

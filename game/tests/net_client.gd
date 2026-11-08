@@ -23,14 +23,27 @@ func _ready()->void:
 	_mode = _args[1] if _args.size() > 1 else "ok"
 	# a separate profile so the host sees a different player ("sameprofile" keeps
 	# the shared one, like a second game started from the same project)
+	# ("localguest" is a second copy of the host's very install: a blank guest)
+	var _shared_profile:bool = _mode == "sameprofile" || _mode == "localguest"
 	if _mode == "sameprofile":
 		_mode = "ok"
-	else:
+	if _mode != "localguest":
+		# stands in for another computer: not a second copy of the host's install
+		GuestSandbox.install_override = "netclient_%d" % OS.get_process_id()
+	if _mode == "localguest":
+		_mode = "ok"
+	if !_shared_profile:
 		RunSession.profile.profile_id = "client_%s_%d" % [_mode, OS.get_process_id()]
 		RunSession.profile.display_name = "Client " + _mode
 		RunSession.local_player().profile_id = RunSession.profile.profile_id
 	if _mode == "world":
 		_start_world(_address)
+		return
+	if _mode == "home":
+		_start_home(_address)
+		return
+	if _mode == "ghost":
+		_start_ghost(_address)
 		return
 	Net.connection_failed.connect(func (reason:String)->void: _report("failed", reason); _quit())
 	Net.session_ended.connect(func (reason:String)->void: _report("ended", reason); _quit())
@@ -39,7 +52,8 @@ func _ready()->void:
 			_report("roster", str(RunSession.players.count())))
 	Net.state_changed.connect(func ()->void:
 		if Net.is_guest():
-			_report("joined", str(RunSession.players.local_slot)))
+			_report("joined", str(RunSession.players.local_slot))
+			_report_sandbox())
 	if _mode == "badver":
 		Net.multiplayer.connected_to_server.disconnect(Net._on_connected_to_server)
 		Net.multiplayer.connected_to_server.connect(func ()->void:
@@ -47,6 +61,202 @@ func _ready()->void:
 	var _err:Error = Net.join(_address)
 	_report("join", str(_err))
 	get_tree().create_timer(20.0).timeout.connect(func ()->void: _report("timeout", ""); _quit())
+
+## coop_home_check: a guest in the host's home base, as a ghost then as an
+## electrician. Each step waits for what the host set up; the host checks its side.
+func _start_home(address:String)->void:
+	for _path:String in ["res://game/resources/home_base_resource.tres", "res://game/resources/campaign_resource.tres"]:
+		var _resource:SaveableResource = load(_path)
+		_saved_names[_resource] = _resource.resource_name
+		_resource.resource_name += "_netclient"
+		_resource.delete_resource()
+		_resource.reset_resource()
+	var _home_base:HomeBaseResource = load("res://game/resources/home_base_resource.tres")
+	# our own stash: a gun that must stay at home
+	_home_base.stash_inventory = PackedStringArray(["Gun"])
+	Transition.instant = true
+	get_tree().current_scene = null
+	get_tree().create_timer(90.0).timeout.connect(func ()->void: _report("timeout", ""); _finish())
+	Transition.change_scene("res://game/scenes/room_H00.tscn")
+	await _until(func ()->bool: return Net.players.local_body() != null)
+	_report("own_home", "%s held=%s" % [_home().guest_mode, _held()])
+
+	# --- 1st visit, as a ghost
+	_report("join", str(Net.join(address)))
+	await _until(func ()->bool: return Net.is_guest() && _home() != null && _home().guest_mode && Net.players.local_body() != null)
+	await _frames(20)
+	_report("host_home", "guest_mode=%s held=%s electrician=%s keeps_loot=%s" % [_home().guest_mode, _held(), RunSession.local_player().electrician, GuestTier.keeps_loot()])
+	await _until(func ()->bool: return _floor_item("Shotgun") != null)
+	_report("alpha", "%.2f" % (Net.players.local_body().get_node("Body") as Node2D).modulate.a)
+	var _crystals:ScoreResource = load("res://addons/top_down/resources/global_resources/boss_crystal_resource.tres")
+	var _crystals_before:int = _crystals.value
+	_crystals.add(3)
+	_report("crystals_in_session", str(_crystals.value - _crystals_before))
+	# pick the host's shotgun up
+	Net.players.local_body().global_position = (_floor_item("Shotgun") as Node2D).global_position
+	await _until(func ()->bool: return _held().contains("Shotgun"))
+	_report("picked", _held())
+	# the lanes: row 1 and column 1 on, then write
+	var _grid:PistonGrid = _find(get_tree().current_scene, func (n:Node)->bool: return n is PistonGrid) as PistonGrid
+	_grid.row_levers[6].try_use()
+	await get_tree().create_timer(0.4).timeout
+	_grid.col_levers[6].try_use()
+	await _until(func ()->bool: return _grid.row_select[6] == 1 && _grid.col_select[6] == 1)
+	_report("lanes", "%d %d" % [_grid.row_select[6], _grid.col_select[6]])
+	var _was_raised:bool = _grid.piston(Vector2i(6, 6)).is_raised()
+	var _write:WriteButton = _find(get_tree().current_scene, func (n:Node)->bool: return n is WriteButton) as WriteButton
+	_write.try_use()
+	await _until(func ()->bool: return _grid.piston(Vector2i(6, 6)).is_raised() != _was_raised && !_grid.writing)
+	_report("written", "%s->%s" % [_was_raised, _grid.piston(Vector2i(6, 6)).is_raised()])
+	await get_tree().create_timer(0.6).timeout
+	# leave: back to our own home base, the shotgun stays with the host
+	Net.leave()
+	await _until(func ()->bool: return !Net.is_online() && _home() != null && !_home().guest_mode && Net.players.local_body() != null)
+	await _frames(10)
+	_report("back_home", "held=%s crystals=%d" % [_held(), _crystals.value - _crystals_before])
+
+	# --- 2nd visit, as an electrician (printed shell)
+	var _meta:MetaUpgradeResource = load("res://game/resources/meta_upgrade_resource.tres")
+	var _owned_before:PackedStringArray = _meta.owned.duplicate()
+	_meta.owned.append("shell_printer")
+	_home_base.electrician_shell = true
+	_report("join", str(Net.join(address)))
+	await _until(func ()->bool: return Net.is_guest() && _home() != null && _home().guest_mode && Net.players.local_body() != null)
+	await _frames(20)
+	_report("electrician", "%s keeps_loot=%s alpha=%.2f" % [RunSession.local_player().electrician, GuestTier.keeps_loot(), (Net.players.local_body().get_node("Body") as Node2D).modulate.a])
+	_meta.owned = _owned_before
+	await _until(func ()->bool: return !Net.is_online())
+	_report("ended", "")
+	_finish()
+
+## coop_ghost_check: victory -> home with "I will return" -> rejoin through the
+## portal into a fight -> wait at the door -> home again mid-run -> back, state
+## restored -> walls drop.
+func _start_ghost(address:String)->void:
+	for _path:String in ["res://game/resources/home_base_resource.tres", "res://game/resources/campaign_resource.tres"]:
+		var _resource:SaveableResource = load(_path)
+		_saved_names[_resource] = _resource.resource_name
+		_resource.resource_name += "_netclient"
+		_resource.delete_resource()
+		_resource.reset_resource()
+	Transition.instant = true
+	get_tree().current_scene = null
+	get_tree().create_timer(120.0).timeout.connect(func ()->void: _report("timeout", ""); _finish())
+	Transition.change_scene("res://game/scenes/room_H00.tscn")
+	await _until(func ()->bool: return Net.players.local_body() != null)
+	_report("join", str(Net.join(address)))
+	await _until(func ()->bool: return Net.is_guest() && _home() != null && _home().guest_mode)
+	_report("joined", "")
+	# the host goes to its victory screen: we get the guest menu there
+	# (the victory animation holds at its pause marker for a click: give it one)
+	await _until(func ()->bool:
+		_resume_overlays()
+		return _victory_menu() != null, 40.0)
+	_report("menu", "%s" % (_victory_menu() != null))
+	_victory_menu().go_home(true)
+	await _until(func ()->bool: return Net.is_ghost() && _home() != null && !_home().guest_mode && Net.players.local_body() != null)
+	await _frames(10)
+	var _portal:RejoinPortal = _find(get_tree().current_scene, func (n:Node)->bool: return n is RejoinPortal) as RejoinPortal
+	_report("away", "state=%d portal=%s" % [Net.state, _portal != null])
+	# walk about at home: the host sees it
+	var _body:Node2D = Net.players.local_body()
+	for _i:int in 10:
+		_body.global_position += Vector2(3, 0)
+		await get_tree().create_timer(0.1).timeout
+	_report("walked", str(_body.global_position))
+	# the host goes on a mission: the portal opens onto it
+	await _until(func ()->bool: return Net.ghost_host_room.ends_with("room_N00.tscn") && _portal != null && _portal.is_open(), 30.0)
+	_report("portal", _portal.label.text if _portal != null else "-")
+	_portal._try_rejoin()
+	await _until(func ()->bool: return Net.is_guest() && _current().ends_with("room_N00.tscn") && Net.players.local_body() != null && Net.players.local_body().has_node("WaitingAtDoor"), 20.0)
+	var _waiting:WaitingAtDoor = Net.players.local_body().get_node_or_null("WaitingAtDoor") as WaitingAtDoor
+	_report("arrived", "waiting=%s" % [_waiting != null && RunSession.local_player().waiting])
+	await _frames(5)
+	if _waiting != null:
+		var _anchor:Vector2 = _waiting.anchor
+		Net.players.local_body().global_position = _anchor + Vector2(200, 0)
+		await _frames(2)
+		_report("leash", "%.1f" % Net.players.local_body().global_position.distance_to(_anchor))
+	# home again mid-run, carrying a shotgun
+	var _inventory:ItemCollectionResource = RunSession.local_player().inventory
+	_inventory.append(HomeBaseResource.find_item(load("res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres"), "Shotgun"))
+	await _frames(2)
+	GuestLeaveMenu.open(_waiting, GuestLeaveMenu.Context.DOOR).go_home(true)
+	await _until(func ()->bool: return Net.is_ghost() && _home() != null && Net.players.local_body() != null)
+	await _frames(10)
+	_portal = _find(get_tree().current_scene, func (n:Node)->bool: return n is RejoinPortal) as RejoinPortal
+	_report("parked", "state=%d" % Net.state)
+	await _until(func ()->bool: return _portal != null && _portal.is_open(), 20.0)
+	_portal._try_rejoin()
+	await _until(func ()->bool: return Net.is_guest() && _current().ends_with("room_N00.tscn") && _held().contains("Shotgun"), 20.0)
+	_report("restored", _held())
+	await _until(func ()->bool: return Net.players.local_body() != null && !Net.players.local_body().has_node("WaitingAtDoor") && !RunSession.local_player().waiting, 30.0)
+	_report("released", "")
+	await _until(func ()->bool: return !Net.is_online(), 30.0)
+	_report("ended", "")
+	_finish()
+
+func _resume_overlays()->void:
+	var _scene:Node = get_tree().current_scene
+	if _scene == null:
+		return
+	for _node:Node in _scene.find_children("*", "Node2D", true, false):
+		if _node.has_method("resume") && _node.has_signal("paused"):
+			_node.call("resume")
+
+func _victory_menu()->GuestLeaveMenu:
+	var _scene:Node = get_tree().current_scene
+	var _screen:Node = _scene.get_node_or_null("VictoryScreen") if _scene != null else null
+	return _screen.guest_menu if _screen != null && is_instance_valid(_screen.guest_menu) else null
+
+func _current()->String:
+	var _scene:Node = get_tree().current_scene
+	return _scene.scene_file_path if _scene != null else ""
+
+func _home()->HomeBase:
+	var _scene:Node = get_tree().current_scene
+	return _scene.get_node_or_null("HomeBase") as HomeBase if _scene != null else null
+
+func _held()->String:
+	var _names:PackedStringArray = []
+	for _item:ItemResource in RunSession.local_player().inventory.list:
+		if _item != null:
+			_names.append(_item.resource_name)
+	return ",".join(_names)
+
+## A copy of the host's floor weapon with this name.
+func _floor_item(item:String)->Node:
+	for _id:int in Net.entities.entities:
+		var _node:Node = Net.entities.entities[_id]
+		if Net.entities.kinds.get(_id) == NetEntities.Kind.ITEM && is_instance_valid(_node) && (_node as ItemPickup).item_resource.resource_name == item:
+			return _node
+	return null
+
+func _until(condition:Callable, seconds:float = 15.0)->void:
+	var _end:int = Time.get_ticks_msec() + int(seconds * 1000.0)
+	while Time.get_ticks_msec() < _end && !condition.call():
+		await get_tree().process_frame
+
+func _frames(count:int)->void:
+	for _i:int in count:
+		await get_tree().physics_frame
+
+static func _find(node:Node, test:Callable)->Node:
+	if node == null:
+		return null
+	if test.call(node):
+		return node
+	for _child:Node in node.get_children():
+		var _found:Node = _find(_child, test)
+		if _found != null:
+			return _found
+	return null
+
+## Whether this copy became a blank guest, and what it forgot.
+func _report_sandbox()->void:
+	var _meta:MetaUpgradeResource = load("res://game/resources/meta_upgrade_resource.tres")
+	var _crystals:ScoreResource = load("res://addons/top_down/resources/global_resources/boss_crystal_resource.tres")
+	_report("sandbox", "%s %s meta=%d crystals=%d" % [GuestSandbox.active(), RunSession.local_player().profile_id, _meta.owned.size() if "owned" in _meta else -1, _crystals.value])
 
 ## Plays like a real guest: own home base first, then joins from there.
 func _start_world(address:String)->void:
@@ -80,6 +290,14 @@ func _start_world(address:String)->void:
 	get_tree().create_timer(60.0).timeout.connect(func ()->void: _report("timeout", ""); _finish())
 
 func _process(delta:float)->void:
+	if _mode == "home" || _mode == "ghost":
+		_report_left -= delta
+		if _report_left <= 0.0:
+			_report_left = 0.2
+			var _scene:Node = get_tree().current_scene
+			var _body:Node2D = Net.players.local_body()
+			_report("room", "%s %s" % [_scene.scene_file_path if _scene != null else "-", _body.global_position if _body != null else Vector2.INF])
+		return
 	if _mode != "world":
 		return
 	if Net.is_guest() && !_armed:

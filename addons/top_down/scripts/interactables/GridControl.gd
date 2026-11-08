@@ -33,3 +33,6 @@ func _refresh()->void:
 
 func _can_use()->bool:
 	return get_grid() != null && !get_grid().writing
+
+func is_shared_online()->bool:
+	return true

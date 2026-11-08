@@ -48,6 +48,21 @@ func _ready()->void:
 	if _twin_state != null:
 		Net.kick(_twin_state.slot)
 	await _wait(func ()->bool: return RunSession.players.count() == 2, 10.0)
+	check(_read(_ok).contains("NETCLIENT sandbox false"), "a guest from another computer keeps its own progress")
+
+	# A second copy of this very install: a blank guest that saves nothing
+	var _saves_before:Dictionary = _save_times()
+	var _local:Dictionary = _spawn_client("localguest")
+	var _local_in:bool = await _wait(func ()->bool: return _read(_local).contains("NETCLIENT sandbox"), 10.0)
+	check(_local_in, "a second copy of the game joins")
+	var _local_state:PlayerState = RunSession.players.get_state(2)
+	check(_local_state != null && _local_state.profile_id == "guest-local-2" && _local_state.display_name == "Guest 3", "same install: guest seat and name")
+	check(_read(_local).contains("NETCLIENT sandbox true guest-local-2 meta=0 crystals=0"), "same install: blank progress on the guest")
+	if _local_state != null:
+		Net.kick(_local_state.slot)
+	await _wait(func ()->bool: return RunSession.players.count() == 2, 10.0)
+	await _wait(func ()->bool: return _read(_local).contains("NETCLIENT ended"), 5.0)
+	check(_save_times() == _saves_before, "the blank guest wrote no save file")
 
 	# A wrong version is turned away with a reason
 	var _bad:Dictionary = _spawn_client("badver")
@@ -90,6 +105,14 @@ func _check_parse()->void:
 	check(Net.parse_address("a b").is_empty(), "spaces rejected")
 
 ## Launches net_client.tscn; its stdout goes to a file we poll.
+## user:// save file -> modified time
+func _save_times()->Dictionary:
+	var _times:Dictionary = {}
+	for _file:String in DirAccess.get_files_at("user://"):
+		if _file.ends_with(".tres"):
+			_times[_file] = FileAccess.get_modified_time("user://" + _file)
+	return _times
+
 func _spawn_client(mode:String)->Dictionary:
 	var _log:String = ProjectSettings.globalize_path("user://net_client_%s_%d.log" % [mode, Time.get_ticks_msec()])
 	var _cmd:String = "'%s' --headless --path '%s' res://game/tests/net_client.tscn -- 127.0.0.1:%d %s > '%s' 2>&1" % [

@@ -25,6 +25,11 @@ var owner:Node
 ## DamageDataResource instead of being applied here (NetEntities sends it on).
 var forward_hit:Callable
 
+## Co-op: no hit lands while set (downed, waiting at a door, the dedicated
+## server's hidden player). Separate from can_receive_damage, which the hit
+## cooldown (DamageCooldown) switches back on by itself.
+var immune:bool
+
 
 func set_can_receive_damage(value:bool)->void:
 	can_receive_damage = value

@@ -24,9 +24,14 @@ const WATER_GUN:String = "Water Gun"
 
 ## Set by depart(): the stash went out with the player, don't save it back
 var _departed:bool
+## A co-op guest standing in the host's home base: what lies around, the pistons
+## and levers are the host's (NetEntities, NetHome). Our own stash stays as it is
+## at home and nothing here is saved.
+var guest_mode:bool
 var _save_queued:bool
 
 func _enter_tree()->void:
+	guest_mode = Net.is_guest()
 	# A saved run stays saved for Continue, it just isn't played from here.
 	RunSession.suspend()
 	var _carried:Node = player_reference.node
@@ -40,6 +45,10 @@ func _enter_tree()->void:
 	for _resource:Resource in run_resources:
 		if _resource != null:
 			_resource.reset_resource()
+	if guest_mode:
+		# empty-handed: take what the host left lying around
+		weapon_inventory.set_selected(0)
+		return
 	home_base_resource.loadout = ""
 	for _name:String in home_base_resource.stash_inventory:
 		var _item:ItemResource = HomeBaseResource.find_item(weapon_database, _name)
@@ -51,13 +60,39 @@ func _enter_tree()->void:
 	weapon_inventory.set_selected(0)
 
 func _ready()->void:
+	tree_exiting.connect(_on_tree_exiting)
+	if guest_mode:
+		# the host's grid comes over the network; ours isn't loaded here
+		if piston_grid != null:
+			piston_grid.home_base_resource = null
+		return
 	if piston_grid != null:
 		piston_grid.home_base_resource = home_base_resource
 		piston_grid.changed.connect(queue_save)
+	# a guest picking up one of our weapons takes it off the floor
+	item_pickup_instance_resource.updated.connect(queue_save)
 	weapon_inventory.updated.connect(queue_save)
-	tree_exiting.connect(_on_tree_exiting)
 	# pickups need the room's parent references, set during the room's _ready
 	_place_pickups.call_deferred()
+	if Net.is_ghost():
+		_place_rejoin_portal.call_deferred()
+
+## Co-op ghost: a portal back into the host's game, near where we stand.
+const PORTAL_OFFSETS:Array[Vector2] = [Vector2(48, -24), Vector2(-48, -24), Vector2(48, 24), Vector2(64, 0), Vector2(-64, 0)]
+
+func _place_rejoin_portal()->void:
+	var _room:Node = get_parent()
+	var _spawner:Node2D = _room.get_node_or_null("PlayerSpawner") as Node2D
+	var _origin:Vector2 = _spawner.global_position if _spawner != null else Vector2.ZERO
+	var _at:Vector2 = _origin + PORTAL_OFFSETS[0]
+	for _offset:Vector2 in PORTAL_OFFSETS:
+		if _on_floor(_origin + _offset):
+			_at = _origin + _offset
+			break
+	var _portal:RejoinPortal = RejoinPortal.new()
+	var _parent:Node = _room.get_node_or_null("WallLayer_Ysorted")
+	(_parent if _parent != null else _room).add_child(_portal)
+	_portal.global_position = _at
 
 func _place_pickups()->void:
 	var _has_water_gun:bool = _holds(WATER_GUN)
@@ -87,6 +122,14 @@ func _spawn_pickup(item:ItemResource, pos:Vector2)->void:
 		inst.global_position = pos
 		inst.success.connect(queue_save)
 	)
+
+## Weapons handed over while we're here (a co-op ghost's share of a victory):
+## they're put down by the water gun spot and saved with the room.
+func receive_weapons(items:Array[ItemResource])->void:
+	var _spot:Vector2 = water_gun_spot.global_position if water_gun_spot != null else Vector2.ZERO
+	for _i:int in items.size():
+		_spawn_pickup(items[_i], _spot + Vector2(10.0 * (_i + 1), 4.0 * (_i % 2)))
+	queue_save()
 
 func _holds(item_name:String)->bool:
 	for _item:ItemResource in weapon_inventory.list:
@@ -124,7 +167,7 @@ func queue_save()->void:
 
 func save_state()->void:
 	_save_queued = false
-	if _departed:
+	if _departed || guest_mode:
 		return
 	if piston_grid != null:
 		piston_grid.save_to(home_base_resource)
@@ -142,7 +185,18 @@ func save_state()->void:
 ## Leaving for a mission with at most one gun: it becomes the run's loadout,
 ## FreshStart hands it over in the start room.
 func depart()->void:
+	if guest_mode:
+		# into the host's mission with the first weapon in hand (no save: none of
+		# this is ours); FreshStart hands it over
+		var _first:ItemResource = weapon_inventory.list[clampi(weapon_inventory.selected, 0, weapon_inventory.list.size() - 1)] if !weapon_inventory.list.is_empty() else null
+		home_base_resource.loadout = _first.resource_name if _first != null else ""
+		_departed = true
+		return
 	save_state()
+	if Net.is_host():
+		# guests leave with one weapon each; the rest of ours they held stays here
+		for _name:String in Net.players.guest_spare_weapons():
+			home_base_resource.dropped.append({"item": _name})
 	var _held:PackedStringArray = home_base_resource.stash_inventory
 	home_base_resource.loadout = _held[0] if !_held.is_empty() else ""
 	home_base_resource.stash_inventory = PackedStringArray()
@@ -152,5 +206,7 @@ func depart()->void:
 func _on_tree_exiting()->void:
 	if weapon_inventory.updated.is_connected(queue_save):
 		weapon_inventory.updated.disconnect(queue_save)
+	if item_pickup_instance_resource.updated.is_connected(queue_save):
+		item_pickup_instance_resource.updated.disconnect(queue_save)
 	if !_departed:
 		save_state()

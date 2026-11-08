@@ -5,7 +5,7 @@ extends RefCounted
 
 ## Players in the session (1 offline).
 static func players()->int:
-	return RunSession.players.count() if Net.is_online() else 1
+	return maxi(RunSession.players.count_active(), 1) if Net.is_online() else 1
 
 ## Enemy max hp multiplier (DifficultyHealth).
 static func health_ratio()->float:
@@ -23,3 +23,9 @@ static func revive_radius()->float:
 
 static func revive_hp_ratio()->float:
 	return float(Balance.value("coop.revive_hp_ratio", 0.3))
+
+## Loot drops: false = shared (first to touch it takes it), true = every player
+## gets their own copy of every drop. Read on the host. A meta upgrade can turn
+## it on later.
+static func loot_per_player()->bool:
+	return bool(Balance.value("coop.loot_per_player", false))

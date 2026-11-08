@@ -23,6 +23,7 @@ const TRANSITION_BOOL_PATH:String = TD + "resources/global_resources/transition_
 const PAUSE_PATH:String = TD + "resources/global_resources/pause_resource.tres"
 const DATABASE_PATH:String = TD + "resources/ItemCollectionResource/weapon_database.tres"
 const TITLE_SCENE:String = "res://game/scenes/title.tscn"
+const HOME_BASE_PATH:String = "res://game/resources/home_base_resource.tres"
 const HOME_SCENE:String = "res://game/scenes/room_H00.tscn"
 const MAX_WEAPON_NAME:int = 48
 const MAX_PATH:int = 160
@@ -54,6 +55,14 @@ var _pending_restore:PlayerRunData
 var _run_data_left:float
 ## Seconds between a guest's run-state reports to the host (for its checkpoint).
 const RUN_DATA_INTERVAL:float = 2.0
+## A ghost's position reports (one way, to the host only).
+const GHOST_INTERVAL:float = 0.1
+var _ghost_send_left:float
+var _inventory_dirty:bool
+## Guest back from a ghost: on arriving in this room it waits at the door.
+var _returning_to:String
+## Guest leaving by its own choice (GuestLeaveMenu): don't treat it as a lost host.
+var leaving_by_choice:bool
 
 func _ready()->void:
 	player_reference = load(PLAYER_REFERENCE_PATH)
@@ -66,6 +75,7 @@ func _ready()->void:
 	_net.session_ended.connect(_on_session_ended)
 	RunSession.players.player_removed.connect(_on_player_removed)
 	RunSession.players.all_downed.connect(_on_all_downed)
+	RunSession.local_player().inventory.updated.connect(func ()->void: _inventory_dirty = true)
 
 func net()->Node:
 	return get_parent()
@@ -82,6 +92,13 @@ func local_body()->Node2D:
 	return _node as Node2D
 
 func _physics_process(delta:float)->void:
+	_dress_local()
+	if net().is_ghost():
+		_was_guest = false
+		if !puppets.is_empty():
+			_clear_puppets()
+		_ghost_tick(delta)
+		return
 	if !net().is_online():
 		if !puppets.is_empty():
 			_clear_puppets()
@@ -97,9 +114,29 @@ func _physics_process(delta:float)->void:
 		_send_local()
 	if net().is_guest():
 		_guest_run_data_tick(delta)
+		_check_return_arrival()
 	for _slot:int in puppets.keys():
 		if !is_instance_valid(puppets[_slot]) || !puppets[_slot].is_inside_tree():
 			puppets.erase(_slot)
+
+## The local body wears its slot's skin (host plumber, guests electrician).
+var _dressed_body:Node
+var _dressed_slot:int = -1
+
+func _dress_local()->void:
+	var _body:Node2D = local_body()
+	var _slot:int = RunSession.players.local_slot
+	var _local:PlayerState = RunSession.local_player()
+	if _body != null && !_local.downed && !_local.waiting:
+		# a ghost-tier guest sees itself faint in the host's home base too
+		var _visual:Node2D = _body.get_node_or_null("Body")
+		if _visual != null:
+			_visual.modulate.a = GuestTier.alpha(_local)
+	if _body == null || (_body == _dressed_body && _slot == _dressed_slot):
+		return
+	_dressed_body = _body
+	_dressed_slot = _slot
+	PlayerSkin.apply(_body, _slot)
 
 # --- Rooms --------------------------------------------------------------------
 
@@ -121,7 +158,11 @@ func _broadcast_room()->void:
 	if party_room.is_empty():
 		return
 	for _state:PlayerState in RunSession.players.all():
-		if !_state.is_local:
+		if _state.is_local:
+			continue
+		if _state.ghost:
+			_ghost_status.rpc_id(_state.peer_id, party_room)
+		else:
 			_follow_room.rpc_id(_state.peer_id, party_room, party_entry)
 
 func _on_roster_changed()->void:
@@ -144,7 +185,9 @@ func _follow_room(path:String, entry_tag:String)->void:
 
 ## Loads the host's room once no transition is running.
 func _try_follow()->void:
-	if current_room() == _pending_room:
+	var _home:HomeBase = current_home()
+	# (our own home base has the same path as the host's: load the host's one)
+	if current_room() == _pending_room && (_home == null || _home.guest_mode):
 		_pending_room = ""
 		return
 	if transition_bool.value:
@@ -152,9 +195,9 @@ func _try_follow()->void:
 	var _path:String = _pending_room
 	var _entry:String = _pending_entry
 	_pending_room = ""
-	# leaving our home base for the host's mission: our one gun goes along
-	var _home:Node = get_tree().current_scene.get_node_or_null("HomeBase") if get_tree().current_scene != null else null
-	if _home != null && _home.has_method("depart"):
+	# leaving the host's home base for its mission: the weapon in hand goes along
+	# (from our own home base we go empty-handed, our stash stays at home)
+	if _home != null && _home.guest_mode:
 		_home.depart()
 	var _door_arrival:bool = !_entry.is_empty() && local_body() != null && scene_transition.change_scene.get_connections().size() > 0
 	if _door_arrival:
@@ -164,6 +207,11 @@ func _try_follow()->void:
 		scene_transition.next_scene_path = ""
 		scene_transition.entry_tag = ""
 		Transition.change_scene(_path)
+
+## The home base node of the room we're in, if any.
+func current_home()->HomeBase:
+	var _scene:Node = get_tree().current_scene
+	return _scene.get_node_or_null("HomeBase") as HomeBase if _scene != null else null
 
 static func _valid_scene(path:String)->bool:
 	var _known:bool = path.begins_with("res://game/scenes/") || path.begins_with("res://addons/top_down/scenes/ui/screens/")
@@ -179,7 +227,16 @@ func _on_session_ended(_reason:String)->void:
 
 ## Guest whose host went away: back home, unless already there or in a menu.
 func on_host_lost()->void:
+	if leaving_by_choice:
+		leaving_by_choice = false
+		return
 	var _room:String = current_room()
+	var _home:HomeBase = current_home()
+	if _home != null && _home.guest_mode:
+		# standing in the host's home base: back to ours, empty-handed
+		host_lost.emit()
+		Transition.change_scene(HOME_SCENE)
+		return
 	if _room == HOME_SCENE || _room == TITLE_SCENE || local_body() == null:
 		return
 	host_lost.emit()
@@ -189,6 +246,8 @@ func on_host_lost()->void:
 
 func _send_local()->void:
 	var _local:PlayerState = RunSession.local_player()
+	if _local.hidden:
+		return
 	var _body:Node2D = local_body()
 	var _pos:Vector2 = Vector2.ZERO
 	var _axis:Vector2 = Vector2.ZERO
@@ -202,12 +261,21 @@ func _send_local()->void:
 		if _input != null:
 			_axis = _input.axis
 			_aim = _input.aim_direction
-	_player_update.rpc([_room, _pos, _axis, _aim, _local.active_weapon_name(), _local.health.hp, _local.health.max_hp, _local.downed, _local.revive_progress])
+	_player_update.rpc([_room, _pos, _axis, _aim, _local.active_weapon_name(), _local.health.hp, _local.health.max_hp, _local.downed, _local.revive_progress, _local.waiting])
+
+## Where this machine's body is and how it moves (shared by ghost reports).
+func _local_motion()->Array:
+	var _body:Node2D = local_body()
+	if _body == null:
+		return ["", Vector2.ZERO, Vector2.ZERO, Vector2.RIGHT]
+	var _resources:ResourceNode = _body.get_node_or_null("ResourceNode")
+	var _input:InputResource = _resources.get_resource("input") if _resources != null else null
+	return [current_room(), _body.global_position, _input.axis if _input != null else Vector2.ZERO, _input.aim_direction if _input != null else Vector2.RIGHT]
 
 @rpc("any_peer", "call_remote", "unreliable_ordered", 1)
 func _player_update(data:Array)->void:
 	var _state:PlayerState = _sender_state()
-	if _state == null || !_valid_update(data):
+	if _state == null || _state.ghost || !_valid_update(data):
 		return
 	apply_update(_state, data)
 
@@ -219,9 +287,9 @@ func _sender_state()->PlayerState:
 	return null
 
 static func _valid_update(data:Array)->bool:
-	if data.size() != 9:
+	if data.size() != 10:
 		return false
-	var _types:Array = [TYPE_STRING, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT, TYPE_BOOL, TYPE_FLOAT]
+	var _types:Array = [TYPE_STRING, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT, TYPE_BOOL, TYPE_FLOAT, TYPE_BOOL]
 	for _i:int in _types.size():
 		if typeof(data[_i]) != _types[_i]:
 			return false
@@ -235,9 +303,12 @@ func apply_update(state:PlayerState, data:Array)->void:
 	var _room:String = data[0]
 	var _weapon:String = data[4]
 	var _revive:float = clampf(data[8], 0.0, 1.0)
-	var _changed:bool = state.room_scene != _room || state.weapon_name != _weapon || state.downed != data[7] || !is_equal_approx(state.revive_progress, _revive)
+	var _changed:bool = state.room_scene != _room || state.weapon_name != _weapon || state.downed != data[7] || !is_equal_approx(state.revive_progress, _revive) || state.waiting != data[9]
 	state.room_scene = _room
 	state.revive_progress = _revive
+	if state.waiting != data[9]:
+		state.waiting = data[9]
+		RunSession.players.check_all_downed()
 	# through the registry: the host ends the run once everyone is down
 	RunSession.players.set_downed(state.slot, data[7])
 	if state.weapon_name != _weapon || (state.inventory.list.is_empty() != _weapon.is_empty()):
@@ -269,8 +340,16 @@ func _set_weapon(state:PlayerState, weapon:String)->void:
 
 # --- Puppets --------------------------------------------------------------------
 
+## The room a teammate shows up in on this machine: its own, or for a ghost the
+## home base it walks (seen only in our home base).
+static func shown_room(state:PlayerState)->String:
+	if state.ghost:
+		return state.ghost_room if state.ghost_room == HOME_SCENE else ""
+	return state.room_scene
+
 func _update_puppet(state:PlayerState, pos:Vector2, axis:Vector2, aim:Vector2)->void:
-	var _here:bool = !state.room_scene.is_empty() && state.room_scene == current_room() && local_body() != null && !transition_bool.value
+	var _room:String = shown_room(state)
+	var _here:bool = !_room.is_empty() && _room == current_room() && local_body() != null && !transition_bool.value
 	var _puppet:Node2D = puppets.get(state.slot)
 	if _puppet != null && !is_instance_valid(_puppet):
 		_puppet = null
@@ -302,7 +381,39 @@ func _clear_puppets()->void:
 		_remove_puppet(_slot)
 
 func _on_player_removed(state:PlayerState)->void:
+	reclaim_weapons(state)
 	_remove_puppet(state.slot)
+
+## Host: a guest leaving our home base doesn't take our weapons with it; what it
+## last said it held is put back on the floor where it stood.
+func reclaim_weapons(state:PlayerState)->void:
+	if !net().is_host() || state == null || state.is_local || state.guest_run_data == null:
+		return
+	if current_room() != HOME_SCENE || state.room_scene != HOME_SCENE || current_home() == null:
+		return
+	var _puppet:Node2D = puppets.get(state.slot)
+	var _at:Vector2 = _puppet.global_position if _puppet != null && is_instance_valid(_puppet) else current_home().water_gun_spot.global_position
+	var _database:ItemCollectionResource = load(DATABASE_PATH)
+	var _i:int = 0
+	for _name:String in state.guest_run_data.weapons:
+		var _item:ItemResource = HomeBaseResource.find_item(_database, _name)
+		if _item != null:
+			Net.entities.drop_item(_item, _at + Vector2(6.0 * _i, 0.0))
+			_i += 1
+	state.guest_run_data.weapons = PackedStringArray()
+
+## Host leaving its home base for a mission: weapons guests here hold beyond the
+## one in hand (that one goes along).
+func guest_spare_weapons()->PackedStringArray:
+	var _names:PackedStringArray = []
+	for _state:PlayerState in RunSession.players.all():
+		if _state.is_local || _state.ghost || _state.guest_run_data == null || _state.room_scene != HOME_SCENE:
+			continue
+		var _weapons:PackedStringArray = _state.guest_run_data.weapons
+		for _i:int in _weapons.size():
+			if _i != clampi(_state.guest_run_data.selected, 0, _weapons.size() - 1):
+				_names.append(_weapons[_i])
+	return _names
 
 # --- Co-op checkpoint ------------------------------------------------------------
 
@@ -316,6 +427,10 @@ func _guest_run_data_tick(delta:float)->void:
 			_pending_restore = null
 		return
 	_run_data_left -= delta
+	if _inventory_dirty:
+		# a weapon picked up or dropped: the host hears of it right away
+		_inventory_dirty = false
+		_run_data_left = minf(_run_data_left, 0.15)
 	if _run_data_left > 0.0 || local_body() == null:
 		return
 	_run_data_left = RUN_DATA_INTERVAL
@@ -350,7 +465,7 @@ func _restore_run(data:Dictionary)->void:
 
 func _ensure_downed()->void:
 	var _body:Node2D = local_body()
-	if _body != null && !_body.has_node("Downed"):
+	if _body != null && !RunSession.local_player().hidden && !_body.has_node("Downed"):
 		var _downed:Downed = Downed.new()
 		_downed.name = "Downed"
 		_body.add_child(_downed)
@@ -361,7 +476,7 @@ func _local_downed()->Downed:
 
 ## Host: nobody is left standing.
 func _on_all_downed()->void:
-	if !net().is_host() || RunSession.players.count() < 2:
+	if !net().is_host() || (RunSession.players.count_active() < 2 && !net().is_server()):
 		return
 	_party_wiped.rpc()
 	_party_wiped_here()
@@ -377,6 +492,156 @@ func _party_wiped_here()->void:
 	var _downed:Downed = _local_downed()
 	if _downed != null:
 		_downed.wipe()
+	if net().is_server():
+		net().server.on_party_wiped()
+
+# --- Ghosts ---------------------------------------------------------------------
+
+func host_room()->String:
+	return _host_room
+
+## Guest -> host: we're off home; mid-run (`parked`) our run state goes along so
+## the host can hand it back on return.
+func send_going_ghost(parked:bool)->void:
+	_was_guest = false
+	_pending_room = ""
+	_pending_restore = null
+	_returning_to = ""
+	_going_ghost.rpc_id(1, parked, RunSession.local_player().capture().to_dict() if parked else {})
+
+@rpc("any_peer", "call_remote", "reliable")
+func _going_ghost(parked:bool, data:Dictionary)->void:
+	if !net().is_host():
+		return
+	var _state:PlayerState = _sender_state()
+	if _state == null || _state.ghost:
+		return
+	reclaim_weapons(_state)
+	var _parsed:PlayerRunData = PlayerRunData.from_dict(data) if parked else null
+	_state.ghost = true
+	_state.waiting = false
+	_state.ghost_room = ""
+	_state.room_scene = ""
+	_state.parked = parked && _parsed != null && RunSession.active
+	_state.guest_run_data = _parsed if _state.parked else null
+	_state.downed = false
+	_remove_puppet(_state.slot)
+	_ghost_status.rpc_id(_state.peer_id, party_room)
+	_state.net_updated.emit()
+	net().roster_changed.emit()
+	RunSession.players.check_all_downed()
+
+## Ghost: where we are in our own world, ten times a second.
+func _ghost_tick(delta:float)->void:
+	_ghost_send_left -= delta
+	if _ghost_send_left > 0.0:
+		return
+	_ghost_send_left = GHOST_INTERVAL
+	_ghost_update.rpc_id(1, _local_motion())
+
+@rpc("any_peer", "call_remote", "unreliable_ordered", 1)
+func _ghost_update(data:Array)->void:
+	if !net().is_host():
+		return
+	var _state:PlayerState = _sender_state()
+	if _state == null || !_state.ghost || data.size() != 4 || typeof(data[0]) != TYPE_STRING || (data[0] as String).length() > MAX_PATH:
+		return
+	for _i:int in [1, 2, 3]:
+		if typeof(data[_i]) != TYPE_VECTOR2 || !(data[_i] as Vector2).is_finite():
+			return
+	if _state.ghost_room != data[0]:
+		_state.ghost_room = data[0]
+		_state.net_updated.emit()
+	_update_puppet(_state, data[1], data[2], data[3])
+
+## Host -> ghost: the room the host is in now.
+@rpc("authority", "call_remote", "reliable")
+func _ghost_status(room:String)->void:
+	if !net().is_ghost() || room.length() > MAX_PATH:
+		return
+	net().ghost_host_room = room
+	net().ghost_status_changed.emit()
+
+## A room the rejoin portal can take us to (not a menu or the victory screen).
+static func can_rejoin(room:String)->bool:
+	return room.begins_with("res://game/scenes/room_")
+
+## Ghost (now joined again) -> host: put us back in the game.
+func request_return()->void:
+	_was_guest = true
+	_returning_to = "?"
+	_ghost_return.rpc_id(1)
+
+@rpc("any_peer", "call_remote", "reliable")
+func _ghost_return()->void:
+	if !net().is_host():
+		return
+	var _state:PlayerState = _sender_state()
+	if _state == null || !_state.ghost:
+		return
+	_state.ghost = false
+	_state.ghost_room = ""
+	_remove_puppet(_state.slot)
+	net()._broadcast_roster()
+	_follow_room.rpc_id(_state.peer_id, party_room, party_entry)
+	if _state.parked && _state.guest_run_data != null:
+		_restore_run.rpc_id(_state.peer_id, _state.guest_run_data.to_dict())
+	_state.parked = false
+	_state.net_updated.emit()
+	net().roster_changed.emit()
+
+## Guest just back from a ghost: once in the host's room, wait at the door until
+## no fight is on (WaitingAtDoor lets go by itself when the walls drop).
+func _check_return_arrival()->void:
+	if _returning_to.is_empty():
+		return
+	if _returning_to == "?":
+		_returning_to = _host_room if !_host_room.is_empty() else "?"
+		return
+	if current_room() != _returning_to || local_body() == null || transition_bool.value:
+		return
+	_returning_to = ""
+	if current_room() == HOME_SCENE:
+		return
+	var _body:Node2D = local_body()
+	if !_body.has_node("WaitingAtDoor"):
+		var _wait:WaitingAtDoor = WaitingAtDoor.new()
+		_wait.name = "WaitingAtDoor"
+		_body.add_child(_wait)
+
+## Host, victory: ghosts who left mid-run still get the weapons they carried.
+func send_ghost_rewards()->void:
+	if !net().is_host():
+		return
+	for _state:PlayerState in RunSession.players.all():
+		if _state.ghost && _state.parked && _state.guest_run_data != null:
+			_ghost_rewards.rpc_id(_state.peer_id, _state.guest_run_data.weapons)
+
+@rpc("authority", "call_remote", "reliable")
+func _ghost_rewards(weapons:PackedStringArray)->void:
+	if !net().is_ghost() || weapons.size() > PlayerRunData.MAX_WEAPONS:
+		return
+	var _database:ItemCollectionResource = load(DATABASE_PATH)
+	var _carried:ItemCollectionResource = ItemCollectionResource.new()
+	for _name:String in weapons:
+		var _item:ItemResource = HomeBaseResource.find_item(_database, _name)
+		if _item != null:
+			_carried.list.append(_item)
+	if _carried.list.is_empty():
+		return
+	# standing in our home base: they're dropped at our feet (its stash is live)
+	var _home:HomeBase = get_tree().current_scene.get_node_or_null("HomeBase") as HomeBase if get_tree().current_scene != null else null
+	if _home != null:
+		_home.receive_weapons(_carried.list)
+	else:
+		(load(HOME_BASE_PATH) as HomeBaseResource).stash_weapons(_carried)
+
+## The run is over (RunSession.end_run): parked run states go with it.
+func on_run_ended()->void:
+	for _state:PlayerState in RunSession.players.all():
+		if _state.parked:
+			_state.parked = false
+			_state.guest_run_data = null
 
 # --- Pause ----------------------------------------------------------------------
 

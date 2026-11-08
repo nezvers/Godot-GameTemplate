@@ -31,6 +31,7 @@
 ##      the control room goes past that corner, where lever 1 of each lane is
 ##   T  write button   R  data lever   Z  gate lever   C  lever reset button
 ##   g  water gun spot   >  stairs to a mission   N  co-op comms terminal
+##   Q  robot printer (electrician shells, CO-OP tree)
 ##
 ## Spec keys: name, look, accent, patches, doors {char: [tag, connect_tag, room]},
 ## portals {char: [tag, connect_tag, room, room it waits for]}, sections, boss_section,
@@ -66,6 +67,7 @@ const INTERACTABLES:Dictionary = {
 	"Z": "scenes/interactables/gate_lever.tscn",
 	"C": "scenes/interactables/reset_button.tscn",
 	"N": "scenes/interactables/comms_terminal.tscn",
+	"Q": "scenes/interactables/robot_printer.tscn",
 }
 const VICTORY:String = "victory"
 const FREE_DISTANCE:int = 116

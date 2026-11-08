@@ -35,6 +35,18 @@ func all()->Array[PlayerState]:
 func count()->int:
 	return states.size()
 
+## Players in the fight (no ghosts, players waiting at a door or the server's
+## hidden player).
+func active()->Array[PlayerState]:
+	var _list:Array[PlayerState] = []
+	for _state:PlayerState in all():
+		if _state.is_active():
+			_list.append(_state)
+	return _list
+
+func count_active()->int:
+	return active().size()
+
 func free_slot()->int:
 	for _slot:int in MAX_PLAYERS:
 		if !states.has(_slot):
@@ -70,7 +82,14 @@ func set_downed(slot:int, value:bool)->void:
 	if !value:
 		return
 	player_downed.emit(_state)
-	for _other:PlayerState in states.values():
+	check_all_downed()
+
+## Nobody in the fight is left standing (a ghost leaving can cause it too).
+func check_all_downed()->void:
+	var _active:Array[PlayerState] = active()
+	if _active.is_empty():
+		return
+	for _other:PlayerState in _active:
 		if !_other.downed:
 			return
 	all_downed.emit()

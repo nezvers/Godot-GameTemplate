@@ -45,13 +45,13 @@ func is_valid()->bool:
 		&& !room_scene.is_empty() && ResourceLoader.exists(room_scene) && !players.is_empty()
 
 static func file_path()->String:
-	return "user://" + file_name + ".tres"
+	return SaveableResource.save_dir.path_join(file_name + ".tres")
 
 static func exists()->bool:
 	return FileAccess.file_exists(file_path())
 
 static func delete_file()->void:
-	if exists():
+	if exists() && !SaveableResource.persist_locked:
 		DirAccess.remove_absolute(file_path())
 
 ## Loads the save, or null when it is missing, unreadable or not a RunSave.
@@ -59,7 +59,7 @@ static func delete_file()->void:
 ## source, and this file is the one thing a player might be handed by someone else.
 static func read()->RunSave:
 	var _path:String = file_path()
-	if !FileAccess.file_exists(_path):
+	if SaveableResource.persist_locked || !FileAccess.file_exists(_path):
 		return null
 	var _text:String = FileAccess.get_file_as_string(_path)
 	if _text.contains("type=\"GDScript\"") || _text.contains("script/source"):

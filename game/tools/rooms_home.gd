@@ -1,7 +1,7 @@
 ## Home base, opened from the title: the hall of the 30x30 piston memory grid with
 ## its lever row (bottom, +y) and lever column (right, +x), and past the corner
 ## where they meet the control room (spawn, Write and reset buttons, data and gate
-## levers, water gun, co-op comms terminal, stairs to a mission). Lever 1 of each lane is at that corner.
+## levers, water gun, co-op comms terminal and robot printer, stairs to a mission). Lever 1 of each lane is at that corner.
 ## Built by build_rooms.gd; see its header for the map legend.
 extends RefCounted
 
@@ -56,7 +56,7 @@ const ROOMS:Dictionary = {
 			"                                        ................",
 			"                                        ........T.R.Z.C.",
 			"                                        ................",
-			"                                        ................",
+			"                                        ..Q.............",
 			"                                        ................",
 			"                                        ..N.......P.....",
 			"                                        ................",

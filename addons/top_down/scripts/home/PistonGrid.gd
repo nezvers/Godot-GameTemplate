@@ -14,6 +14,8 @@ extends Node2D
 signal written(results:Dictionary)
 ## Lanes, data value or piston states changed (HomeBase saves on it)
 signal changed
+## A write begins (co-op: the host tells its guests, NetHome)
+signal write_started
 
 enum Axis {ROW, COL}
 
@@ -56,6 +58,7 @@ func _ready()->void:
 	for _r:int in size:
 		for _c:int in size:
 			var _piston:Piston = piston_scene.instantiate()
+			_piston.name = "Piston_%d_%d" % [_c, _r]
 			_piston.cell = Vector2i(_c, _r)
 			_piston.position = _cell_position(Vector2i(_c, _r))
 			add_child(_piston)
@@ -69,6 +72,8 @@ func _ready()->void:
 
 func _add_lever(axis:Axis, index:int, cell:Vector2i)->GridLever:
 	var _lever:GridLever = lever_scene.instantiate()
+	# a fixed name: co-op guests press it by node path (NetHome)
+	_lever.name = "%sLever%d" % ["Row" if axis == Axis.ROW else "Col", index + 1]
 	_lever.grid = self
 	_lever.axis = axis
 	_lever.index = index
@@ -175,6 +180,7 @@ func write()->void:
 	if writing:
 		return
 	writing = true
+	write_started.emit()
 	var _results:Dictionary = {}
 	var _by_diagonal:Dictionary = {}
 	for _cell:Vector2i in selected_cells():
@@ -212,6 +218,37 @@ func piston_bytes()->PackedByteArray:
 	for _i:int in pistons.size():
 		_bytes[_i] = int(pistons[_i].is_raised())
 	return _bytes
+
+## Co-op guest: the host's grid as it is (NetHome). With `then_write` the
+## host's write follows, rippling here as it does there; its outcome arrives
+## with the next state.
+func apply_net_state(state:Dictionary, then_write:bool)->void:
+	if int(state.get("size", -1)) != size:
+		return
+	var _pistons:PackedByteArray = state.get("pistons", PackedByteArray())
+	var _rows:PackedByteArray = state.get("rows", PackedByteArray())
+	var _cols:PackedByteArray = state.get("cols", PackedByteArray())
+	if _pistons.size() != pistons.size() || _rows.size() != size || _cols.size() != size:
+		return
+	if writing:
+		# our ripple is still running: the host's outcome lands after it
+		written.connect(func (_results:Dictionary)->void: apply_net_state(state, then_write), CONNECT_ONE_SHOT)
+		return
+	for _i:int in pistons.size():
+		var _raised:bool = _pistons[_i] == 1
+		if pistons[_i].is_raised() != _raised:
+			pistons[_i].set_raised(_raised, then_write)
+	for _i:int in size:
+		row_select[_i] = _rows[_i]
+		row_levers[_i].set_on(_rows[_i] == 1)
+		col_select[_i] = _cols[_i]
+		col_levers[_i].set_on(_cols[_i] == 1)
+	data_value = bool(state.get("data", true))
+	gate = clampi(int(state.get("gate", 0)), 0, Gate.size() - 1) as Gate
+	_update_preview()
+	changed.emit()
+	if then_write:
+		write()
 
 func save_to(resource:HomeBaseResource)->void:
 	resource.grid_size = size

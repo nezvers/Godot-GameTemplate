@@ -123,16 +123,27 @@ func _run()->void:
 	var _sections:Array[ArenaSection] = NetEntities._sections(get_tree().current_scene)
 	if !_sections.is_empty():
 		var _section:ArenaSection = _sections[0]
-		_section.try_start()
+		# the host steps in away from the guest: the gates close, the guest is pulled over
+		_body().global_position += Vector2(40, 0)
+		await _frames(4)
+		_section.try_start(_body())
 		var _key:String = str(get_tree().current_scene.get_path_to(_section))
 		check(await _wait(func ()->bool: return _section_line(_key).contains("true"), 10.0), "guest: fight started with the host's (%s)" % _section_line(_key))
 		_section.spawn_holds += 1
+		var _pulled:Callable = func ()->Vector2: return _vector(_last("room").get_slice(" ", 1) + " " + _last("room").get_slice(" ", 2))
+		check(await _wait(func ()->bool: return _pulled.call().distance_to(_body().global_position) < 12.0, 5.0), "guest: pulled to the host when the gates closed (%s vs %s)" % [_pulled.call(), _body().global_position])
 
 	# --- everyone down: the run ends for both
 	var _guest_state:PlayerState = RunSession.players.get_state(1)
 	await _wait(func ()->bool: return Net.players.puppets.has(1) && is_instance_valid(Net.players.puppets[1]), 5.0)
 	_hurt_guest(9999.0)
 	check(await _wait(func ()->bool: return _guest_state != null && _guest_state.downed, 5.0), "wipe: guest down first")
+	# more hits while down, past the hit cooldown: nothing lands, nothing breaks
+	for _i:int in 4:
+		await get_tree().create_timer(0.4).timeout
+		_hurt_guest(5.0)
+	await _frames(10)
+	check(_guest_state.downed && !_read().contains("Assertion failed") && !_read().contains("SCRIPT ERROR"), "downed: later hits are refused on both machines")
 	var _health:HealthResource = RunSession.local_player().health
 	var _all_down:Array[bool] = [false]
 	RunSession.players.all_downed.connect(func ()->void: _all_down[0] = true, CONNECT_ONE_SHOT)

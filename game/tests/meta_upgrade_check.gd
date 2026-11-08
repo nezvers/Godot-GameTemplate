@@ -216,6 +216,13 @@ func _check_screen()->void:
 				_queue.append(_next)
 	check(_seen.size() == MetaUpgrades.nodes_in("horde").size(), "focus reaches every HORDE node")
 	_screen.next_tree()
+	check(_screen.tree == "coop" && _screen.title_label.text == "CO-OP", "then the CO-OP tree")
+	check(_screen.focused_id == "coop_root", "switching focuses the CO-OP root")
+	for _id:String in ["shell_printer", "electrician_bay"]:
+		check(MetaUpgrades.tree_of(_id) == "coop" && _buttons[_id].visible, "CO-OP shows %s" % _id)
+	check(MetaUpgrades.effects("shell_printer").get("shell_printer", 0) == 1 && MetaUpgrades.effects("electrician_bay").get("guest_electricians", 0) == 1, "CO-OP nodes carry their flags")
+	check(MetaUpgrades.describe("electrician_bay").find("{") < 0, "CO-OP texts have no unfilled stats")
+	_screen.next_tree()
 	check(_screen.tree == MetaUpgrades.MAIN_TREE && _screen.title_label.text == "UPGRADES", "and back to the main tree")
 
 	_crystals.add(1)

@@ -13,12 +13,21 @@ extends Node
 const HOME_BASE: HomeBaseResource = preload("res://game/resources/home_base_resource.tres")
 const WEAPON_INVENTORY: ItemCollectionResource = preload("res://addons/top_down/resources/ItemCollectionResource/weapon_inventory.tres")
 
+## Shown to a co-op guest instead of the menu (GuestLeaveMenu).
+var guest_menu: GuestLeaveMenu
+
 func _ready() -> void:
+	# ghosts who left mid-run get their carried weapons before the run closes
+	Net.players.send_ghost_rewards()
+	var _guest: bool = Net.is_guest()
 	RunSession.end_run()
 	if campaign_resource != null:
 		campaign_resource.unlock_ng_plus()
 	_stash_weapons()
 	if overlay_scene == null:
+		if _guest && Net.is_guest():
+			menu.visible = false
+			guest_menu = GuestLeaveMenu.open(self, GuestLeaveMenu.Context.VICTORY)
 		return
 	menu.visible = false
 	var _layer: CanvasLayer = CanvasLayer.new()
@@ -34,6 +43,10 @@ func _ready() -> void:
 	_layer.add_child(_anim)
 	await _anim.finished
 	_layer.queue_free()
+	if _guest && Net.is_guest():
+		# a guest doesn't pick the next room: follow the host or go home
+		guest_menu = GuestLeaveMenu.open(self, GuestLeaveMenu.Context.VICTORY)
+		return
 	menu.visible = true
 	var _button: Button = menu.find_child("Button") as Button
 	if _button != null:
@@ -41,6 +54,9 @@ func _ready() -> void:
 
 ## The next home base visit hands them to the player.
 func _stash_weapons() -> void:
+	# a ghost-tier co-op guest keeps nothing (GuestTier)
+	if !GuestTier.keeps_loot():
+		return
 	var inventory: ItemCollectionResource = WEAPON_INVENTORY
 	if inventory.list.is_empty():
 		return

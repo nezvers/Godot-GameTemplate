@@ -22,6 +22,15 @@ enum SaveType {FILE, STEAM}
 ## Class variable for saving behaviour
 static var save_type: = SaveType.FILE
 
+## Where save files live ("user://" by default; a dedicated server can point it
+## at its own folder with --save-dir).
+static var save_dir:String = "user://"
+
+## No file is read, written or deleted while set: a second game on the same
+## computer joined as a blank co-op guest (GuestSandbox) and must not touch the
+## first one's saves. Loading resets to defaults instead.
+static var persist_locked:bool
+
 var temporary_data:SaveableResource
 var is_temporary:bool
 
@@ -50,12 +59,12 @@ func load_temp()->void:
 func get_save_file_path()->String:
 	if resource_name.is_empty():
 		resource_name = resource_path.get_file().get_basename()
-	return "user://" + resource_name + ".tres"
+	return save_dir.path_join(resource_name + ".tres")
 
 ## Saves current state.
 ## If SaveState is temporary it uses temporary data.
 func save_resource()->void:
-	if not_saved:
+	if not_saved || persist_locked:
 		return
 	if is_temporary:
 		save_temp()
@@ -79,7 +88,7 @@ func load_resource(force_load:bool = false)->void:
 		return
 	is_loaded = true
 	
-	if not_saved:
+	if not_saved || persist_locked:
 		reset_resource()
 		return
 	if is_temporary:
@@ -102,6 +111,8 @@ func load_resource(force_load:bool = false)->void:
 	resource_loaded.emit()
 
 func delete_resource()->void:
+	if persist_locked:
+		return
 	if save_type == SaveType.FILE:
 		_delete_resource_file()
 	elif save_type == SaveType.STEAM:

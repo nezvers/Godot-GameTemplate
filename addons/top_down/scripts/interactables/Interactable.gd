@@ -40,11 +40,17 @@ func _ready()->void:
 func _exit_tree()->void:
 	remove_from_group(GROUP)
 
-func _on_body_entered(_body:Node2D)->void:
+## Only this machine's player uses things here (co-op teammates' copies walk
+## through the same areas).
+func _on_body_entered(body:Node2D)->void:
+	if player_reference != null && player_reference.node != null && body != player_reference.node:
+		return
 	_in_range = true
 	add_to_group(GROUP)
 
-func _on_body_exited(_body:Node2D)->void:
+func _on_body_exited(body:Node2D)->void:
+	if player_reference != null && player_reference.node != null && body != player_reference.node:
+		return
 	_in_range = false
 	remove_from_group(GROUP)
 	prompt_label.visible = false
@@ -74,6 +80,10 @@ func try_use()->void:
 		return
 	if sound_use != null:
 		sound_use.play_managed()
+	# co-op guest: shared contraptions are the host's, it runs the use there
+	if Net.is_guest() && is_shared_online():
+		Net.home.request_use(self)
+		return
 	_use()
 	used.emit()
 
@@ -114,6 +124,10 @@ func _key_text()->String:
 	return "?"
 
 # --- overridden by contraptions ------------------------------------------------
+
+## Co-op: the host owns this contraption's state; a guest's use is a request.
+func is_shared_online()->bool:
+	return false
 
 func _can_use()->bool:
 	return true
