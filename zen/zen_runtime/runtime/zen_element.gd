@@ -45,7 +45,7 @@ var canvas: ZRCanvas = null
 
 
 func _ready() -> void:
-    _find_canvas()
+	_find_canvas()
 
 
 # ---------------------------------------------------------------------------
@@ -59,143 +59,143 @@ func _ready() -> void:
 #  the author scrubbed or dragged a key, so the canvas re-poses.
 # ---------------------------------------------------------------------------
 func _get_property_list() -> Array[Dictionary]:
-    var out: Array[Dictionary] = []
-    for p in ZRProps.scalars_for(zen_kind()):
-        if not owns(p): continue
-        out.append({"name": ZRProps.track_prop(p), "type": TYPE_FLOAT,
-            "usage": PROPERTY_USAGE_EDITOR})
-    for p in ZRProps.colors_for(zen_kind()):
-        if not owns(p): continue
-        out.append({"name": p, "type": TYPE_COLOR, "usage": PROPERTY_USAGE_EDITOR})
-    for p in _eased_props():
-        out.append({"name": ZRAnimBuilder.EASE_PREFIX + p, "type": TYPE_STRING,
-            "usage": PROPERTY_USAGE_EDITOR})
-    return out
+	var out: Array[Dictionary] = []
+	for p in ZRProps.scalars_for(zen_kind()):
+		if not owns(p): continue
+		out.append({"name": ZRProps.track_prop(p), "type": TYPE_FLOAT,
+			"usage": PROPERTY_USAGE_EDITOR})
+	for p in ZRProps.colors_for(zen_kind()):
+		if not owns(p): continue
+		out.append({"name": p, "type": TYPE_COLOR, "usage": PROPERTY_USAGE_EDITOR})
+	for p in _eased_props():
+		out.append({"name": ZRAnimBuilder.EASE_PREFIX + p, "type": TYPE_STRING,
+			"usage": PROPERTY_USAGE_EDITOR})
+	return out
 
 
 ## The owned props that carry an ease track when keyed (ZRAnimBuilder).
 func _eased_props() -> Array:
-    var out: Array = []
-    for p in ZRProps.scalars_for(zen_kind()) + ZRProps.colors_for(zen_kind()):
-        if owns(p) and ZRAnimBuilder.has_ease(p): out.append(p)
-    return out
+	var out: Array = []
+	for p in ZRProps.scalars_for(zen_kind()) + ZRProps.colors_for(zen_kind()):
+		if owns(p) and ZRAnimBuilder.has_ease(p): out.append(p)
+	return out
 
 
 func _is_zen_prop(n: StringName) -> bool:
-    var s := String(n)
-    if s.begins_with(ZRAnimBuilder.EASE_PREFIX):
-        return _eased_props().has(s.trim_prefix(ZRAnimBuilder.EASE_PREFIX))
-    var p := ZRProps.prop_of_track(s)
-    # Only the TRACK spelling: Node2D's own `scale` must reach the engine.
-    if ZRProps.track_prop(p) != s: return false
-    return owns(p) and (ZRProps.scalars_for(zen_kind()).has(p)
-        or ZRProps.colors_for(zen_kind()).has(p))
+	var s := String(n)
+	if s.begins_with(ZRAnimBuilder.EASE_PREFIX):
+		return _eased_props().has(s.trim_prefix(ZRAnimBuilder.EASE_PREFIX))
+	var p := ZRProps.prop_of_track(s)
+	# Only the TRACK spelling: Node2D's own `scale` must reach the engine.
+	if ZRProps.track_prop(p) != s: return false
+	return owns(p) and (ZRProps.scalars_for(zen_kind()).has(p)
+		or ZRProps.colors_for(zen_kind()).has(p))
 
 
 func _get(n: StringName) -> Variant:
-    if not _is_zen_prop(n): return null
-    var s := String(n)
-    if s.begins_with(ZRAnimBuilder.EASE_PREFIX): return "linear"
-    var p := ZRProps.prop_of_track(s)
-    return base_color(p) if ZRProps.is_color(p) else base_scalar(p)
+	if not _is_zen_prop(n): return null
+	var s := String(n)
+	if s.begins_with(ZRAnimBuilder.EASE_PREFIX): return "linear"
+	var p := ZRProps.prop_of_track(s)
+	return base_color(p) if ZRProps.is_color(p) else base_scalar(p)
 
 
 func _set(n: StringName, _value: Variant) -> bool:
-    if not _is_zen_prop(n): return false
-    if Engine.is_editor_hint():
-        if canvas == null: _find_canvas()
-        if canvas != null: canvas.call_deferred("editor_repose")
-    return true
+	if not _is_zen_prop(n): return false
+	if Engine.is_editor_hint():
+		if canvas == null: _find_canvas()
+		if canvas != null: canvas.call_deferred("editor_repose")
+	return true
 
 
 func _find_canvas() -> void:
-    var p := get_parent()
-    while p != null:
-        if p is ZRCanvas:
-            canvas = p
-            return
-        p = p.get_parent()
+	var p := get_parent()
+	while p != null:
+		if p is ZRCanvas:
+			canvas = p
+			return
+		p = p.get_parent()
 
 
 func design() -> Vector2:
-    if canvas == null: _find_canvas()
-    return canvas.design_size if canvas != null else Vector2(320, 180)
+	if canvas == null: _find_canvas()
+	return canvas.design_size if canvas != null else Vector2(320, 180)
 
 
 ## Width/height references. In absolute mode the canvas multiplier drops to 1,
 ## so the size props are read straight as pixels.
 func _uw() -> float:
-    return 1.0 if unit_abs else design().x
+	return 1.0 if unit_abs else design().x
 
 
 func _uh() -> float:
-    return 1.0 if unit_abs else design().y
+	return 1.0 if unit_abs else design().y
 
 
 ## Does this node own `prop`? A ZRGlobal is two nodes sharing one authored
 ## element, each owning its own half of the props.
 func owns(_prop: String) -> bool:
-    return true
+	return true
 
 
 ## "Node:prop" - the track path of a property in the canvas's "zen" animation.
 func track_path(prop: String) -> String:
-    return "%s:%s" % [name, ZRProps.track_prop(prop)]
+	return "%s:%s" % [name, ZRProps.track_prop(prop)]
 
 
 func _tl() -> ZRTimeline:
-    if canvas == null: _find_canvas()
-    return canvas.timeline() if canvas != null else null
+	if canvas == null: _find_canvas()
+	return canvas.timeline() if canvas != null else null
 
 
 func has_track(prop: String) -> bool:
-    var tl := _tl()
-    if tl == null: return false
-    var path := track_path(prop)
-    return tl.has_color(path) if ZRProps.is_color(prop) else tl.has(path)
+	var tl := _tl()
+	if tl == null: return false
+	var path := track_path(prop)
+	return tl.has_color(path) if ZRProps.is_color(prop) else tl.has(path)
 
 
 ## The plain timeline read: the track if it has keys, else the base pose. No
 ## loop blend - that is prop()'s job, and the blend TARGET is sampled through
 ## here so an untracked property blends from its base rather than from 0.
 func track_or_base(prop_name: String, t: float, base: float, stepped := false) -> float:
-    var tl := _tl()
-    if tl == null: return base
-    var path := track_path(prop_name)
-    return tl.stepped(path, t, base) if stepped else tl.scalar(path, t, base)
+	var tl := _tl()
+	if tl == null: return base
+	var path := track_path(prop_name)
+	return tl.stepped(path, t, base) if stepped else tl.scalar(path, t, base)
 
 
 ## Scalar property at `t`: the timeline, then the signal override, then the
 ## additive signal offsets. The ORDER is load bearing - see the four rules in
 ## the signal-override block near the bottom of this file (anim.c:640-670).
 func prop(prop_name: String, t: float, base: float, stepped := false) -> float:
-    # 1. A STEPPED property is an identity, not a quantity: easing it toward
-    #    the loop start, or letting a signal interpolate it, would land between
-    #    two pool entries and resolve to the wrong one. Plain read, and it
-    #    returns BEFORE the override is consulted (anim.c:652).
-    if stepped or ZRProps.is_stepped(prop_name):
-        return track_or_base(prop_name, t, base, true)
+	# 1. A STEPPED property is an identity, not a quantity: easing it toward
+	#    the loop start, or letting a signal interpolate it, would land between
+	#    two pool entries and resolve to the wrong one. Plain read, and it
+	#    returns BEFORE the override is consulted (anim.c:652).
+	if stepped or ZRProps.is_stepped(prop_name):
+		return track_or_base(prop_name, t, base, true)
 
-    var v: float
-    var ov: Variant = _sig_value.get(prop_name)
-    if ov != null:
-        # 2. The signal OWNS this property. It REPLACES the timeline and the
-        #    loop blend - it does not compose with them (the `else` below is
-        #    the whole point; an `if` would still pass every seam test).
-        v = float(ov)
-    else:
-        # 3. Plain timeline read plus the smooth-loop blend.
-        v = track_or_base(prop_name, t, base)
-        var bw := _pose_blend_w
-        if bw > 0.0:
-            v += (track_or_base(prop_name, _pose_blend_t, base) - v) * bw
+	var v: float
+	var ov: Variant = _sig_value.get(prop_name)
+	if ov != null:
+		# 2. The signal OWNS this property. It REPLACES the timeline and the
+		#    loop blend - it does not compose with them (the `else` below is
+		#    the whole point; an `if` would still pass every seam test).
+		v = float(ov)
+	else:
+		# 3. Plain timeline read plus the smooth-loop blend.
+		v = track_or_base(prop_name, t, base)
+		var bw := _pose_blend_w
+		if bw > 0.0:
+			v += (track_or_base(prop_name, _pose_blend_t, base) - v) * bw
 
-    # 4. The two additive offsets apply EVEN WHEN the signal did not drive this
-    #    property - they are gated on "this element has a signal", not on
-    #    "the override hit" (anim.c:665-669). zooming_box's `ripple_old`
-    #    seq-targets `shape scale`, which has no plain target, so scale must
-    #    come from the TRACK plus the seq offset.
-    return v + float(_sig_offset.get(prop_name, 0.0))
+	# 4. The two additive offsets apply EVEN WHEN the signal did not drive this
+	#    property - they are gated on "this element has a signal", not on
+	#    "the override hit" (anim.c:665-669). zooming_box's `ripple_old`
+	#    seq-targets `shape scale`, which has no plain target, so scale must
+	#    come from the TRACK plus the seq offset.
+	return v + float(_sig_offset.get(prop_name, 0.0))
 
 
 ## The plain read with NO override and NO loop blend: what a signal captures as
@@ -210,57 +210,57 @@ func prop(prop_name: String, t: float, base: float, stepped := false) -> float:
 ## luck: in the C a signal only ever starts from an emit handler, never from
 ## inside AnimDocDrawLoop, so the loop blend is never armed at capture time.
 func plain_prop(prop_name: String, t: float, base: float) -> float:
-    return track_or_base(prop_name, t, base, ZRProps.is_stepped(prop_name))
+	return track_or_base(prop_name, t, base, ZRProps.is_stepped(prop_name))
 
 
 func plain_prop_color(prop_name: String, t: float, base: Color, alpha: float) -> Color:
-    return track_or_base_color(prop_name, t, base, alpha)
+	return track_or_base_color(prop_name, t, base, alpha)
 
 
 ## Did the last pose let a signal shape `prop_name` (override or offset)?
 func signal_shaped(prop_name: String) -> bool:
-    return _sig_value.has(prop_name) or _sig_color.has(prop_name) \
-        or _sig_offset.has(prop_name)
+	return _sig_value.has(prop_name) or _sig_color.has(prop_name) \
+		or _sig_offset.has(prop_name)
 
 
 ## The plain colour read, RGB only. See track_or_base.
 func track_or_base_color(prop_name: String, t: float, base: Color, alpha: float) -> Color:
-    var tl := _tl()
-    if tl == null: return Color(base.r, base.g, base.b, alpha)
-    return tl.color(track_path(prop_name), t, base, alpha)
+	var tl := _tl()
+	if tl == null: return Color(base.r, base.g, base.b, alpha)
+	return tl.color(track_path(prop_name), t, base, alpha)
 
 
 ## Colour property at `t`. RGB only - alpha is always a separate track, so it
 ## blends on its own scalar path and must not be touched here (anim.c:556).
 func prop_color(prop_name: String, t: float, base: Color, alpha: float) -> Color:
-    var ov: Variant = _sig_color.get(prop_name)
-    if ov != null:
-        # Signal owns it; the loop blend is skipped, exactly as for scalars.
-        # `alpha` is already the plain-track alpha the caller computed, so
-        # unlike the C there is nothing to re-read (anim.c:533-557).
-        var oc: Color = ov
-        return Color(oc.r, oc.g, oc.b, alpha)
-    var c := track_or_base_color(prop_name, t, base, alpha)
-    var bw := _pose_blend_w
-    if bw > 0.0:
-        var c0 := track_or_base_color(prop_name, _pose_blend_t, base, alpha)
-        c = Color(_mix(c.r, c0.r, bw), _mix(c.g, c0.g, bw), _mix(c.b, c0.b, bw), c.a)
-    return c
+	var ov: Variant = _sig_color.get(prop_name)
+	if ov != null:
+		# Signal owns it; the loop blend is skipped, exactly as for scalars.
+		# `alpha` is already the plain-track alpha the caller computed, so
+		# unlike the C there is nothing to re-read (anim.c:533-557).
+		var oc: Color = ov
+		return Color(oc.r, oc.g, oc.b, alpha)
+	var c := track_or_base_color(prop_name, t, base, alpha)
+	var bw := _pose_blend_w
+	if bw > 0.0:
+		var c0 := track_or_base_color(prop_name, _pose_blend_t, base, alpha)
+		c = Color(_mix(c.r, c0.r, bw), _mix(c.g, c0.g, bw), _mix(c.b, c0.b, bw), c.a)
+	return c
 
 
 ## Channel mix matching MixChannel (anim.c:436): the C rounds through an 8-bit
 ## channel, so reproduce the quantisation rather than lerping in float - a
 ## half-blended colour must land on the same byte the reference picked.
 static func _mix(a: float, b: float, p: float) -> float:
-    var v := (a * 255.0) + ((b * 255.0) - (a * 255.0)) * p
-    return clampf(floorf(v + 0.5), 0.0, 255.0) / 255.0
+	var v := (a * 255.0) + ((b * 255.0) - (a * 255.0)) * p
+	return clampf(floorf(v + 0.5), 0.0, 255.0) / 255.0
 
 
 ## Centre of the element in pixels. Position is always fractional.
 func center_px(t: float) -> Vector2:
-    return Vector2(
-        design().x * prop("pos_x", t, pos_frac.x),
-        design().y * prop("pos_y", t, pos_frac.y))
+	return Vector2(
+		design().x * prop("pos_x", t, pos_frac.x),
+		design().y * prop("pos_y", t, pos_frac.y))
 
 
 ## Does this kind sit at its centre? The resolved centre is mirrored into the
@@ -268,40 +268,40 @@ func center_px(t: float) -> Vector2:
 ## where the element is. ONE-WAY: the tracks stay the source of truth and
 ## position is overwritten on every pose. _draw() paints about the node origin.
 func mirrors_position() -> bool:
-    return true
+	return true
 
 
 ## The drawn extent at `t` in canvas pixels, axis-aligned (a rotated element
 ## is boxed around its rotated corners) - for picking and selection outlines
 ## in the scene editor. Empty for a kind with no extent of its own.
 func bounds_px(_t: float) -> Rect2:
-    return Rect2()
+	return Rect2()
 
 
 ## Is canvas point `p` on what this element draws at `t`, within `slop`
 ## pixels? Tighter than bounds_px: a diagonal line's box covers the whole
 ## canvas, its stroke does not.
 func hit_px(p: Vector2, t: float, slop: float) -> bool:
-    return bounds_px(t).grow(slop).has_point(p)
+	return bounds_px(t).grow(slop).has_point(p)
 
 
 ## Does anything of this element show at `t`? The editor prefers shown
 ## elements when picking; a faded-out one is still reachable by cycling.
 func shows_at(_t: float) -> bool:
-    return true
+	return true
 
 
 ## `p` in the frame of a box centred on `c` and rotated by `rot`.
 static func _unrotate(p: Vector2, c: Vector2, rot: float) -> Vector2:
-    return (p - c).rotated(-rot)
+	return (p - c).rotated(-rot)
 
 
 ## The axis-aligned box around `local` points rotated by `rot` about `c`.
 static func _box(c: Vector2, local: Array, rot: float) -> Rect2:
-    var r := Rect2(c, Vector2.ZERO)
-    for p in local:
-        r = r.expand(c + (p as Vector2).rotated(rot))
-    return r
+	var r := Rect2(c, Vector2.ZERO)
+	for p in local:
+		r = r.expand(c + (p as Vector2).rotated(rot))
+	return r
 
 
 ## Pose at `t`, then request a redraw. Subclasses override _pose.
@@ -309,16 +309,16 @@ static func _box(c: Vector2, local: Array, rot: float) -> Rect2:
 ## Captures the loop-blend weight NOW, while blend_begin's window is open, so
 ## the deferred _draw() blends with the weight that belonged to this pose.
 func pose(t: float) -> void:
-    _pose_blend_w = blend_weight(t)
-    _pose_blend_t = _blend_start
-    _capture_signal()
-    _pose(t)
-    if mirrors_position(): position = center_px(t)
-    queue_redraw()
+	_pose_blend_w = blend_weight(t)
+	_pose_blend_t = _blend_start
+	_capture_signal()
+	_pose(t)
+	if mirrors_position(): position = center_px(t)
+	queue_redraw()
 
 
 func _pose(_t: float) -> void:
-    pass
+	pass
 
 
 # ---------------------------------------------------------------------------
@@ -358,31 +358,31 @@ var _pose_blend_t := 0.0
 ## Arm the blend for a looping pass. `looping` false is a one-shot, which must
 ## show its tail exactly as authored.
 static func blend_begin(canvas: ZRCanvas, looping: bool) -> void:
-    if canvas == null:
-        _blend_on = false
-        return
-    _blend_start = canvas.play_start()
-    _blend_end = canvas.play_end()
-    # The blend can never eat more than the cycle it belongs to.
-    var cycle := _blend_end - _blend_start
-    _blend_len = canvas.loop_blend if canvas.loop_blend < cycle else cycle
-    _blend_on = looping and canvas.loop_smooth and _blend_len > 0.0
+	if canvas == null:
+		_blend_on = false
+		return
+	_blend_start = canvas.play_start()
+	_blend_end = canvas.play_end()
+	# The blend can never eat more than the cycle it belongs to.
+	var cycle := _blend_end - _blend_start
+	_blend_len = canvas.loop_blend if canvas.loop_blend < cycle else cycle
+	_blend_on = looping and canvas.loop_smooth and _blend_len > 0.0
 
 
 static func blend_end() -> void:
-    _blend_on = false
+	_blend_on = false
 
 
 ## Blend weight at `t`: 0 outside the window, 1 exactly at the loop end.
 ## Smoothstep, so the blend eases in rather than kinking the motion when it
 ## starts.
 static func blend_weight(t: float) -> float:
-    if not _blend_on or _blend_len <= 0.0: return 0.0
-    var from := _blend_end - _blend_len
-    if t <= from: return 0.0
-    var p := (t - from) / _blend_len
-    if p > 1.0: p = 1.0
-    return p * p * (3.0 - 2.0 * p)
+	if not _blend_on or _blend_len <= 0.0: return 0.0
+	var from := _blend_end - _blend_len
+	if t <= from: return 0.0
+	var p := (t - from) / _blend_len
+	if p > 1.0: p = 1.0
+	return p * p * (3.0 - 2.0 * p)
 
 
 # ---------------------------------------------------------------------------
@@ -421,34 +421,34 @@ var _sig_offset: Dictionary = {}
 ## the very next pose (a held terminal end pose is still "contributing"), and leaking a stale entry would make pose(t) depend on
 ## what was posed before it - the impurity the exporter relies on not existing.
 func _capture_signal() -> void:
-    _sig_value.clear()
-    _sig_color.clear()
-    _sig_offset.clear()
-    if canvas == null: _find_canvas()
-    if canvas == null: return
-    var bus := canvas.bus()
-    if bus == null or not bus.is_overriding(): return
+	_sig_value.clear()
+	_sig_color.clear()
+	_sig_offset.clear()
+	if canvas == null: _find_canvas()
+	if canvas == null: return
+	var bus := canvas.bus()
+	if bus == null or not bus.is_overriding(): return
 
-    var kind := zen_kind()
-    var nm := elem_name
-    for p in ZRProps.scalars_for(kind):
-        # Stepped props are never overridden and never offset (rule 1 above),
-        # so they are not even asked about.
-        if ZRProps.is_stepped(p): continue
-        var v: Variant = bus.eval(nm, p)
-        if v != null: _sig_value[p] = v
-        var off := bus.offset(nm, p)
-        if off != 0.0: _sig_offset[p] = off
-    for p in ZRProps.colors_for(kind):
-        # Alpha is supplied by the caller at read time, so pass a placeholder:
-        # prop_color() overwrites it with the plain-track alpha regardless.
-        var c: Variant = bus.eval_color(nm, p, 1.0)
-        if c != null: _sig_color[p] = c
+	var kind := zen_kind()
+	var nm := elem_name
+	for p in ZRProps.scalars_for(kind):
+		# Stepped props are never overridden and never offset (rule 1 above),
+		# so they are not even asked about.
+		if ZRProps.is_stepped(p): continue
+		var v: Variant = bus.eval(nm, p)
+		if v != null: _sig_value[p] = v
+		var off := bus.offset(nm, p)
+		if off != 0.0: _sig_offset[p] = off
+	for p in ZRProps.colors_for(kind):
+		# Alpha is supplied by the caller at read time, so pass a placeholder:
+		# prop_color() overwrites it with the plain-track alpha regardless.
+		var c: Variant = bus.eval_color(nm, p, 1.0)
+		if c != null: _sig_color[p] = c
 
 
 ## Which ZRProps table this element draws from. Overridden by each kind.
 func zen_kind() -> String:
-    return ""
+	return ""
 
 
 ## The BASE POSE of a property: the value it has with no track, which is what
@@ -462,34 +462,34 @@ func zen_kind() -> String:
 ## signal would capture a different pose than the renderer shows. Pinned by
 ## test_signal_bases_match_draw.
 func base_scalar(prop_name: String) -> float:
-    match prop_name:
-        "pos_x": return pos_frac.x
-        "pos_y": return pos_frac.y
-        "rot": return rot_base
-    return 0.0
+	match prop_name:
+		"pos_x": return pos_frac.x
+		"pos_y": return pos_frac.y
+		"rot": return rot_base
+	return 0.0
 
 
 func base_color(_prop_name: String) -> Color:
-    return Color(1, 1, 1, 1)
+	return Color(1, 1, 1, 1)
 
 
 ## The inverse of base_scalar: write a property's base pose (the scene editor,
 ## for an untracked property). Returns false for a prop with no base, so the
 ## caller knows the write went nowhere.
 func set_base_scalar(prop_name: String, v: float) -> bool:
-    match prop_name:
-        "pos_x": pos_frac.x = v
-        "pos_y": pos_frac.y = v
-        "rot": rot_base = v
-        _: return false
-    queue_redraw()
-    return true
+	match prop_name:
+		"pos_x": pos_frac.x = v
+		"pos_y": pos_frac.y = v
+		"rot": rot_base = v
+		_: return false
+	queue_redraw()
+	return true
 
 
 ## The inverse of base_color. RGB only: alpha is its own scalar prop.
 func set_base_color(_prop_name: String, _c: Color) -> bool:
-    return false
+	return false
 
 
 static func _rgb(c: Color, a: float) -> Color:
-    return Color(c.r, c.g, c.b, a)
+	return Color(c.r, c.g, c.b, a)

@@ -93,5 +93,5 @@ static func chained(sig: Dictionary) -> String:
 
 ## Does this signal need pointer input to do anything a code call cannot?
 static func wants_pointer(sig: Dictionary) -> bool:
-    var tr := String(sig.get("trigger", ""))
-    return tr == "press" or tr == "release" or String(sig.get("point", "")) == "follow"
+    var trigi := String(sig.get("trigger", ""))
+    return trigi == "press" or trigi == "release" or String(sig.get("point", "")) == "follow"
