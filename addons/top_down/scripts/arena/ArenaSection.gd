@@ -110,14 +110,15 @@ func try_start(by:Node2D = null)->void:
 	started_by = by if is_instance_valid(by) else null
 	start_fight()
 
-func start_fight()->void:
+## `first_count` >= 0 overrides the first wave's quota (a co-op guest uses the host's).
+func start_fight(first_count:int = -1)->void:
 	# Nothing to fight: clear immediately.
 	if waves.is_empty():
 		mark_cleared()
 		return
 	fight_active = true
 	wave_index = 0
-	enemy_count = _wave_quota(waves[0])
+	enemy_count = first_count if first_count >= 0 else _wave_quota(waves[0])
 	_select_active_points()
 	set_process(true)
 	fight_started.emit()
@@ -301,11 +302,14 @@ func apply_net_state(active:bool, cleared_now:bool, index:int, count:int)->void:
 		mark_cleared()
 		wave_cleared.emit(_last)
 		return
+	## The host's count is set before each wave_started, so the wave announcement
+	## shows it (not 0 from the previous wave's last kill, nor the guest's own quota).
 	if active && !fight_active:
-		start_fight()
+		start_fight(count if index == 0 else -1)
 	if active:
 		while wave_index < index && wave_index < waves.size() - 1:
 			wave_index += 1
+			enemy_count = count if wave_index == index else _wave_quota(waves[wave_index])
 			wave_cleared.emit(wave_index - 1)
 			wave_started.emit(wave_index)
 	enemy_count = count

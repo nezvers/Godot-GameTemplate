@@ -44,9 +44,31 @@ func _ready()->void:
 	await _frames(5)
 	check(_section.spawn_holds == 0, "spawning released")
 	check(_section.pending_spawns > 0 || !ActiveEnemy.root.nodes.is_empty(), "spawning began after the announcement")
+	_room.queue_free()
+	await _frames(3)
+	await _guest_replay()
 	print("wave_hold_check: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
 func _frames(count:int)->void:
 	for i:int in count:
 		await get_tree().physics_frame
+
+## Co-op guest: sections mirror the host through apply_net_state; the wave
+## announcement must show the host's count, not 0 left by the last kill.
+func _guest_replay()->void:
+	var _room:Node = (load("res://game/scenes/room_A02.tscn") as PackedScene).instantiate()
+	add_child(_room)
+	await _frames(10)
+	var _aggregator:ArenaSectionAggregator = get_tree().get_first_node_in_group(&"arena_aggregator")
+	var _section:ArenaSection = _room.get_node("EnemyManager/Section1")
+	var _announced:Array[int] = []
+	_aggregator.wave_announced.connect(func (_n:int, enemies:int, _boss:bool, _name:String)->void: _announced.append(enemies))
+	_section.apply_net_state(true, false, 0, 7)
+	check(_announced == [7], "guest first wave announces the host's count (%s)" % [_announced])
+	if _section.waves.size() > 1:
+		_section.apply_net_state(true, false, 0, 0)
+		_section.apply_net_state(true, false, 1, 9)
+		check(_announced.size() == 2 && _announced[1] == 9, "guest next wave announces the host's count (%s)" % [_announced])
+	_room.queue_free()
+	await _frames(3)
