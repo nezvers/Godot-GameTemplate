@@ -43,7 +43,7 @@ GODOT=/path/to/Godot tools/run_server.sh         # when Godot isn't found by its
 
 - It prints `DedicatedServer [INFO]: hosting on port 24565 - OK` once it's ready. Stop it with Ctrl+C.
 - Players join with the Comms Terminal: `10.77.0.1` over the VLAN, `127.0.0.1` from the server's own PC, or the LAN address at home. `ip:port` for a port other than 24565.
-- Its saves (home base, meta, run) are its own, in `--save-dir`, by default `user://server` (`~/.local/share/godot/app_userdata/Game Template/server`). Players keep their own progress, including one playing on the server's PC.
+- Its saves (home base, meta, run) are its own, in `--save-dir`, by default `user://server` (`~/.local/share/godot/app_userdata/Variant - Zombie Shooter/server`). Players keep their own progress, including one playing on the server's PC.
 - The firewall rules `vlan_up.sh` adds already let the game in over `zsvlan`. For LAN players with ufw on: `sudo ufw allow 24565/udp`.
 - More options and how it behaves: `addons/top_down/design_document/multiplayer.md`, *Dedicated server*.
 
