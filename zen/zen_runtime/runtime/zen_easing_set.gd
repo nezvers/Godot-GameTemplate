@@ -20,12 +20,12 @@ const PATH := "res://assets/easings.tres"
 
 ## Register every curve with ZREasing.
 func register() -> void:
-    for n in curves:
-        ZREasing.register_custom(n, curves[n])
+	for n in curves:
+		ZREasing.register_custom(n, curves[n])
 
 
 ## Register the project's set, if there is one.
 static func load_project() -> void:
-    if not ResourceLoader.exists(PATH): return
-    var s := load(PATH) as ZREasingSet
-    if s != null: s.register()
+	if not ResourceLoader.exists(PATH): return
+	var s := load(PATH) as ZREasingSet
+	if s != null: s.register()

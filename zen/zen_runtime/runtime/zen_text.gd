@@ -30,16 +30,16 @@ const ZRTextMetrics = preload("zen_text_metrics.gd")
 ## stepped `string` track keys entries by index. There is no private text, so
 ## a one-off label and a label that switches words are the same case.
 @export var strings: ZRStrings:
-    set(v):
-        if strings != null and strings.changed.is_connected(_resolve):
-            strings.changed.disconnect(_resolve)
-        strings = v
-        if strings != null: strings.changed.connect(_resolve)
-        _resolve()
+	set(v):
+		if strings != null and strings.changed.is_connected(_resolve):
+			strings.changed.disconnect(_resolve)
+		strings = v
+		if strings != null: strings.changed.connect(_resolve)
+		_resolve()
 @export var string_base := 0:
-    set(v):
-        string_base = v
-        _resolve()
+	set(v):
+		string_base = v
+		_resolve()
 
 ## The CURRENT LABEL: the words on screen at the last pose, for game code to
 ## read (or follow via text_changed). An OUTPUT, like the mirrored
@@ -77,11 +77,11 @@ static var _font_override: Font = null
 
 
 static func set_font_override(f: Font) -> void:
-    _font_override = f
+	_font_override = f
 
 
 static func font_override() -> Font:
-    return _font_override
+	return _font_override
 
 
 ## The project default font, loaded once and cached. A static func rather than
@@ -89,153 +89,153 @@ static func font_override() -> Font:
 ## never enters the tree (dump_scene.gd, the gallery) - _ready() is not
 ## guaranteed to have run.
 static func default_font() -> Font:
-    if _font_override != null:
-        return _font_override
-    if _default_font_cache == null:
-        _default_font_cache = load(DEFAULT_FONT_PATH)
-    return _default_font_cache
+	if _font_override != null:
+		return _font_override
+	if _default_font_cache == null:
+		_default_font_cache = load(DEFAULT_FONT_PATH)
+	return _default_font_cache
 
 
 func effective_font() -> Font:
-    return font if font != null else default_font()
+	return font if font != null else default_font()
 
 
 ## Deterministic pseudo-random in [-1,1] from an int seed. Rand11i, anim.c:1813.
 static func rand11i(seed: int) -> float:
-    var s := sin(float(seed) * 12.9898) * 43758.5455
-    return 2.0 * (s - floor(s)) - 1.0
+	var s := sin(float(seed) * 12.9898) * 43758.5455
+	return 2.0 * (s - floor(s)) - 1.0
 
 
 func zen_kind() -> String:
-    return "text"
+	return "text"
 
 
 func base_scalar(prop_name: String) -> float:
-    match prop_name:
-        "size": return size_frac.x
-        "alpha": return color_base.a
-        "crumble": return 0.0
-        "crumble_dir": return crumble_dir
-        "crumble_spread": return crumble_spread
-        "crumble_dist": return crumble_dist
-        "crumble_spin": return crumble_spin
-        "string": return float(string_base)
-    return super.base_scalar(prop_name)
+	match prop_name:
+		"size": return size_frac.x
+		"alpha": return color_base.a
+		"crumble": return 0.0
+		"crumble_dir": return crumble_dir
+		"crumble_spread": return crumble_spread
+		"crumble_dist": return crumble_dist
+		"crumble_spin": return crumble_spin
+		"string": return float(string_base)
+	return super.base_scalar(prop_name)
 
 
 func base_color(_prop_name: String) -> Color:
-    return color_base
+	return color_base
 
 
 func set_base_scalar(prop_name: String, v: float) -> bool:
-    match prop_name:
-        "size": size_frac.x = v
-        "alpha": color_base.a = v
-        "crumble_dir": crumble_dir = v
-        "crumble_spread": crumble_spread = v
-        "crumble_dist": crumble_dist = v
-        "crumble_spin": crumble_spin = v
-        "string": string_base = int(v + 0.5)
-        _: return super.set_base_scalar(prop_name, v)
-    queue_redraw()
-    return true
+	match prop_name:
+		"size": size_frac.x = v
+		"alpha": color_base.a = v
+		"crumble_dir": crumble_dir = v
+		"crumble_spread": crumble_spread = v
+		"crumble_dist": crumble_dist = v
+		"crumble_spin": crumble_spin = v
+		"string": string_base = int(v + 0.5)
+		_: return super.set_base_scalar(prop_name, v)
+	queue_redraw()
+	return true
 
 
 func set_base_color(prop_name: String, c: Color) -> bool:
-    if prop_name != "color": return false
-    color_base = _rgb(c, color_base.a)
-    queue_redraw()
-    return true
+	if prop_name != "color": return false
+	color_base = _rgb(c, color_base.a)
+	queue_redraw()
+	return true
 
 
 func _pose(t: float) -> void:
-    _t = t
-    _resolve()
+	_t = t
+	_resolve()
 
 
 ## The pool index on screen at `t`. Stepped: the left key's value is held
 ## across the segment, so this is an exact index, never a blend of two.
 func string_index_at(t: float) -> int:
-    var i := int(prop("string", t, float(string_base)) + 0.5)
-    # A stale index (beyond the pool) falls back to the base entry rather than
-    # blanking the element, as AnimElemTextAt does (anim.c:975-993).
-    if strings != null and not strings.has_index(i): return string_base
-    return i
+	var i := int(prop("string", t, float(string_base)) + 0.5)
+	# A stale index (beyond the pool) falls back to the base entry rather than
+	# blanking the element, as AnimElemTextAt does (anim.c:975-993).
+	if strings != null and not strings.has_index(i): return string_base
+	return i
 
 
 ## The words at `t`: the pool entry, with %1..%9 filled from the canvas's
 ## text_args.
 func text_at(t: float) -> String:
-    if strings == null: return ""
-    if canvas == null: _find_canvas()
-    return ZRStrings.format(strings.at(string_index_at(t)),
-                             canvas.text_args if canvas != null else PackedStringArray())
+	if strings == null: return ""
+	if canvas == null: _find_canvas()
+	return ZRStrings.format(strings.at(string_index_at(t)),
+							 canvas.text_args if canvas != null else PackedStringArray())
 
 
 ## Rewrite the label from the pool at the last pose time.
 func _resolve() -> void:
-    var s := text_at(_t)
-    if s == text: return
-    text = s
-    text_changed.emit(s)
-    queue_redraw()
+	var s := text_at(_t)
+	if s == text: return
+	text = s
+	text_changed.emit(s)
+	queue_redraw()
 
 
 ## Font size in pixels: a fraction of canvas HEIGHT unless unit_abs.
 func _size_px(t: float) -> float:
-    var s := prop("size", t, size_frac.x)
-    return maxf(1.0, s if unit_abs else design().y * s)
+	var s := prop("size", t, size_frac.x)
+	return maxf(1.0, s if unit_abs else design().y * s)
 
 
 func bounds_px(t: float) -> Rect2:
-    var box := ZRTextMetrics.measure(text, _size_px(t), effective_font())
-    var h := box * 0.5
-    return _box(center_px(t), [Vector2(-h.x, -h.y), Vector2(h.x, -h.y), Vector2(h.x, h.y),
-        Vector2(-h.x, h.y)], deg_to_rad(prop("rot", t, rot_base)))
+	var box := ZRTextMetrics.measure(text, _size_px(t), effective_font())
+	var h := box * 0.5
+	return _box(center_px(t), [Vector2(-h.x, -h.y), Vector2(h.x, -h.y), Vector2(h.x, h.y),
+		Vector2(-h.x, h.y)], deg_to_rad(prop("rot", t, rot_base)))
 
 
 func hit_px(p: Vector2, t: float, slop: float) -> bool:
-    var h := ZRTextMetrics.measure(text, _size_px(t), effective_font()) * 0.5 + Vector2(slop, slop)
-    var q := _unrotate(p, center_px(t), deg_to_rad(prop("rot", t, rot_base)))
-    return absf(q.x) <= h.x and absf(q.y) <= h.y
+	var h := ZRTextMetrics.measure(text, _size_px(t), effective_font()) * 0.5 + Vector2(slop, slop)
+	var q := _unrotate(p, center_px(t), deg_to_rad(prop("rot", t, rot_base)))
+	return absf(q.x) <= h.x and absf(q.y) <= h.y
 
 
 func shows_at(t: float) -> bool:
-    return prop("alpha", t, color_base.a) > 0.0 and text != ""
+	return prop("alpha", t, color_base.a) > 0.0 and text != ""
 
 
 func _draw() -> void:
-    var fnt := effective_font()
-    # The raylib bitmap font is sampled nearest, like raylib's POINT filter -
-    # otherwise its pixel letters blur at every size but 10. Set on the canvas
-    # item rather than the `texture_filter` property so it is never written
-    # into a saved scene (same as ZRShape's custom shapes).
-    RenderingServer.canvas_item_set_default_texture_filter(get_canvas_item(),
-        RenderingServer.CANVAS_ITEM_TEXTURE_FILTER_NEAREST if ZRTextMetrics.is_bitmap(fnt)
-        else RenderingServer.CANVAS_ITEM_TEXTURE_FILTER_DEFAULT)
-    var t := _t
-    var alpha := prop("alpha", t, color_base.a)
-    if alpha <= 0.0: return
+	var fnt := effective_font()
+	# The raylib bitmap font is sampled nearest, like raylib's POINT filter -
+	# otherwise its pixel letters blur at every size but 10. Set on the canvas
+	# item rather than the `texture_filter` property so it is never written
+	# into a saved scene (same as ZRShape's custom shapes).
+	RenderingServer.canvas_item_set_default_texture_filter(get_canvas_item(),
+		RenderingServer.CANVAS_ITEM_TEXTURE_FILTER_NEAREST if ZRTextMetrics.is_bitmap(fnt)
+		else RenderingServer.CANVAS_ITEM_TEXTURE_FILTER_DEFAULT)
+	var t := _t
+	var alpha := prop("alpha", t, color_base.a)
+	if alpha <= 0.0: return
 
-    var size_px := _size_px(t)
-    var spacing := ZRTextMetrics.spacing_for(size_px)
-    var rot := deg_to_rad(prop("rot", t, rot_base))
-    var crumble := prop("crumble", t, 0.0)
+	var size_px := _size_px(t)
+	var spacing := ZRTextMetrics.spacing_for(size_px)
+	var rot := deg_to_rad(prop("rot", t, rot_base))
+	var crumble := prop("crumble", t, 0.0)
 
-    var box := ZRTextMetrics.measure(text, size_px, fnt)
-    var c := Vector2.ZERO       # the node sits at the centre (see mirrors_position)
-    var left := c.x - box.x * 0.5
-    var top := c.y - box.y * 0.5
+	var box := ZRTextMetrics.measure(text, size_px, fnt)
+	var c := Vector2.ZERO       # the node sits at the centre (see mirrors_position)
+	var left := c.x - box.x * 0.5
+	var top := c.y - box.y * 0.5
 
-    var col := prop_color("color", t, color_base, alpha * (1.0 - crumble))
-    if col.a <= 0.0: return
+	var col := prop_color("color", t, color_base, alpha * (1.0 - crumble))
+	if col.a <= 0.0: return
 
-    if crumble > 0.0:
-        _draw_crumbled(t, fnt, size_px, spacing, rot, crumble, left, top, col)
-        return
+	if crumble > 0.0:
+		_draw_crumbled(t, fnt, size_px, spacing, rot, crumble, left, top, col)
+		return
 
-    # Rotate the whole block about its centre (a no-op rotation when rot is 0).
-    _draw_runs(fnt, left - c.x, top - c.y, size_px, col, Transform2D(rot, c))
+	# Rotate the whole block about its centre (a no-op rotation when rot is 0).
+	_draw_runs(fnt, left - c.x, top - c.y, size_px, col, Transform2D(rot, c))
 
 
 ## Draw the text line by line, through the font's own native layout - no
@@ -244,15 +244,15 @@ func _draw() -> void:
 ## Task 2 for why that was debt in the wrong shape). Laid out at the reference
 ## size and scaled continuously - see ZRTextMetrics.ref_size().
 func _draw_runs(fnt: Font, left: float, top: float, size_px: float, col: Color,
-                outer: Transform2D) -> void:
-    var ref := ZRTextMetrics.ref_size(size_px, fnt)
-    var k := size_px / float(ref)
-    draw_set_transform_matrix(outer * Transform2D(0.0, Vector2(k, k), 0.0, Vector2(left, top)))
-    var baseline_y := _baseline_offset(fnt, ref, float(ref))
-    for line in text.split("\n"):
-        draw_string(fnt, Vector2(0.0, baseline_y), line, HORIZONTAL_ALIGNMENT_LEFT, -1, ref, col)
-        baseline_y += (size_px + ZRTextMetrics.LINE_SPACING) / k
-    draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+				outer: Transform2D) -> void:
+	var ref := ZRTextMetrics.ref_size(size_px, fnt)
+	var k := size_px / float(ref)
+	draw_set_transform_matrix(outer * Transform2D(0.0, Vector2(k, k), 0.0, Vector2(left, top)))
+	var baseline_y := _baseline_offset(fnt, ref, float(ref))
+	for line in text.split("\n"):
+		draw_string(fnt, Vector2(0.0, baseline_y), line, HORIZONTAL_ALIGNMENT_LEFT, -1, ref, col)
+		baseline_y += (size_px + ZRTextMetrics.LINE_SPACING) / k
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 
 ## Where a line's baseline sits inside its own size_px-tall slot, so the
@@ -260,10 +260,10 @@ func _draw_runs(fnt: Font, left: float, top: float, size_px: float, col: Color,
 ## a fixed box derived from the font's own metrics would move text on every
 ## font swap, defeating the point of making the font a choice.
 func _baseline_offset(fnt: Font, ps: int, size_px: float) -> float:
-    var asc := fnt.get_ascent(ps)
-    var desc := fnt.get_descent(ps)
-    var total := maxf(asc + desc, 0.0001)
-    return size_px * (asc / total)
+	var asc := fnt.get_ascent(ps)
+	var desc := fnt.get_descent(ps)
+	var total := maxf(asc + desc, 0.0001)
+	return size_px * (asc / total)
 
 
 ## One glyph, with the transform ALREADY in force (the crumble path places and
@@ -276,52 +276,52 @@ func _baseline_offset(fnt: Font, ps: int, size_px: float) -> float:
 ## Drawn at the reference size with the size scale folded into the transform,
 ## like _draw_runs.
 func _draw_glyph(fnt: Font, ch: String, at: Vector2, size_px: float, col: Color,
-                 outer := Transform2D.IDENTITY) -> void:
-    if size_px <= 0.0: return
-    var ref := ZRTextMetrics.ref_size(size_px, fnt)
-    var k := size_px / float(ref)
-    var baseline := Vector2(at.x / k, at.y / k + _baseline_offset(fnt, ref, float(ref)))
-    draw_set_transform_matrix(outer * Transform2D(0.0, Vector2(k, k), 0.0, Vector2.ZERO))
-    draw_string(fnt, baseline, ch, HORIZONTAL_ALIGNMENT_LEFT, -1, ref, col)
-    draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+				 outer := Transform2D.IDENTITY) -> void:
+	if size_px <= 0.0: return
+	var ref := ZRTextMetrics.ref_size(size_px, fnt)
+	var k := size_px / float(ref)
+	var baseline := Vector2(at.x / k, at.y / k + _baseline_offset(fnt, ref, float(ref)))
+	draw_set_transform_matrix(outer * Transform2D(0.0, Vector2(k, k), 0.0, Vector2.ZERO))
+	draw_string(fnt, baseline, ch, HORIZONTAL_ALIGNMENT_LEFT, -1, ref, col)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 
 func _draw_crumbled(t: float, fnt: Font, size_px: float, spacing: float, rot: float,
-                    crumble: float, left: float, top: float, col: Color) -> void:
-    var c_dir := prop("crumble_dir", t, crumble_dir)
-    var c_spread := prop("crumble_spread", t, crumble_spread)
-    var c_dist := prop("crumble_dist", t, crumble_dist)
-    var c_spin := prop("crumble_spin", t, crumble_spin)
-    # Quadratic in crumble: letters accelerate away, so most of the travel
-    # happens late and the text stays readable as it starts to go.
-    var reach := crumble * crumble * design().y * c_dist
-    var ref := ZRTextMetrics.ref_size(size_px, fnt)
-    var k := size_px / float(ref)
+					crumble: float, left: float, top: float, col: Color) -> void:
+	var c_dir := prop("crumble_dir", t, crumble_dir)
+	var c_spread := prop("crumble_spread", t, crumble_spread)
+	var c_dist := prop("crumble_dist", t, crumble_dist)
+	var c_spin := prop("crumble_spin", t, crumble_spin)
+	# Quadratic in crumble: letters accelerate away, so most of the travel
+	# happens late and the text stays readable as it starts to go.
+	var reach := crumble * crumble * design().y * c_dist
+	var ref := ZRTextMetrics.ref_size(size_px, fnt)
+	var k := size_px / float(ref)
 
-    var pen_x := left
-    var pen_y := top
-    var idx := 0
-    for ch in text:
-        if ch == "\n":
-            pen_x = left
-            pen_y += size_px + spacing      # the C uses spacing here, not LINE_SPACING
-            continue
-        # Native per-glyph advance alone - exactly what _draw_runs steps by,
-        # so scattered letters keep the block text's rhythm. Adding `spacing`
-        # here double-counted it for the raylib font, whose advance already
-        # carries raylib's one-pixel spacing.
-        var advance := fnt.get_string_size(ch, HORIZONTAL_ALIGNMENT_LEFT, -1, ref).x * k
-        if ch != " ":
-            # The angle hash is OFFSET from the spin hash so the two stay
-            # independent: otherwise a glyph's tumble would predict which way it
-            # flies and the cone would visibly pair up at narrow spreads.
-            var ang := deg_to_rad(c_dir + rand11i(idx + 977) * c_spread * 0.5)
-            var gsz := ZRTextMetrics.measure(ch, size_px, fnt)
-            var org := gsz * 0.5
-            var ctr := Vector2(pen_x + org.x + cos(ang) * reach,
-                               pen_y + org.y + sin(ang) * reach)
-            var grot := rot + deg_to_rad(crumble * (rand11i(idx) * c_spin))
-            _draw_glyph(fnt, ch, -org, size_px, col,
-                        Transform2D(grot, Vector2.ONE, 0.0, ctr))
-            idx += 1
-        pen_x += advance
+	var pen_x := left
+	var pen_y := top
+	var idx := 0
+	for ch in text:
+		if ch == "\n":
+			pen_x = left
+			pen_y += size_px + spacing      # the C uses spacing here, not LINE_SPACING
+			continue
+		# Native per-glyph advance alone - exactly what _draw_runs steps by,
+		# so scattered letters keep the block text's rhythm. Adding `spacing`
+		# here double-counted it for the raylib font, whose advance already
+		# carries raylib's one-pixel spacing.
+		var advance := fnt.get_string_size(ch, HORIZONTAL_ALIGNMENT_LEFT, -1, ref).x * k
+		if ch != " ":
+			# The angle hash is OFFSET from the spin hash so the two stay
+			# independent: otherwise a glyph's tumble would predict which way it
+			# flies and the cone would visibly pair up at narrow spreads.
+			var ang := deg_to_rad(c_dir + rand11i(idx + 977) * c_spread * 0.5)
+			var gsz := ZRTextMetrics.measure(ch, size_px, fnt)
+			var org := gsz * 0.5
+			var ctr := Vector2(pen_x + org.x + cos(ang) * reach,
+							   pen_y + org.y + sin(ang) * reach)
+			var grot := rot + deg_to_rad(crumble * (rand11i(idx) * c_spin))
+			_draw_glyph(fnt, ch, -org, size_px, col,
+						Transform2D(grot, Vector2.ONE, 0.0, ctr))
+			idx += 1
+		pen_x += advance

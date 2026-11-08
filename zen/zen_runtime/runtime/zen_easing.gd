@@ -56,51 +56,51 @@ const ZREasingSet = preload("zen_easing_set.gd")
 ## exposed - including the in/inOut directions the C never had names for, and
 ## circ/spring, which it had no curve for at all.
 const GODOT_EASE := {
-    "linear":      [Tween.TRANS_LINEAR,  Tween.EASE_IN],
+	"linear":      [Tween.TRANS_LINEAR,  Tween.EASE_IN],
 
-    "sineIn":      [Tween.TRANS_SINE,    Tween.EASE_IN],
-    "sineOut":     [Tween.TRANS_SINE,    Tween.EASE_OUT],
-    "sineInOut":   [Tween.TRANS_SINE,    Tween.EASE_IN_OUT],
+	"sineIn":      [Tween.TRANS_SINE,    Tween.EASE_IN],
+	"sineOut":     [Tween.TRANS_SINE,    Tween.EASE_OUT],
+	"sineInOut":   [Tween.TRANS_SINE,    Tween.EASE_IN_OUT],
 
-    "quadIn":      [Tween.TRANS_QUAD,    Tween.EASE_IN],
-    "quadOut":     [Tween.TRANS_QUAD,    Tween.EASE_OUT],
-    "quadInOut":   [Tween.TRANS_QUAD,    Tween.EASE_IN_OUT],
+	"quadIn":      [Tween.TRANS_QUAD,    Tween.EASE_IN],
+	"quadOut":     [Tween.TRANS_QUAD,    Tween.EASE_OUT],
+	"quadInOut":   [Tween.TRANS_QUAD,    Tween.EASE_IN_OUT],
 
-    "cubicIn":     [Tween.TRANS_CUBIC,   Tween.EASE_IN],
-    "cubicOut":    [Tween.TRANS_CUBIC,   Tween.EASE_OUT],
-    "cubicInOut":  [Tween.TRANS_CUBIC,   Tween.EASE_IN_OUT],
+	"cubicIn":     [Tween.TRANS_CUBIC,   Tween.EASE_IN],
+	"cubicOut":    [Tween.TRANS_CUBIC,   Tween.EASE_OUT],
+	"cubicInOut":  [Tween.TRANS_CUBIC,   Tween.EASE_IN_OUT],
 
-    "quartIn":     [Tween.TRANS_QUART,   Tween.EASE_IN],
-    "quartOut":    [Tween.TRANS_QUART,   Tween.EASE_OUT],
-    "quartInOut":  [Tween.TRANS_QUART,   Tween.EASE_IN_OUT],
+	"quartIn":     [Tween.TRANS_QUART,   Tween.EASE_IN],
+	"quartOut":    [Tween.TRANS_QUART,   Tween.EASE_OUT],
+	"quartInOut":  [Tween.TRANS_QUART,   Tween.EASE_IN_OUT],
 
-    "quintIn":     [Tween.TRANS_QUINT,   Tween.EASE_IN],
-    "quintOut":    [Tween.TRANS_QUINT,   Tween.EASE_OUT],
-    "quintInOut":  [Tween.TRANS_QUINT,   Tween.EASE_IN_OUT],
+	"quintIn":     [Tween.TRANS_QUINT,   Tween.EASE_IN],
+	"quintOut":    [Tween.TRANS_QUINT,   Tween.EASE_OUT],
+	"quintInOut":  [Tween.TRANS_QUINT,   Tween.EASE_IN_OUT],
 
-    "expoIn":      [Tween.TRANS_EXPO,    Tween.EASE_IN],
-    "expoOut":     [Tween.TRANS_EXPO,    Tween.EASE_OUT],
-    "expoInOut":   [Tween.TRANS_EXPO,    Tween.EASE_IN_OUT],
+	"expoIn":      [Tween.TRANS_EXPO,    Tween.EASE_IN],
+	"expoOut":     [Tween.TRANS_EXPO,    Tween.EASE_OUT],
+	"expoInOut":   [Tween.TRANS_EXPO,    Tween.EASE_IN_OUT],
 
-    "circIn":      [Tween.TRANS_CIRC,    Tween.EASE_IN],
-    "circOut":     [Tween.TRANS_CIRC,    Tween.EASE_OUT],
-    "circInOut":   [Tween.TRANS_CIRC,    Tween.EASE_IN_OUT],
+	"circIn":      [Tween.TRANS_CIRC,    Tween.EASE_IN],
+	"circOut":     [Tween.TRANS_CIRC,    Tween.EASE_OUT],
+	"circInOut":   [Tween.TRANS_CIRC,    Tween.EASE_IN_OUT],
 
-    "backIn":      [Tween.TRANS_BACK,    Tween.EASE_IN],
-    "backOut":     [Tween.TRANS_BACK,    Tween.EASE_OUT],
-    "backInOut":   [Tween.TRANS_BACK,    Tween.EASE_IN_OUT],
+	"backIn":      [Tween.TRANS_BACK,    Tween.EASE_IN],
+	"backOut":     [Tween.TRANS_BACK,    Tween.EASE_OUT],
+	"backInOut":   [Tween.TRANS_BACK,    Tween.EASE_IN_OUT],
 
-    "elasticIn":   [Tween.TRANS_ELASTIC, Tween.EASE_IN],
-    "elasticOut":  [Tween.TRANS_ELASTIC, Tween.EASE_OUT],
-    "elasticInOut":[Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT],
+	"elasticIn":   [Tween.TRANS_ELASTIC, Tween.EASE_IN],
+	"elasticOut":  [Tween.TRANS_ELASTIC, Tween.EASE_OUT],
+	"elasticInOut":[Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT],
 
-    "bounceIn":    [Tween.TRANS_BOUNCE,  Tween.EASE_IN],
-    "bounceOut":   [Tween.TRANS_BOUNCE,  Tween.EASE_OUT],
-    "bounceInOut": [Tween.TRANS_BOUNCE,  Tween.EASE_IN_OUT],
+	"bounceIn":    [Tween.TRANS_BOUNCE,  Tween.EASE_IN],
+	"bounceOut":   [Tween.TRANS_BOUNCE,  Tween.EASE_OUT],
+	"bounceInOut": [Tween.TRANS_BOUNCE,  Tween.EASE_IN_OUT],
 
-    "springIn":    [Tween.TRANS_SPRING,  Tween.EASE_IN],
-    "springOut":   [Tween.TRANS_SPRING,  Tween.EASE_OUT],
-    "springInOut": [Tween.TRANS_SPRING,  Tween.EASE_IN_OUT],
+	"springIn":    [Tween.TRANS_SPRING,  Tween.EASE_IN],
+	"springOut":   [Tween.TRANS_SPRING,  Tween.EASE_OUT],
+	"springInOut": [Tween.TRANS_SPRING,  Tween.EASE_IN_OUT],
 }
 
 # name -> ZRCurve, registered from assets/easings.tres (ZREasingSet).
@@ -112,42 +112,42 @@ static var _custom: Dictionary = {}
 ## Eased position for a 0..1 input. May leave 0..1 (back/elastic overshoot, and
 ## a custom curve can reach 1.5) - callers must not clamp.
 static func apply(ease_name: String, p: float) -> float:
-    # A custom curve wins over a built-in of the same name, so a document can
-    # override a stock curve without the engine's name becoming unusable.
-    if _custom.has(ease_name):
-        return (_custom[ease_name] as ZRCurve).sample(p)
-    var m: Variant = GODOT_EASE.get(ease_name)
-    if m == null:
-        return p                                # unknown -> linear, never fail
-    # Static: no Tween instance is created, so this is safe to call from a
-    # sampler inside _draw() at any rate.
-    return Tween.interpolate_value(0.0, 1.0, p, 1.0, m[0], m[1])
+	# A custom curve wins over a built-in of the same name, so a document can
+	# override a stock curve without the engine's name becoming unusable.
+	if _custom.has(ease_name):
+		return (_custom[ease_name] as ZRCurve).sample(p)
+	var m: Variant = GODOT_EASE.get(ease_name)
+	if m == null:
+		return p                                # unknown -> linear, never fail
+	# Static: no Tween instance is created, so this is safe to call from a
+	# sampler inside _draw() at any rate.
+	return Tween.interpolate_value(0.0, 1.0, p, 1.0, m[0], m[1])
 
 
 ## Is this a stock Godot-backed curve?
 static func is_builtin(ease_name: String) -> bool:
-    return GODOT_EASE.has(ease_name)
+	return GODOT_EASE.has(ease_name)
 
 
 static func has(ease_name: String) -> bool:
-    return is_builtin(ease_name) or _custom.has(ease_name)
+	return is_builtin(ease_name) or _custom.has(ease_name)
 
 
 ## Every selectable easing, stock then custom - the list an authoring dropdown
 ## shows.
 static func all_names() -> Array:
-    var out: Array = GODOT_EASE.keys()
-    out.append_array(_custom.keys())
-    return out
+	var out: Array = GODOT_EASE.keys()
+	out.append_array(_custom.keys())
+	return out
 
 
 static func register_custom(ease_name: String, curve: ZRCurve) -> void:
-    _custom[ease_name] = curve
+	_custom[ease_name] = curve
 
 
 static func custom_names() -> Array:
-    return _custom.keys()
+	return _custom.keys()
 
 
 static func clear_custom() -> void:
-    _custom.clear()
+	_custom.clear()
