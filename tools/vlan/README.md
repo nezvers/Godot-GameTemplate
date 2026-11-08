@@ -61,7 +61,7 @@ One PC is either a host or a guest, never both.
 
 **Linux** (`vlan_up.sh` / `vlan_connect.sh`):
 - **Network:** an NM connection and interface named `zsvlan`, set to autoconnect, so it comes back after a reboot until teardown. No sudo is needed for this part, since polkit lets the desktop user change NetworkManager settings.
-- **Firewall:** only if ufw is active, and this step uses sudo. The host gets `allow 51820/udp` and `allow in on zsvlan`; a guest gets only the port rule. The rules are tagged with the comment `zs-vlan`. Only rules the script actually added are recorded, and only those are removed.
+- **Firewall:** only if ufw is active, and this step uses sudo. Host and guest both get `allow 51820/udp` and `allow in on zsvlan`, so either PC can host the game. The rules are tagged with the comment `zs-vlan`. Only rules the script actually added are recorded, and only those are removed.
 - **State:** keys and state live in `~/.local/state/zs-vlan` (host) or `~/.local/state/zs-vlan-guest` (guest), with mode 700. The host's private key is also kept in NetworkManager's root-only store.
 - **Packages:** no packages are installed. Keys are made with `openssl`, and NetworkManager has WireGuard built in.
 
@@ -82,7 +82,7 @@ Teardown (`vlan_down.sh`, `vlan_disconnect.sh`, `vlan_disconnect.ps1`) removes a
 
 ## Limits
 
-- **Guests reach only the host, not each other.** That's fine here, since the host runs the game.
+- **Guests reach only the VLAN host, not each other.** Any PC can host the game for the VLAN host, so with 2 machines either one can host. With 3+ machines the game must run on the VLAN host, or IP forwarding needs adding.
 - **Some setups can't be reached without a relay server:** no IPv6 on one side plus a strict or CGNAT IPv4 router on either side. The fallback for those players is a relay, such as the Steam transport planned in `addons/top_down/design_document/multiplayer.md`.
 - **The in-game invite list hides VPN interfaces,** so take the `10.77.0.1` address from here.
 - **To check whether a machine has IPv6,** open https://test-ipv6.com.

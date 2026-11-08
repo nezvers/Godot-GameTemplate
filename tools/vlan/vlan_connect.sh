@@ -37,7 +37,7 @@ if [ -n "${1:-}" ]; then
 	[ -f "$STATE/guest.key" ] || (umask 077; genpriv >"$STATE/guest.key")   # same key on rejoin, so the host's entry stays valid
 	printf '%s\n' "$1" >"$STATE/invite"
 	conf=$(guest_conf) || exit 1; nm_apply <<<"$conf"
-	[ -f "$STATE/firewall" ] || fw_open "$PORT/udp"
+	[ -f "$STATE/firewall" ] || fw_open "$PORT/udp" "in on $NAME"   # tunnel open too, so this PC can host the game
 	echo "connected (host sees you once they add your reply)."; echo
 else
 	conn_exists && [ -f "$STATE/invite" ] || die "usage: vlan_connect.sh <invite line from the host>"
