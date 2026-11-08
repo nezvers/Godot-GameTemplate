@@ -1,6 +1,7 @@
 ## Co-op guest's choice when a run ends for it (victory screen) or when it steps
 ## back into the door while waiting for a fight to end (WaitingAtDoor):
-##   - Follow host / Wait for the host: stay in the session.
+##   - Stay with the host / Wait for the host: stay in the session (after a
+##     victory the host's next scene, its home base or a mission, takes us along).
 ##   - Go to my home base, with "I will return (show my ghost)": checked, the
 ##     seat is kept (Net.go_ghost) and a rejoin portal waits at home; unchecked,
 ##     a plain leave.
@@ -14,7 +15,7 @@ const THEME_PATH:String = "res://addons/top_down/resources/theme/game_gui_theme.
 const HOME_SCENE:String = "res://game/scenes/room_H00.tscn"
 const FONT_SIZE:int = 8
 
-## Follow host / Wait for the host was picked (the menu closes itself).
+## Stay with the host / Wait for the host was picked (the menu closes itself).
 signal stay_chosen
 ## Going home; ghost = "I will return" was checked.
 signal home_chosen(ghost:bool)
@@ -74,7 +75,7 @@ func _build()->void:
 	_box.add_child(_title)
 
 	stay_button = Button.new()
-	stay_button.text = "Follow host" if context == Context.VICTORY else "Wait for the host"
+	stay_button.text = "Stay with the host" if context == Context.VICTORY else "Wait for the host"
 	stay_button.pressed.connect(_on_stay)
 	_box.add_child(stay_button)
 
@@ -84,7 +85,7 @@ func _build()->void:
 	_box.add_child(home_button)
 
 	ghost_check = CheckBox.new()
-	ghost_check.text = "I will return (show my ghost)"
+	ghost_check.text = "I will return (leave my ghost)"
 	ghost_check.button_pressed = true
 	_box.add_child(ghost_check)
 
@@ -94,7 +95,8 @@ func _build()->void:
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_box.add_child(status)
 
-func _small_theme()->Theme:
+## The game GUI theme at the small menu size (shared with ConfirmPrompt).
+static func _small_theme()->Theme:
 	var _theme:Theme = (load(THEME_PATH) as Theme).duplicate()
 	_theme.default_font_size = FONT_SIZE
 	for _type:StringName in [&"Label", &"Button", &"CheckBox"]:
@@ -108,7 +110,7 @@ func _on_stay()->void:
 		stay_button.disabled = true
 		home_button.disabled = true
 		ghost_check.disabled = true
-		status.text = "Waiting for the host..."
+		status.text = "Waiting for the host to pick the home base or the next mission..."
 		return
 	close()
 

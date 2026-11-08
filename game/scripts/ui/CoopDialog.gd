@@ -221,6 +221,8 @@ func _refresh()->void:
 			_status.text = "Hosting on port %d - %d/%d players" % [Net.port, RunSession.players.count(), Net.MAX_PLAYERS]
 		Net.State.JOINED:
 			_status.text = "Joined - %d players" % RunSession.players.count()
+			if !Net.players.end_screen_wait().is_empty():
+				_status.text += " - the host is finishing its run"
 
 ## Host: what a friend types into Join, one row per address with Copy.
 func _refresh_share()->void:

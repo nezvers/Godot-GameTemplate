@@ -1,5 +1,7 @@
 ## Stairs from the home base to a new mission. Only one gun may go along:
 ## with more in hand the stairs refuse and ask to drop the rest.
+## The New Game+ stairs (requires_ng_plus) only show once New Game+ is unlocked:
+## our own campaign, or as a co-op guest the host's (Net.host_ng_plus).
 class_name HomeExitGate
 extends Area2D
 
@@ -8,6 +10,9 @@ extends Area2D
 ## Mission start room
 @export_file("*.tscn") var scene_path:String = "res://game/scenes/room_N00.tscn"
 @export var hint_label:Label
+## Hidden and shut until New Game+ is unlocked.
+@export var requires_ng_plus:bool
+@export var campaign_resource:CampaignResource
 
 const TRANSITION_BOOL_PATH := "res://addons/top_down/resources/global_resources/transition_bool_resource.tres"
 var _transition_bool:BoolResource = load(TRANSITION_BOOL_PATH)
@@ -18,6 +23,34 @@ func _ready()->void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	hint_label.visible = false
+	if requires_ng_plus:
+		assert(campaign_resource != null)
+		if !Net.is_guest():
+			campaign_resource.load_resource()
+		campaign_resource.updated.connect(_refresh_lock)
+		Net.roster_changed.connect(_refresh_lock)
+		Net.state_changed.connect(_refresh_lock)
+		_refresh_lock()
+
+func _exit_tree()->void:
+	if !requires_ng_plus:
+		return
+	for _signal:Signal in [campaign_resource.updated, Net.roster_changed, Net.state_changed]:
+		if _signal.is_connected(_refresh_lock):
+			_signal.disconnect(_refresh_lock)
+
+## The stairs are there (always, unless they need New Game+).
+func is_unlocked()->bool:
+	if !requires_ng_plus:
+		return true
+	return Net.host_ng_plus if Net.is_guest() else campaign_resource.ng_plus_unlocked
+
+func _refresh_lock()->void:
+	var _open:bool = is_unlocked()
+	visible = _open
+	set_deferred("monitoring", _open)
+	if !_open:
+		hint_label.visible = false
 
 func can_leave()->bool:
 	return weapon_inventory.list.size() <= 1

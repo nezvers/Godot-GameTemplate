@@ -30,15 +30,23 @@ button = NodePath("../MarginContainer/Control/Body/Menu/PlayAgain/Button")
 scene_path = "res://game/scenes/room_N00.tscn"
 campaign_resource = ExtResource("10_campaign")
 
+[node name="HomeBaseComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
+script = ExtResource("3_change")
+button = NodePath("../MarginContainer/Control/Body/Menu/HomeBase/Button")
+scene_path = "res://game/scenes/room_H00.tscn"
+
 [node name="MainMenuComponent" type="Node" parent="." node_paths=PackedStringArray("button")]
 script = ExtResource("3_change")
 button = NodePath("../MarginContainer/Control/Body/Menu/MainMenu/Button")
 scene_path = "res://game/scenes/title.tscn"
 
-[node name="VictoryScreen" type="Node" parent="." node_paths=PackedStringArray("menu")]
+[node name="VictoryScreen" type="Node" parent="." node_paths=PackedStringArray("menu", "main_menu_component", "upgrades_entry", "home_button")]
 script = ExtResource("5_victory")
 overlay_scene = ExtResource("6_zen")
 menu = NodePath("../MarginContainer")
+main_menu_component = NodePath("../MainMenuComponent")
+upgrades_entry = NodePath("../MarginContainer/Control/Body/Menu/Upgrades")
+home_button = NodePath("../MarginContainer/Control/Body/Menu/HomeBase/Button")
 room_state_resource = ExtResource("7_state")
 score_resource = ExtResource("8_score")
 campaign_resource = ExtResource("10_campaign")
@@ -89,6 +97,12 @@ layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 0
 
+[node name="HomeBase" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("4_button")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer/Control/Body/Menu/HomeBase" index="1"]
+text = "Return to Home Base"
+
 [node name="PlayAgain" parent="MarginContainer/Control/Body/Menu" instance=ExtResource("4_button")]
 layout_mode = 2
 
@@ -119,6 +133,7 @@ boss_crystal_resource = ExtResource("m3_crystal")
 meta_upgrade_resource = ExtResource("m2_meta")
 entry = NodePath("../MarginContainer/Control/Body/Menu/Upgrades")
 
+[editable path="MarginContainer/Control/Body/Menu/HomeBase"]
 [editable path="MarginContainer/Control/Body/Menu/PlayAgain"]
 [editable path="MarginContainer/Control/Body/Menu/MainMenu"]
 [editable path="MarginContainer/Control/Body/Menu/Upgrades"]

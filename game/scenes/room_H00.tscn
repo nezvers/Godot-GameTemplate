@@ -33,6 +33,7 @@
 [ext_resource type="Resource" uid="uid://c7ckp7i2820tg" path="res://addons/top_down/resources/arena_resources/fight_mode_resource.tres" id="31_fight_mode_r"]
 [ext_resource type="Resource" uid="uid://dmefbqytsy6x0" path="res://addons/top_down/resources/arena_resources/remaining_wave_count_resource.tres" id="32_remaining_wa"]
 [ext_resource type="PackedScene" path="res://game/scenes/game_hud_overlay.tscn" id="33_game_hud_ove"]
+[ext_resource type="Resource" path="res://game/resources/campaign_resource.tres" id="34_campaign"]
 
 [node name="Room" instance=ExtResource("1_room_templat")]
 
@@ -809,6 +810,16 @@ position = Vector2(80, 728)
 [node name="HomeExit" parent="Behind" node_paths=PackedStringArray("home_base") instance=ExtResource("14_home_exit")]
 position = Vector2(176, 776)
 home_base = NodePath("../../HomeBase")
+
+[node name="HomeExitNGPlus" parent="Behind" node_paths=PackedStringArray("home_base") instance=ExtResource("14_home_exit")]
+position = Vector2(208, 760)
+home_base = NodePath("../../HomeBase")
+scene_path = "res://game/scenes/room_P00.tscn"
+requires_ng_plus = true
+campaign_resource = ExtResource("34_campaign")
+
+[node name="Label" parent="Behind/HomeExitNGPlus" index="2"]
+text = "NEW GAME+"
 
 [node name="HomeBase" type="Node" parent="." node_paths=PackedStringArray("water_gun_spot", "piston_grid")]
 script = ExtResource("17_HomeBase")

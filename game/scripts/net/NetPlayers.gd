@@ -25,6 +25,10 @@ const DATABASE_PATH:String = TD + "resources/ItemCollectionResource/weapon_datab
 const TITLE_SCENE:String = "res://game/scenes/title.tscn"
 const HOME_BASE_PATH:String = "res://game/resources/home_base_resource.tres"
 const HOME_SCENE:String = "res://game/scenes/room_H00.tscn"
+const VICTORY_SCENE:String = "res://game/scenes/victory.tscn"
+const GAME_OVER_SCENE:String = TD + "scenes/ui/screens/game_over.tscn"
+## Seconds the "host left" note stays up.
+const NOTE_TIME:float = 4.0
 const MAX_WEAPON_NAME:int = 48
 const MAX_PATH:int = 160
 
@@ -63,6 +67,12 @@ var _inventory_dirty:bool
 var _returning_to:String
 ## Guest leaving by its own choice (GuestLeaveMenu): don't treat it as a lost host.
 var leaving_by_choice:bool
+## Guest: the host is on its victory / game over screen and we weren't in its
+## run: we wait where we are for its next room (end_screen_wait()).
+var _held_back:String
+## Guest: the host room we went to with a gun lent from our own home base.
+var _lent_to:String
+var _note_layer:CanvasLayer
 
 func _ready()->void:
 	player_reference = load(PLAYER_REFERENCE_PATH)
@@ -116,6 +126,7 @@ func _physics_process(delta:float)->void:
 		_send_left = SEND_INTERVAL
 		_send_local()
 	if net().is_guest():
+		_settle_loadout()
 		_guest_run_data_tick(delta)
 		_check_return_arrival()
 	for _slot:int in puppets.keys():
@@ -183,6 +194,7 @@ func _follow_room(path:String, entry_tag:String)->void:
 		return
 	_pending_room = path
 	_pending_entry = entry_tag
+	_host_room_before = _host_room
 	_host_room = path
 	_try_follow()
 
@@ -198,10 +210,22 @@ func _try_follow()->void:
 	var _path:String = _pending_room
 	var _entry:String = _pending_entry
 	_pending_room = ""
-	# leaving the host's home base for its mission: the weapon in hand goes along
-	# (from our own home base we go empty-handed, our stash stays at home)
+	# the host's victory / game over screen ends a run we weren't part of: stay
+	# here, its next room (home base or a mission) takes us along
+	if !can_rejoin(_path) && !_in_host_game():
+		if _held_back != _path:
+			show_note("The host is on its %s screen - you'll join its next room" % ("victory" if _path == VICTORY_SCENE else "end"))
+		_held_back = _path
+		return
+	_held_back = ""
 	if _home != null && _home.guest_mode:
+		# leaving the host's home base for its mission: the weapon in hand goes along
 		_home.depart()
+	elif _home != null && _path != HOME_SCENE:
+		# from our own home base into the host's mission: one gun goes along
+		# (HomeBase.lend_to_host), the rest stays in our stash
+		_home.lend_to_host()
+		_lent_to = _path
 	var _door_arrival:bool = !_entry.is_empty() && local_body() != null && scene_transition.change_scene.get_connections().size() > 0
 	if _door_arrival:
 		# the room's PlayerSpawner carries our player to the same door
@@ -210,6 +234,39 @@ func _try_follow()->void:
 		scene_transition.next_scene_path = ""
 		scene_transition.entry_tag = ""
 		Transition.change_scene(_path)
+
+## Guest, arrived with a gun lent from our own home base: a start room's
+## FreshStart handed it over as the loadout; anywhere else it came along in
+## hand and the loadout mustn't wait for the next start room (a second copy).
+func _settle_loadout()->void:
+	if _lent_to.is_empty() || current_room() != _lent_to || local_body() == null || transition_bool.value:
+		return
+	_lent_to = ""
+	var _home_resource:HomeBaseResource = load(HOME_BASE_PATH)
+	if _home_resource.loadout.is_empty():
+		return
+	var _inventory:ItemCollectionResource = RunSession.local_player().inventory
+	if _inventory.list.is_empty():
+		var _item:ItemResource = HomeBaseResource.find_item(load(DATABASE_PATH), _home_resource.loadout)
+		if _item != null:
+			_inventory.append(_item)
+	_home_resource.loadout = ""
+	_home_resource.save_resource()
+
+## Guest: we're already in the host's game (in one of its rooms, or its home
+## base), not just joined from our own home.
+func _in_host_game()->bool:
+	var _home:HomeBase = current_home()
+	if _home != null:
+		return _home.guest_mode
+	return can_rejoin(current_room()) && current_room() == _host_room_before
+
+## The host's room before its latest _follow_room.
+var _host_room_before:String
+
+## Guest: the host is on an end screen we didn't follow it onto ("" if not).
+func end_screen_wait()->String:
+	return _held_back if net().is_guest() else ""
 
 ## The home base node of the room we're in, if any.
 func current_home()->HomeBase:
@@ -222,6 +279,10 @@ static func _valid_scene(path:String)->bool:
 
 func _on_session_ended(_reason:String)->void:
 	_pending_room = ""
+	_held_back = ""
+	_lent_to = ""
+	_host_room = ""
+	_host_room_before = ""
 	_pending_restore = null
 	_clear_puppets()
 	if _was_guest:
@@ -237,13 +298,49 @@ func on_host_lost()->void:
 	var _home:HomeBase = current_home()
 	if _home != null && _home.guest_mode:
 		# standing in the host's home base: back to ours, empty-handed
-		host_lost.emit()
-		Transition.change_scene(HOME_SCENE)
+		_lost_host_go_home()
+		return
+	if _room == VICTORY_SCENE || _room == GAME_OVER_SCENE:
+		# on the host's end screen (it went to the main menu): no host to follow
+		_lost_host_go_home()
 		return
 	if _room == HOME_SCENE || _room == TITLE_SCENE || local_body() == null:
 		return
+	_lost_host_go_home()
+
+func _lost_host_go_home()->void:
 	host_lost.emit()
+	show_note("The host left the game")
 	Transition.change_scene(HOME_SCENE)
+
+## A line of text at the top of the screen for a few seconds; it outlives
+## scene changes (it hangs under the Net autoload).
+func show_note(text:String)->void:
+	if _note_layer != null && is_instance_valid(_note_layer):
+		_note_layer.queue_free()
+	_note_layer = CanvasLayer.new()
+	_note_layer.name = "NoteLayer"
+	_note_layer.layer = 6
+	add_child(_note_layer)
+	var _label:Label = Label.new()
+	_label.name = "Note"
+	_label.text = text
+	_label.add_theme_font_size_override("font_size", 8)
+	_label.add_theme_color_override("font_color", Color(1, 0.85, 0.5))
+	_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	_label.add_theme_constant_override("outline_size", 2)
+	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_label.offset_left = -140
+	_label.offset_right = 140
+	_label.offset_top = 24
+	_label.offset_bottom = 36
+	_note_layer.add_child(_label)
+	var _layer:CanvasLayer = _note_layer
+	get_tree().create_timer(NOTE_TIME, true).timeout.connect(func ()->void:
+		if is_instance_valid(_layer):
+			_layer.queue_free()
+	)
 
 # --- Player updates -------------------------------------------------------------
 
@@ -597,6 +694,18 @@ func _ghost_return()->void:
 	_state.net_updated.emit()
 	net().roster_changed.emit()
 
+## Guest, just welcomed into a session (Net._welcome): a fight may be on in the
+## host's room, so we arrive waiting at the door like a ghost coming back
+## (WaitingAtDoor lets go at once when there's none). Our run state goes to the
+## host right away, not RUN_DATA_INTERVAL later, so its checkpoint has all of it.
+func on_joined()->void:
+	_was_guest = true
+	_returning_to = "?"
+	_run_data_left = 0.0
+	_held_back = ""
+	_host_room = ""
+	_host_room_before = ""
+
 ## Guest just back from a ghost: once in the host's room, wait at the door until
 ## no fight is on (WaitingAtDoor lets go by itself when the walls drop).
 func _check_return_arrival()->void:
@@ -604,6 +713,12 @@ func _check_return_arrival()->void:
 		return
 	if _returning_to == "?":
 		_returning_to = _host_room if !_host_room.is_empty() else "?"
+		return
+	if !_host_room.is_empty() && _host_room != _returning_to:
+		# the host moved on before we got there (or we were held back from its
+		# end screen): wait at the door of wherever it is now
+		_returning_to = _host_room
+	if !can_rejoin(_returning_to):
 		return
 	if current_room() != _returning_to || local_body() == null || transition_bool.value:
 		return
@@ -627,6 +742,9 @@ func send_ghost_rewards()->void:
 @rpc("authority", "call_remote", "reliable")
 func _ghost_rewards(weapons:PackedStringArray)->void:
 	if !net().is_ghost() || weapons.size() > PlayerRunData.MAX_WEAPONS:
+		return
+	# a ghost-tier guest keeps nothing from the host's run (GuestTier)
+	if !RunSession.local_player().electrician:
 		return
 	var _database:ItemCollectionResource = load(DATABASE_PATH)
 	var _carried:ItemCollectionResource = ItemCollectionResource.new()

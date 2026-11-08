@@ -1,7 +1,8 @@
 ## Home base portal back into the host's game, there while this machine is a
 ## co-op ghost (left with "I will return"). Walking in rejoins wherever the host
 ## is now; mid-fight the guest waits at the host's door (WaitingAtDoor).
-## While the host is between rooms or on a menu screen it stays shut.
+## While the host is between rooms or on a menu screen it stays shut; after the
+## host's victory it opens again once the host is back in its home base.
 ## Placed by HomeBase; built in code from the portal's sprite strip.
 class_name RejoinPortal
 extends Area2D
@@ -68,11 +69,19 @@ func _refresh()->void:
 		queue_free()
 		return
 	var _open:bool = is_open()
-	label.text = "REJOIN HOST" if _open else "HOST IS TRAVELLING..."
+	label.text = "REJOIN HOST" if _open else status_text(Net.ghost_host_room)
 	label.add_theme_color_override("font_color", OPEN_COLOR if _open else SHUT_COLOR)
 	sprite.modulate = Color.WHITE if _open else Color(1, 1, 1, 0.45)
 	if !_open:
 		sprite.frame = 0
+
+## What the shut portal says about where the host is.
+static func status_text(host_room:String)->String:
+	if host_room == NetPlayers.VICTORY_SCENE:
+		return "HOST WON - HEADING HOME..."
+	if host_room == NetPlayers.GAME_OVER_SCENE:
+		return "HOST FELL - HEADING HOME..."
+	return "HOST IS TRAVELLING..."
 
 func _arm_if_clear()->void:
 	await get_tree().physics_frame

@@ -50,9 +50,37 @@ func _run()->void:
 	check(await _wait(func ()->bool: return _guest != null && _guest.ghost, 15.0), "host: the guest went home as a ghost")
 	check(await _wait(func ()->bool: return _has("away"), 15.0) && _last("away") == "state=%d portal=true" % Net.State.GHOST, "guest: at its own home base, link kept, rejoin portal there (%s)" % _last("away"))
 	check(RunSession.players.count() == 2 && RunSession.players.count_active() == 1, "host: seat kept, not counted in the fight")
+	check(await _wait(func ()->bool: return _has("portal_won"), 10.0) && _last("portal_won") == "HOST WON - HEADING HOME...", "guest: the shut portal says we won (%s)" % _last("portal_won"))
+	check(await _wait(func ()->bool: return _has("rewards"), 10.0) && _last("rewards") == "0", "guest: a ghost-tier ghost gets no victory weapons (%s)" % _last("rewards"))
+
+	# --- our victory menu: home base first, the party, Main Menu asks
+	var _screen:VictoryScreen = get_tree().current_scene.get_node_or_null("VictoryScreen") as VictoryScreen if get_tree().current_scene != null else null
+	check(_screen != null, "host: on the victory screen")
+	check(await _wait(func ()->bool:
+		_resume_overlays()
+		return _screen != null && _screen.menu.visible, 40.0), "host: the victory menu shows after the animation")
+	if _screen != null:
+		check(_screen.home_button.has_focus(), "host: Return to Home Base is the default")
+		check(!_screen.upgrades_entry.visible, "host: no Upgrades while online")
+		var _rows:PackedStringArray = []
+		if _screen.party_list != null:
+			for _label:Node in _screen.party_list.get_children():
+				if !_label.is_queued_for_deletion():
+					_rows.append((_label as Label).text)
+		check(_rows.size() == 2 && _rows[1].contains("gone home, will return"), "host: the party list shows the ghost (%s)" % ", ".join(_rows))
+		_screen.main_menu_component.button.pressed.emit()
+		await _frames(2)
+		check(_screen.confirm != null && is_instance_valid(_screen.confirm), "host: Main Menu asks first while a guest is linked")
+		check(_current() == VICTORY, "host: still on the victory screen")
+		if _screen.confirm != null:
+			_screen.confirm.no_button.pressed.emit()
+		await _frames(2)
+		check(Net.is_host() && _current() == VICTORY, "host: Stay keeps the session")
 
 	# --- back home: its faint copy walks our home base
-	Transition.change_scene(HOME)
+	if _screen != null:
+		_screen.home_button.pressed.emit()
+	check(await _wait(func ()->bool: return _has("portal_home"), 30.0) && _last("portal_home") == "REJOIN HOST", "guest: its portal opens onto our home base (%s)" % _last("portal_home"))
 	check(await _wait(func ()->bool: return _current() == HOME && _body() != null, 10.0), "host: home again")
 	check(await _wait(func ()->bool: return _puppet() != null, 10.0), "host: the ghost's copy walks our home base")
 	await _frames(3)
@@ -116,6 +144,12 @@ func _finish()->void:
 		_resource.resource_name = _saved_names[_resource]
 	print("coop_ghost_check: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
+
+## The victory animation holds at its pause marker for a click.
+func _resume_overlays()->void:
+	for _node:Node in get_tree().root.find_children("*", "Node2D", true, false):
+		if _node.has_method("resume") && _node.has_signal("paused"):
+			_node.call("resume")
 
 func _body()->Node2D:
 	return Net.players.local_body()

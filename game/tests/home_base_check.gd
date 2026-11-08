@@ -131,11 +131,38 @@ func _ready()->void:
 
 	# A won run brings its weapons home
 	_inventory.append(_shotgun)
+	_campaign.ng_plus_unlocked = false
 	await _load_room(VICTORY)
 	check(_home.stash_inventory.has("Shotgun"), "victory: weapons stashed for home")
+	var _home_entry:Control = _room.get_node("MarginContainer/Control/Body/Menu/HomeBase")
+	var _home_component:ChangeSceneButton = _room.get_node("HomeBaseComponent")
+	check(_home_entry.get_index() == 0 && _home_component.scene_path == HOME, "victory: Return to Home Base first, into the home base")
+	check(_campaign.ng_plus_unlocked, "victory: New Game+ unlocked")
 	await _load_room(HOME)
 	check(_inventory.list.size() == 1 && _inventory.list[0] == _shotgun, "home after victory: shotgun in hand")
+	await _check_ng_plus_stairs()
 	_finish()
+
+## The NEW GAME+ stairs: there once New Game+ is unlocked, leading to room_P00.
+func _check_ng_plus_stairs()->void:
+	var _mission:HomeExitGate = _room.get_node("Behind/HomeExit")
+	var _plus:HomeExitGate = _room.get_node("Behind/HomeExitNGPlus")
+	check(!_mission.requires_ng_plus && _mission.visible && _mission.scene_path == N00, "home: MISSION stairs always there, to room_N00")
+	check(_plus.requires_ng_plus && _plus.scene_path == "res://game/scenes/room_P00.tscn", "home: NEW GAME+ stairs lead to room_P00")
+	check((_plus.get_node("Label") as Label).text == "NEW GAME+", "home: NEW GAME+ stairs labelled")
+	await get_tree().physics_frame
+	check(_plus.visible && _plus.monitoring, "home: NEW GAME+ stairs open once unlocked")
+	_campaign.ng_plus_unlocked = false
+	_campaign.updated.emit()
+	await get_tree().physics_frame
+	check(!_plus.visible && !_plus.monitoring, "home: NEW GAME+ stairs hidden and shut while locked")
+	_campaign.ng_plus_unlocked = true
+	_campaign.updated.emit()
+	await get_tree().physics_frame
+	check(_plus.visible && _plus.monitoring, "home: NEW GAME+ stairs back when unlocked")
+	var _floor:TileMapLayer = _room.get_node("Background/FloorLayer")
+	var _cell:Vector2i = _floor.local_to_map(_floor.to_local(_plus.global_position))
+	check(_floor.get_cell_source_id(_cell) != -1 && _floor.to_global(_floor.map_to_local(_cell)).is_equal_approx(_plus.global_position), "home: NEW GAME+ stairs centred on a floor cell")
 
 ## Cell (0, 0) and lever 1 of each lane sit at the corner by the control room.
 func _check_layout(grid:PistonGrid)->void:

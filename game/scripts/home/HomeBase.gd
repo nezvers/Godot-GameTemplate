@@ -203,6 +203,33 @@ func depart()->void:
 	home_base_resource.save_resource()
 	_departed = true
 
+## Co-op guest leaving its own home base for the host's mission (NetPlayers
+## follows the host there): like the stairs, only the gun in hand goes along.
+## An electrician takes it out of the stash (a victory brings it home again); a
+## ghost-tier guest keeps nothing from the host's run, so it goes with a borrowed
+## copy and the stash stays as it is.
+func lend_to_host()->void:
+	if guest_mode || _departed:
+		return
+	save_state()
+	var _first:ItemResource = weapon_inventory.list[clampi(weapon_inventory.selected, 0, weapon_inventory.list.size() - 1)] if !weapon_inventory.list.is_empty() else null
+	if _first != null && RunSession.local_player().electrician:
+		var _stash:PackedStringArray = home_base_resource.stash_inventory
+		var _at:int = _stash.find(_first.resource_name)
+		if _at >= 0:
+			_stash.remove_at(_at)
+		home_base_resource.stash_inventory = _stash
+		home_base_resource.save_resource()
+	_departed = true
+	# a start room's FreshStart empties the inventory and hands this over instead
+	# (NetPlayers clears it once we're there if no FreshStart took it)
+	home_base_resource.loadout = _first.resource_name if _first != null else ""
+	var _carried:Array[ItemResource] = []
+	if _first != null:
+		_carried.append(_first)
+	weapon_inventory.set_list(_carried)
+	weapon_inventory.set_selected(0)
+
 func _on_tree_exiting()->void:
 	if weapon_inventory.updated.is_connected(queue_save):
 		weapon_inventory.updated.disconnect(queue_save)

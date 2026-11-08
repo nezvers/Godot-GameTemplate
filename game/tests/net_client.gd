@@ -2,8 +2,15 @@
 ## Args after "--": <address> <mode>
 ##   ok        join normally, report the slot, wait to be kicked
 ##   badver    send a hello with a wrong protocol, expect a rejection
+##   sameprofile / localguest   like ok, sharing the host's profile / install
 ##   world     (coop_world_check) load the home base, join, pick up a shotgun,
 ##             follow the host and report rooms, teammates and puppets
+##   home      (coop_home_check) the host's shared home base
+##   ghost     (coop_ghost_check) victory -> home as a ghost -> rejoin -> back
+##   midwave   (coop_join_check) join from our home (two guns in the stash) while
+##             the host is mid-fight: one gun along, wait at the door, released
+##   endscreen (coop_join_check) join while the host is on its victory screen:
+##             stay home, then follow it into its home base
 ## Prints "NETCLIENT <event> <detail>" lines for the host test to read.
 extends Node
 
@@ -47,6 +54,9 @@ func _ready()->void:
 		return
 	if _mode == "ghost":
 		_start_ghost(_address)
+		return
+	if _mode == "midwave" || _mode == "endscreen":
+		_start_join(_address)
 		return
 	Net.connection_failed.connect(func (reason:String)->void: _report("failed", reason); _quit())
 	Net.session_ended.connect(func (reason:String)->void: _report("ended", reason); _quit())
@@ -161,6 +171,16 @@ func _start_ghost(address:String)->void:
 	await _frames(10)
 	var _portal:RejoinPortal = _find(get_tree().current_scene, func (n:Node)->bool: return n is RejoinPortal) as RejoinPortal
 	_report("away", "state=%d portal=%s" % [Net.state, _portal != null])
+	_report("portal_won", _portal.label.text if _portal != null else "-")
+	# a ghost-tier ghost gets nothing from the host's run
+	var _pickups_before:int = _home().pickups().size()
+	Net.players._ghost_rewards(PackedStringArray(["Shotgun"]))
+	await _frames(3)
+	_report("rewards", "%d" % (_home().pickups().size() - _pickups_before))
+	# the host went back to its home base from the victory screen: the portal opens
+	await _until(func ()->bool: return Net.ghost_host_room.ends_with("room_H00.tscn") && _portal != null && _portal.is_open(), 30.0)
+	_report("portal_home", _portal.label.text if _portal != null else "-")
+	await get_tree().create_timer(0.5).timeout
 	# walk about at home: the host sees it
 	var _body:Node2D = Net.players.local_body()
 	for _i:int in 10:
@@ -196,6 +216,39 @@ func _start_ghost(address:String)->void:
 	await _until(func ()->bool: return Net.players.local_body() != null && !Net.players.local_body().has_node("WaitingAtDoor") && !RunSession.local_player().waiting, 30.0)
 	_report("released", "")
 	await _until(func ()->bool: return !Net.is_online(), 30.0)
+	_report("ended", "")
+	_finish()
+
+## coop_join_check: midwave / endscreen (see the header).
+func _start_join(address:String)->void:
+	for _path:String in ["res://game/resources/home_base_resource.tres", "res://game/resources/campaign_resource.tres"]:
+		var _resource:SaveableResource = load(_path)
+		_saved_names[_resource] = _resource.resource_name
+		_resource.resource_name += "_netclient"
+		_resource.delete_resource()
+		_resource.reset_resource()
+	var _home_resource:HomeBaseResource = load("res://game/resources/home_base_resource.tres")
+	_home_resource.stash_inventory = PackedStringArray(["Shotgun", "Water Gun"])
+	Transition.instant = true
+	get_tree().current_scene = null
+	get_tree().create_timer(100.0).timeout.connect(func ()->void: _report("timeout", ""); _finish())
+	Transition.change_scene("res://game/scenes/room_H00.tscn")
+	await _until(func ()->bool: return Net.players.local_body() != null && _home() != null)
+	_report("home", _held())
+	_report("join", str(Net.join(address)))
+	if _mode == "midwave":
+		await _until(func ()->bool: return Net.is_guest() && !_current().ends_with("room_H00.tscn") && Net.players.local_body() != null && Net.players.local_body().has_node("WaitingAtDoor"), 30.0)
+		_report("arrived", "room=%s waiting=%s held=%s" % [_current().get_file(), RunSession.local_player().waiting, _held()])
+		_report("stash", ",".join(_home_resource.stash_inventory))
+		await _until(func ()->bool: return Net.players.local_body() != null && !Net.players.local_body().has_node("WaitingAtDoor") && !RunSession.local_player().waiting, 40.0)
+		_report("released", _current().get_file())
+	else:
+		await _until(func ()->bool: return Net.is_guest() && !Net.players.end_screen_wait().is_empty(), 30.0)
+		await _frames(10)
+		_report("held_back", "room=%s wait=%s" % [_current().get_file(), Net.players.end_screen_wait().get_file()])
+		await _until(func ()->bool: return Net.is_guest() && _home() != null && _home().guest_mode && Net.players.local_body() != null, 40.0)
+		_report("followed", "room=%s guest_mode=%s" % [_current().get_file(), _home() != null && _home().guest_mode])
+	await _until(func ()->bool: return !Net.is_online(), 40.0)
 	_report("ended", "")
 	_finish()
 

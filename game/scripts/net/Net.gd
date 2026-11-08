@@ -53,6 +53,9 @@ var host_is_server:bool
 var ghost_host_room:String
 ## Guest: the host's home base has Electrician Bay (its robot printer shows).
 var host_bay:bool
+## Guest: the host has New Game+ unlocked (its home base NG+ stairs show).
+var host_ng_plus:bool
+const CAMPAIGN_PATH:String = "res://game/resources/campaign_resource.tres"
 ## Guest: our tier hasn't been applied yet this session.
 var _tier_unset:bool = true
 ## Player sync and room following (/root/Net/Players on every peer).
@@ -265,10 +268,14 @@ func _check_hello(info:Dictionary)->String:
 		return "Session is full (%d players)" % (max_players - (1 if is_server() else 0))
 	return ""
 
+## Host: our campaign has New Game+ (sent to guests for the NG+ stairs).
+func _ng_plus_unlocked()->bool:
+	return (load(CAMPAIGN_PATH) as CampaignResource).ng_plus_unlocked
+
 func _roster()->Array:
 	var _list:Array = []
 	for _state:PlayerState in RunSession.players.all():
-		_list.append({"slot": _state.slot, "peer_id": _state.peer_id, "profile_id": _state.profile_id, "name": _state.display_name, "hidden": _state.hidden, "electrician": _state.electrician, "bay": _state.is_local && GuestTier.host_grants_electricians()})
+		_list.append({"slot": _state.slot, "peer_id": _state.peer_id, "profile_id": _state.profile_id, "name": _state.display_name, "hidden": _state.hidden, "electrician": _state.electrician, "bay": _state.is_local && GuestTier.host_grants_electricians(), "ng_plus": _state.is_local && _ng_plus_unlocked()})
 	return _list
 
 func _broadcast_roster()->void:
@@ -340,6 +347,7 @@ func _welcome(slot:int, roster:Array, fresh:bool, session:String)->void:
 	_local.peer_id = local_peer_id()
 	RunSession.players.local_slot = slot
 	RunSession.players.add(_local)
+	players.on_joined()
 	_set_state(State.JOINED)
 	_roster_update(roster)
 
@@ -356,6 +364,7 @@ func _roster_update(roster:Array)->void:
 			continue
 		if int(_entry.get("slot", -1)) == 0:
 			host_bay = bool(_entry.get("bay", false))
+			host_ng_plus = bool(_entry.get("ng_plus", false))
 		if bool(_entry.get("hidden", false)):
 			# the dedicated server's own player: nobody to show
 			host_is_server = true
@@ -442,6 +451,7 @@ func _close(_reason:String)->void:
 	ghost_host_room = ""
 	_tier_unset = true
 	host_bay = false
+	host_ng_plus = false
 	session_id = ""
 	GuestTier.leave()
 	RunSession.local_player().electrician = false
