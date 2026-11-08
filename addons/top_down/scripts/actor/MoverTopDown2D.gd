@@ -23,6 +23,9 @@ extends ShapeCast2D
 
 const MAX_SLIDES:int = 4
 
+## Bodies placed by network updates (co-op copies): never pushed by separation
+const NET_DRIVEN:StringName = &"net_driven"
+
 ## Virtual buttons to react to
 var input_resource:InputResource
 
@@ -114,6 +117,8 @@ func _remove_overlap()->void:
 	var _overlapping:Array[CharacterBody2D]
 	for i:int in get_collision_count():
 		var _collider:Object = get_collider(i)
+		if !is_instance_valid(_collider):
+			continue
 		if _collider is CharacterBody2D:
 			if _separate(_collider, get_collider_shape(i)):
 				_overlapping.append(_collider)
@@ -146,19 +151,26 @@ func _separate(other:CharacterBody2D, shape_index:int)->bool:
 		# both ways, either one can be the one moving
 		character.add_collision_exception_with(other)
 		other.add_collision_exception_with(character)
-	_move_character(other, (_push * 0.5).limit_length(max_separation_step))
+	if other.is_in_group(NET_DRIVEN):
+		# co-op copies follow the network, a shove would only be pulled back: step aside ourselves
+		character.move_and_collide((-_push).limit_length(max_separation_step))
+	else:
+		_move_character(other, (_push * 0.5).limit_length(max_separation_step))
 	return true
 
 ## Physics collides again with bodies that got apart
 func _update_overlapping(current:Array[CharacterBody2D])->void:
 	for i:int in range(overlapping_bodies.size() - 1, -1, -1):
+		# a freed body can't even be looked up in a typed array
+		if !is_instance_valid(overlapping_bodies[i]):
+			overlapping_bodies.remove_at(i)
+			continue
 		var _body:CharacterBody2D = overlapping_bodies[i]
 		if current.has(_body):
 			continue
 		overlapping_bodies.remove_at(i)
-		if is_instance_valid(_body):
-			character.remove_collision_exception_with(_body)
-			_body.remove_collision_exception_with(character)
+		character.remove_collision_exception_with(_body)
+		_body.remove_collision_exception_with(character)
 
 func _clear_overlapping()->void:
 	_update_overlapping([])

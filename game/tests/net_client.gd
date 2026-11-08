@@ -16,6 +16,9 @@ var _finishing:bool
 var _cosmetic_shots:int
 var _hit_scheduled:Dictionary = {}
 var _fire_left:float
+var _ground:bool
+var _grind_wait:float
+var _pickup_sounds:int
 
 func _ready()->void:
 	var _args:PackedStringArray = OS.get_cmdline_user_args()
@@ -275,6 +278,11 @@ func _start_world(address:String)->void:
 		if Net.is_guest():
 			_report("joined", str(RunSession.players.local_slot)))
 	Transition.instant = true
+	var _sound_hook:Callable = SoundResource.played_hook
+	SoundResource.played_hook = func (sound:SoundResource)->void:
+		if sound.resource_path.ends_with("coin_pickup.tres"):
+			_pickup_sounds += 1
+		_sound_hook.call(sound)
 	var _hook:Callable = InstanceResource.instanced_hook
 	InstanceResource.instanced_hook = func (resource:InstanceResource, node:Node)->void:
 		if Net.entities._replaying && Net.entities.catalogue.get(resource.resource_path) == NetEntities.Kind.SHOT:
@@ -342,6 +350,26 @@ func _process(delta:float)->void:
 		_body.tree_exiting.connect(_on_body_exiting.bind(_body))
 	_report("coins", str(LootItems.counter("coin").value))
 	_report("cosmetic", str(_cosmetic_shots))
+	_report("hit_fx", str(Net.entities.hit_fx_played))
+	_report("pickup_sounds", str(_pickup_sounds))
+	# enemies here that aren't copies of the host's (should never exist)
+	var _own_enemies:int = 0
+	for _enemy:Node2D in ActiveEnemy.active_instances:
+		if is_instance_valid(_enemy) && _enemy.has_node("ResourceNode") && !_enemy.has_node("NetPuppet"):
+			_own_enemies += 1
+	_report("own_enemies", str(_own_enemies))
+	var _spiders:int = 0
+	for _id:int in _ids:
+		if Net.entities.kinds.get(_id) == NetEntities.Kind.ENEMY && str(Net.entities._paths.get(_id, "")).contains("skitter_spider"):
+			_spiders += 1
+	_report("spider_copies", str(_spiders))
+	# grind once a little after arriving in the mission (the host put a grinder where we stand)
+	if !_ground && _scene != null && _scene.scene_file_path.ends_with("room_N00.tscn") && _body != null && Net.is_guest():
+		_grind_wait += 0.2
+		if _grind_wait >= 2.0:
+			_ground = true
+			MeatGrinder.reward_hook.call("health", 1, _body.global_position)
+			_report("ground", str(_body.global_position))
 	for _section:ArenaSection in NetEntities._sections(_scene):
 		_report("section", "%s %s %s" % [_scene.get_path_to(_section), _section.fight_active, _section.is_cleared])
 	var _pickups:PackedStringArray = []

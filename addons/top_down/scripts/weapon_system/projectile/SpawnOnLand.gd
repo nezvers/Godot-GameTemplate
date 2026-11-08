@@ -6,6 +6,10 @@ extends Node
 
 @export var instance_resource:InstanceResource
 
+## Co-op: asked as (projectile, instance_resource) -> bool before spawning; false
+## spawns nothing (a replayed shot copy hatches no enemy, NetEntities).
+static var spawn_filter:Callable
+
 ## When above 0, overrides spawned instance's "lifetime" (short lived boss puddles)
 @export var lifetime:float = 0.0
 
@@ -13,6 +17,8 @@ func _ready()->void:
 	projectile.prepare_exit_event.connect(_on_prepare_exit)
 
 func _on_prepare_exit()->void:
+	if spawn_filter.is_valid() && !spawn_filter.call(projectile, instance_resource):
+		return
 	var _pos:Vector2 = projectile.global_position
 	# set by EnemyLob when the shooter owns spawned enemies
 	var _branch:ActiveEnemyResource = projectile.get_meta(&"enemy_branch") if projectile.has_meta(&"enemy_branch") else null

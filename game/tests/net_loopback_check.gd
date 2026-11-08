@@ -38,6 +38,13 @@ func _ready()->void:
 	var _log:String = _read(_ok)
 	check(_log.contains("NETCLIENT joined 1"), "guest sees itself in slot 1")
 	check(_log.contains("NETCLIENT roster 2"), "guest sees two players")
+	# link health: probes go both ways on loopback, nothing is lost
+	if _guest != null:
+		var _measured:bool = await _wait(func ()->bool: return !Net.stats.link(_guest.peer_id).is_empty() && float(Net.stats.link(_guest.peer_id).health) > 0.95, 6.0)
+		var _link:Dictionary = Net.stats.link(_guest.peer_id)
+		check(_measured, "stats: link to the guest measured healthy (%s)" % _link)
+		check(float(_link.get("rtt_ms", -1.0)) >= 0.0 && float(_link.get("rtt_ms", 999.0)) < 100.0, "stats: loopback ping is small (%s)" % _link)
+		check(NetStats.describe(_link).ends_with("%"), "stats: HUD text (%s)" % NetStats.describe(_link))
 
 	# A second game on this machine shares our profile (same user:// folder)
 	var _twin:Dictionary = _spawn_client("sameprofile")

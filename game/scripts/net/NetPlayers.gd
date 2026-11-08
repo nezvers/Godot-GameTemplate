@@ -264,7 +264,7 @@ func _send_local()->void:
 		if _input != null:
 			_axis = _input.axis
 			_aim = _input.aim_direction
-	_player_update.rpc([_room, _pos, _axis, _aim, _local.active_weapon_name(), _local.health.hp, _local.health.max_hp, _local.downed, _local.revive_progress, _local.waiting, _local.reviving])
+	_player_update.rpc([_room, _pos, _axis, _aim, _local.active_weapon_name(), _local.health.hp, _local.health.max_hp, _local.downed, _local.revive_progress, _local.waiting, _local.reviving, NetInterp.now()])
 
 ## Where this machine's body is and how it moves (shared by ghost reports).
 func _local_motion()->Array:
@@ -290,16 +290,16 @@ func _sender_state()->PlayerState:
 	return null
 
 static func _valid_update(data:Array)->bool:
-	if data.size() != 11:
+	if data.size() != 12:
 		return false
-	var _types:Array = [TYPE_STRING, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT, TYPE_BOOL, TYPE_FLOAT, TYPE_BOOL, TYPE_BOOL]
+	var _types:Array = [TYPE_STRING, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT, TYPE_BOOL, TYPE_FLOAT, TYPE_BOOL, TYPE_BOOL, TYPE_FLOAT]
 	for _i:int in _types.size():
 		if typeof(data[_i]) != _types[_i]:
 			return false
 	var _pos:Vector2 = data[1]
 	return (data[0] as String).length() < MAX_PATH && (data[4] as String).length() < MAX_WEAPON_NAME \
 		&& _pos.is_finite() && (data[2] as Vector2).is_finite() && (data[3] as Vector2).is_finite() \
-		&& is_finite(data[5]) && is_finite(data[6]) && float(data[6]) > 0.0 && float(data[6]) < 100000.0 && is_finite(data[8])
+		&& is_finite(data[5]) && is_finite(data[11]) && is_finite(data[6]) && float(data[6]) > 0.0 && float(data[6]) < 100000.0 && is_finite(data[8])
 
 ## Mirrors a teammate's update into its PlayerState and puppet.
 func apply_update(state:PlayerState, data:Array)->void:
@@ -330,7 +330,7 @@ func apply_update(state:PlayerState, data:Array)->void:
 		_changed = true
 	if _changed:
 		state.net_updated.emit()
-	_update_puppet(state, data[1], data[2], data[3])
+	_update_puppet(state, data[1], data[2], data[3], data[11])
 
 ## Only the weapon in hand travels: the puppet holds just that one.
 func _set_weapon(state:PlayerState, weapon:String)->void:
@@ -351,7 +351,8 @@ static func shown_room(state:PlayerState)->String:
 		return state.ghost_room if state.ghost_room == HOME_SCENE else ""
 	return state.room_scene
 
-func _update_puppet(state:PlayerState, pos:Vector2, axis:Vector2, aim:Vector2)->void:
+## `sent`: the teammate's clock when it was there (NetInterp plays it back smoothly).
+func _update_puppet(state:PlayerState, pos:Vector2, axis:Vector2, aim:Vector2, sent:float)->void:
 	var _room:String = shown_room(state)
 	var _here:bool = !_room.is_empty() && _room == current_room() && local_body() != null && !transition_bool.value
 	var _puppet:Node2D = puppets.get(state.slot)
@@ -371,7 +372,7 @@ func _update_puppet(state:PlayerState, pos:Vector2, axis:Vector2, aim:Vector2)->
 		puppets[state.slot] = _puppet
 		RunSession.players.set_node(state.slot, _puppet)
 	var _driver:RemotePlayer = _puppet.get_node("RemotePlayer")
-	_driver.push(pos, axis, aim)
+	_driver.push(sent, pos, axis, aim)
 
 func _remove_puppet(slot:int)->void:
 	var _puppet:Node = puppets.get(slot)
@@ -541,14 +542,16 @@ func _ghost_tick(delta:float)->void:
 	if _ghost_send_left > 0.0:
 		return
 	_ghost_send_left = GHOST_INTERVAL
-	_ghost_update.rpc_id(1, _local_motion())
+	_ghost_update.rpc_id(1, _local_motion() + [NetInterp.now()])
 
 @rpc("any_peer", "call_remote", "unreliable_ordered", 1)
 func _ghost_update(data:Array)->void:
 	if !net().is_host():
 		return
 	var _state:PlayerState = _sender_state()
-	if _state == null || !_state.ghost || data.size() != 4 || typeof(data[0]) != TYPE_STRING || (data[0] as String).length() > MAX_PATH:
+	if _state == null || !_state.ghost || data.size() != 5 || typeof(data[0]) != TYPE_STRING || (data[0] as String).length() > MAX_PATH:
+		return
+	if typeof(data[4]) != TYPE_FLOAT || !is_finite(data[4]):
 		return
 	for _i:int in [1, 2, 3]:
 		if typeof(data[_i]) != TYPE_VECTOR2 || !(data[_i] as Vector2).is_finite():
@@ -556,7 +559,7 @@ func _ghost_update(data:Array)->void:
 	if _state.ghost_room != data[0]:
 		_state.ghost_room = data[0]
 		_state.net_updated.emit()
-	_update_puppet(_state, data[1], data[2], data[3])
+	_update_puppet(_state, data[1], data[2], data[3], data[4])
 
 ## Host -> ghost: the room the host is in now.
 @rpc("authority", "call_remote", "reliable")

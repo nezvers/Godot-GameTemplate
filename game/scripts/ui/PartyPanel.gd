@@ -34,9 +34,12 @@ func _ready()->void:
 	RunSession.players.player_removed.connect(_on_roster_change.unbind(1))
 	Net.roster_changed.connect(_on_roster_change)
 	Net.state_changed.connect(_on_roster_change)
+	Net.stats.updated.connect(_refresh_links)
 	_rebuild()
 
 func _exit_tree()->void:
+	if Net.stats.updated.is_connected(_refresh_links):
+		Net.stats.updated.disconnect(_refresh_links)
 	for _slot:int in rows.keys():
 		_disconnect_row(rows[_slot])
 
@@ -126,7 +129,12 @@ func _make_row(state:PlayerState)->Dictionary:
 	_weapon_line.add_child(_weapon)
 	_box.add_child(_weapon_line)
 
-	var _row:Dictionary = {"root": _card, "name": _name, "bar": _bar, "fill": _fill, "hp": _hp, "icon": _icon, "weapon": _weapon, "state": state}
+	# ping and link health over the last 3 s (NetStats)
+	var _link:Label = _label("")
+	_link.visible = false
+	_box.add_child(_link)
+
+	var _row:Dictionary = {"root": _card, "name": _name, "bar": _bar, "fill": _fill, "hp": _hp, "icon": _icon, "weapon": _weapon, "link": _link, "state": state}
 	var _refresh_call:Callable = _refresh.bind(state.slot)
 	_row["callback"] = _refresh_call
 	state.health.hp_changed.connect(_refresh_call)
@@ -178,6 +186,23 @@ func _refresh(slot:int)->void:
 	(_row.icon as TextureRect).visible = _item != null
 	(_row.weapon as Label).text = _item.resource_name if _item != null else "Fists"
 	(_row.root as Control).modulate.a = AWAY_ALPHA if _away || _state.downed || _state.waiting else 1.0
+
+## The link this machine measures to a teammate: the host has one to every
+## guest, a guest only to the host (slot shown with the host's peer id 1).
+func _link_peer(state:PlayerState)->int:
+	if Net.is_host():
+		return state.peer_id
+	return 1 if state.peer_id == 1 else 0
+
+func _refresh_links()->void:
+	for _slot:int in rows:
+		var _row:Dictionary = rows[_slot]
+		var _peer:int = _link_peer(_row.state)
+		var _stats:Dictionary = Net.stats.link(_peer) if _peer > 0 else {}
+		var _link:Label = _row.link
+		_link.visible = !_stats.is_empty()
+		_link.text = NetStats.describe(_stats)
+		_link.add_theme_color_override("font_color", NetStats.health_color(_stats))
 
 func _current_room()->String:
 	var _scene:Node = get_tree().current_scene

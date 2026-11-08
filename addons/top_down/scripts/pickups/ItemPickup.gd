@@ -32,6 +32,8 @@ func _delay_enable()->void:
 func prepare_remove()->void:
 	data_transmitter.set_enabled(false)
 	sound_resource.play_managed()
+	# co-op: taken, not just gone with the room
+	set_meta(&"net_collected", true)
 	success.emit()
 	## TODO: DO proper VFX
 	queue_free()

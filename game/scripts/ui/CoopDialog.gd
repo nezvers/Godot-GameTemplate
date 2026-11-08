@@ -124,6 +124,17 @@ func _build()->void:
 	_leave_button = _button("Leave session", _on_leave_pressed)
 	_session.add_child(_leave_button)
 
+	# playtest log: a file a tester can send (PlaytestLog)
+	var _log_row:HBoxContainer = HBoxContainer.new()
+	_box.add_child(_log_row)
+	var _log_box:CheckBox = CheckBox.new()
+	_log_box.text = "Playtest log"
+	_log_box.button_pressed = _settings.playtest_log || PlaytestLog.is_on()
+	_log_box.tooltip_text = "Writes a log of the session (network, rooms, fights, errors) to share with the developer"
+	_log_box.toggled.connect(_on_playtest_log_toggled)
+	_log_row.add_child(_log_box)
+	_log_row.add_child(_button("Log folder", _open_log_folder))
+
 	_status = _label("")
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_box.add_child(_status)
@@ -331,3 +342,13 @@ func _input(event:InputEvent)->void:
 		get_viewport().set_input_as_handled()
 		if event.is_released():
 			close()
+
+func _on_playtest_log_toggled(on:bool)->void:
+	_settings.playtest_log = on
+	_settings.save_resource()
+	if PlaytestLog.current() != null:
+		PlaytestLog.current().set_enabled(on)
+
+func _open_log_folder()->void:
+	DirAccess.make_dir_recursive_absolute(PlaytestLog.DIR)
+	OS.shell_open(ProjectSettings.globalize_path(PlaytestLog.DIR))

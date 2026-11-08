@@ -30,6 +30,10 @@ var forward_hit:Callable
 ## cooldown (DamageCooldown) switches back on by itself.
 var immune:bool
 
+## Co-op: called as (damage_resource, points, is_critical) on every received hit,
+## so the host can show it on the other machines' copies (NetEntities).
+static var points_hook:Callable
+
 
 func set_can_receive_damage(value:bool)->void:
 	can_receive_damage = value
@@ -44,6 +48,8 @@ func receive(damage_data:DamageDataResource)->void:
 
 func receive_points(points:float, is_critical:bool = false)->void:
 	received_damage_points.emit(points, is_critical)
+	if points_hook.is_valid():
+		points_hook.call(self, points, is_critical)
 
 func add_status_effect(status_effect:DamageStatusResource)->void:
 	store_status.emit(status_effect)

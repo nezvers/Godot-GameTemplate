@@ -95,5 +95,7 @@ func _tween_target_position(t:float, from:Vector2)->void:
 
 func _on_finished()->void:
 	sound_collect.play_managed()
+	# co-op: taken, not just gone with the room
+	moved_node.set_meta(&"net_collected", true)
 	point_resource.add_point()
 	pool_node.pool_return()

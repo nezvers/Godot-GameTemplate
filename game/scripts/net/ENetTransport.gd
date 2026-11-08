@@ -3,8 +3,11 @@
 class_name ENetTransport
 extends NetTransport
 
-## Channels: 0 reliable control/RPC, 1 unreliable snapshots.
-const CHANNELS:int = 2
+## Channels: 0 reliable control/RPC, 1 unreliable snapshots, 2 link probes (NetStats).
+const CHANNELS:int = 3
+## ENet's defaults (ENET_PEER_PACKET_THROTTLE_INTERVAL / _SCALE).
+const THROTTLE_INTERVAL_MS:int = 5000
+const THROTTLE_SCALE:int = 32
 
 var _upnp:UPNP
 var _mapped_port:int = -1
@@ -67,6 +70,17 @@ func _open_port(port:int)->String:
 		return ""
 	_mapped_port = port
 	return _upnp.query_external_address()
+
+## ENet's packet throttle drops unreliable packets (snapshots, probes) at random
+## once it decides the link is congested, and it decides that from round trip
+## swings frame timing alone causes. Our traffic is small and steady: send it all.
+func tune_peer(peer:MultiplayerPeer, peer_id:int)->void:
+	if !(peer is ENetMultiplayerPeer):
+		return
+	var _packet:ENetPacketPeer = (peer as ENetMultiplayerPeer).get_peer(peer_id)
+	if _packet != null:
+		# full throttle from the start and never slowed down
+		_packet.throttle_configure(THROTTLE_INTERVAL_MS, THROTTLE_SCALE, 0)
 
 func close()->void:
 	if _upnp != null && _mapped_port > 0:

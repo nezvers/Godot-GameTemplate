@@ -14,4 +14,6 @@ func _ready()->void:
 func _on_success()->void:
 	data_transmitter.set_enabled(false)
 	sounds_resource.play_managed()
+	# co-op: taken, not just gone with the room
+	get_parent().set_meta(&"net_collected", true)
 	animation_player.play(fade_out_animation)

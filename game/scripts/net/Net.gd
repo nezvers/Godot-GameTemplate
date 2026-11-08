@@ -15,7 +15,7 @@ extends Node
 const MAX_PLAYERS:int = PlayerRegistry.MAX_PLAYERS
 const DEFAULT_PORT:int = 24565
 ## Bump whenever an RPC or message layout changes.
-const PROTOCOL_VERSION:int = 3
+const PROTOCOL_VERSION:int = 4
 const CONNECT_TIMEOUT:float = 8.0
 const HELLO_TIMEOUT:float = 5.0
 const MAX_NAME_LENGTH:int = 24
@@ -61,6 +61,11 @@ var players:NetPlayers
 var entities:NetEntities
 ## The host's home base contraptions as guests see them (/root/Net/Home).
 var home:NetHome
+## Ping and link health per peer (/root/Net/Stats).
+var stats:NetStats
+## Short id the host makes per session; guests get it on welcome, so the host's
+## and guests' playtest logs can be matched up.
+var session_id:String
 
 ## Host: peer_id -> seconds left to say hello before being dropped.
 var _pending_hello:Dictionary = {}
@@ -83,6 +88,9 @@ func _ready()->void:
 	home = NetHome.new()
 	home.name = "Home"
 	add_child(home)
+	stats = NetStats.new()
+	stats.name = "Stats"
+	add_child(stats)
 	if DedicatedServer.enabled():
 		_start_server()
 
@@ -140,6 +148,7 @@ func host(at_port:int = DEFAULT_PORT)->Error:
 	multiplayer.multiplayer_peer = _peer
 	var _local:PlayerState = RunSession.local_player()
 	_local.peer_id = 1
+	session_id = "%08x" % (randi() ^ Time.get_ticks_usec())
 	_set_state(State.HOSTING)
 	_lookup_share_addresses()
 	roster_changed.emit()
@@ -167,6 +176,7 @@ func kick(slot:int, reason:String = "Kicked by host")->void:
 	var _state:PlayerState = RunSession.players.get_state(slot)
 	if _state == null || _state.is_local:
 		return
+	PlaytestLog.event("net", {"kick": _state.display_name, "slot": slot, "reason": reason})
 	_rejected.rpc_id(_state.peer_id, reason)
 	_drop_peer_later(_state.peer_id)
 
@@ -183,6 +193,7 @@ func _drop_peer(peer_id:int)->void:
 		_enet.disconnect_peer(peer_id)
 
 func _on_peer_connected(peer_id:int)->void:
+	transport.tune_peer(multiplayer.multiplayer_peer, peer_id)
 	if is_host():
 		_pending_hello[peer_id] = HELLO_TIMEOUT
 
@@ -206,6 +217,7 @@ func _hello(info:Dictionary)->void:
 	_pending_hello.erase(_peer)
 	var _reason:String = _check_hello(info)
 	if !_reason.is_empty():
+		PlaytestLog.event("net", {"rejected": _peer, "reason": _reason, "their_version": str(info.get("game_version", "")), "their_protocol": str(info.get("protocol", ""))})
 		_rejected.rpc_id(_peer, _reason)
 		_drop_peer_later(_peer)
 		return
@@ -228,7 +240,8 @@ func _hello(info:Dictionary)->void:
 	# a blank copy of our own install has no shell of its own
 	_guest.electrician = GuestTier.decide(bool(info.get("shell", false)) && !_fresh)
 	RunSession.players.add(_guest)
-	_welcome.rpc_id(_peer, _slot, _roster(), _fresh)
+	PlaytestLog.event("net", {"welcome": _name, "slot": _slot, "peer": _peer, "address": peer_address(_peer), "fresh": _fresh})
+	_welcome.rpc_id(_peer, _slot, _roster(), _fresh, session_id)
 	_broadcast_roster()
 	roster_changed.emit()
 
@@ -301,6 +314,7 @@ static func parse_address(text:String)->Dictionary:
 	return {"host": _host, "port": _port}
 
 func _on_connected_to_server()->void:
+	transport.tune_peer(multiplayer.multiplayer_peer, 1)
 	_hello.rpc_id(1, {
 		"protocol": PROTOCOL_VERSION,
 		"game_version": _game_version(),
@@ -312,9 +326,10 @@ func _on_connected_to_server()->void:
 	})
 
 @rpc("authority", "call_remote", "reliable")
-func _welcome(slot:int, roster:Array, fresh:bool)->void:
+func _welcome(slot:int, roster:Array, fresh:bool, session:String)->void:
 	if state != State.CONNECTING:
 		return
+	session_id = session.left(16)
 	var _local:PlayerState = RunSession.local_player()
 	if fresh:
 		for _entry:Variant in roster:
@@ -427,6 +442,7 @@ func _close(_reason:String)->void:
 	ghost_host_room = ""
 	_tier_unset = true
 	host_bay = false
+	session_id = ""
 	GuestTier.leave()
 	RunSession.local_player().electrician = false
 	# back to a lone local player in slot 0

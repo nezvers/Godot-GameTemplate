@@ -14,6 +14,10 @@ extends RefCounted
 func share_addresses(_port:int)->Array:
 	return []
 
+## A peer just connected (host: a guest, guest: the host, id 1).
+func tune_peer(_peer:MultiplayerPeer, _peer_id:int)->void:
+	pass
+
 ## Called once hosting stops (undo port mappings and similar).
 func close()->void:
 	pass

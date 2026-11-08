@@ -18,12 +18,10 @@ const LOCAL_ONLY:PackedStringArray = [
 	"PlayerInput", "DebugInput", "ReferencePlayer", "PlayerJuice", "ResetHealth",
 	"CameraPositionSetter", "MetaStats",
 ]
-## Further than this from the reported spot: jump there instead of catching up.
-const SNAP_DISTANCE:float = 48.0
-## Share of the remaining distance closed each physics frame.
-const CATCH_UP:float = 0.25
-
 var state:PlayerState
+## The teammate's reported positions, played back a little behind (smooth
+## even when packets come late or bunched).
+var interp:NetInterp = NetInterp.new()
 var target_position:Vector2
 var axis:Vector2
 var aim:Vector2 = Vector2.RIGHT
@@ -56,6 +54,8 @@ static func create(for_state:PlayerState, at:Vector2)->Node2D:
 	_driver.target_position = at
 	_player.add_child(_driver)
 	_player.add_to_group(&"remote_player")
+	# placed by the network: nothing here shoves it (it'd only be pulled back)
+	_player.add_to_group(MoverTopDown2D.NET_DRIVEN)
 	return _player
 
 ## The scene's items are shared sub-resources: replace them, never edit them.
@@ -91,8 +91,9 @@ func _on_hit(data:DamageDataResource)->void:
 		Net.entities.send_hurt(state, data)
 
 ## A network update for this teammate.
-func push(at:Vector2, move_axis:Vector2, aim_direction:Vector2)->void:
+func push(sent:float, at:Vector2, move_axis:Vector2, aim_direction:Vector2)->void:
 	target_position = at
+	interp.push(sent, at)
 	axis = move_axis
 	if aim_direction.length_squared() > 0.0001:
 		aim = aim_direction
@@ -163,9 +164,6 @@ func _physics_process(_delta:float)->void:
 	_input.set_aim_direction(aim)
 	if !_has_target:
 		return
-	var _body:Node2D = owner_node()
-	var _gap:Vector2 = target_position - _body.global_position
-	if _gap.length() > SNAP_DISTANCE:
-		_body.global_position = target_position
-	else:
-		_body.global_position += _gap * CATCH_UP
+	var _at:Vector2 = interp.position()
+	if _at.is_finite():
+		owner_node().global_position = _at

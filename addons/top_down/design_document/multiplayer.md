@@ -54,6 +54,11 @@
   - following through rooms and doors, and pausing online
   - enemy copies, hits in both directions, shot copies and loot
   - fights, down and revive, the party wipe, saved guest state and the host leaving
+  - a guest's grinder reward showing up shared on the host, and the host's own grind making no free copies
+  - hit flashes relayed (but not echoed back to the hitter), and pickup sounds in shared loot mode
+  - a spiderling shot copy hatching nothing on the guest, while the host's real spider gets copied over
+- `game/tests/net_interp_check.tscn` covers NetInterp playback under jitter (never stepping back or stopping between packets) and the playtest log file.
+- `net_loopback_check` also covers NetStats link health and ping on loopback.
 
 ## Seeing each other (phase 5)
 
@@ -193,6 +198,48 @@ Test: `game/tests/coop_world_check.tscn` uses two real games, with the guest in 
 - `true`: every guest gets its own copy of each drop (`_spawn_private`), which only it sees and collects.
 
 It will become a meta upgrade later.
+
+- **Grinder rewards** (`MeatGrinder.reward_hook` → `NetEntities._on_grind_reward`) are always one shared pickup that the host puts down (`force_shared`). A guest asks with `_grind_reward`, and the host checks that a grinder is within reach. The cost is paid once, so per-player mode gives no copies.
+- **Pickup sounds**: in shared mode, taking a tracked pickup plays its sound on the other machines. `_despawn` gets `Gone.COLLECTED`, the collectors set the `net_collected` meta, and the collector itself hears nothing extra. Per-player copies stay silent elsewhere.
+
+## Smooth copies (`NetInterp`)
+
+- Enemy snapshots and teammate updates carry the sender's clock (`NetInterp.now()`).
+- Copies (`NetPuppet`, `RemotePlayer`) play the samples back `NetInterp.DELAY` (0.1 s, two updates) behind. They interpolate between the two samples around that moment and extrapolate at most 0.1 s past the newest.
+- The clock offset follows the fastest arrival and slowly relaxes, so late or bunched packets don't stop the copy or turn it around.
+- The walk animation comes from the played-back velocity, with hysteresis (`WALK_START` / `WALK_STOP`).
+- Copies are in the `net_driven` group. `MoverTopDown2D` never shoves them in soft separation; the other body steps aside instead, because a shoved copy would just be pulled back and look like rubberbanding.
+
+## Enemy feedback on guests
+
+- Enemy hits on the host go through `DamageResource.points_hook`. They are batched with each snapshot and sent as `_hit_fx`, and the copy plays its flash, sound and damage number (`NetPuppet.play_hit`) without changing hp.
+- The guest that landed a hit flashes its copy right away, and its own hit isn't sent back to it.
+- Other enemy sounds use `SoundResource.played_hook`. The host relays the sound paths that enemy scenes refer to, except damage and death sounds (covered by hit effects and `_play_death`) and sounds the player scene also uses.
+- Guests never create real enemies:
+  - Shot copies don't hatch enemies (`SpawnOnLand.spawn_filter`).
+  - Any other guest-side enemy spawn is dropped and logged.
+
+## Link health (`NetStats`, `/root/Net/Stats`)
+
+- The host probes every guest and a guest probes the host: 10 Hz, unreliable, on ENet channel 2.
+- Health is the share of probes answered over the last 3 s. Ping is the mean round trip, and jitter is its spread.
+- ENet's packet throttle is switched off (`ENetTransport.tune_peer`, deceleration 0). Left on, it dropped about half of all unreliable packets, even on loopback, because frame-time RTT swings looked like congestion.
+- The party panel shows `42ms 98%` on each card: the host sees every guest, a guest sees only the host's card. Colours: green at 95% or more, yellow at 80% or more, red below.
+
+## Playtest log (`PlaytestLog`, `/root/RunSession/PlaytestLog`)
+
+- Turned on with the co-op dialog's "Playtest log" box (`NetSettings.playtest_log`) or the `--playtest-log` launch argument.
+- It writes `user://logs/playtest_<date>.log` and keeps the last 10. The dialog's "Log folder" button opens the folder.
+- Line format: `<clock> <seconds> p<peer> <category> key=value`. Categories:
+  - `session`: start, version, OS
+  - `net`: state, roster, joins, rejections, kicks, disconnects
+  - `room`, `fight`: start, clear, kills
+  - `player`: hurt, downed
+  - `loot`
+  - `stats`: every 3 s — fps, worst frame, hp, weapon, position, loot counters, enemies, per-peer link stats (probe and ENet), teammates
+  - `error`: engine errors and warnings with script backtraces, from a `Logger`
+  - `summary`
+- The host's `Net.session_id` reaches guests in `_welcome`, so both sides' logs carry the same id.
 
 ## Dedicated server (`DedicatedServer`, hidden player)
 

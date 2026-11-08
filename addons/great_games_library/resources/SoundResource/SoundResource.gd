@@ -72,9 +72,15 @@ func play(_sound_player:SoundPlayer)->void:
 	sound_player.volume_db = get_volume()
 	sound_player.play()
 
+## Called with every SoundResource played through play_managed (co-op relays
+## enemy sounds to the other machines).
+static var played_hook:Callable
+
 ## Gets played by SoundManager singleton
 func play_managed()->void:
 	SoundManager.play(self)
+	if played_hook.is_valid():
+		played_hook.call(self)
 
 ## Stops sound
 func stop()->void:

@@ -13,6 +13,10 @@ signal ground(cost:Array, rewards:Array)
 ## Frame 0 idle, frames 1-3 the crank turning.
 @export var sprite:Sprite2D
 
+## Co-op: called as (drop, amount, position) for each reward instead of spawning
+## it here, so the host can put down one pickup everyone shares (NetEntities).
+static var reward_hook:Callable
+
 const CRANK_FRAMES:Array[int] = [1, 2, 3, 1, 2, 3, 0]
 const FRAME_TIME:float = 0.07
 
@@ -31,7 +35,12 @@ func _use()->void:
 func _finish()->void:
 	busy = false
 	for _reward:Dictionary in rewards:
-		LootItems.spawn(_reward.get("drop", ""), int(_reward.get("amount", 1)), output_marker.global_position)
+		var _drop:String = _reward.get("drop", "")
+		var _amount:int = int(_reward.get("amount", 1))
+		if reward_hook.is_valid():
+			reward_hook.call(_drop, _amount, output_marker.global_position)
+		else:
+			LootItems.spawn(_drop, _amount, output_marker.global_position)
 	ground.emit(cost, rewards)
 
 func _prompt_text()->String:

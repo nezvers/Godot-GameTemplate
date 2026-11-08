@@ -104,6 +104,22 @@ func _run()->void:
 	# --- the party leaves for a mission; the guest follows
 	Transition.change_scene(N00)
 	check(await _wait(func ()->bool: return _current() == N00 && _body() != null, 10.0), "host: in the mission start")
+	# a grinder where both players arrive: the guest grinds there (net_client)
+	var _grinder:MeatGrinder = (load(TD + "scenes/interactables/meat_grinder.tscn") as PackedScene).instantiate()
+	_grinder.name = "TestGrinder"
+	get_tree().current_scene.add_child(_grinder)
+	_grinder.global_position = _body().global_position
+	var _health_path:String = LootItems.PICKUPS.health
+	var _tracked_health:Array[int] = [0]
+	var _private_spawns:Array[int] = [0]
+	var _grind_hook:Callable = InstanceResource.instanced_hook
+	InstanceResource.instanced_hook = func (resource:InstanceResource, node:Node)->void:
+		_grind_hook.call(resource, node)
+		if resource.resource_path == _health_path:
+			if Net.entities._ids.has(node.get_instance_id()):
+				_tracked_health[0] += 1
+			else:
+				_private_spawns[0] += 1
 	check(await _wait(func ()->bool: return _last("room").begins_with(N00), 15.0), "guest: followed to the mission (%s)" % _last("room"))
 	check(await _wait(func ()->bool: return Net.players.puppets.has(1) && is_instance_valid(Net.players.puppets[1]), 10.0), "host: guest's character in the mission room")
 	# the start room's weapon: one each, rolled on each machine, never shared
@@ -112,6 +128,27 @@ func _run()->void:
 	check(_starting.size() == 1 && _starting[0].has_meta(&"private_loot"), "host: one starting weapon here, our own (%d)" % _starting.size())
 	check(!Net.entities.kinds.values().has(NetEntities.Kind.ITEM), "host: the starting weapon isn't sent to guests")
 	check(await _wait(func ()->bool: return _last("floor_weapons") == "1 1", 5.0), "guest: one starting weapon of its own, not ours on top (%s)" % _last("floor_weapons"))
+
+	# per-player loot is on in balance.json: the grind still makes one shared pickup
+	check(await _wait(func ()->bool: return _last("ground") != "", 10.0), "guest: ground meat")
+	check(await _wait(func ()->bool: return _tracked_health[0] == 1, 5.0), "host: the guest's grinder health shows up here, shared (%d tracked, %d untracked)" % [_tracked_health[0], _private_spawns[0]])
+	InstanceResource.instanced_hook = _grind_hook
+	var _before_host_grind:int = _tracked_health[0]
+	_tracked_health[0] = 0
+	_private_spawns[0] = 0
+	InstanceResource.instanced_hook = func (resource:InstanceResource, node:Node)->void:
+		_grind_hook.call(resource, node)
+		if resource.resource_path == _health_path:
+			if Net.entities._ids.has(node.get_instance_id()):
+				_tracked_health[0] += 1
+			else:
+				_private_spawns[0] += 1
+	_grinder.rewards = [{"drop": "health", "amount": 1}]
+	_grinder._finish()
+	await _frames(3)
+	check(_tracked_health[0] == 1 && _private_spawns[0] == 0 && _before_host_grind == 1, "host: our own grind is one shared pickup, no free copies for guests (%d/%d)" % [_tracked_health[0], _private_spawns[0]])
+	InstanceResource.instanced_hook = _grind_hook
+	_grinder.queue_free()
 
 	await _check_world(_guest)
 
@@ -189,15 +226,38 @@ func _check_world(guest:PlayerState)->void:
 	check(_id > 0 && Net.entities.kinds[_id] == NetEntities.Kind.ENEMY, "host: zombie got a net id")
 	check(await _wait(func ()->bool: return _enemy_at(_id).is_finite(), 10.0), "guest: zombie copy appears (%s)" % _last("enemies"))
 	check(_enemy_at(_id).distance_to(_at) < 8.0, "guest: copy where the zombie is (%s vs %s)" % [_enemy_at(_id), _at])
+	# our hit flashes and sounds on the guest's copy too
+	var _health:HealthResource = (_zombie.get_node("ResourceNode") as ResourceNode).get_resource("health")
+	var _fx_before:int = int(_last("hit_fx"))
+	NetEntities.apply_hit(_zombie, 1.0, Vector2.ZERO, false)
+	var _max:float = _health.hp
+	check(await _wait(func ()->bool: return int(_last("hit_fx")) == _fx_before + 1, 5.0), "guest: our hit flashes its copy (%s)" % _last("hit_fx"))
 	_zombie.global_position += Vector2(0, 30)
 	check(await _wait(func ()->bool: return _enemy_at(_id).distance_to(_zombie.global_position) < 4.0, 5.0), "guest: copy follows the zombie")
 
-	var _health:HealthResource = (_zombie.get_node("ResourceNode") as ResourceNode).get_resource("health")
-	var _max:float = _health.max_hp
 	check(await _wait(func ()->bool: return _health.hp < _max, 5.0), "host: guest's hit lands on the zombie (%d/%d)" % [_health.hp, _max])
 	check(is_equal_approx(_max - _health.hp, 3.0), "host: hit for the 3 the guest measured (%s)" % (_max - _health.hp))
 	check(await _wait(func ()->bool: return !Net.entities.entities.has(_id), 6.0), "host: guest killed the zombie")
 	check(await _wait(func ()->bool: return !_enemy_at(_id).is_finite(), 5.0), "guest: copy gone with it")
+	check(int(_last("hit_fx")) == _fx_before + 1, "guest: its own hits aren't echoed back (%s)" % _last("hit_fx"))
+
+	# a spiderling lobbed here hatches one spider, ours; the guest gets a copy, not its own
+	var _spiderling:InstanceResource = load(TD + "resources/InstanceResources/projectiles/spiderling_projectile_instance_resource.tres")
+	var _lob_from:Vector2 = _body().global_position + Vector2(60, 0)
+	_spiderling.instance(func (inst:Projectile2D)->void:
+		inst.global_position = _lob_from
+		inst.destination = _lob_from + Vector2(20, 0)
+		inst.direction = Vector2.RIGHT)
+	var _spider_ids:Callable = func ()->Array:
+		return Net.entities.entities.keys().filter(func (k:int)->bool: return Net.entities.kinds.get(k) == NetEntities.Kind.ENEMY && str(Net.entities._paths.get(k, "")).contains("skitter_spider"))
+	check(await _wait(func ()->bool: return _spider_ids.call().size() == 1, 6.0), "host: the spiderling hatched a spider here (%d)" % _spider_ids.call().size())
+	check(await _wait(func ()->bool: return _last("spider_copies") == "1", 5.0), "guest: sees our spider (%s)" % _last("spider_copies"))
+	await _frames(30)
+	check(_last("own_enemies") == "0", "guest: no spider of its own hatched from the shot copy (%s)" % _last("own_enemies"))
+	for _spider_id:int in _spider_ids.call():
+		var _spider:Node = Net.entities.entities[_spider_id]
+		(_spider.get_node("ResourceNode") as ResourceNode).get_resource("health").insta_kill()
+	check(await _wait(func ()->bool: return _last("spider_copies") == "0", 5.0), "guest: spider gone with ours (%s)" % _last("spider_copies"))
 
 	# an enemy hit on the guest's copy here lands on the guest there
 	var _hp_before:int = int(_last("hp"))
@@ -235,6 +295,17 @@ func _check_world(guest:PlayerState)->void:
 	InstanceResource.instanced_hook = _hook
 
 	# loot: dropped on the guest, picked up there, gone here, credited there only
+	# (shared loot for this part: per-player loot is never sent)
+	var _coop_balance:Dictionary = Balance.data.get("coop", {})
+	var _per_player:Variant = _coop_balance.get("loot_per_player", false)
+	_coop_balance["loot_per_player"] = false
+	var _coin_sounds:Array[int] = [0]
+	var _sound_hook:Callable = SoundResource.played_hook
+	SoundResource.played_hook = func (sound:SoundResource)->void:
+		if sound.resource_path.ends_with("coin_pickup.tres"):
+			_coin_sounds[0] += 1
+		_sound_hook.call(sound)
+	var _guest_coin_sounds:int = int(_last("pickup_sounds"))
 	var _coins_here:int = LootItems.counter("coin").value
 	var _coins_there:int = int(_last("coins"))
 	var _drop_at:Vector2 = _puppet.global_position if _puppet != null else _from
@@ -251,6 +322,11 @@ func _check_world(guest:PlayerState)->void:
 	check(await _wait(func ()->bool: return int(_last("coins")) == _coins_there + 1, 8.0), "guest: picked up the coin (%s)" % _last("coins"))
 	check(await _wait(func ()->bool: return !Net.entities.entities.has(_coin_id), 5.0), "host: coin gone once the guest has it")
 	check(LootItems.counter("coin").value == _coins_here, "host: the guest's coin isn't ours")
+	check(_coin_sounds[0] == 1, "host: hears the guest take the coin (%d)" % _coin_sounds[0])
+	await _frames(10)
+	check(int(_last("pickup_sounds")) == _guest_coin_sounds + 1, "guest: its pickup sound once, no echo (%s)" % _last("pickup_sounds"))
+	SoundResource.played_hook = _sound_hook
+	_coop_balance["loot_per_player"] = _per_player
 
 	# down, not dead: a teammate standing close brings them back
 	_hurt_guest(9999.0)

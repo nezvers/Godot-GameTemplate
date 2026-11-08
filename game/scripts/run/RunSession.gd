@@ -56,6 +56,7 @@ func _ready()->void:
 	players.add(PlayerState.create_local(profile.profile_id, profile.display_name))
 	var _room_state:RoomStateResource = load(ROOM_STATE_PATH)
 	_room_state.updated.connect(queue_checkpoint)
+	add_child(PlaytestLog.new())
 	get_tree().auto_accept_quit = false
 
 func _notification(what:int)->void:
