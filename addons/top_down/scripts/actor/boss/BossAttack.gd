@@ -50,6 +50,11 @@ func is_available(time:float, distance:float, health_ratio:float)->bool:
 		return false
 	return health_ratio >= min_health && health_ratio <= max_health
 
+## Whether it can be used on this target right now (a jump whose landing spot is
+## a hole waits); checked with is_available when the loop picks an attack.
+func can_target(_target:Node2D)->bool:
+	return true
+
 ## Windup start, target is known
 func prepare(new_target:Node2D)->void:
 	target = new_target

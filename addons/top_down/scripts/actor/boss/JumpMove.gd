@@ -3,6 +3,8 @@ extends Node
 
 signal jump_started
 signal jump_finished
+## End of play_visual (a copy's jump)
+signal visual_landed
 
 ## During movement goes from 0.0 to 1.0
 signal movement_interpolation(t:float)
@@ -27,6 +29,8 @@ var move_tween:Tween
 var stretch_tween:Tween
 var is_jumping:bool
 var receiver_collision_layer:int
+## Length of the jump in progress (co-op: sent with jump_started to guests' copies)
+var jump_time:float
 
 
 ## Used to multiply current frame distance as velocity per second
@@ -42,6 +46,7 @@ func move_target_position(value:Vector2, time:float)->void:
 	if is_jumping:
 		return
 	is_jumping = true
+	jump_time = time
 	
 	previous_position = character_body.global_position
 	jump_started.emit()
@@ -87,6 +92,28 @@ func _jump_finished(target_pos:Vector2)->void:
 	
 	if land_sound != null:
 		land_sound.play_managed()
+
+## Co-op guest's copy: only the look of a jump (hop arc, stretch, land squash);
+## the host's snapshots move the body and its sounds come relayed. Tweens belong
+## to `tween_owner`, this node doesn't process on a copy. Emits visual_landed at the end.
+func play_visual(time:float, tween_owner:Node)->void:
+	if move_tween != null:
+		move_tween.kill()
+	move_tween = tween_owner.create_tween()
+	move_tween.tween_method(func (t:float)->void: sprite.offset.y = offset_curve.sample(t), 0.0, 1.0, time)
+	move_tween.finished.connect(_visual_landed.bind(tween_owner))
+	_stretch(jump_stretch, tween_owner)
+
+func _visual_landed(tween_owner:Node)->void:
+	sprite.offset.y = 0.0
+	_stretch(land_stretch, tween_owner)
+	visual_landed.emit()
+
+func _stretch(from:Vector2, tween_owner:Node)->void:
+	if stretch_tween != null:
+		stretch_tween.kill()
+	stretch_tween = tween_owner.create_tween()
+	stretch_tween.tween_method(_stretch_interpolation.bind(from), 0.0, 1.0, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 
 ## Stops a jump midway (death, pooling) without landing, jump_finished is not emitted
 func cancel()->void:

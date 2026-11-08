@@ -21,6 +21,7 @@ func _ready()->void:
 	_check_scenes()
 	await get_tree().process_frame
 	await _check_contraptions_in_tree()
+	await _check_duplicate_weapons()
 	print("pickup_checks: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -170,3 +171,53 @@ func _check_contraptions_in_tree()->void:
 	_slime.reset_resource()
 	_meat.reset_resource()
 	await get_tree().process_frame
+
+func _frames(count:int)->void:
+	for i:int in count:
+		await get_tree().physics_frame
+
+## Two copies of one weapon: they share one instance (and its upgrade level);
+## dropping either copy leaves the other one working, and both drops land.
+func _check_duplicate_weapons()->void:
+	var _transition:SceneTransitionResource = load(TD + "resources/global_resources/scene_transition_resource.tres")
+	_transition.next_scene_path = ""
+	var _room:Node = (load("res://game/scenes/room_N00.tscn") as PackedScene).instantiate()
+	add_child(_room)
+	await _frames(5)
+	var _player:Node = (load(TD + "resources/ReferenceNodeResources/player_reference.tres") as ReferenceNodeResource).node
+	check(_player != null, "dup weapons: a player")
+	if _player == null:
+		_room.queue_free()
+		return
+	var _manager:WeaponManager = _player.get_node("WeaponManager")
+	var _inventory:ItemCollectionResource = _manager.weapon_inventory
+	var _database:ItemCollectionResource = load("res://addons/top_down/resources/ItemCollectionResource/weapon_database.tres")
+	var _gun:ItemResource = HomeBaseResource.find_item(_database, "Gun")
+	var _upgrades:WeaponUpgradeResource = _manager.weapon_upgrade_resource
+	_upgrades.reset_resource()
+	_inventory.list.clear()
+	_inventory.set_selected(0)
+	_inventory.append(_gun)
+	_upgrades.upgrade(_gun.scene_path)
+	_inventory.append(_gun)
+	await _frames(1)
+	check(_inventory.list.size() == 2 && _manager.weapon_list.size() == 2 && _manager.weapon_list[0] == _manager.weapon_list[1], "dup weapons: two slots, one shared instance")
+	check(_manager.weapon_list[1].damage_data_resource.upgrade_multiply > 1.0, "dup weapons: the copy has the upgrade")
+	var _pickups:Callable = func ()->int:
+		return _room.find_children("*", "ItemPickup", true, false).filter(func (n:Node)->bool: return !n.is_queued_for_deletion() && (n as ItemPickup).item_resource == _gun).size()
+	var _floor_before:int = _pickups.call()
+	for _slot:int in [1, 0]:
+		_inventory.set_selected(_slot)
+		_manager.drop_weapon()
+		await _frames(2)
+		check(_pickups.call() == _floor_before + 1, "dup weapons: drop of slot %d lands" % _slot)
+		_floor_before = _pickups.call()
+		if _slot == 1:
+			var _left:Weapon = _manager.current_weapon
+			check(is_instance_valid(_left) && _left.is_inside_tree() && _left.enabled && _left != _manager.default_weapon, "dup weapons: the other copy still works")
+			check(_manager.weapon_dictionary.has(_gun.scene_path), "dup weapons: instance kept for the copy left")
+	check(_inventory.list.is_empty() && !_manager.weapon_dictionary.has(_gun.scene_path) && _manager.current_weapon == _manager.default_weapon, "dup weapons: last drop frees it, fists out")
+	_upgrades.reset_resource()
+	_inventory.list.clear()
+	_room.queue_free()
+	await _frames(2)

@@ -41,6 +41,7 @@ func _ready()->void:
 	await _check_bloater_out_of_range()
 	await _check_bloater_area()
 	await _check_bloater_burst()
+	await _check_bloater_holes()
 	await _check_wielder("skeleton", "skeleton_slash.tscn", 14.0)
 	await _check_wielder("mage", "mage_bullet.tscn", 60.0)
 	# last: its acid puddle under the player would keep the player in hit cooldown
@@ -188,6 +189,61 @@ func _check_bloater_burst()->void:
 	check(_cleared[0], "wave counts the bloater killed once its zombies die")
 
 ## Weapon wielder hits the player, its projectiles only mask the player and pass through a zombie in the way
+## A bloater never jumps at a hole: with its landing spot on one, the loop
+## leaves the jump for later. Flying over a hole on the way doesn't kill it.
+func _check_bloater_holes()->void:
+	var _room:Node = get_child(0)
+	var _hole_scene:PackedScene = load(TD + "scenes/obstacles/hole_obstacle.tscn")
+	for _case:String in ["target", "over"]:
+		var _bloater:Node2D = await _spawn("bloater_instance_resource.tres", 48.0)
+		var _loop:BossAttackLoop = _bloater.get_node("BossAttackLoop")
+		var _jump:BossJump = _loop.get_node("Jump")
+		_jump.burst_chance = 0.0
+		var _health:HealthResource = _bloater.get_node("ResourceNode").get_resource("health")
+		var _toward:Vector2 = (player.global_position - _bloater.global_position).normalized()
+		var _target:Node2D = Node2D.new()
+		_room.add_child(_target)
+		_target.global_position = _bloater.global_position + _toward * 36.0
+		var _hole:Node2D = _hole_scene.instantiate()
+		_room.add_child(_hole)
+		# the target spot itself, or halfway there (flown over)
+		_hole.global_position = _target.global_position if _case == "target" else _bloater.global_position + _toward * 18.0
+		HoleMap.clear()
+		await _frames(3)
+		var _distance:float = _target.global_position.distance_to(_bloater.global_position)
+		var _now:float = Time.get_ticks_msec() * 0.001
+		if _case == "target":
+			check(!_jump.can_target(_target), "bloater: a landing spot on a hole is refused")
+			check(_loop._pick_attack(_now, _distance, 1.0, _target) == null, "bloater: the loop postpones the jump while the target is over a hole")
+			_hole.free()
+			HoleMap.clear()
+			check(_jump.can_target(_target) && _loop._pick_attack(_now, _distance, 1.0, _target) == _jump, "bloater: jumps again once the spot is clear")
+		else:
+			check(_jump.can_target(_target), "bloater: a hole on the way doesn't stop the jump")
+			var _landed:Array[Vector2] = []
+			_jump.jump_move.jump_finished.connect(func ()->void: _landed.append(_bloater.global_position), CONNECT_ONE_SHOT)
+			var _dash:BoolResource = _bloater.get_node("ResourceNode").get_resource("dash")
+			var _airborne_dash:Array[bool] = [false]
+			_loop._run_attack(_jump, _target)
+			for i:int in 120:
+				await get_tree().physics_frame
+				_keep_player()
+				if _jump.is_jumping && _dash.value:
+					_airborne_dash[0] = true
+				if !_landed.is_empty() && i > 60:
+					break
+			check(_landed.size() == 1 && _landed[0].distance_to(_target.global_position) < 4.0, "bloater: jumps over a hole to its target %s" % [_landed])
+			check(!_health.is_dead, "bloater: alive after flying over a hole")
+			check(_airborne_dash[0] && !_dash.value, "bloater: hole-proof only while airborne")
+		_kill(_bloater)
+		if is_instance_valid(_hole):
+			_hole.queue_free()
+		_target.queue_free()
+		await _frames(3)
+		_kill_scene("zombie.tscn")
+		HoleMap.clear()
+		await _frames(3)
+
 func _check_wielder(id:String, projectile_scene:String, distance:float)->void:
 	var _enemy:Node2D = await _spawn(id + "_instance_resource.tres", distance)
 	var _weapon:Node = _enemy.get_node("SlashAttack")

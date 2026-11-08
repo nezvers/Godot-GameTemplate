@@ -262,6 +262,8 @@ func _register(node:Node, kind:Kind, path:String)->int:
 		if _old.get_object() == self && _old.get_method() == &"_on_host_entity_exiting":
 			node.tree_exiting.disconnect(_old)
 	node.tree_exiting.connect(_on_host_entity_exiting.bind(_id, node), CONNECT_ONE_SHOT)
+	if kind == Kind.ENEMY:
+		_watch_actions(node)
 	return _id
 
 ## Host: weapons that were lying here before we went online (the home base puts
@@ -459,7 +461,8 @@ static func _private_offset(index:int)->Vector2:
 ## AI, attacks and movement off; the snapshots move it, the host decides its hp.
 func _make_puppet(enemy:Node)->void:
 	for _child:Node in enemy.get_children():
-		if !PUPPET_KEEP.has(_child.name):
+		# ground warnings only draw: shown on the host's word (NetPuppet.play_attack)
+		if !PUPPET_KEEP.has(_child.name) && !(_child is BossTelegraph):
 			_child.process_mode = Node.PROCESS_MODE_DISABLED
 			_child.set_meta(&"net_disabled", true)
 	if !enemy.has_node("NetPuppet"):
@@ -695,6 +698,116 @@ static func apply_hit(actor:Node, amount:float, impulse:Vector2, critical:bool)-
 	_health.add_hp(-amount)
 	_data.is_kill = _health.is_dead
 	_damage.receive(_data)
+
+# --- Boss attacks and jumps (how the host's enemy looks doing them) -----------------
+
+## Host: an enemy's attack loop and jumps are told to the guests' copies, whose
+## AI (that plays them) is off. Hooked once per node: pooled enemies keep their
+## connections and look their net id up when they fire.
+func _watch_actions(enemy:Node)->void:
+	if enemy.has_meta(&"net_actions_watched"):
+		return
+	enemy.set_meta(&"net_actions_watched", true)
+	for _child:Node in enemy.get_children():
+		if _child is BossAttackLoop:
+			var _loop:BossAttackLoop = _child
+			_loop.attack_started.connect(_on_attack_started.bind(enemy))
+			_loop.attack_performing.connect(_on_attack_performing.bind(enemy))
+			_loop.attack_ended.connect(_on_attack_ended.bind(enemy))
+	for _node:Node in enemy.find_children("*", "JumpMove", true, false):
+		var _move:JumpMove = _node
+		_move.jump_started.connect(_on_jump_started.bind(_move, enemy))
+		_move.jump_finished.connect(_on_jump_finished.bind(_move, enemy))
+
+func _enemy_id(enemy:Node)->int:
+	if !net().is_host() || !is_instance_valid(enemy):
+		return 0
+	var _id:int = int(_ids.get(enemy.get_instance_id(), 0))
+	return _id if kinds.get(_id) == Kind.ENEMY else 0
+
+func _send_attack(enemy:Node, phase:int, attack:BossAttack, windup:float)->void:
+	var _id:int = _enemy_id(enemy)
+	if _id == 0:
+		return
+	var _loop:BossAttackLoop = attack.get_parent() as BossAttackLoop if attack != null else null
+	var _index:int = _loop.attacks.find(attack) if _loop != null else -1
+	var _telegraph:BossTelegraph = attack.telegraph if attack != null else null
+	var _top:bool = _telegraph != null && _telegraph.top_level
+	var _pos:Vector2 = _telegraph.position if _telegraph != null else Vector2.ZERO
+	var _vector:Vector2 = _telegraph.vector if _telegraph != null else Vector2.ZERO
+	var _radius:float = _telegraph.radius if _telegraph != null else 0.0
+	var _color:Color = _telegraph.color if _telegraph != null else Color.WHITE
+	for _state:PlayerState in _guests_here():
+		if _synced.get(_state.peer_id, "") == current_room():
+			_enemy_attack.rpc_id(_state.peer_id, _id, phase, _index, windup, _top, _pos, _vector, _radius, _color)
+
+func _on_attack_started(attack:BossAttack, enemy:Node)->void:
+	var _loop:BossAttackLoop = attack.get_parent() as BossAttackLoop
+	var _windup:float = attack.windup * (_loop.enrage_time_scale if _loop != null && _loop.is_enraged else 1.0)
+	_send_attack(enemy, NetPuppet.AttackPhase.WINDUP, attack, _windup)
+
+func _on_attack_performing(attack:BossAttack, enemy:Node)->void:
+	_send_attack(enemy, NetPuppet.AttackPhase.PERFORM, attack, 0.0)
+
+func _on_attack_ended(enemy:Node)->void:
+	_send_attack(enemy, NetPuppet.AttackPhase.END, null, 0.0)
+
+func _on_jump_started(move:JumpMove, enemy:Node)->void:
+	var _id:int = _enemy_id(enemy)
+	if _id == 0 || !enemy.is_ancestor_of(move):
+		return
+	var _path:String = str(enemy.get_path_to(move))
+	for _state:PlayerState in _guests_here():
+		if _synced.get(_state.peer_id, "") == current_room():
+			_enemy_jump.rpc_id(_state.peer_id, _id, _path, move.jump_time)
+
+## Touched down here: a copy still in the air lands now (its landing effect
+## shows before a burst's death, which comes right after on the same channel).
+func _on_jump_finished(move:JumpMove, enemy:Node)->void:
+	var _id:int = _enemy_id(enemy)
+	if _id == 0 || !enemy.is_ancestor_of(move):
+		return
+	for _state:PlayerState in _guests_here():
+		if _synced.get(_state.peer_id, "") == current_room():
+			_enemy_landed.rpc_id(_state.peer_id, _id)
+
+## Attack and jump looks played on copies (tests read them).
+var attacks_played:int
+var jumps_played:int
+## Landing effects (jelly splash, bloater dust ring) made for copies (tests read it).
+var landings_played:int
+
+@rpc("authority", "call_remote", "reliable")
+func _enemy_attack(id:int, phase:int, index:int, windup:float, top:bool, pos:Vector2, vector:Vector2, radius:float, color:Color)->void:
+	if !_from_host():
+		return
+	var _driver:NetPuppet = _puppet_driver(id)
+	if _driver != null && _driver.play_attack(phase, index, windup, top, pos, vector, radius, color):
+		attacks_played += 1
+
+@rpc("authority", "call_remote", "reliable")
+func _enemy_jump(id:int, path:String, time:float)->void:
+	if !_from_host() || path.length() > MAX_PATH || path.begins_with("/") || path.contains(".."):
+		return
+	var _driver:NetPuppet = _puppet_driver(id)
+	if _driver != null && _driver.play_jump(NodePath(path), time):
+		jumps_played += 1
+
+@rpc("authority", "call_remote", "reliable")
+func _enemy_landed(id:int)->void:
+	if !_from_host():
+		return
+	var _driver:NetPuppet = _puppet_driver(id)
+	if _driver != null:
+		_driver.land_now()
+
+func _puppet_driver(id:int)->NetPuppet:
+	if kinds.get(id) != Kind.ENEMY:
+		return null
+	var _node:Node = entities.get(id)
+	if _node == null || !is_instance_valid(_node) || !_node.is_inside_tree():
+		return null
+	return _node.get_node_or_null("NetPuppet") as NetPuppet
 
 # --- Shots (every machine) ---------------------------------------------------------
 

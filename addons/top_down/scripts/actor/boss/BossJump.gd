@@ -100,11 +100,8 @@ func _ready()->void:
 
 func prepare(new_target:Node2D)->void:
 	super.prepare(new_target)
-	var _difference:Vector2 = (target.global_position - character.global_position) * axis_compensation
-	if _difference.length_squared() < 1.0:
-		_difference = Vector2.RIGHT
-	var _direction:Vector2 = _difference.normalized()
-	landing_position = character.global_position + _direction * minf(_difference.length(), max_jump_distance) * axis_multiplication.value
+	var _direction:Vector2 = _landing_direction(target.global_position)
+	landing_position = landing_for(target.global_position)
 	global_direction = (_direction * axis_multiplication.value).normalized()
 
 	var _health_ratio:float = health_resource.hp / maxf(health_resource.max_hp, 1.0)
@@ -118,6 +115,45 @@ func prepare(new_target:Node2D)->void:
 		telegraph.color = burst_color if is_burst else telegraph_color
 		telegraph.radius = get_damage_radius()
 
+## Not while the spot it would land on is a hole: the jump waits for a better moment.
+func can_target(new_target:Node2D)->bool:
+	return new_target == null || !lands_in_hole(landing_for(new_target.global_position))
+
+## Where a jump at `target_position` lands: on it, or max_jump_distance towards it.
+func landing_for(target_position:Vector2)->Vector2:
+	var _difference:Vector2 = (target_position - character.global_position) * axis_compensation
+	# a target right on top: a tiny hop (the direction falls back to RIGHT, length 1)
+	var _length:float = minf(_difference.length() if _difference.length_squared() >= 1.0 else 1.0, max_jump_distance)
+	return character.global_position + _landing_direction(target_position) * _length * axis_multiplication.value
+
+## Perspective compensated direction towards `target_position`
+func _landing_direction(target_position:Vector2)->Vector2:
+	var _difference:Vector2 = (target_position - character.global_position) * axis_compensation
+	if _difference.length_squared() < 1.0:
+		_difference = Vector2.RIGHT
+	return _difference.normalized()
+
+## Would the body's hole receiver, standing at `spot`, touch a hole?
+func lands_in_hole(spot:Vector2)->bool:
+	return HoleMap.overlaps(get_tree(), footprint_at(spot))
+
+## The hole receiver's shape (what holes catch) moved to `spot`, a little bigger
+## so a landing doesn't graze a hole edge.
+func footprint_at(spot:Vector2)->PackedVector2Array:
+	var _shape_node:CollisionShape2D = null
+	for _child:Node in area_receiver.get_children():
+		if _child is CollisionShape2D && (_child as CollisionShape2D).shape != null:
+			_shape_node = _child
+			break
+	var _rect:Rect2 = _shape_node.shape.get_rect() if _shape_node != null else Rect2(-4, -2, 8, 4)
+	_rect = _rect.grow(2.0)
+	var _offset:Vector2 = (_shape_node.global_position if _shape_node != null else area_receiver.global_position) - character.global_position
+	var _scale:Vector2 = _shape_node.global_transform.get_scale() if _shape_node != null else Vector2.ONE
+	var _corners:PackedVector2Array = [_rect.position, Vector2(_rect.end.x, _rect.position.y), _rect.end, Vector2(_rect.position.x, _rect.end.y)]
+	for _i:int in _corners.size():
+		_corners[_i] = spot + _offset + _corners[_i] * _scale
+	return _corners
+
 func perform()->void:
 	if !running:
 		return
@@ -129,6 +165,8 @@ func perform()->void:
 	mover.set_enabled_process(false)
 	if airborne_invulnerable:
 		area_receiver.collision_layer = 0
+	# flies over holes like a dashing player (HoleTransmission waits it out)
+	_set_airborne(true)
 
 	jump_move.move_target_position(landing_position, jump_time)
 	await jump_move.jump_finished
@@ -164,6 +202,12 @@ func _end_jump()->void:
 	character.collision_mask = saved_collision_mask
 	mover.set_enabled_process(true)
 	area_receiver.collision_layer = receiver_collision_layer
+	_set_airborne(false)
+
+func _set_airborne(value:bool)->void:
+	var _dash:BoolResource = resource_node.get_resource("dash") as BoolResource
+	if _dash != null:
+		_dash.set_value(value)
 
 ## Same death as HoleDeath, a killing DamageDataResource lets SlimeSplit spawn the children
 func _burst()->void:

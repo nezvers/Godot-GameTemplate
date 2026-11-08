@@ -170,13 +170,16 @@ func drop_weapon()->void:
 
 func _on_remove(item:WeaponItemResource, is_dropped:bool)->void:
 	var _path:String = item.scene_path
-	if !weapon_dictionary.has(_path):
-		return
-	var _weapon:Weapon = weapon_dictionary[_path]
-	weapon_dictionary.erase(_path)
-	remove_child(_weapon)
-	_weapon.queue_free()
-	
+	# two slots of the same weapon share one instance: it goes with the last of them
+	if weapon_dictionary.has(_path) && !_path_in_inventory(_path):
+		var _weapon:Weapon = weapon_dictionary[_path]
+		weapon_dictionary.erase(_path)
+		if _weapon == current_weapon:
+			current_weapon = null
+		remove_child(_weapon)
+		_weapon.queue_free()
+		set_weapon_index()
+
 	if !is_dropped:
 		return
 	# TODO: drop pickup
@@ -187,6 +190,12 @@ func _on_remove(item:WeaponItemResource, is_dropped:bool)->void:
 		inst.set_meta(&"player_drop", true)
 	
 	item_pickup_instance_resource.instance(_config_callback)
+
+func _path_in_inventory(path:String)->bool:
+	for _item:ItemResource in weapon_inventory.list:
+		if _item != null && _item.scene_path == path:
+			return true
+	return false
 
 func _on_switch_weapon(dir:int)->void:
 	if dir == 1:

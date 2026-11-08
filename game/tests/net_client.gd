@@ -404,6 +404,22 @@ func _process(delta:float)->void:
 	_report("coins", str(LootItems.counter("coin").value))
 	_report("cosmetic", str(_cosmetic_shots))
 	_report("hit_fx", str(Net.entities.hit_fx_played))
+	_report("attacks", str(Net.entities.attacks_played))
+	_report("jumps", str(Net.entities.jumps_played))
+	_report("landings", str(Net.entities.landings_played))
+	for _id:int in Net.entities.entities:
+		var _copy:Node = Net.entities.entities[_id]
+		if is_instance_valid(_copy) && Net.entities.kinds.get(_id) == NetEntities.Kind.ENEMY:
+			for _move:Node in _copy.find_children("*", "JumpMove", true, false):
+				_max_hop = maxf(_max_hop, absf((_move as JumpMove).sprite.offset.y))
+			for _telegraph:Node in _copy.find_children("*", "BossTelegraph", true, false):
+				if (_telegraph as CanvasItem).visible:
+					_telegraphs_seen += 1
+					if (_telegraph as Node2D).top_level:
+						var _spot:Vector2 = (_telegraph as Node2D).global_position
+						_report("circle_at", "%.1f,%.1f" % [_spot.x, _spot.y])
+	_report("hop", str(roundi(_max_hop)))
+	_report("telegraphs", str(_telegraphs_seen))
 	_report("pickup_sounds", str(_pickup_sounds))
 	# enemies here that aren't copies of the host's (should never exist)
 	var _own_enemies:int = 0
@@ -477,6 +493,10 @@ func _finish()->void:
 		_resource.resource_name = _saved_names[_resource]
 	_saved_names.clear()
 	_quit()
+
+## Highest hop seen on an enemy copy, frames with a copy's telegraph showing
+var _max_hop:float
+var _telegraphs_seen:int
 
 func _report(event:String, detail:String)->void:
 	print("NETCLIENT %s %s" % [event, detail])

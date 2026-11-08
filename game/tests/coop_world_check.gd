@@ -208,6 +208,89 @@ func _run()->void:
 	check(Net.players.puppets.is_empty(), "host: puppets gone once offline")
 	_finish()
 
+## A slime's charge and a Big Jelly's jump look the same on the guest's copies:
+## windup with its telegraph, then the jelly hops (sprite leaves the ground).
+func _check_enemy_actions()->void:
+	var _tame:Callable = func (path:String, at:Vector2)->Node2D:
+		return (load(TD + "resources/InstanceResources/actors/" + path) as InstanceResource).instance(func (inst:Node2D)->void:
+			inst.global_position = at
+			for _node:Node in inst.get_children():
+				if !NetEntities.PUPPET_KEEP.has(_node.name):
+					_node.process_mode = Node.PROCESS_MODE_DISABLED)
+	var _slime:Node2D = _tame.call("slime_instance_resource.tres", _body().global_position + Vector2(-90, 0))
+	var _jelly:Node2D = _tame.call("boss_slime_instance_resource.tres", _body().global_position + Vector2(0, -90))
+	var _copies:Callable = func ()->int: return _last("enemies").split(";", false).size()
+	check(await _wait(func ()->bool: return _copies.call() >= 2, 10.0), "guest: slime and jelly copies (%s)" % _last("enemies"))
+	var _attacks_before:int = int(_last("attacks"))
+	var _loop:BossAttackLoop = _slime.get_node("BossAttackLoop")
+	_loop_attack(_loop, _loop.attacks[0])
+	check(await _wait(func ()->bool: return int(_last("attacks")) >= _attacks_before + 1, 5.0), "guest: slime's windup played on its copy (%s)" % _last("attacks"))
+	check(await _wait(func ()->bool: return int(_last("telegraphs")) > 0, 3.0), "guest: charge telegraph shown (%s)" % _last("telegraphs"))
+	check(await _wait(func ()->bool: return int(_last("attacks")) >= _attacks_before + 2, 5.0), "guest: charge played on its copy (%s)" % _last("attacks"))
+	# its AI may have jumped on spawn, before the guest had a copy: land it first
+	var _move:JumpMove = _jelly.find_children("*", "JumpMove", true, false)[0]
+	_move.cancel()
+	var _jumps_before:int = int(_last("jumps"))
+	_move.move_target_position(_jelly.global_position + Vector2(20, 0), 1.0)
+	check(await _wait(func ()->bool: return int(_last("jumps")) == _jumps_before + 1, 5.0), "guest: jelly's jump played on its copy (%s)" % _last("jumps"))
+	check(await _wait(func ()->bool: return absi(int(_last("hop"))) > 4, 3.0), "guest: jelly copy hops (%s)" % _last("hop"))
+	check(await _wait(func ()->bool: return int(_last("landings")) >= 1, 3.0), "guest: jelly copy's landing splash (%s)" % _last("landings"))
+
+	# the bloater's jump attack: windup with the landing circle, hop, dust ring on landing
+	# next to us, so it lands on our floor (not in a hole); its landing mustn't hurt us
+	var _our_damage:DamageResource = (_body().get_node("ResourceNode") as ResourceNode).get_resource("damage")
+	_our_damage.immune = true
+	var _bloater:Node2D = _tame.call("bloater_instance_resource.tres", _body().global_position + Vector2(30, 0))
+	await _frames(2)
+	# the guest's scripted hits on copies must not kill it or bring on a burst
+	(_bloater.get_node("ResourceNode") as ResourceNode).get_resource("damage").immune = true
+	var _bloater_id:int = _net_id(_bloater)
+	check(await _wait(func ()->bool: return _enemy_at(_bloater_id).is_finite(), 10.0), "guest: bloater copy (%s)" % _last("enemies"))
+	var _bloater_loop:BossAttackLoop = _bloater.get_node("BossAttackLoop")
+	var _bloater_jump:BossJump = _bloater_loop.attacks[0]
+	# moved by JumpMove here: switched on like in a real fight
+	_bloater.get_node("JumpMove").process_mode = Node.PROCESS_MODE_INHERIT
+	_bloater_jump.burst_chance = 0.0
+	_attacks_before = int(_last("attacks"))
+	_jumps_before = int(_last("jumps"))
+	var _landings_before:int = int(_last("landings"))
+	_loop_attack(_bloater_loop, _bloater_jump)
+	check(await _wait(func ()->bool: return int(_last("attacks")) >= _attacks_before + 1, 5.0), "guest: bloater's windup played on its copy (%s)" % _last("attacks"))
+	check(await _wait(func ()->bool: return _vector(_last("circle_at")).distance_to(_bloater_jump.landing_position) < 1.0, 3.0), "guest: bloater's landing circle at the host's spot (%s vs %s)" % [_last("circle_at"), _bloater_jump.landing_position])
+	check(await _wait(func ()->bool: return int(_last("jumps")) == _jumps_before + 1, 5.0), "guest: bloater's jump played on its copy (%s)" % _last("jumps"))
+	check(await _wait(func ()->bool: return int(_last("landings")) == _landings_before + 1, 5.0), "guest: bloater copy's dust ring on landing (%s)" % _last("landings"))
+	check(await _wait(func ()->bool: return int(_last("attacks")) >= _attacks_before + 3, 5.0), "guest: bloater's attack ended on its copy (%s)" % _last("attacks"))
+	await _frames(10)
+	check(int(_last("landings")) == _landings_before + 1, "guest: one dust ring per landing (%s)" % _last("landings"))
+
+	# a burst pops it right on landing: the copy still lands and rings before it goes
+	_bloater_jump.burst_health = 1.0
+	_bloater_jump.burst_chance = 1.0
+	_landings_before = int(_last("landings"))
+	_loop_attack(_bloater_loop, _bloater_jump)
+	check(await _wait(func ()->bool: return !_enemy_at(_bloater_id).is_finite(), 6.0), "guest: burst bloater copy gone (%s)" % _last("enemies"))
+	check(await _wait(func ()->bool: return int(_last("landings")) == _landings_before + 1, 2.0), "guest: burst bloater's dust ring still shows (%s)" % _last("landings"))
+
+	_our_damage.immune = false
+	var _left_ids:Array = [_net_id(_slime), _net_id(_jelly)].filter(func (k:int)->bool: return k != 0)
+	for _enemy:Node2D in [_slime, _jelly, _bloater]:
+		if is_instance_valid(_enemy) && _enemy.is_inside_tree():
+			(_enemy.get_node("ResourceNode") as ResourceNode).get_resource("health").insta_kill()
+	check(await _wait(func ()->bool: return _left_ids.all(func (k:int)->bool: return !_enemy_at(k).is_finite()), 6.0), "guest: copies gone (%s)" % _last("enemies"))
+
+## Host's net id of `node` (0 if it has none).
+func _net_id(node:Variant)->int:
+	if !is_instance_valid(node):
+		return 0
+	for _key:int in Net.entities.entities:
+		if Net.entities.entities[_key] == node:
+			return _key
+	return 0
+
+## Starts `attack` on a tame enemy's loop at once, aimed at our body.
+func _loop_attack(loop:BossAttackLoop, attack:BossAttack)->void:
+	loop._run_attack(attack, _body())
+
 ## Enemies, hits both ways, shots and loot, with one tame zombie the host owns.
 func _check_world(guest:PlayerState)->void:
 	var _zombie_resource:InstanceResource = load(TD + "resources/InstanceResources/actors/zomby_instance_resource.tres")
@@ -240,6 +323,8 @@ func _check_world(guest:PlayerState)->void:
 	check(await _wait(func ()->bool: return !Net.entities.entities.has(_id), 6.0), "host: guest killed the zombie")
 	check(await _wait(func ()->bool: return !_enemy_at(_id).is_finite(), 5.0), "guest: copy gone with it")
 	check(int(_last("hit_fx")) == _fx_before + 1, "guest: its own hits aren't echoed back (%s)" % _last("hit_fx"))
+
+	await _check_enemy_actions()
 
 	# a spiderling lobbed here hatches one spider, ours; the guest gets a copy, not its own
 	var _spiderling:InstanceResource = load(TD + "resources/InstanceResources/projectiles/spiderling_projectile_instance_resource.tres")
