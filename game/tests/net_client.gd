@@ -332,6 +332,11 @@ func _process(delta:float)->void:
 	_report("enemies", ";".join(_enemies))
 	_report("hp", str(int(RunSession.local_player().health.hp)))
 	_report("downed", str(RunSession.local_player().downed))
+	if _body != null:
+		_report("body_layer", str((_body as CollisionObject2D).collision_layer))
+	if _scene != null:
+		var _floor:Array = _scene.find_children("*", "ItemPickup", true, false).filter(func (n:Node)->bool: return !n.is_queued_for_deletion())
+		_report("floor_weapons", "%d %d" % [_floor.size(), _floor.filter(func (n:Node)->bool: return n.has_meta(&"private_loot")).size()])
 	if _body != null && !_body.has_meta(&"net_client_watched"):
 		_body.set_meta(&"net_client_watched", true)
 		_body.tree_exiting.connect(_on_body_exiting.bind(_body))

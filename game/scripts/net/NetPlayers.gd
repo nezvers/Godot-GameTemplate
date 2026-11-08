@@ -76,6 +76,9 @@ func _ready()->void:
 	RunSession.players.player_removed.connect(_on_player_removed)
 	RunSession.players.all_downed.connect(_on_all_downed)
 	RunSession.local_player().inventory.updated.connect(func ()->void: _inventory_dirty = true)
+	var _revive:ReviveAssist = ReviveAssist.new()
+	_revive.name = "ReviveAssist"
+	add_child(_revive)
 
 func net()->Node:
 	return get_parent()
@@ -261,7 +264,7 @@ func _send_local()->void:
 		if _input != null:
 			_axis = _input.axis
 			_aim = _input.aim_direction
-	_player_update.rpc([_room, _pos, _axis, _aim, _local.active_weapon_name(), _local.health.hp, _local.health.max_hp, _local.downed, _local.revive_progress, _local.waiting])
+	_player_update.rpc([_room, _pos, _axis, _aim, _local.active_weapon_name(), _local.health.hp, _local.health.max_hp, _local.downed, _local.revive_progress, _local.waiting, _local.reviving])
 
 ## Where this machine's body is and how it moves (shared by ghost reports).
 func _local_motion()->Array:
@@ -287,9 +290,9 @@ func _sender_state()->PlayerState:
 	return null
 
 static func _valid_update(data:Array)->bool:
-	if data.size() != 10:
+	if data.size() != 11:
 		return false
-	var _types:Array = [TYPE_STRING, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT, TYPE_BOOL, TYPE_FLOAT, TYPE_BOOL]
+	var _types:Array = [TYPE_STRING, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_VECTOR2, TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT, TYPE_BOOL, TYPE_FLOAT, TYPE_BOOL, TYPE_BOOL]
 	for _i:int in _types.size():
 		if typeof(data[_i]) != _types[_i]:
 			return false
@@ -306,6 +309,7 @@ func apply_update(state:PlayerState, data:Array)->void:
 	var _changed:bool = state.room_scene != _room || state.weapon_name != _weapon || state.downed != data[7] || !is_equal_approx(state.revive_progress, _revive) || state.waiting != data[9]
 	state.room_scene = _room
 	state.revive_progress = _revive
+	state.reviving = data[10]
 	if state.waiting != data[9]:
 		state.waiting = data[9]
 		RunSession.players.check_all_downed()

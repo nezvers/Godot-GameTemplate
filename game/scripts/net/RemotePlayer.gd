@@ -133,6 +133,10 @@ func _set_untouchable(untouchable:bool)->void:
 func _faint_now()->bool:
 	return state.ghost || state.waiting
 
+## Downed copies too: enemies walk past them instead of shoving them around.
+func _untouchable_now()->bool:
+	return _faint_now() || state.downed
+
 ## How see-through this teammate is drawn right now (1 = solid).
 func _alpha_now()->float:
 	if state.ghost:
@@ -150,8 +154,8 @@ func _physics_process(_delta:float)->void:
 	# a downed or waiting teammate's copy takes no hits here either
 	if _damage != null:
 		_damage.immune = state.downed || state.waiting || state.ghost
-	if _faint_now() != _shown_faint:
-		_set_untouchable(_faint_now())
+	if _untouchable_now() != _shown_faint:
+		_set_untouchable(_untouchable_now())
 	var _visual:Node2D = owner_node().get_node_or_null("Body")
 	if _visual != null && !state.downed:
 		_visual.modulate.a = _alpha_now()

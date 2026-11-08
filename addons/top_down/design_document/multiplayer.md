@@ -108,7 +108,8 @@
 - **Down, not dead:**
   - While online with a teammate, 0 hp downs the player (`Downed`, added by `NetPlayers`, hooked through `HealthResource.down_instead`).
   - A downed player can't move, shoot or be hurt, and lies greyed out. Teammates see the same pose, and the party panel shows DOWN or REVIVING %.
-  - A teammate standing within `revive_radius` for `revive_time` revives them with `revive_hp_ratio` hp. Clearing the room revives everyone.
+  - A teammate within `revive_radius` sees "E to REVIVE" over them (`ReviveAssist`, under `/root/Net/Players`) and holds the interact key for `revive_time` to revive them with `revive_hp_ratio` hp. Holding sets `PlayerState.reviving`, sent with the player updates (protocol 3); the downed player's machine counts the time. Clearing the room revives everyone.
+  - A downed player is off the body layer (its copies too) and its mover stops: enemies stop chasing it and can't shove it across the floor.
   - Once everyone is down, the host sends `_party_wiped`, everyone dies for real, and each machine goes to game over. Guests follow the host from there.
   - Offline, or alone in a session, death is unchanged.
 - **Scaling:** `balance.json` `coop` sets:
@@ -128,7 +129,7 @@ Test: `game/tests/coop_world_check.tscn` uses two real games, with the guest in 
 
 ## Same computer: a blank guest (`GuestSandbox`)
 
-- `_hello` carries a hash of the machine id (`OS.get_unique_id`) and of the save folder (`OS.get_user_data_dir`).
+- `_hello` carries a hash of the machine id (`OS.get_unique_id`) and of the save folder (`OS.get_user_data_dir` plus `SaveableResource.save_dir`, so a dedicated server's own folder never matches).
 - When both match the host's and the guest's address is local, the guest is a second copy of the host's install. It joins as "Guest N" with a `guest-local-<slot>` profile.
 - `_welcome(..., fresh = true)` makes that copy call `GuestSandbox.enter()`:
   - `SaveableResource.persist_locked` blocks every save, load and delete, and so do `RunSave` and the checkpoint.
@@ -185,6 +186,8 @@ Test: `game/tests/coop_world_check.tscn` uses two real games, with the guest in 
 
 ## Loot mode
 
+- **Start room weapons** (`StartingWeaponSpawner`) are never shared: each machine rolls and places its own (`private_loot` meta), so every player picks up one of its own and can't take someone else's.
+
 `balance.json` `coop.loot_per_player`:
 - `false` (default): shared, the first to touch it takes it.
 - `true`: every guest gets its own copy of each drop (`_spawn_private`), which only it sees and collects.
@@ -193,9 +196,19 @@ It will become a meta upgrade later.
 
 ## Dedicated server (`DedicatedServer`, hidden player)
 
-- **Start:** `Godot --headless --path . -- --server [--port N] [--max-players 2..8] [--save-dir PATH] [--name NAME] [--status SECONDS]`, or `tools/run_server.sh`.
-  - The server skips the title and hosts from its home base.
-  - Its saves go to `--save-dir` (`SaveableResource.save_dir`), by default `user://server`.
+- **Start:** `tools/run_server.sh [options]` from the project folder. It finds Godot through `$GODOT`, `godot` on the PATH, or a `Godot_v*_linux.x86_64` next to the project, imports a fresh checkout first, then runs `Godot --headless --path . -- --server [options]`.
+
+  | option | default | |
+  |---|---|---|
+  | `--port N` | `24565` | UDP port players join on |
+  | `--max-players N` | `8` | 2..8, the hidden player not counted |
+  | `--save-dir PATH` | `user://server` | its own home base, meta and run save |
+  | `--name NAME` | `Server` | name shown in the session list |
+  | `--status S` | off | a `SERVERSTATUS` line every S seconds |
+
+  - The server skips the title and hosts from its home base. Ready when it prints `DedicatedServer [INFO]: hosting on port … - OK`. Ctrl+C stops it.
+  - Players join from the Comms Terminal **Join** tab with the server's address (`ip` or `ip:port`). Over the internet use the VLAN (`tools/vlan/README.md`) and run the server on the VLAN host.
+  - Its saves go to `--save-dir` (`SaveableResource.save_dir`). The same-computer check (`GuestSandbox.data_dir_id`) includes the save folder, so a player on the server's PC joins with its own progress, not as a blank guest copy.
 - **Hidden player:** `game/scenes/actors/server_player.tscn`, the player scene with everything seen or used switched off (no layers, invisible, input, weapons and camera disabled). `Net` swaps it into the player instance resource.
   - `ServerAnchor` keeps it on the party leader and never lets it die, except on a party wipe.
   - It is `hidden` in the roster, so guests show no copy or panel row.

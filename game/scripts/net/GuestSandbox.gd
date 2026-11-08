@@ -28,9 +28,11 @@ static func active()->bool:
 static func machine_id()->String:
 	return (OS.get_unique_id() + SALT).sha256_text()
 
-## Identifies this install's save folder.
+## Identifies this install's save folder. A dedicated server keeps its saves in
+## a folder of its own (--save-dir), so a player on the same computer joining it
+## is not a second copy of the server: it keeps its own progress.
 static func data_dir_id()->String:
-	return (OS.get_user_data_dir() + install_override + SALT).sha256_text()
+	return (ProjectSettings.globalize_path(SaveableResource.save_dir) + install_override + SALT).sha256_text()
 
 ## Guest side: lock saving and forget the host's progress in memory.
 static func enter(profile_id:String, display_name:String)->void:

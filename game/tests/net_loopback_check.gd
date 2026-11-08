@@ -50,6 +50,17 @@ func _ready()->void:
 	await _wait(func ()->bool: return RunSession.players.count() == 2, 10.0)
 	check(_read(_ok).contains("NETCLIENT sandbox false"), "a guest from another computer keeps its own progress")
 
+	# a dedicated server on this computer saves in its own folder: a player here
+	# joining it is not a copy of it
+	var _own_id:String = GuestSandbox.data_dir_id()
+	var _dir_was:String = SaveableResource.save_dir
+	SaveableResource.save_dir = "user://server/"
+	var _server_id:String = GuestSandbox.data_dir_id()
+	var _player_here:bool = GuestSandbox.is_same_install("127.0.0.1", GuestSandbox.machine_id(), _own_id)
+	SaveableResource.save_dir = _dir_was
+	check(_server_id != _own_id, "server save folder: its own install id")
+	check(!_player_here, "server save folder: a player on this computer isn't a copy of the server")
+
 	# A second copy of this very install: a blank guest that saves nothing
 	var _saves_before:Dictionary = _save_times()
 	var _local:Dictionary = _spawn_client("localguest")

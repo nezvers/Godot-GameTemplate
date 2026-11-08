@@ -37,6 +37,8 @@ var room_scene:String
 var weapon_name:String
 ## 0..1 while a teammate stands by this downed player.
 var revive_progress:float
+## Holding the revive key next to a downed teammate (ReviveAssist).
+var reviving:bool
 ## A guest who went to its own home base with "I will return": the seat is
 ## kept, a faint copy walks the host's home base (ghost_room is where it is).
 var ghost:bool

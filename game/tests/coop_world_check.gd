@@ -106,6 +106,12 @@ func _run()->void:
 	check(await _wait(func ()->bool: return _current() == N00 && _body() != null, 10.0), "host: in the mission start")
 	check(await _wait(func ()->bool: return _last("room").begins_with(N00), 15.0), "guest: followed to the mission (%s)" % _last("room"))
 	check(await _wait(func ()->bool: return Net.players.puppets.has(1) && is_instance_valid(Net.players.puppets[1]), 10.0), "host: guest's character in the mission room")
+	# the start room's weapon: one each, rolled on each machine, never shared
+	await _frames(5)
+	var _starting:Array = get_tree().current_scene.find_children("*", "ItemPickup", true, false).filter(func (n:Node)->bool: return !n.is_queued_for_deletion())
+	check(_starting.size() == 1 && _starting[0].has_meta(&"private_loot"), "host: one starting weapon here, our own (%d)" % _starting.size())
+	check(!Net.entities.kinds.values().has(NetEntities.Kind.ITEM), "host: the starting weapon isn't sent to guests")
+	check(await _wait(func ()->bool: return _last("floor_weapons") == "1 1", 5.0), "guest: one starting weapon of its own, not ours on top (%s)" % _last("floor_weapons"))
 
 	await _check_world(_guest)
 
@@ -255,11 +261,23 @@ func _check_world(guest:PlayerState)->void:
 		await _frames(2)
 		check((_panel.rows[1].name as Label).text.contains("DOWN"), "HUD: guest's card says DOWN")
 	_puppet = Net.players.puppets.get(1)
+	check(await _wait(func ()->bool: return _last("body_layer") == "0", 5.0), "guest: off the body layer while down, enemies can't shove it (%s)" % _last("body_layer"))
 	if _puppet != null:
 		check(is_equal_approx((_puppet.get_node("Body") as Node2D).rotation, PI * 0.5), "puppet: lies on the floor")
+		await _frames(2)
+		check((_puppet as CollisionObject2D).collision_layer == 0, "puppet: enemies here don't chase a downed copy")
+		check(_puppet.get_node_or_null(ReviveAssist.LABEL_NAME) == null, "revive: no prompt from across the room")
 		_body().global_position = _puppet.global_position + Vector2(6, 0)
+		await _frames(3)
+		var _prompt:Label = _puppet.get_node_or_null(ReviveAssist.LABEL_NAME) as Label
+		check(_prompt != null && _prompt.text.ends_with("to REVIVE"), "revive: prompt over the downed teammate in range (%s)" % (_prompt.text if _prompt != null else "none"))
 	var _revive_s:float = CoopScaling.revive_time()
-	check(await _wait(func ()->bool: return _last("downed") == "false", _revive_s + 4.0), "guest: revived by the host standing by")
+	await _frames(int(_revive_s * 60.0) + 30)
+	check(_last("downed") == "true", "revive: standing by without the key does nothing")
+	ReviveAssist.force_hold = true
+	check(await _wait(func ()->bool: return _last("downed") == "false", _revive_s + 4.0), "guest: revived by the host holding the key")
+	ReviveAssist.force_hold = false
+	check(_last("body_layer") != "0", "guest: solid again once up")
 	var _max_hp:float = guest.health.max_hp
 	check(abs(int(_last("hp")) - roundi(_max_hp * CoopScaling.revive_hp_ratio())) <= 1, "guest: back with %d%% hp (%s of %d)" % [roundi(CoopScaling.revive_hp_ratio() * 100), _last("hp"), _max_hp])
 	check(await _wait(func ()->bool: return !guest.downed, 5.0), "host: sees the guest up again")

@@ -56,6 +56,9 @@ func _place_pickups()->void:
 func _pickup_config(inst:ItemPickup, pickup_position:Vector2, item_resource:WeaponItemResource)->void:
 	inst.global_position = pickup_position
 	inst.item_resource = item_resource
+	# co-op: every player rolls and picks up a starting weapon of its own
+	# (NetEntities leaves these off the network)
+	inst.set_meta(&"private_loot", true)
 	inst.success.connect(_finish_pickups)
 
 func _finish_pickups()->void:

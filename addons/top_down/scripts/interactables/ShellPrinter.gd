@@ -50,6 +50,10 @@ func _refresh()->void:
 	visible = can_print() || bay_open()
 	set_process(visible || printing)
 	area.monitoring = visible
+	# not built yet: nothing stands there, the floor is free to walk
+	for _shape:Node in find_children("*", "CollisionShape2D", true, false):
+		if _shape.get_parent() is StaticBody2D:
+			(_shape as CollisionShape2D).set_deferred("disabled", !visible)
 	if !printing && sprite != null:
 		sprite.frame = FRAME_READY if has_shell() || bay_open() else FRAME_IDLE
 

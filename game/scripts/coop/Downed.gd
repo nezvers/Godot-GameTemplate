@@ -1,8 +1,10 @@
 ## Co-op: the local player goes down at 0 hp instead of dying, while a teammate
 ## is still up. Added to the local player by NetPlayers while online.
 ##
-## Down: can't move, shoot or be hurt, lies on the floor greyed out. A teammate
-## standing next to it for revive_time brings it back with revive_hp_ratio of
+## Down: can't move, shoot or be hurt, lies on the floor greyed out, and is off
+## the body layer: enemies stop chasing it and can't shove it along the floor.
+## A teammate holding the interact key next to it (ReviveAssist) for revive_time
+## brings it back with revive_hp_ratio of
 ## its hp (measured here, from the teammates' positions); clearing the room
 ## brings everyone back. When the whole party is down the host ends the run
 ## (NetPlayers._party_wiped -> wipe()), and everyone dies for real.
@@ -20,6 +22,8 @@ var _input:InputResource
 var _wiped:bool
 var _room_cleared:BoolResource
 var _label:Label
+## Body layer to give back on revive (-1: not taken).
+var _layer:int = -1
 
 func body()->Node2D:
 	return get_parent() as Node2D
@@ -64,6 +68,7 @@ func go_down()->void:
 	var _state:PlayerState = RunSession.local_player()
 	_state.revive_progress = 0.0
 	_set_controls(false)
+	_set_solid(false)
 	_damage.immune = true
 	_set_look(true)
 	_show_label(true)
@@ -78,6 +83,7 @@ func revive(hp_ratio:float)->void:
 	_health.hp = maxf(1.0, roundf(_health.max_hp * hp_ratio))
 	_health.hp_changed.emit()
 	_damage.immune = false
+	_set_solid(true)
 	_set_controls(true)
 	_set_look(false)
 	_show_label(false)
@@ -110,7 +116,7 @@ func _physics_process(delta:float)->void:
 	for _slot:int in Net.players.puppets:
 		var _puppet:Node2D = Net.players.puppets[_slot]
 		var _state:PlayerState = RunSession.players.get_state(_slot)
-		if is_instance_valid(_puppet) && _state != null && !_state.downed && _puppet.global_position.distance_to(body().global_position) <= _radius:
+		if is_instance_valid(_puppet) && _state != null && !_state.downed && _state.reviving && _puppet.global_position.distance_to(body().global_position) <= _radius:
 			_helped = true
 			break
 	progress = progress + delta if _helped else maxf(progress - delta * 0.5, 0.0)
@@ -129,6 +135,21 @@ func _set_controls(enabled:bool)->void:
 		_input.set_axis(Vector2.ZERO)
 		_input.set_action(false)
 		_input.set_action_2(false)
+
+## Off the body layer while down, and no momentum left over from the last hit.
+func _set_solid(solid:bool)->void:
+	var _character:CollisionObject2D = body() as CollisionObject2D
+	if _character != null:
+		if !solid && _layer < 0:
+			_layer = _character.collision_layer
+			_character.collision_layer = 0
+		elif solid && _layer >= 0:
+			_character.collision_layer = _layer
+			_layer = -1
+	var _mover:Node = body().get_node_or_null("MoverTopDown2D")
+	if _mover != null:
+		_mover.velocity = Vector2.ZERO
+		_mover.set_physics_process(solid)
 
 func _set_look(down:bool)->void:
 	set_down_look(body(), down)

@@ -15,7 +15,7 @@ extends Node
 const MAX_PLAYERS:int = PlayerRegistry.MAX_PLAYERS
 const DEFAULT_PORT:int = 24565
 ## Bump whenever an RPC or message layout changes.
-const PROTOCOL_VERSION:int = 2
+const PROTOCOL_VERSION:int = 3
 const CONNECT_TIMEOUT:float = 8.0
 const HELLO_TIMEOUT:float = 5.0
 const MAX_NAME_LENGTH:int = 24

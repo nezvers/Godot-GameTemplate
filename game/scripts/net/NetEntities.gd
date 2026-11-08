@@ -171,6 +171,9 @@ func _on_instanced(resource:InstanceResource, node:Node)->void:
 		return
 	if !net().is_host() || !(node is Node2D):
 		return
+	if _kind == Kind.ITEM && node.has_meta(&"private_loot"):
+		# a start room's weapon: each machine places its own
+		return
 	if _kind == Kind.EFFECT:
 		for _state:PlayerState in _guests_here():
 			_effect.rpc_id(_state.peer_id, current_room(), resource.resource_path, (node as Node2D).global_position)
@@ -225,7 +228,7 @@ func _register_floor_items()->void:
 	if _parent == null || !is_instance_valid(_parent):
 		return
 	for _child:Node in _parent.get_children():
-		if _child is ItemPickup && !_child.is_queued_for_deletion() && (_child as ItemPickup).item_resource != null && !_ids.has(_child.get_instance_id()):
+		if _child is ItemPickup && !_child.is_queued_for_deletion() && (_child as ItemPickup).item_resource != null && !_ids.has(_child.get_instance_id()) && !_child.has_meta(&"private_loot"):
 			_register(_child, Kind.ITEM, ITEM_PATH)
 
 func _on_host_entity_exiting(id:int, node:Node)->void:

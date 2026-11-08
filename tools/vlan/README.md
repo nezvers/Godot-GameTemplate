@@ -12,6 +12,41 @@ Both sides know each other's public address and send to each other at the same t
 | host | `10.77.0.1` | hosts on port `24565` |
 | guests | `10.77.0.2` – `10.77.0.8` | join `10.77.0.1:24565` |
 
+## Quick start
+
+```sh
+# host PC (Linux)
+tools/vlan/vlan_up.sh                    # prints an invite: zsi1.…   -> send to the guest
+# guest PC
+tools/vlan/vlan_connect.sh zsi1.…        # Linux; prints a reply: zsr1.… -> send back
+#   Windows: powershell -ExecutionPolicy Bypass -File vlan_connect.ps1 zsi1.…
+# host PC
+tools/vlan/vlan_up.sh add zsr1.…         # guest added
+tools/vlan/vlan_up.sh                    # guest shows "online" = tunnel up
+```
+
+Then play, one of:
+- **Host plays and hosts:** host opens the home base **Comms Terminal → Host → Open to friends**; the guest uses **Comms Terminal → Join** with `10.77.0.1`.
+- **Dedicated server on the host PC:** `tools/run_server.sh` (see below); the guest joins `10.77.0.1`, and the host player joins it too, from its own game, at `127.0.0.1`.
+
+Done for good: `tools/vlan/vlan_down.sh` (host), `tools/vlan/vlan_disconnect.sh` / `vlan_disconnect.ps1` (guest).
+
+## Dedicated server over the VLAN
+
+Run it on the **VLAN host** (guests only reach that PC, see Limits):
+
+```sh
+tools/run_server.sh                              # port 24565, up to 8 players
+tools/run_server.sh --max-players 4 --name "Friday co-op"
+GODOT=/path/to/Godot tools/run_server.sh         # when Godot isn't found by itself
+```
+
+- It prints `DedicatedServer [INFO]: hosting on port 24565 - OK` once it's ready. Stop it with Ctrl+C.
+- Players join with the Comms Terminal: `10.77.0.1` over the VLAN, `127.0.0.1` from the server's own PC, or the LAN address at home. `ip:port` for a port other than 24565.
+- Its saves (home base, meta, run) are its own, in `--save-dir`, by default `user://server` (`~/.local/share/godot/app_userdata/Game Template/server`). Players keep their own progress, including one playing on the server's PC.
+- The firewall rules `vlan_up.sh` adds already let the game in over `zsvlan`. For LAN players with ufw on: `sudo ufw allow 24565/udp`.
+- More options and how it behaves: `addons/top_down/design_document/multiplayer.md`, *Dedicated server*.
+
 ## Setup
 
 1. **Host:** run `tools/vlan/vlan_up.sh`. It prints an **invite** line (`zsi1.…`). Send it to the guest. It contains only public keys and addresses.
